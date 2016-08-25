@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd    
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd    
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd    
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd    
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.1.xsd    
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.1.xsd    
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd    
+        http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.1.xsd    
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd    
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd    
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
+	default-autowire="byName">
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:jdbc.properties" />
+	</bean>
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+
+		<!-- Connection Info -->
+		<property name="url" value="${jdbc.jdbcUrl}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- Connection Pooling Info -->
+		<property name="initialSize" value="10" />
+		<property name="minIdle" value="10" />
+		<property name="maxActive" value="60" />
+
+		<property name="defaultAutoCommit" value="false" />
+
+		<!-- 有两个含义：1) Destroy线程会检测连接的间隔时间 2) testWhileIdle的判断依据，详细看testWhileIdle属性的说明 -->
+		<property name="timeBetweenEvictionRunsMillis" value="3000" />
+		<property name="minEvictableIdleTimeMillis" value="30000" />
+
+		<!-- 用来检测连接是否有效的sql，要求是一个查询语句。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。 -->
+		<property name="validationQuery" value="SELECT 1 FROM TB_SYS_CONF" />
+		<!-- 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。 -->
+		<property name="testWhileIdle" value="true" />
+		<!-- 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。 -->
+		<property name="testOnBorrow" value="false" />
+		<!-- 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能 -->
+		<property name="testOnReturn" value="false" />
+
+		<!-- mysql 不支持 poolPreparedStatements -->
+		<!--<property name="poolPreparedStatements" value="true" /> -->
+		<!--<property name="maxPoolPreparedStatementPerConnectionSize" value="20" 
+			/> -->
+
+		<!-- 开启Druid的监控统计功能 -->
+		<property name="filters" value="stat" />
+	</bean>
+
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" />
+			<tx:method name="create*" />
+			<tx:method name="modify*" />
+			<tx:method name="update*" />
+			<tx:method name="remove*" />
+			<tx:method name="save*" />
+			<tx:method name="delete*" />
+			<tx:method name="set*" />
+			<tx:method name="sort*" />
+			<tx:method name="audit*" />
+			<tx:method name="register*" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="txPointcut"
+			expression="execution(* com.grgbanking.inner.service.*Service.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="/WEB-INF/classes/config/mybatis/${jdbc.dialect}/*Mapper.xml" />
+	</bean>
+
+	<!-- 加载基础数据管理 -->
+	<bean id="loadDataService" class="com.grgbanking.inner.service.impl.LoadDataServiceImpl">
+		<property name="loadDataDao" ref="loadDataDao"></property>
+	</bean>
+	<bean id="loadDataDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.grgbanking.inner.dao.LoadDataDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<!-- 系统日志管理 -->
+	<bean id="sysLogService" class="com.grgbanking.inner.service.impl.SysLogServiceImpl">
+		<property name="sysLogDao" ref="sysLogDao"></property>
+	</bean>
+	<bean id="sysLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.grgbanking.inner.dao.SysLogDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 登录管理 -->
+	<bean id="loginService" class="com.grgbanking.inner.service.impl.LoginServiceImpl">
+		<property name="loginDao" ref="loginDao"></property>
+	</bean>
+	<bean id="loginDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.grgbanking.inner.dao.LoginDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 系统菜单管理 -->
+	<bean id="sysMenuService" class="com.grgbanking.inner.service.impl.SysMenuServiceImpl">
+		<property name="sysMenuDao" ref="sysMenuDao"></property>
+	</bean>
+	<bean id="sysMenuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.grgbanking.inner.dao.SysMenuDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+</beans>
