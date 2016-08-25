@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.grgbanking.inner.dao.LoadDataDao">
+	<!-- 加载系统参数 -->
+	<select id="loadSysConf" resultType="com.grgbanking.infra.pojo.SysConf">
+		SELECT * FROM TB_SYS_CONF
+	</select>
+	<!-- 加载数据字典 -->
+	<select id="loadDataDir" resultType="com.grgbanking.infra.pojo.DataDir">
+		SELECT * FROM
+		TB_SYS_DATADIR_INFO t order by t."SORT"
+	</select>
+
+	<!-- 加载微信公众号信息 -->
+	<select id="loadWxAccount" resultType="com.grgbanking.infra.pojo.WxAccount">
+		SELECT * FROM
+		TB_WX_ACCOUNT
+	</select>
+</mapper>

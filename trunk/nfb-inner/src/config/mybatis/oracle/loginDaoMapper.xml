@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.grgbanking.inner.dao.LoginDao">
+
+	<resultMap type="com.grgbanking.inner.po.sys.SysUser" id="sysUserMap">
+		<result property="userid" column="USERID" />
+		<result property="username" column="USERNAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="tel" column="TEL" />
+		<result property="activeflag" column="ACTIVEFLAG" />
+		<result property="createtime" column="CREATETIME" />
+		<result property="updatetime" column="UPDATETIME" />
+		<collection property="rolelist" ofType="int">
+			<result property="roleid" column="ROLEID" />
+		</collection>
+	</resultMap>
+	<!-- 通过userid获取系统用户 -->
+	<select id="getSysUserByUserid" resultMap="sysUserMap">
+		SELECT
+		TSU.*,
+		tsur.ROLEID
+		FROM
+		TB_SYS_USER tsu,
+		TB_SYS_USER_ROLE tsur
+		WHERE
+		tsu.USERID =
+		TSUR.USERID
+		AND tsu.USERID = #{userid}
+	</select>
+	<!-- 加载父级菜单 -->
+	<select id="getParentSysMenu" resultType="com.grgbanking.inner.po.sys.SysMenu">
+		SELECT DISTINCT
+		VSRM.MENUID,
+		VSRM.MENUITEM,
+		VSRM.PARENTID,
+		VSRM.URL
+		FROM
+		VIEW_SYS_ROLE_MENU vsrm
+		WHERE
+		vsrm.PARENTID = '0'
+	</select>
+	
+	<select id="getChildMenu" resultType="com.grgbanking.inner.po.sys.SysMenu">
+		SELECT DISTINCT
+		VSRM.MENUID,
+		VSRM.MENUITEM,
+		VSRM.PARENTID,
+		VSRM.URL
+		FROM
+		VIEW_SYS_ROLE_MENU vsrm
+		WHERE 1=1
+		<if test="roleids != null">
+			AND VSRM.ROLEID in
+			<foreach item="roleid" index="idx" collection="roleids" open="("
+				separator="," close=")">
+				#{roleid}
+			</foreach>
+		</if>
+		and vsrm.PARENTID != '0'
+	</select>
+	<select id="getSysOperate" resultType="com.grgbanking.inner.po.sys.SysOperate">
+		SELECT
+		VSRF.OPERID,
+		VSRF.OPERKEY,
+		VSRF.OPERNAME,
+		VSRF.PICICON
+		FROM
+		VIEW_SYS_ROLE_FUNC vsrf
+		WHERE
+		1 = 1
+		<if test="roleids != null">
+			AND VSRF.ROLEID IN
+			<foreach item="roleid" index="idx" collection="roleids" open="("
+				separator="," close=")">
+				#{roleid}
+			</foreach>
+		</if>
+		AND VSRF.MENUID = #{menuid}
+	</select>
+</mapper>
