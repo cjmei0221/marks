@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjmei.module.system.sys.dao.SysLogDao">
+	<!-- 根据url获取菜单名称和操作名称 -->
+	<select id="getSysLogParam" resultType="com.cjmei.module.system.sys.pojo.SysLog">
+		SELECT
+		SM.MENUITEM
+		menuname,
+		soper.OPERNAME
+		FROM
+		TB_SYS_FUNC sf
+		JOIN TB_SYS_MENU sm ON
+		SF.MENUID = SM.MENUID
+		JOIN TB_SYS_OPERATE soper ON sf.OPERID =
+		soper.OPERID
+		WHERE
+		sf.url = #{url}
+	</select>
+	<insert id="saveSysLog" parameterType="com.cjmei.module.system.sys.pojo.SysLog">
+		INSERT INTO "TB_SYS_LOG" (
+		"ID",
+		"USERID",
+		"USERNAME",
+		"CREATETIME",
+		"IP",
+		"menuname",
+		"opername",
+		"retain1",
+		"retain2"
+		)
+		VALUES
+		(
+		#{log.id:VARCHAR},
+		#{log.userid:VARCHAR},
+		#{log.username:VARCHAR},
+		#{log.createtime:TIMESTAMP},
+		#{log.ip:VARCHAR},
+		#{log.menuname:VARCHAR},
+		#{log.opername:VARCHAR},
+		#{log.retain1:VARCHAR},
+		#{log.retain2:VARCHAR}
+		)
+	</insert>
+</mapper>
