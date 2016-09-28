@@ -1,7 +1,95 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
+	<display-name>wxbank-manage</display-name>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.cjmei.module.system.core.listener.InitServletContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>net.bull.javamelody.SessionListener</listener-class>
+	</listener>
+	<!-- 分页插件清除缓存  -->
+	<listener>
+		<listener-class>com.github.miemiedev.mybatis.paginator.CleanupMybatisPaginatorListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:net/bull/javamelody/monitoring-spring.xml ,
+			classpath:config/spring/applicationContext.xml,
+			classpath:config/spring/applicationContext_quartz.xml
+		</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>monitoring</filter-name>
+		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>monitoring</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+	<filter>
+		<filter-name>popedomFilter</filter-name>
+		<filter-class> com.cjmei.module.system.core.filter.PopedomFilter</filter-class>
+		<init-param>
+			<param-name>skipUnLoginRequestPattern</param-name>
+			<param-value>/sys/login.do,/sys/logout.do</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>popedomFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- 记录系统日志过滤器 -->
+	<filter>
+		<filter-name>SysLogFilter</filter-name>
+		<filter-class>com.cjmei.module.system.core.filter.SysLogFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SysLogFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>paramsFilter</filter-name>
+		<filter-class>com.cjmei.module.system.core.filter.ParamsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>paramsFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:config/spring/spring-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>login.html</welcome-file>
+	</welcome-file-list>
 </web-app>
