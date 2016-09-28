@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjmei.module.system.sys.dao.SysMenuDao">
+	<select id="getChildSysMenuList" resultType="com.cjmei.module.system.sys.pojo.SysMenu">
+		SELECT * FROM
+		TB_SYS_MENU t where t.PARENTID != '0' ORDER BY t."SORT"
+	</select>
+	<select id="getParentSysMenuList" resultType="com.cjmei.module.system.sys.pojo.SysMenu">
+		SELECT * FROM
+		TB_SYS_MENU t where t.PARENTID = '0' ORDER BY t."SORT"
+	</select>
+	<insert id="save" parameterType="com.cjmei.module.system.sys.pojo.SysMenu">
+		INSERT INTO "TB_SYS_MENU" (
+		"MENUID",
+		"PARENTID",
+		"MENUITEM",
+		"URL",
+		"SORT",
+		"CREATETIME",
+		"UPDATETIME",
+		"CREATOR"
+		)
+		VALUES
+		(
+		#{sm.menuid:VARCHAR},
+		#{sm.parentid:VARCHAR},
+		#{sm.menuitem:VARCHAR},
+		#{sm.url:VARCHAR},
+		#{sm.sort:INTEGER},
+		#{sm.createtime:TIMESTAMP},
+		#{sm.updatetime:TIMESTAMP},
+		#{sm.creator:VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="com.cjmei.module.system.sys.pojo.SysMenu"
+		flushCache="true">
+		UPDATE "TB_SYS_MENU"
+		SET "PARENTID" = #{sm.parentid:VARCHAR},
+		"MENUITEM" = #{sm.menuitem:VARCHAR},
+		"URL" = #{sm.url:VARCHAR},
+		"SORT" = #{sm.sort:INTEGER},
+		"UPDATETIME" = #{sm.updatetime:TIMESTAMP},
+		"CREATOR" = #{sm.creator:VARCHAR}
+		WHERE
+		"MENUID" = #{sm.menuid:VARCHAR}
+	</update>
+	<delete id="delete">
+		DELETE TB_SYS_MENU where MENUID=#{menuid}
+	</delete>
+	<select id="getSysMenuByMenuid" resultType="com.cjmei.module.system.sys.pojo.SysMenu">
+		SELECT * FROM TB_SYS_MENU t where t.MENUID=#{menuid}
+	</select>
+	<select id="getChildListByParentid" resultType="com.cjmei.module.system.sys.pojo.SysMenu">
+		SELECT * FROM TB_SYS_MENU t where t.PARENTID=#{menuid}
+	</select>
+</mapper>
