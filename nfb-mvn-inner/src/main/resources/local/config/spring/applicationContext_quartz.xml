@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="loadDataTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="loadDataDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass">
+			<value>com.cjmei.module.system.core.helper.LoadDataHelper</value>
+		</property>
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="true" />
+	</bean>
+	<bean id="loadDataTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="loadDataDetail" />
+		<!-- 每22分钟触发 -->
+		<property name="cronExpression" value="0 0 0/1 * * ?" />
+	</bean>
+
+</beans>
+
+
+
+
+
+ 
