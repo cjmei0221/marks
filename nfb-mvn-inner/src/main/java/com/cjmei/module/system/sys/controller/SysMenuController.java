@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,9 @@ import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.IDUtil;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.system.core.helper.SysUserHelper;
+import com.cjmei.module.system.sys.pojo.SysFunc;
 import com.cjmei.module.system.sys.pojo.SysMenu;
+import com.cjmei.module.system.sys.pojo.SysOperate;
 import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sys.service.SysMenuService;
 
@@ -28,6 +31,7 @@ import com.cjmei.module.system.sys.service.SysMenuService;
  */
 @Controller
 public class SysMenuController {
+	private final static Logger log = Logger.getLogger(SysMenuController.class);
 	@Autowired
 	private SysMenuService sysMenuService;
 
@@ -97,11 +101,12 @@ public class SysMenuController {
 			sm.setMenuitem(request.getParameter("menuitemPut"));
 			sm.setParentid(request.getParameter("parentidPut"));
 			sm.setSort(Integer.parseInt(request.getParameter("sortPut")));
+			sm.setUrl(request.getParameter("urlPut"));
 			sm.setCreatetime(new Date());
 			sm.setCreator(user.getUsername());
 			sm.setUpdatetime(new Date());
 			sysMenuService.save(sm);
-			result.getData().put("menuid", sm.getMenuid());
+			result.getData().put("menu", sm);
 		}else{//修改
 			String menuid=request.getParameter("menuid");
 			SysMenu sm=sysMenuService.getSysMenuByMenuid(menuid);
@@ -109,9 +114,11 @@ public class SysMenuController {
 				sm.setMenuitem(request.getParameter("menuitemPut"));
 				sm.setParentid(request.getParameter("parentidPut"));
 				sm.setSort(Integer.parseInt(request.getParameter("sortPut")));
+				sm.setUrl(request.getParameter("urlPut"));
 				sm.setCreator(user.getUsername());
 				sm.setUpdatetime(new Date());
 				sysMenuService.update(sm);
+				result.getData().put("menu", sm);
 			}else{
 				result.setCode(4001);
 				result.setMessage("该菜单已删除");
@@ -134,8 +141,96 @@ public class SysMenuController {
 		Result result = new Result();
 		result.setCode(0);
 		result.setMessage("success");
-		String menuid=request.getParameter("menuid");
-		result=sysMenuService.delete(menuid,result);
+		String menuid=request.getParameter("id");
+		sysMenuService.delete(menuid,result);
+		JsonUtil.output(response, result);
+	}
+	
+	@RequestMapping("/sysMenu/initFunc")
+	public void initFunc(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Result result = new Result();
+		try {
+			String menuid = request.getParameter("menuid");
+
+			if (null == menuid || "".equals(menuid)) {
+				result.setCode(1);
+				result.setMessage("菜单ID為空");
+			} else {
+				List<SysOperate> list = sysMenuService.getSysOperateListByMenuid(menuid);
+
+				List<SysOperate> alllist = sysMenuService.getSysOperateList();
+				result.setCode(0);
+				result.getData().put("list", list);
+				result.getData().put("operatelist", alllist);
+			}
+		} catch (Exception e) {
+			log.error("Exception:", e);
+			result.setCode(-1);
+			result.setMessage("系统错误");
+		}
+
+		JsonUtil.output(response, result);
+	}
+	/**
+	 * 删除菜单功能
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/sysMenu/deleteFunc")
+	public void deleteFunc(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			String funcid = request.getParameter("funcid");
+
+			if (null == funcid || "".equals(funcid)) {
+				result.setCode(1);
+				result.setMessage("功能ID为空");
+			} else {
+				sysMenuService.deleteFunc(funcid);
+				result.setCode(0);
+			}
+		} catch (Exception e) {
+			log.error("Exception:", e);
+			result.setCode(-1);
+			result.setMessage("系统错误");
+		}
+
+		JsonUtil.output(response, result);
+	}
+
+	@RequestMapping("/sysMenu/addFunc")
+	public void addFunc(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			String operid = request.getParameter("operid");
+			String menuid = request.getParameter("menuid");
+			String url=request.getParameter("funcurl");
+			if (null == menuid || "".equals(menuid)) {
+				result.setCode(1);
+				result.setMessage("菜单ID為空");
+			} else {
+				int idx=url.indexOf(".");
+				if(idx>0){
+					url=url.substring(0, idx);
+				}
+				SysFunc sf = sysMenuService.getSysFuncByOperIdAndMenuid(menuid, operid);
+				if (sf != null) {
+					result.setCode(2);
+					result.setMessage("此功能已存在");
+				} else {
+					SysUser user=SysUserHelper.getCurrentUserInfo(request);
+					SysOperate oper = sysMenuService.saveFunc(operid, menuid,url);
+					oper.setCreator(user.getUsername());
+					result.setCode(0);
+					result.getData().put("operObj", oper);
+				}
+			}
+		} catch (Exception e) {
+			log.error("Exception:", e);
+			result.setCode(-1);
+			result.setMessage("系统错误");
+		}
 		JsonUtil.output(response, result);
 	}
 }

@@ -3,8 +3,11 @@ package com.cjmei.module.system.sys.service.impl;
 import java.util.List;
 
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.util.IDUtil;
 import com.cjmei.module.system.sys.dao.SysMenuDao;
+import com.cjmei.module.system.sys.pojo.SysFunc;
 import com.cjmei.module.system.sys.pojo.SysMenu;
+import com.cjmei.module.system.sys.pojo.SysOperate;
 import com.cjmei.module.system.sys.service.SysMenuService;
 
 public class SysMenuServiceImpl implements SysMenuService{
@@ -50,14 +53,52 @@ public class SysMenuServiceImpl implements SysMenuService{
 	}
 
 	@Override
-	public Result delete(String menuid,Result result) {
+	public void delete(String menuid,Result result) {
 		List<SysMenu> list=sysMenuDao.getChildListByParentid(menuid);
 		if(null !=list && list.size()>0){
 			result.setCode(4001);
 			result.setMessage("含子菜单，不能删除");
 		}else{
+			sysMenuDao.deleteRoleFunc(menuid);
+			sysMenuDao.deleteFunc(menuid);
 			sysMenuDao.delete(menuid);
 		}
-		return result;
+	}
+
+	@Override
+	public void deleteFunc(String funcid) {
+		sysMenuDao.deletSysRolecUrlByFuncid(funcid);
+		sysMenuDao.deletSysFuncByFuncid(funcid);
+	}
+
+	@Override
+	public SysOperate saveFunc(String operid, String menuid, String url) {
+		SysFunc sf=new SysFunc();
+		sf.setFuncid(IDUtil.getUUID());
+		sf.setMenuid(menuid);
+		sf.setOperid(operid);
+		sf.setUrl(url);
+		sysMenuDao.saveSysFunc(sf);
+		
+		
+		SysOperate oper=sysMenuDao.getSysOperateByOperid(operid);
+		oper.setFuncid(sf.getFuncid());
+		oper.setUrl(url);
+		return oper;
+	}
+
+	@Override
+	public List<SysOperate> getSysOperateListByMenuid(String menuid) {
+		return sysMenuDao.getSysOperateListByMenuid(menuid);
+	}
+
+	@Override
+	public SysFunc getSysFuncByOperIdAndMenuid(String menuid, String operid) {
+		return sysMenuDao.getSysFuncByOperIdAndMenuid(menuid,operid);
+	}
+
+	@Override
+	public List<SysOperate> getSysOperateList() {
+		return sysMenuDao.getSysOperateList();
 	}
 }

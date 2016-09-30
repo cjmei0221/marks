@@ -11,6 +11,10 @@ public class SysOperate {
 	private Date updatetime;
 	private String creator;
 	private String picicon;
+	private int sort;
+	
+	private String funcid;
+	private String url;
 
 	public String getOperid() {
 		return operid;
@@ -66,6 +70,33 @@ public class SysOperate {
 
 	public void setPicicon(String picicon) {
 		this.picicon = picicon;
+	}
+	
+
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
+	
+	
+
+	public String getFuncid() {
+		return funcid;
+	}
+
+	public void setFuncid(String funcid) {
+		this.funcid = funcid;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@Override

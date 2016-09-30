@@ -11,6 +11,10 @@ public class SysFunc {
 	private Date updatetime;
 	private String creator;
 	private String url;
+	
+	private int isset;
+	private String opername;
+	
 	public String getFuncid() {
 		return funcid;
 	}
@@ -54,6 +58,19 @@ public class SysFunc {
 		this.url = url;
 	}
 	
+	public int getIsset() {
+		return isset;
+	}
+	public void setIsset(int isset) {
+		this.isset = isset;
+	}
+	
+	public String getOpername() {
+		return opername;
+	}
+	public void setOpername(String opername) {
+		this.opername = opername;
+	}
 	@Override
 	public int hashCode() {
 		return funcid.hashCode();

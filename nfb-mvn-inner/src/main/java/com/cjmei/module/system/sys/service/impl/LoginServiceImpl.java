@@ -6,6 +6,7 @@ import java.util.List;
 import com.cjmei.module.system.sys.dao.LoginDao;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
+import com.cjmei.module.system.sys.pojo.SysRole;
 import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sys.service.LoginService;
 
@@ -20,6 +21,23 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public SysUser getSysUserByUserid(String userid) {
 		SysUser user = loginDao.getSysUserByUserid(userid);
+		if(null !=user){
+			List<String> list=loginDao.getUrlByUserid(userid);
+			user.setUserUrlList(list);
+			SysRole info=loginDao.getSysRoleByRoleid(user.getRoleid());
+			user.setRole(info);
+			if(info.getLvl()==0){
+				user.setShopList(null);	
+			}else if(info.getLvl()==1){
+				List<String> shopList=loginDao.getShopidsByOrgid(user.getOrgid());
+				shopList.add(user.getOrgid());
+				user.setShopList(shopList);
+			}else{
+				List<String> shopList=new ArrayList<String>();
+				shopList.add(user.getOrgid());
+				user.setShopList(shopList);
+			}
+		}
 		return user;
 	}
 

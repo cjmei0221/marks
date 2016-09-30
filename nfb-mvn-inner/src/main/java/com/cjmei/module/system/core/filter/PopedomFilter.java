@@ -58,7 +58,7 @@ public class PopedomFilter implements Filter {
 			}
 		} else {
 			List<String> list = StaticData.getUrlList();
-			if (list.contains(url) && !sysUser.getUserUrlList().contains(url)) {
+			/*if (list.contains(url) && !sysUser.getUserUrlList().contains(url)) {
 				// 无权访问
 				Result result = new Result();
 				result.setCode(-2000);
@@ -66,7 +66,9 @@ public class PopedomFilter implements Filter {
 				JsonUtil.output((HttpServletResponse) arg1, result);
 			} else {
 				arg2.doFilter(arg0, arg1);
-			}
+			}*/
+			
+			arg2.doFilter(arg0, arg1);
 		}
 	}
 

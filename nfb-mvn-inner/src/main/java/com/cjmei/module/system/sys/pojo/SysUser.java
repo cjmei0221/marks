@@ -15,11 +15,14 @@ public class SysUser implements Serializable {
 	private int activeflag;// 状态 0:启用 1：禁用
 	private Date createtime;
 	private Date updatetime;
-	private String roleid;//角色
+	private String roleid;//角色ID
+	private SysRole role;
 	private Date loginTime;
-	private String shopid;
+	private String orgid;
 	private List<String> userUrlList = new ArrayList<String>();
 
+	private List<String> shopList=new ArrayList<String>();
+	
 	public String getUserid() {
 		return userid;
 	}
@@ -84,12 +87,20 @@ public class SysUser implements Serializable {
 		this.roleid = roleid;
 	}
 
-	public String getShopid() {
-		return shopid;
+	public String getOrgid() {
+		return orgid;
 	}
 
-	public void setShopid(String shopid) {
-		this.shopid = shopid;
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
+	}
+
+	public List<String> getShopList() {
+		return shopList;
+	}
+
+	public void setShopList(List<String> shopList) {
+		this.shopList = shopList;
 	}
 
 	public List<String> getUserUrlList() {
@@ -120,4 +131,13 @@ public class SysUser implements Serializable {
 		else
 			return false;
 	}
+
+	public SysRole getRole() {
+		return role;
+	}
+
+	public void setRole(SysRole role) {
+		this.role = role;
+	}
+
 }

@@ -17,16 +17,16 @@
 		sf.url = #{url}
 	</select>
 	<insert id="saveSysLog" parameterType="com.cjmei.module.system.sys.pojo.SysLog">
-		INSERT INTO "TB_SYS_LOG" (
-		"ID",
-		"USERID",
-		"USERNAME",
-		"CREATETIME",
-		"IP",
-		"menuname",
-		"opername",
-		"retain1",
-		"retain2"
+		INSERT INTO TB_SYS_LOG (
+		ID,
+		USERID,
+		USERNAME,
+		CREATETIME,
+		IP,
+		menuname,
+		opername,
+		retain1,
+		retain2
 		)
 		VALUES
 		(

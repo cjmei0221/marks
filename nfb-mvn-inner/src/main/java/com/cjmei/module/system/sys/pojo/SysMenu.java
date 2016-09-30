@@ -16,6 +16,8 @@ public class SysMenu {
 	private String creator;
 	private List<SysMenu> children=new ArrayList<SysMenu>();
 	
+	private List<SysFunc> oper_list=new ArrayList<SysFunc>();
+	
 	public String getMenuid() {
 		return menuid;
 	}
@@ -69,6 +71,18 @@ public class SysMenu {
 	}
 	public void addChildren(SysMenu childMenu) {
 		this.children.add(childMenu);
+	}
+	
+	public List<SysFunc> getOper_list() {
+		return oper_list;
+	}
+
+	public void addOper(SysFunc sysFunc) {
+		oper_list.add(sysFunc);
+	}
+
+	public void setChildren(List<SysMenu> children) {
+		this.children = children;
 	}
 	@Override
 	public int hashCode() {
