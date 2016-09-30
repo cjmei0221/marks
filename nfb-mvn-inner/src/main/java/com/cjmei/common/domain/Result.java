@@ -13,7 +13,7 @@ public class Result implements Serializable {
 
 	private static final long serialVersionUID = -6963503022738848863L;
 
-	private int code;
+	private int code=0;
 	private String message;
 	
 	//其它数据项
