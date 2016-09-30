@@ -7,3 +7,4 @@
 <script type="text/javascript"
 	src="../../../js/easyUI/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../../../js/base-config.js"></script>
+<script type="text/javascript" src="../../../js/sysmsg.js"></script>
