@@ -57,6 +57,10 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
 
 	<!-- 记录系统日志过滤器 -->
 	<filter>
