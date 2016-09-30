@@ -1,5 +1,4 @@
 
-
 //base-config.js
 window.nfb = {};
 window.urlBase = "/inner";
@@ -16,6 +15,7 @@ app.myreload = function(newposition) {
 		pageNumber : 1
 	});
 	$(newposition).datagrid("reload");
+	$(newposition).datagrid('unselectAll');
 };
 
 function addTab(title, url, oldtitleprefix) {
@@ -140,7 +140,7 @@ function fen2yuan(val) {
 	var ret = intSum + dot;
 	return ret;
 }
-//当返回为-1000时，提示去登陆
+// 当返回为-1000时，提示去登陆
 function checkLogin(data) {
 	if (data.retcode == -1000) {
 		alert("未登录,请重新登录！")
@@ -148,33 +148,67 @@ function checkLogin(data) {
 		return;
 	}
 }
-//文本框添加清除按钮
+// 文本框添加清除按钮
 $.extend($.fn.textbox.methods, {
-	addClearBtn: function(jq, iconCls){
-		return jq.each(function(){
+	addClearBtn : function(jq, iconCls) {
+		return jq.each(function() {
 			var t = $(this);
 			var opts = t.textbox('options');
 			opts.icons = opts.icons || [];
 			opts.icons.unshift({
-				iconCls: iconCls,
-				handler: function(e){
-					$(e.data.target).textbox('clear').textbox('textbox').focus();
-					$(this).css('visibility','hidden');
+				iconCls : iconCls,
+				handler : function(e) {
+					$(e.data.target).textbox('clear').textbox('textbox')
+							.focus();
+					$(this).css('visibility', 'hidden');
 				}
 			});
 			t.textbox();
-			if (!t.textbox('getText')){
-				t.textbox('getIcon',0).css('visibility','hidden');
+			if (!t.textbox('getText')) {
+				t.textbox('getIcon', 0).css('visibility', 'hidden');
 			}
-			t.textbox('textbox').bind('keyup', function(){
-				var icon = t.textbox('getIcon',0);
-				if ($(this).val()){
-					icon.css('visibility','visible');
+			t.textbox('textbox').bind('keyup', function() {
+				var icon = t.textbox('getIcon', 0);
+				if ($(this).val()) {
+					icon.css('visibility', 'visible');
 				} else {
-					icon.css('visibility','hidden');
+					icon.css('visibility', 'hidden');
 				}
 			});
 		});
 	}
 });
-//判断
+// 选择一条记录判断方法
+function isSelectedOne(idx) {
+	if (idx == -1) {
+		$.messager.alert("系统提示", window.msgs.selected_before);
+		return false;
+	}
+	return true;
+}
+function deleteRow(id, reqUrl) {
+	$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+		if (r) {
+			var parms = "id=" + id;
+			$.post(reqUrl, parms, function(data) {
+				if (data.retcode == 0) {
+					showMsg("删除成功");
+				} else if (data.retcode == -1) {
+					showMsg(data.retmsg);
+				}
+			});
+		}
+	});
+}
+function showMsg(message) {
+	$.messager.show({
+		title : '系统提示',
+		msg : message,
+		showType : 'show',
+		style : {
+			right : '',
+			top : document.body.scrollTop + document.documentElement.scrollTop,
+			bottom : ''
+		}
+	});
+}
