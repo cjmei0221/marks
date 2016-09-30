@@ -58,4 +58,22 @@
 		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.SysMenuDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
+	
+	<!-- 按钮操作 -->
+	<bean id="sysOperateService" class="com.cjmei.module.system.sys.service.impl.SysOperateServiceImpl">
+		<property name="sysOperateDao" ref="sysOperateDao"></property>
+	</bean>
+	<bean id="sysOperateDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.SysOperateDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 系统角色 -->
+	<bean id="sysRoleService" class="com.cjmei.module.system.sys.service.impl.SysRoleServiceImpl">
+		<property name="sysRoleDao" ref="sysRoleDao"></property>
+	</bean>
+	<bean id="sysRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.SysRoleDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
 </beans>
