@@ -48,7 +48,7 @@
 			title="功能菜单" style="width: 150px;">
 
 			<div id="menuControl" class="easyui-accordion"
-				data-options="multiple:true" style="width: 100%; height: 100%;">
+				data-options="multiple:true" style="width: 100%;">
 
 			</div>
 
@@ -96,11 +96,11 @@
 		}
 	}
 	//添加新菜单面板
-	function addAccordionPanel(title, content) {
+	function addAccordionPanel(checkItem,title, content) {
 		$('#menuControl').accordion('add', {
 			title : title,
 			content : content,
-			selected : false
+			selected : checkItem
 		});
 	}
 	//添加点击子菜单添加选项卡
@@ -124,7 +124,13 @@
 							$('#menuControl').empty(); //清空menuControl里面的所有内容
 							var mlist = data.menuList;
 							if (mlist.length > 0) {
+								var checkItem=false;
 								$.each(mlist,function(commentIndex, comment) {
+									if(commentIndex==0){
+										checkItem=true;
+									}else{
+										checkItem=false;
+									}
 									var childHtml = "";
 									$.each(comment.children,function(childIdx,childComment) {
 										childHtml += '<p id="'
@@ -139,7 +145,7 @@
 											+ childComment.menuitem
 											+ '</p>';
 									});								
-									addAccordionPanel(comment.menuitem,childHtml);
+									addAccordionPanel(checkItem,comment.menuitem,childHtml);
 								});					
 							}
 						}
