@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
+import com.cjmei.module.system.sys.pojo.SysRole;
 import com.cjmei.module.system.sys.pojo.SysUser;
 
 public interface LoginDao {
@@ -36,4 +37,10 @@ public interface LoginDao {
 	List<SysOperate> getSysOperate(@Param("menuid") String menuid,@Param("roleid") String roleid);
 
 	public List<SysMenu> getParentSysMenu();
+
+	List<String> getUrlByUserid(@Param("userid") String userid);
+
+	SysRole getSysRoleByRoleid(@Param("roleid") String roleid);
+
+	List<String> getShopidsByOrgid(@Param("orgid")String orgid);
 }

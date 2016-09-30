@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.cjmei.module.system.sys.pojo.SysFunc;
 import com.cjmei.module.system.sys.pojo.SysMenu;
+import com.cjmei.module.system.sys.pojo.SysOperate;
 
 public interface SysMenuDao {
 
@@ -21,5 +23,23 @@ public interface SysMenuDao {
 	List<SysMenu> getChildListByParentid(@Param("menuid") String menuid);
 
 	void delete(@Param("menuid") String menuid);
+
+	void deleteRoleFunc(@Param("menuid") String menuid);
+
+	void deleteFunc(@Param("menuid") String menuid);
+
+	void deletSysRolecUrlByFuncid(@Param("funcid")String funcid);
+
+	void deletSysFuncByFuncid(@Param("funcid")String funcid);
+
+	void saveSysFunc(@Param("sf")SysFunc sf);
+
+	SysOperate getSysOperateByOperid(@Param("operid")String operid);
+
+	List<SysOperate> getSysOperateListByMenuid(@Param("menuid")String menuid);
+
+	SysFunc getSysFuncByOperIdAndMenuid(@Param("menuid")String menuid,@Param("operid") String operid);
+
+	List<SysOperate> getSysOperateList();
 
 }

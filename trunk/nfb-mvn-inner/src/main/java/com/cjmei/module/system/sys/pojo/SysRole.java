@@ -9,8 +9,9 @@ public class SysRole {
 	private Date createtime;
 	private Date updatetime;
 	private String creator;
-	private String orgid;//所属商铺
-	private int lvl;//级别，默认1 超级管理员为0
+	private String orgid;//所属商家，所属店铺
+	private String orgname;
+	private int lvl;//级别，默认1 超级管理员为0 1:公司管理员 2：店铺管理  3 店铺员工
 	public String getRolename() {
 		return rolename;
 	}
@@ -52,6 +53,13 @@ public class SysRole {
 	}
 	public void setLvl(int lvl) {
 		this.lvl = lvl;
+	}
+	
+	public String getOrgname() {
+		return orgname;
+	}
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
 	}
 	@Override
 	public int hashCode() {
