@@ -186,20 +186,6 @@ function isSelectedOne(idx) {
 	}
 	return true;
 }
-function deleteRow(id, reqUrl) {
-	$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
-		if (r) {
-			var parms = "id=" + id;
-			$.post(reqUrl, parms, function(data) {
-				if (data.retcode == 0) {
-					showMsg("删除成功");
-				} else if (data.retcode == -1) {
-					showMsg(data.retmsg);
-				}
-			});
-		}
-	});
-}
 function showMsg(message) {
 	$.messager.show({
 		title : '系统提示',

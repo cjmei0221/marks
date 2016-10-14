@@ -42,7 +42,21 @@ $(function() {
 	//删除
 	$("#delete").on("click",function(){
 		if(isSelectedOne(appInfo.selectedId)){
-			deleteRow(appInfo.selectedId,appInfo.deleteUrl);
+			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+				if (r) {
+					var parms = "id=" + appInfo.selectedId;
+					$.post(appInfo.deleteUrl, parms, function(data) {
+						if (data.retcode == 0) {
+							app.myreload("#tbList");
+							appInfo.selectedData = {};
+							appInfo.selectedId=-1;
+							showMsg("删除成功");
+						} else {
+							showMsg(data.retmsg);
+						}
+					});
+				}
+			});
 		}
 	});
 	//保存菜单
@@ -62,8 +76,9 @@ function formSubmit(){
 	    },
 	    success:function(data){
 	    	$("#editWin").window("close");
-			$('#tbList').datagrid('reload');
-			$("#tbList").datagrid('unselectAll');
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId=-1;
 	    }
 	});
 }
@@ -124,7 +139,7 @@ function loadList() {
 			var that = $(this);
 			loader(that, params, success, loadError);
 		},
-		onClickRow : function(rowData) {
+		onClickRow : function(rowIndex,rowData) {
 			appInfo.selectedId = rowData.operid;
 			appInfo.selectedData = rowData;
 		},
@@ -139,7 +154,6 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword=$("#keyword").val();
-		console.log(appInfo.requestParam.keyword);
 		$.ajax({
 			url : opts.url,
 			type : "get",
