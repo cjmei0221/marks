@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.util.IDUtil;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sys.pojo.SysMenu;
@@ -47,33 +48,40 @@ public class SysRoleController {
 	public void saveSysRole(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+		
 		SysRole sysRole = new SysRole();
 		sysRole.setRoleid(request.getParameter("roleid"));
 		sysRole.setRolename(request.getParameter("rolename"));
 		sysRole.setCreator(admin.getUserid());
 		if(admin.getRole().getLvl()==0){
-			sysRole.setLvl(Integer.parseInt(request.getParameter("lvl")));
+			sysRole.setLvl(Integer.parseInt(request.getParameter("lvlEdit")));
 			if(sysRole.getLvl()==0){
 				sysRole.setOrgid(null);
 			}else if(sysRole.getLvl()==1){
-				sysRole.setOrgid(request.getParameter("companyid"));
+				sysRole.setOrgid(request.getParameter("companyPut"));
 			}else if(sysRole.getLvl()==2){
-				sysRole.setOrgid(request.getParameter("shopid"));
+				sysRole.setOrgid(request.getParameter("shopPut"));
 			}else{
-				sysRole.setOrgid(request.getParameter("shopid"));
+				sysRole.setOrgid(request.getParameter("shopPut"));
 			}
 		}else if(admin.getRole().getLvl()==1){
-			sysRole.setLvl(Integer.parseInt(request.getParameter("lvl")));
+			sysRole.setLvl(Integer.parseInt(request.getParameter("lvlEdit")));
 			if(sysRole.getLvl()==1){
 				sysRole.setOrgid(admin.getOrgid());
 			}else{
-				sysRole.setOrgid(request.getParameter("shopid"));
+				sysRole.setOrgid(request.getParameter("shopPut"));
 			}
 		}else{
 			sysRole.setLvl(admin.getRole().getLvl()+1);
 			sysRole.setOrgid(admin.getOrgid());
 		}
-		sysRoleService.saveSysRole(sysRole);
+		String formStatus=request.getParameter("formStatus");
+		if("new".equals(formStatus)){
+			sysRole.setRoleid(IDUtil.getTimeID());
+			sysRoleService.saveSysRole(sysRole);
+		}else{
+			sysRoleService.updateSysRole(sysRole);
+		}
 		JsonUtil.output(response, result);
 	}
 

@@ -21,5 +21,7 @@ public interface SysRoleService {
 
 	PojoDomain<SysRole> querySysRoleList(SysUser admin, int page_number, int page_size,String keyword);
 
+	void updateSysRole(SysRole sysRole);
+
 
 }

@@ -46,12 +46,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public void saveSysRole(SysRole sysRole) {
-		if ("0".equals(sysRole.getRoleid())) {
-			sysRole.setRoleid(IDUtil.getTimeID());
-			sysRoleDao.saveSysRole(sysRole);
-		} else {
-			sysRoleDao.updateSysRole(sysRole);
-		}
+		sysRoleDao.saveSysRole(sysRole);
+	}
+	
+	
+
+	@Override
+	public void updateSysRole(SysRole sysRole) {
+		sysRoleDao.updateSysRole(sysRole);
 	}
 
 	@Override
