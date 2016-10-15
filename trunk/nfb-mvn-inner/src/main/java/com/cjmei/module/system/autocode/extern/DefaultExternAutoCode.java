@@ -85,7 +85,7 @@ public class DefaultExternAutoCode implements ExternAutoCode {
 	
 	public OutPutFileResult autoProducedCode(AutoBean autoBean,boolean isCoverFile) {
 		
-		List<Class<?>> classes = ReflectUtil.getClasssFromPackage(AutoConfig.AUTOCODE_PACKAGE);
+		List<Class<?>> classes = ReflectUtil.getClasssFromPackage(AutoConfig.AUTOCODE_CONFIG_PACKAGE);
 		System.out.println();
 		for(Class<?> c : classes){
 			baseClassToOutFile(c,autoBean);

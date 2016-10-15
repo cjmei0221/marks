@@ -330,5 +330,10 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced{
         return beanObject;
     }
     
-
+    public String producedDaoInterfacePackageUrl(AutoBean autoBean){
+        StringBuffer sBuffer = new StringBuffer();
+        sBuffer.append(autoBean.getDefaultPackageUrl()).append(autoBean.getFactBeanName())
+        .append(DOT_VALUE).append(autoBean.getDefaultDao());
+        return sBuffer.toString();
+    }
 }

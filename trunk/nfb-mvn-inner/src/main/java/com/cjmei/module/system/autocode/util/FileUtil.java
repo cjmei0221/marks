@@ -8,10 +8,10 @@ import com.cjmei.module.system.autocode.pojo.OutFileContent;
 
 public class FileUtil {
 
-	private static final String JAVA_SRC =  "/src/main/java/";
-	private static final String XML_SRC =  "/src/main/resources/local/config/mybatis/";
+	private static final String JAVA_SRC =  AutoConfig.FILE_JAVA_SRC;
+	private static final String XML_SRC =  AutoConfig.FILE_XML_SRC;
 	
-	private static final String WEB_SRC = "/src/main/webapp/module/";
+	private static final String WEB_SRC = AutoConfig.FILE_WEB_SRC;
 	/**
 	 * 获取项目路径
 	 * 
