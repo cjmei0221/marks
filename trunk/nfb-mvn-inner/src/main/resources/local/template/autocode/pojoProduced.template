@@ -1,0 +1,14 @@
+package @{packageUrl};
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class @{beanName} implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
+@{fields}
+
+@{getSetMethod}
+
+}

@@ -1,0 +1,201 @@
+package @{packageUrl};
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.cjmei.common.domain.PaginationResult;
+import com.cjmei.common.domain.PojoDomain;
+import com.cjmei.common.domain.Result;
+import com.cjmei.common.util.JsonUtil;
+import com.cjmei.common.util.IDUtil;
+import com.cjmei.common.util.syscode.Code;
+import com.cjmei.module.system.sys.controller.SupportContorller;
+
+import @{beanPackageUrl}.@{beanName};
+import @{ServicePackageUrl}.@{beanName}Service;
+
+@Controller
+public class @{beanName}Controller extends SupportContorller{
+    private static Logger logger = Logger.getLogger( @{beanName}Controller.class);
+    
+    @Autowired
+    private @{beanName}Service  @{BeanObject}Service;
+   
+
+    @Override
+	public Logger getLogger() {
+		return logger;
+	}
+
+    /**
+	 * 查询@{GetModuleDesc}
+	 */
+    @RequestMapping("/@{BeanObject}/find@{beanName}ById")
+    public void find@{beanName}ById(HttpServletRequest request,
+    HttpServletResponse response){
+        Result result = new Result();
+		try {
+		    @{beanName} @{BeanObject} = getModel(@{beanName}.class);
+			@{beanName} request@{beanName} = @{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+			result.getData().put("@{BeanObject}",request@{beanName});
+			result.setMessage("findById @{BeanObject} successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+    }
+    
+    /**
+	 * 保存@{GetModuleDesc}
+	 */
+    @RequestMapping("/@{BeanObject}/save")
+    public void save@{beanName}(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+	    	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
+	 //     @{BeanObject}.set@{GetIdAttrName}(IDUtil.getTimeID());
+			@{BeanObject}Service.save(@{BeanObject});
+			result.setMessage("保存成功");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.info(e);
+			result.setMessage("保存失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	
+	/**
+	 * 更改@{GetModuleDesc}
+	 */
+    @RequestMapping("/@{BeanObject}/update")
+    public void update@{beanName}(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+		    @{beanName} @{BeanObject} = getModel(@{beanName}.class);
+			@{BeanObject}Service.update(@{BeanObject});
+			result.setMessage("更新成功!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setMessage("更新失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	
+	/**
+	 * 删除@{GetModuleDesc}
+	 */
+    @RequestMapping("/@{BeanObject}/delete")
+    public void delete@{beanName}ById(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+		   	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
+			@{BeanObject}Service.delete(@{BeanObject}.get@{GetIdAttrName}());
+			result.setMessage("删除成功!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setMessage("删除失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	
+	/**
+	 * 查询全部@{GetModuleDesc}
+	 */
+    @RequestMapping("/@{BeanObject}/findAll@{beanName}")
+    public void findAll@{beanName}(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+			List<@{beanName}> @{BeanObject}List = @{BeanObject}Service.findAll();
+			result.getData().put("@{BeanObject}List",@{BeanObject}List);
+			result.setMessage("findAll @{BeanObject} successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setMessage("findAll @{BeanObject} fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	
+	/**
+	 * 删除多个@{GetModuleDesc}
+	 */
+	@RequestMapping("/@{BeanObject}/deleteIds")
+	public void delete@{beanName}(HttpServletRequest request,
+			HttpServletResponse response){
+		Result result = new Result();
+		try {
+			String id = request.getParameter("@{GetIdAttrValue}");
+			String[] ids = id.split(",");
+			List<String> idList = new ArrayList<String>();
+			for(int i=0;i<ids.length;i++){
+				idList.add(ids[i]);
+			}
+			if(idList.size()>0){
+				@{BeanObject}Service.deleteBatch(idList);
+				result.setMessage("删除成功!");
+				result.setCode(Code.CODE_SUCCESS);
+			}else{
+				result.setMessage("删除失败，请联系管理员!");
+				result.setCode(Code.CODE_FAIL);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setMessage("delete @{BeanObject} fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	
+	/**
+	 * jqGrid多种条件查询
+	 */
+	@RequestMapping("/@{BeanObject}/list")
+    public void list(HttpServletRequest request,HttpServletResponse response){
+       PaginationResult result = new PaginationResult();
+		try {
+			int page_number = Integer.parseInt(request.getParameter("page_number"));
+			int page_size = Integer.parseInt(request.getParameter("page_size"));
+			@{beanName} @{BeanObject} = getModel(@{beanName}.class);
+			Map<String,Object> param=new HashMap<String,Object>();
+			param.put("@{BeanObject}", @{BeanObject});
+			PojoDomain<@{beanName}> list = @{BeanObject}Service.list(page_number, page_size, param);
+			result.getData().put("list", list.getPojolist());
+			result.setPageNumber(list.getPage_number());
+			result.setPageSize(list.getPage_size());
+			result.setPageTotal(list.getPage_total());
+			result.setTotalCount(list.getTotal_count());
+			result.setMessage("find @{BeanObject} successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setMessage("find @{BeanObject} fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+    }
+	
+}
