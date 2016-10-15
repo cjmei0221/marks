@@ -68,35 +68,38 @@ public class JsPageProduced extends AbstractJsProduced{
             String attrName = attrs.get(i).getAttrName();
             if(attrs.get(i).isPK()){
                 sBuffer.append(producedSetSpace());
-                sBuffer.append(producedGetColValue1(attrName));
-                sBuffer.append(producedPkAttr());
+                sBuffer.append(producedGetColValue1(attrs.get(i)));
+                sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
+//                sBuffer.append(producedPkAttr());
             }else if(i < attrs.size()-1 && (!attrs.get(i).isPK()) ){
                 sBuffer.append(producedSetSpace());
-                sBuffer.append(producedGetColValue1(attrName));
-//                sBuffer.append(producedGetColValue2(attrName));
+                sBuffer.append(producedGetColValue1(attrs.get(i)));
+                //                sBuffer.append(producedGetColValue2(attrName));
                 sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
             }else{
                 sBuffer.append(producedSetSpace());
-                sBuffer.append(producedGetColValue1(attrName));
-//                sBuffer.append(producedGetColValue2(attrName));
+                sBuffer.append(producedGetColValue1(attrs.get(i)));
+                // sBuffer.append(producedGetColValue2(attrName));
             }
         }
-        
         return sBuffer.toString();
     }
     
     //获取每行值属性1
-    public String producedGetColValue1(String attrName){
+    public String producedGetColValue1(AutoAttr autoAttr){
         StringBuffer sBuffer = new StringBuffer();
         
         sBuffer.append(LEFT_BRACKETS);
         sBuffer.append(DEFAULT_NAME)
-           .append("\'").append(attrName).append("\'").append(COMMA_VALUE);
+           .append("\'").append(autoAttr.getAttrDesc()).append("\'").append(COMMA_VALUE);
         sBuffer.append(DEFAULT_INDEX)
-           .append("\'").append(attrName).append("\'").append(COMMA_VALUE);
+           .append("\'").append(autoAttr.getAttrName()).append("\'").append(COMMA_VALUE);
         sBuffer.append(DEFAULT_WIDTH).append(WIDTH_VALUE).append(COMMA_VALUE);
         sBuffer.append(DEFAULT_ALIGN)
            .append("\"").append(ALIGN_VALUE).append("\"");
+        if(autoAttr.isPK()){
+        	sBuffer.append(producedPkAttr());
+        }
         sBuffer.append(RIGHT_BRACKETS);
         return sBuffer.toString();
     }
@@ -128,8 +131,7 @@ public class JsPageProduced extends AbstractJsProduced{
     public String producedPkAttr(){
         StringBuffer sBuffer = new StringBuffer();
         
-        sBuffer.append(FALSE_VALUE).append(COMMA_VALUE)
-        .append(DEFAULT_KEY).append(TRUE_VALUE).append(BANK_VALUE_1).append(COMMA_VALUE)
+        sBuffer.append(COMMA_VALUE)
         .append(HIDDEN_KEY).append(TRUE_VALUE).append(BANK_VALUE_1)
         .append(RIGHT_BRACKETS).append(COMMA_VALUE).append(ENTER_VALUE);
         
