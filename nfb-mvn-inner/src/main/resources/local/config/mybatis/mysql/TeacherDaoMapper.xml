@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjmei.module.teacher.pojo.Teacher">
+
+    <select id="findById" resultType="com.cjmei.module.teacher.pojo.Teacher">
+		SELECT * FROM teacher where TEACHERID = #{teacherId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.cjmei.module.teacher.pojo.Teacher">
+		<selectKey keyProperty="teacherId" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+
+ 		INSERT INTO teacher (
+            TEACHERID,
+            TEACHERNAME
+		)
+		VALUES(
+            #{teacherId:VARCHAR},
+            #{teacherName:VARCHAR}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.cjmei.module.teacher.pojo.Teacher">
+ 		UPDATE teacher 
+		SET 
+                TEACHERNAME = #{teacherName:VARCHAR}
+		WHERE
+			TEACHERID = #{teacherId}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM teacher WHERE TEACHERID=#{teacherId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.cjmei.module.teacher.pojo.Teacher">
+ 		SELECT * FROM teacher
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM teacher WHERE TEACHERID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.cjmei.module.teacher.pojo.Teacher" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   teacher 
+						WHERE 1=1
+                        <if test="teacher.teacherId!=null and teacher.teacherId!=''">
+                            and TEACHERID LIKE CONCAT(CONCAT('%',#{teacher.teacherId:VARCHAR}),'%')
+                        </if>
+                        <if test="teacher.teacherName!=null and teacher.teacherName!=''">
+                            and TEACHERNAME LIKE CONCAT(CONCAT('%',#{teacher.teacherName:VARCHAR}),'%')
+                        </if>
+
+						
+					
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>
