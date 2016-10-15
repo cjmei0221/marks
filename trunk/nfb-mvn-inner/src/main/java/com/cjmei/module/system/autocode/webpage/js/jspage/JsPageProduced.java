@@ -65,7 +65,6 @@ public class JsPageProduced extends AbstractJsProduced{
         
         List<AutoAttr> attrs = autoBean.getAutoAttrs();
         for(int i=0 ; i < attrs.size();i++){
-            String attrName = attrs.get(i).getAttrName();
             if(attrs.get(i).isPK()){
                 sBuffer.append(producedSetSpace());
                 sBuffer.append(producedGetColValue1(attrs.get(i)));
@@ -132,8 +131,7 @@ public class JsPageProduced extends AbstractJsProduced{
         StringBuffer sBuffer = new StringBuffer();
         
         sBuffer.append(COMMA_VALUE)
-        .append(HIDDEN_KEY).append(TRUE_VALUE).append(BANK_VALUE_1)
-        .append(RIGHT_BRACKETS).append(COMMA_VALUE).append(ENTER_VALUE);
+        .append(HIDDEN_KEY).append(TRUE_VALUE).append(BANK_VALUE_1);
         
         return sBuffer.toString();
     }
