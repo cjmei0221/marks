@@ -2,23 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.Date"%>
 <%@taglib prefix="wt" uri="/taglib/common.tld"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<!-- @{beanName}.html -->
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>管理平台</title>
-<link rel="stylesheet" href="@{GetCssRoot}" />
-<%@include file="../../include/common.jsp"%>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="@{GetCssRoot}" />
+
+	<%@include file="../../include/common.jsp"%>
 </head>
 	
 	<body>
 	
-	<<div id="mainPanel">
+	<div id="mainPanel">
 		<p class="nav-header-cls">菜单管理>>操作按钮</p>
 		<div id="tb" style="padding: 5px 0;">
 		<table>
 				<tr>
-					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="按钮名称/按钮ID"/></td>
+					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="关键字"/></td>
 					<td><button type="button" id="doSearch" data-oper="query" style="cursor: pointer;">查询</button>
 				</tr>
 				 <tr>
@@ -31,7 +32,7 @@
 		<table id="tbList">
 		</table>
 	</div>
-	<!-- 新增和编辑窗口 -->
+	
 	<div id="editWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
@@ -52,6 +53,7 @@
 			</table>
 		</form>
 	</div>
+	
 </body>
 <script src="@{GetJsRoot}"></script>
 </html>
