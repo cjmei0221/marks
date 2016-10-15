@@ -1,6 +1,7 @@
 package com.cjmei.module.system.autocode.backstagecode;
 
 import com.cjmei.module.system.autocode.ModuleProduced;
+import com.cjmei.module.system.autocode.config.AutoConfig;
 import com.cjmei.module.system.autocode.pojo.AutoBean;
 
 /**
@@ -11,7 +12,7 @@ import com.cjmei.module.system.autocode.pojo.AutoBean;
 public interface CodeProduced extends ModuleProduced {
 
 	//默认包路径,{0}表示实体包名
-	String DEFAULT_PACKAGE_URL = "com.cjmei.module.";
+	String DEFAULT_PACKAGE_URL = AutoConfig.DEFAULT_JAVA_PACKAGE_URL;
 
 	//实现类的默认包
 	String DEFAULT_PRIVATE = "private";
