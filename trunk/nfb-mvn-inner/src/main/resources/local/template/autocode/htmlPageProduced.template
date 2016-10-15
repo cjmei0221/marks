@@ -41,7 +41,7 @@
 		collapsible:false"
 		style="width: 400px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
-			<input type="hidden"  id="operid" name="operid">
+			<input type="hidden"  id="@{PKAttrValue}" name="@{PKAttrValue}">
 			<table class="out-win-cls">
 				@{GetInputField}
 				<tr>

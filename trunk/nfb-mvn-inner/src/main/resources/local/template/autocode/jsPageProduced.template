@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + "/@{BeanObject}/list.do",
-	saveUrl : top.window.urlBase + "/@{BeanObject}/save.do",
-	updateUrl : top.window.urlBase + "/@{BeanObject}/update.do",
-	deleteUrl : top.window.urlBase + "/@{BeanObject}/delete.do",
+	listUrl: top.window.urlBase + '/@{BeanObject}/list.do',//获取@{GetCaption}列表接口  @{beanName}
+	saveUrl: top.window.urlBase + '/@{BeanObject}/save.do',//保存新增@{GetCaption}接口
+	updateUrl: top.window.urlBase + '/@{BeanObject}/update.do',//编辑@{GetCaption}信息接口
+	deleteUrl: top.window.urlBase + '/@{BeanObject}/delete.do',//删除@{GetCaption}接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam:{
@@ -11,16 +11,19 @@ var appInfo = {
 		keyword : ""
 	},
 	formStatus:"new"
-}
-$(function() {
-	//加载列表
-	loadList();
-	//搜索
+ };
+
+$(function(){
+//加载列表
+ 	loadList();
+
+//搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
 		appInfo.selectedData = {};
 		appInfo.selectedId=-1;
 	});
+	
 	//新增
 	$("#add").on("click",function(){
 		$("#editWin").window({
@@ -28,11 +31,12 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus="new";
+		$('#ff').form('clear');
 	});
+	
 	//编辑
 	$("#edit").on("click",function(){
-		$('#ff').form('clear');
-		if(isSelectedOne(appInfo.selectedId)){	
+		if(isSelectedOne(appInfo.selectedId)){
 			$("#editWin").window({
 				title : "编辑"
 			}).window("open");
@@ -40,12 +44,13 @@ $(function() {
 			$('#ff').form('load',appInfo.selectedData);
 		}
 	});
+	
 	//删除
 	$("#delete").on("click",function(){
 		if(isSelectedOne(appInfo.selectedId)){
 			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
 				if (r) {
-					var parms = "@{PKAttrValue}=" + appInfo.selectedId;
+					var parms = "id=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
 						if (data.retcode == 0) {
 							app.myreload("#tbList");
@@ -60,19 +65,23 @@ $(function() {
 			});
 		}
 	});
-	//保存菜单
+	
+		//保存菜单
 	$("#btnOK").on("click",function(){
 		formSubmit();
 	});
-})
-
+	
+});
 /**
  * 保存菜单
  */
 function formSubmit(){
-	var reqUrl= appInfo.formStatus=="new"?appInfo.saveUrl:appInfo.updateUrl;
+	var reqUrl=appInfo.formStatus=="new"?appInfo.saveUrl:appInfo.updateUrl;
 	$('#ff').form('submit',{
 	    url:reqUrl,
+	    onSubmit: function(param){
+	    	param.formStatus=appInfo.formStatus;
+	    },
 	    success:function(data){
 	    	$("#editWin").window("close");
 			app.myreload("#tbList");
@@ -81,9 +90,7 @@ function formSubmit(){
 	    }
 	});
 }
-/**
- * 加载列表
- */
+
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
@@ -149,3 +156,5 @@ function loadList() {
 		});
 	}
 }
+		
+
