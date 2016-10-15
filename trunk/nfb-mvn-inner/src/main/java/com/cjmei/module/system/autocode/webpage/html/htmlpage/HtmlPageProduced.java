@@ -8,8 +8,10 @@
  */
 package com.cjmei.module.system.autocode.webpage.html.htmlpage;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.cjmei.module.system.autocode.pojo.AttrType;
 import com.cjmei.module.system.autocode.pojo.AutoAttr;
 import com.cjmei.module.system.autocode.pojo.AutoBean;
 import com.cjmei.module.system.autocode.util.StringUtil;
@@ -30,14 +32,17 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 	 * 
 	 * @see cluster.scheme.autocode.AbstractProduced#getFileNameAfter()
 	 */
+	@Override
 	public String getFileNameAfter() {
 		return "";
 	}
 
+	/**
+	 * root
+	 */
+	@Override
 	public String getFileSrc(AutoBean autoBean) {
-		String cssRoot = autoBean.getFactBeanName().toLowerCase();
-		System.out.println("HtmlPageProduced getFileSrc >"+autoBean);
-		return cssRoot;
+		return autoBean.getFactBeanName().toLowerCase();
 	}
 
 	/**
@@ -69,31 +74,34 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 		return autoBean.getModuleDesc();
 	}
 
-	/**
-	 * 表格生成
-	 * 
-	 * @param args
-	 * @author lffei1
-	 */
 	public String producedGetInputField(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
+		List<AutoAttr> attrs = autoBean.getAutoAttrs();
+		for (int i = 0; i < attrs.size(); i++) {
+			String attrName = attrs.get(i).getAttrName();
+			String desc = attrs.get(i).getAttrDesc();
 
-		/*
-		 * List<AutoAttr> attrs = autoBean.getAutoAttrs(); for (int i = 0; i <
-		 * attrs.size(); i++) { String attrName = attrs.get(i).getAttrName();
-		 * String desc = attrs.get(i).getAttrDesc();
-		 * 
-		 * String str = "<tr><th>" + desc + "</th><td><input id=\""+attrName+
-		 * "\" name=\""+attrName+"\" class=\"easyui-validatebox\"></td></tr>";
-		 * sBuffer.append(str); }
-		 */
+			String str = "<tr><th>" + desc + "</th><td><input id=\"" + attrName + "\" name=\"" + attrName
+					+ "\" class=\"easyui-validatebox\"></td></tr>";
+			sBuffer.append(str);
+		}
 		return sBuffer.toString();
 	}
 
-	// space
-	public String producedSetSpace() {
-		StringBuffer sBuffer = new StringBuffer();
-		sBuffer.append(BANK_VALUE_4).append(BANK_VALUE_4).append(BANK_VALUE_4).append(BANK_VALUE_4);
-		return sBuffer.toString();
+	public static void main(String[] args) {
+		AutoBean autoBean = new AutoBean();
+		autoBean.setTableName("goodInfo");
+		List<AutoAttr> autoAttrs = new ArrayList<AutoAttr>();
+		AutoAttr autoAttr = new AutoAttr();
+		autoAttr.setAttrName("goodId");
+		autoAttr.setAttrDesc("商品ID");
+		autoAttr.setAttrType(AttrType.String);
+		autoAttr.setPK(true);
+		autoAttrs.add(autoAttr);
+		HtmlPageProduced html = new HtmlPageProduced();
+		System.out.println(html.producedBeanName(autoBean));
+		// html.setFileSrc(autoBean);
+		// html.producedBeanName(autoBean);
+		System.out.println(html.getFileSrc(autoBean));
 	}
 }
