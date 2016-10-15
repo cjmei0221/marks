@@ -20,9 +20,9 @@ import com.cjmei.module.system.autocode.ModuleProduced;
  */
 public interface HtmlProduced extends ModuleProduced{
    
-    String DEFAULT_FILE_HTML = "html";
+    String DEFAULT_FILE_HTML = "jsp";
     
-   // String DEFAULT_PACKAGE = "module/";
+    String DEFAULT_PACKAGE = "module/";
     
     String DEFAULT_CSS = "css";
     String DEFAULT_JS = "js";
