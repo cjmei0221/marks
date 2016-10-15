@@ -78,6 +78,9 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 		StringBuffer sBuffer = new StringBuffer();
 		List<AutoAttr> attrs = autoBean.getAutoAttrs();
 		for (int i = 0; i < attrs.size(); i++) {
+			 if(attrs.get(i).isPK()){
+				 continue;
+			 }
 			String attrName = attrs.get(i).getAttrName();
 			String desc = attrs.get(i).getAttrDesc();
 
@@ -88,6 +91,18 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 		return sBuffer.toString();
 	}
 
+	 //获取主键
+    public String producedPKAttrValue(AutoBean autoBean){
+        List<AutoAttr> autoAttrs = autoBean.getAutoAttrs(); 
+        for(AutoAttr attr : autoAttrs){
+            if(attr.isPK()){
+                return String.valueOf(attr.getAttrName() );
+               
+            }
+        }       
+        return "";
+    }
+    
 	public static void main(String[] args) {
 		AutoBean autoBean = new AutoBean();
 		autoBean.setTableName("goodInfo");
