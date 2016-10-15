@@ -117,13 +117,12 @@ public class DefaultExternAutoCode implements ExternAutoCode {
 					String templateName = StringUtil.getLowerCaseChar(className);
 					String resourceUrl = StringUtil.StringJoin(AutoConfig.template_path,CodeProduced.BACK_SLANT,
 							templateName,CodeProduced.DOT_VALUE,AutoConfig.template_end);
-					System.out.println("className>"+autoBean.getBeanName());
-					System.out.println("resourceUrl>"+resourceUrl);
+//					System.out.println("baseClassToOutFile resourceUrl>"+resourceUrl);
 					String filePath =  this.getClass().getClassLoader().getResource(resourceUrl).getPath();
 					File file = new File(filePath);
 					StringBuffer sBuffer =new DefaultTemplateRead().readTemplate(file);
 					templateFileFormat.setModuleProduced(moduleProduced);
-					System.out.println("sBuffer>"+autoBean.getBeanName()+sBuffer);
+//					System.out.println("filePath>"+filePath);
 					OutFileContent outFileContent = templateFileFormat.fileContextFormat(sBuffer, autoBean);
 					outFileContents.add(outFileContent);
 				}
