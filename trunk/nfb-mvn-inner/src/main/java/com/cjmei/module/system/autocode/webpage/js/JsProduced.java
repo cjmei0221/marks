@@ -36,7 +36,7 @@ public interface JsProduced extends ModuleProduced{
     String DEFAULT_EDITRULES = "editrules";
     String DEFAULT_REQUIRED = "required";
     
-    String WIDTH_VALUE = "50";
+    String WIDTH_VALUE = "100";
     String ALIGN_VALUE = "center";
     String TRUE_VALUE = "true";
     String FALSE_VALUE = "false";
