@@ -68,7 +68,7 @@ public class @{beanName}ServiceImpl implements @{beanName}Service{
 	public PojoDomain<@{beanName}> list(int page_number, int page_size, Map<String,Object> param) {
 		PojoDomain<@{beanName}> pojoDomain = new PojoDomain<@{beanName}>();
 		PageBounds pageBounds = new PageBounds(page_number, page_size);
-		List<@{beanName}> list = teacherDao.list(pageBounds,param);
+		List<@{beanName}> list = @{GetBeanObject}Dao.list(pageBounds,param);
 		PageList<@{beanName}> pageList = (PageList<@{beanName}>)list; 
 		pojoDomain.setPojolist(list);
 		pojoDomain.setPage_number(page_number);

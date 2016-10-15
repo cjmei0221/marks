@@ -10,7 +10,7 @@ import @{beanPackageUrl}.@{beanName};
 
 public interface @{beanName}Dao {
 
-	Teacher findById(String @{GetPkAttrName});
+	@{beanName} findById(String @{GetPkAttrName});
 
 	void save(@{beanName} @{BeanObject});
 
@@ -18,9 +18,9 @@ public interface @{beanName}Dao {
 
 	void delete(String @{GetPkAttrName});
 
-	List<Teacher> findAll();
+	List<@{beanName}> findAll();
 
 	void deleteBatch(List<String> list);
 
-	List<Teacher> list(PageBounds pageBounds, Map<String,Object> param);
+	List<@{beanName}> list(PageBounds pageBounds, Map<String,Object> param);
 }
