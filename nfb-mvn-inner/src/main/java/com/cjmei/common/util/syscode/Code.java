@@ -3,7 +3,7 @@ package com.cjmei.common.util.syscode;
 public class Code {
 	
 	//成功
-	public static final int CODE_SUCCESS = 1;
+	public static final int CODE_SUCCESS = 0;
 	
 	//失败
 	public static final int CODE_FAIL = -1;
