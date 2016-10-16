@@ -34,5 +34,5 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
-
+	
 </beans>
