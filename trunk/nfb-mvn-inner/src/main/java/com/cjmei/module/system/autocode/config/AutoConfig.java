@@ -4,8 +4,8 @@ import com.cjmei.common.util.properties.PPropsUtil;
 
 public class AutoConfig {
 
-	public static String rootPath=PPropsUtil.getValue("template/autocode/autocode.properties").getProperty("root.src");
-	
+	//public static String rootPath=PPropsUtil.getValue("template/autocode/autocode.properties").getProperty("root.src");
+	public static String rootPath=System.getProperty("user.dir");
 	public static String oracle_seq=PPropsUtil.getValue("template/autocode/autocode.properties").getProperty("oracle.seq");
 	
 	public static String oracle_uuid=PPropsUtil.getValue("template/autocode/autocode.properties").getProperty("oracle.uuid");
