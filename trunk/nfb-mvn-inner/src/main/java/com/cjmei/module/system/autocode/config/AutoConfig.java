@@ -30,6 +30,11 @@ public class AutoConfig {
 	 * java代码路径
 	 */
 	public static String DEFAULT_JAVA_PACKAGE_URL="com.cjmei.module.autocode.";
+	/**
+	 * spring配置文件
+	 */
+	public static String FILE_SPRING_SRC=rootPath+"/src/main/resources/local/config/spring/module";
+	public static String SPRING_NAME="applicationContext";
 	
 	public static String FILE_JAVA_SRC="/src/main/java/";
 	public static String FILE_XML_SRC="/src/main/java/";
