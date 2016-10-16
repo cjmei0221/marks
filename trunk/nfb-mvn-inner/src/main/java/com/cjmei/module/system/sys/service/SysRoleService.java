@@ -23,5 +23,7 @@ public interface SysRoleService {
 
 	void updateSysRole(SysRole sysRole);
 
+	void addSysFuncByRoleId(String roleId, List<String> funcIds);
+
 
 }

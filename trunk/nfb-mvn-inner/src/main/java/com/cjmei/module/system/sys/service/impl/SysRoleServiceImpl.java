@@ -118,5 +118,12 @@ public class SysRoleServiceImpl implements SysRoleService {
 		}
 	}
 
+	@Override
+	public void addSysFuncByRoleId(String roleId, List<String> funcIds) {
+		for (String funcId : funcIds) {
+			sysRoleDao.saveSysFuncByRoleId(roleId, funcId);
+		}
+	}
+
 
 }

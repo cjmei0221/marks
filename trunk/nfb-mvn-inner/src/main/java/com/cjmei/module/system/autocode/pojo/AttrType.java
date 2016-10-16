@@ -56,6 +56,17 @@ public enum AttrType {
 	//获取MySQL数据库类型
 	public abstract String getMySqlType();
 	
+	public static AttrType getAttrTypeByString(String type){
+		if("String".equals(type)){
+			return AttrType.String;
+		}else if("Integer".equals(type)){
+			return AttrType.Integer;
+		}else if("Date".equals(type)){
+			return AttrType.Date;
+		}
+		return AttrType.String;
+	}
+	
 	public static void main(String[] args) {
 		for(AttrType attrType : AttrType.values()){
 			System.out.println(attrType.name() + "  " 

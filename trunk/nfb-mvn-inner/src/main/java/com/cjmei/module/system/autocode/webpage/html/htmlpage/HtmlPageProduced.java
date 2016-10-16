@@ -113,7 +113,7 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 		autoAttr.setAttrType(AttrType.String);
 		autoAttr.setPK(true);
 		autoAttrs.add(autoAttr);
-		HtmlPageProduced html = new HtmlPageProduced();
+		AbstractHtmlProduced html = new HtmlPageProduced();
 		System.out.println(html.producedBeanName(autoBean));
 		// html.setFileSrc(autoBean);
 		// html.producedBeanName(autoBean);
