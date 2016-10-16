@@ -34,12 +34,5 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
-	<!-- 系统角色 -->
-	<bean id="testuserService" class="com.cjmei.module.autocode.testuser.service.impl.TestuserServiceImpl">
-		<property name="testuserDao" ref="testuserDao"></property>
-	</bean>
-	<bean id="testuserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.autocode.testuser.dao.TestuserDao"></property>
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-	</bean>
+
 </beans>
