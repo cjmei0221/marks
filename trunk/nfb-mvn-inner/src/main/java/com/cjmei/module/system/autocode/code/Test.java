@@ -3,14 +3,9 @@ package com.cjmei.module.system.autocode.code;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cjmei.module.system.autocode.DBProduced;
-import com.cjmei.module.system.autocode.extern.ExternAutoCode;
-import com.cjmei.module.system.autocode.factory.DefaultExternAutoBeanFactory;
 import com.cjmei.module.system.autocode.pojo.AttrType;
 import com.cjmei.module.system.autocode.pojo.AutoAttr;
 import com.cjmei.module.system.autocode.pojo.AutoBean;
-import com.cjmei.module.system.autocode.pojo.OutPutFileResult;
-import com.cjmei.module.system.autocode.table.MySqlTableProduced;
 
 public class Test {
 
@@ -52,13 +47,14 @@ public class Test {
 	}
 
 	public static void main(String[] args) {
-
+/*
 		ExternAutoCode autoCode = new DefaultExternAutoBeanFactory().externAutoCodeBean();
 		OutPutFileResult outFileResult = autoCode.autoProducedCode(getAutoBean(), true);
 
 		System.out.println(outFileResult.getResultInfo());
 		DBProduced dbutil = new MySqlTableProduced();
-		dbutil.createTable(getAutoBean());
+		dbutil.createTable(getAutoBean());*/
+		AutoCodeFactory.getInstance().autoCodeByEntity(false, TestCode.class);
 	}
 
 }

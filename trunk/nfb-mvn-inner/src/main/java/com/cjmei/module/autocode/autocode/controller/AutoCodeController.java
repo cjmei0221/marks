@@ -22,14 +22,11 @@ import com.cjmei.common.util.syscode.Code;
 import com.cjmei.module.autocode.autocode.pojo.AutoCode;
 import com.cjmei.module.autocode.autocode.pojo.AutoCodeAttr;
 import com.cjmei.module.autocode.autocode.service.AutoCodeService;
-import com.cjmei.module.system.autocode.DBProduced;
+import com.cjmei.module.system.autocode.code.AutoCodeFactory;
 import com.cjmei.module.system.autocode.config.AutoConfig;
-import com.cjmei.module.system.autocode.extern.ExternAutoCode;
-import com.cjmei.module.system.autocode.factory.DefaultExternAutoBeanFactory;
 import com.cjmei.module.system.autocode.pojo.AttrType;
 import com.cjmei.module.system.autocode.pojo.AutoAttr;
 import com.cjmei.module.system.autocode.pojo.AutoBean;
-import com.cjmei.module.system.autocode.table.MySqlTableProduced;
 import com.cjmei.module.system.autocode.webpage.html.htmlpage.HtmlPageProduced;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sys.controller.SupportContorller;
@@ -264,12 +261,10 @@ public class AutoCodeController extends SupportContorller{
 				result.setCode(3);
 			}else{
 				if(null !=info.getAttrList() && info.getAttrList().size()>0 ){
-					ExternAutoCode autoCode = new DefaultExternAutoBeanFactory().externAutoCodeBean();
 					AutoBean autoBean=getAutoBean(info);
-					autoCode.autoProducedCode(autoBean, true);
+					AutoCodeFactory.getInstance().autoCode(autoBean);
 					if(info.getIs_createtable()==1){
-						DBProduced dbutil = new MySqlTableProduced();
-						dbutil.createTable(autoBean);
+						AutoCodeFactory.getInstance().createTable(autoBean);
 					}
 					result.setMessage("findAll autoCode successs!");
 					result.setCode(Code.CODE_SUCCESS);
