@@ -34,6 +34,7 @@ public class AutoConfig {
 	public static String FILE_JAVA_SRC="/src/main/java/";
 	public static String FILE_XML_SRC="/src/main/java/";
 	public static String FILE_WEB_SRC="/src/main/webapp/page/autocode/";
+	public static String FILE_Menu_SRC="page/autocode/";
 
 
 }

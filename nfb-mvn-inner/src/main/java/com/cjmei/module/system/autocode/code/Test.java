@@ -14,7 +14,7 @@ import com.cjmei.module.system.autocode.table.MySqlTableProduced;
 
 public class Test {
 
-	public static AutoBean getAutoBean() {
+	private static AutoBean getAutoBean() {
 		AutoBean autoBean = new AutoBean();
 		autoBean.setBeanName("AutoCode");
 		autoBean.setModuleDesc("自动生成代码记录");
@@ -36,7 +36,7 @@ public class Test {
 
 		autoAttr1.setAttrName("beanName");
 		autoAttr1.setAttrType(AttrType.String);
-		autoAttr1.setAttrDesc("实体类名称");
+		autoAttr1.setAttrDesc("描述");
 		autoAttr1.setAttrSize(50);
 		
 		autoAttr2.setAttrName("moduleDesc");
@@ -57,8 +57,8 @@ public class Test {
 		OutPutFileResult outFileResult = autoCode.autoProducedCode(getAutoBean(), true);
 
 		System.out.println(outFileResult.getResultInfo());
-		/*DBProduced dbutil = new MySqlTableProduced();
-		dbutil.createTable(getAutoBean());*/
+		DBProduced dbutil = new MySqlTableProduced();
+		dbutil.createTable(getAutoBean());
 	}
 
 }

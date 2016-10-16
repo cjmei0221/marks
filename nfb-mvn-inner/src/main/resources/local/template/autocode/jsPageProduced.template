@@ -50,7 +50,7 @@ $(function(){
 		if(isSelectedOne(appInfo.selectedId)){
 			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
 				if (r) {
-					var parms = "id=" + appInfo.selectedId;
+					var parms = "@{PKAttrValue}=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
 						if (data.retcode == 0) {
 							app.myreload("#tbList");
