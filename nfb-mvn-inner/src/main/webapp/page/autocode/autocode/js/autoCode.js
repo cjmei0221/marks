@@ -47,6 +47,7 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
+		$('#tableName').removeAttr("readonly");
 		initAttrList();
 	});
 
@@ -58,10 +59,11 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
+			$('#tableName').attr("readonly","readonly");
 			initAttrList();
 		}
 	});
-
+	
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
@@ -86,6 +88,10 @@ $(function() {
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
+	});
+	
+	$("#btnCancel").on("click",function(){
+		$("#editWin").window("close");
 	});
 
 	// 弹出字段编辑框
@@ -123,24 +129,43 @@ function formSubmit() {
 	var row = $("#dg").datagrid('getRows');
 	;
 	for (var i = 0; i < row.length; i++) {
-		var items = row[i].attrName + "#" + row[i].attrType + "#"
-				+ row[i].attrSize + "#" + row[i].attrDesc;
-		attrList.push(items);
+		if(row[i].attrName != ""){
+			var items = row[i].attrName + "#" + row[i].attrType + "#"
+			+ row[i].attrSize + "#" + row[i].attrDesc;
+			attrList.push(items);
+		}
+		
 	}
-
+	if(attrList.length<2){
+		top.G.alert("至少添加两个字段！");
+		return;
+	}
 	attrList = attrList.join(',');
 
 	$('#ff').form('submit', {
 		url : reqUrl,
 		onSubmit : function(param) {
 			param.formStatus = appInfo.formStatus;
-			param.attrList = attrList;
+			param.attrListPut = attrList;
 		},
 		success : function(data) {
-			$("#editWin").window("close");
-			app.myreload("#tbList");
-			appInfo.selectedData = {};
-			appInfo.selectedId = -1;
+			if(typeof data === 'string'){
+				try{
+					data = $.parseJSON(data);
+				}catch(e0){
+					top.G.alert(window.msgs.return_json_error);
+					return;
+				}					
+			}
+			if (data.retcode == 0) {
+				$("#editWin").window("close");
+				app.myreload("#tbList");
+				appInfo.selectedData = {};
+				appInfo.selectedId = -1;
+				showMsg("保存成功");
+			} else {
+				showMsg(data.retmsg);
+			}
 		}
 	});
 }
@@ -224,7 +249,7 @@ function loadList() {
 					});
 					return true;
 				} else {
-					$.messager.alert("系统提示", data.retmsg);
+					showMsg(data.retmsg);
 					success({
 						"total" : 0,
 						"rows" : []
@@ -349,7 +374,6 @@ function initAttrList() {
 			data : appInfo.attrReqParam,
 			dataType : "json",
 			success : function(data, status, xhr) {
-				checkLogin(data);
 				if (data.retcode == 0) {
 					var list = data.attrlist;
 					that.data().datagrid["cache"] = data;
@@ -359,7 +383,7 @@ function initAttrList() {
 					});
 					return true;
 				} else {
-					$.messager.alert("系统提示", data.retmsg);
+					showMsg( data.retmsg);
 					success({
 						"total" : 0,
 						"rows" : []

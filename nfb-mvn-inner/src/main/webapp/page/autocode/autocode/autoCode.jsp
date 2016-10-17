@@ -15,7 +15,7 @@
 <body>
 
 	<div id="mainPanel">
-		<p class="nav-header-cls">菜单管理>>操作按钮</p>
+		<p class="nav-header-cls">菜单管理>>生产代码</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
