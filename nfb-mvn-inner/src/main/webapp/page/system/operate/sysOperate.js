@@ -27,7 +27,7 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus="new";
-		$('#ff').form('clear');
+		$("#operid").removeAttr("disabled");
 	});
 	//编辑
 	$("#edit").on("click",function(){
@@ -37,6 +37,7 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus="edit";
 			$('#ff').form('load',appInfo.selectedData);
+			$("#operid").attr("disabled","disabled");
 		}
 	});
 	//删除
@@ -61,6 +62,7 @@ $(function() {
 	});
 	//保存菜单
 	$("#btnOK").on("click",function(){
+		$("#operid").removeAttr("disabled");
 		formSubmit();
 	});
 })
@@ -102,13 +104,8 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : 'ID',
-			field : 'operid',
-			width : 10,
-			hidden : true
-		}, {
 			title : '按钮ID',
-			field : 'operkey',
+			field : 'operid',
 			width : 100
 		}, {
 			title : '按钮名称',
