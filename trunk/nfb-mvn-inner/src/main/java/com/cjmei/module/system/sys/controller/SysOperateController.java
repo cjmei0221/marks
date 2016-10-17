@@ -72,22 +72,25 @@ public class SysOperateController {
 		result.setMessage("sucess");
 		String formStatus = request.getParameter("formStatus");
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);
+		String operid = request.getParameter("operid");
+		SysOperate info = sysOperateService.getObjectById(operid);
 		if ("new".equals(formStatus)) {
-			SysOperate info = new SysOperate();
-			info.setOperid(IDUtil.getUUID());
-			info.setOperkey(request.getParameter("operkey"));
-			info.setOpername(request.getParameter("opername"));
-			info.setPicicon(request.getParameter("picicon"));
-			info.setSort(Integer.parseInt(request.getParameter("sort")));
-			info.setCreatetime(new Date());
-			info.setCreator(user.getUsername());
-			info.setUpdatetime(new Date());
-			sysOperateService.save(info);
+			if(info==null){
+				info = new SysOperate();
+				info.setOperid(operid);
+				info.setOpername(request.getParameter("opername"));
+				info.setPicicon(request.getParameter("picicon"));
+				info.setSort(Integer.parseInt(request.getParameter("sort")));
+				info.setCreatetime(new Date());
+				info.setCreator(user.getUsername());
+				info.setUpdatetime(new Date());
+				sysOperateService.save(info);
+			}else{
+				result.setCode(4002);
+				result.setMessage("已存在");
+			}	
 		} else {// 修改
-			String operid = request.getParameter("operid");
-			SysOperate info = sysOperateService.getObjectById(operid);
 			if (null != info) {
-				info.setOperkey(request.getParameter("operkey"));
 				info.setOpername(request.getParameter("opername"));
 				info.setPicicon(request.getParameter("picicon"));
 				info.setSort(Integer.parseInt(request.getParameter("sort")));
