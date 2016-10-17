@@ -64,7 +64,7 @@ public class AuthUtil {
 				funcIds.add(add.getFuncid());
 				funcIds.add(update.getFuncid());
 				funcIds.add(delete.getFuncid());
-				sysRoleService.addSysFuncByRoleId("20160801150615276", funcIds);
+				sysRoleService.addSysFuncByRoleId(AutoConfig.role_id, funcIds);
 			}
 		}
 }
