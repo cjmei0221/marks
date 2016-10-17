@@ -3,10 +3,8 @@ package com.cjmei.module.system.sys.pojo;
 import java.util.Date;
 
 public class SysOperate {
-
-	private String operid;
 	private String opername;
-	private String operkey;
+	private String operid;
 	private Date createtime;
 	private Date updatetime;
 	private String creator;
@@ -16,14 +14,6 @@ public class SysOperate {
 	private String funcid;
 	private String url;
 
-	public String getOperid() {
-		return operid;
-	}
-
-	public void setOperid(String operid) {
-		this.operid = operid;
-	}
-
 	public String getOpername() {
 		return opername;
 	}
@@ -32,12 +22,12 @@ public class SysOperate {
 		this.opername = opername;
 	}
 
-	public String getOperkey() {
-		return operkey;
+	public String getOperid() {
+		return operid;
 	}
 
-	public void setOperkey(String operkey) {
-		this.operkey = operkey;
+	public void setOperid(String operid) {
+		this.operid = operid;
 	}
 
 	public Date getCreatetime() {
