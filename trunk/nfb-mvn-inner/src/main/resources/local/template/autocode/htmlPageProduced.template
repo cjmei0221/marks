@@ -15,8 +15,7 @@
 	<body>
 	
 	<div id="mainPanel">
-		<p class="nav-header-cls">菜单管理>>操作按钮</p>
-		<div id="tb" style="padding: 5px 0;">
+		<div id="tb">
 		<table>
 				<tr>
 					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="关键字"/></td>
