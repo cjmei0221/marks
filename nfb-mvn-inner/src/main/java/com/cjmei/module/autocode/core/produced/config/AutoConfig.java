@@ -43,8 +43,9 @@ public class AutoConfig {
 	public static String FILE_Menu_SRC=AutoCodePropsUtil.getProperty("config_menu_src");
 
 	public static String FILE_SPRING_SRC=AutoCodePropsUtil.getProperty("FILE_SPRING_SRC");
-	public static String SPRING_NAME=AutoCodePropsUtil.getProperty("applicationContext");
-
+	public static String SPRING_NAME=AutoCodePropsUtil.getProperty("spring_base_path");
+	public static String role_id=AutoCodePropsUtil.getProperty("role_id");
+	
 	public String getRootPath(){  
 		String type=AutoCodePropsUtil.getProperty("bushu_type");
 		if("1".equals(type)){
