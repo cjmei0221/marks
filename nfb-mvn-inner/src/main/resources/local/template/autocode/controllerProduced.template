@@ -18,7 +18,7 @@ import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.IDUtil;
-import com.cjmei.common.util.syscode.Code;
+import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.autocode.core.SupportContorller;
 
 import @{beanPackageUrl}.@{beanName};
