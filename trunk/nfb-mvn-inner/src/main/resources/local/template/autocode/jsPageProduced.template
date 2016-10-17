@@ -70,7 +70,9 @@ $(function(){
 	$("#btnOK").on("click",function(){
 		formSubmit();
 	});
-	
+	$("#btnCancel").on("click",function(){
+		$("#editWin").window("close");
+	});
 });
 /**
  * 保存菜单
@@ -83,10 +85,23 @@ function formSubmit(){
 	    	param.formStatus=appInfo.formStatus;
 	    },
 	    success:function(data){
-	    	$("#editWin").window("close");
-			app.myreload("#tbList");
-			appInfo.selectedData = {};
-			appInfo.selectedId=-1;
+	   		if(typeof data === 'string'){
+				try{
+					data = $.parseJSON(data);
+				}catch(e0){
+					showMsg("json 格式 错误");
+					return;
+				}					
+			}
+	    	if (data.retcode == 0) {
+				$("#editWin").window("close");
+				app.myreload("#tbList");
+				appInfo.selectedData = {};
+				appInfo.selectedId = -1;
+				showMsg("保存成功");
+			} else {
+				showMsg(data.retmsg);
+			}
 	    }
 	});
 }
@@ -94,6 +109,7 @@ function formSubmit(){
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
+		title : "@{GetCaption}",
 		toolbar : "#tb",
 		striped:true,
 		nowrap:true,
@@ -143,7 +159,7 @@ function loadList() {
 					});
 					return true;
 				} else {
-					$.messager.alert("系统提示", data.retmsg);
+					showMsg(data.retmsg);
 					success({
 						"total" : 0,
 						"rows" : []
