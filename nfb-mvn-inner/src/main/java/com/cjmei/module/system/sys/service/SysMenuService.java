@@ -82,4 +82,5 @@ public interface SysMenuService {
 	 * @return
 	 */
 	List<SysOperate> getSysOperateList();
+
 }
