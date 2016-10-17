@@ -37,13 +37,13 @@ public class ButtonTag extends TagSupport{
 					StringBuffer html=new StringBuffer();
 					String icon="icon-edit";
 					for(SysOperate so:list){
-						if("query".equals(so.getOperkey())){
+						if("query".equals(so.getOperid())){
 							continue;
 						}
 						if(null !=so.getPicicon()){
 							icon=so.getPicicon();	
 						}
-						html.append("<a id=\""+so.getOperkey()+"\" href=\"javascript:void(0)\" class=\"easyui-linkbutton menuBtnCls\" data-options=\"iconCls:'"+icon+"'\">"+so.getOpername()+"</a>");
+						html.append("<a id=\""+so.getOperid()+"\" href=\"javascript:void(0)\" class=\"easyui-linkbutton menuBtnCls\" data-options=\"iconCls:'"+icon+"'\">"+so.getOpername()+"</a>");
 					}
 					out.print(html.toString());
 				}
