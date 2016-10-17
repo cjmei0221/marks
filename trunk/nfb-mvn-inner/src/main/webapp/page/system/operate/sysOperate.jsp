@@ -37,11 +37,10 @@
 		collapsible:false"
 		style="width: 400px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
-			<input type="hidden"  id="operid" name="operid">
 			<table class="out-win-cls">
 				<tr>
 					<th>按钮ID</th>
-					<td><input id="operkey" name="operkey"
+					<td><input id="operid" name="operid"
 						class="easyui-validatebox" data-options="required:true"
 						maxlength="60"></td>
 				</tr>
