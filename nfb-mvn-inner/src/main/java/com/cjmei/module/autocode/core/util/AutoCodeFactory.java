@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.cjmei.module.autocode.core.produced.DBProduced;
 import com.cjmei.module.autocode.core.produced.annotation.TableField;
 import com.cjmei.module.autocode.core.produced.annotation.TableName;
@@ -16,9 +18,10 @@ import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
 import com.cjmei.module.autocode.core.produced.table.OracleTableProduced;
 import com.cjmei.module.autocode.core.produced.util.StringUtils;
 import com.cjmei.module.autocode.core.test.TestCode;
+import com.cjmei.module.autocode.web.controller.AutoCodeController;
 
 public class AutoCodeFactory {
-	
+	 private static Logger logger = Logger.getLogger( AutoCodeController.class);
 	private static AutoCodeFactory util = null;
 
 	private AutoCodeFactory() {
@@ -40,7 +43,7 @@ public class AutoCodeFactory {
 		try {
 			
 			DBProduced oracleutil = new OracleTableProduced();
-			System.out.println(oracleutil.createTableSql(autoBean));
+			logger.info(oracleutil.createTableSql(autoBean));
 			oracleutil.createTable(autoBean);
 		} catch (Exception e) {
 
