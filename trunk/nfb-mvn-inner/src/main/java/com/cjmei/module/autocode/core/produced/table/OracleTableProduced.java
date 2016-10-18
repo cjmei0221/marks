@@ -97,13 +97,19 @@ public class OracleTableProduced implements DBProduced{
      public   void  createTable(AutoBean autoBean){
     	 OracleTableProduced oracleTableProduced = new OracleTableProduced();
          Connection connection = JdbcUtil.getConnection();  
-         
+         try {
+        	 Statement statement = connection.createStatement();
              if(!oracleTableProduced.existTable(autoBean)){
             	 logger.info( autoBean.getBeanName() +  "表已存在");
-            	 return;
+            	 
+            	 statement.executeUpdate("drop table "+autoBean.getFactTableName());
+            	
+            	 logger.info( autoBean.getBeanName() +  "表已删除");
+            	// return;
              }
-             try {
-                 Statement statement = connection.createStatement();
+            
+                 
+                 
                  statement.executeUpdate(oracleTableProduced.createTableSql(autoBean));
                  logger.info(autoBean.getBeanName()+"表创建成功");
              } catch (SQLException e) {
