@@ -3,93 +3,88 @@
 
 <mapper namespace="com.cjmei.module.cell.diary.dao.DiaryDao">
 
-    <select id="findById" resultType="com.cjmei.module.cell.diary.pojo.Diary">
-		SELECT * FROM TB_DIARY diary where diary.ID = #{ID}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.cjmei.module.cell.diary.pojo.Diary">
-		<selectKey keyProperty="ID" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+	<select id="findById" resultType="com.cjmei.module.cell.diary.pojo.Diary">
+		SELECT * FROM TB_DIARY diary
+		where diary.ID = #{ID}
+	</select>
 
- 		INSERT INTO TB_DIARY diary (
-            diary.ID,
-            diary.UPDATETIME,
-            diary.CONTENT,
-            diary.CREATOR,
-            diary.TIME,
-            diary.TITLE,
-            diary.CREATETIME
+	<insert id="save" parameterType="com.cjmei.module.cell.diary.pojo.Diary">
+		<selectKey keyProperty="ID" resultType="String" order="BEFORE">select
+			sys_guid() from dual</selectKey>
+
+		INSERT INTO TB_DIARY diary (
+		diary.ID,
+		diary.UPDATETIME,
+		diary.CONTENT,
+		diary.CREATOR,
+		diary.TIME,
+		diary.TITLE,
+		diary.CREATETIME
 		)
 		VALUES(
-            #{ID:VARCHAR},
-            #{updatetime:TIMESTAMP},
-            #{content:VARCHAR},
-            #{creator:VARCHAR},
-            #{time:TIMESTAMP},
-            #{title:VARCHAR},
-            #{createtime:TIMESTAMP}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.cjmei.module.cell.diary.pojo.Diary">
- 		UPDATE TB_DIARY diary
-		SET 
-                diary.UPDATETIME = #{updatetime:TIMESTAMP},
-                diary.CONTENT = #{content:VARCHAR},
-                diary.CREATOR = #{creator:VARCHAR},
-                diary.TIME = #{time:TIMESTAMP},
-                diary.TITLE = #{title:VARCHAR},
-                diary.CREATETIME = #{createtime:TIMESTAMP}
-		WHERE
-			diary.ID = #{ID}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_DIARY diary WHERE diary.ID=#{ID}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.cjmei.module.cell.diary.pojo.Diary">
- 		SELECT * FROM TB_DIARY
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_DIARY WHERE ID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.cjmei.module.cell.diary.pojo.Diary" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_DIARY diary
-						WHERE 1=1
-                        <if test="diary.ID!=null and diary.ID!=''">
-                            and diary.ID LIKE CONCAT(CONCAT('%',#{diary.ID:VARCHAR}),'%')
-                        </if>
-                        <if test="diary.updatetime!=null and diary.updatetime!=''">
-                            and diary.UPDATETIME LIKE CONCAT(CONCAT('%',#{diary.updatetime:TIMESTAMP}),'%')
-                        </if>
-                        <if test="diary.content!=null and diary.content!=''">
-                            and diary.CONTENT LIKE CONCAT(CONCAT('%',#{diary.content:VARCHAR}),'%')
-                        </if>
-                        <if test="diary.creator!=null and diary.creator!=''">
-                            and diary.CREATOR LIKE CONCAT(CONCAT('%',#{diary.creator:VARCHAR}),'%')
-                        </if>
-                        <if test="diary.time!=null and diary.time!=''">
-                            and diary.TIME LIKE CONCAT(CONCAT('%',#{diary.time:TIMESTAMP}),'%')
-                        </if>
-                        <if test="diary.title!=null and diary.title!=''">
-                            and diary.TITLE LIKE CONCAT(CONCAT('%',#{diary.title:VARCHAR}),'%')
-                        </if>
-                        <if test="diary.createtime!=null and diary.createtime!=''">
-                            and diary.CREATETIME LIKE CONCAT(CONCAT('%',#{diary.createtime:TIMESTAMP}),'%')
-                        </if>
+		#{ID:VARCHAR},
+		#{updatetime:TIMESTAMP},
+		#{content:VARCHAR},
+		#{creator:VARCHAR},
+		#{time:TIMESTAMP},
+		#{title:VARCHAR},
+		#{createtime:TIMESTAMP}
 
-					
-					
- 	</select>
- 	
- 	
- 	
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cjmei.module.cell.diary.pojo.Diary">
+		UPDATE TB_DIARY diary
+		SET
+		diary.UPDATETIME = #{updatetime:TIMESTAMP},
+		diary.CONTENT = #{content:VARCHAR},
+		diary.TIME = #{time:TIMESTAMP},
+		diary.TITLE = #{title:VARCHAR},
+		WHERE
+		diary.ID = #{ID}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_DIARY diary WHERE diary.ID=#{ID}
+	</delete>
+
+	<select id="findAll" resultType="com.cjmei.module.cell.diary.pojo.Diary">
+		SELECT * FROM TB_DIARY
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_DIARY WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.cjmei.module.cell.diary.pojo.Diary"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_DIARY diary
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and (
+			diary.CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			diary.TIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			diary.TITLE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		<if test="userid!=null and userid!=''">
+			and diary.CREATOR =#{userid:VARCHAR}
+		</if>
+		<if test="statedate!=null and statedate!=''">
+			and diary.TIME &gt;= #{statedate:VARCHAR}
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and diary.TIME &lt;= #{enddate:VARCHAR}
+		</if>
+	</select>
+
+
+
 </mapper>
