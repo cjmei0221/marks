@@ -149,7 +149,7 @@ function addFunc() {
 														+ "' style='border-bottom:grey 1px solid;padding:5px;width:95%'><tr><td style='width:20%;'>"
 														+ val.opername
 														+ "</td><td style='width:20%;'>"
-														+ val.operkey
+														+ val.operid
 														+ "</td><td style='width:40%;'>"
 														+ val.url
 														+ "</td><td style='width:20%;'><a class='easyui-linkbutton delOnefunc' href='#'  onclick=\"javascript:delfunc(\'"
@@ -206,7 +206,7 @@ function submitFuncForm() {
 									+ "' style='border-bottom:grey 1px solid;padding:5px;width:95%'><tr><td style='width:20%;'>"
 									+ data.operObj.opername
 									+ "</td><td style='width:20%;'>"
-									+ data.operObj.operkey
+									+ data.operObj.operid
 									+ "</td><td style='width:40%;'>"
 									+ data.operObj.url
 									+ "</td><td style='width:20%;'><a class='easyui-linkbutton delOnefunc' href='#'   onclick=\"javascript:delfunc(\'"
