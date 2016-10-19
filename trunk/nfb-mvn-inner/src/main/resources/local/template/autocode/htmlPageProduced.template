@@ -15,7 +15,8 @@
 	<body>
 	
 	<div id="mainPanel">
-		<div id="tb">
+		<p class="nav-header-cls">@{GetCaption}>>@{GetCaption}</p>
+		<div id="tb" style="padding: 5px 0;">
 		<table>
 				<tr>
 					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="关键字"/></td>
