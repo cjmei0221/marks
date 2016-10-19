@@ -6,5 +6,6 @@
 <script type="text/javascript" src="../../../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript"
 	src="../../../js/easyUI/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../../../js/easyUI/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="../../../js/base-config.js"></script>
 <script type="text/javascript" src="../../../js/sysmsg.js"></script>
