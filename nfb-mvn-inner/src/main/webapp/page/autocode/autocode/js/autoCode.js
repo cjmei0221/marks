@@ -213,6 +213,18 @@ function loadList() {
 					return "不生成";
 				}
 			}
+		}, {
+			title : '是否授权',
+			field : 'is_auth',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "是";
+				} else {
+					return "否";
+				}
+			}
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);

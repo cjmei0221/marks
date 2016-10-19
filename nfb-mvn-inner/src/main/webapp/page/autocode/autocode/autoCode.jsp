@@ -25,9 +25,7 @@
 							style="cursor: pointer;">查询</button></td>
 				</tr>
 				<tr>
-					<td colspan="7"><wt:button />&nbsp;&nbsp;&nbsp; <input
-						type="button" id="autoCodeBtn" name="autoCodeBtn"
-						value=" 自动生成代码  " /></td>
+					<td colspan="7"><wt:button /></td>
 				</tr>
 			</table>
 		</div>
