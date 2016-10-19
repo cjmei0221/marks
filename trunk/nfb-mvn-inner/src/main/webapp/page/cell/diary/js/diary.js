@@ -9,8 +9,8 @@ var appInfo = {
 		page_number : 1,
 		page_size : 10,
 		keyword : "",
-		statedate:"",
-		enddate:""
+		statedate : "",
+		enddate : ""
 	},
 	formStatus : "new"
 };
@@ -119,11 +119,14 @@ function formSubmit() {
 		}
 	});
 }
-
+function del_html_tags(str, reallyDo, replaceWith) {
+	var e = new RegExp(reallyDo, "g");
+	words = str.replace(e, replaceWith);
+	return words;
+}
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
-		title : "我的日记",
 		toolbar : "#tb",
 		striped : true,
 		nowrap : true,
@@ -150,13 +153,17 @@ function loadList() {
 		}, {
 			title : '标题',
 			field : 'title',
-			width : 200,
+			width : 150,
 			align : "center"
 		}, {
 			title : '正文',
 			field : 'content',
 			width : 500,
-			align : "center"
+			align : "left",
+			formatter : function(value, row, index) {
+				var str=del_html_tags(value,"\r\n","<br/>"); 
+				return str;
+			}
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
@@ -177,8 +184,8 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
-		appInfo.requestParam.statedate=$('#statedate').datebox('getValue');
-		appInfo.requestParam.enddate=$('#enddate').datebox('getValue');
+		appInfo.requestParam.statedate = $('#statedate').datebox('getValue');
+		appInfo.requestParam.enddate = $('#enddate').datebox('getValue');
 		$.ajax({
 			url : opts.url,
 			type : "get",

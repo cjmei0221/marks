@@ -209,3 +209,7 @@ function myfarmat(date){
     return  y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d)+' '+(h<10?('0'+h):h)+':'+(min<10?('0'+min):min)+':'+(sec<10?('0'+sec):sec);  
       
 }  
+
+$(window).on("resize",function(e){
+	$("#tbList").datagrid("resize",{width:$(window).width()});//修复调整窗口时，内容表格不会随窗伸缩；
+});
