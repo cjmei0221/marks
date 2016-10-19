@@ -15,13 +15,15 @@
 <body>
 
 	<div id="mainPanel">
-		<div id="tb">
+		<p class="nav-header-cls">我的日记>>我的日记</p>
+		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="关键字" /></td>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;
-					<input id="statedate" name="statedate" type="text" editable="false" class="easyui-datebox" style="width: 120px;">
+					<td>&nbsp;&nbsp;&nbsp;&nbsp; <input id="statedate"
+						name="statedate" type="text" editable="false"
+						class="easyui-datebox" style="width: 120px;">
 					</td>
 					<td>至<input type="text" id="enddate" name="enddate"
 						class="easyui-datebox" editable="false" style="width: 120px;" /></td>
@@ -46,7 +48,7 @@
 		style="width: 920px; height: 500px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="ID" name="ID">
-			<table class="out-win-cls" border="1">
+			<table class="out-win-cls">
 				<tr>
 					<th width="50px">日记时间</th>
 					<td width="600px" align="left"><input id="time" name="time"
@@ -55,8 +57,8 @@
 				<tr>
 					<th width="50px">标题</th>
 					<td width="600px" align="left"><input id="title" name="title"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 800px;"></td>
+						class="easyui-validatebox"
+						style='width: 800px; height: 30px;'></td>
 				</tr>
 				<tr>
 					<td colspan="2" width="650px"><textarea id="content"
