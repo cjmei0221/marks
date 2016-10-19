@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cjmei.module.system.sys.dao.LoginDao">
-
-	<resultMap type="com.cjmei.module.system.sys.pojo.SysUser"
-		id="sysUserMap">
-		<result property="userid" column="USERID" />
-		<result property="username" column="USERNAME" />
-		<result property="password" column="PASSWORD" />
-		<result property="tel" column="TEL" />
-		<result property="activeflag" column="ACTIVEFLAG" />
-		<result property="createtime" column="CREATETIME" />
-		<result property="updatetime" column="UPDATETIME" />
-		<result property="roleid" column="ROLEID" />
-	</resultMap>
 	<!-- 通过userid获取系统用户 -->
 	<select id="getSysUserByUserid" resultType="com.cjmei.module.system.sys.pojo.SysUser">
 		SELECT
@@ -75,7 +63,7 @@
 		JOIN tb_sys_func sf ON sf.funcid = srf.funcid
 		where SUR.USERID=#{userid}
 	</select>
-	<select id="getSysRoleByRoleid" resultType="com.cjmei.module.system.sys.pojo.SysRole">
+	<select id="getSysRoleByRoleid" resultType="com.cjmei.module.cell.sysrole.pojo.SysRole">
 		select * from tb_sys_role t where t.roleid=#{roleid}
 	</select>
 	

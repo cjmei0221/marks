@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.cjmei.module.cell.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.pojo.SysRole;
 import com.cjmei.module.system.sys.pojo.SysUser;
 
 public interface LoginDao {

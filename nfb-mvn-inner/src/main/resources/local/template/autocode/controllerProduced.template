@@ -53,7 +53,7 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setMessage("findById @{BeanObject} successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			result.setMessage("查询失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
@@ -71,11 +71,17 @@ public class @{beanName}Controller extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
 	 //     @{BeanObject}.set@{GetIdAttrName}(IDUtil.getTimeID());
-			@{BeanObject}Service.save(@{BeanObject});
-			result.setMessage("保存成功");
-			result.setCode(Code.CODE_SUCCESS);
+	 		@{beanName} ori=@{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+	 		if(ori==null){
+	 			@{BeanObject}Service.save(@{BeanObject});
+	 			result.setMessage("保存成功");
+				result.setCode(Code.CODE_SUCCESS);
+	 		}else{
+	    		result.setMessage("此记录已存在");
+				result.setCode(Code.CODE_FAIL);
+	    	}
 		} catch (Exception e) {
-			logger.info(e);
+			logger.error(e.getMessage(),e);
 			result.setMessage("保存失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
@@ -92,11 +98,17 @@ public class @{beanName}Controller extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    @{beanName} @{BeanObject} = getModel(@{beanName}.class);
-			@{BeanObject}Service.update(@{BeanObject});
-			result.setMessage("更新成功!");
-			result.setCode(Code.CODE_SUCCESS);
+		    @{beanName} ori=@{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+		    if(ori == null){
+		    	result.setMessage("此记录已删除!");
+				result.setCode(Code.CODE_FAIL);
+		    }else{
+		    	@{BeanObject}Service.update(@{BeanObject});
+				result.setMessage("更新成功!");
+				result.setCode(Code.CODE_SUCCESS);
+		    }
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			result.setMessage("更新失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
@@ -116,7 +128,7 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			result.setMessage("删除失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
@@ -136,7 +148,7 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setMessage("findAll @{BeanObject} successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			result.setMessage("findAll @{BeanObject} fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
@@ -167,7 +179,7 @@ public class @{beanName}Controller extends SupportContorller{
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			result.setMessage("delete @{BeanObject} fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
@@ -184,9 +196,12 @@ public class @{beanName}Controller extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			@{beanName} @{BeanObject} = getModel(@{beanName}.class);
+			String keyword=request.getParameter("keyword");
+			if(keyword==null){
+				keyword="";
+			}
 			Map<String,Object> param=new HashMap<String,Object>();
-			param.put("@{BeanObject}", @{BeanObject});
+			param.put("keyword", keyword);
 			PojoDomain<@{beanName}> list = @{BeanObject}Service.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -196,7 +211,7 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setMessage("find @{BeanObject} successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			result.setMessage("find @{BeanObject} fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
