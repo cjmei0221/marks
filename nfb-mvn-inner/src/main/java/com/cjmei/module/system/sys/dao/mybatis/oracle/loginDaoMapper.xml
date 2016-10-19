@@ -56,7 +56,6 @@
 	<select id="getSysOperate" resultType="com.cjmei.module.system.sys.pojo.SysOperate">
 		SELECT distinct
 		VSRF.OPERID,
-		VSRF.OPERKEY,
 		VSRF.OPERNAME,
 		VSRF.PICICON,
 		vsrf.sort
