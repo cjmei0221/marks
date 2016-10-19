@@ -39,7 +39,7 @@
 		diary.UPDATETIME = #{updatetime:TIMESTAMP},
 		diary.CONTENT = #{content:VARCHAR},
 		diary.TIME = #{time:TIMESTAMP},
-		diary.TITLE = #{title:VARCHAR},
+		diary.TITLE = #{title:VARCHAR}
 		WHERE
 		diary.ID = #{ID}
 	</update>
@@ -78,10 +78,10 @@
 			and diary.CREATOR =#{userid:VARCHAR}
 		</if>
 		<if test="statedate!=null and statedate!=''">
-			and diary.TIME &gt;= #{statedate:VARCHAR}
+			and to_char(diary.TIME) &gt;= #{statedate}
 		</if>
 		<if test="enddate!=null and enddate!=''">
-			and diary.TIME &lt;= #{enddate:VARCHAR}
+			and to_char(diary.TIME) &lt;= #{enddate}
 		</if>
 	</select>
 
