@@ -244,5 +244,6 @@ public abstract class SupportContorller {
 
 	public String convert(String value) {
 		return value.replaceAll("\r\n", "<br/>");
+		//return value;
 	}
 }
