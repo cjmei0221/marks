@@ -12,6 +12,7 @@ public interface XmlProduced extends ModuleProduced{
     String TEST_VALUE = "test";
     String NULL_VALUE = "null";
     String DEFAULT_AND = "and";
+    String DEFAULT_OR = "or";
     String TAB_NAME = "Tab";
     String DEFAULT_MAPPERXML ="MapperXml";
 	
@@ -29,7 +30,7 @@ public interface XmlProduced extends ModuleProduced{
     String PERCENT_VALUE = "%";
     
     String DEFAULT_PK_VALUE = "id";
-    
+    String DEFAULT_KEYWORD="keyword";
     String MYSQL_PACKAGE = "mysql"; 
     String ORACLE_PACKAGE = "oracle";
 }
