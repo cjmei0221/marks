@@ -18,9 +18,9 @@ public class AutoConfig {
 	public static String mysql_seq=AutoCodePropsUtil.getProperty("mysql.seq");
 	public static String mysql_uuid=AutoCodePropsUtil.getProperty("mysql.uuid");
 	
-	public static String jdbc_url=AutoCodePropsUtil.getProperty("jdbc.jdbcUrl");
-	public static String jdbc_user=AutoCodePropsUtil.getProperty("jdbc.user");
-	public static String jdbc_password=AutoCodePropsUtil.getProperty("jdbc.password");
+	public static String jdbc_url=AutoCodePropsUtil.getValue("jdbc.properties").getProperty("jdbc.jdbcUrl");
+	public static String jdbc_user=AutoCodePropsUtil.getValue("jdbc.properties").getProperty("jdbc.user");
+	public static String jdbc_password=AutoCodePropsUtil.getValue("jdbc.properties").getProperty("jdbc.password");
 	/**
 	 * 模板路径*/
 	public static String template_path="template/autocode";

@@ -255,8 +255,9 @@ public class AutoCodeController extends SupportContorller{
 					result.setMessage("autoCode successs!");
 					result.setCode(Code.CODE_SUCCESS);
 					//授权
-					AuthUtil.getInstance().addFuncForRole(autoBean);
-					
+					if(info.getIs_auth()==1){
+						AuthUtil.getInstance().addFuncForRole(autoBean);
+					}
 				}else{
 					result.setMessage("该表没有字段，请添加字段");
 					result.setCode(4);
