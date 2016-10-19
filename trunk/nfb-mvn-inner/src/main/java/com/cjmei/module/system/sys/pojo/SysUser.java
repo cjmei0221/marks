@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.cjmei.module.cell.sysrole.pojo.SysRole;
+
 public class SysUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
