@@ -133,13 +133,17 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 		PojoDomain<AutoCodeAttr> pojoDomain = new PojoDomain<AutoCodeAttr>();
 		List<AutoCodeAttr> list = autoCodeDao.attrList(param);
 		List<AutoCodeAttr> returnlist = new ArrayList<AutoCodeAttr>();
-		if (list == null) {
+		AutoCodeAttr info = null;
+		if (list == null || (list !=null && list.size()==0)) {
 			list = new ArrayList<AutoCodeAttr>();
+			info = new AutoCodeAttr();
+			info.setIsPK(1);
+			list.add( info );
 		}
 		if (list.size() > 0) {
 			returnlist.addAll(list);
 		}
-		AutoCodeAttr info = null;
+		
 		for (int i = 0; i < 200 - list.size(); i++) {
 			info = new AutoCodeAttr();
 			returnlist.add(info);
