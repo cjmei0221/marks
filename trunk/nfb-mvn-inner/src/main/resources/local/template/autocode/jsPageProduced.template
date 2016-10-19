@@ -31,7 +31,6 @@ $(function(){
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus="new";
-		$('#ff').form('clear');
 	});
 	
 	//编辑
