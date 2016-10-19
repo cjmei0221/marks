@@ -20,8 +20,10 @@ public class AutoCode implements Serializable{
     */
     private String moduleDesc;
 
-    private int is_createtable;//是否生成表 1：不生产  0：生成
+    private int is_createtable;//是否生成表 1：生产  0：不生成
     
+    private int is_auth;//是否授权 0：否  1：是
+   
     List<AutoCodeAttr> attrList=null;
 
     public String getTableName(){
@@ -55,5 +57,11 @@ public class AutoCode implements Serializable{
 	}
 	public void setAttrList(List<AutoCodeAttr> attrList) {
 		this.attrList = attrList;
+	}
+	public int getIs_auth() {
+		return is_auth;
+	}
+	public void setIs_auth(int is_auth) {
+		this.is_auth = is_auth;
 	}
 }

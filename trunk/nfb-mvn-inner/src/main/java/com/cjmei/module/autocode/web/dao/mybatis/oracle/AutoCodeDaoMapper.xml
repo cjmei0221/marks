@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.grgbanking.module.autocode.autocode.dao.AutoCodeDao">
+<mapper namespace="com.cjmei.module.autocode.web.dao.AutoCodeDao">
 
-	<select id="findById" resultType="com.grgbanking.module.autocode.autocode.pojo.AutoCode">
+	<select id="findById" resultType="com.cjmei.module.autocode.web.pojo.AutoCode">
 		SELECT * FROM tb_autocode_bean
 		autocode where autocode.TABLENAME = #{tableName}
 	</select>
 
-	<insert id="save" parameterType="com.grgbanking.module.autocode.autocode.pojo.AutoCode">
-		INSERT INTO tb_autocode_bean autocode (
+	<insert id="save" parameterType="com.cjmei.module.autocode.web.pojo.AutoCode">
+		INSERT INTO tb_autocode_bean
+		autocode (
 		autocode.TABLENAME,
 		autocode.BEANNAME,
 		autocode.MODULEDESC,
-		autocode.IS_CREATETABLE
+		autocode.IS_CREATETABLE,
+		autocode.IS_AUTH
 		)
 		VALUES(
 		#{tableName:VARCHAR},
 		#{beanName:VARCHAR},
 		#{moduleDesc:VARCHAR},
-		#{is_createtable:VARCHAR}
+		#{is_createtable:INTEGER},
+		#{is_auth:INTEGER}
 		)
 	</insert>
 
-	<update id="update" parameterType="com.grgbanking.module.autocode.autocode.pojo.AutoCode">
-		UPDATE tb_autocode_bean autocode
+	<update id="update" parameterType="com.cjmei.module.autocode.web.pojo.AutoCode">
+		UPDATE tb_autocode_bean
+		autocode
 		SET
 		autocode.BEANNAME = #{beanName:VARCHAR},
 		autocode.MODULEDESC = #{moduleDesc:VARCHAR},
-		autocode.IS_CREATETABLE=#{is_createtable:VARCHAR}
+		autocode.IS_CREATETABLE=#{is_createtable:INTEGER},
+		autocode.IS_AUTH=#{is_auth:INTEGER}
 		WHERE
 		autocode.TABLENAME = #{tableName}
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM tb_autocode_bean autocode WHERE autocode.TABLENAME=#{tableName}
+		DELETE FROM tb_autocode_bean
+		autocode WHERE autocode.TABLENAME=#{tableName}
 	</delete>
 
-	<select id="findAll" resultType="com.grgbanking.module.autocode.autocode.pojo.AutoCode">
+	<select id="findAll" resultType="com.cjmei.module.autocode.web.pojo.AutoCode">
 		SELECT * FROM tb_autocode_bean
 	</select>
 
@@ -49,7 +55,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.grgbanking.module.autocode.autocode.pojo.AutoCode"
+	<select id="list" resultType="com.cjmei.module.autocode.web.pojo.AutoCode"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM tb_autocode_bean autocode
@@ -72,27 +78,43 @@
 	</select>
 
 
-	<select id="attrList"
-		resultType="com.grgbanking.module.autocode.autocode.pojo.AutoCodeAttr"
+	<select id="attrList" resultType="com.cjmei.module.autocode.web.pojo.AutoCodeAttr"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM tb_autocode_attr autocode
 		WHERE 1=1
 
-		and autocode.TABLENAME =#{tableName}
+		and
+		autocode.TABLENAME =#{tableName}
+		order by autocode.ISPK desc
 
 
 	</select>
 	<delete id="deleteAttr">
-		delete from tb_autocode_attr where tablename=#{tableName}
+		delete from tb_autocode_attr where
+		tablename=#{tableName}
 	</delete>
 
-	<insert id="saveAttr"
-		parameterType="com.grgbanking.module.autocode.autocode.pojo.AutoCodeAttr">
-		insert into tb_autocode_attr (ATTRNAME, ATTRTYPE, ISPK, SEQ, ATTRSIZE,
-		ATTRDESC, TABLENAME)
-		values (#{attrName:VARCHAR}, #{attrType:VARCHAR},
-		#{isPK:INTEGER}, #{seq:VARCHAR}, #{attrSize:INTEGER},
-		#{attrDesc:VARCHAR}, #{tableName:VARCHAR})
+	<insert id="saveAttr" parameterType="com.cjmei.module.autocode.web.pojo.AutoCodeAttr">
+		insert into tb_autocode_attr
+		(
+		ATTRNAME, 
+		ATTRTYPE, 
+		ISPK, 
+		SEQ, 
+		ATTRSIZE,
+		ATTRDESC, 
+		TABLENAME
+		)
+		values
+		(
+		#{attrName:VARCHAR}, 
+		#{attrType:VARCHAR},
+		#{isPK:INTEGER},
+		#{seq:VARCHAR}, 
+		#{attrSize:INTEGER},
+		#{attrDesc:VARCHAR},
+		#{tableName:VARCHAR}
+		)
 	</insert>
 </mapper>

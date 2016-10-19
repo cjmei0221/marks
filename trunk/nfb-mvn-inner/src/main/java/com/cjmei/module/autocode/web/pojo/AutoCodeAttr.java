@@ -12,6 +12,7 @@ public class AutoCodeAttr implements Serializable{
 	private int attrSize = 50;
 	private String attrDesc;
 	private String tableName;
+	
 	public String getAttrName() {
 		return attrName;
 	}
