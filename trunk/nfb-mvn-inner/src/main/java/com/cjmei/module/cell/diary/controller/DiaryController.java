@@ -1,5 +1,6 @@
 package com.cjmei.module.cell.diary.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,14 +18,12 @@ import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sys.pojo.SysUser;
-
+import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.cell.diary.pojo.Diary;
 import com.cjmei.module.cell.diary.service.DiaryService;
+import com.cjmei.module.system.core.helper.SysUserHelper;
+import com.cjmei.module.system.sys.pojo.SysUser;
 
 @Controller
 public class DiaryController extends SupportContorller{
@@ -71,6 +70,9 @@ public class DiaryController extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	Diary diary = getModel(Diary.class);
 	 //     diary.setID(IDUtil.getTimeID());
+	    	diary.setCreator(admin.getUserid());
+	    	diary.setCreatetime(new Timestamp(System.currentTimeMillis()));
+	    	diary.setUpdatetime(new Timestamp(System.currentTimeMillis()));
 			diaryService.save(diary);
 			result.setMessage("保存成功");
 			result.setCode(Code.CODE_SUCCESS);
@@ -90,8 +92,8 @@ public class DiaryController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    Diary diary = getModel(Diary.class);
+	    	diary.setUpdatetime(new Timestamp(System.currentTimeMillis()));
 			diaryService.update(diary);
 			result.setMessage("更新成功!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -184,9 +186,14 @@ public class DiaryController extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			Diary diary = getModel(Diary.class);
 			Map<String,Object> param=new HashMap<String,Object>();
-			param.put("diary", diary);
+			String keyword=request.getParameter("keyword");
+			String statedate=request.getParameter("statedate");
+			String enddate=request.getParameter("enddate");
+			param.put("userid", admin.getUserid());
+			param.put("keyword", keyword);
+			param.put("statedate", statedate);
+			param.put("enddate", enddate);
 			PojoDomain<Diary> list = diaryService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
