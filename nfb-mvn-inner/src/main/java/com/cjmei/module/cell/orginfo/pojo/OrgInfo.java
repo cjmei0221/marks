@@ -30,7 +30,7 @@ public class OrgInfo implements Serializable{
     /**
     *启用标识
     */
-    private Integer useflag;
+    private Integer useflag=1;
 
 
 
