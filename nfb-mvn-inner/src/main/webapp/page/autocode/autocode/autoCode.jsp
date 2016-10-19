@@ -26,7 +26,8 @@
 				</tr>
 				<tr>
 					<td colspan="7"><wt:button />&nbsp;&nbsp;&nbsp; <input
-						type="button" id="autoCodeBtn" name="autoCodeBtn" value=" 自动生成代码  " /></td>
+						type="button" id="autoCodeBtn" name="autoCodeBtn"
+						value=" 自动生成代码  " /></td>
 				</tr>
 			</table>
 		</div>
@@ -46,35 +47,43 @@
 				<tr>
 					<th>表名称</th>
 					<td><input id="tableName" name="tableName"
-						class="easyui-validatebox"></td>
+						class="easyui-validatebox" data-options="required:true"></td>
 				</tr>
 				<tr>
 					<th>实体类名称</th>
 					<td><input id="beanName" name="beanName"
-						class="easyui-validatebox"></td>
+						class="easyui-validatebox" data-options="required:true"></td>
 				</tr>
 				<tr>
-					<th>描述</th>
+					<th>菜单名称</th>
 					<td><input id="moduleDesc" name="moduleDesc"
-						class="easyui-validatebox"></td>
+						class="easyui-validatebox" data-options="required:true"></td>
 				</tr>
 				<tr>
 					<th>字段</th>
-					<td><a href="javascript:;" id="editAttr">编辑字段</a></td>
+					<td><a href="javascript:;" id="editAttr" data-options="required:true">编辑字段</a></td>
 				</tr>
 				<tr>
 					<th>是否生成表</th>
-					<td><select id="is_createtable" class="easyui-combobox" name="is_createtable"
-						style="width: 200px;">
+					<td><select id="is_createtable" class="easyui-combobox"
+						name="is_createtable" style="width: 180px;" data-options="required:true">
 							<option value="0">不生成</option>
 							<option value="1">生成</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>是否授权</th>
+					<td><select id="is_auth" class="easyui-combobox"
+						name="is_auth" style="width: 180px;" data-options="required:true">
+							<option value="0">否</option>
+							<option value="1">是</option>
 					</select></td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input
 						type="button" id="btnOK" name="btnOK" value=" 保 存 " />
 						&nbsp;&nbsp;&nbsp; <input type="button" id="btnCancel"
-						name="btnCancel" value=" 取 消 " /> </td>
+						name="btnCancel" value=" 取 消 " /></td>
 				</tr>
 			</table>
 		</form>

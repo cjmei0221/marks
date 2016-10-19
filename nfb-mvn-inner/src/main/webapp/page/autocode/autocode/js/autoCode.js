@@ -345,7 +345,7 @@ function initAttrList() {
 			width : 100,
 			formatter : function(value, row, index) {
 				if (value == 1) {
-					return "<span>主键</span>";
+					return "<span style='color:red'>主键</span>";
 				} else {
 					return "";
 				}
