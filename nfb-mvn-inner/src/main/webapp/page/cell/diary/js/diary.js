@@ -8,7 +8,9 @@ var appInfo = {
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		statedate:"",
+		enddate:""
 	},
 	formStatus : "new"
 };
@@ -138,38 +140,22 @@ function loadList() {
 		columns : [ [ {
 			title : '主键',
 			field : 'ID',
-			width : 100,
 			align : "center",
 			hidden : true
 		}, {
-			title : '更新时间',
-			field : 'updatetime',
-			width : 100,
-			align : "center"
-		}, {
-			title : '正文',
-			field : 'content',
-			width : 100,
-			align : "center"
-		}, {
-			title : '创建者',
-			field : 'creator',
-			width : 100,
-			align : "center"
-		}, {
 			title : '日记时间',
 			field : 'time',
-			width : 100,
+			width : 120,
 			align : "center"
 		}, {
 			title : '标题',
 			field : 'title',
-			width : 100,
+			width : 200,
 			align : "center"
 		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 100,
+			title : '正文',
+			field : 'content',
+			width : 500,
 			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
@@ -191,6 +177,8 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
+		appInfo.requestParam.statedate=$('#statedate').datebox('getValue');
+		appInfo.requestParam.enddate=$('#enddate').datebox('getValue');
 		$.ajax({
 			url : opts.url,
 			type : "get",
