@@ -45,6 +45,8 @@ $(function() {
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
 			initTime();
+			var str=del_html_tags(appInfo.selectedData.content,"<br/>","\r\n");
+			$("#content").val(str);
 		}
 	});
 
@@ -159,11 +161,7 @@ function loadList() {
 			title : '正文',
 			field : 'content',
 			width : 500,
-			align : "left",
-			formatter : function(value, row, index) {
-				var str=del_html_tags(value,"\r\n","<br/>"); 
-				return str;
-			}
+			align : "left"
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
