@@ -51,18 +51,17 @@ public class OracleTableProduced implements DBProduced{
 	            .append(BANK_VALUE_1)
 	            .append(attrs.get(i).getAttrType().getOracleType());
 	        if(!"date".equals(attrs.get(i).getAttrType().getOracleType())){
+	        	int size=attrs.get(i).getAttrSize();
 	        	if("number".equals(attrs.get(i).getAttrType().getOracleType())){
 	        		if(attrs.get(i).getAttrSize()>30){
-	        			 sBuffer.append(LEFT_PATEN)
-	  	               .append(30)
-	  	               .append(RIGHT_PATEN);
+	        			size=30;
 	        		}
 	        	}else{
-	        		 sBuffer.append(LEFT_PATEN)
-		               .append(attrs.get(i).getAttrSize())
-		               .append(RIGHT_PATEN);
+	        		 
 	        	}
-	           
+	        	sBuffer.append(LEFT_PATEN)
+	               .append(size)
+	               .append(RIGHT_PATEN);
             }
 	            if(attrs.get(i).isPK()){
 	                sBuffer.append(BANK_VALUE_1).append(DEFAULT_PRIMARY);
