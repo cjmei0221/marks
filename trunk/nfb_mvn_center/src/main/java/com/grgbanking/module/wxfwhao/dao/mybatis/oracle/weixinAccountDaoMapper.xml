@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.grgbanking.module.wxfwhao.dao.WeixinAccountDao"> 
+    <select id="getWXAccountList" resultType="com.grgbanking.module.wxfwhao.entity.WeChatAccount">        
+		SELECT * FROM WXB_WECHAT_ACCOUNT
+	</select>
+	<select id="getAccessTokenVoByAccountid" resultType="com.grgbanking.module.wxfwhao.entity.AccessTokenVo">        
+		select * from WXB_ACCESS_TOKEN t where t.accountid=#{accountid}
+	</select>
+	<!-- <select id="getWXAcountParam" resultType="String">
+		select "VALUE" from ${schema}.wxb_sysconf where "KEY"=#{key}
+	</select> -->
+	<update id="updateAccessTokenVo" parameterType="com.grgbanking.module.wxfwhao.entity.AccessTokenVo"
+		flushCache="true">
+		UPDATE WXB_ACCESS_TOKEN
+		SET ACCESSTOKEN = #{vo.accesstoken:VARCHAR},
+		PUTTIME = #{vo.puttime:VARCHAR},
+		EXPIRES_IN = #{vo.expires_in:VARCHAR}
+		WHERE
+		ACCOUNTID =#{vo.accountid:VARCHAR}
+	</update>
+
+	<insert id="saveAccessTokenVo" parameterType="com.grgbanking.module.wxfwhao.entity.AccessTokenVo">
+		insert into WXB_ACCESS_TOKEN
+  			(ACCOUNTID, ACCESSTOKEN, PUTTIME, EXPIRES_IN)
+		values
+  			(#{vo.accountid:VARCHAR}, #{vo.accesstoken:VARCHAR}, #{vo.puttime:VARCHAR}, #{vo.expires_in:VARCHAR})
+	</insert>
+</mapper>
