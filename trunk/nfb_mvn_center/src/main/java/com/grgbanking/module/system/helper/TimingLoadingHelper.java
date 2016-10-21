@@ -1,0 +1,23 @@
+package com.grgbanking.module.system.helper;
+
+import org.apache.log4j.Logger;
+
+import com.grgbanking.module.system.listener.DatabaseHelper;
+import com.grgbanking.module.wxfwhao.service.WeixinAccountService;
+
+/**
+ * 定时加载数据助手类
+ * @author cypei
+ *
+ */
+public class TimingLoadingHelper {
+
+private static final Logger log = Logger.getLogger(TimingLoadingHelper.class);
+	
+	public void doJob(){
+		
+		WeixinAccountService weixinAccountService=(WeixinAccountService) DatabaseHelper.getBean(WeixinAccountService.class);
+		log.info("开始加载微信服务号信息");
+		weixinAccountService.loadData();
+	}
+}
