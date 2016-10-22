@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.cjmei.module.cell.sysrole.pojo.SysRole;
-
 public class SysUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,13 +15,15 @@ public class SysUser implements Serializable {
 	private int activeflag;// 状态 0:启用 1：禁用
 	private Date createtime;
 	private Date updatetime;
-	private String roleid;//角色ID
-	private SysRole role;
+	private String userType;//角色ID
 	private Date loginTime;
-	private String orgid;
+	private List<String> orgIds=new ArrayList<String>();
+	
 	private List<String> userUrlList = new ArrayList<String>();
 
-	private List<String> shopList=new ArrayList<String>();
+	private List<String> roleIds=new ArrayList<String>();
+	
+	private String companyId;
 	
 	public String getUserid() {
 		return userid;
@@ -81,30 +81,6 @@ public class SysUser implements Serializable {
 		this.updatetime = updatetime;
 	}
 
-	public String getRoleid() {
-		return roleid;
-	}
-
-	public void setRoleid(String roleid) {
-		this.roleid = roleid;
-	}
-
-	public String getOrgid() {
-		return orgid;
-	}
-
-	public void setOrgid(String orgid) {
-		this.orgid = orgid;
-	}
-
-	public List<String> getShopList() {
-		return shopList;
-	}
-
-	public void setShopList(List<String> shopList) {
-		this.shopList = shopList;
-	}
-
 	public List<String> getUserUrlList() {
 		return userUrlList;
 	}
@@ -121,6 +97,39 @@ public class SysUser implements Serializable {
 		this.loginTime = loginTime;
 	}
 
+	
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public List<String> getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(List<String> roleIds) {
+		this.roleIds = roleIds;
+	}
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public List<String> getOrgIds() {
+		return orgIds;
+	}
+
+	public void setOrgIds(List<String> orgIds) {
+		this.orgIds = orgIds;
+	}
+
 	@Override
 	public int hashCode() {
 		return userid.hashCode();
@@ -134,12 +143,5 @@ public class SysUser implements Serializable {
 			return false;
 	}
 
-	public SysRole getRole() {
-		return role;
-	}
-
-	public void setRole(SysRole role) {
-		this.role = role;
-	}
 
 }

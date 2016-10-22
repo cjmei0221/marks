@@ -3,7 +3,6 @@ package com.cjmei.module.system.sys.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cjmei.module.cell.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sys.dao.LoginDao;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
@@ -24,25 +23,29 @@ public class LoginServiceImpl implements LoginService {
 		if(null !=user){
 			List<String> list=loginDao.getUrlByUserid(userid);
 			user.setUserUrlList(list);
-			SysRole info=loginDao.getSysRoleByRoleid(user.getRoleid());
-			user.setRole(info);
+			List<String> roleIds=loginDao.getRoleIdsByUserid(user.getUserid());
+			if(roleIds ==null || (null ==roleIds && roleIds.size()==0)){
+				roleIds=new ArrayList<String>();
+				roleIds.add("");
+			}
+			user.setRoleIds(roleIds);
 		}
 		return user;
 	}
 
 	@Override
 	public List<SysMenu> getSysMenuOfSysUser(SysUser user) {
-		String roleid = user.getRoleid();
+		List<String> roleIds = user.getRoleIds();
 		boolean getflag = false;// 请求数据标识
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
 
 		// 未指定用户角色不可查看任何菜单
-		if (null != roleid && roleid.length() > 5) {
+		if (null != roleIds && roleIds.size() > 0) {
 			getflag = true;
 		}
 
 		if (getflag) {
-			List<SysMenu> child = loginDao.getChildMenu(roleid);
+			List<SysMenu> child = loginDao.getChildMenu(roleIds);
 			if (null != child && child.size() > 0) {
 				List<SysMenu> parentMenu = loginDao.getParentSysMenu();
 				for (SysMenu pm : parentMenu) {
@@ -62,8 +65,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List<SysOperate> getSysOperate(String menuid, SysUser user) {
-		String roleid = user.getRoleid();
-		List<SysOperate> list = loginDao.getSysOperate(menuid, roleid);
+		List<SysOperate> list = loginDao.getSysOperate(menuid, user.getRoleIds());
 		return list;
 	}
 

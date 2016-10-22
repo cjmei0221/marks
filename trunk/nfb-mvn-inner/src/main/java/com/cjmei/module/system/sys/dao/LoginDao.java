@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.cell.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
 import com.cjmei.module.system.sys.pojo.SysUser;
@@ -22,7 +21,7 @@ public interface LoginDao {
 	 */
 	SysUser getSysUserByUserid(@Param("userid")String userid);
 
-	List<SysMenu> getChildMenu(@Param("roleid") String roleid);
+	List<SysMenu> getChildMenu(@Param("list") List<String> list);
 
 	/**
 	 * 通过角色和菜单ID获取功能列表
@@ -34,13 +33,13 @@ public interface LoginDao {
 	 * @author cjmei
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	List<SysOperate> getSysOperate(@Param("menuid") String menuid,@Param("roleid") String roleid);
+	List<SysOperate> getSysOperate(@Param("menuid") String menuid,@Param("list") List<String> list);
 
 	public List<SysMenu> getParentSysMenu();
 
 	List<String> getUrlByUserid(@Param("userid") String userid);
 
-	SysRole getSysRoleByRoleid(@Param("roleid") String roleid);
+	List<String> getRoleIdsByUserid(@Param("userid") String userid);
 
 	List<String> getShopidsByOrgid(@Param("orgid")String orgid);
 }
