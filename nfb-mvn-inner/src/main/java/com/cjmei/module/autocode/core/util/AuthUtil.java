@@ -6,11 +6,11 @@ import java.util.List;
 import com.cjmei.module.autocode.core.produced.config.AutoConfig;
 import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
 import com.cjmei.module.autocode.core.produced.webpage.html.htmlpage.HtmlPageProduced;
-import com.cjmei.module.cell.sysrole.service.SysRoleService;
 import com.cjmei.module.system.core.listener.DatabaseHelper;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
 import com.cjmei.module.system.sys.service.SysMenuService;
+import com.cjmei.module.system.sysrole.service.SysRoleService;
 
 public class AuthUtil {
 	private SysMenuService sysMenuService = (SysMenuService) DatabaseHelper.getBean(SysMenuService.class);
