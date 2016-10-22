@@ -8,7 +8,7 @@ import java.util.List;
  * @author ldyong
  *
  */
-public class WeixinMenu{
+public class WxMenu{
 
 	private String id;
 	private String name;
@@ -17,7 +17,7 @@ public class WeixinMenu{
 	private String content;
 	private int post_flag;
 	private int delete_flag;
-	private List<WeixinMenu> sub_button=new ArrayList<WeixinMenu>();
+	private List<WxMenu> sub_button=new ArrayList<WxMenu>();
 	public String getId() {
 		return id;
 	}
@@ -48,10 +48,10 @@ public class WeixinMenu{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public List<WeixinMenu> getSub_button() {
+	public List<WxMenu> getSub_button() {
 		return sub_button;
 	}
-	public void addSub_button(WeixinMenu sub_button) {
+	public void addSub_button(WxMenu sub_button) {
 		this.sub_button.add(sub_button);
 	}
 	public int getPost_flag() {
