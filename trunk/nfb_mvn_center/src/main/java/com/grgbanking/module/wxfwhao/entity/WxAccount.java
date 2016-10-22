@@ -1,10 +1,10 @@
 package com.grgbanking.module.wxfwhao.entity;
 
-public class WeChatAccount {
+public class WxAccount {
 	
-	private String accountid;
+	private String accountId;
 	
-	private String account_name;
+	private String accountName;
 	
 	private String appId;
 	
@@ -12,11 +12,11 @@ public class WeChatAccount {
 	
 	private String server_context;
 	
-	private String authdomain;//应用域名
+	private String authDomain;//应用域名
 	
-	public WeChatAccount(){}
+	public WxAccount(){}
 
-	public WeChatAccount(String appId, String appSecret) {
+	public WxAccount(String appId, String appSecret) {
 		super();
 		this.appId = appId;
 		this.appSecret = appSecret;
@@ -37,23 +37,29 @@ public class WeChatAccount {
 	public void setAppSecret(String appSecret) {
 		this.appSecret = appSecret;
 	}
-
 	
-
-	public String getAccount_name() {
-		return account_name;
+	public String getAccountId() {
+		return accountId;
 	}
 
-	public void setAccount_name(String account_name) {
-		this.account_name = account_name;
-	}
-	
-	public String getAccountid() {
-		return accountid;
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
 	}
 
-	public void setAccountid(String accountid) {
-		this.accountid = accountid;
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+	public String getAuthDomain() {
+		return authDomain;
+	}
+
+	public void setAuthDomain(String authDomain) {
+		this.authDomain = authDomain;
 	}
 
 	public String getServer_context() {
@@ -64,13 +70,7 @@ public class WeChatAccount {
 		server_context = serverContext;
 	}
 
-	public String getAuthdomain() {
-		return authdomain;
-	}
-
-	public void setAuthdomain(String authdomain) {
-		this.authdomain = authdomain;
-	}
+	
 
 	@Override
 	public int hashCode() {
@@ -90,7 +90,7 @@ public class WeChatAccount {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		WeChatAccount other = (WeChatAccount) obj;
+		WxAccount other = (WxAccount) obj;
 		if (appId == null) {
 			if (other.appId != null)
 				return false;
