@@ -1,15 +1,16 @@
 package com.cjmei.module.cell.orginfo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.domain.PojoDomain;
+import com.cjmei.common.domain.TreeVo;
+import com.cjmei.module.cell.orginfo.dao.OrgInfoDao;
+import com.cjmei.module.cell.orginfo.pojo.OrgInfo;
+import com.cjmei.module.cell.orginfo.service.OrgInfoService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.cjmei.module.cell.orginfo.pojo.OrgInfo;
-import com.cjmei.module.cell.orginfo.dao.OrgInfoDao;
-import com.cjmei.module.cell.orginfo.service.OrgInfoService;
 
 public class OrgInfoServiceImpl implements OrgInfoService{
    
@@ -83,5 +84,31 @@ public class OrgInfoServiceImpl implements OrgInfoService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
-	
+	@Override
+	public List<TreeVo> getChildListByParentId(String parentId) {
+		List<OrgInfo> list = orgInfoDao.findAll();
+		List<TreeVo> returnlist =new ArrayList<TreeVo>();
+		TreeVo vo=null;
+		if(null !=list && list.size()>0){
+			for(OrgInfo org:list){
+				if(org.getParentId().equals(parentId)){
+					vo=new TreeVo();
+					vo.setId(org.getOrgid());
+					vo.setText(org.getOrgname());
+					vo.setParentid(org.getParentId());
+					returnlist.add(vo);
+				}
+			}
+			if(returnlist.size()>0){
+				for(TreeVo to:returnlist){
+					for(OrgInfo org:list){
+						if(to.getId().equals(org.getParentId())){
+							to.setState("close");
+						}
+					}
+				}
+			}
+		}
+		return returnlist;
+	}
 }

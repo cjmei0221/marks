@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.domain.PojoDomain;
+import com.cjmei.common.domain.TreeVo;
 
 public interface OrgInfoService{
 
@@ -17,4 +18,5 @@ public interface OrgInfoService{
 	public List<OrgInfo> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<OrgInfo> list(int page_number, int page_size,Map<String,Object> param);
+	public List<TreeVo> getChildListByParentId(String parentId);
 }

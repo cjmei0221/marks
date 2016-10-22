@@ -3,85 +3,87 @@
 
 <mapper namespace="com.cjmei.module.cell.orginfo.dao.OrgInfoDao">
 
-    <select id="findById" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
-		SELECT * FROM TB_ORG_INFO orginfo where orginfo.ORGID = #{orgid}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
-		<selectKey keyProperty="orgid" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+	<select id="findById" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+		SELECT * FROM TB_ORG_INFO
+		orginfo where orginfo.ORGID = #{orgid}
+	</select>
 
- 		INSERT INTO TB_ORG_INFO orginfo (
-            orginfo.ORGID,
-            orginfo.CREATOR,
-            orginfo.ORGNAME,
-            orginfo.CREATETIME,
-            orginfo.UPDATETIME,
-            orginfo.USEFLAG
+	<insert id="save" parameterType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+		INSERT INTO TB_ORG_INFO orginfo (
+		orginfo.ORGID,
+		orginfo.CREATOR,
+		orginfo.ORGNAME,
+		orginfo.CREATETIME,
+		orginfo.UPDATETIME,
+		orginfo.USEFLAG
 		)
 		VALUES(
-            #{orgid:VARCHAR},
-            #{creator:VARCHAR},
-            #{orgname:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{useflag:NUMERIC}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
- 		UPDATE TB_ORG_INFO orginfo
-		SET 
-                orginfo.CREATOR = #{creator:VARCHAR},
-                orginfo.ORGNAME = #{orgname:VARCHAR},
-                orginfo.CREATETIME = #{createtime:TIMESTAMP},
-                orginfo.UPDATETIME = #{updatetime:TIMESTAMP},
-                orginfo.USEFLAG = #{useflag:NUMERIC}
+		#{orgid:VARCHAR},
+		#{creator:VARCHAR},
+		#{orgname:VARCHAR},
+		#{createtime:TIMESTAMP},
+		#{updatetime:TIMESTAMP},
+		#{useflag:NUMERIC}
+
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+		UPDATE TB_ORG_INFO orginfo
+		SET
+		orginfo.ORGNAME = #{orgname:VARCHAR},
+		orginfo.UPDATETIME = #{updatetime:TIMESTAMP},
+		orginfo.USEFLAG = #{useflag:NUMERIC}
 		WHERE
-			orginfo.ORGID = #{orgid}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_ORG_INFO orginfo WHERE orginfo.ORGID=#{orgid}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
- 		SELECT * FROM TB_ORG_INFO
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_ORG_INFO WHERE ORGID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
+		orginfo.ORGID = #{orgid}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_ORG_INFO orginfo WHERE orginfo.ORGID=#{orgid}
+	</delete>
+
+	<select id="findAll" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+		SELECT * FROM TB_ORG_INFO t where t.USEFLAG=1
+	</select>
+	
+	<select id="getChildListByParentId" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+		SELECT * FROM TB_ORG_INFO t where t.PARENTID=#{parentId}
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_ORG_INFO WHERE ORGID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
 		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_ORG_INFO orginfo
-						WHERE 1=1
- and ( orginfo.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        <if test="keyword!=null and keyword!=''">
-                            or orginfo.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or orginfo.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or orginfo.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or orginfo.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or orginfo.USEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
- )
-					
-					
- 	</select>
- 	
- 	
- 	
+	</delete>
+
+	<select id="list" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_ORG_INFO orginfo
+		WHERE 1=1
+		and ( orginfo.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		<if test="keyword!=null and keyword!=''">
+			or orginfo.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or orginfo.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or orginfo.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or orginfo.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or orginfo.USEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		)
+
+
+	</select>
+
+
+
 </mapper>
