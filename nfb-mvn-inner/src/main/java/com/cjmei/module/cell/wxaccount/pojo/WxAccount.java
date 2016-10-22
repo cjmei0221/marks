@@ -42,11 +42,11 @@ public class WxAccount implements Serializable{
     /**
     *是否提供服务
     */
-    private Integer is_service;
+    private int is_service;
     /**
     *公众号类型
     */
-    private Integer accttype;
+    private int accttype;
     /**
     *更新时间
     */
