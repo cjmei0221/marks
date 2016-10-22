@@ -71,6 +71,7 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 						goodRefSale.setAttrSize(Integer.parseInt(goodsInfo[2]));
 						goodRefSale.setAttrType(goodsInfo[1]);
 						goodRefSale.setTableName(tableName);
+						goodRefSale.setSort(i);
 						list.add(goodRefSale);
 						
 					}

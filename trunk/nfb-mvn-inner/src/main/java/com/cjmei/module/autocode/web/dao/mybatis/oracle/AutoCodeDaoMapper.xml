@@ -86,7 +86,7 @@
 
 		and
 		autocode.TABLENAME =#{tableName}
-		order by autocode.ISPK desc
+		order by autocode.SORT desc
 
 
 	</select>
@@ -104,7 +104,8 @@
 		SEQ, 
 		ATTRSIZE,
 		ATTRDESC, 
-		TABLENAME
+		TABLENAME,
+		SORT
 		)
 		values
 		(
@@ -114,7 +115,8 @@
 		#{seq:VARCHAR}, 
 		#{attrSize:INTEGER},
 		#{attrDesc:VARCHAR},
-		#{tableName:VARCHAR}
+		#{tableName:VARCHAR},
+		#{sort:INTEGER}
 		)
 	</insert>
 </mapper>
