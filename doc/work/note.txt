@@ -1,0 +1,650 @@
+:
+我先把配置说明发给你，拿到地址后我就下来
+:
+http://wyx.pho.so/Course.html这个地址是微信打印机的一个配置说明
+:
+平台设置网址：http://wyx.pho.so/Login.aspx? ? ? ?平台设置教程：http://wyx.pho.so/Course.html
+用户名：13672416729
+密码：416729
+:
+就是这个平台地址
+:
+需要将我们的微信的ID配置进去
+
+
+1.oracle的jia包，因版权问题maven不能下载，需配置maven自导本地。而oracle的jia包在项目的lib下面有。
+
+下面是两个方案解决：
+1.自己找一个新的maven库的下载地方。
+2.在本地配置一些没得下载包，我使用的是第二种。
+下面语句是配置本地包，当maven在网上找不到，就会本地找。所以创建一个文件夹，专门放下载不了的包。
+mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -Dfile=D:\project\nfb\jar\ojdbc14-10.2.0.4.0.jar
+
+F:\spring-jar包/ojdbc14-10.2.0.4.0.jar这个是创建完，放路径的地方
+
+2.因为jsonUtil会用到jdk的jr.jar包，所以在pom文件设置了引用本地java_home，所以必须在系统变量那边设置好java_hone的路径。否则编译不了。
+
+2016-07-15
+
+测试公众号 18680221791
+
+appID
+wxedeb2e122e880665
+appsecret
+b1603f9f6bc6ca89342002745258d1c2
+
+测试012
+
+appid：wx1102d8ed48b46f5e
+appsecret：c655d6de4b8fa4587fca8691ed478996
+
+台式机本地数据库
+
+nfb nfb/nfb123
+nfb system/123456 wxbank/wxbank
+
+183.60.124.27 
+oracle mall mall/mall123 system/system 
+
+create user o2o IDENTIFIED by o2o123;
+GRANT dba to o2o;
+
+svn http://10.1.3.70/svn/development cjmei 13905953 
+
+http://10.1.3.251/svn/ cjmei 3150422266 
+
+
+s.mengniuarla.com/admin 
+C9900695 123456
+
+曹纪梅 2016-07-20 09:16:30
+把测试环境的IP、用户名和密码给我吧
+徐文山 2016-07-20 09:16:53
+183.60.124.27
+徐文山 2016-07-20 09:17:04
+Administrator账号
+徐文山 2016-07-20 09:17:09
+密码Grg2015
+曹纪梅 2016-07-20 10:26:05
+http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
+徐文山 2016-07-20 15:46:35
+YSL11091060
+
+JDBC Type           Java Type  
+CHAR                String  
+VARCHAR             String  
+LONGVARCHAR         String  
+NUMERIC             java.math.BigDecimal  
+DECIMAL             java.math.BigDecimal  
+BIT             boolean  
+BOOLEAN             boolean  
+TINYINT             byte  
+SMALLINT            short  
+INTEGER             int  
+BIGINT              long  
+REAL                float  
+FLOAT               double  
+DOUBLE              double  
+BINARY              byte[]  
+VARBINARY           byte[]  
+LONGVARBINARY               byte[]  
+DATE                java.sql.Date  
+TIME                java.sql.Time  
+TIMESTAMP           java.sql.Timestamp  
+CLOB                Clob  
+BLOB                Blob  
+ARRAY               Array  
+DISTINCT            mapping of underlying type  
+STRUCT              Struct  
+REF                         Ref  
+DATALINK            java.net.URL[color=red][/color]  
+
+直供平台为实现 属性选择和购物车中属性选择
+
+http://sakuragixwshan.6655.la/WECHAT/consumer/wxinlogin.do
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf48a1a7124d13f7d&redirect_uri=https%3A%2F%2Fwxcs.hebbank.com%2Fwechat%2FWECHAT%2Fmain%2FauthYHQUrl.do%3Faccountid%3Dwxbank%26hbcode%3DCST03&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
+
+
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxedeb2e122e880665&redirect_uri=http%3A%2F%2Fsakuragixwshan.6655.la%2FWECHAT%2Fconsumer%2Fwxinlogin.do&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
+
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxedeb2e122e880665&redirect_uri=http%3A%2F%2Fsakuragixwshan.6655.la%2FWECHAT%2Fsalesman%2Fsalesmanwxinlogin.do&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
+
+
+
+
+
+AnIeeI-HVtl5fg5gTGjFuhChGlvh84ziaf2xl5STMVLeDo4N0zF6b9FZWs9sChEvBUsKuphfn9G8akbDAFepbJnhwb-6NENShcPmtnD5PmI0iPKfuYHvpRe2vrrn6Rb6MRQaAHAZED
+
+
+
+
+支付卡：
+平安银行借记卡：6216261000000000018
+证件号：341126197709218366
+手机号：13552535506
+密码：123456
+姓名：全渠道
+短信验证码：123456（wap/控件）111111（PC）
+（短信验证码记得点下获取验证码之后再输入）
+
+银联支付
+
+https://open.unionpay.com/ajweb/index
+测试 mecki cjmei4436   777290058134882 
+
+
+
+mvn install:install-file -Dfile=nfb-infra-1.0.0.jar -DgroupId=org.richard -DartifactId=nfb-infra -Dversion=1.0.0 -Dpackaging=jar
+
+http://mvnrepository.com/
+
+
+支付宝
+
+【直供系统支付宝账号】 
+网址：https://authsu18.alipay.com/login/index.htm 
+账号：xiehuang@yashili.cn 
+密码：yashili123456
+
+开发平台
+https://doc.open.alipay.com/doc2/detail?treeId=60&articleId=103564&docType=1
+
+
+INSERT INTO "NFB"."TB_SYS_OPERATE" ("OPERID", "OPERNAME", "OPERKEY", "CREATETIME", "UPDATETIME", "CREATOR", "picicon") VALUES ('1', '查询', 'query', NULL, NULL, NULL, NULL);
+INSERT INTO "NFB"."TB_SYS_OPERATE" ("OPERID", "OPERNAME", "OPERKEY", "CREATETIME", "UPDATETIME", "CREATOR", "picicon") VALUES ('2', '新增', 'add', NULL, NULL, NULL, NULL);
+INSERT INTO "NFB"."TB_SYS_OPERATE" ("OPERID", "OPERNAME", "OPERKEY", "CREATETIME", "UPDATETIME", "CREATOR", "picicon") VALUES ('3', '编辑', 'edit', NULL, NULL, NULL, NULL);
+
+3.2.8.1. 价盘总表(price_plate)
+3.2.1.1. 价盘总表(price_plate)
+3.2.1.2. 价盘关联商品表(price_ref_goods) 
+3.2.1.3. 价盘关联商铺表(price_ref_shop) 
+
+
+ALTER TABLE "O2O"."CARDCOUPONSUSERS"
+MODIFY ( "CURROWNEROPENID" VARCHAR2(64 BYTE) NOT NULL  ) 
+MODIFY ( "GETTIME" VARCHAR2(20 BYTE) NOT NULL  ) ;
+
+ALTER TABLE "O2O"."CARDCOUPONSUSERS" ADD PRIMARY KEY ("BATCHCARDCOUPONSID", "CURROWNEROPENID", "GETTIME");
+
+ALTER TABLE "O2O"."CARDCOUPONSBASEINFO"
+ADD ( "USENUM" NUMBER(10) DEFAULT 0  NULL  ) ;
+ALTER TABLE "O2O"."CARDCOUPONSUSERS"
+MODIFY ( "ISDISABLE" NUMBER DEFAULT 0  ) ;
+
+SELECT
+	info.*, CARD.DENOMINATION,
+	CARD.DISCOUNT,
+	CARD.DISCOUNTCEILING,
+	CARD.ISALLGOODSAVAILABLE,
+	CARD.ISLIMIT_LEAST_COST,
+	CARD.LEAST_COST,
+	CARD.LIMITORIPRICE,SHOP.shop_name,rl.roleid
+FROM
+	CARDCOUPONSBASEINFO info
+JOIN CARDCOUPONS card ON INFO.BATCHCARDCOUPONSID = CARD.BATCHCARDCOUPONSID
+JOIN SHOP_INFO shop ON SHOP.shop_id = info.shopid
+join CARDCOUPONSROLE rl on rl.BATCHCARDCOUPONSID=INFO.BATCHCARDCOUPONSID
+
+create TABLE CARDCOUPONS_ticket(
+ ticket VARCHAR2(20) not null,
+ cardid VARCHAR2(64),
+ use_flag NUMBER(1),
+ primary key(ticket)
+);
+
+http://localhost:8080/main/home.jsp?params=9a0e8dab956cb34ebbe04521bad30371a2da4a01bff36791e21fb53f2c76d87895d03e293042161b5b93faddfe4246f616676f643b18bd1e15517bddba8292bc
+
+json格式化：http://www.bejson.com/ 
+
+
+[2016-08-26 14:17:30] [CardCouponsController] [INFO] : wxurlhttp://10.1.34.29:8080/main/coupon.jsp?params=79abb3cc026a882dc8c6fa7a8761eca827f014c28e6bd232a1c993db0c440844efde616f018ae451651f529c243bf5e56711e17fbbf9a6be4553ed98d6cc4f95a295069ad5d992d70e871d7b05f19533--------
+
+http://10.1.34.29:8080/main/coupon.jsp?params=79abb3cc026a882dc8c6fa7a8761eca827f014c28e6bd232a1c993db0c440844efde616f018ae451651f529c243bf5e56711e17fbbf9a6be4553ed98d6cc4f95a295069ad5d992d70e871d7b05f19533
+
+[2016-08-26 16:32:26] [CardCouponsController] [INFO] : wxurlhttp://10.1.34.29:8080/main/getCoupon.jsp?params=79abb3cc026a882dc8c6fa7a8761eca827f014c28e6bd232a1c993db0c440844efde616f018ae451651f529c243bf5e56711e17fbbf9a6be9eddd8a6c50efa13a295069ad5d992d70e871d7b05f19533--------
+[2016-08-26 16:50:29] [CardCouponsController] [INFO] : wxurlhttp://10.1.34.29:8080/main/getCoupon.jsp?params=79abb3cc026a882dc8c6fa7a8761eca827f014c28e6bd232a1c993db0c440844efde616f018ae451011850dd442049433a5582d5bbe8c61cc4a9e9287fdd02f0cb2ecd2df08fbbe7a295069ad5d992d70e871d7b05f19533--------
+http://10.1.34.29:8080/main/getCoupon.jsp?params=79abb3cc026a882dc8c6fa7a8761eca827f014c28e6bd232a1c993db0c440844efde616f018ae451011850dd442049433a5582d5bbe8c61cc4a9e9287fdd02f0cb2ecd2df08fbbe7a295069ad5d992d70e871d7b05f19533
+
+标准版计划表
+
+[2016-08-26 17:01:28] [CardCouponsController] [INFO] : wxurlhttp://10.1.34.29:8080/main/getCoupon.jsp?params=79abb3cc026a882dc8c6fa7a8761eca827f014c28e6bd232a1c993db0c440844efde616f018ae451011850dd442049433a5582d5bbe8c61cc4a9e9287fdd02f0e2def8e4ab0e79b0d6939e3b4a69f2d6f1fbb6086e26727f15517bddba8292bc--------
+
+http://10.1.34.29:8080/main/getCoupon.jsp?params=79abb3cc026a882dc8c6fa7a8761eca827f014c28e6bd232a1c993db0c440844efde616f018ae451011850dd442049433a5582d5bbe8c61cc4a9e9287fdd02f0e2def8e4ab0e79b0d6939e3b4a69f2d6f1fbb6086e26727f15517bddba8292bc
+
+[2016-08-26 17:04:25] [CardCouponsController] [INFO] : wxurlhttp://10.1.34.29:8080/main/getCoupon.jsp?params=b08fd576b371c3a754520ad8ec7c6d78f4dee2f5cf6628ec388e22f9c43607987b22cbf0f00e34e385180220ba9367bc5329f52fc76d894a707e874bc075dda234476007b3a48ff84055f2bfa42a62ec651f529c243bf5e56711e17fbbf9a6be4076987471690f7da295069ad5d992d70e871d7b05f19533--------
+http://10.1.34.29:8080/main/getCoupon.jsp?params=b08fd576b371c3a754520ad8ec7c6d78f4dee2f5cf6628ec388e22f9c43607987b22cbf0f00e34e385180220ba9367bc5329f52fc76d894a707e874bc075dda234476007b3a48ff84055f2bfa42a62ec651f529c243bf5e56711e17fbbf9a6be4076987471690f7da295069ad5d992d70e871d7b05f19533
+http://10.1.34.29:8080/main/getCoupon.jsp?params=b08fd576b371c3a754520ad8ec7c6d78f4dee2f5cf6628ec388e22f9c43607987b22cbf0f00e34e39a0e8dab956cb34ebbe04521bad30371a2da4a01bff36791e21fb53f2c76d87895d03e293042161b651f529c243bf5e56711e17fbbf9a6bee615b15837c5242aa295069ad5d992d70e871d7b05f19533
+
+
+
+https://wxcs.hebbank.com/wechat/WECHAT/WECHAT/HANDLER?accountid=wxbank
+
+
+http://wxcs.hebbank.com/wxmanage/index.html admin/111111
+二维码 去掉机构和业务来源
+需要迁移的模块
+
+微信消息管理  回复消息管理 图文消息管理 模板配置
+微信管理  服务号管理 微信菜单url管理 二维码管理 粉丝管理
+
+粉丝管理去掉核心客户号、绑定卡号 来源 首次关注事件改为创建时间
+
+====================================================================================================
+
+本地数据库：db system/system123 o2ostd/o2ostd123 nfb/nfb123
+
+create user o2ostd identified by o2ostd123;
+grant dba to o2ostd;
+
+查询用户表空间
+ select username,default_tablespace from dba_users;
+ 删除用户
+ drop user wxbank cascade;
+ 
+ 2016-07-13
+
+潍坊内管：http://wfnxfwh.com.cn:18084/
+
+					http://wfnxqyh.com.cn/login.html
+					
+					http://wxscmanage.grgbanking.com/index.html zxlin1/111111
+					http://183.60.124.27:1080/inner/login.html
+
+json格式化：http://www.bejson.com/ 
+					
+百瑞信托：
+
+	产品主页：
+	
+		https://wxcs.hebbank.com/wxtest/main/indexP.html
+	
+		http://wxscmanage.grgbanking.com/hlgwx/brtc/main/index.html
+	
+	我的账户：
+	
+		https://wxcs.hebbank.com/wxtest/main/indexM.html
+		
+		http://wxscmanage.grgbanking.com/hlgwx/brtc/main/storeUserLogin.html
+
+淘宝svn
+http://code.taobao.org/login/
+cjmei cjmei4436
+
+
+
+支付卡：
+平安银行借记卡：6216261000000000018
+证件号：341126197709218366
+手机号：13552535506
+密码：123456
+姓名：全渠道
+短信验证码：123456（wap/控件）111111（PC）
+（短信验证码记得点下获取验证码之后再输入）
+
+银联支付
+
+https://open.unionpay.com/ajweb/index
+测试 mecki cjmei4436   777290058134882 
+
+
+
+mvn install:install-file -Dfile=nfb-infra-1.0.0.jar -DgroupId=org.richard -DartifactId=nfb-infra -Dversion=1.0.0 -Dpackaging=jar
+
+http://mvnrepository.com/
+
+
+支付宝
+
+【直供系统支付宝账号】 
+网址：https://authsu18.alipay.com/login/index.htm 
+账号：xiehuang@yashili.cn 
+密码：yashili123456
+
+开发平台
+https://doc.open.alipay.com/doc2/detail?treeId=60&articleId=103564&docType=1
+:
+我先把配置说明发给你，拿到地址后我就下来
+:
+http://wyx.pho.so/Course.html这个地址是微信打印机的一个配置说明
+:
+平台设置网址：http://wyx.pho.so/Login.aspx? ? ? ?平台设置教程：http://wyx.pho.so/Course.html
+用户名：13672416729
+密码：416729
+:
+就是这个平台地址
+:
+需要将我们的微信的ID配置进去
+
+
+1.oracle的jia包，因版权问题maven不能下载，需配置maven自导本地。而oracle的jia包在项目的lib下面有。
+
+下面是两个方案解决：
+1.自己找一个新的maven库的下载地方。
+2.在本地配置一些没得下载包，我使用的是第二种。
+下面语句是配置本地包，当maven在网上找不到，就会本地找。所以创建一个文件夹，专门放下载不了的包。
+mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -Dfile=D:\java\jar\ojdbc14-10.2.0.4.0.jar
+
+F:\spring-jar包/ojdbc14-10.2.0.4.0.jar这个是创建完，放路径的地方
+
+2.因为jsonUtil会用到jdk的jr.jar包，所以在pom文件设置了引用本地java_home，所以必须在系统变量那边设置好java_hone的路径。否则编译不了。
+
+maven下载jar包
+
+	mvn war:inplace -U
+	mvn package -Dmaven.test.skip=true -Ponline
+
+2016-07-15
+
+测试公众号 18680221791
+
+appID
+wxedeb2e122e880665
+appsecret
+b1603f9f6bc6ca89342002745258d1c2
+
+测试012
+
+appid：wx1102d8ed48b46f5e
+appsecret：c655d6de4b8fa4587fca8691ed478996
+
+本地数据库
+
+nfb nfb/nfb123
+nfb system/123456 wxbank/wxbank
+
+183.60.124.27 
+oracle mall mall/mall123 system/system 
+
+create user o2o IDENTIFIED by o2o123;
+GRANT dba to o2o;
+
+svn http://10.1.3.70/svn/development cjmei 13905953 
+
+http://10.1.3.251/svn/ cjmei 3150422266 
+
+
+曹纪梅 2016-07-20 09:16:30
+把测试环境的IP、用户名和密码给我吧
+徐文山 2016-07-20 09:16:53
+183.60.124.27
+徐文山 2016-07-20 09:17:04
+Administrator账号
+徐文山 2016-07-20 09:17:09
+密码Grg2015
+曹纪梅 2016-07-20 10:26:05
+http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
+徐文山 2016-07-20 15:46:35
+YSL11091060
+
+JDBC Type           Java Type  
+CHAR                String  
+VARCHAR             String  
+LONGVARCHAR         String  
+NUMERIC             java.math.BigDecimal  
+DECIMAL             java.math.BigDecimal  
+BIT             boolean  
+BOOLEAN             boolean  
+TINYINT             byte  
+SMALLINT            short  
+INTEGER             int  
+BIGINT              long  
+REAL                float  
+FLOAT               double  
+DOUBLE              double  
+BINARY              byte[]  
+VARBINARY           byte[]  
+LONGVARBINARY               byte[]  
+DATE                java.sql.Date  
+TIME                java.sql.Time  
+TIMESTAMP           java.sql.Timestamp  
+CLOB                Clob  
+BLOB                Blob  
+ARRAY               Array  
+DISTINCT            mapping of underlying type  
+STRUCT              Struct  
+REF                         Ref  
+DATALINK            java.net.URL[color=red][/color]  
+
+直供平台为实现 属性选择和购物车中属性选择
+
+http://sakuragixwshan.6655.la/WECHAT/consumer/wxinlogin.do
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf48a1a7124d13f7d&redirect_uri=https%3A%2F%2Fwxcs.hebbank.com%2Fwechat%2FWECHAT%2Fmain%2FauthYHQUrl.do%3Faccountid%3Dwxbank%26hbcode%3DCST03&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
+
+
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxedeb2e122e880665&redirect_uri=http%3A%2F%2Fsakuragixwshan.6655.la%2FWECHAT%2Fconsumer%2Fwxinlogin.do&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
+
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxedeb2e122e880665&redirect_uri=http%3A%2F%2Fsakuragixwshan.6655.la%2FWECHAT%2Fsalesman%2Fsalesmanwxinlogin.do&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
+
+
+
+
+
+AnIeeI-HVtl5fg5gTGjFuhChGlvh84ziaf2xl5STMVLeDo4N0zF6b9FZWs9sChEvBUsKuphfn9G8akbDAFepbJnhwb-6NENShcPmtnD5PmI0iPKfuYHvpRe2vrrn6Rb6MRQaAHAZED
+
+
+
+
+
+INSERT INTO "NFB"."TB_SYS_OPERATE" ("OPERID", "OPERNAME", "OPERKEY", "CREATETIME", "UPDATETIME", "CREATOR", "picicon") VALUES ('1', '查询', 'query', NULL, NULL, NULL, NULL);
+INSERT INTO "NFB"."TB_SYS_OPERATE" ("OPERID", "OPERNAME", "OPERKEY", "CREATETIME", "UPDATETIME", "CREATOR", "picicon") VALUES ('2', '新增', 'add', NULL, NULL, NULL, NULL);
+INSERT INTO "NFB"."TB_SYS_OPERATE" ("OPERID", "OPERNAME", "OPERKEY", "CREATETIME", "UPDATETIME", "CREATOR", "picicon") VALUES ('3', '编辑', 'edit', NULL, NULL, NULL, NULL);
+
+3.2.8.1. 价盘总表(price_plate)
+3.2.1.1. 价盘总表(price_plate)
+3.2.1.2. 价盘关联商品表(price_ref_goods) 
+3.2.1.3. 价盘关联商铺表(price_ref_shop) 
+
+
+ALTER TABLE "O2O"."CARDCOUPONSUSERS"
+MODIFY ( "CURROWNEROPENID" VARCHAR2(64 BYTE) NOT NULL  ) 
+MODIFY ( "GETTIME" VARCHAR2(20 BYTE) NOT NULL  ) ;
+
+ALTER TABLE "O2O"."CARDCOUPONSUSERS" ADD PRIMARY KEY ("BATCHCARDCOUPONSID", "CURROWNEROPENID", "GETTIME");
+
+ALTER TABLE "O2O"."CARDCOUPONSBASEINFO"
+ADD ( "USENUM" NUMBER(10) DEFAULT 0  NULL  ) ;
+ALTER TABLE "O2O"."CARDCOUPONSUSERS"
+MODIFY ( "ISDISABLE" NUMBER DEFAULT 0  ) ;
+
+SELECT
+	info.*, CARD.DENOMINATION,
+	CARD.DISCOUNT,
+	CARD.DISCOUNTCEILING,
+	CARD.ISALLGOODSAVAILABLE,
+	CARD.ISLIMIT_LEAST_COST,
+	CARD.LEAST_COST,
+	CARD.LIMITORIPRICE,SHOP.shop_name,rl.roleid
+FROM
+	CARDCOUPONSBASEINFO info
+JOIN CARDCOUPONS card ON INFO.BATCHCARDCOUPONSID = CARD.BATCHCARDCOUPONSID
+JOIN SHOP_INFO shop ON SHOP.shop_id = info.shopid
+join CARDCOUPONSROLE rl on rl.BATCHCARDCOUPONSID=INFO.BATCHCARDCOUPONSID
+
+create TABLE CARDCOUPONS_ticket(
+ ticket VARCHAR2(20) not null,
+ cardid VARCHAR2(64),
+ use_flag NUMBER(1),
+ primary key(ticket)
+);
+
+http://localhost:8080/main/home.jsp?params=f73f231d9cdb88f6181ef26066e792e733948a78bd79bee3a4628a4ac2278e30153963bfd90274e45b93faddfe4246f67d646cefa39247eafbee9b414c960b32
+
+
+http://localhost:8080/mallMobile/main/home.jsp?params=f73f231d9cdb88f6181ef26066e792e733948a78bd79bee3a4628a4ac2278e30e173cfb9b30eb66a
+
+microreport?gjguid=6ab4f861a7cca4f2d561fdca4161e26a&type=10&reserve1=2&bid=514&rand=0.29825311933039855&reserve3=348832:1 GET http://c.gj.qq.com/fcgi-bin/microreport?
+
+https://wxcs.hebbank.com/wechat/WECHAT/WECHAT/HANDLER?accountid=wxbank
+
+http://localhost:8080/WECHAT/goods/getSaleGoodList.do?shopId=F372E87106D94BF389B06019DDB46DD4&saleType=2
+
+
+http://localhost:7080/mallManager/cardCoupons/getQrcode.do?batchCardCouponsId=1A504C758CAF4921B73F7D48011975E4
+--订单表
+
+alter table 订单表  add  evaluateid VARCHAR2(64);--评价ID,tb_evaluate主键
+alter table 订单表  add  is_evaluate NUMBER(1) DEFAULT 0;--是否已经评价 默认为评价
+
+--评价主表
+
+create table tb_evaluate(
+ id VARCHAR2(64) not null, --主键
+ shopid VARCHAR2(64), --商铺ID
+ goodid VARCHAR2(64), --评价商品ID
+ orderid VARCHAR2(64), --评价订单ID
+ is_anonymous NUMBER(1) default 0, 是否匿名 默认不匿名，若匿名，则系统默认一个名字
+ userid VARCHAR2(64), --评价人
+ eval_lvl number(2), --总体评价级别 即几颗星
+ eval_content VARCHAR2(1024), --评价内容 300字内
+ service_lvl number(2),--商品服务态度评价级别
+ remain1 number(2), --保留字段1
+ remain2 VARCHAR2(255), --保留字段2
+ createtime date,--创建时间
+ UPDATETIME date,--更改时间
+ sort number(2),--同一订单的商品评价排序
+ primary key(id)
+);
+
+--评价中的图片
+
+create table tb_evaluate_image(
+ imgid VARCHAR2(64) not null,
+ evaluateid VARCHAR2(64),-- tb_evaluate主键
+ pathurl VARCHAR2(1024), --图片访问路径
+ createtime date,
+ primary key(imgid)
+);
+
+--回复或者追评
+
+create table tb_evaluate_msg(
+	id VARCHAR2(64) not null,
+	evaluateid VARCHAR2(64),
+	is_service number(1), --类型 0：商家 1：会员
+	userid VARCHAR2(2), --评价人
+	msgtype number(1), --类型 0:回复 1：追评
+	msgcontent VARCHAR2(1024),--内容 300字内
+	createtime date,
+	UPDATETIME date,
+	primary key(id)
+);
+
+-- 标签与评价关联表
+
+create table tb_evaluate_ref_label(
+ evaluateid VARCHAR2(64),
+ eval_label_id VARCHAR2(64),
+ primary key(evaluateid,eval_label_id)
+);
+
+--标签表
+
+create table tb_evaluate_label(
+	labelid VARCHAR2(64) not null,
+	labelname VARCHAR2(255),
+	shopid VARCHAR2(64), --商铺ID
+	enable_flag number(1) default 0, --是否有效 0:启用 1：禁用
+	createtime date,
+	updatetime date,
+	creator VARCHAR2(64),
+	primary key(labelid)
+);
+
+--
+内管
+
+评价标签管理 查询 1d/新增 1d/修改 1d/删除 0.5d
+
+评价管理 查询 1d/回复对话 3d/设置标签 1d
+
+--
+前端页面（不含页面设计）
+
+ --订单页面添加评价入口 UI开发 0.5d /后台开发 0.5d
+ 
+ --填写评价页面 UI开发 1.5d /后台开发 1d 
+ 
+ --评价查询页面 UI开发 1.5d /后台开发 1d /追加评论 1.5d
+ 
+ --商品详情添加评价功能 UI开发 1d/后台开发 1d
+ 
+ --评价列表页面 UI开发 1.5d/后台开发 1.5d//追加评论 1d
+ 
+--
+联调测试 5d
+
+
+1、产品分类？跟zql 徐
+2、价盘沿用 曹
+
+4、微信管理功能 曹
+5、微信商户号支付信息 曹
+6、二维码 扫一扫 页面调用 曹
+
+定一下商品状态   0：下架   1：代售  2：上架 
+
+定一下订单状态 11：购买 0：提交订单  2：业务审核不通过 3：业务审核通过待支付  13 :支付成功待财务确认  6 送货中  7：确认收货订单成功  8：取消订单  9：退货中  10：退货成功 14：合伙人审批不通过  15：合伙人审批通过省负责人审核 16：省负责人审批不通过 17：省负责人审批通过待支付
+
+
+多美滋退货流程：
+18：申请退货 -- 19：合伙人审批不通过 --20：退货结束
+18：申请退货 -- 21：审核通过  --9：退货中（退货成功） --22：退款中 （退款成功） -- 10：退款成功
+
+蒙牛订单显示流程是：
+0：待审核  -- 2：业务审批不通过 -- 8：订单结束
+0：待审核(审核通过)  -- 3：待支付(支付成功) --13：待确认收款 (确认成功)-- 6：送货中（送货成功） --7：确定收货
+多美滋：
+0：待合伙人审核 --  14：合伙人审批不通过 -- 8：订单结束
+0：待合伙人审核(审核通过) --  15： 待省负责人审批 -- 16：省负责人审批不通过 -- 8：订单结束
+0：待合伙人审核(审核通过)--  15： 待省负责人审批(审核通过) -- 3：待支付(支付成功) --13：待确认收款  (确认成功) -- 6：送货中 （送货成功）-- 7：确认收货订单成功
+
+扫码流程
+
+
+CREATE TABLE WXB_MODULE_MSG (
+id  VARCHAR2(64)  NOT NULL ,
+accountid VARCHAR2(64),
+template_id  VARCHAR2(64) ,
+touser  VARCHAR2(64) ,
+url  VARCHAR2(1024),
+data  VARCHAR2(2048),
+needflag  NUMBER(1) DEFAULT 0 ,
+sendflag  NUMBER(1) DEFAULT 0 ,
+sendtimes  NUMBER(1) DEFAULT 0 ,
+createtime  DATE,
+sendtime  DATE,
+msgid  VARCHAR2(64),
+push_code VARCHAR2(64),
+push_msg VARCHAR2(1024),
+resultcode  VARCHAR2(64),
+resultMsg  VARCHAR2(1024),
+PRIMARY KEY (id)
+)
+;
+
+
+
+http://localhost:7080/inner/pushWxMsg/order.do?orderId=1234135234534365
+返回码：-1 推送失败，可在推送
+返回码：0 推送成功
+
+扫描 
+每个二维码都唯一
+
+流程
+入库 -- 售出 --退货
+
+盘点时
+重新入库
+
+售出时
+对接积分接口和返利接口
+
+
+SN链接:http://s.mengniuarla.com/Query?SN=6349A84DB8B9A569

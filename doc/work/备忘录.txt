@@ -1,0 +1,236 @@
+潍坊内管：http://wfnxfwh.com.cn:18084/
+
+					http://wfnxqyh.com.cn/login.html
+					
+					http://wxscmanage.grgbanking.com/index.html
+					http://183.60.124.27:1080/inner/login.html
+					
+百瑞信托：
+
+	产品主页：
+	
+		https://wxcs.hebbank.com/wxtest/main/indexP.html
+	
+		http://wxscmanage.grgbanking.com/hlgwx/brtc/main/index.html
+	
+	我的账户：
+	
+		https://wxcs.hebbank.com/wxtest/main/indexM.html
+		
+		http://wxscmanage.grgbanking.com/hlgwx/brtc/main/storeUserLogin.html
+		
+		http://wxcs.hebbank.com/wxmanage/index.html admin/111111
+		
+		http://mvnrepository.com/
+		
+json格式化：http://www.bejson.com/ 
+
+淘宝svn
+http://code.taobao.org/login/
+cjmei cjmei4436
+
+
+支付宝
+
+【直供系统支付宝账号】 
+网址：https://authsu18.alipay.com/login/index.htm 
+账号：xiehuang@yashili.cn 
+密码：yashili123456
+
+开发平台
+https://doc.open.alipay.com/doc2/detail?treeId=60&articleId=103564&docType=1
+
+2016-07-15
+
+测试公众号 18680221791
+
+appID
+wxedeb2e122e880665
+appsecret
+b1603f9f6bc6ca89342002745258d1c2
+
+测试012
+
+appid：wx1102d8ed48b46f5e
+appsecret：c655d6de4b8fa4587fca8691ed478996
+
+台式机本地数据库
+
+nfb nfb/nfb123
+nfb system/123456 wxbank/wxbank
+
+183.60.124.27 
+oracle mall mall/mall123 system/system 
+
+create user o2o IDENTIFIED by o2o123;
+GRANT dba to o2o;
+
+svn http://10.1.3.70/svn/development cjmei 13905953 
+
+http://10.1.3.251/svn/ cjmei 3150422266 
+
+
+笔记本地数据库：db system/system123 o2ostd/o2ostd123 nfb/nfb123
+
+
+雅士利 
+
+开发者ID
+AppID(应用ID)wxdedfc157198677dd
+AppSecret(应用密钥)91fdb6bed3be6d74ffa591b12c9b8fd5 隐藏 重置
+
+
+ 
+公众号后台连接：https://mp.weixin.qq.com/
+【账号一：雅士利】
+微信公众号账号：qilin.zhu@yashili.cn
+微信公众号密码：yashili.cn
+
+开发者ID
+AppID(应用ID)wxdedfc157198677dd
+AppSecret(应用密钥)91fdb6bed3be6d74ffa591b12c9b8fd5 隐藏 重置
+
+【账号二：欧式】
+微信公众号账号：banghao.yao@yashili.cn
+微信公众号密码：yashili.cn
+
+开发者ID
+AppID(应用ID)wxdad80fe081831194
+AppSecret(应用密钥)c1fdc2ce4feae40ed7281c9e7044c444 隐藏 重置
+
+【账号三：多美滋】
+微信公众号账号：meihong.fan@yashili.cn
+微信公众号密码：yashili.cn
+
+开发者ID
+AppID(应用ID)wx232522c7de9eec04
+AppSecret(应用密钥)9f5faef80fe8a027d4eb41b935889517 隐藏 重置
+
+
+曹纪梅 2016-07-20 09:16:30
+把测试环境的IP、用户名和密码给我吧
+徐文山 2016-07-20 09:16:53
+183.60.124.27
+徐文山 2016-07-20 09:17:04
+Administrator账号
+徐文山 2016-07-20 09:17:09
+密码Grg2015
+曹纪梅 2016-07-20 10:26:05
+http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
+徐文山 2016-0
+
+
+支付卡：
+平安银行借记卡：6216261000000000018
+证件号：341126197709218366
+手机号：13552535506
+密码：123456
+姓名：全渠道
+短信验证码：123456（wap/控件）111111（PC）
+（短信验证码记得点下获取验证码之后再输入）
+
+银联支付
+
+https://open.unionpay.com/ajweb/index
+测试 mecki cjmei4436   777290058134882 
+
+
+
+maven下载jar包
+
+	mvn war:inplace -U
+	mvn package -Dmaven.test.skip=true -Ponline
+	
+
+mybatis数据类型
+	
+JDBC Type           Java Type  
+CHAR                String  
+VARCHAR             String  
+LONGVARCHAR         String  
+NUMERIC             java.math.BigDecimal  
+DECIMAL             java.math.BigDecimal  
+BIT             boolean  
+BOOLEAN             boolean  
+TINYINT             byte  
+SMALLINT            short  
+INTEGER             int  
+BIGINT              long  
+REAL                float  
+FLOAT               double  
+DOUBLE              double  
+BINARY              byte[]  
+VARBINARY           byte[]  
+LONGVARBINARY               byte[]  
+DATE                java.sql.Date  
+TIME                java.sql.Time  
+TIMESTAMP           java.sql.Timestamp  
+CLOB                Clob  
+BLOB                Blob  
+ARRAY               Array  
+DISTINCT            mapping of underlying type  
+STRUCT              Struct  
+REF                         Ref  
+DATALINK            java.net.URL[color=red][/color]  
+
+create user o2ostd identified by o2ostd123;
+grant dba to o2ostd;
+
+查询用户表空间
+ select username,default_tablespace from dba_users;
+ 删除用户
+ drop user wxbank cascade;
+ 
+ 
+ 1.oracle的jia包，因版权问题maven不能下载，需配置maven自导本地。而oracle的jia包在项目的lib下面有。
+
+下面是两个方案解决：
+1.自己找一个新的maven库的下载地方。
+2.在本地配置一些没得下载包，我使用的是第二种。
+下面语句是配置本地包，当maven在网上找不到，就会本地找。所以创建一个文件夹，专门放下载不了的包。
+mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -Dfile=D:\java\jar\ojdbc14-10.2.0.4.0.jar
+
+F:\spring-jar包/ojdbc14-10.2.0.4.0.jar这个是创建完，放路径的地方
+
+2.因为jsonUtil会用到jdk的jr.jar包，所以在pom文件设置了引用本地java_home，所以必须在系统变量那边设置好java_hone的路径。否则编译不了。
+
+
+mybatis 分页插件 mybatis-paginator
+
+
+s.mengniuarla.com/admin
+ 
+C9900695 123456
+
+CREATE TABLE STOCK_LOG (
+    id varchar2(50) primary key,
+    creator_id varchar2(150),
+    productName varchar2(250),
+    state varchar2(50),
+    unit varchar2(50),
+    createtime date,
+    sn_no varchar2(50),
+    roleid varchar2(50),
+    store_id varchar2(50),
+    orgid varchar2(50),
+    creator_name varchar2(150),
+    batchId varchar2(50),
+    store_name varchar2(250),
+    source_type varchar2(50),
+    productId varchar2(50)
+);
+
+CREATE TABLE SN_BATCH_LOG (
+    batchId varchar2(50) primary key,
+    state varchar2(50),
+    createtime date,
+    roleid varchar2(50),
+    store_id varchar2(50),
+    creator_name varchar2(150),
+    store_name varchar2(250),
+    source_type varchar2(50),
+    sn_num varchar2(50),
+    creator_id varchar2(150),
+    productName varchar2(250),
+    orgid varchar2(50)
+)
