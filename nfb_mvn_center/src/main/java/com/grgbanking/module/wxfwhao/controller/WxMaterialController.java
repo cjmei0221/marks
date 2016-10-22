@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.grgbanking.common.util.JsonResult;
-import com.grgbanking.module.wxfwhao.wxservice.WeiXinMaterialUtil;
+import com.grgbanking.module.wxfwhao.wxservice.WxMaterialUtil;
 
 import net.sf.json.JSONObject;
 /**
@@ -19,8 +19,8 @@ import net.sf.json.JSONObject;
  * 2016年3月22日15:22:13
  */
 @Controller
-public class WeiXinMaterialController {
-	private Logger logger = Logger.getLogger(WeiXinMaterialController.class);
+public class WxMaterialController {
+	private Logger logger = Logger.getLogger(WxMaterialController.class);
 	
 	//素材数量
 	@RequestMapping("/weixinmaterial/getcount")
@@ -30,7 +30,7 @@ public class WeiXinMaterialController {
 			logger.info("获取素材数量");
 			String accountId = request.getParameter("accountId");
 			if(accountId!=null&&!"".equals(accountId)){
-				JsonResult json = WeiXinMaterialUtil.getCount(accountId);
+				JsonResult json = WxMaterialUtil.getCount(accountId);
 				result.setResult(json);
 			}else{
 				result.setErrorCode("1");
@@ -63,7 +63,7 @@ public class WeiXinMaterialController {
 			String type = request.getParameter("type");
 			String start = request.getParameter("start");
 			if(accountId!=null&&!"".equals(accountId)&&type!=null&&!"".equals(type)&&start!=null&&!"".equals(start)){
-				JsonResult json = WeiXinMaterialUtil.getMaterialList(accountId,type,start);
+				JsonResult json = WxMaterialUtil.getMaterialList(accountId,type,start);
 				result.setResult(json);
 			}else{
 				result.setErrorCode("1");
