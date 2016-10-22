@@ -23,4 +23,5 @@ public interface OrgInfoDao {
 	void deleteBatch(List<String> list);
 
 	List<OrgInfo> list(PageBounds pageBounds, Map<String,Object> param);
+
 }

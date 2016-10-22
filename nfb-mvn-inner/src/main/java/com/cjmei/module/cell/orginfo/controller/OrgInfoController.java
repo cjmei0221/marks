@@ -1,5 +1,6 @@
 package com.cjmei.module.cell.orginfo.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,15 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.domain.TreeVo;
 import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
+import com.cjmei.module.autocode.core.util.Code;
+import com.cjmei.module.cell.orginfo.pojo.OrgInfo;
+import com.cjmei.module.cell.orginfo.service.OrgInfoService;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sys.pojo.SysUser;
 
-import com.cjmei.module.cell.orginfo.pojo.OrgInfo;
-import com.cjmei.module.cell.orginfo.service.OrgInfoService;
+import net.sf.json.JSONArray;
 
 @Controller
 public class OrgInfoController extends SupportContorller{
@@ -38,6 +40,20 @@ public class OrgInfoController extends SupportContorller{
 	public Logger getLogger() {
 		return logger;
 	}
+    
+    /**
+	 * 查询机构管理
+	 */
+    @RequestMapping("/orgInfo/getChildListByParentId")
+    public void getChildListByParentId(HttpServletRequest request,
+    HttpServletResponse response){
+       
+		    String parentId=request.getParameter("parentId");
+		    if(parentId !=null && !"".equals(parentId)){
+		    	List<TreeVo> list = orgInfoService.getChildListByParentId(parentId);
+		    	JsonUtil.output(response, JSONArray.fromObject(list).toString());
+		    }
+    }
 
     /**
 	 * 查询机构管理
@@ -73,6 +89,9 @@ public class OrgInfoController extends SupportContorller{
 	 //     orgInfo.setOrgid(IDUtil.getTimeID());
 	 		OrgInfo ori=orgInfoService.findById(orgInfo.getOrgid());
 	 		if(ori==null){
+	 			orgInfo.setCreatetime(new Timestamp(System.currentTimeMillis()));
+	 			orgInfo.setUpdatetime(orgInfo.getCreatetime());
+	 			orgInfo.setCreator(admin.getUserid());
 	 			orgInfoService.save(orgInfo);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -96,13 +115,13 @@ public class OrgInfoController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    OrgInfo orgInfo = getModel(OrgInfo.class);
 		    OrgInfo ori=orgInfoService.findById(orgInfo.getOrgid());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
+		    	orgInfo.setUpdatetime(new Timestamp(System.currentTimeMillis()));
 		    	orgInfoService.update(orgInfo);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
