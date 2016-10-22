@@ -11,6 +11,7 @@ public class TreeVo {
 	private String parentid;
 	private List<TreeVo> children=new ArrayList<TreeVo>();
 	private Map<String,String> attributes=new HashMap<String,String>();
+	private String state;
 	public String getParentid() {
 		return parentid;
 	}
@@ -43,5 +44,11 @@ public class TreeVo {
 	}
 	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 }
