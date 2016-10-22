@@ -12,7 +12,7 @@
 	</select>
 
 	<!-- 加载微信公众号信息 -->
-	<select id="loadWxAccount" resultType="com.cjmei.module.cell.wxaccount.pojo.WxAccount">
+	<select id="loadWxAccount" resultType="com.cjmei.module.wx.wxaccount.pojo.WxAccount">
 		SELECT * FROM
 		TB_WX_ACCOUNT
 	</select>
