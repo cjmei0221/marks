@@ -55,24 +55,24 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 		// 关联商品数组
 		autoCodeDao.deleteAttr(tableName);
 		String[] goods = attrList.split(",");
-		AutoCodeAttr goodRefSale = null;
+		AutoCodeAttr info = null;
 		if (null != goods && goods.length > 0) {
 			List<AutoCodeAttr> list=new ArrayList<AutoCodeAttr>();
 			for (int i = 0; i < goods.length; i++) {
 
 				// 单个商品信息
-				String[] goodsInfo = goods[i].split("#");
+				String[] infos = goods[i].split("#");
 
-				if (null != goodsInfo && goodsInfo.length > 0) {
-					if (goodsInfo[0].length() > 0) {
-						goodRefSale = new AutoCodeAttr();
-						goodRefSale.setAttrDesc(goodsInfo[3]);
-						goodRefSale.setAttrName(goodsInfo[0]);
-						goodRefSale.setAttrSize(Integer.parseInt(goodsInfo[2]));
-						goodRefSale.setAttrType(goodsInfo[1]);
-						goodRefSale.setTableName(tableName);
-						goodRefSale.setSort(i);
-						list.add(goodRefSale);
+				if (null != infos && infos.length > 0) {
+					if (infos[0].length() > 0) {
+						info = new AutoCodeAttr();
+						info.setAttrDesc(infos[3]);
+						info.setAttrName(infos[0].trim());
+						info.setAttrSize(Integer.parseInt(infos[2]));
+						info.setAttrType(infos[1]);
+						info.setTableName(tableName);
+						info.setSort(i);
+						list.add(info);
 						
 					}
 				}
@@ -80,11 +80,11 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 			}
 			if(list.size()>0){
 				for(int i=0;i<list.size();i++){
-					AutoCodeAttr info=list.get(i);
+					AutoCodeAttr vo=list.get(i);
 					if(i==0){
-						info.setIsPK(1);
+						vo.setIsPK(1);
 					}else{
-						info.setIsPK(0);
+						vo.setIsPK(0);
 					}
 					// 保存促销商品
 					autoCodeDao.saveAttr(info);
