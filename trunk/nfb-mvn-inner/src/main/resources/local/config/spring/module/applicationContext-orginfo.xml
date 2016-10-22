@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="orgInfoService" class="com.cjmei.module.cell.orginfo.service.impl.OrgInfoServiceImpl">
+	<bean id="orgInfoService" class="com.cjmei.module.system.orginfo.service.impl.OrgInfoServiceImpl">
 		<property name="orgInfoDao" ref="orgInfoDao"></property>
 	</bean>
 	<bean id="orgInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.cell.orginfo.dao.OrgInfoDao"></property>
+		<property name="mapperInterface" value="com.cjmei.module.system.orginfo.dao.OrgInfoDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

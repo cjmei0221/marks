@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="sysRoleService" class="com.cjmei.module.cell.sysrole.service.impl.SysRoleServiceImpl">
+	<bean id="sysRoleService" class="com.cjmei.module.system.sysrole.service.impl.SysRoleServiceImpl">
 		<property name="sysRoleDao" ref="sysRoleDao"></property>
 	</bean>
 	<bean id="sysRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.cell.sysrole.dao.SysRoleDao"></property>
+		<property name="mapperInterface" value="com.cjmei.module.system.sysrole.dao.SysRoleDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
