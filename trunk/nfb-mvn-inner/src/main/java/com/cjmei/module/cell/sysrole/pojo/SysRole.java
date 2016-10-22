@@ -35,6 +35,7 @@ public class SysRole implements Serializable{
     private Timestamp createtime;
 
 
+    private String companyId;
 
     public String getRoleid(){
         return roleid;
@@ -82,6 +83,12 @@ public class SysRole implements Serializable{
 	}
 	public void setOrgname(String orgname) {
 		this.orgname = orgname;
+	}
+	public String getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 
 }
