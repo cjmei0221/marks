@@ -2,12 +2,12 @@ package com.cjmei.module.system.sys.service.impl;
 
 import java.util.List;
 
+import com.cjmei.module.cell.wxaccount.pojo.WxAccount;
 import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.system.sys.dao.LoadDataDao;
 import com.cjmei.module.system.sys.pojo.DataDir;
 import com.cjmei.module.system.sys.pojo.SysConf;
 import com.cjmei.module.system.sys.service.LoadDataService;
-import com.cjmei.module.weixin.account.pojo.WxAccount;
 
 public class LoadDataServiceImpl implements LoadDataService{
 

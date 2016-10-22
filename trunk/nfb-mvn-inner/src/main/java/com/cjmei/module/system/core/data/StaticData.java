@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.util.Constants;
+import com.cjmei.module.cell.wxaccount.pojo.WxAccount;
 import com.cjmei.module.system.sys.pojo.DataDir;
 import com.cjmei.module.system.sys.pojo.SysConf;
-import com.cjmei.module.weixin.account.pojo.WxAccount;
 
 /**
  * 
@@ -106,7 +106,7 @@ public class StaticData {
 	public static void putWxAccount(List<WxAccount> list) {
 		if (list != null && list.size() > 0) {
 			for (WxAccount sc : list) {
-				wxMap.put(sc.getAccountid(),sc);
+				wxMap.put(sc.getAccountId(),sc);
 			}
 		}
 	}
