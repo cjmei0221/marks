@@ -31,7 +31,10 @@ public class OrgInfo implements Serializable{
     *启用标识
     */
     private Integer useflag=1;
-
+    
+    private String parentId="0";//
+    
+    private int lvl=1;//级别
 
 
     public String getOrgid(){
@@ -75,6 +78,18 @@ public class OrgInfo implements Serializable{
     public void setUseflag(Integer useflag){
         this.useflag = useflag;
     }
+	public String getParentId() {
+		return parentId;
+	}
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+	public int getLvl() {
+		return lvl;
+	}
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
 
-
+    
 }
