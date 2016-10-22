@@ -87,7 +87,7 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 						vo.setIsPK(0);
 					}
 					// 保存促销商品
-					autoCodeDao.saveAttr(info);
+					autoCodeDao.saveAttr(vo);
 				}
 			}
 		}
