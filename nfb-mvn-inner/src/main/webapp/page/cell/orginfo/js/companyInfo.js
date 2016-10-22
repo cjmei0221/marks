@@ -1,9 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/sysRole/list.do',// 获取角色管理列表接口 SysRole
-	saveUrl : top.window.urlBase + '/sysRole/save.do',// 保存新增角色管理接口
-	updateUrl : top.window.urlBase + '/sysRole/update.do',// 编辑角色管理信息接口
-	deleteUrl : top.window.urlBase + '/sysRole/delete.do',// 删除角色管理接口
-	orgListUrl : top.window.urlBase + '/orgInfo/getChildListByParentId.do',// 删除角色管理接口
+	listUrl : top.window.urlBase + '/orgInfo/framelist.do',// 获取机构管理列表接口 OrgInfo
+	saveUrl : top.window.urlBase + '/orgInfo/save.do',// 保存新增机构管理接口
+	updateUrl : top.window.urlBase + '/orgInfo/update.do',// 编辑机构管理信息接口
+	deleteUrl : top.window.urlBase + '/orgInfo/delete.do',// 删除机构管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -50,7 +49,7 @@ $(function() {
 		if (isSelectedOne(appInfo.selectedId)) {
 			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
 				if (r) {
-					var parms = "roleid=" + appInfo.selectedId;
+					var parms = "orgid=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
 						if (data.retcode == 0) {
 							app.myreload("#tbList");
@@ -73,18 +72,6 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-
-	$('#orgid').combotree(
-					{
-						url : appInfo.orgListUrl+"?parentId=0",
-						onBeforeExpand : function(node) {
-							$('#orgid').combotree("tree").tree("options").url = appInfo.orgListUrl+"?parentId="
-									+ node.id+"&_timer="+new Date().getTime();
-						},
-						onLoadSuccess : function(data) {
-							$("#orgid").combotree('expandAll');
-						}
-					});
 });
 /**
  * 保存菜单
@@ -129,27 +116,34 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		pagination : true,
-		idField : 'roleid',
+		idField : 'orgid',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '角色ID',
-			field : 'roleid',
-			width : 100,
-			align : "center"
-		}, {
-			title : '角色名称',
-			field : 'rolename',
-			width : 100,
-			align : "center"
-		}, {
+			
 			title : '组织名称',
 			field : 'orgname',
+			width : 150,
+			align : "left"
+		}, {
+			title : '组织ID',
+			field : 'orgid',
 			width : 100,
 			align : "center"
+		}, {
+			title : '启用标识',
+			field : 'useflag',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "启用";
+				} else {
+					return "禁用";
+				}
+			}
 		}, {
 			title : '创建时间',
 			field : 'createtime',
@@ -171,7 +165,7 @@ function loadList() {
 			loader(that, params, success, loadError);
 		},
 		onClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.roleid;
+			appInfo.selectedId = rowData.orgid;
 			appInfo.selectedData = rowData;
 		},
 		onLoadSuccess : function(data) {
