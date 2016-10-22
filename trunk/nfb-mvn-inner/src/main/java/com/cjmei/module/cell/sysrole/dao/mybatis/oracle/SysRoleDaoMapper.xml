@@ -9,7 +9,8 @@
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.cell.sysrole.pojo.SysRole">
-		INSERT INTO TB_SYS_ROLE sysrole (
+		INSERT INTO TB_SYS_ROLE sysrole
+		(
 		sysrole.ROLEID,
 		sysrole.ORGID,
 		sysrole.UPDATETIME,
@@ -20,10 +21,10 @@
 		VALUES(
 		#{roleid:VARCHAR},
 		#{orgid:VARCHAR},
-		#{updatetime:TIMESTAMP},
+		sysdate,
 		#{creator:VARCHAR},
 		#{rolename:VARCHAR},
-		#{createtime:TIMESTAMP}
+		sysdate
 
 		)
 	</insert>
@@ -33,11 +34,9 @@
 		SET
 		sysrole.ORGID = #{orgid:VARCHAR},
 		sysrole.UPDATETIME =
-		#{updatetime:TIMESTAMP},
-		sysrole.CREATOR = #{creator:VARCHAR},
-		sysrole.ROLENAME = #{rolename:VARCHAR},
-		sysrole.CREATETIME =
-		#{createtime:TIMESTAMP}
+		sysdate,
+		sysrole.ROLENAME =
+		#{rolename:VARCHAR}
 		WHERE
 		sysrole.ROLEID = #{roleid}
 	</update>
@@ -61,8 +60,8 @@
 
 	<select id="list" resultType="com.cjmei.module.cell.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
-		SELECT *
-		FROM TB_SYS_ROLE sysrole
+		SELECT sysrole.*,o.orgname
+		FROM TB_SYS_ROLE sysrole left join tb_org_info o on sysrole.orgid=o.orgid
 		WHERE 1=1
 		and ( sysrole.ROLEID LIKE
 		CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -87,12 +86,13 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		)
-
+		ORDER BY sysrole.UPDATETIME desc
 
 	</select>
 
 	<insert id="saveRoleFunc" parameterType="com.cjmei.module.system.sys.pojo.SysRoleFunc">
-		INSERT INTO TB_SYS_ROLE_FUNC sysrolefunc (
+		INSERT INTO
+		TB_SYS_ROLE_FUNC sysrolefunc (
 		sysrolefunc.ROLEID,
 		sysrolefunc.FUNCID,
 		sysrolefunc.UPDATETIME,
@@ -102,14 +102,15 @@
 		VALUES(
 		#{roleid:VARCHAR},
 		#{funcid:VARCHAR},
-		#{updatetime:TIMESTAMP},
+		sysdate,
 		#{creator:VARCHAR},
-		#{createtime:TIMESTAMP}
+		sysdate
 
 		)
 	</insert>
 	<delete id="deleteFuncByRoleid">
-		delete from tb_sys_role_func t where t.roleid=#{roleid}
+		delete from tb_sys_role_func t where
+		t.roleid=#{roleid}
 	</delete>
 
 </mapper>

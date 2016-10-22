@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-
+import com.cjmei.common.domain.TreeVo;
 import com.cjmei.module.cell.orginfo.pojo.OrgInfo;
 
 public interface OrgInfoDao {
@@ -23,5 +23,7 @@ public interface OrgInfoDao {
 	void deleteBatch(List<String> list);
 
 	List<OrgInfo> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<TreeVo> getChildListByParentId(String parentId);
 
 }

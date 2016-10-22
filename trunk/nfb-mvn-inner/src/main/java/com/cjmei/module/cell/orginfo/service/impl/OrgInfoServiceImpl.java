@@ -86,8 +86,8 @@ public class OrgInfoServiceImpl implements OrgInfoService{
 	}
 	@Override
 	public List<TreeVo> getChildListByParentId(String parentId) {
-		List<OrgInfo> list = orgInfoDao.findAll();
-		List<TreeVo> returnlist =new ArrayList<TreeVo>();
+		List<TreeVo> returnlist =orgInfoDao.getChildListByParentId(parentId);
+		/*List<OrgInfo> list = orgInfoDao.findAll();
 		TreeVo vo=null;
 		if(null !=list && list.size()>0){
 			for(OrgInfo org:list){
@@ -100,15 +100,22 @@ public class OrgInfoServiceImpl implements OrgInfoService{
 				}
 			}
 			if(returnlist.size()>0){
+				int num=0;
 				for(TreeVo to:returnlist){
+					num=0;
 					for(OrgInfo org:list){
 						if(to.getId().equals(org.getParentId())){
-							to.setState("close");
+							num+=1;
 						}
+					}
+					if(num>0){
+						to.setState("closed");
+					}else{
+						to.setState("open");
 					}
 				}
 			}
-		}
+		}*/
 		return returnlist;
 	}
 }

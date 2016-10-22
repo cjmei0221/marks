@@ -15,6 +15,8 @@ public class SysRole implements Serializable{
     *公司ID
     */
     private String orgid;
+    
+    private String orgname;
     /**
     *更新时间
     */
@@ -75,6 +77,11 @@ public class SysRole implements Serializable{
     public void setCreatetime(Timestamp createtime){
         this.createtime = createtime;
     }
-
+	public String getOrgname() {
+		return orgname;
+	}
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
+	}
 
 }
