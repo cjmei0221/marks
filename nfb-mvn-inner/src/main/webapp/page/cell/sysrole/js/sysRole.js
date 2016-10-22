@@ -146,8 +146,8 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '组织ID',
-			field : 'orgid',
+			title : '组织名称',
+			field : 'orgname',
 			width : 100,
 			align : "center"
 		}, {

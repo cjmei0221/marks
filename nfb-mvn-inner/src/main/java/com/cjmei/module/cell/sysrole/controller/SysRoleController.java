@@ -71,6 +71,7 @@ public class SysRoleController extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	SysRole sysRole = getModel(SysRole.class);
 	    	sysRole.setRoleid(IDUtil.getTimeID());
+	    	sysRole.setCreator(admin.getUserid());
 	 		SysRole ori=sysRoleService.findById(sysRole.getRoleid());
 	 		if(ori==null){
 	 			sysRoleService.save(sysRole);
