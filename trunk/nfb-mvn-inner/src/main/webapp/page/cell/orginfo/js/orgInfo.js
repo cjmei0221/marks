@@ -107,7 +107,7 @@ function formSubmit() {
 }
 
 function loadList() {
-	$('#tbList').datagrid({
+	$('#tbList').treegrid({
 		url : appInfo.listUrl,
 		toolbar : "#tb",
 		striped : true,
@@ -116,20 +116,19 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		pagination : true,
 		idField : 'orgid',
-		pagination : true,
-		pageNumber : appInfo.requestParam.page_number,
-		pageSize : appInfo.requestParam.page_size,
+		treeField : 'orgname',
 		singleSelect : true,
+		queryParams:{"parentId":"0"},
 		columns : [ [ {
-			title : '组织ID',
-			field : 'orgid',
-			width : 100,
-			align : "center"
-		}, {
+			
 			title : '组织名称',
 			field : 'orgname',
+			width : 150,
+			align : "left"
+		}, {
+			title : '组织ID',
+			field : 'orgid',
 			width : 100,
 			align : "center"
 		}, {
@@ -160,9 +159,8 @@ function loadList() {
 			width : 100,
 			align : "center"
 		} ] ],
-		loader : function(params, success, loadError) {
-			var that = $(this);
-			loader(that, params, success, loadError);
+		onBeforeExpand : function(row) {
+			$("#tbList").treegrid("options").url = appInfo.listUrl+"?parentId="+row.orgid+"&_timer="+new Date().getTime();
 		},
 		onClickRow : function(rowIndex, rowData) {
 			appInfo.selectedId = rowData.orgid;

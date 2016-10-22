@@ -15,7 +15,7 @@
 <body>
 
 	<div id="mainPanel">
-		<p class="nav-header-cls">架构管理>>组织管理</p>
+		<p class="nav-header-cls">架构管理>>机构管理</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
@@ -41,6 +41,7 @@
 		collapsible:false"
 		style="width: 400px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
+		<input type="hidden" id="parentId" name="parentId" value="0">
 			<table class="out-win-cls">
 				<tr>
 					<th>组织ID</th>
@@ -71,5 +72,5 @@
 	</div>
 
 </body>
-<script src="js/orgInfo.js"></script>
+<script src="js/companyInfo.js"></script>
 </html>

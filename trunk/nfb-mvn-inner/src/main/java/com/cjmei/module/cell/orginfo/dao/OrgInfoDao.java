@@ -26,4 +26,6 @@ public interface OrgInfoDao {
 
 	List<TreeVo> getChildListByParentId(String parentId);
 
+	List<OrgInfo> getTreeGridByParentId(String parentId);
+
 }

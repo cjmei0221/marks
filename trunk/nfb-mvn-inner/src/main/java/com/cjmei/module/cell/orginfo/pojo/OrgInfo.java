@@ -36,6 +36,7 @@ public class OrgInfo implements Serializable{
     
     private int lvl=1;//级别
 
+    private String state;
 
     public String getOrgid(){
         return orgid;
@@ -58,15 +59,15 @@ public class OrgInfo implements Serializable{
         this.orgname = orgname;
     }
 
-    public Timestamp getCreatetime(){
-        return createtime;
+    public String getCreatetime(){
+        return createtime==null?"":createtime.toLocaleString();
     }
     public void setCreatetime(Timestamp createtime){
         this.createtime = createtime;
     }
 
-    public Timestamp getUpdatetime(){
-        return updatetime;
+    public String getUpdatetime(){
+        return updatetime==null?"":updatetime.toLocaleString();
     }
     public void setUpdatetime(Timestamp updatetime){
         this.updatetime = updatetime;
@@ -89,6 +90,12 @@ public class OrgInfo implements Serializable{
 	}
 	public void setLvl(int lvl) {
 		this.lvl = lvl;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 
     

@@ -16,16 +16,19 @@
 		orginfo.ORGNAME,
 		orginfo.CREATETIME,
 		orginfo.UPDATETIME,
-		orginfo.USEFLAG
+		orginfo.USEFLAG,
+		orginfo.PARENTID,
+		orginfo.LVL
 		)
 		VALUES(
 		#{orgid:VARCHAR},
 		#{creator:VARCHAR},
 		#{orgname:VARCHAR},
-		#{createtime:TIMESTAMP},
-		#{updatetime:TIMESTAMP},
-		#{useflag:NUMERIC}
-
+		sysdate,
+		sysdate,
+		#{useflag:NUMERIC},
+		#{parentId:VARCHAR},
+		#{lvl:NUMERIC}
 		)
 	</insert>
 
@@ -33,9 +36,10 @@
 		UPDATE TB_ORG_INFO orginfo
 		SET
 		orginfo.ORGNAME = #{orgname:VARCHAR},
-		orginfo.UPDATETIME =
-		#{updatetime:TIMESTAMP},
-		orginfo.USEFLAG = #{useflag:NUMERIC}
+		orginfo.UPDATETIME = sysdate,
+		orginfo.USEFLAG = #{useflag:NUMERIC},
+		orginfo.PARENTID=#{parentId:VARCHAR},
+		orginfo.LVL=#{lvl:NUMERIC}
 		WHERE
 		orginfo.ORGID = #{orgid}
 	</update>
@@ -49,7 +53,7 @@
 		SELECT * FROM TB_ORG_INFO t
 		where t.USEFLAG=1
 	</select>
-	
+
 	<delete id="deleteBatch" parameterType="java.util.List">
 		DELETE FROM TB_ORG_INFO WHERE ORGID in
 		<foreach collection="list" item="ids" index="index" open="("
@@ -86,25 +90,45 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		)
-
-
+		and orginfo.PARENTID=0
+		order by orginfo.UPDATETIME desc
 	</select>
 	<select id="getChildListByParentId" resultType="com.cjmei.common.domain.TreeVo">
-		select d.orgid id,
-       d.orgname text,
-       d.parentid,
-       LEVEL lev,
-       nvl((select 'closed'
-             from tb_org_info b
-            where d.orgid = b.parentid
-              and b.useflag = 1
-              and rownum &gt; 0),
-           'open') state
-  		from tb_org_info d
- 		where d.parentid =#{parentId} and d.useflag = 1
- 		start with d.parentid = '0'
-		connect by d.parentid = prior d.orgid
+		select d.orgid
+		id,
+		d.orgname text,
+		d.parentid,
+		LEVEL lev,
+		nvl((select 'closed'
+		from
+		tb_org_info b
+		where d.orgid = b.parentid
+		and b.useflag = 1
+		and rownum
+		&gt; 0),
+		'open') state
+		from tb_org_info d
+		where d.parentid =#{parentId}
+		and d.useflag = 1
+		start with d.parentid = '0'
+		connect by d.parentid =
+		prior d.orgid
 	</select>
-
+	<select id="getTreeGridByParentId" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+		select d.*,
+		LEVEL
+		lev,
+		nvl((select 'closed'
+		from tb_org_info b
+		where d.orgid = b.parentid
+		and rownum &gt; 0),
+		'open') state
+		from tb_org_info d
+		where d.parentid
+		=#{parentId}
+		start with d.parentid = '0'
+		connect by d.parentid = prior
+		d.orgid
+	</select>
 
 </mapper>

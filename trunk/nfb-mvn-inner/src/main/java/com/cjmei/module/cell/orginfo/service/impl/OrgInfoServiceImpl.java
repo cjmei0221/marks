@@ -9,6 +9,7 @@ import com.cjmei.common.domain.TreeVo;
 import com.cjmei.module.cell.orginfo.dao.OrgInfoDao;
 import com.cjmei.module.cell.orginfo.pojo.OrgInfo;
 import com.cjmei.module.cell.orginfo.service.OrgInfoService;
+import com.cjmei.module.cell.sysrole.pojo.SysRole;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
@@ -73,7 +74,19 @@ public class OrgInfoServiceImpl implements OrgInfoService{
 		orgInfoDao.deleteBatch(ids);
 	}
 	
-	public PojoDomain<OrgInfo> list(int page_number, int page_size, Map<String,Object> param) {
+	public List<OrgInfo> list(String parentid) {
+		
+		List<OrgInfo> list = orgInfoDao.getTreeGridByParentId(parentid);
+		
+		return list;
+	}
+	@Override
+	public List<TreeVo> getChildListByParentId(String parentId) {
+		List<TreeVo> returnlist =orgInfoDao.getChildListByParentId(parentId);
+		return returnlist;
+	}
+	@Override
+	public PojoDomain<OrgInfo> framelist(int page_number, int page_size, Map<String, Object> param) {
 		PojoDomain<OrgInfo> pojoDomain = new PojoDomain<OrgInfo>();
 		PageBounds pageBounds = new PageBounds(page_number, page_size);
 		List<OrgInfo> list = orgInfoDao.list(pageBounds,param);
@@ -84,38 +97,6 @@ public class OrgInfoServiceImpl implements OrgInfoService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
-	@Override
-	public List<TreeVo> getChildListByParentId(String parentId) {
-		List<TreeVo> returnlist =orgInfoDao.getChildListByParentId(parentId);
-		/*List<OrgInfo> list = orgInfoDao.findAll();
-		TreeVo vo=null;
-		if(null !=list && list.size()>0){
-			for(OrgInfo org:list){
-				if(org.getParentId().equals(parentId)){
-					vo=new TreeVo();
-					vo.setId(org.getOrgid());
-					vo.setText(org.getOrgname());
-					vo.setParentid(org.getParentId());
-					returnlist.add(vo);
-				}
-			}
-			if(returnlist.size()>0){
-				int num=0;
-				for(TreeVo to:returnlist){
-					num=0;
-					for(OrgInfo org:list){
-						if(to.getId().equals(org.getParentId())){
-							num+=1;
-						}
-					}
-					if(num>0){
-						to.setState("closed");
-					}else{
-						to.setState("open");
-					}
-				}
-			}
-		}*/
-		return returnlist;
-	}
+
+	
 }
