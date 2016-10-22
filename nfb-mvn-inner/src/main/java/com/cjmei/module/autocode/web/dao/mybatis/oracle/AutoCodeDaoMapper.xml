@@ -15,14 +15,18 @@
 		autocode.BEANNAME,
 		autocode.MODULEDESC,
 		autocode.IS_CREATETABLE,
-		autocode.IS_AUTH
+		autocode.IS_AUTH,
+		autocode.CREATETIME,
+		autocode.UPDATETIME
 		)
 		VALUES(
 		#{tableName:VARCHAR},
 		#{beanName:VARCHAR},
 		#{moduleDesc:VARCHAR},
 		#{is_createtable:INTEGER},
-		#{is_auth:INTEGER}
+		#{is_auth:INTEGER},
+		sysdate,
+		sysdate
 		)
 	</insert>
 
@@ -33,7 +37,8 @@
 		autocode.BEANNAME = #{beanName:VARCHAR},
 		autocode.MODULEDESC = #{moduleDesc:VARCHAR},
 		autocode.IS_CREATETABLE=#{is_createtable:INTEGER},
-		autocode.IS_AUTH=#{is_auth:INTEGER}
+		autocode.IS_AUTH=#{is_auth:INTEGER},
+		autocode.UPDATETIME=sysdate
 		WHERE
 		autocode.TABLENAME = #{tableName}
 	</update>
@@ -72,7 +77,7 @@
 			and autocode.MODULEDESC LIKE
 			CONCAT(CONCAT('%',#{autocode.moduleDesc:VARCHAR}),'%')
 		</if>
-
+		order by autocode.UPDATETIME desc
 
 
 	</select>
@@ -86,7 +91,8 @@
 
 		and
 		autocode.TABLENAME =#{tableName}
-		order by autocode.SORT desc
+		order by autocode.ISPK
+		desc,autocode.SORT desc
 
 
 	</select>
@@ -98,21 +104,21 @@
 	<insert id="saveAttr" parameterType="com.cjmei.module.autocode.web.pojo.AutoCodeAttr">
 		insert into tb_autocode_attr
 		(
-		ATTRNAME, 
-		ATTRTYPE, 
-		ISPK, 
-		SEQ, 
+		ATTRNAME,
+		ATTRTYPE,
+		ISPK,
+		SEQ,
 		ATTRSIZE,
-		ATTRDESC, 
+		ATTRDESC,
 		TABLENAME,
 		SORT
 		)
 		values
 		(
-		#{attrName:VARCHAR}, 
+		#{attrName:VARCHAR},
 		#{attrType:VARCHAR},
 		#{isPK:INTEGER},
-		#{seq:VARCHAR}, 
+		#{seq:VARCHAR},
 		#{attrSize:INTEGER},
 		#{attrDesc:VARCHAR},
 		#{tableName:VARCHAR},
