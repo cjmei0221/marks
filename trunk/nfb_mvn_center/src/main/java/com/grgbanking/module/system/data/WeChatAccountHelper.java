@@ -3,25 +3,25 @@ package com.grgbanking.module.system.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.grgbanking.module.wxfwhao.entity.WeChatAccount;
+import com.grgbanking.module.wxfwhao.entity.WxAccount;
 
 public class WeChatAccountHelper {
 	
-	private static Map<String, WeChatAccount> account_map=new HashMap<String, WeChatAccount>();
+	private static Map<String, WxAccount> account_map=new HashMap<String, WxAccount>();
 
 	
-	public static WeChatAccount getWeChatAccount(String accountId) throws Exception{
-		WeChatAccount weChatAccount=account_map.get(accountId);
+	public static WxAccount getWeChatAccount(String accountId) throws Exception{
+		WxAccount weChatAccount=account_map.get(accountId);
 		if(weChatAccount==null)
 			throw new Exception("accountid="+accountId+"的微信公众账号参数未配置");
 		return weChatAccount;
 	}
 	
 	
-	public static void put(WeChatAccount weChatAccount){
+	public static void put(WxAccount weChatAccount){
 		if(null !=weChatAccount){
-			account_map.remove(weChatAccount.getAccountid());
-			account_map.put(weChatAccount.getAccountid(), weChatAccount);
+			account_map.remove(weChatAccount.getAccountId());
+			account_map.put(weChatAccount.getAccountId(), weChatAccount);
 		}
 	}
 }

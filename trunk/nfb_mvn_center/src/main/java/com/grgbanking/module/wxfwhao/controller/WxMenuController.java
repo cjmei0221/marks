@@ -8,17 +8,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.grgbanking.common.util.JsonResult;
 import com.grgbanking.common.util.SysCode;
-import com.grgbanking.module.wxfwhao.entity.WeixinMenu;
+import com.grgbanking.module.wxfwhao.entity.WxMenu;
 import com.grgbanking.module.wxfwhao.wxservice.WxMenuUtil;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 public class WxMenuController {
@@ -35,10 +35,10 @@ public class WxMenuController {
 			String list = request.getParameter("menu_list");
 			JSONArray arr = JSONArray.fromObject(list);
 			if (arr != null && arr.size() > 0) {
-				List<WeixinMenu> menu_list = new ArrayList<WeixinMenu>();
-				WeixinMenu first = null;
+				List<WxMenu> menu_list = new ArrayList<WxMenu>();
+				WxMenu first = null;
 				for (Object obj : arr) {
-					first = new WeixinMenu();
+					first = new WxMenu();
 					JSONObject json = JSONObject.fromObject(obj);
 					String content = json.getString("content");
 					if (null != content && !"".equals(content)) {
@@ -55,7 +55,7 @@ public class WxMenuController {
 						for (Object second : subarr) {
 							JSONObject secondjson = JSONObject
 									.fromObject(second);
-							WeixinMenu sec = new WeixinMenu();
+							WxMenu sec = new WxMenu();
 							String contents = secondjson.getString("content");
 							if (null != contents && !"".equals(contents)) {
 								contents = URLDecoder.decode(contents, "utf-8");
