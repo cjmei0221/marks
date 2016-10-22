@@ -3,6 +3,7 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/sysRole/save.do',// 保存新增角色管理接口
 	updateUrl : top.window.urlBase + '/sysRole/update.do',// 编辑角色管理信息接口
 	deleteUrl : top.window.urlBase + '/sysRole/delete.do',// 删除角色管理接口
+	orgListUrl : top.window.urlBase + '/orgInfo/getChildListByParentId.do',// 删除角色管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -72,6 +73,18 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
+
+	$('#orgid').combotree(
+					{
+						url : appInfo.orgListUrl+"?parentId=0",
+						onBeforeExpand : function(node) {
+							$('#orgid').combotree("tree").tree("options").url = appInfo.orgListUrl+"?parentId="
+									+ node.id;
+						},
+						onLoadSuccess : function(data) {
+							$("#orgid").combotree('expandAll');
+						}
+					});
 });
 /**
  * 保存菜单
