@@ -11,14 +11,14 @@ import com.grgbanking.common.util.JsonResult;
 import com.grgbanking.module.system.data.WeChatAccountHelper;
 import com.grgbanking.module.system.listener.DatabaseHelper;
 import com.grgbanking.module.wxfwhao.entity.AccessTokenVo;
-import com.grgbanking.module.wxfwhao.entity.WeChatAccount;
-import com.grgbanking.module.wxfwhao.service.WeixinAccountService;
+import com.grgbanking.module.wxfwhao.entity.WxAccount;
+import com.grgbanking.module.wxfwhao.service.WxAccountService;
 
 public class QyAccessTokenUtil {
 	private static final long expires_in=7100*1000;
 	private static Logger logger = Logger.getLogger(QyAccessTokenUtil.class);
 	private static Map<String, AccessTokenVo> accesstoken_map=new HashMap<String, AccessTokenVo>();
-	WeixinAccountService weixinAccountService=(WeixinAccountService) DatabaseHelper.getBean(WeixinAccountService.class);
+	WxAccountService wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
 	private boolean updateflag=false;
 	private static QyAccessTokenUtil util=null;
 	private QyAccessTokenUtil(){};
@@ -34,10 +34,10 @@ public class QyAccessTokenUtil {
 		AccessTokenVo vo=null;
 		if(updateflag){
 			try {
-				if(null ==weixinAccountService){
-					weixinAccountService=(WeixinAccountService) DatabaseHelper.getBean(WeixinAccountService.class);
+				if(null ==wxAccountService){
+					wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
 				}
-				vo=weixinAccountService.getAccessTokenVoByAccountid(prefix+accountid);
+				vo=wxAccountService.getAccessTokenVoByAccountid(prefix+accountid);
 				//vo=MemcachedUtil.getInstance().getACCESS_TOKEN();
 			} catch (Exception e) {
 				vo=accesstoken_map.get(prefix+accountid);
@@ -70,10 +70,10 @@ public class QyAccessTokenUtil {
 		updateflag=false;
 		accesstoken_map.put(vo.getAccountid(), vo);
 		try {
-			if(null ==weixinAccountService){
-				weixinAccountService=(WeixinAccountService) DatabaseHelper.getBean(WeixinAccountService.class);
+			if(null ==wxAccountService){
+				wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
 			}
-			weixinAccountService.saveOrUpdateAccessTokenVo(vo);
+			wxAccountService.saveOrUpdateAccessTokenVo(vo);
 			//MemcachedUtil.getInstance().putACCESS_TOKEN(vo.getAccountid(), vo,expires_in);
 		} catch (Exception e) {
 	
@@ -91,7 +91,7 @@ public class QyAccessTokenUtil {
         JsonResult jsonResult = new JsonResult();
         try{
         	String url=WxqyConfig.weixin_qy_server_prefix+"/gettoken";
-        	WeChatAccount wx=WeChatAccountHelper.getWeChatAccount(accountid);
+        	WxAccount wx=WeChatAccountHelper.getWeChatAccount(accountid);
             Map<String,String> params = new HashMap<String,String>();
             params.put("corpid",wx.getAppId());
             params.put("corpsecret",wx.getAppSecret());

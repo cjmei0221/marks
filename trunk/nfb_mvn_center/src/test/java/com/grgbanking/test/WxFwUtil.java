@@ -15,7 +15,7 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.grgbanking.module.wxfwhao.entity.UserGet;
-import com.grgbanking.module.wxfwhao.entity.WeixinMenu;
+import com.grgbanking.module.wxfwhao.entity.WxMenu;
 import com.grgbanking.module.wxmodulemsg.entity.ModuleMsg;
 import com.grgbanking.test.pojo.WxUser;
 
@@ -174,17 +174,17 @@ public class WxFwUtil {
 	 * @param content
 	 * @throws Exception
 	 */
-	public Result createWXMenu(String accountid, List<WeixinMenu> menu_list) throws Exception {
+	public Result createWXMenu(String accountid, List<WxMenu> menu_list) throws Exception {
 		Result result = new Result();
 		result.setCode(-1);
 		if (null != menu_list && menu_list.size() > 0) {
-			for (WeixinMenu wm : menu_list) {
+			for (WxMenu wm : menu_list) {
 				wm.setName(URLEncoder.encode(wm.getName(), CHARSET));
 				if (null != wm.getContent() && !"".equals(wm.getContent())) {
 					wm.setContent(URLEncoder.encode(wm.getContent(), CHARSET));
 				}
 				if (wm.getSub_button().size() > 0) {
-					for (WeixinMenu sub : wm.getSub_button()) {
+					for (WxMenu sub : wm.getSub_button()) {
 						sub.setName(URLEncoder.encode(sub.getName(), CHARSET));
 						if (null != sub.getContent() && !"".equals(sub.getContent())) {
 							sub.setContent(URLEncoder.encode(sub.getContent(), CHARSET));
