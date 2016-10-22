@@ -96,7 +96,7 @@
 
 
 	</select>
-	<delete id="deleteAttr">
+	<delete id="deleteAttr" flushCache="true">
 		delete from tb_autocode_attr where
 		tablename=#{tableName}
 	</delete>
