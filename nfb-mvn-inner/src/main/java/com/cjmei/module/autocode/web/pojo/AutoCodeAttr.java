@@ -13,6 +13,8 @@ public class AutoCodeAttr implements Serializable{
 	private String attrDesc;
 	private String tableName;
 	
+	private int sort;
+	
 	public String getAttrName() {
 		return attrName;
 	}
@@ -54,5 +56,11 @@ public class AutoCodeAttr implements Serializable{
 	}
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
+	}
+	public int getSort() {
+		return sort;
+	}
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 }
