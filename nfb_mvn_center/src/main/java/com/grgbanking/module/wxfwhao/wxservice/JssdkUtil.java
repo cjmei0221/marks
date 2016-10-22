@@ -10,7 +10,7 @@ import com.grgbanking.common.util.JsonResult;
 import com.grgbanking.common.util.SysCode;
 import com.grgbanking.module.system.listener.DatabaseHelper;
 import com.grgbanking.module.wxfwhao.entity.AccessTokenVo;
-import com.grgbanking.module.wxfwhao.service.WeixinAccountService;
+import com.grgbanking.module.wxfwhao.service.WxAccountService;
 import com.grgbanking.module.wxfwhao.utils.AccessTokenUtil;
 import com.grgbanking.module.wxfwhao.utils.WxHttpUtils;
 import com.grgbanking.module.wxfwhao.utils.WxfwConfig;
@@ -24,7 +24,7 @@ public class JssdkUtil {
 	private static final long expires_in=7100*1000;
 	private static Logger logger = Logger.getLogger(AccessTokenUtil.class);
 	private static Map<String, AccessTokenVo> accesstoken_map=new HashMap<String, AccessTokenVo>();
-	WeixinAccountService weixinAccountService=(WeixinAccountService) DatabaseHelper.getBean(WeixinAccountService.class);
+	WxAccountService wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
 	private static final String jssdk_pre="jssdk_";
 	private static JssdkUtil util=null;
 	private boolean updateflag=false;
@@ -40,10 +40,10 @@ public class JssdkUtil {
 		AccessTokenVo vo=null;
 		if(updateflag){
 			try {
-				if(null ==weixinAccountService){
-					weixinAccountService=(WeixinAccountService) DatabaseHelper.getBean(WeixinAccountService.class);
+				if(null ==wxAccountService){
+					wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
 				}
-				vo=weixinAccountService.getAccessTokenVoByAccountid(jssdk_pre+accountid);
+				vo=wxAccountService.getAccessTokenVoByAccountid(jssdk_pre+accountid);
 				//vo=MemcachedUtil.getInstance().getACCESS_TOKEN(jssdk_pre+accountid);
 			} catch (Exception e) {
 				vo=accesstoken_map.get(jssdk_pre+accountid);
@@ -75,10 +75,10 @@ public class JssdkUtil {
 	private void putJsapi_ticket(AccessTokenVo vo){
 		updateflag=false;
 		accesstoken_map.put(vo.getAccountid(), vo);
-		if(null ==weixinAccountService){
-			weixinAccountService=(WeixinAccountService) DatabaseHelper.getBean(WeixinAccountService.class);
+		if(null ==wxAccountService){
+			wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
 		}
-		weixinAccountService.saveOrUpdateAccessTokenVo(vo);
+		wxAccountService.saveOrUpdateAccessTokenVo(vo);
 		//MemcachedUtil.getInstance().putACCESS_TOKEN(jssdk_pre+vo.getAccountid(), vo, vo.getExpires_in());
 	}
 	

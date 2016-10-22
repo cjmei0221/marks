@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import com.grgbanking.common.util.JsonResult;
 import com.grgbanking.common.util.SysCode;
-import com.grgbanking.module.wxfwhao.entity.WeixinMenu;
+import com.grgbanking.module.wxfwhao.entity.WxMenu;
 import com.grgbanking.module.wxfwhao.utils.AccessTokenUtil;
 import com.grgbanking.module.wxfwhao.utils.WxHttpUtils;
 import com.grgbanking.module.wxfwhao.utils.WxfwConfig;
@@ -26,15 +26,15 @@ public class WxMenuUtil {
 		return util;
 	}
 
-	public JsonResult createWXMenu(String accountid,List<WeixinMenu> menu_list) throws Exception {
+	public JsonResult createWXMenu(String accountid,List<WxMenu> menu_list) throws Exception {
 		JsonResult jsonResult = new JsonResult();
 		JSONObject json=new JSONObject();
 		JSONArray button_array=new JSONArray();
-		for(WeixinMenu first_menu:menu_list){ 
+		for(WxMenu first_menu:menu_list){ 
 			JSONObject first_json=createWXMenuJson(first_menu);
 			if(first_menu.getSub_button().size()!=0){//只有一级菜单
 				JSONArray array=new JSONArray();
-				for(WeixinMenu second_menu:first_menu.getSub_button()){
+				for(WxMenu second_menu:first_menu.getSub_button()){
 					JSONObject second_json=createWXMenuJson(second_menu);
 					array.put(second_json);
 				}
@@ -66,7 +66,7 @@ public class WxMenuUtil {
          }
 		return jsonResult;
 	}
-	private JSONObject createWXMenuJson(WeixinMenu menu) throws JSONException{
+	private JSONObject createWXMenuJson(WxMenu menu) throws JSONException{
 		JSONObject json=new JSONObject();
 		json.put("name", menu.getName());
 		json.put("type", menu.getType());
