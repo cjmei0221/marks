@@ -83,7 +83,7 @@
 		<if test="enddate!=null and enddate!=''">
 			and to_char(diary.TIME) &lt;= #{enddate}
 		</if>
-		order by diary.UPDATETIME desc
+		order by diary.TIME desc
 	</select>
 
 
