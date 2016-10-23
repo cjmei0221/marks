@@ -87,7 +87,9 @@ public class OrgInfoController extends SupportContorller {
 				if(null !=orgInfo.getParentId() && !("0").equals(orgInfo.getParentId())){
 					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
 					orgInfo.setLvl(parentVo.getLvl()+1);
+					orgInfo.setCompanyId(parentVo.getCompanyId());
 				}else{
+					orgInfo.setCompanyId(orgInfo.getOrgid());
 					orgInfo.setLvl(1);
 				}
 				orgInfo.setCreator(admin.getUserid());
