@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjmei.module.system.sysuser.dao.SysUserDao">
+
+    <select id="findById" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
+		SELECT * FROM TB_SYS_USER sysuser where sysuser.USERID = #{userid}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
+		<selectKey keyProperty="userid" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+
+ 		INSERT INTO TB_SYS_USER sysuser (
+            sysuser.USERID,
+            sysuser.LASTLOGINTIME,
+            sysuser.USERTYPE,
+            sysuser.OPENID,
+            sysuser.TOKEN,
+            sysuser.COMPANYID,
+            sysuser.ORGID,
+            sysuser.CREATOR,
+            sysuser.UPDATETIME,
+            sysuser.CREATETIME,
+            sysuser.ACTIVEFLAG,
+            sysuser.BIND_MOBILE,
+            sysuser.PASSWORD,
+            sysuser.USERNAME
+		)
+		VALUES(
+            #{userid:VARCHAR},
+            #{lastLoginTime:TIMESTAMP},
+            #{userType:VARCHAR},
+            #{openid:VARCHAR},
+            #{token:VARCHAR},
+            #{companyId:VARCHAR},
+            #{orgid:VARCHAR},
+            #{creator:VARCHAR},
+            #{updatetime:TIMESTAMP},
+            #{createtime:TIMESTAMP},
+            #{activeFlag:NUMERIC},
+            #{bind_mobile:VARCHAR},
+            #{password:VARCHAR},
+            #{username:VARCHAR}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
+ 		UPDATE TB_SYS_USER sysuser
+		SET 
+                sysuser.LASTLOGINTIME = #{lastLoginTime:TIMESTAMP},
+                sysuser.USERTYPE = #{userType:VARCHAR},
+                sysuser.OPENID = #{openid:VARCHAR},
+                sysuser.TOKEN = #{token:VARCHAR},
+                sysuser.COMPANYID = #{companyId:VARCHAR},
+                sysuser.ORGID = #{orgid:VARCHAR},
+                sysuser.CREATOR = #{creator:VARCHAR},
+                sysuser.UPDATETIME = #{updatetime:TIMESTAMP},
+                sysuser.CREATETIME = #{createtime:TIMESTAMP},
+                sysuser.ACTIVEFLAG = #{activeFlag:NUMERIC},
+                sysuser.BIND_MOBILE = #{bind_mobile:VARCHAR},
+                sysuser.PASSWORD = #{password:VARCHAR},
+                sysuser.USERNAME = #{username:VARCHAR}
+		WHERE
+			sysuser.USERID = #{userid}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_SYS_USER sysuser WHERE sysuser.USERID=#{userid}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
+ 		SELECT * FROM TB_SYS_USER
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_SYS_USER WHERE USERID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.cjmei.module.system.sysuser.pojo.SysUser" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_SYS_USER sysuser
+						WHERE 1=1
+ and ( sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.LASTLOGINTIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.USERTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.OPENID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.TOKEN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.COMPANYID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.ACTIVEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.BIND_MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.PASSWORD LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+ )
+					
+					
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>
