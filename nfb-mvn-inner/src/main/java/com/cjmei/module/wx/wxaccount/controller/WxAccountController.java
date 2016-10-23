@@ -21,7 +21,7 @@ import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sys.pojo.SysUser;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
 import com.cjmei.module.wx.wxaccount.service.WxAccountService;
 
