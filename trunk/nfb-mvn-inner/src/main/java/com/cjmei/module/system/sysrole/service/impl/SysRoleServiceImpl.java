@@ -11,10 +11,10 @@ import com.cjmei.module.system.sys.dao.LoginDao;
 import com.cjmei.module.system.sys.pojo.SysFunc;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysRoleFunc;
-import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sysrole.dao.SysRoleDao;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysrole.service.SysRoleService;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
@@ -98,7 +98,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public void addSysFuncByRoleId(String role_id, List<String> funcIds) {
-		sysRoleDao.deleteFuncByRoleid(role_id);
 		SysRoleFunc srf = null;
 		if (null != funcIds && funcIds.size() > 0) {
 			for (String funcid : funcIds) {
@@ -112,6 +111,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 		}
 
+	}
+	
+	
+
+	@Override
+	public void saveSysFuncByRoleId(SysUser admin, String roleId, List<String> funcList) {
+		sysRoleDao.deleteFuncByRoleid(roleId);
+		addSysFuncByRoleId(roleId,funcList);
 	}
 
 	@Override
