@@ -19,7 +19,7 @@ import com.cjmei.common.util.RequestUtil;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.core.thread.SysLogThreadPool;
 import com.cjmei.module.system.sys.pojo.SysLog;
-import com.cjmei.module.system.sys.pojo.SysUser;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 public class SysLogFilter implements Filter {
 	private final static Logger LOG=Logger.getLogger(SysLogFilter.class);

@@ -23,7 +23,7 @@ import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.cell.diary.pojo.Diary;
 import com.cjmei.module.cell.diary.service.DiaryService;
 import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sys.pojo.SysUser;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 @Controller
 public class DiaryController extends SupportContorller{

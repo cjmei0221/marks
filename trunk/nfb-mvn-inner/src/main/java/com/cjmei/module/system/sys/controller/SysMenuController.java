@@ -18,8 +18,8 @@ import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sys.pojo.SysFunc;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sys.service.SysMenuService;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 /**
  * 系统菜单控制层 File Name: com.grgbanking.inner.controller.SysMenuController.java

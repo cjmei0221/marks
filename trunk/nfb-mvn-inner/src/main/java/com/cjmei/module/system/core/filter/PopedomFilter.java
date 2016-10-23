@@ -21,7 +21,7 @@ import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sys.pojo.SysUser;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 /**
  * 权限过滤器，针对URL地址进行过滤，对未授权的URL进行过滤掉
