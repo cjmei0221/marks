@@ -12,7 +12,7 @@ public class SysFunc {
 	private String creator;
 	private String url;
 	
-	private int isset;
+	private String state;
 	private String opername;
 	
 	public String getFuncid() {
@@ -58,13 +58,18 @@ public class SysFunc {
 		this.url = url;
 	}
 	
-	public int getIsset() {
-		return isset;
-	}
-	public void setIsset(int isset) {
-		this.isset = isset;
-	}
 	
+	
+	
+	public String getState() {
+		if("checked".equals(state)){
+			state="checked=\"checked\"";
+		}
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getOpername() {
 		return opername;
 	}

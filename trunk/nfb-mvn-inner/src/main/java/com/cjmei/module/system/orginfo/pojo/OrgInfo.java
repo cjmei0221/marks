@@ -37,6 +37,8 @@ public class OrgInfo implements Serializable{
     private int lvl=1;//级别
 
     private String state;
+    
+    private String companyId;
 
     public String getOrgid(){
         return orgid;
@@ -96,6 +98,12 @@ public class OrgInfo implements Serializable{
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public String getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 
     

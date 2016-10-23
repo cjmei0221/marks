@@ -18,7 +18,8 @@
 		orginfo.UPDATETIME,
 		orginfo.USEFLAG,
 		orginfo.PARENTID,
-		orginfo.LVL
+		orginfo.LVL,
+		orginfo.COMPANYID
 		)
 		VALUES(
 		#{orgid:VARCHAR},
@@ -28,7 +29,8 @@
 		sysdate,
 		#{useflag:NUMERIC},
 		#{parentId:VARCHAR},
-		#{lvl:NUMERIC}
+		#{lvl:NUMERIC},
+		#{companyId:VARCHAR}
 		)
 	</insert>
 

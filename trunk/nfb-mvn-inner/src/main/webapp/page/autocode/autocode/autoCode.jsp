@@ -53,6 +53,11 @@
 						class="easyui-validatebox" data-options="required:true"></td>
 				</tr>
 				<tr>
+					<th>上级包名</th>
+					<td><input id="parentPackage" name="parentPackage"
+						class="easyui-validatebox" data-options="required:true"></td>
+				</tr>
+				<tr>
 					<th>菜单名称</th>
 					<td><input id="moduleDesc" name="moduleDesc"
 						class="easyui-validatebox" data-options="required:true"></td>

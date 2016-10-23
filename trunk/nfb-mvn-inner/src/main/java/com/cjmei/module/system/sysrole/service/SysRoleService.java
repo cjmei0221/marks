@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.domain.PojoDomain;
+import com.cjmei.module.system.sys.pojo.SysMenu;
+import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
 
 public interface SysRoleService{
@@ -17,4 +19,5 @@ public interface SysRoleService{
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<SysRole> list(int page_number, int page_size,Map<String,Object> param);
 	public void addSysFuncByRoleId(String role_id, List<String> funcIds);
+	public List<SysMenu> funcList(SysUser admin,String roleId);
 }

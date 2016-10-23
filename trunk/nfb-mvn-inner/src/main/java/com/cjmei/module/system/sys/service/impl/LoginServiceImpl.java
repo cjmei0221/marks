@@ -3,6 +3,7 @@ package com.cjmei.module.system.sys.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cjmei.common.enums.Enums;
 import com.cjmei.module.system.sys.dao.LoginDao;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
@@ -27,6 +28,11 @@ public class LoginServiceImpl implements LoginService {
 			if(roleIds ==null || (null ==roleIds && roleIds.size()==0)){
 				roleIds=new ArrayList<String>();
 				roleIds.add("");
+			}
+			for(String roleId:roleIds){
+				if("1".equals(roleId)){
+					user.setUserType(Enums.UserType.admin.getValue());
+				}
 			}
 			user.setRoleIds(roleIds);
 		}
