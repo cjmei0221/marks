@@ -12,35 +12,35 @@
 
  		INSERT INTO TB_SYS_USER (
             USERID,
-            LASTLOGINTIME,
-            USERTYPE,
-            OPENID,
-            TOKEN,
-            COMPANYID,
-            ORGID,
-            CREATOR,
-            UPDATETIME,
-            CREATETIME,
-            ACTIVEFLAG,
-            BIND_MOBILE,
+            USERNAME,
             PASSWORD,
-            USERNAME
+            BIND_MOBILE,
+            ACTIVEFLAG,
+            CREATETIME,
+            UPDATETIME,
+            CREATOR,
+            ORGID,
+            COMPANYID,
+            TOKEN,
+            OPENID,
+            USERTYPE,
+            LASTLOGINTIME
 		)
 		VALUES(
             #{userid:VARCHAR},
-            #{lastLoginTime:TIMESTAMP},
-            #{userType:VARCHAR},
-            #{openid:VARCHAR},
-            #{token:VARCHAR},
-            #{companyId:VARCHAR},
-            #{orgid:VARCHAR},
-            #{creator:VARCHAR},
-            #{updatetime:TIMESTAMP},
-            #{createtime:TIMESTAMP},
-            #{activeFlag:NUMERIC},
-            #{bind_mobile:VARCHAR},
+            #{username:VARCHAR},
             #{password:VARCHAR},
-            #{username:VARCHAR}
+            #{bind_mobile:VARCHAR},
+            #{activeFlag:NUMERIC},
+            #{createtime:TIMESTAMP},
+            #{updatetime:TIMESTAMP},
+            #{creator:VARCHAR},
+            #{orgid:VARCHAR},
+            #{companyId:VARCHAR},
+            #{token:VARCHAR},
+            #{openid:VARCHAR},
+            #{userType:VARCHAR},
+            #{lastLoginTime:TIMESTAMP}
 			
 			)
  	</insert>
@@ -48,19 +48,19 @@
  	<update id="update" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
  		UPDATE TB_SYS_USER 
 		SET 
-                LASTLOGINTIME = #{lastLoginTime:TIMESTAMP},
-                USERTYPE = #{userType:VARCHAR},
-                OPENID = #{openid:VARCHAR},
-                TOKEN = #{token:VARCHAR},
-                COMPANYID = #{companyId:VARCHAR},
-                ORGID = #{orgid:VARCHAR},
-                CREATOR = #{creator:VARCHAR},
-                UPDATETIME = #{updatetime:TIMESTAMP},
-                CREATETIME = #{createtime:TIMESTAMP},
-                ACTIVEFLAG = #{activeFlag:NUMERIC},
-                BIND_MOBILE = #{bind_mobile:VARCHAR},
+                USERNAME = #{username:VARCHAR},
                 PASSWORD = #{password:VARCHAR},
-                USERNAME = #{username:VARCHAR}
+                BIND_MOBILE = #{bind_mobile:VARCHAR},
+                ACTIVEFLAG = #{activeFlag:NUMERIC},
+                CREATETIME = #{createtime:TIMESTAMP},
+                UPDATETIME = #{updatetime:TIMESTAMP},
+                CREATOR = #{creator:VARCHAR},
+                ORGID = #{orgid:VARCHAR},
+                COMPANYID = #{companyId:VARCHAR},
+                TOKEN = #{token:VARCHAR},
+                OPENID = #{openid:VARCHAR},
+                USERTYPE = #{userType:VARCHAR},
+                LASTLOGINTIME = #{lastLoginTime:TIMESTAMP}
 		WHERE
 			USERID = #{userid}
  	</update>
@@ -87,43 +87,43 @@
 						WHERE 1=1
  and ( sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
                         <if test="keyword!=null and keyword!=''">
-                            or sysuser.LASTLOGINTIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.USERTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.OPENID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.TOKEN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.COMPANYID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.ACTIVEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.BIND_MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or sysuser.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
                         </if>
                         <if test="keyword!=null and keyword!=''">
                             or sysuser.PASSWORD LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
                         </if>
                         <if test="keyword!=null and keyword!=''">
-                            or sysuser.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or sysuser.BIND_MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.ACTIVEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.COMPANYID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.TOKEN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.OPENID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.USERTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or sysuser.LASTLOGINTIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
                         </if>
  )
 						

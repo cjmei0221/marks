@@ -246,7 +246,7 @@ public class SysRoleController extends SupportContorller{
 			
 			List<String> funcList=new ArrayList<String>();
 			for(String funcId:funcIds){
-				if(funcId !=null && funcId.length()>4){
+				if(funcId !=null && !"".equals(funcId)){
 					funcList.add(funcId);
 				}
 			}
