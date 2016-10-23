@@ -275,6 +275,7 @@ public class AutoCodeController extends SupportContorller{
 		autoBean.setBeanName(info.getBeanName());
 		autoBean.setModuleDesc(info.getModuleDesc());
 		autoBean.setTableName(info.getTableName().toUpperCase());
+		autoBean.setParentPackage(info.getParentPackage());
 		// 包路径
 		// autoBean.setDefaultPackageUrl("cluster.scheme.module.rbac.");
 		List<AutoAttr> autoAttrs = new ArrayList<AutoAttr>();

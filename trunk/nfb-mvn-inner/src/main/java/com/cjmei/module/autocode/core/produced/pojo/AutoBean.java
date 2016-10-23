@@ -43,6 +43,8 @@ public class AutoBean implements Serializable{
 	private String packageName;
 	
 	private String controlName;
+	//上级包名
+	private String parentPackage;
 	
 	private String defaultPackageUrl;
 	
@@ -152,7 +154,7 @@ public class AutoBean implements Serializable{
 
 	public String getDefaultPackageUrl() {
 		if(StringUtil.isNull(defaultPackageUrl))
-			return CodeProduced.DEFAULT_PACKAGE_URL;
+			return CodeProduced.DEFAULT_PACKAGE_URL+this.getParentPackage()+".";
 		return defaultPackageUrl;
 	}
 
@@ -240,6 +242,14 @@ public class AutoBean implements Serializable{
 
 	public void setControlName(String controlName) {
 		this.controlName = controlName;
+	}
+
+	public String getParentPackage() {
+		return parentPackage==null?"cell":parentPackage;
+	}
+
+	public void setParentPackage(String parentPackage) {
+		this.parentPackage = parentPackage;
 	}
 
 	

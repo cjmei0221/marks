@@ -23,6 +23,8 @@ public class AutoCode implements Serializable{
     private int is_createtable;//是否生成表 1：生产  0：不生成
     
     private int is_auth;//是否授权 0：否  1：是
+    
+    private String parentPackage="cell";
    
     List<AutoCodeAttr> attrList=null;
 
@@ -64,4 +66,12 @@ public class AutoCode implements Serializable{
 	public void setIs_auth(int is_auth) {
 		this.is_auth = is_auth;
 	}
+	public String getParentPackage() {
+		return parentPackage;
+	}
+	public void setParentPackage(String parentPackage) {
+		this.parentPackage = parentPackage;
+	}
+	
+	
 }

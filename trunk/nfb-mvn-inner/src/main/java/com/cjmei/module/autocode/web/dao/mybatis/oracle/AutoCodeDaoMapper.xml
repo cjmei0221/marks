@@ -17,7 +17,8 @@
 		autocode.IS_CREATETABLE,
 		autocode.IS_AUTH,
 		autocode.CREATETIME,
-		autocode.UPDATETIME
+		autocode.UPDATETIME,
+		autocode.PARENTPACKAGE
 		)
 		VALUES(
 		#{tableName:VARCHAR},
@@ -26,7 +27,8 @@
 		#{is_createtable:INTEGER},
 		#{is_auth:INTEGER},
 		sysdate,
-		sysdate
+		sysdate,
+		#{parentPackage:VARCHAR}
 		)
 	</insert>
 
@@ -38,7 +40,8 @@
 		autocode.MODULEDESC = #{moduleDesc:VARCHAR},
 		autocode.IS_CREATETABLE=#{is_createtable:INTEGER},
 		autocode.IS_AUTH=#{is_auth:INTEGER},
-		autocode.UPDATETIME=sysdate
+		autocode.UPDATETIME=sysdate,
+		autocode.PARENTPACKAGE=#{parentPackage:VARCHAR}
 		WHERE
 		autocode.TABLENAME = #{tableName}
 	</update>

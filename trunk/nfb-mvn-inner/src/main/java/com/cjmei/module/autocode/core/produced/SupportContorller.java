@@ -83,8 +83,6 @@ public abstract class SupportContorller {
 				getMethod = object.getClass().getMethod("get" + toUpperFirst(param));
 				Class c = getMethod.getReturnType();
 				Method method = object.getClass().getMethod("set" + toUpperFirst(param), c);
-				System.out.println("value>"+value);
-				System.out.println("getName>"+c);
 				if (c.getName().indexOf("int") >= 0 || c.getName().indexOf("Integer") >= 0) {
 					method.invoke(object, Integer.parseInt(value));
 					continue;
