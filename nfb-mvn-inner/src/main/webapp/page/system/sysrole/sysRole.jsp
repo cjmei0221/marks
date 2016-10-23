@@ -64,6 +64,20 @@
 		</form>
 	</div>
 
+	<div id="funcWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 800px; height: 500px; padding: 10px;">
+		<form id="funcff" name="funcff" method="post">
+			<input type="hidden" id="roleid" name="roleid">
+			<table id="tbFuncList">
+			</table>
+		</form>
+	</div>
+
 </body>
 <script src="js/sysRole.js"></script>
 </html>
