@@ -22,9 +22,9 @@ import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysrole.service.SysRoleService;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 @Controller
 public class SysRoleController extends SupportContorller{
@@ -250,7 +250,7 @@ public class SysRoleController extends SupportContorller{
 					funcList.add(funcId);
 				}
 			}
-			sysRoleService.addSysFuncByRoleId(roleId, funcList);
+			sysRoleService.saveSysFuncByRoleId(admin,roleId, funcList);
 			result.setMessage("find sysRole successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {

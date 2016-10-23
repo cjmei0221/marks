@@ -7,8 +7,8 @@ import com.cjmei.common.enums.Enums;
 import com.cjmei.module.system.sys.dao.LoginDao;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sys.service.LoginService;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 public class LoginServiceImpl implements LoginService {
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cjmei.module.system.sys.dao.LoginDao">
 	<!-- 通过userid获取系统用户 -->
-	<select id="getSysUserByUserid" resultType="com.cjmei.module.system.sys.pojo.SysUser">
+	<select id="getSysUserByUserid" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
 		SELECT
 		TSU.*
 		FROM
