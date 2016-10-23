@@ -4,13 +4,13 @@
 <mapper namespace="com.grgbanking.module.wxmodulemsg.dao.WxbModuleMsgDao">
 
     <select id="findById" resultType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
-		SELECT * FROM WXB_MODULE_MSG wxbmodulemsg where wxbmodulemsg.ID = #{id}
+		SELECT * FROM TB_WX_MODULE_MSG wxbmodulemsg where wxbmodulemsg.ID = #{id}
  	</select>
  	
  	<insert id="save" parameterType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
 
- 		INSERT INTO WXB_MODULE_MSG wxbmodulemsg (
+ 		INSERT INTO TB_WX_MODULE_MSG wxbmodulemsg (
             wxbmodulemsg.ID,
             wxbmodulemsg.ACCOUNTID,
             wxbmodulemsg.TEMPLATE_ID,
@@ -50,7 +50,7 @@
  	</insert>
  	
  	<update id="update" parameterType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
- 		UPDATE WXB_MODULE_MSG wxbmodulemsg
+ 		UPDATE TB_WX_MODULE_MSG wxbmodulemsg
 		SET 
                 wxbmodulemsg.SENDFLAG = #{sendflag:NUMERIC},
                 wxbmodulemsg.SENDTIMES = #{sendtimes:NUMERIC},
@@ -65,17 +65,17 @@
  	</update>
  	
  	<delete id="delete" parameterType="String">
- 		DELETE FROM WXB_MODULE_MSG wxbmodulemsg WHERE wxbmodulemsg.ID=#{id}
+ 		DELETE FROM TB_WX_MODULE_MSG wxbmodulemsg WHERE wxbmodulemsg.ID=#{id}
  	</delete>
  	
  	<select id="findAll" resultType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
- 		SELECT * FROM WXB_MODULE_MSG
+ 		SELECT * FROM TB_WX_MODULE_MSG
  	</select>
  	<select id="getNeedPustMsg" resultType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
- 		SELECT * FROM WXB_MODULE_MSG t where t.NEEDFLAG=0 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; 3 and ROWNUM &lt; #{limitnum}
+ 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=0 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; 3 and ROWNUM &lt; #{limitnum}
  	</select>
  	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM WXB_MODULE_MSG WHERE ID in 
+ 		DELETE FROM TB_WX_MODULE_MSG WHERE ID in 
  		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
 				#{ids}
 		</foreach>
