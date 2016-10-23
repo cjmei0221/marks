@@ -23,7 +23,7 @@ import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.orginfo.service.OrgInfoService;
-import com.cjmei.module.system.sys.pojo.SysUser;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
 

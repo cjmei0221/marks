@@ -13,8 +13,8 @@ import org.apache.log4j.Logger;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.core.listener.DatabaseHelper;
 import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sys.service.LoginService;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 public class ButtonTag extends TagSupport{
 	private static Logger logger = Logger.getLogger(ButtonTag.class);

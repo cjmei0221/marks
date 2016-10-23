@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.IDUtil;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sys.service.SysOperateService;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 /**
  * 系统菜单控制层 File Name: com.grgbanking.inner.controller.SysMenuController.java

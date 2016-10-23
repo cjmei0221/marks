@@ -16,8 +16,8 @@ import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.encrypt.EncryptUtil;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sys.service.LoginService;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 /**
  * 用户登录 控制层 File Name: com.grgbanking.inner.controller.LoginController.java
@@ -54,7 +54,7 @@ public class LoginController {
 			result.setCode(4001);
 			result.setMessage("用户不存在");
 		} else {
-			if (Constants.sys_user_activeflag_nouse == user.getActiveflag()) {
+			if (Constants.sys_user_activeflag_nouse == user.getActiveFlag()) {
 				result.setCode(4002);
 				result.setMessage("用户被禁用");
 			} else {
