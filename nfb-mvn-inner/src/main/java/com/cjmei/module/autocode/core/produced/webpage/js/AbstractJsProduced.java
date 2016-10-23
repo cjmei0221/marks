@@ -43,7 +43,7 @@ public abstract class AbstractJsProduced extends AbstractProduced implements JsP
     }
     
     public void setFileSrc(AutoBean autoBean){
-        setFileSrc( FileUtil.getWebAppSrc() + getFileSrc(autoBean));
+        setFileSrc( FileUtil.getWebAppSrc()+autoBean.getParentPackage()+"/" + getFileSrc(autoBean));
     }
     
     public abstract String getFileSrc(AutoBean autoBean);

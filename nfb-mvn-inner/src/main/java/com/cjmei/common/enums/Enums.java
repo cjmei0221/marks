@@ -7,6 +7,28 @@ package com.cjmei.common.enums;
  */
 public class Enums {
 	/**
+	 * 用户类型
+	 * @author cjmei
+	 *
+	 */
+	public enum UserType{
+		admin("1"),//商铺
+		company("2");//公司
+
+		private String status;
+		
+		private UserType(String status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return status;
+		}
+		public String getValue(){
+			return status;
+		}
+	}
+	/**
 	 * 机构类型
 	 * @author cjmei
 	 *
