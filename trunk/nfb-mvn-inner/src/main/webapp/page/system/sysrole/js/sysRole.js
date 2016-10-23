@@ -4,6 +4,8 @@ var appInfo = {
 	updateUrl : top.window.urlBase + '/sysRole/update.do',// 编辑角色管理信息接口
 	deleteUrl : top.window.urlBase + '/sysRole/delete.do',// 删除角色管理接口
 	orgListUrl : top.window.urlBase + '/orgInfo/getChildListByParentId.do',// 删除角色管理接口
+	funcListUrl : top.window.urlBase + '/sysRole/funclist.do',// 删除角色管理接口
+	funcSaveUrl : top.window.urlBase + '/sysRole/funcSave.do',// 删除角色管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -73,13 +75,26 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
+	
+	$("#addFunc").on("click",function(){
+		if (isSelectedOne(appInfo.selectedId)) {
+			funcList(appInfo.selectedId);
+			$("#funcWin").window({
+				title : "功能管理"
+			}).window("open");
+		}
+	});
 
-	$('#orgid').combotree(
+	$('#orgid')
+			.combotree(
 					{
-						url : appInfo.orgListUrl+"?parentId=0",
+						url : appInfo.orgListUrl + "?parentId=0",
 						onBeforeExpand : function(node) {
-							$('#orgid').combotree("tree").tree("options").url = appInfo.orgListUrl+"?parentId="
-									+ node.id+"&_timer="+new Date().getTime();
+							$('#orgid').combotree("tree").tree("options").url = appInfo.orgListUrl
+									+ "?parentId="
+									+ node.id
+									+ "&_timer="
+									+ new Date().getTime();
 						},
 						onLoadSuccess : function(data) {
 							$("#orgid").combotree('expandAll');
@@ -206,6 +221,114 @@ function loadList() {
 						"total" : 0,
 						"rows" : []
 					});
+				}
+			},
+			error : function(err) {
+				loadError.apply(this, arguments);
+			}
+		});
+	}
+}
+function saveFuncList(roleId){
+	var reqUrl = appInfo.funcSaveUrl;
+	$('#funcff').form('submit', {
+		url : reqUrl,
+		onSubmit : function(param) {
+			param.roleId = roleId;
+		},
+		success : function(data) {
+			if (typeof data === 'string') {
+				try {
+					data = $.parseJSON(data);
+				} catch (e0) {
+					showMsg("json 格式 错误");
+					return;
+				}
+			}
+			if (data.retcode == 0) {
+				$("#funcWin").window("close");
+				showMsg("保存成功");
+			} else {
+				showMsg(data.retmsg);
+			}
+		}
+	});
+}
+function funcList(roleId) {
+	$('#tbFuncList').treegrid({
+		url : appInfo.funcListUrl,
+		rownumbers : true,
+		animate : true,
+		collapsible : true,
+		fitColumns : true,
+		idField : 'menuid',
+		treeField : 'menuitem',
+		toolbar : [ {
+			text : "保存",
+			iconCls : "icon-save",
+			handler : function() {
+				saveFuncList(roleId);
+			}
+		} ],
+		frozenColumns : [ [ {
+			title : '菜单ID',
+			field : 'menuid',
+			width : 100,
+			hidden : true
+		}, {
+			title : '菜单名称',
+			field : 'menuitem',
+			width : 300
+		} ] ],
+		columns : [ [ {
+			title : '操作',
+			field : 'operate',
+			width : 350,
+			editor:"checkbox",
+			formatter : function(value, row, index) {
+				var str = "";
+				var funcList=row.oper_list;
+				if(funcList.length>0){
+					for(var i=0;i<funcList.length;i++){
+						str+='<label><input name="funcId" type="checkbox" value="'+funcList[i].funcid+'" '+funcList[i].state+'/>'+funcList[i].opername+' </label>';
+					}
+				}
+				return str;
+			}
+		} ] ],
+		loader : function(params, success, loadError) {
+			var that = $(this);
+			funcloader(that, params, success, loadError);
+		},
+		onClickRow : function(rowIndex, rowData) {
+			$("#tbFuncList").treegrid("beginEdit", rowIndex);
+		},
+		onLoadSuccess : function(data) {
+
+		}
+	});
+	// 请求加载数据
+	function funcloader(that, params, success, loadError) {
+		var opts = that.treegrid("options");
+		$.ajax({
+			url : opts.url,
+			data : {
+				"roleId" : roleId
+			},
+			dataType : "json",
+			type : "get",
+			success : function(data, status, xhr) {
+				checkLogin(data);
+				if (data.retcode == 0) {
+					var list = data.funcList;
+					that.data().treegrid["cache"] = data;
+					success({
+						"total" : list.length,
+						"rows" : list
+					});
+					return true;
+				} else {
+					showMsg(data.retmsg);
 				}
 			},
 			error : function(err) {
