@@ -88,7 +88,7 @@ public class PojoProduced extends AbstractCodeProduced {
 	public StringBuffer groupGetMethod(AttrType type,String attrName){
 		StringBuffer sBuffer = new StringBuffer();
 		    sBuffer.append(BANK_VALUE_4).append(DEFAULT_PUBLIC).append(BANK_VALUE_1)
-		        .append(type)
+		        .append(type.getJavaType())
 		        .append(BANK_VALUE_1).append(DEFAULT_GET)
                 .append(StringUtil.getUpperCaseChar(attrName) )
                 .append(LEFT_PATEN).append(RIGHT_PATEN).append(LEFT_BRACKETS);
@@ -109,7 +109,7 @@ public class PojoProduced extends AbstractCodeProduced {
 		
 		 sBuffer.append(BANK_VALUE_4).append(DEFAULT_PUBLIC).append(BANK_VALUE_1).append(VOID_VALUE).append(BANK_VALUE_1).append(DEFAULT_SET).
 	        append(StringUtil.getUpperCaseChar(attrName) )
-	            .append(LEFT_PATEN).append(type).append(BANK_VALUE_1).append(attrName)
+	            .append(LEFT_PATEN).append(type.getJavaType()).append(BANK_VALUE_1).append(attrName)
 	            .append(RIGHT_PATEN).append(LEFT_BRACKETS);
 	        sBuffer.append(ENTER_VALUE);
 	        sBuffer.append(BANK_VALUE_4).append(BANK_VALUE_4).append(THIS_VALUE)

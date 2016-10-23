@@ -95,7 +95,7 @@
 		and
 		autocode.TABLENAME =#{tableName}
 		order by autocode.ISPK
-		desc,autocode.SORT desc
+		desc,autocode.SORT
 
 
 	</select>

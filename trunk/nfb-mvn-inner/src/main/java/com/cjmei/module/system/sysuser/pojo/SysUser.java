@@ -15,58 +15,59 @@ public class SysUser implements Serializable{
     */
     private String userid;
     /**
-    *上次登录时间
+    *用户名称
     */
-    private Timestamp lastLoginTime;
-    /**
-    *用户类型
-    */
-    private String userType;
-    /**
-    *openid
-    */
-    private String openid;
-    /**
-    *口令
-    */
-    private String token;
-    /**
-    *公司ID
-    */
-    private String companyId;
-    /**
-    *组织ID
-    */
-    private String orgid;
-    /**
-    *创建者
-    */
-    private String creator;
-    /**
-    *更新时间
-    */
-    private Timestamp updatetime;
-    /**
-    *创建时间
-    */
-    private Timestamp createtime;
-    /**
-    *激活标识
-    */
-    private int activeFlag;
-    /**
-    *绑定手机号码
-    */
-    private String bind_mobile;
+    private String username;
     /**
     *用户密码
     */
     private String password;
     /**
-    *用户名称
+    *绑定手机号码
     */
-    private String username;
-	
+    private String bind_mobile;
+    /**
+    *激活标识
+    */
+    private int activeFlag;
+    /**
+    *创建时间
+    */
+    private Timestamp createtime;
+    /**
+    *更新时间
+    */
+    private Timestamp updatetime;
+    /**
+    *创建者
+    */
+    private String creator;
+    /**
+    *组织ID
+    */
+    private String orgid;
+    /**
+    *公司ID
+    */
+    private String companyId;
+    /**
+    *口令
+    */
+    private String token;
+    /**
+    *openid
+    */
+    private String openid;
+    /**
+    *用户类型
+    */
+    private String userType;
+    /**
+    *上次登录时间
+    */
+    private Timestamp lastLoginTime;
+
+
 	private List<String> userUrlList = new ArrayList<String>();
 
 	private List<String> roleIds=new ArrayList<String>();
@@ -80,81 +81,11 @@ public class SysUser implements Serializable{
         this.userid = userid;
     }
 
-    public Timestamp getLastLoginTime(){
-        return lastLoginTime;
+    public String getUsername(){
+        return username;
     }
-    public void setLastLoginTime(Timestamp lastLoginTime){
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public String getUserType(){
-        return userType;
-    }
-    public void setUserType(String userType){
-        this.userType = userType;
-    }
-
-    public String getOpenid(){
-        return openid;
-    }
-    public void setOpenid(String openid){
-        this.openid = openid;
-    }
-
-    public String getToken(){
-        return token;
-    }
-    public void setToken(String token){
-        this.token = token;
-    }
-
-    public String getCompanyId(){
-        return companyId;
-    }
-    public void setCompanyId(String companyId){
-        this.companyId = companyId;
-    }
-
-    public String getOrgid(){
-        return orgid;
-    }
-    public void setOrgid(String orgid){
-        this.orgid = orgid;
-    }
-
-    public String getCreator(){
-        return creator;
-    }
-    public void setCreator(String creator){
-        this.creator = creator;
-    }
-
-    public Timestamp getUpdatetime(){
-        return updatetime;
-    }
-    public void setUpdatetime(Timestamp updatetime){
-        this.updatetime = updatetime;
-    }
-
-    public Timestamp getCreatetime(){
-        return createtime;
-    }
-    public void setCreatetime(Timestamp createtime){
-        this.createtime = createtime;
-    }
-
-    public Integer getActiveFlag(){
-        return activeFlag;
-    }
-    public void setActiveFlag(Integer activeFlag){
-        this.activeFlag = activeFlag;
-    }
-
-    public String getBind_mobile(){
-        return bind_mobile;
-    }
-    public void setBind_mobile(String bind_mobile){
-        this.bind_mobile = bind_mobile;
+    public void setUsername(String username){
+        this.username = username;
     }
 
     public String getPassword(){
@@ -164,11 +95,81 @@ public class SysUser implements Serializable{
         this.password = password;
     }
 
-    public String getUsername(){
-        return username;
+    public String getBind_mobile(){
+        return bind_mobile;
     }
-    public void setUsername(String username){
-        this.username = username;
+    public void setBind_mobile(String bind_mobile){
+        this.bind_mobile = bind_mobile;
+    }
+
+    public int getActiveFlag(){
+        return activeFlag;
+    }
+    public void setActiveFlag(int activeFlag){
+        this.activeFlag = activeFlag;
+    }
+
+    public Timestamp getCreatetime(){
+        return createtime;
+    }
+    public void setCreatetime(Timestamp createtime){
+        this.createtime = createtime;
+    }
+
+    public Timestamp getUpdatetime(){
+        return updatetime;
+    }
+    public void setUpdatetime(Timestamp updatetime){
+        this.updatetime = updatetime;
+    }
+
+    public String getCreator(){
+        return creator;
+    }
+    public void setCreator(String creator){
+        this.creator = creator;
+    }
+
+    public String getOrgid(){
+        return orgid;
+    }
+    public void setOrgid(String orgid){
+        this.orgid = orgid;
+    }
+
+    public String getCompanyId(){
+        return companyId;
+    }
+    public void setCompanyId(String companyId){
+        this.companyId = companyId;
+    }
+
+    public String getToken(){
+        return token;
+    }
+    public void setToken(String token){
+        this.token = token;
+    }
+
+    public String getOpenid(){
+        return openid;
+    }
+    public void setOpenid(String openid){
+        this.openid = openid;
+    }
+
+    public String getUserType(){
+        return userType;
+    }
+    public void setUserType(String userType){
+        this.userType = userType;
+    }
+
+    public Timestamp getLastLoginTime(){
+        return lastLoginTime;
+    }
+    public void setLastLoginTime(Timestamp lastLoginTime){
+        this.lastLoginTime = lastLoginTime;
     }
 	public List<String> getUserUrlList() {
 		return userUrlList;
@@ -182,14 +183,11 @@ public class SysUser implements Serializable{
 	public void setRoleIds(List<String> roleIds) {
 		this.roleIds = roleIds;
 	}
-	public void setActiveFlag(int activeFlag) {
-		this.activeFlag = activeFlag;
-	}
 	public Date getLoginTime() {
 		return loginTime;
 	}
 	public void setLoginTime(Date loginTime) {
 		this.loginTime = loginTime;
 	}
-    
+
 }

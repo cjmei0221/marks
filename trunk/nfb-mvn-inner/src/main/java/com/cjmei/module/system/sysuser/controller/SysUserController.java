@@ -17,11 +17,9 @@ import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
+import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
-
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.cjmei.module.system.sysuser.service.SysUserService;
 
