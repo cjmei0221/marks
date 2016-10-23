@@ -21,6 +21,7 @@ import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
+import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysUser;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysrole.service.SysRoleService;
@@ -71,6 +72,7 @@ public class SysRoleController extends SupportContorller{
 	    	SysRole sysRole = getModel(SysRole.class);
 	    	sysRole.setRoleid(IDUtil.getTimeID());
 	    	sysRole.setCreator(admin.getUserid());
+	    	sysRole.setCompanyId(admin.getCompanyId());
 	 		SysRole ori=sysRoleService.findById(sysRole.getRoleid());
 	 		if(ori==null){
 	 			sysRoleService.save(sysRole);
@@ -222,8 +224,9 @@ public class SysRoleController extends SupportContorller{
        Result result = new Result();
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
-			
-			
+			String roleId=request.getParameter("roleId");
+			List<SysMenu> list=sysRoleService.funcList(admin,roleId);
+			result.getData().put("funcList", list);
 			result.setMessage("find sysRole successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -233,5 +236,28 @@ public class SysRoleController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
     }
-	
+	@RequestMapping("/sysRole/funcSave")
+    public void funcSave(HttpServletRequest request,HttpServletResponse response){
+       Result result = new Result();
+		try {
+			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			String roleId=request.getParameter("roleId");
+			String[] funcIds=request.getParameterValues("funcId");
+			
+			List<String> funcList=new ArrayList<String>();
+			for(String funcId:funcIds){
+				if(funcId !=null && funcId.length()>4){
+					funcList.add(funcId);
+				}
+			}
+			sysRoleService.addSysFuncByRoleId(roleId, funcList);
+			result.setMessage("find sysRole successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			result.setMessage("find sysRole fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+    }
 }

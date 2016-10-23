@@ -34,12 +34,13 @@
 		FROM
 		VIEW_SYS_ROLE_MENU vsrm
 		WHERE 1=1
-
-		<!-- AND VSRM.ROLEID IN
-		<foreach collection="list" item="ids" index="index" open="("
-			separator="," close=")">
-			#{ids}
-		</foreach> -->
+		<if test="list != null">
+			AND VSRM.ROLEID IN
+			<foreach collection="list" item="ids" index="index" open="("
+				separator="," close=")">
+				#{ids}
+			</foreach>
+		</if> 
 		and vsrm.PARENTID != '0' order by vsrm.nsort
 	</select>
 	<select id="getSysOperate" resultType="com.cjmei.module.system.sys.pojo.SysOperate">
@@ -50,11 +51,14 @@
 		vsrf.sort
 		FROM
 		VIEW_SYS_ROLE_FUNC vsrf where 1=1
-		AND VSRM.ROLEID IN
-		<foreach collection="list" item="ids" index="index" open="("
-			separator="," close=")">
-			#{ids}
-		</foreach>
+		<if test="list != null">
+			AND vsrf.ROLEID IN
+			<foreach collection="list" item="ids" index="index" open="("
+				separator="," close=")">
+				#{ids}
+			</foreach>
+		</if>
+
 		AND VSRF.MENUID =
 		#{menuid}
 		order by vsrf.sort

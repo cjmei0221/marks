@@ -16,7 +16,8 @@
 		sysrole.UPDATETIME,
 		sysrole.CREATOR,
 		sysrole.ROLENAME,
-		sysrole.CREATETIME
+		sysrole.CREATETIME,
+		COMPANYID
 		)
 		VALUES(
 		#{roleid:VARCHAR},
@@ -24,8 +25,8 @@
 		sysdate,
 		#{creator:VARCHAR},
 		#{rolename:VARCHAR},
-		sysdate
-
+		sysdate,
+		#{companyId:VARCHAR}
 		)
 	</insert>
 
@@ -61,9 +62,11 @@
 	<select id="list" resultType="com.cjmei.module.system.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
 		SELECT sysrole.*,o.orgname
-		FROM TB_SYS_ROLE sysrole left join tb_org_info o on sysrole.orgid=o.orgid
+		FROM TB_SYS_ROLE sysrole left join
+		tb_org_info o on sysrole.orgid=o.orgid
 		WHERE 1=1
-		and ( sysrole.ROLEID LIKE
+		and ( sysrole.ROLEID
+		LIKE
 		CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
 			or sysrole.ORGID LIKE
@@ -112,5 +115,27 @@
 		delete from tb_sys_role_func t where
 		t.roleid=#{roleid}
 	</delete>
-
+	<select id="getFuncList" resultType="com.cjmei.module.system.sys.pojo.SysFunc">
+		SELECT distinct
+		VSRF.OPERID,
+		VSRF.OPERNAME,
+		vsrf.sort,
+		vsrf.MENUID,
+		vsrf.FUNCID,
+		t2.state
+		FROM
+		VIEW_SYS_ROLE_FUNC vsrf
+		left join (select DISTINCT tsrf.funcid, 'checked' state
+               from tb_sys_role_func tsrf where tsrf.roleid=#{roleId:VARCHAR}
+             ) t2 on t2.funcid = vsrf.funcid
+		 where 1=1
+		<if test="list != null">
+			AND VSRM.ROLEID IN
+			<foreach collection="list" item="ids" index="index" open="("
+				separator="," close=")">
+				#{ids}
+			</foreach>
+		</if>
+		order by vsrf.sort
+	</select>
 </mapper>

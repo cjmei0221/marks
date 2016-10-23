@@ -27,6 +27,7 @@
 	<!--  -->
 	<bean id="sysRoleService" class="com.cjmei.module.system.sysrole.service.impl.SysRoleServiceImpl">
 		<property name="sysRoleDao" ref="sysRoleDao"></property>
+		<property name="loginDao" ref="loginDao"></property>
 	</bean>
 	<bean id="sysRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.cjmei.module.system.sysrole.dao.SysRoleDao"></property>
