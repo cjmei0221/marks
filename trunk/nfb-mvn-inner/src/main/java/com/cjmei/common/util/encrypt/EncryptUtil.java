@@ -21,7 +21,8 @@ public class EncryptUtil {
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	public static String encrypt(String src) throws Exception{
-		return AESUtil.desCrypDefto(src);
+		String pwd=AESUtil2.aesDecrypt(src);
+		return AESUtil.desCrypDefto(pwd);
 	}
 	/**
 	 * 解密方法
@@ -37,6 +38,7 @@ public class EncryptUtil {
 		return AESUtil.decryptDef(src);
 	}
 	public static void main(String[] args) throws Exception {
-		System.out.println(EncryptUtil.encrypt("111111"));
+		System.out.println();
+		System.out.println(EncryptUtil.decrypt(EncryptUtil.encrypt("342352452523452345234546345123414363654563")).length());
 	}
 }
