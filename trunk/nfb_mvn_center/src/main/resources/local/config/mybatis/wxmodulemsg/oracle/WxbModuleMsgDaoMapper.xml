@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.grgbanking.module.wxmodulemsg.dao.WxbModuleMsgDao">
+<mapper namespace="com.nfb.module.wxmodulemsg.dao.WxbModuleMsgDao">
 
-    <select id="findById" resultType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
+    <select id="findById" resultType="com.nfb.module.wxmodulemsg.entity.WxbModuleMsg">
 		SELECT * FROM TB_WX_MODULE_MSG wxbmodulemsg where wxbmodulemsg.ID = #{id}
  	</select>
  	
- 	<insert id="save" parameterType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
+ 	<insert id="save" parameterType="com.nfb.module.wxmodulemsg.entity.WxbModuleMsg">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
 
  		INSERT INTO TB_WX_MODULE_MSG wxbmodulemsg (
@@ -49,7 +49,7 @@
 			)
  	</insert>
  	
- 	<update id="update" parameterType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
+ 	<update id="update" parameterType="com.nfb.module.wxmodulemsg.entity.WxbModuleMsg">
  		UPDATE TB_WX_MODULE_MSG wxbmodulemsg
 		SET 
                 wxbmodulemsg.SENDFLAG = #{sendflag:NUMERIC},
@@ -68,10 +68,10 @@
  		DELETE FROM TB_WX_MODULE_MSG wxbmodulemsg WHERE wxbmodulemsg.ID=#{id}
  	</delete>
  	
- 	<select id="findAll" resultType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
+ 	<select id="findAll" resultType="com.nfb.module.wxmodulemsg.entity.WxbModuleMsg">
  		SELECT * FROM TB_WX_MODULE_MSG
  	</select>
- 	<select id="getNeedPustMsg" resultType="com.grgbanking.module.wxmodulemsg.entity.WxbModuleMsg">
+ 	<select id="getNeedPustMsg" resultType="com.nfb.module.wxmodulemsg.entity.WxbModuleMsg">
  		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=0 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; 3 and ROWNUM &lt; #{limitnum}
  	</select>
  	<delete id="deleteBatch" parameterType="java.util.List">

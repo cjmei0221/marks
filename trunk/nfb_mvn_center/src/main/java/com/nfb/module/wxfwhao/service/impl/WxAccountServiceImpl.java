@@ -10,34 +10,34 @@ import com.nfb.module.wxfwhao.service.WxAccountService;
 
 public class WxAccountServiceImpl implements WxAccountService {
 	
-	private WxAccountDao WxAccountDao;
+	private WxAccountDao wxAccountDao;
 
 	public WxAccountDao getWxAccountDao() {
-		return WxAccountDao;
+		return wxAccountDao;
 	}
 
 	public void setWxAccountDao(WxAccountDao wxAccountDao) {
-		WxAccountDao = wxAccountDao;
+		this.wxAccountDao = wxAccountDao;
 	}
 
 	public void loadData() {
-		List<WxAccount> list=WxAccountDao.getWXAccountList();
+		List<WxAccount> list=wxAccountDao.getWXAccountList();
 		for(WxAccount account:list){
 			WeChatAccountHelper.put(account);
 		}
 	}
 
 	public void saveOrUpdateAccessTokenVo(AccessTokenVo vo) {
-		AccessTokenVo old=WxAccountDao.getAccessTokenVoByAccountid(vo.getAccountid());
+		AccessTokenVo old=wxAccountDao.getAccessTokenVoByAccountid(vo.getAccountid());
 		if(null !=old){
-			WxAccountDao.updateAccessTokenVo(vo);
+			wxAccountDao.updateAccessTokenVo(vo);
 		}else{
-			WxAccountDao.saveAccessTokenVo(vo);
+			wxAccountDao.saveAccessTokenVo(vo);
 		}
 	}
 
 	public AccessTokenVo getAccessTokenVoByAccountid(String accountid) {
-		return WxAccountDao.getAccessTokenVoByAccountid(accountid);
+		return wxAccountDao.getAccessTokenVoByAccountid(accountid);
 	}
 	
 	
