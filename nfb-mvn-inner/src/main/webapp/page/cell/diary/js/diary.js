@@ -160,7 +160,7 @@ function loadList() {
 		}, {
 			title : '正文',
 			field : 'content',
-			width : 500,
+			width : 600,
 			align : "left"
 		} ] ],
 		loader : function(params, success, loadError) {

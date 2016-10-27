@@ -197,6 +197,11 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '上级包名',
+			field : 'parentPackage',
+			width : 100,
+			align : "center"
+		}, {
 			title : '描述',
 			field : 'moduleDesc',
 			width : 100,
@@ -300,6 +305,7 @@ function initAttrList() {
 		striped : true,
 		nowrap : true,
 		collapsible : true,
+		rownumbers : true,
 		fitColumns : true,
 		singleSelect : true,
 		toolbar : [ {
