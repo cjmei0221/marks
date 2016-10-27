@@ -31,7 +31,7 @@ public class AuthUtil {
 		public void addFuncForRole(AutoBean autoBean) {
 			HtmlPageProduced html = new HtmlPageProduced();
 			String autoBeanName = autoBean.getFactBeanName();
-			String menuUrl = AutoConfig.FILE_Menu_SRC + autoBeanName.toLowerCase() + "/" + autoBeanName + "." + html.DEFAULT_FILE_HTML;
+			String menuUrl = AutoConfig.config_menu_src+autoBean.getParentPackage()+"/"+ autoBeanName.toLowerCase() + "/" + autoBeanName + "." + html.DEFAULT_FILE_HTML;
 			String listurl = "/" + autoBeanName + "/list";
 			String saveurl = "/" + autoBeanName + "/save";
 			String updateurl = "/" + autoBeanName + "/update";
