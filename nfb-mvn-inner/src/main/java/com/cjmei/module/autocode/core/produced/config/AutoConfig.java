@@ -40,7 +40,7 @@ public class AutoConfig {
 	public static String FILE_JAVA_SRC=AutoCodePropsUtil.getProperty("FILE_JAVA_SRC");
 	public static String FILE_XML_SRC=AutoCodePropsUtil.getProperty("FILE_mybatis_XML_SRC");
 	public static String FILE_WEB_SRC=AutoCodePropsUtil.getProperty("FILE_WEB_SRC");
-	public static String FILE_Menu_SRC=AutoCodePropsUtil.getProperty("config_menu_src");
+	public static String config_menu_src=AutoCodePropsUtil.getProperty("config_menu_src");
 
 	public static String FILE_SPRING_SRC=AutoCodePropsUtil.getProperty("FILE_SPRING_SRC");
 	public static String SPRING_NAME=AutoCodePropsUtil.getProperty("spring_base_path");
