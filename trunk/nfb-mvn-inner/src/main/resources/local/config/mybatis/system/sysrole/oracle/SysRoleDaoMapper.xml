@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjmei.module.system.sysrole.dao.SysRoleDao">
+
+	<select id="findById" resultType="com.cjmei.module.system.sysrole.pojo.SysRole">
+		SELECT * FROM TB_SYS_ROLE
+		sysrole where sysrole.ROLEID = #{roleid}
+	</select>
+
+	<insert id="save" parameterType="com.cjmei.module.system.sysrole.pojo.SysRole">
+		INSERT INTO TB_SYS_ROLE sysrole
+		(
+		sysrole.ROLEID,
+		sysrole.ORGID,
+		sysrole.UPDATETIME,
+		sysrole.CREATOR,
+		sysrole.ROLENAME,
+		sysrole.CREATETIME,
+		COMPANYID
+		)
+		VALUES(
+		#{roleid:VARCHAR},
+		#{orgid:VARCHAR},
+		sysdate,
+		#{creator:VARCHAR},
+		#{rolename:VARCHAR},
+		sysdate,
+		#{companyId:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cjmei.module.system.sysrole.pojo.SysRole">
+		UPDATE TB_SYS_ROLE sysrole
+		SET
+		sysrole.ORGID = #{orgid:VARCHAR},
+		sysrole.UPDATETIME =
+		sysdate,
+		sysrole.ROLENAME =
+		#{rolename:VARCHAR}
+		WHERE
+		sysrole.ROLEID = #{roleid}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_SYS_ROLE
+		sysrole WHERE sysrole.ROLEID=#{roleid}
+	</delete>
+
+	<select id="findAll" resultType="com.cjmei.module.system.sysrole.pojo.SysRole">
+		SELECT * FROM TB_SYS_ROLE
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_SYS_ROLE WHERE ROLEID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.cjmei.module.system.sysrole.pojo.SysRole"
+		parameterType="java.util.Map">
+		SELECT sysrole.*,o.orgname
+		FROM TB_SYS_ROLE sysrole left join
+		tb_org_info o on sysrole.orgid=o.orgid
+		WHERE 1=1
+		and ( sysrole.ROLEID
+		LIKE
+		CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		<if test="keyword!=null and keyword!=''">
+			or sysrole.ORGID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or sysrole.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or sysrole.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or sysrole.ROLENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or sysrole.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		)
+		ORDER BY sysrole.UPDATETIME desc
+
+	</select>
+
+	<insert id="saveRoleFunc" parameterType="com.cjmei.module.system.sys.pojo.SysRoleFunc">
+		INSERT INTO
+		TB_SYS_ROLE_FUNC sysrolefunc (
+		sysrolefunc.ROLEID,
+		sysrolefunc.FUNCID,
+		sysrolefunc.UPDATETIME,
+		sysrolefunc.CREATOR,
+		sysrolefunc.CREATETIME
+		)
+		VALUES(
+		#{roleid:VARCHAR},
+		#{funcid:VARCHAR},
+		sysdate,
+		#{creator:VARCHAR},
+		sysdate
+
+		)
+	</insert>
+	<delete id="deleteFuncByRoleid">
+		delete from tb_sys_role_func t where
+		t.roleid=#{roleid}
+	</delete>
+	<select id="getFuncList" resultType="com.cjmei.module.system.sys.pojo.SysFunc">
+		SELECT distinct
+		VSRF.OPERID,
+		VSRF.OPERNAME,
+		vsrf.sort,
+		vsrf.MENUID,
+		vsrf.FUNCID,
+		t2.state
+		FROM
+		VIEW_SYS_ROLE_FUNC vsrf
+		left join (select DISTINCT tsrf.funcid, 'checked' state
+               from tb_sys_role_func tsrf where tsrf.roleid=#{roleId:VARCHAR}
+             ) t2 on t2.funcid = vsrf.funcid
+		 where 1=1
+		<if test="list != null">
+			AND VSRM.ROLEID IN
+			<foreach collection="list" item="ids" index="index" open="("
+				separator="," close=")">
+				#{ids}
+			</foreach>
+		</if>
+		order by vsrf.sort
+	</select>
+</mapper>
