@@ -27,7 +27,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations"
-			value="classpath:/com/cjmei/module/**/dao/mybatis/${jdbc.dialect}/*Mapper.xml" />
+			value="classpath:/config/mybatis/**/${jdbc.dialect}/*Mapper.xml" />
 		<property name="plugins">
 			<list>
 				<bean
