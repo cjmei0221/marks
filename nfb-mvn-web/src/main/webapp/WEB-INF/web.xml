@@ -10,7 +10,7 @@
 	<listener>
 		<listener-class>net.bull.javamelody.SessionListener</listener-class>
 	</listener>
-	<!-- 分页插件清除缓存  -->
+	<!-- 分页插件清除缓存 -->
 	<listener>
 		<listener-class>com.github.miemiedev.mybatis.paginator.CleanupMybatisPaginatorListener</listener-class>
 	</listener>
@@ -22,7 +22,7 @@
 			classpath:config/spring/applicationContext_quartz.xml
 		</param-value>
 	</context-param>
-	
+
 	<filter>
 		<filter-name>monitoring</filter-name>
 		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
@@ -67,6 +67,24 @@
 		<filter-name>paramsFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -79,8 +97,9 @@
 
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
