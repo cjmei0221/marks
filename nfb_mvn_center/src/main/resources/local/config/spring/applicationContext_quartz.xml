@@ -3,7 +3,7 @@
 <beans>
 
 	<!-- 定时加载本地参数 -->
-	<bean name="loadDataJob" class="com.grgbanking.module.system.helper.TimingLoadingHelper" />
+	<bean name="loadDataJob" class="com.nfb.module.system.helper.TimingLoadingHelper" />
 	<bean id="loadDataJobDetail"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
@@ -26,7 +26,7 @@
 	</bean>
 	
 	<!-- 定时扫描数据库推送微信模板消息-->
-	<bean name="wxbModuleMsgJob" class="com.grgbanking.module.wxmodulemsg.job.WxbModuleMsgHelper" />
+	<bean name="wxbModuleMsgJob" class="com.nfb.module.wxmodulemsg.job.WxbModuleMsgHelper" />
 	<bean id="wxbModuleMsgDetail"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">

@@ -94,7 +94,7 @@
 
 	<aop:config>
 		<aop:pointcut id="txPointcut"
-			expression="execution(* com.grgbanking.module.*.service.*Service.*(..))" />
+			expression="execution(* com.nfb.module.*.service.*Service.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
 
@@ -108,25 +108,25 @@
 
 
 	<!-- DAO Bean Define -->
-	<bean id="weixinAccountService"
-		class="com.grgbanking.module.wxfwhao.service.impl.WeixinAccountServiceImpl">
-		<property name="weixinAccountDao" ref="weixinAccountDao" />
+	<bean id="wxAccountService"
+		class="com.nfb.module.wxfwhao.service.impl.WxAccountServiceImpl">
+		<property name="wxAccountDao" ref="wxAccountDao" />
 	</bean>
 
-	<bean id="weixinAccountDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<bean id="wxAccountDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.grgbanking.module.wxfwhao.dao.WeixinAccountDao"></property>
+			value="com.nfb.module.wxfwhao.dao.WxAccountDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 <!-- DAO Bean Define -->
 	<bean id="wxbModuleMsgService"
-		class="com.grgbanking.module.wxmodulemsg.service.impl.WxbModuleMsgServiceImpl">
+		class="com.nfb.module.wxmodulemsg.service.impl.WxbModuleMsgServiceImpl">
 		<property name="wxbModuleMsgDao" ref="wxbModuleMsgDao" />
 	</bean>
 
 	<bean id="wxbModuleMsgDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.grgbanking.module.wxmodulemsg.dao.WxbModuleMsgDao"></property>
+			value="com.nfb.module.wxmodulemsg.dao.WxbModuleMsgDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 </beans>
