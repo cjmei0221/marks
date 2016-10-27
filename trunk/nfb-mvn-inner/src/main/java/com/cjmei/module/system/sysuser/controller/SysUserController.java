@@ -17,9 +17,12 @@ import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
+import com.cjmei.common.util.encrypt.EncryptUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
+import com.cjmei.module.system.orginfo.service.OrgInfoService;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.cjmei.module.system.sysuser.service.SysUserService;
 
@@ -30,7 +33,8 @@ public class SysUserController extends SupportContorller{
     @Autowired
     private SysUserService  sysUserService;
    
-
+    @Autowired
+	private OrgInfoService orgInfoService;
     @Override
 	public Logger getLogger() {
 		return logger;
@@ -70,6 +74,11 @@ public class SysUserController extends SupportContorller{
 	 //     sysUser.setUserid(IDUtil.getTimeID());
 	 		SysUser ori=sysUserService.findById(sysUser.getUserid());
 	 		if(ori==null){
+	 			//密码处理
+	 			sysUser.setPassword(EncryptUtil.encrypt(sysUser.getPassword()));
+	 			OrgInfo info=orgInfoService.findById(sysUser.getOrgid());
+	 			sysUser.setCompanyId(info.getCompanyId());
+	 			sysUser.setCreator(admin.getUserid());
 	 			sysUserService.save(sysUser);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -93,13 +102,14 @@ public class SysUserController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    SysUser sysUser = getModel(SysUser.class);
 		    SysUser ori=sysUserService.findById(sysUser.getUserid());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
+		    	OrgInfo info=orgInfoService.findById(sysUser.getOrgid());
+	 			sysUser.setCompanyId(info.getCompanyId());
 		    	sysUserService.update(sysUser);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
