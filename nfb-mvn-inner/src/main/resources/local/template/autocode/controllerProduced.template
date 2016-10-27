@@ -71,7 +71,11 @@ public class @{beanName}Controller extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
 	 //     @{BeanObject}.set@{GetIdAttrName}(IDUtil.getTimeID());
-	 		@{beanName} ori=@{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+			 @{beanName} ori=null;
+	 		if(@{BeanObject}.get@{GetIdAttrName}() != null){
+	 			ori=@{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+	 		}
+	 		
 	 		if(ori==null){
 	 			@{BeanObject}Service.save(@{BeanObject});
 	 			result.setMessage("保存成功");
