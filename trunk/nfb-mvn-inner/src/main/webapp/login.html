@@ -9,13 +9,17 @@
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta http-equiv="expires" content="Wed, 26 Feb 1970 08:21:57 GMT">
-<link rel="stylesheet" type="text/css" href="css/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="css/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="css/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="js/easyUI/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/base-config.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.js"></script>
+<script type="text/javascript" src="js/encrypt/aes.js"></script>
+<script type="text/javascript" src="js/encrypt/mode-ecb.js"></script>
+<script type="text/javascript" src="js/encrypt/aes_u.js"></script>
 </head>
 <style type="text/css">
 #ff1 * {
@@ -324,9 +328,9 @@ input:-webkit-autofill {
 	cursor: default;
 }
 
-.tipMsgCls{
-	text-align:center;
-	color:red;
+.tipMsgCls {
+	text-align: center;
+	color: red;
 }
 </style>
 <body class="easyui-layout" style="min-width: 800px;">
@@ -388,37 +392,36 @@ input:-webkit-autofill {
 	var appLogin = {
 		urlLogin : top.window.urlBase + "/sys/login.do"
 	};
-	
-	function checkParams(){
-		var checkflag=true;
-		var errorMsg="";
+
+	function checkParams() {
+		var checkflag = true;
+		var errorMsg = "";
 		//检验用户ID
-		var useridPut=$("#userid").val();
+		var useridPut = $("#userid").val();
 		//非空判断
-		if(useridPut==null || useridPut==''){
-			errorMsg +="<p class='tipMsgCls'>用户名为空</p>";
-			checkflag= false;
+		if (useridPut == null || useridPut == '') {
+			errorMsg += "<p class='tipMsgCls'>用户名为空</p>";
+			checkflag = false;
 		}
 		//校验密码
-		var passwordPut=$("#password").val();
+		var passwordPut = $("#password").val();
 		//非空判断
-		if(passwordPut==null || passwordPut==''){
-			errorMsg +="<p class='tipMsgCls'>密码为空</p>";
-			checkflag= false;
-		}else{
+		if (passwordPut == null || passwordPut == '') {
+			errorMsg += "<p class='tipMsgCls'>密码为空</p>";
+			checkflag = false;
+		} else {
 			//密码长短判断
-			if(passwordPut.length<6){
-				errorMsg +="<p class='tipMsgCls'>密码长度错误</p>";
-				checkflag= false;
+			if (passwordPut.length < 6) {
+				errorMsg += "<p class='tipMsgCls'>密码长度错误</p>";
+				checkflag = false;
 			}
 		}
-		if(!checkflag){
+		if (!checkflag) {
 			$.messager.alert('系统提示', errorMsg);
 		}
 		return checkflag;
 	}
-	
-	
+
 	function login(e) {
 		try {
 			e.preventDefault();
@@ -426,31 +429,31 @@ input:-webkit-autofill {
 		} catch (e00) {
 
 		}
-		if(checkParams()){
+		if (checkParams()) {
 			var p = {
-					userid : $("#userid").val(),
-					pwd : $("#password").val()
-				}
-				
-				$.ajax({
-					url : appLogin.urlLogin,
-					data : p,
-					type : "post",
-					success : function(data, status, xhr) {
-						if (typeof data === "string") {
-							data = $.parseJSON(data);
-						}
-						if (data.retcode == 0) {
-							location.replace("index.html");
-						} else {
-							$.messager.alert("系统提示",data.retmsg);
-							return;
-						}
-					},
-					error : function(xhr) {
-					
+				userid : $("#userid").val(),
+				pwd : Encrypt($("#password").val())
+			}
+
+			$.ajax({
+				url : appLogin.urlLogin,
+				data : p,
+				type : "post",
+				success : function(data, status, xhr) {
+					if (typeof data === "string") {
+						data = $.parseJSON(data);
 					}
-				});
+					if (data.retcode == 0) {
+						location.replace("index.html");
+					} else {
+						$.messager.alert("系统提示", data.retmsg);
+						return;
+					}
+				},
+				error : function(xhr) {
+
+				}
+			});
 		}
 		return;
 	}
