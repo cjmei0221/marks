@@ -10,7 +10,7 @@
 	<listener>
 		<listener-class>net.bull.javamelody.SessionListener</listener-class>
 	</listener>
-	<!-- 分页插件清除缓存  -->
+	<!-- 分页插件清除缓存 -->
 	<listener>
 		<listener-class>com.github.miemiedev.mybatis.paginator.CleanupMybatisPaginatorListener</listener-class>
 	</listener>
@@ -22,7 +22,7 @@
 			classpath:config/spring/applicationContext_quartz.xml
 		</param-value>
 	</context-param>
-	
+
 	<filter>
 		<filter-name>monitoring</filter-name>
 		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
@@ -79,6 +79,11 @@
 		<filter-name>paramsFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
+	
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
