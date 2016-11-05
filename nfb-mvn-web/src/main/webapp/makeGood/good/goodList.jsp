@@ -9,12 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Bootstrap -->
-<link href="../../framework/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet" media="screen">
-<link href="../../css/common.css" rel="stylesheet" type="text/css">
+<%@include file="../include/common.jsp"%>
 <link href="goodList.css" rel="stylesheet" type="text/css">
-<script src="http://code.jquery.com/jquery.js"></script>
-<script src="../../framework/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
 </style>
 </head>
