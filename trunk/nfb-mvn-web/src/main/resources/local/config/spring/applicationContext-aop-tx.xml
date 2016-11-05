@@ -32,7 +32,7 @@
 		<!-- spring集成 -->
 		<aop:aspectj-autoproxy proxy-target-class="true" />      
 		<context:annotation-config/>
-		<context:component-scan base-package="module"  />
+		<context:component-scan base-package="com.cjmei.module"  />
 		
 		<tx:annotation-driven transaction-manager="transactionManager"/>
 		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
