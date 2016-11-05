@@ -328,7 +328,7 @@ function loadList() {
 					var list = data.menuList;
 					that.data().treegrid["cache"] = data;
 					success({
-						"total" : list.length,
+						"total" : data.total_count,
 						"rows" : list
 					});
 					return true;
