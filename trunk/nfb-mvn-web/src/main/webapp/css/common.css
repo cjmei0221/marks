@@ -41,17 +41,17 @@
 }
 
 .my-img-cls {
-	width: 380px;
-	height: 400px;
+	width:230px; 
+	height: 300px;
 }
 
 .my-good-cls {
-	padding: 10px;
+	padding: 12px;
+	float:left;
 }
 
 .my-good-table-cls {
 	position: relative;
-	left: 10;
 }
 
 .my-head-cls {
