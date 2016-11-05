@@ -14,6 +14,7 @@
 <link href="./css/common.css" rel="stylesheet" media="screen">
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="./framework/bootstrap/js/bootstrap.min.js"></script>
+<script src="./js/my-config.js"></script>
 <style type="text/css">
 
 </style>
@@ -46,7 +47,7 @@
 </body>
 <script type="text/javascript">
 	$(function() {
-		$("#myContent").load("./makeGood/main.jsp");
+		$("#myContent").load("./makeGood/main/main.jsp");
 		$("#myMcBtn").on("click", function() {
 			$("#myContent").load("./makeGood/myMc/myMake.jsp");
 		});
