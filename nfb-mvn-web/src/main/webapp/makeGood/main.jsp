@@ -158,4 +158,5 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="main.js"></script>
 </html>
