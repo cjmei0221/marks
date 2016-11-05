@@ -9,8 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Bootstrap -->
-<%@include file="../include/common.jsp"%>
-<link href="newMake.css" rel="stylesheet" type="text/css">
+<link href="./makeGood/newMc/newMake.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 </style>
 </head>
@@ -33,5 +32,5 @@
 		</table>
 	</div>
 </body>
-<script type="text/javascript" src="newMake.js"></script>
+<script type="text/javascript" src="./makeGood/newMc/newMake.js"></script>
 </html>

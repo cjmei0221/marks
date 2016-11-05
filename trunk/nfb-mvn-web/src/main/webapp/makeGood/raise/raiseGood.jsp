@@ -9,8 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Bootstrap -->
-<%@include file="../include/common.jsp"%>
-<link href="raiseGood.css" rel="stylesheet" type="text/css">
+
+<link href="./makeGood/raise/raiseGood.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 </style>
 </head>
@@ -33,5 +33,5 @@
 		</table>
 	</div>
 </body>
-<script type="text/javascript" src="raiseGood.js"></script>
+<script type="text/javascript" src="./makeGood/raise/raiseGood.js"></script>
 </html>
