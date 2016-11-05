@@ -190,7 +190,7 @@ function loadList() {
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({
-						"total" : list.length,
+						"total" : data.total_count,
 						"rows" : list
 					});
 					return true;
