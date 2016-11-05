@@ -323,7 +323,7 @@ function funcList(roleId) {
 					var list = data.funcList;
 					that.data().treegrid["cache"] = data;
 					success({
-						"total" : list.length,
+						"total" : data.total_count,
 						"rows" : list
 					});
 					return true;
