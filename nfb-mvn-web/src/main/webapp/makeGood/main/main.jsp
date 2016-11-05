@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Bootstrap -->
-<%@include file="../include/common.jsp"%>
 
 <style type="text/css">
 </style>
@@ -155,5 +154,5 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="./makeGood/main/main.js"></script>
 </html>
