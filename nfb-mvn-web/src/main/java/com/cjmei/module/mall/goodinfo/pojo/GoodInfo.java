@@ -2,6 +2,7 @@ package com.cjmei.module.mall.goodinfo.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class GoodInfo implements Serializable{
 
@@ -18,7 +19,7 @@ public class GoodInfo implements Serializable{
     /**
     *商品单价
     */
-    private int goodPrice;
+    private double goodPrice;
     /**
     *商品单位
     */
@@ -56,7 +57,7 @@ public class GoodInfo implements Serializable{
         this.goodName = goodName;
     }
 
-    public int getGoodPrice(){
+    public double getGoodPrice(){
         return goodPrice;
     }
     public void setGoodPrice(int goodPrice){
@@ -75,6 +76,14 @@ public class GoodInfo implements Serializable{
     }
     public void setImageUrl(String imageUrl){
         this.imageUrl = imageUrl;
+    }
+    
+    public String getCreatedate(){
+    	if(createtime!=null){
+    		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+    		return sdf.format(createtime);
+    	}
+        return "";
     }
 
     public Timestamp getCreatetime(){
