@@ -43,7 +43,7 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 300px; padding: 10px;">
+		style="width: 500px; height: 500px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="goodId" name="goodId">
 			<table class="out-win-cls">
@@ -66,7 +66,7 @@
 					<th>商品主图</th>
 					<td><input id="imageUrl" name="imageUrl"
 						type="hidden" data-options="required:true">
-						<div class="imageUrlDiv" style="height: 100px;" id="remove"></div>
+						<div class="imageUrlDiv" style="height: 200px;" id="remove"></div>
 					</td>
 				</tr>
 				<tr>
