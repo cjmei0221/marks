@@ -1,0 +1,60 @@
+.my-body-cls {
+	background-color: lightsalmon;
+}
+
+.my-main-cls {
+	position: relative;
+	margin: 5px;
+	width: 100%;
+	right: 5px;
+}
+
+.my-idx-cls {
+	position: relative;
+	width: 800px;
+	left: 5px;
+	top: 5px;
+	margin: 0px;
+	padding: 0px;
+	line-height: 100px;
+}
+
+.my-btn-cls {
+	position: relative;
+	left: 10px;
+	height: 32px;
+	width: 100px;
+	vertical-align: middle;
+}
+
+.search-cls {
+	text-align: center;
+}
+
+.item-cls {
+	border-bottom: 1px solid #ffffff;
+}
+
+.list-item-cls {
+	padding: 20px;
+	text-indent: 2em;
+}
+
+.my-img-cls {
+	width: 380px;
+	height: 400px;
+}
+
+.my-good-cls {
+	padding: 10px;
+}
+
+.my-good-table-cls {
+	position: relative;
+	left: 10;
+}
+
+.my-head-cls {
+	padding: 5px;
+	border-bottom: 2px solid #ffffff;
+}
