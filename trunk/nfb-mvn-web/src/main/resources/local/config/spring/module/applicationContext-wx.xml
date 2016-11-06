@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd    
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd    
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd    
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd    
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.1.xsd    
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.1.xsd    
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd    
+        http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.1.xsd    
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd    
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd    
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
+	default-autowire="byName">
+	<bean id="requestDispatchService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.RequestDispatchServiceImpl">
+		<property name="componentMap">
+			<map>
+				<entry key="text" value-ref="textRequestService"></entry>
+				<entry key="event" value-ref="eventRequestService"></entry>
+				<entry key="image" value-ref="imageRequestService"></entry>
+				<entry key="voice" value-ref="voiceRequestService"></entry>
+				<entry key="video" value-ref="videoRequestService"></entry>
+				<entry key="location" value-ref="locationRequestService"></entry>
+				<entry key="link" value-ref="linkRequestService"></entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="textRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.normal.TextRequestServiceImpl" />
+	<bean id="imageRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.normal.ImageRequestServiceImpl" />
+	<bean id="voiceRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.normal.VoiceRequestServiceImpl" />
+	<bean id="videoRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.normal.VideoRequestServiceImpl" />
+	<bean id="locationRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.normal.LocationRequestServiceImpl" />
+	<bean id="linkRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.normal.LinkRequestServiceImpl" />
+
+	<bean id="eventRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.normal.EventRequestServiceImpl">
+		<property name="componentMap">
+			<map>
+				<entry key="subscribe" value-ref="subscribeRequestService"></entry>
+				<entry key="unsubscribe" value-ref="unsubscribeRequestService"></entry>
+				<entry key="click" value-ref="clickEventRequestService"></entry>
+				<entry key="view" value-ref="viewEventRequestService"></entry>
+				<entry key="scan" value-ref="scanEventRequestService"></entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="locationEventRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.event.LocationEventRequestServiceImpl">
+	</bean>
+	<bean id="subscribeRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.event.SubscribeEventRequestServiceImpl">
+	</bean>
+	<bean id="unsubscribeRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.event.UnsubscribeEventRequestServiceImpl">
+	</bean>
+	<bean id="clickEventRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.event.ClickEventRequestServiceImpl">
+	</bean>
+	<bean id="viewEventRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.event.ViewEventRequestServiceImpl">
+	</bean>
+	<bean id="scanEventRequestService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.event.ScanEventRequestServiceImpl"></bean>
+
+	<!-- 加载基础数据管理 -->
+	<bean id="weixinAccountService"
+		class="com.cjmei.module.weixin.wfhao.service.impl.WeixinAccountServiceImpl">
+		<property name="weixinAccountDao" ref="weixinAccountDao"></property>
+		<property name="wxUserDao" ref="wxUserDao"></property>
+	</bean>
+	<bean id="weixinAccountDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.cjmei.module.weixin.wfhao.dao.WeixinAccountDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	<bean id="wxUserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cjmei.module.weixin.wfhao.dao.WxUserDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	<bean id="wxMenuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cjmei.module.weixin.wfhao.dao.WxMenuDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<bean id="wxAutoReplayDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.cjmei.module.weixin.wfhao.dao.WxAutoReplayDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+</beans>
