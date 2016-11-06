@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cjmei.module.system.sys.pojo.DataDir;
 import com.cjmei.module.system.sys.pojo.SysConf;
-import com.cjmei.module.weixin.account.pojo.WxAccount;
+import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
 
 public interface LoadDataDao {
 
