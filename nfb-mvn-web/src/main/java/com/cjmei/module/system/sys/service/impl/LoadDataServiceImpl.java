@@ -7,7 +7,7 @@ import com.cjmei.module.system.sys.dao.LoadDataDao;
 import com.cjmei.module.system.sys.pojo.DataDir;
 import com.cjmei.module.system.sys.pojo.SysConf;
 import com.cjmei.module.system.sys.service.LoadDataService;
-import com.cjmei.module.weixin.account.pojo.WxAccount;
+import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
 
 public class LoadDataServiceImpl implements LoadDataService{
 
