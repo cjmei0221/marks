@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjmei.module.wx.wxmenu.dao.WxMenuDao">
+
+    <select id="findById" resultType="com.cjmei.module.wx.wxmenu.pojo.WxMenu">
+		SELECT * FROM TB_WX_MENU wxmenu where wxmenu.ID = #{id}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.cjmei.module.wx.wxmenu.pojo.WxMenu">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+
+ 		INSERT INTO TB_WX_MENU wxmenu (
+            wxmenu.ID,
+            wxmenu.PARENT_ID,
+            wxmenu.NAME,
+            wxmenu.TYPE,
+            wxmenu.CONTENT,
+            wxmenu.SORT,
+            wxmenu.ACCOUNTID
+		)
+		VALUES(
+            #{id:VARCHAR},
+            #{parent_id:VARCHAR},
+            #{name:VARCHAR},
+            #{type:VARCHAR},
+            #{content:VARCHAR},
+            #{sort:NUMERIC},
+            #{accountid:VARCHAR}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.cjmei.module.wx.wxmenu.pojo.WxMenu">
+ 		UPDATE TB_WX_MENU wxmenu
+		SET 
+                wxmenu.PARENT_ID = #{parent_id:VARCHAR},
+                wxmenu.NAME = #{name:VARCHAR},
+                wxmenu.TYPE = #{type:VARCHAR},
+                wxmenu.CONTENT = #{content:VARCHAR},
+                wxmenu.SORT = #{sort:NUMERIC},
+                wxmenu.ACCOUNTID = #{accountid:VARCHAR}
+		WHERE
+			wxmenu.ID = #{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_WX_MENU wxmenu WHERE wxmenu.ID=#{id}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.cjmei.module.wx.wxmenu.pojo.WxMenu">
+ 		SELECT * FROM TB_WX_MENU
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_WX_MENU WHERE ID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.cjmei.module.wx.wxmenu.pojo.WxMenu" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_WX_MENU wxmenu
+						WHERE 1=1
+ and ( wxmenu.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        <if test="keyword!=null and keyword!=''">
+                            or wxmenu.PARENT_ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxmenu.NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxmenu.TYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxmenu.CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxmenu.SORT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxmenu.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+ )
+					
+					
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>
