@@ -8,7 +8,7 @@ import java.util.Map;
 import com.cjmei.common.util.Constants;
 import com.cjmei.module.system.sys.pojo.DataDir;
 import com.cjmei.module.system.sys.pojo.SysConf;
-import com.cjmei.module.weixin.account.pojo.WxAccount;
+import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
 
 /**
  * 
