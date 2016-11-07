@@ -39,7 +39,7 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 300px; padding: 10px;">
+		style="width: 400px; height: 450px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden"  id="@{PKAttrValue}" name="@{PKAttrValue}">
 			<table class="out-win-cls">
