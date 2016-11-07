@@ -86,13 +86,13 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 			
 			AttrType at=attrs.get(i).getAttrType();
 			String str = "<tr><th>" + desc + "</th><td><input id=\"" + attrName + "\" name=\"" + attrName
-					+ "\" class=\"easyui-validatebox\" data-options=\"required:true\"></td></tr>";
+					+ "\" class=\"easyui-validatebox\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
 			if(AttrType.Integer.equals(at)){
 				str = "<tr><th>" + desc + "</th><td><input id=\"" + attrName + "\" name=\"" + attrName
-						+ "\" class=\"easyui-numberbox\" data-options=\"required:true\"></td></tr>";
+						+ "\" class=\"easyui-numberbox\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
 			}else if(AttrType.Timestamp.equals(at)){
 				str = "<tr><th>" + desc + "</th><td><input id=\"" + attrName + "\" name=\"" + attrName
-						+ "\" class=\"easyui-datetimebox\" data-options=\"required:true\"></td></tr>";
+						+ "\" class=\"easyui-datetimebox\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
 			}
 			sBuffer.append(str);
 		}
