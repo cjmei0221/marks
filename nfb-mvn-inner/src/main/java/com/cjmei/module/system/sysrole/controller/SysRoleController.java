@@ -103,7 +103,6 @@ public class SysRoleController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    SysRole sysRole = getModel(SysRole.class);
 		    OrgInfo orgInfo=orgInfoService.findById(sysRole.getOrgid());
 	    	sysRole.setCompanyId(orgInfo.getCompanyId());
@@ -225,6 +224,7 @@ public class SysRoleController extends SupportContorller{
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
 			param.put("orgids", admin.getOrgids());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
