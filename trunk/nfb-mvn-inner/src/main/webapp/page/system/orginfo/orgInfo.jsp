@@ -18,14 +18,9 @@
 		<p class="nav-header-cls">架构管理>>组织管理</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
+				
 				<tr>
-					<td><input type="text" id="keyword" name="keyword"
-						style="width: 260px;" placeholder="关键字" /></td>
-					<td><button type="button" id="doSearch" data-oper="query"
-							style="cursor: pointer;">查询</button>
-				</tr>
-				<tr>
-					<td colspan="7"><wt:button /></td>
+					<td><wt:button /></td>
 				</tr>
 			</table>
 		</div>
@@ -51,6 +46,12 @@
 					<th>组织名称</th>
 					<td><input id="orgname" name="orgname"
 						class="easyui-validatebox" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<th>上级组织</th>
+					<td><input id="parentName" name="parentName"
+						class="easyui-validatebox" data-options="required:true" readonly="readonly"><input
+						type="hidden" id="parentId" name="parentId"></td>
 				</tr>
 				<tr>
 					<th>启用标识</th>

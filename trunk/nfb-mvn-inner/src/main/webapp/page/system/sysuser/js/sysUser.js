@@ -3,7 +3,6 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/sysUser/save.do',// 保存新增用户管理接口
 	updateUrl : top.window.urlBase + '/sysUser/update.do',// 编辑用户管理信息接口
 	deleteUrl : top.window.urlBase + '/sysUser/delete.do',// 删除用户管理接口
-	orgListUrl : top.window.urlBase + '/orgInfo/getChildListByParentId.do',// 删除角色管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -73,22 +72,6 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-	
-	$('#orgid')
-	.combotree(
-			{
-				url : appInfo.orgListUrl + "?parentId=0",
-				onBeforeExpand : function(node) {
-					$('#orgid').combotree("tree").tree("options").url = appInfo.orgListUrl
-							+ "?parentId="
-							+ node.id
-							+ "&_timer="
-							+ new Date().getTime();
-				},
-				onLoadSuccess : function(data) {
-					$("#orgid").combotree('expandAll');
-				}
-			});
 });
 /**
  * 保存菜单

@@ -38,9 +38,9 @@
 			AND VSRM.ROLEID IN
 			<foreach collection="list" item="ids" index="index" open="("
 				separator="," close=")">
-				#{ids}
+				#{ids.roleid}
 			</foreach>
-		</if> 
+		</if>
 		and vsrm.PARENTID != '0' order by vsrm.nsort
 	</select>
 	<select id="getSysOperate" resultType="com.cjmei.module.system.sys.pojo.SysOperate">
@@ -55,7 +55,7 @@
 			AND vsrf.ROLEID IN
 			<foreach collection="list" item="ids" index="index" open="("
 				separator="," close=")">
-				#{ids}
+				#{ids.roleid}
 			</foreach>
 		</if>
 
@@ -79,9 +79,28 @@
 		select t.roleid from
 		tb_sys_user_role t where t.userid= #{userid}
 	</select>
+	<select id="getUserRoleList" resultType="com.cjmei.module.system.sysrole.pojo.SysRole">
+		select tso.roleid,
+		tso.rolename,
+		tso.orgid,
+		tso.companyid,
+		toi.parentid orgParentId
+		from
+		tb_sys_user_role t
+		join tb_sys_role tso on t.roleid = tso.roleid
+		join
+		tb_org_info toi on tso.orgid = toi.orgid
+		where t.userid = #{userid}
+	</select>
 
-	<select id="getShopidsByOrgid" resultType="String">
-		select t.shopid from
-		tb_shop_info t where t.companyid=#{orgid}
+	<select id="getOrgidBySysUser" resultType="String">
+		SELECT T.Orgid
+		FROM tb_org_info T
+		CONNECT BY parentid = PRIOR orgid
+		START WITH orgid in 
+		<foreach collection="roleList" item="ids" index="index" open="("
+				separator="," close=")">
+				#{ids.orgid}
+		</foreach>
 	</select>
 </mapper>

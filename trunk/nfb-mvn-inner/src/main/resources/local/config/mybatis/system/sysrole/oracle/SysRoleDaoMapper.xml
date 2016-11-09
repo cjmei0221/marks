@@ -65,6 +65,15 @@
 		FROM TB_SYS_ROLE sysrole left join
 		tb_org_info o on sysrole.orgid=o.orgid
 		WHERE 1=1
+
+		<if test="orgids !=null">
+			sysrole.orgid in
+			<foreach collection="orgids" item="oid" index="index" open="("
+				separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+
 		and ( sysrole.ROLEID
 		LIKE
 		CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -125,17 +134,28 @@
 		t2.state
 		FROM
 		VIEW_SYS_ROLE_FUNC vsrf
-		left join (select DISTINCT tsrf.funcid, 'checked' state
-               from tb_sys_role_func tsrf where tsrf.roleid=#{roleId:VARCHAR}
-             ) t2 on t2.funcid = vsrf.funcid
-		 where 1=1
+		left join (select
+		DISTINCT tsrf.funcid, 'checked' state
+		from tb_sys_role_func tsrf where
+		tsrf.roleid=#{roleId:VARCHAR}
+		) t2 on t2.funcid = vsrf.funcid
+		where 1=1
 		<if test="list != null">
-			AND VSRM.ROLEID IN
+			AND vsrf.ROLEID IN
 			<foreach collection="list" item="ids" index="index" open="("
 				separator="," close=")">
-				#{ids}
+				#{ids.roleid}
 			</foreach>
 		</if>
 		order by vsrf.sort
+	</select>
+	<select id="findByRoleNameAndOrgid" resultType="com.cjmei.module.system.sysrole.pojo.SysRole">
+		select * from
+		tb_sys_role t where t.rolename=#{rolename} and
+		t.companyid=#{companyId} and t.orgid=#{orgid}
+	</select>
+	<select id="countUserByRoleid" resultType="int">
+		select count(1) from
+		tb_sys_user_role t where t.roleid=#{roleId}
 	</select>
 </mapper>

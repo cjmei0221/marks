@@ -76,12 +76,6 @@
 				</tr>
 
 				<tr>
-					<th>组织机构</th>
-					<td><input id="orgid" name="orgid" style="width: 170px;"
-						data-options="required:true"></td>
-				</tr>
-
-				<tr>
 					<th>口令</th>
 					<td><input id="token" name="token" class="easyui-validatebox"
 						data-options="required:true"></td>

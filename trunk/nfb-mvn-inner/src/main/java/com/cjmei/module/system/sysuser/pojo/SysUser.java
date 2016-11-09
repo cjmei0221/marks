@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.cjmei.module.system.sysrole.pojo.SysRole;
+
 public class SysUser implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -43,21 +45,9 @@ public class SysUser implements Serializable{
     */
     private String creator;
     /**
-    *组织ID
-    */
-    private String orgid;
-    /**
-    *公司ID
-    */
-    private String companyId;
-    /**
     *口令
     */
     private String token;
-    /**
-    *openid
-    */
-    private String openid;
     /**
     *用户类型
     */
@@ -70,9 +60,13 @@ public class SysUser implements Serializable{
 
 	private List<String> userUrlList = new ArrayList<String>();
 
-	private List<String> roleIds=new ArrayList<String>();
+	private List<SysRole> roleIds=new ArrayList<SysRole>();
+	
+	private List<String> orgids=new ArrayList<String>();
 	
 	private Date loginTime;
+	
+	private String companyId;
 	
     public String getUserid(){
         return userid;
@@ -130,32 +124,12 @@ public class SysUser implements Serializable{
         this.creator = creator;
     }
 
-    public String getOrgid(){
-        return orgid;
-    }
-    public void setOrgid(String orgid){
-        this.orgid = orgid;
-    }
-
-    public String getCompanyId(){
-        return companyId;
-    }
-    public void setCompanyId(String companyId){
-        this.companyId = companyId;
-    }
-
+   
     public String getToken(){
         return token;
     }
     public void setToken(String token){
         this.token = token;
-    }
-
-    public String getOpenid(){
-        return openid;
-    }
-    public void setOpenid(String openid){
-        this.openid = openid;
     }
 
     public String getUserType(){
@@ -177,10 +151,11 @@ public class SysUser implements Serializable{
 	public void setUserUrlList(List<String> userUrlList) {
 		this.userUrlList = userUrlList;
 	}
-	public List<String> getRoleIds() {
+	
+	public List<SysRole> getRoleIds() {
 		return roleIds;
 	}
-	public void setRoleIds(List<String> roleIds) {
+	public void setRoleIds(List<SysRole> roleIds) {
 		this.roleIds = roleIds;
 	}
 	public Date getLoginTime() {
@@ -189,5 +164,16 @@ public class SysUser implements Serializable{
 	public void setLoginTime(Date loginTime) {
 		this.loginTime = loginTime;
 	}
-
+	public List<String> getOrgids() {
+		return orgids;
+	}
+	public void setOrgids(List<String> orgids) {
+		this.orgids = orgids;
+	}
+	public String getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
 }
