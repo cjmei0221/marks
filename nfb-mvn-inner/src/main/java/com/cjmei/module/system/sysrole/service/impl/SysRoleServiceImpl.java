@@ -123,16 +123,17 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public List<SysMenu> funcList(SysUser admin,String roleId) {
-		List<String> roleIds = admin.getRoleIds();
+		List<SysRole> roleIds = admin.getRoleIds();
 		boolean getflag = false;// 请求数据标识
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
 
 		// 未指定用户角色不可查看任何菜单
 		if (null != roleIds && roleIds.size() > 0) {
 			getflag = true;
-			if (Enums.UserType.admin.getValue().equals(admin.getUserType())) {
-				roleIds = null;
-			}
+		}
+		if("admin".equals(admin.getUserid())){
+			getflag = true;
+			roleIds=null;
 		}
 		
 		if (getflag) {
@@ -165,5 +166,19 @@ public class SysRoleServiceImpl implements SysRoleService {
 		}
 		return returnMenu;
 	}
+
+	@Override
+	public SysRole findByRoleNameAndOrgid(String rolename, String orgid, String companyId) {
+		return sysRoleDao.findByRoleNameAndOrgid(rolename,orgid,companyId);
+	}
+
+	@Override
+	public boolean isDelete(String roleid) {
+		int num=sysRoleDao.countUserByRoleid(roleid);
+		if(num>0) return false;
+		return true;
+	}
+	
+	
 
 }

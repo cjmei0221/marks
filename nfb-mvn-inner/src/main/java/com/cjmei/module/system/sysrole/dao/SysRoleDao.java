@@ -1,6 +1,5 @@
 package com.cjmei.module.system.sysrole.dao;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +24,16 @@ public interface SysRoleDao {
 
 	void deleteBatch(List<String> list);
 
-	List<SysRole> list(PageBounds pageBounds, Map<String,Object> param);
+	List<SysRole> list(PageBounds pageBounds, Map<String, Object> param);
 
 	void saveRoleFunc(SysRoleFunc srf);
 
 	void deleteFuncByRoleid(String roleid);
 
-	List<SysFunc> getFuncList(@Param("list")List<String> list,@Param("roleId") String roleId);
+	List<SysFunc> getFuncList(@Param("list") List<SysRole> list, @Param("roleId") String roleId);
+
+	SysRole findByRoleNameAndOrgid(@Param("rolename") String rolename, @Param("orgid") String orgid,
+			@Param("companyId") String companyId);
+
+	int countUserByRoleid( @Param("roleId") String roleid);
 }

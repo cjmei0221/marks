@@ -21,6 +21,8 @@ import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
+import com.cjmei.module.system.orginfo.service.OrgInfoService;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysrole.service.SysRoleService;
@@ -33,7 +35,9 @@ public class SysRoleController extends SupportContorller{
     @Autowired
     private SysRoleService  sysRoleService;
    
-
+    @Autowired
+	private OrgInfoService orgInfoService;
+    
     @Override
 	public Logger getLogger() {
 		return logger;
@@ -72,8 +76,9 @@ public class SysRoleController extends SupportContorller{
 	    	SysRole sysRole = getModel(SysRole.class);
 	    	sysRole.setRoleid(IDUtil.getTimeID());
 	    	sysRole.setCreator(admin.getUserid());
-	    	sysRole.setCompanyId(admin.getCompanyId());
-	 		SysRole ori=sysRoleService.findById(sysRole.getRoleid());
+	    	OrgInfo orgInfo=orgInfoService.findById(sysRole.getOrgid());
+	    	sysRole.setCompanyId(orgInfo.getCompanyId());
+	 		SysRole ori=sysRoleService.findByRoleNameAndOrgid(sysRole.getRolename(),sysRole.getOrgid(),sysRole.getCompanyId());
 	 		if(ori==null){
 	 			sysRoleService.save(sysRole);
 	 			result.setMessage("保存成功");
@@ -100,14 +105,23 @@ public class SysRoleController extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    SysRole sysRole = getModel(SysRole.class);
+		    OrgInfo orgInfo=orgInfoService.findById(sysRole.getOrgid());
+	    	sysRole.setCompanyId(orgInfo.getCompanyId());
+	 		
 		    SysRole ori=sysRoleService.findById(sysRole.getRoleid());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	sysRoleService.update(sysRole);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
+		    	SysRole ori2=sysRoleService.findByRoleNameAndOrgid(sysRole.getRolename(),sysRole.getOrgid(),sysRole.getCompanyId());
+		    	if(ori2 !=null && !ori2.getRoleid().equals(sysRole.getRoleid())){
+		    		result.setMessage("此记录已存在!");
+					result.setCode(Code.CODE_FAIL);
+		    	}else{
+		    		sysRoleService.update(sysRole);
+					result.setMessage("更新成功!");
+					result.setCode(Code.CODE_SUCCESS);
+		    	}
 		    }
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -126,9 +140,15 @@ public class SysRoleController extends SupportContorller{
 		Result result = new Result();
 		try {
 		   	SysRole sysRole = getModel(SysRole.class);
-			sysRoleService.delete(sysRole.getRoleid());
-			result.setMessage("删除成功!");
-			result.setCode(Code.CODE_SUCCESS);
+		   	if(sysRoleService.isDelete(sysRole.getRoleid())){
+		   		sysRoleService.delete(sysRole.getRoleid());
+				result.setMessage("删除成功!");
+				result.setCode(Code.CODE_SUCCESS);
+		   	}else{
+		   		result.setMessage("该角色下有用户不能删除!");
+				result.setCode(2);
+		   	}
+			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			result.setMessage("删除失败，请联系管理员！");
@@ -204,6 +224,7 @@ public class SysRoleController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("orgids", admin.getOrgids());
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
+import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 /**
@@ -22,5 +23,9 @@ public interface LoginService {
 	List<SysMenu> getSysMenuOfSysUser(SysUser user);
 
 	List<SysOperate> getSysOperate(String menuid,SysUser user);
+
+	List<SysRole> getUserRoleList(String userid);
+
+	List<String> getOrgidBySysUser(List<SysRole> roleList);
 
 }

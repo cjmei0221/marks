@@ -8,6 +8,7 @@ import com.cjmei.module.system.sys.dao.LoginDao;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
 import com.cjmei.module.system.sys.service.LoginService;
+import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 public class LoginServiceImpl implements LoginService {
@@ -24,24 +25,19 @@ public class LoginServiceImpl implements LoginService {
 		if(null !=user){
 			List<String> list=loginDao.getUrlByUserid(userid);
 			user.setUserUrlList(list);
-			List<String> roleIds=loginDao.getRoleIdsByUserid(user.getUserid());
-			if(roleIds ==null || (null ==roleIds && roleIds.size()==0)){
-				roleIds=new ArrayList<String>();
-				roleIds.add("");
-			}
-			for(String roleId:roleIds){
-				if("1".equals(roleId)){
-					user.setUserType(Enums.UserType.admin.getValue());
-				}
-			}
-			user.setRoleIds(roleIds);
 		}
 		return user;
+	}
+	
+
+	@Override
+	public List<SysRole> getUserRoleList(String userid) {
+		return loginDao.getUserRoleList(userid);
 	}
 
 	@Override
 	public List<SysMenu> getSysMenuOfSysUser(SysUser user) {
-		List<String> roleIds = user.getRoleIds();
+		List<SysRole> roleIds = user.getRoleIds();
 		boolean getflag = false;// 请求数据标识
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
 
@@ -74,5 +70,13 @@ public class LoginServiceImpl implements LoginService {
 		List<SysOperate> list = loginDao.getSysOperate(menuid, user.getRoleIds());
 		return list;
 	}
+
+	@Override
+	public List<String> getOrgidBySysUser(List<SysRole> roleList) {
+		
+		return loginDao.getOrgidBySysUser(roleList);
+	}
+	
+	
 
 }
