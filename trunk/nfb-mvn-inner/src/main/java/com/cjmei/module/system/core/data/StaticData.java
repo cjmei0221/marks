@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.util.Constants;
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sys.pojo.DataDir;
 import com.cjmei.module.system.sys.pojo.SysConf;
 import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
@@ -26,7 +27,7 @@ public class StaticData {
 
 	private static List<String> urlList = new ArrayList<String>();
 	private static Map<String, WxAccount> wxMap = new HashMap<String, WxAccount>();
-
+	private static Map<String, OrgInfo> orgMap = new HashMap<String, OrgInfo>();
 	public static String getSysConf(String key) {
 		return paramsMap.get(key);
 	}
@@ -107,6 +108,18 @@ public class StaticData {
 		if (list != null && list.size() > 0) {
 			for (WxAccount sc : list) {
 				wxMap.put(sc.getAccountId(),sc);
+			}
+		}
+	}
+	
+	public static OrgInfo getOrgInfo(String orgid) {
+		return orgMap.get(orgid);
+	}
+
+	public static void putOrgInfoList(List<OrgInfo> list) {
+		if (list != null && list.size() > 0) {
+			for (OrgInfo sc : list) {
+				orgMap.put(sc.getOrgid(),sc);
 			}
 		}
 	}
