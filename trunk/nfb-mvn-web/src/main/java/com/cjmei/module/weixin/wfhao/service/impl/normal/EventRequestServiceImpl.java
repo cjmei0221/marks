@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import com.cjmei.module.weixin.wfhao.message.request.EventRequestMessage;
 import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
 import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
@@ -19,7 +21,7 @@ import com.cjmei.module.weixin.wfhao.service.RequestService;
  * 
  */
 public class EventRequestServiceImpl implements RequestService {
-
+	private static Logger logger = Logger.getLogger(EventRequestServiceImpl.class);
 	private Map<String, RequestService> componentMap;
 
 	public void setComponentMap(Map<String, RequestService> componentMap) {
@@ -37,6 +39,7 @@ public class EventRequestServiceImpl implements RequestService {
 	@Override
 	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws Exception {
 		EventRequestMessage eventRequestMessage = (EventRequestMessage) requestMessage;
+		logger.info("EventRequestServiceImpl deal start event>"+eventRequestMessage.getEvent().toLowerCase());
 		RequestService requestService = componentMap.get(eventRequestMessage.getEvent().toLowerCase());
 		if (requestService != null) {
 			ResponseMessage responseMessage = requestService.handle(request, eventRequestMessage);

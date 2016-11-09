@@ -32,7 +32,7 @@ public class LocationRequestServiceImpl extends AbstractRequestService {
 	 */
 	@Override
 	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws JSONException {
-
+		logger.info("LocationRequestServiceImpl deal start >");
 		LocationRequestMessage locationRequestMessage = (LocationRequestMessage) requestMessage;
 
 		TextResponseMessage responseMessage = new TextResponseMessage(requestMessage);
