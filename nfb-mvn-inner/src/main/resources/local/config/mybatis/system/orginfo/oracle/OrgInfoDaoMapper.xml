@@ -95,42 +95,33 @@
 		and orginfo.PARENTID='0'
 		order by orginfo.UPDATETIME desc
 	</select>
-	<select id="getChildListByParentId" resultType="com.cjmei.common.domain.TreeVo">
-		select d.orgid
-		id,
-		d.orgname text,
-		d.parentid,
-		LEVEL lev,
-		nvl((select 'closed'
-		from
-		tb_org_info b
-		where d.orgid = b.parentid
-		and b.useflag = 1
-		and rownum
-		&gt; 0),
-		'open') state
-		from tb_org_info d
-		where d.parentid =#{parentId}
-		and d.useflag = 1
-		start with d.parentid = '0'
-		connect by d.parentid =
-		prior d.orgid
-	</select>
 	<select id="getTreeGridByParentId" resultType="com.cjmei.module.system.orginfo.pojo.OrgInfo">
-		select d.*,
-		LEVEL
-		lev,
-		nvl((select 'closed'
-		from tb_org_info b
-		where d.orgid = b.parentid
-		and rownum &gt; 0),
-		'open') state
-		from tb_org_info d
-		where d.parentid
-		=#{parentId}
-		start with d.parentid = '0'
-		connect by d.parentid = prior
-		d.orgid
+		select t.*,
+		p2.orgname parentName,
+		(case
+		when cnum is null then
+		'open'
+		else
+		'closed'
+		end) state
+		from tb_org_info t
+		left join tb_org_info p2 on
+		t.parentid = p2.orgid
+		left join (select count(1) cnum, p.parentid pid
+		from tb_org_info p
+		group by p.parentid) p on t.orgid = p.pid
+		where 1=1
+		<if test="plist != null">
+			AND t.parentid IN
+			<foreach collection="plist" item="ids" index="index" open="("
+				separator="," close=")">
+				#{ids}
+			</foreach>
+		</if>
 	</select>
 
+	<select id="getChildList" resultType="com.cjmei.module.system.orginfo.pojo.OrgInfo">
+		select * from tb_org_info t
+		where t.parentid=#{orgid}
+	</select>
 </mapper>

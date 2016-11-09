@@ -47,13 +47,13 @@
 				<tr>
 					<th>角色名称</th>
 					<td><input id="rolename" name="rolename"
-						class="easyui-validatebox" data-options="required:true"></td>
+						class="easyui-validatebox" data-options="required:true" style="width: 200px"></td>
 				</tr>
 				<tr>
 					<th>公司</th>
-					<td><input id="orgid" name="orgid"
-						data-options="required:true" style="width: 170px"></td>
+					<td><ul id="orgid" name="orgid" class="easyui-combotree" data-options="url:'<%=request.getContextPath() %>/orgInfo/tree.do'" style="width: 200px"></ul></td>
 				</tr>
+				
 				<tr>
 					<td colspan="2" style="text-align: center"><input
 						type="button" id="btnOK" name="btnOK" value=" 保 存 " />

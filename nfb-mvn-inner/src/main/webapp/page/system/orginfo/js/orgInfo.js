@@ -6,9 +6,7 @@ var appInfo = {
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
-		page_number : 1,
-		page_size : 10,
-		keyword : ""
+		parentId : ""
 	},
 	formStatus : "new"
 };
@@ -19,23 +17,36 @@ $(function() {
 
 	// 搜索
 	$("#doSearch").on("click", function(e) {
-		app.myreload("#tbList");
+		$("#tbList").treegrid("reload");
+		$("#tbList").datagrid('unselectAll');
 		appInfo.selectedData = {};
 		appInfo.selectedId = -1;
 	});
 
 	// 新增
 	$("#add").on("click", function() {
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
+		if (isSelectedOne(appInfo.selectedId)) {
+			$("#editWin").window({
+				title : "新增"
+			}).window("open");
+			$('#ff').form('clear');
+			appInfo.formStatus = "new";
+			$("#parentName").val(appInfo.selectedData.orgname);
+			$("#parentId").val(appInfo.selectedId);
+		}
 	});
 
 	// 编辑
 	$("#edit").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
+			if(appInfo.selectedId=='0'){
+				showMsg("根节点不可编辑");
+				return;
+			}
+			if(appInfo.selectedData.parentId=='0'){
+				showMsg("请在公司管理编辑");
+				return;
+			}
 			$("#editWin").window({
 				title : "编辑"
 			}).window("open");
@@ -47,12 +58,21 @@ $(function() {
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
+			if( appInfo.selectedId=='0'){
+				showMsg("根节点不可删除");
+				return;
+			}
+			if(appInfo.selectedData.parentId=='0'){
+				showMsg("请在公司管理编辑");
+				return;
+			}
 			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "orgid=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
 						if (data.retcode == 0) {
-							app.myreload("#tbList");
+							appInfo.requestParam.parentId="0";
+							loadList();
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
 							showMsg("删除成功");
@@ -95,7 +115,9 @@ function formSubmit() {
 			}
 			if (data.retcode == 0) {
 				$("#editWin").window("close");
-				app.myreload("#tbList");
+				appInfo.requestParam.parentId="0";
+				loadList();
+				$("#tbList").treegrid('unselectAll');
 				appInfo.selectedData = {};
 				appInfo.selectedId = -1;
 				showMsg("保存成功");
@@ -107,102 +129,71 @@ function formSubmit() {
 }
 
 function loadList() {
-	$('#tbList').treegrid({
-		url : appInfo.listUrl,
-		toolbar : "#tb",
-		striped : true,
-		nowrap : true,
-		rownumbers : true,
-		animate : true,
-		collapsible : true,
-		fitColumns : true,
-		idField : 'orgid',
-		treeField : 'orgname',
-		singleSelect : true,
-		queryParams:{"parentId":"0"},
-		columns : [ [ {
-			
-			title : '组织名称',
-			field : 'orgname',
-			width : 150,
-			align : "left"
-		}, {
-			title : '组织ID',
-			field : 'orgid',
-			width : 100,
-			align : "center"
-		}, {
-			title : '启用标识',
-			field : 'useflag',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if (value == 1) {
-					return "启用";
-				} else {
-					return "禁用";
+	$('#tbList').treegrid(
+			{
+				url : appInfo.listUrl,
+				toolbar : "#tb",
+				striped : true,
+				nowrap : true,
+				rownumbers : true,
+				animate : true,
+				collapsible : true,
+				fitColumns : true,
+				idField : 'orgid',
+				treeField : 'orgname',
+				singleSelect : true,
+				queryParams : appInfo.requestParam,
+				columns : [ [ {
+
+					title : '组织名称',
+					field : 'orgname',
+					width : 150,
+					align : "left"
+				}, {
+					title : '组织ID',
+					field : 'orgid',
+					width : 100,
+					align : "center"
+				}, {
+					title : '启用标识',
+					field : 'useflag',
+					width : 100,
+					align : "center",
+					formatter : function(value, row, index) {
+						if (value == 1) {
+							return "启用";
+						} else {
+							return "禁用";
+						}
+					}
+				}, {
+					title : '创建时间',
+					field : 'createtime',
+					width : 100,
+					align : "center"
+				}, {
+					title : '更新时间',
+					field : 'updatetime',
+					width : 100,
+					align : "center"
+				}, {
+					title : '创建者',
+					field : 'creator',
+					width : 100,
+					align : "center"
+				} ] ],
+				onBeforeExpand : function(row) {
+					$("#tbList").treegrid("options").url = appInfo.listUrl
+							+ "?parentId=" + row.orgid + "&_timer="
+							+ new Date().getTime();
+				},
+				onClickRow : function(rowData) {
+					appInfo.selectedId = rowData.orgid;
+					appInfo.selectedData = rowData;
+				},
+				onLoadSuccess : function(row, data) {
+					$("#tbList").treegrid('unselectAll');
+					appInfo.selectedData = {};
 				}
-			}
-		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 100,
-			align : "center"
-		}, {
-			title : '更新时间',
-			field : 'updatetime',
-			width : 100,
-			align : "center"
-		}, {
-			title : '创建者',
-			field : 'creator',
-			width : 100,
-			align : "center"
-		} ] ],
-		onBeforeExpand : function(row) {
-			$("#tbList").treegrid("options").url = appInfo.listUrl+"?parentId="+row.orgid+"&_timer="+new Date().getTime();
-		},
-		onClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.orgid;
-			appInfo.selectedData = rowData;
-		},
-		onLoadSuccess : function(data) {
-			$("#tbList").datagrid('unselectAll');
-			appInfo.selectedData = {};
-		}
-	});
-	// 请求加载数据
-	function loader(that, params, success, loadError) {
-		var opts = that.datagrid("options");
-		appInfo.requestParam.page_number = params.page;
-		appInfo.requestParam.page_size = params.rows;
-		appInfo.requestParam.keyword = $("#keyword").val();
-		$.ajax({
-			url : opts.url,
-			type : "get",
-			data : appInfo.requestParam,
-			dataType : "json",
-			success : function(data, status, xhr) {
-				checkLogin(data);
-				if (data.retcode == 0) {
-					var list = data.list;
-					that.data().datagrid["cache"] = data;
-					success({
-						"total" : data.total_count,
-						"rows" : list
-					});
-					return true;
-				} else {
-					showMsg(data.retmsg);
-					success({
-						"total" : 0,
-						"rows" : []
-					});
-				}
-			},
-			error : function(err) {
-				loadError.apply(this, arguments);
-			}
-		});
-	}
+			});
 }

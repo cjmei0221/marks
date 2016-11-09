@@ -76,8 +76,6 @@ public class SysUserController extends SupportContorller{
 	 		if(ori==null){
 	 			//密码处理
 	 			sysUser.setPassword(EncryptUtil.encrypt(sysUser.getPassword()));
-	 			OrgInfo info=orgInfoService.findById(sysUser.getOrgid());
-	 			sysUser.setCompanyId(info.getCompanyId());
 	 			sysUser.setCreator(admin.getUserid());
 	 			sysUserService.save(sysUser);
 	 			result.setMessage("保存成功");
@@ -108,8 +106,6 @@ public class SysUserController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	OrgInfo info=orgInfoService.findById(sysUser.getOrgid());
-	 			sysUser.setCompanyId(info.getCompanyId());
 		    	sysUserService.update(sysUser);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
