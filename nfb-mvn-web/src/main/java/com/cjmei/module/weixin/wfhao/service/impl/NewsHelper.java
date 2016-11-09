@@ -16,6 +16,7 @@ import com.cjmei.module.weixin.wfhao.pojo.NewsItem;
 public class NewsHelper {
 	private static Logger logger = Logger.getLogger(NewsHelper.class);
 	public static ResponseMessage Handle(RequestMessage requestMessage, String content) {
+		logger.info("NewsHelper deal start content>"+content);
 		ResponseMessage responseMessage=null;
 		try {
 			//获取图文id
@@ -31,17 +32,10 @@ public class NewsHelper {
 						newsResponseMessage.setContent(newsResponseMessage.toString());
 					}
 					responseMessage=newsResponseMessage;
-				}else{
-					TextResponseMessage textResponseMessage = new TextResponseMessage(requestMessage);			
-					textResponseMessage.setContent("");
-					responseMessage=textResponseMessage;		
 				}
 			}
 		} catch (Exception e) {
-			logger.error("Exception:",e);
-			TextResponseMessage textResponseMessage = new TextResponseMessage(requestMessage);			
-			textResponseMessage.setContent("");
-			responseMessage=textResponseMessage;		
+			logger.error("Exception:",e);	
 		}
 		return responseMessage;
 	}
