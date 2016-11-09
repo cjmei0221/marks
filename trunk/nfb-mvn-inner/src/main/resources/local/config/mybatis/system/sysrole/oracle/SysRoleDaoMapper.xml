@@ -67,13 +67,15 @@
 		WHERE 1=1
 
 		<if test="orgids !=null">
-			sysrole.orgid in
+			and sysrole.orgid in
 			<foreach collection="orgids" item="oid" index="index" open="("
 				separator="," close=")">
 				#{oid}
 			</foreach>
 		</if>
-
+		<if test="companyId !=null and companyId != ''">
+			and sysrole.COMPANYID = #{companyId}
+		</if>
 		and ( sysrole.ROLEID
 		LIKE
 		CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

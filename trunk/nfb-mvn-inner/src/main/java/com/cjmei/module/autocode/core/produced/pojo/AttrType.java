@@ -59,7 +59,7 @@ public enum AttrType {
 
 	Date {
 		public String getOracleType() {
-			return "date";
+			return "TIMESTAMP";
 		}
 
 		@Override
@@ -72,7 +72,7 @@ public enum AttrType {
 		}
 
 		public String getJavaType() {
-			return "Timestamp";
+			return "Date";
 		}
 	};
 
@@ -94,7 +94,7 @@ public enum AttrType {
 		} else if ("Integer".equals(type)) {
 			return AttrType.Integer;
 		} else if ("Date".equals(type)) {
-			return AttrType.Timestamp;
+			return AttrType.Date;
 		}
 		return AttrType.String;
 	}

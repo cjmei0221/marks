@@ -85,15 +85,16 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 			String desc = attrs.get(i).getAttrDesc();
 			
 			AttrType at=attrs.get(i).getAttrType();
-			String str = "<tr><th>" + desc + "</th><td><input id=\"" + attrName + "\" name=\"" + attrName
-					+ "\" class=\"easyui-validatebox\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
+			String type="validatebox";
 			if(AttrType.Integer.equals(at)){
-				str = "<tr><th>" + desc + "</th><td><input id=\"" + attrName + "\" name=\"" + attrName
-						+ "\" class=\"easyui-numberbox\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
+				type="numberbox";
 			}else if(AttrType.Timestamp.equals(at)){
-				str = "<tr><th>" + desc + "</th><td><input id=\"" + attrName + "\" name=\"" + attrName
-						+ "\" class=\"easyui-datetimebox\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
+				type="datebox";
 			}
+			
+			String str = "<tr><th align=\"right\">" + desc + "&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id=\"" + attrName + "\" name=\"" + attrName
+					+ "\" class=\"easyui-"+type+"\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
+			
 			sBuffer.append(str);
 		}
 		return sBuffer.toString();

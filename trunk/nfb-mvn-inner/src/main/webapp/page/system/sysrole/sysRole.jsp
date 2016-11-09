@@ -39,29 +39,34 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 300px; padding: 10px;">
-		<form id="ff" name="ff" method="post">
-			<input type="hidden" id="roleid" name="roleid">
-			<table class="out-win-cls">
+		style="width: 500px; height: 300px; padding: 10px;">
+		<div align="center" style="width: 100%;">
+			<form id="ff" name="ff" method="post">
+				<input type="hidden" id="roleid" name="roleid">
+				<table>
 
-				<tr>
-					<th>角色名称</th>
-					<td><input id="rolename" name="rolename"
-						class="easyui-validatebox" data-options="required:true" style="width: 200px"></td>
-				</tr>
-				<tr>
-					<th>公司</th>
-					<td><ul id="orgid" name="orgid" class="easyui-combotree" data-options="url:'<%=request.getContextPath() %>/orgInfo/tree.do'" style="width: 200px"></ul></td>
-				</tr>
-				
-				<tr>
-					<td colspan="2" style="text-align: center"><input
-						type="button" id="btnOK" name="btnOK" value=" 保 存 " />
-						&nbsp;&nbsp;&nbsp; <input type="button" id="btnCancel"
-						name="btnCancel" value=" 取 消 " /></td>
-				</tr>
-			</table>
-		</form>
+					<tr>
+						<th align="right">角色名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="rolename" name="rolename"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px"></td>
+					</tr>
+					<tr>
+						<th align="right">公司&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><ul id="orgid" name="orgid" class="easyui-combotree"
+								data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
+								style="width: 200px"></ul></td>
+					</tr>
+
+					<tr>
+						<td colspan="2" style="text-align: center"><input
+							type="button" id="btnOK" name="btnOK" value=" 保 存 " />
+							&nbsp;&nbsp;&nbsp; <input type="button" id="btnCancel"
+							name="btnCancel" value=" 取 消 " /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
 	</div>
 
 	<div id="funcWin" class="easyui-window"

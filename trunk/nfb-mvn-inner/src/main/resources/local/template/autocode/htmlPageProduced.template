@@ -40,10 +40,10 @@
 		draggable:true,
 		collapsible:false"
 		style="width: 400px; height: 450px; padding: 10px;">
-		<div align="center">
+		<div align="center" style="width: 100%;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden"  id="@{PKAttrValue}" name="@{PKAttrValue}">
-			<table class="out-win-cls">
+			<table>
 				@{GetInputField}
 				<tr>
 					<td colspan="2" style="text-align: center"><input

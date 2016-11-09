@@ -56,8 +56,6 @@ public class OracleTableProduced implements DBProduced{
 	        		if(attrs.get(i).getAttrSize()>30){
 	        			size=30;
 	        		}
-	        	}else{
-	        		 
 	        	}
 	        	sBuffer.append(LEFT_PATEN)
 	               .append(size)
