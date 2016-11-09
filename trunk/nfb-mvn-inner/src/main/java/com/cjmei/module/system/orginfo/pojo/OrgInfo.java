@@ -2,6 +2,8 @@ package com.cjmei.module.system.orginfo.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrgInfo implements Serializable{
 
@@ -33,14 +35,21 @@ public class OrgInfo implements Serializable{
     private Integer useflag=1;
     
     private String parentId="0";//
+    private String parentName;
     
     private int lvl=1;//级别
 
-    private String state;
+    private String state="open";
     
     private String companyId;
+    
+    private List<OrgInfo> children=new ArrayList<OrgInfo>();
 
     public String getOrgid(){
+        return orgid;
+    }
+    
+    public String getId(){
         return orgid;
     }
     public void setOrgid(String orgid){
@@ -55,6 +64,9 @@ public class OrgInfo implements Serializable{
     }
 
     public String getOrgname(){
+        return orgname;
+    }
+    public String getText(){
         return orgname;
     }
     public void setOrgname(String orgname){
@@ -105,6 +117,22 @@ public class OrgInfo implements Serializable{
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
+	public String getParentName() {
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
 
-    
+	public List<OrgInfo> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<OrgInfo> children) {
+		this.children = children;
+	}
+
+	public void addChildren(OrgInfo child) {
+		this.children.add(child);
+	}
 }

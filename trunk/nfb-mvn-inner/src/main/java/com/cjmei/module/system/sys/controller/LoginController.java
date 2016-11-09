@@ -17,6 +17,7 @@ import com.cjmei.common.util.encrypt.EncryptUtil;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.service.LoginService;
+import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 /**
@@ -60,11 +61,31 @@ public class LoginController {
 			} else {
 				String password = EncryptUtil.encrypt(pwd);
 				if (password.equals(user.getPassword())) {
-					result.setCode(0);
-					result.setMessage("success");
-					user.setLoginTime(new Date());
-					user.setPassword("");
-					SysUserHelper.setCurrentUserInfo(request, user);
+					List<SysRole> roleList=loginService.getUserRoleList(user.getUserid());
+					if(roleList !=null && roleList.size()>0){
+						result.setCode(0);
+						result.setMessage("success");
+						user.setLoginTime(new Date());
+						user.setPassword("");
+						user.setRoleIds(roleList);
+						//组织架构
+						boolean topflag=true;
+						for(SysRole sr:roleList){
+							if(Constants.top_parentid_id.equals(sr.getOrgParentId()) || "0".equals(sr.getOrgParentId())){
+								topflag=false;
+								break;
+							}
+						}
+						if(topflag){
+							List<String> orgids=loginService.getOrgidBySysUser(roleList);
+							user.setOrgids(orgids);
+						}
+						SysUserHelper.setCurrentUserInfo(request, user);
+					}else{
+						result.setCode(4005);
+						result.setMessage("您没有权限登录");
+					}
+					
 				} else {
 					result.setCode(4003);
 					result.setMessage("密码错误");
