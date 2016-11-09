@@ -15,6 +15,7 @@ public class SysRole implements Serializable{
     *公司ID
     */
     private String orgid;
+    private String orgParentId;
     
     private String orgname;
     /**
@@ -90,5 +91,10 @@ public class SysRole implements Serializable{
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
-
+	public String getOrgParentId() {
+		return orgParentId;
+	}
+	public void setOrgParentId(String orgParentId) {
+		this.orgParentId = orgParentId;
+	}
 }
