@@ -2,12 +2,11 @@ package com.cjmei.module.weixin.wfhao.service.impl.normal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 
-import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
 import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
 
 /**
  * 图片消息对象服务
@@ -18,7 +17,7 @@ import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
  * 
  */
 public class ImageRequestServiceImpl extends AbstractRequestService  {
-	
+	private static Logger logger = Logger.getLogger(ImageRequestServiceImpl.class);
 	/**
 	 * 请求消息处理
 	 * @param requestMessage 请求消息对象
@@ -27,9 +26,8 @@ public class ImageRequestServiceImpl extends AbstractRequestService  {
 	 */
 	@Override
 	public ResponseMessage handle(HttpServletRequest request,RequestMessage requestMessage) throws JSONException {
-		TextResponseMessage responseMessage = new TextResponseMessage(requestMessage);
-		responseMessage.setContent("");
-		return responseMessage;
+		logger.info("ImageRequestServiceImpl deal start");
+		return null;
 	}
 
 }

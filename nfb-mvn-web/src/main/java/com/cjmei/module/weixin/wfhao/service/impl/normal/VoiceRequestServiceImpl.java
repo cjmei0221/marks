@@ -34,24 +34,12 @@ public class VoiceRequestServiceImpl extends AbstractRequestService {
 	@Override
 	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws Exception {
 		VoiceRequestMessage voiceRequestMessage = (VoiceRequestMessage) requestMessage;
-		ResponseMessage responseMessage;
+		logger.info("-----------------------语音解析结果：" + voiceRequestMessage.getRecognition());
+		ResponseMessage responseMessage=null;
 		if (StringUtils.isEmpty(voiceRequestMessage.getRecognition())) {
-			TextResponseMessage textResponseMessage = new TextResponseMessage(requestMessage);
-			textResponseMessage.setContent("");
-			responseMessage = textResponseMessage;
+			
 		} else {
 			responseMessage = handle(requestMessage, voiceRequestMessage.getRecognition());
-
-			logger.info("-----------------------语音解析结果：" + voiceRequestMessage.getRecognition());
-
-			if (responseMessage != null) {
-				if (responseMessage instanceof TextResponseMessage) {
-					TextResponseMessage textResponseMessage = (TextResponseMessage) responseMessage;
-					String voicemsg = "您说的是：";
-
-					textResponseMessage.setContent(voicemsg + voiceRequestMessage.getRecognition());
-				}
-			}
 		}
 		return responseMessage;
 	}

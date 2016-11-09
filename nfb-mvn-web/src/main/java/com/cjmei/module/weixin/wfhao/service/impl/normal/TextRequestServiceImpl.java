@@ -2,6 +2,8 @@ package com.cjmei.module.weixin.wfhao.service.impl.normal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
 import com.cjmei.module.weixin.wfhao.message.request.impl.TextRequestMessage;
 import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
@@ -15,6 +17,7 @@ import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
  * 
  */
 public class TextRequestServiceImpl extends AbstractRequestService {
+	private static Logger logger = Logger.getLogger(TextRequestServiceImpl.class);
 	/**
 	 * 请求消息处理
 	 * 
@@ -25,7 +28,9 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 	 */
 	@Override
 	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws Exception {
+		
 		TextRequestMessage textRequestMessage = (TextRequestMessage) requestMessage;
+		logger.info("TextRequestServiceImpl deal start  content>"+textRequestMessage.getContent());
 		return handle(requestMessage, textRequestMessage.getContent());
 	}
 }

@@ -2,6 +2,7 @@ package com.cjmei.module.weixin.wfhao.service.impl.normal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 
 import com.cjmei.module.system.core.data.StaticData;
@@ -18,7 +19,7 @@ import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
  * 
  */
 public class VideoRequestServiceImpl extends AbstractRequestService {
-
+	private static Logger logger = Logger.getLogger(VideoRequestServiceImpl.class);
 	/**
 	 * 请求消息处理
 	 * 
@@ -29,9 +30,8 @@ public class VideoRequestServiceImpl extends AbstractRequestService {
 	 */
 	@Override
 	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws JSONException {
-		TextResponseMessage responseMessage = new TextResponseMessage(requestMessage);
-		responseMessage.setContent("");
-		return responseMessage;
+		logger.info("TextRequestServiceImpl deal start  ");
+		return null;
 	}
 
 }
