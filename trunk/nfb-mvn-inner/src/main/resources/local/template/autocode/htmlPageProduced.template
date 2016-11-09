@@ -40,6 +40,7 @@
 		draggable:true,
 		collapsible:false"
 		style="width: 400px; height: 450px; padding: 10px;">
+		<div align="center">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden"  id="@{PKAttrValue}" name="@{PKAttrValue}">
 			<table class="out-win-cls">
@@ -52,6 +53,7 @@
 				</tr>
 			</table>
 		</form>
+		</div>
 	</div>
 	
 </body>
