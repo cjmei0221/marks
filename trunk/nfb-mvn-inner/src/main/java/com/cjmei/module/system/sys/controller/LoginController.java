@@ -79,6 +79,8 @@ public class LoginController {
 						if(topflag){
 							List<String> orgids=loginService.getOrgidBySysUser(roleList);
 							user.setOrgids(orgids);
+						}else{
+							user.setOrgids(null);
 						}
 						SysUserHelper.setCurrentUserInfo(request, user);
 					}else{
