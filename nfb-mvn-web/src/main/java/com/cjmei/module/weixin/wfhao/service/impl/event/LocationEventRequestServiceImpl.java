@@ -34,6 +34,7 @@ public class LocationEventRequestServiceImpl extends AbstractRequestService {
 	 */
 	@Override
 	public ResponseMessage handle(HttpServletRequest request,RequestMessage requestMessage) throws Exception {
+		logger.info("LocationEventRequestServiceImpl deal start");
 		LocationEventRequestMessage locationRequestMessage = (LocationEventRequestMessage) requestMessage;
 		TextResponseMessage responseMessage = new TextResponseMessage(
 				requestMessage);

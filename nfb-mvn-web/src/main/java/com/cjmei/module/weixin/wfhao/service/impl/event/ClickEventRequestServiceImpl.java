@@ -37,6 +37,7 @@ public class ClickEventRequestServiceImpl extends AbstractRequestService {
 	@Override
 	public ResponseMessage handle(HttpServletRequest request,RequestMessage requestMessage) throws Exception {
 		EventRequestMessage eventRequestMessage=(EventRequestMessage)requestMessage;
+		logger.info("ClickEventRequestServiceImpl deal start eventkey > "+eventRequestMessage.getEventKey());
 		WxMenuDao wxMenuDao=(WxMenuDao) DatabaseHelper.getBean(WxMenuDao.class);
 		WxMenu weixinMenu=wxMenuDao.queryMenuById(eventRequestMessage.getEventKey());
 		String module = "";
