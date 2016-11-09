@@ -34,8 +34,7 @@ public class UnsubscribeEventRequestServiceImpl extends AbstractRequestService {
 	 */
 	@Override
 	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) {
-		TextResponseMessage textResponseMessage = new TextResponseMessage(requestMessage);
-		textResponseMessage.setContent("");
+
 		WxUser user = null;
 		try {
 			logger.info("-----------------UnsubscribeEventRequestServiceImpl:accountid:" + requestMessage.getAccountId()
@@ -51,7 +50,7 @@ public class UnsubscribeEventRequestServiceImpl extends AbstractRequestService {
 		} catch (Exception e) {
 			logger.error("Exception:", e);
 		}
-		return textResponseMessage;
+		return null;
 	}
 
 }

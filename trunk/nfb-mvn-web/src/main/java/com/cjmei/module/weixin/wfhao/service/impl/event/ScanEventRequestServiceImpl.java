@@ -25,7 +25,7 @@ public class ScanEventRequestServiceImpl extends AbstractRequestService {
 
 	@Override
 	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws Exception {
-
+		logger.info("ScanEventRequestServiceImpl deal start");
 		UpdateWxUserhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 
 		return handle(requestMessage, Constants.SubscribeReplay);
