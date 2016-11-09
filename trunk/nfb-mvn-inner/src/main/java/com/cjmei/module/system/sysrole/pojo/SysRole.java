@@ -3,6 +3,8 @@ package com.cjmei.module.system.sysrole.pojo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.cjmei.module.system.orginfo.util.OrgUtil;
+
 public class SysRole implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -15,6 +17,7 @@ public class SysRole implements Serializable{
     *公司ID
     */
     private String orgid;
+    
     private String orgParentId;
     
     private String orgname;
@@ -37,6 +40,8 @@ public class SysRole implements Serializable{
 
 
     private String companyId;
+    
+    private String orgFullName;
 
     public String getRoleid(){
         return roleid;
@@ -97,4 +102,11 @@ public class SysRole implements Serializable{
 	public void setOrgParentId(String orgParentId) {
 		this.orgParentId = orgParentId;
 	}
+	public String getOrgFullName() {
+		if(orgid != null){
+			return OrgUtil.getInstance().getOrgFullName(orgid);
+		}
+		return "";
+	}
+	
 }
