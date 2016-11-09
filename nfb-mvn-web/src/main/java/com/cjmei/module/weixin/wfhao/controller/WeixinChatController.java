@@ -159,8 +159,6 @@ public class WeixinChatController {
 			logger.info("--------------aes data:" + xml);
 			xml = decryptXml(xml, request,account);
 		}
-		
-		logger.info("接收腾讯发送的报文>>[" + xml+"]");
 		if (xml == null) {
 			return;
 		}
@@ -168,7 +166,6 @@ public class WeixinChatController {
 		// 消息转换
 		RequestMessage requestMessage = MessageConverter.convertMessage(
 				accountId, xml);
-		request.setAttribute("result_note", requestMessage.getFromUserName());
 		LoginUtil.getInstance().setCurrentOpenid(request, requestMessage.getFromUserName());
 		LoginUtil.getInstance().setCurrentAccountid(request, accountId);
 		logger.info("==============="+requestMessage);
@@ -177,28 +174,13 @@ public class WeixinChatController {
 			requestMessage.setLocalAddr(request.getLocalAddr());
 			requestMessage.setAccountId(accountId);
 			responseMessage = requestDispatchService.dispatch(request,requestMessage);
-			//logger.info("-----dispatch------raw result data:" + responseMessage.getContent());		
-		} catch(NullPointerException e){
-			//requestMessage为空
-			logger.info("requestMessage为空",e);
-			TextResponseMessage textResponseMessage = new TextResponseMessage(
-					requestMessage);
-			textResponseMessage.setContent("");
-			responseMessage = textResponseMessage;
 		}catch (Exception e) {
 			logger.info("Exception:", e);
-			TextResponseMessage textResponseMessage = new TextResponseMessage(
-					requestMessage);
-			textResponseMessage.setContent("");
-			responseMessage = textResponseMessage;
 		}
-//		if (responseMessage == null) {
-//			return;
-//		}
+
 		String responseXml ="success";
 		if(null != responseMessage){
 			responseXml=responseMessage.toString();
-			
 			//安全模式(加密)
 			if("aes".equals(request.getParameter("encrypt_type"))){
 				logger.info("--------------raw result data:" + responseXml);			
