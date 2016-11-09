@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
-import com.cjmei.common.domain.TreeVo;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.orginfo.service.OrgInfoService;
+import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -37,19 +37,6 @@ public class OrgInfoController extends SupportContorller {
 	@Override
 	public Logger getLogger() {
 		return logger;
-	}
-
-	/**
-	 * 查询机构管理
-	 */
-	@RequestMapping("/orgInfo/getChildListByParentId")
-	public void getChildListByParentId(HttpServletRequest request, HttpServletResponse response) {
-
-		String parentId = request.getParameter("parentId");
-		if (parentId != null && !"".equals(parentId)) {
-			List<TreeVo> list = orgInfoService.getChildListByParentId(parentId);
-			JsonUtil.output(response, JSONArray.fromObject(list).toString());
-		}
 	}
 
 	/**
@@ -84,11 +71,11 @@ public class OrgInfoController extends SupportContorller {
 			// orgInfo.setOrgid(IDUtil.getTimeID());
 			OrgInfo ori = orgInfoService.findById(orgInfo.getOrgid());
 			if (ori == null) {
-				if(null !=orgInfo.getParentId() && !("0").equals(orgInfo.getParentId())){
+				if (null != orgInfo.getParentId() && !("0").equals(orgInfo.getParentId())) {
 					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
-					orgInfo.setLvl(parentVo.getLvl()+1);
+					orgInfo.setLvl(parentVo.getLvl() + 1);
 					orgInfo.setCompanyId(parentVo.getCompanyId());
-				}else{
+				} else {
 					orgInfo.setCompanyId(orgInfo.getOrgid());
 					orgInfo.setLvl(1);
 				}
@@ -121,10 +108,10 @@ public class OrgInfoController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				if(null !=orgInfo.getParentId() && !("0").equals(orgInfo.getParentId())){
+				if (null != orgInfo.getParentId() && !("0").equals(orgInfo.getParentId())) {
 					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
-					orgInfo.setLvl(parentVo.getLvl()+1);
-				}else{
+					orgInfo.setLvl(parentVo.getLvl() + 1);
+				} else {
 					orgInfo.setLvl(1);
 				}
 				orgInfoService.update(orgInfo);
@@ -147,9 +134,16 @@ public class OrgInfoController extends SupportContorller {
 		Result result = new Result();
 		try {
 			OrgInfo orgInfo = getModel(OrgInfo.class);
-			orgInfoService.delete(orgInfo.getOrgid());
-			result.setMessage("删除成功!");
-			result.setCode(Code.CODE_SUCCESS);
+			List<OrgInfo> list = orgInfoService.getChildList(orgInfo.getOrgid());
+			if (list != null && list.size() > 0) {
+				result.setMessage("含子节点不能删除!");
+				result.setCode(2001);
+			} else {
+				orgInfoService.delete(orgInfo.getOrgid());
+				result.setMessage("删除成功!");
+				result.setCode(Code.CODE_SUCCESS);
+			}
+
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("删除失败，请联系管理员！");
@@ -215,30 +209,57 @@ public class OrgInfoController extends SupportContorller {
 
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 
+		List<String> plist = new ArrayList<String>();
 		String parentId = request.getParameter("parentId");
-		if (parentId == null) {
-			parentId = "";
+		if (parentId == null || "".equals(parentId)) {
+			List<SysRole> s = admin.getRoleIds();
+			for (SysRole sv : s) {
+				plist.add(sv.getOrgParentId());
+			}
+		} else {
+			plist.add(parentId);
 		}
-		List<OrgInfo> list = orgInfoService.list(parentId);
+
+		List<OrgInfo> list = orgInfoService.listGrid(plist);
 
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
-	
+
+	/**
+	 * jqGrid多种条件查询
+	 */
+	@RequestMapping("/orgInfo/tree")
+	public void tree(HttpServletRequest request, HttpServletResponse response) {
+
+		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+
+		List<String> plist = new ArrayList<String>();
+
+		List<SysRole> s = admin.getRoleIds();
+		for (SysRole sv : s) {
+			plist.add(sv.getOrgParentId());
+		}
+
+		List<OrgInfo> list = orgInfoService.list(plist);
+
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+	}
+
 	/**
 	 * jqGrid多种条件查询
 	 */
 	@RequestMapping("/orgInfo/framelist")
-    public void framelist(HttpServletRequest request,HttpServletResponse response){
-       PaginationResult result = new PaginationResult();
+	public void framelist(HttpServletRequest request, HttpServletResponse response) {
+		PaginationResult result = new PaginationResult();
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
+			String keyword = request.getParameter("keyword");
+			if (keyword == null) {
+				keyword = "";
 			}
-			Map<String,Object> param=new HashMap<String,Object>();
+			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			PojoDomain<OrgInfo> list = orgInfoService.framelist(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
@@ -249,12 +270,11 @@ public class OrgInfoController extends SupportContorller {
 			result.setMessage("find sysRole successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("find sysRole fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-    }
-	
+	}
 
 }

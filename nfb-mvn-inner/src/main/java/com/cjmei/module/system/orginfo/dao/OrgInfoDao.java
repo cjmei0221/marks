@@ -4,7 +4,8 @@ package com.cjmei.module.system.orginfo.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.TreeVo;
+import org.apache.ibatis.annotations.Param;
+
 import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
@@ -24,8 +25,8 @@ public interface OrgInfoDao {
 
 	List<OrgInfo> list(PageBounds pageBounds, Map<String,Object> param);
 
-	List<TreeVo> getChildListByParentId(String parentId);
+	List<OrgInfo> getTreeGridByParentId(@Param("plist")List<String>  plist);
 
-	List<OrgInfo> getTreeGridByParentId(String parentId);
+	List<OrgInfo> getChildList(@Param("orgid")String orgid);
 
 }

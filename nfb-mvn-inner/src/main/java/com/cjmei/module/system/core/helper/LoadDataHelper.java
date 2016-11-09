@@ -1,11 +1,16 @@
 package com.cjmei.module.system.core.helper;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.system.core.listener.DatabaseHelper;
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
+import com.cjmei.module.system.orginfo.service.OrgInfoService;
 import com.cjmei.module.system.sys.service.LoadDataService;
 
 /**
@@ -37,6 +42,9 @@ public class LoadDataHelper  extends QuartzJobBean{
 		 */
 		loadDataService.loadUrlList();
 
+		OrgInfoService orgInfoService = (OrgInfoService) DatabaseHelper.getBean(OrgInfoService.class);
+		List<OrgInfo> orgInfoList=orgInfoService.findAll();
+		StaticData.putOrgInfoList(orgInfoList);
 		logger.info("结束加载缓存数据");
 
 	}
