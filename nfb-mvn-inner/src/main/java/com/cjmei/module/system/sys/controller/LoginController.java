@@ -71,7 +71,7 @@ public class LoginController {
 						//组织架构
 						boolean topflag=true;
 						for(SysRole sr:roleList){
-							if(Constants.top_parentid_id.equals(sr.getOrgParentId()) || "0".equals(sr.getOrgParentId())){
+							if(Constants.top_org_parentid_id.equals(sr.getOrgParentId()) || "0".equals(sr.getOrgParentId())){
 								topflag=false;
 								break;
 							}

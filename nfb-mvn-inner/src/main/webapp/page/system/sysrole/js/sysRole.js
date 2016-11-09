@@ -150,6 +150,11 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '组织全称',
+			field : 'orgFullName',
+			width : 200,
+			align : "left"
+		}, {
 			title : '创建时间',
 			field : 'createtime',
 			width : 100,
