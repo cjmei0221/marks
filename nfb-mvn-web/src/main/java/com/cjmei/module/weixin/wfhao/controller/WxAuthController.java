@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.Result;
 import com.cjmei.module.login.util.LoginUtil;
 import com.cjmei.module.login.util.RunModel;
+import com.cjmei.module.weixin.wfhao.config.PageConfigUtil;
 import com.cjmei.module.weixin.wfhao.pojo.WxUser;
 import com.cjmei.module.weixin.wfhao.service.WeixinAccountService;
 import com.cjmei.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
@@ -25,9 +26,6 @@ public class WxAuthController {
 
 	public static final String wxauth_after_url = "wxauth_after_url";
 
-	private static String errorUrl = "/extfunc/500.html";
-	private static String openid_null_url = "/extfunc/openid_null.html";
-	private String unsubscribeurl = "/main/notWeChatBrowser.html";
 	@Autowired
 	private WeixinAccountService weixinAccountService;
 
@@ -60,7 +58,8 @@ public class WxAuthController {
 				}
 			} else {
 				logger.info("调用微信授权接口去授权>>6");
-				response.sendRedirect(LoginUtil.getInstance().getCompleteUrl(accountid, errorUrl));
+				response.sendRedirect(
+						LoginUtil.getInstance().getCompleteUrl(accountid, PageConfigUtil.getProperty("errorUrl")));
 			}
 		} catch (Exception e) {
 			logger.error("Exception:", e);
@@ -91,7 +90,7 @@ public class WxAuthController {
 					user = weixinAccountService.queryWxUserByOpenID(accountid, openid);
 					if (null == user || (null != user && user.getIssubscribe() == 0)) {
 						logger.info("未关注服务号>>openid>>" + openid);
-						to_url = unsubscribeurl;
+						to_url = PageConfigUtil.getProperty("unsubscribeurl");
 					} else {
 						LoginUtil.getInstance().setCurrentWxbUser(request, user);
 					}
@@ -99,7 +98,7 @@ public class WxAuthController {
 					UpdateWxUserhreadPool.updateWxUser(accountid, openid);
 				} else {
 					logger.info(" weixin openid is null ,openid=" + openid);
-					to_url = openid_null_url;
+					to_url = PageConfigUtil.getProperty("unsubscribeurl");
 				}
 			}
 			logger.info("微信授权回调>>end");
@@ -111,7 +110,8 @@ public class WxAuthController {
 			result.setCode(-1);
 			result.setMessage("系统繁忙");
 			try {
-				response.sendRedirect(LoginUtil.getInstance().getCompleteUrl(accountid, errorUrl));
+				response.sendRedirect(
+						LoginUtil.getInstance().getCompleteUrl(accountid, PageConfigUtil.getProperty("errorUrl")));
 			} catch (IOException e1) {
 
 			}
