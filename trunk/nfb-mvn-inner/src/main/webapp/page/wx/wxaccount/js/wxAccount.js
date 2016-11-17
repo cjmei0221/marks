@@ -31,6 +31,7 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
+		$("#urlTr").hide();
 	});
 
 	// 编辑
@@ -41,6 +42,9 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
+			$("#urlTr").show();
+			$("#urlTd").html(appInfo.selectedData.url);
+			
 		}
 	});
 
@@ -77,6 +81,10 @@ $(function() {
  * 保存菜单
  */
 function formSubmit() {
+	if (!$('#ff').form('validate')) {
+		showMsg("表单校验不通过");
+		return;
+	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	$('#ff').form('submit', {
@@ -127,7 +135,7 @@ function loadList() {
 			field : 'accountId',
 			width : 100,
 			align : "center"
-		
+
 		}, {
 			title : '公众号名称',
 			field : 'accountname',
@@ -142,10 +150,20 @@ function loadList() {
 			title : '公众号类型',
 			field : 'accttype',
 			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 0) {
+					return "服务号";
+				} else if (value == 1) {
+					return "企业号";
+				} else if (value == 2) {
+					return "订阅号";
+				}
+				return "";
+			}
 		}, {
 			title : '授权域名',
-			field : 'authdoman',
+			field : 'authdomain',
 			width : 100,
 			align : "center"
 		}, {
@@ -159,15 +177,23 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '机构ID',
-			field : 'orgid',
+			title : '机构',
+			field : 'orgname',
 			width : 100,
 			align : "center"
 		}, {
 			title : '是否提供服务',
 			field : 'is_service',
 			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 0) {
+					return "不提供";
+				} else if (value == 1) {
+					return "提供";
+				} 
+				return "";
+			}
 		}, {
 			title : '创建时间',
 			field : 'createtime',
