@@ -19,6 +19,11 @@
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
+					<td>
+						组织机构：<ul id="sorgid" name="sorgid" class="easyui-combotree"
+							data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
+							style="width: 200px"></ul>
+					</td>
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="关键字" /></td>
 					<td><button type="button" id="doSearch" data-oper="query"
@@ -46,13 +51,13 @@
 				<table>
 
 					<tr>
-						<th align="right">角色名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th align="right">角色名称</th>
 						<td><input id="rolename" name="rolename"
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px"></td>
 					</tr>
 					<tr>
-						<th align="right">公司&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th align="right">机构</th>
 						<td><ul id="orgid" name="orgid" class="easyui-combotree"
 								data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
 								style="width: 200px"></ul></td>

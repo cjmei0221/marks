@@ -63,56 +63,64 @@
 				</tr>
 
 				<tr>
-					<th>机构ID</th>
-					<td><input id="orgid" name="orgid" class="easyui-validatebox"
-						data-options="required:true"></td>
+					<th>机构</th>
+					<td>
+						<ul id="orgid" name="orgid" class="easyui-combotree"
+								data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
+								style="width: 200px"></ul>
+						</td>
 				</tr>
 
 				<tr>
 					<th>APPID</th>
 					<td><input id="appid" name="appid" class="easyui-validatebox"
-						data-options="required:true"></td>
+						data-options="required:true" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>APPSECRET</th>
 					<td><input id="appsecret" name="appsecret"
-						class="easyui-validatebox" data-options="required:true"></td>
+						class="easyui-validatebox" data-options="required:true" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>令牌</th>
 					<td><input id="token" name="token" class="easyui-validatebox"
-						data-options="required:true"></td>
+						 style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>加密秘钥</th>
 					<td><input id="aeskey" name="aeskey"
-						class="easyui-validatebox" data-options="required:true"></td>
+						class="easyui-validatebox"  style="width: 200px;"></td>
 				</tr>
 
 				<tr>
 					<th>微信号</th>
 					<td><input id="wx_acctno" name="wx_acctno"
-						class="easyui-validatebox" data-options="required:true"></td>
+						class="easyui-validatebox"  style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>授权域名</th>
-					<td><input id="authdoman" name="authdoman"
-						class="easyui-validatebox" data-options="required:true"></td>
+					<td><input id="authdomain" name="authdomain"
+						class="easyui-validatebox"  style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>上下文</th>
 					<td><input id="server_context" name="server_context"
-						class="easyui-validatebox" data-options="required:true" value="/"></td>
+						class="easyui-validatebox"  value="/" style="width: 200px;"></td>
 				</tr>
 
 				<tr>
 					<th>是否提供服务</th>
-					<td><input id="is_service" name="is_service"
-						class="easyui-numberbox" data-options="required:true"></td>
+					<td>
+					<select id="is_service" class="easyui-combobox"
+						name="is_service" style="width: 200px;">
+							<option value="1">提供</option>
+							<option value="0">不提供</option>
+					</select>
+					</td>
 				</tr>
-				<tr>
+				<tr id="urlTr">
 					<th>回调路径</th>
-					<td></td>
+					<td id="urlTd"></td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input

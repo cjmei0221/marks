@@ -11,7 +11,8 @@ var appInfo = {
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		sorgid : ""
 	},
 	formStatus : "new"
 };
@@ -75,8 +76,8 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-	
-	$("#addFunc").on("click",function(){
+
+	$("#addFunc").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
 			funcList(appInfo.selectedId);
 			$("#funcWin").window({
@@ -89,8 +90,13 @@ $(function() {
  * 保存菜单
  */
 function formSubmit() {
+	if (!$('#ff').form('validate')) {
+		showMsg("表单校验不通过");
+		return;
+	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
+
 	$('#ff').form('submit', {
 		url : reqUrl,
 		onSubmit : function(param) {
@@ -189,6 +195,7 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
+		appInfo.requestParam.sorgid = $("#sorgid").combotree("getValue");
 		$.ajax({
 			url : opts.url,
 			type : "get",
@@ -218,7 +225,7 @@ function loadList() {
 		});
 	}
 }
-function saveFuncList(roleId){
+function saveFuncList(roleId) {
 	var reqUrl = appInfo.funcSaveUrl;
 	$('#funcff').form('submit', {
 		url : reqUrl,
@@ -244,58 +251,66 @@ function saveFuncList(roleId){
 	});
 }
 function funcList(roleId) {
-	$('#tbFuncList').treegrid({
-		url : appInfo.funcListUrl,
-		rownumbers : true,
-		animate : true,
-		collapsible : true,
-		fitColumns : true,
-		idField : 'menuid',
-		treeField : 'menuitem',
-		toolbar : [ {
-			text : "保存",
-			iconCls : "icon-save",
-			handler : function() {
-				saveFuncList(roleId);
-			}
-		} ],
-		frozenColumns : [ [ {
-			title : '菜单ID',
-			field : 'menuid',
-			width : 100,
-			hidden : true
-		}, {
-			title : '菜单名称',
-			field : 'menuitem',
-			width : 300
-		} ] ],
-		columns : [ [ {
-			title : '操作',
-			field : 'operate',
-			width : 350,
-			editor:"checkbox",
-			formatter : function(value, row, index) {
-				var str = "";
-				var funcList=row.oper_list;
-				if(funcList.length>0){
-					for(var i=0;i<funcList.length;i++){
-						str+='<label><input name="funcId" type="checkbox" value="'+funcList[i].funcid+'" '+funcList[i].state+'/>'+funcList[i].opername+' </label>';
-					}
-				}
-				return str;
-			}
-		} ] ],
-		loader : function(params, success, loadError) {
-			var that = $(this);
-			funcloader(that, params, success, loadError);
-		},
-		onClickRow : function(rowIndex, rowData) {
-			$("#tbFuncList").treegrid("beginEdit", rowIndex);
-		},
-		onLoadSuccess : function(data) {
+	$('#tbFuncList')
+			.treegrid(
+					{
+						url : appInfo.funcListUrl,
+						rownumbers : true,
+						animate : true,
+						collapsible : true,
+						fitColumns : true,
+						idField : 'menuid',
+						treeField : 'menuitem',
+						toolbar : [ {
+							text : "保存",
+							iconCls : "icon-save",
+							handler : function() {
+								saveFuncList(roleId);
+							}
+						} ],
+						frozenColumns : [ [ {
+							title : '菜单ID',
+							field : 'menuid',
+							width : 100,
+							hidden : true
+						}, {
+							title : '菜单名称',
+							field : 'menuitem',
+							width : 300
+						} ] ],
+						columns : [ [ {
+							title : '操作',
+							field : 'operate',
+							width : 350,
+							editor : "checkbox",
+							formatter : function(value, row, index) {
+								var str = "";
+								var funcList = row.oper_list;
+								if (funcList.length > 0) {
+									for (var i = 0; i < funcList.length; i++) {
+										str += '<label><input name="funcId" type="checkbox" value="'
+												+ funcList[i].funcid
+												+ '" '
+												+ funcList[i].state
+												+ '/>'
+												+ funcList[i].opername
+												+ ' </label>';
+									}
+								}
+								return str;
+							}
+						} ] ],
+						loader : function(params, success, loadError) {
+							var that = $(this);
+							funcloader(that, params, success, loadError);
+						},
+						onClickRow : function(rowIndex, rowData) {
+							$("#tbFuncList").treegrid("beginEdit", rowIndex);
+						},
+						onLoadSuccess : function(data) {
 
-		}
-	});
+						}
+					});
 	// 请求加载数据
 	function funcloader(that, params, success, loadError) {
 		var opts = that.treegrid("options");
@@ -326,4 +341,3 @@ function funcList(roleId) {
 		});
 	}
 }
-
