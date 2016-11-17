@@ -77,6 +77,10 @@ $(function(){
  * 保存菜单
  */
 function formSubmit(){
+	if (!$('#ff').form('validate')) {
+		showMsg("表单校验不通过");
+		return;
+	}
 	var reqUrl=appInfo.formStatus=="new"?appInfo.saveUrl:appInfo.updateUrl;
 	$('#ff').form('submit',{
 	    url:reqUrl,
