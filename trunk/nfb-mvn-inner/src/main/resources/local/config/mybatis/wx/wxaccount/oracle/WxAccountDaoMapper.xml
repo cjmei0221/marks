@@ -25,7 +25,8 @@
 		wxaccount.ORGID,
 		wxaccount.APPID,
 		wxaccount.APPSECRET,
-		wxaccount.AUTHDOMAN
+		wxaccount.authdomain,
+		wxaccount.COMPANYID
 		)
 		VALUES(
 		#{accountId:VARCHAR},
@@ -43,8 +44,8 @@
 		#{orgid:VARCHAR},
 		#{appid:VARCHAR},
 		#{appsecret:VARCHAR},
-		#{authdoman:VARCHAR}
-
+		#{authdomain:VARCHAR},
+		#{companyId:VARCHAR}
 		)
 	</insert>
 
@@ -63,7 +64,8 @@
 		wxaccount.ORGID = #{orgid:VARCHAR},
 		wxaccount.APPID = #{appid:VARCHAR},
 		wxaccount.APPSECRET = #{appsecret:VARCHAR},
-		wxaccount.AUTHDOMAN = #{authdoman:VARCHAR}
+		wxaccount.authdomain = #{authdomain:VARCHAR},
+		wxaccount.COMPANYID=#{companyId:VARCHAR}
 		WHERE
 		wxaccount.ACCOUNTID = #{accountId}
 	</update>
@@ -89,6 +91,16 @@
 		SELECT *
 		FROM TB_WX_ACCOUNT wxaccount
 		WHERE 1=1
+		<if test="orgids !=null">
+			and sysrole.orgid in
+			<foreach collection="orgids" item="oid" index="index" open="("
+				separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="conpanyId !=null and conpanyId != ''">
+			and sysrole.COMPANYID = #{conpanyId}
+		</if>
 		and ( wxaccount.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
 			or wxaccount.URL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -135,9 +147,10 @@
 			or wxaccount.APPSECRET LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or wxaccount.AUTHDOMAN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxaccount.authdomain LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		)
+		
 		order by wxaccount.UPDATETIME desc
 		
 	</select>
