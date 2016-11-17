@@ -4,13 +4,22 @@
 <mapper namespace="com.cjmei.module.system.sysuser.dao.SysUserDao">
 
 	<select id="findById" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
-		SELECT * FROM TB_SYS_USER
-		sysuser where sysuser.USERID = #{userid}
+		select distinct
+		u.*,listagg(t.roleid, ',') within
+		group(
+		order by t.roleid) over(partition by t.userid) roleidsStr,
+		listagg(tsr.rolename, ',') within
+		group(
+		order by tsr.rolename) over(partition by t.userid) rolenamesStr
+		from TB_SYS_USER u join tb_sys_user_role t on u.userid=t.userid
+		join tb_sys_role tsr on t.roleid = tsr.roleid where u.USERID =
+		#{userid}
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
 
-		INSERT INTO TB_SYS_USER sysuser (
+		INSERT INTO TB_SYS_USER sysuser
+		(
 		sysuser.USERID,
 		sysuser.USERNAME,
 		sysuser.PASSWORD,
@@ -19,10 +28,8 @@
 		sysuser.CREATETIME,
 		sysuser.UPDATETIME,
 		sysuser.CREATOR,
-		sysuser.ORGID,
 		sysuser.COMPANYID,
 		sysuser.TOKEN,
-		sysuser.OPENID,
 		sysuser.USERTYPE
 		)
 		VALUES(
@@ -34,10 +41,8 @@
 		sysdate,
 		sysdate,
 		#{creator:VARCHAR},
-		#{orgid:VARCHAR},
 		#{companyId:VARCHAR},
 		#{token:VARCHAR},
-		#{openid:VARCHAR},
 		#{userType:VARCHAR}
 
 		)
@@ -47,22 +52,51 @@
 		UPDATE TB_SYS_USER sysuser
 		SET
 		sysuser.USERNAME = #{username:VARCHAR},
-		sysuser.BIND_MOBILE = #{bind_mobile:VARCHAR},
+		sysuser.BIND_MOBILE =
+		#{bind_mobile:VARCHAR},
 		sysuser.ACTIVEFLAG = #{activeFlag:NUMERIC},
-		sysuser.UPDATETIME = sysdaate,
-		sysuser.ORGID = #{orgid:VARCHAR},
-		sysuser.COMPANYID = #{companyId:VARCHAR},
+		sysuser.UPDATETIME = sysdate,
+		sysuser.COMPANYID =
+		#{companyId:VARCHAR},
 		sysuser.TOKEN = #{token:VARCHAR},
-		sysuser.OPENID = #{openid:VARCHAR},
 		sysuser.USERTYPE = #{userType:VARCHAR},
-		sysuser.LASTLOGINTIME = #{lastLoginTime:TIMESTAMP}
+		sysuser.LASTLOGINTIME =
+		#{lastLoginTime:TIMESTAMP}
 		WHERE
-		sysuser.USERID = #{userid}
+		sysuser.USERID
+		= #{userid}
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_SYS_USER sysuser WHERE sysuser.USERID=#{userid}
+		DELETE FROM TB_SYS_USER
+		sysuser WHERE sysuser.USERID=#{userid}
 	</delete>
+
+	<delete id="deleteSysUserRole" parameterType="String">
+		DELETE FROM
+		tb_sys_user_role t WHERE t.USERID=#{userid}
+	</delete>
+	<insert id="saveSysUserRole" parameterType="com.cjmei.module.system.sys.pojo.SysUserRole">
+
+		INSERT INTO
+		TB_SYS_USER_ROLE (
+		USERID,
+		ROLEID,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR
+
+		)
+		VALUES(
+		#{userid:VARCHAR},
+		#{roleid:VARCHAR},
+		sysdate,
+		sysdate,
+
+		#{creator:VARCHAR}
+
+		)
+	</insert>
 
 	<select id="findAll" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
 		SELECT * FROM TB_SYS_USER
@@ -78,55 +112,91 @@
 
 	<select id="list" resultType="com.cjmei.module.system.sysuser.pojo.SysUser"
 		parameterType="java.util.Map">
-		SELECT *
+		SELECT distinct sysuser.*, listagg(tsr.roleid, ',') within
+		group(
+		order
+		by tsr.roleid) over(partition by sysuser.userid) as roleidsStr,
+		listagg(tsr.rolename, ',') within
+		group(
+		order by tsr.rolename)
+		over(partition by sysuser.userid) as rolenamesStr,
+		listagg(tsr.orgid,
+		',') within
+		group(
+		order by tsr.orgid) over(partition by sysuser.userid)
+		as orgidsStr
 		FROM TB_SYS_USER sysuser
+		join tb_sys_user_role tsur on
+		sysuser.userid = tsur.userid
+		join tb_sys_role tsr on tsur.roleid =
+		tsr.roleid
 		WHERE 1=1
-		and ( sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		<if test="orgids !=null">
+			and tsr.orgid in
+			<foreach collection="orgids" item="oid" index="index" open="("
+				separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="companyId !=null and companyId != ''">
+			and sysuser.COMPANYID = #{companyId}
+		</if>
+		and (
+		sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.USERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.PASSWORD LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.PASSWORD LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.BIND_MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.BIND_MOBILE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.ACTIVEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.ACTIVEFLAG LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.COMPANYID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.COMPANYID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.TOKEN LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			or sysuser.TOKEN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or sysuser.OPENID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or sysuser.USERTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysuser.USERTYPE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		<if test="keyword!=null and keyword!=''">
 			or sysuser.LASTLOGINTIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
+		<if test="keyword!=null and keyword!=''">
+			or tsr.rolename LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
 		)
+		<if test="sorgid !=null and sorgid != ''">
+			and tsr.orgid = #{sorgid}
+		</if>
 		order by sysuser.UPDATETIME desc
 
 	</select>
-
-
 
 </mapper>
