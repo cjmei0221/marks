@@ -100,6 +100,10 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		)
+		
+		<if test="sorgid !=null and sorgid != ''">
+			and sysrole.orgid = #{sorgid}
+		</if>
 		ORDER BY sysrole.UPDATETIME desc
 
 	</select>

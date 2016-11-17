@@ -3,6 +3,8 @@ package com.cjmei.module.wx.wxaccount.pojo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.cjmei.module.system.core.data.StaticData;
+
 public class WxAccount implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -59,6 +61,8 @@ public class WxAccount implements Serializable{
     *机构ID
     */
     private String orgid;
+    
+    private String orgname;
     /**
     *APPID
     */
@@ -70,9 +74,9 @@ public class WxAccount implements Serializable{
     /**
     *授权域名
     */
-    private String authdoman;
+    private String authdomain;
 
-
+    private String companyId;
 
     public String getAccountId(){
         return accountId;
@@ -117,6 +121,9 @@ public class WxAccount implements Serializable{
     }
 
     public String getServer_context(){
+    	if(server_context==null){
+    		return "/";
+    	}
         return server_context;
     }
     public void setServer_context(String server_context){
@@ -178,13 +185,29 @@ public class WxAccount implements Serializable{
     public void setAppsecret(String appsecret){
         this.appsecret = appsecret;
     }
-
-    public String getAuthdoman(){
-        return authdoman;
-    }
-    public void setAuthdoman(String authdoman){
-        this.authdoman = authdoman;
-    }
-
-
+	public String getAuthdomain() {
+		return authdomain;
+	}
+	public void setAuthdomain(String authdomain) {
+		this.authdomain = authdomain;
+	}
+	public void setIs_service(int is_service) {
+		this.is_service = is_service;
+	}
+	public void setAccttype(int accttype) {
+		this.accttype = accttype;
+	}
+	public String getOrgname() {
+		if(orgid !=null){
+			return StaticData.getOrgInfo(orgid).getOrgname();
+		}
+		return "";
+	}
+	public String getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+	
 }

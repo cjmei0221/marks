@@ -68,6 +68,9 @@ public class SysUser implements Serializable{
 	
 	private String companyId;
 	
+	private String roleidsStr;
+	private String rolenamesStr;
+	private String orgidsStr;
     public String getUserid(){
         return userid;
     }
@@ -171,9 +174,30 @@ public class SysUser implements Serializable{
 		this.orgids = orgids;
 	}
 	public String getCompanyId() {
+		if("0".equals(companyId)){
+			return null;
+		}
 		return companyId;
 	}
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
+	}
+	public String getRoleidsStr() {
+		return roleidsStr;
+	}
+	public void setRoleidsStr(String roleidsStr) {
+		this.roleidsStr = roleidsStr;
+	}
+	public String getRolenamesStr() {
+		return rolenamesStr;
+	}
+	public void setRolenamesStr(String rolenamesStr) {
+		this.rolenamesStr = rolenamesStr;
+	}
+	public String getOrgidsStr() {
+		return orgidsStr;
+	}
+	public void setOrgidsStr(String orgidsStr) {
+		this.orgidsStr = orgidsStr;
 	}
 }

@@ -20,7 +20,9 @@ import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
+import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.system.core.helper.SysUserHelper;
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
 import com.cjmei.module.wx.wxaccount.service.WxAccountService;
@@ -59,6 +61,7 @@ public class WxAccountController extends SupportContorller{
 		JsonUtil.output(response, result);
     }
     
+    
     /**
 	 * 保存公众号管理
 	 */
@@ -72,9 +75,13 @@ public class WxAccountController extends SupportContorller{
 	 //     wxAccount.setAccountId(IDUtil.getTimeID());
 	 		WxAccount ori=wxAccountService.findById(wxAccount.getAccountId());
 	 		if(ori==null){
+	 			
 	 			wxAccount.setCreatetime(new Timestamp(System.currentTimeMillis()));
 	 			wxAccount.setUpdatetime(wxAccount.getCreatetime());
 	 			wxAccount.setCreator(admin.getUserid());
+	 			wxAccount.setUrl(getUrl(wxAccount));
+	 			OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
+	 			wxAccount.setCompanyId(info.getCompanyId());
 	 			wxAccountService.save(wxAccount);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -89,7 +96,9 @@ public class WxAccountController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
 	}
-	
+	private String getUrl(WxAccount wxAccount){
+		return wxAccount.getAuthdomain()+wxAccount.getServer_context()+"WECHAT/HANDLER?accountid="+wxAccount.getAccountId();
+	}
 	/**
 	 * 更改公众号管理
 	 */
@@ -105,6 +114,9 @@ public class WxAccountController extends SupportContorller{
 				result.setCode(Code.CODE_FAIL);
 		    }else{
 		    	wxAccount.setUpdatetime(new Timestamp(System.currentTimeMillis()));
+		    	wxAccount.setUrl(getUrl(wxAccount));
+		    	OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
+	 			wxAccount.setCompanyId(info.getCompanyId());
 		    	wxAccountService.update(wxAccount);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
@@ -204,6 +216,8 @@ public class WxAccountController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("conpanyId", admin.getCompanyId());
+			param.put("orgids", admin.getOrgids());
 			PojoDomain<WxAccount> list = wxAccountService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
