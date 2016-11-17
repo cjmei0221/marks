@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.domain.PojoDomain;
+import com.cjmei.module.system.sys.pojo.SysUserRole;
+import com.cjmei.module.system.sysuser.dao.SysUserDao;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.cjmei.module.system.sysuser.service.SysUserService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.cjmei.module.system.sysuser.pojo.SysUser;
-import com.cjmei.module.system.sysuser.dao.SysUserDao;
-import com.cjmei.module.system.sysuser.service.SysUserService;
 
 public class SysUserServiceImpl implements SysUserService{
    
@@ -36,16 +36,32 @@ public class SysUserServiceImpl implements SysUserService{
     *保存用户管理
     */
     @Override
-    public void save(SysUser sysUser){
+    public void save(SysUser sysUser,String roleidPut){
         sysUserDao.save(sysUser);
+        saveSysUserRole(sysUser.getUserid(),roleidPut,sysUser);
     }
     
     /**
     *更新用户管理
     */
     @Override
-    public void update(SysUser sysUser){
+    public void update(SysUser sysUser,String roleidPut){
         sysUserDao.update(sysUser);
+    }
+    private void saveSysUserRole(String userid,String roleidPut,SysUser sysUser){
+    	sysUserDao.deleteSysUserRole(userid);
+    	SysUserRole su=null;
+    	String[] roleArr=roleidPut.split(",");
+    	for(String roleid:roleArr){
+    		if(roleid !=null && !"".equals(roleid)){
+    			su=new SysUserRole();
+        		su.setRoleid(roleid);
+        		su.setUserid(userid);
+        		su.setCreator(sysUser.getUserid());
+        		sysUserDao.saveSysUserRole(su);
+    		}
+    	}
+    	
     }
     
     /**
@@ -53,7 +69,8 @@ public class SysUserServiceImpl implements SysUserService{
     */
     @Override
     public void delete(String userid){
-        sysUserDao.delete(userid);       
+        sysUserDao.delete(userid);  
+        sysUserDao.deleteSysUserRole(userid);
     }
     
     /**
@@ -83,5 +100,6 @@ public class SysUserServiceImpl implements SysUserService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+	
 	
 }

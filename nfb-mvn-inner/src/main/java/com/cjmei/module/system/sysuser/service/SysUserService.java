@@ -11,10 +11,11 @@ import com.cjmei.common.domain.PojoDomain;
 public interface SysUserService{
 
 	public SysUser findById(String userid);
-	public void save(SysUser sysUser);
-	public void update(SysUser sysUser);
+	public void save(SysUser sysUser,String roleidPut);
+	public void update(SysUser sysUser,String roleidPut);
 	public void delete(String userid);
 	public List<SysUser> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<SysUser> list(int page_number, int page_size,Map<String,Object> param);
+
 }

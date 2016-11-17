@@ -4,9 +4,11 @@ package com.cjmei.module.system.sysuser.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.apache.ibatis.annotations.Param;
 
+import com.cjmei.module.system.sys.pojo.SysUserRole;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface SysUserDao {
 
@@ -23,4 +25,8 @@ public interface SysUserDao {
 	void deleteBatch(List<String> list);
 
 	List<SysUser> list(PageBounds pageBounds, Map<String,Object> param);
+
+	void deleteSysUserRole(@Param("userid")String userid);
+
+	void saveSysUserRole(SysUserRole su);
 }
