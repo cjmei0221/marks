@@ -119,7 +119,6 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		pagination : true,
 		idField : '@{PKAttrValue}',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
