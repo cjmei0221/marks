@@ -36,7 +36,6 @@ import com.cjmei.module.weixin.mp.aes.WXBizMsgCrypt;
 import com.cjmei.module.weixin.wfhao.message.MessageConverter;
 import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
 import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
 import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
 import com.cjmei.module.weixin.wfhao.service.RequestDispatchService;
 
