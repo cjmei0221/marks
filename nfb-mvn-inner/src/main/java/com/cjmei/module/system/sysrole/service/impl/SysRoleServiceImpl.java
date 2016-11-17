@@ -65,6 +65,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	 */
 	@Override
 	public void delete(String roleid) {
+		sysRoleDao.deleteFuncByRoleid(roleid);
 		sysRoleDao.delete(roleid);
 	}
 

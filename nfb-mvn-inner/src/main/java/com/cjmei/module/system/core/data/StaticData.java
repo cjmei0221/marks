@@ -17,8 +17,8 @@ import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
  * 
  * @author:cjmei0221@163.com
  * @Date:2016年7月26日上午9:02:19
- * @see (optional) 
- * @Copyright (c) 2016, cjmei  All Rights Reserved.
+ * @see (optional)
+ * @Copyright (c) 2016, cjmei All Rights Reserved.
  */
 public class StaticData {
 	private static Map<String, String> paramsMap = new HashMap<String, String>();
@@ -28,6 +28,7 @@ public class StaticData {
 	private static List<String> urlList = new ArrayList<String>();
 	private static Map<String, WxAccount> wxMap = new HashMap<String, WxAccount>();
 	private static Map<String, OrgInfo> orgMap = new HashMap<String, OrgInfo>();
+
 	public static String getSysConf(String key) {
 		return paramsMap.get(key);
 	}
@@ -46,10 +47,10 @@ public class StaticData {
 
 	public static void putUrlList(List<String> list) {
 		if (list != null && list.size() > 0) {
-			for(String url:list){
-				int idx=url.indexOf(".");
-				if(idx>0){
-					url=url.substring(0, idx);
+			for (String url : list) {
+				int idx = url.indexOf(".");
+				if (idx > 0) {
+					url = url.substring(0, idx);
 				}
 				urlList.add(url);
 			}
@@ -99,7 +100,7 @@ public class StaticData {
 			}
 		}
 	}
-	
+
 	public static WxAccount getWxAccount(String accountid) {
 		return wxMap.get(accountid);
 	}
@@ -107,19 +108,27 @@ public class StaticData {
 	public static void putWxAccount(List<WxAccount> list) {
 		if (list != null && list.size() > 0) {
 			for (WxAccount sc : list) {
-				wxMap.put(sc.getAccountId(),sc);
+				wxMap.put(sc.getAccountId(), sc);
 			}
 		}
 	}
-	
+
 	public static OrgInfo getOrgInfo(String orgid) {
 		return orgMap.get(orgid);
+	}
+
+	public static void putOrgInfo(OrgInfo info) {
+		if (info != null) {
+
+			orgMap.put(info.getOrgid(), info);
+
+		}
 	}
 
 	public static void putOrgInfoList(List<OrgInfo> list) {
 		if (list != null && list.size() > 0) {
 			for (OrgInfo sc : list) {
-				orgMap.put(sc.getOrgid(),sc);
+				orgMap.put(sc.getOrgid(), sc);
 			}
 		}
 	}
