@@ -5,7 +5,7 @@ import java.util.Date;
 public class SysUserRole {
 
 	private String userid;
-	private int roleid;
+	private String roleid;
 	private Date createtime;
 	private Date updatetime;
 	private String creator;
@@ -15,10 +15,10 @@ public class SysUserRole {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public int getRoleid() {
+	public String getRoleid() {
 		return roleid;
 	}
-	public void setRoleid(int roleid) {
+	public void setRoleid(String roleid) {
 		this.roleid = roleid;
 	}
 	public Date getCreatetime() {

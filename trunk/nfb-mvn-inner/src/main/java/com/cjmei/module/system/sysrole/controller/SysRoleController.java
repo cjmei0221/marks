@@ -218,6 +218,7 @@ public class SysRoleController extends SupportContorller{
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");
+			String sorgid=request.getParameter("sorgid");
 			if(keyword==null){
 				keyword="";
 			}
@@ -225,6 +226,7 @@ public class SysRoleController extends SupportContorller{
 			param.put("keyword", keyword);
 			param.put("orgids", admin.getOrgids());
 			param.put("companyId", admin.getCompanyId());
+			param.put("sorgid", sorgid);
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

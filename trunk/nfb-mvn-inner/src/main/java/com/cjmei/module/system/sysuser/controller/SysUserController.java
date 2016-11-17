@@ -60,7 +60,7 @@ public class SysUserController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
     }
-    
+  
     /**
 	 * 保存用户管理
 	 */
@@ -75,9 +75,10 @@ public class SysUserController extends SupportContorller{
 	 		SysUser ori=sysUserService.findById(sysUser.getUserid());
 	 		if(ori==null){
 	 			//密码处理
-	 			sysUser.setPassword(EncryptUtil.encrypt(sysUser.getPassword()));
+	 			String roleIdsPut=request.getParameter("roleIdsPut");
+	 			sysUser.setPassword("B15A268148D9C5A9363E915581CE1819");
 	 			sysUser.setCreator(admin.getUserid());
-	 			sysUserService.save(sysUser);
+	 			sysUserService.save(sysUser,roleIdsPut);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -106,7 +107,8 @@ public class SysUserController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	sysUserService.update(sysUser);
+		    	String roleIdsPut=request.getParameter("roleIdsPut");
+		    	sysUserService.update(sysUser,roleIdsPut);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -200,11 +202,15 @@ public class SysUserController extends SupportContorller{
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");
+			String ssorgid=request.getParameter("ssorgid");
 			if(keyword==null){
 				keyword="";
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("orgids", admin.getOrgids());
+			param.put("companyId", admin.getCompanyId());
+			param.put("sorgid", ssorgid);
 			PojoDomain<SysUser> list = sysUserService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

@@ -19,6 +19,7 @@ import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
+import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.orginfo.service.OrgInfoService;
@@ -80,6 +81,7 @@ public class OrgInfoController extends SupportContorller {
 					orgInfo.setLvl(1);
 				}
 				orgInfo.setCreator(admin.getUserid());
+				StaticData.putOrgInfo(orgInfo);
 				orgInfoService.save(orgInfo);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -114,6 +116,7 @@ public class OrgInfoController extends SupportContorller {
 				} else {
 					orgInfo.setLvl(1);
 				}
+				StaticData.putOrgInfo(orgInfo);
 				orgInfoService.update(orgInfo);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
