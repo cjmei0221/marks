@@ -198,8 +198,7 @@ public class WxMenuController extends SupportContorller {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("conpanyId", admin.getCompanyId());
-		param.put("orgids", admin.getOrgids());
+		param.put("accountIds", admin.getAccountids());
 		List<WxMenu> list = wxMenuService.listTree(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}

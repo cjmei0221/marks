@@ -16,4 +16,6 @@ public interface WxAccountService{
 	public List<WxAccount> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<WxAccount> list(int page_number, int page_size,Map<String,Object> param);
+	public List<WxAccount> combox(Map<String, Object> param);
+	public List<String> getAccountIdsByLoginUser(Map<String, Object> param);
 }

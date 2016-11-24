@@ -82,5 +82,15 @@ public class WxAccountServiceImpl implements WxAccountService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+	@Override
+	public List<WxAccount> combox(Map<String, Object> param) {
+		return wxAccountDao.getWxfwhaoList(param);
+	}
+	@Override
+	public List<String> getAccountIdsByLoginUser(Map<String, Object> param) {
+		return wxAccountDao.getAccountIdsByLoginUser(param);
+	}
+	
+	
 	
 }

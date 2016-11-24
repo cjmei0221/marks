@@ -132,12 +132,13 @@ public class WxMenuServiceImpl implements WxMenuService {
 			// 加载二级菜单
 			for (WxMenu wmchild : mlist) {
 				for (WxMenu wm : menuList) {
-					if (wmchild.getParent_id().equals(wm.getId())) {
+					if (wmchild.getId().equals(wm.getParent_id())) {
 						wmchild.addChildren(wm);
 					}
 				}
 				if (wmchild.getChildren().size() > 0) {
 					wmchild.setType("click");
+//					wmchild.setContent("");
 				}
 			}
 			result=WxFwUtil.getInstance().createWXMenu(accountid, mlist);

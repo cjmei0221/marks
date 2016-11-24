@@ -22,4 +22,8 @@ public interface WxAccountDao {
 	void deleteBatch(List<String> list);
 
 	List<WxAccount> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<WxAccount> getWxfwhaoList(Map<String, Object> param);
+
+	List<String> getAccountIdsByLoginUser(Map<String, Object> param);
 }
