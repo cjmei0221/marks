@@ -15,8 +15,6 @@ public class WxMenu{
 	private String parent_id;
 	private String type;
 	private String content;
-	private int post_flag;
-	private int delete_flag;
 	private List<WxMenu> sub_button=new ArrayList<WxMenu>();
 	public String getId() {
 		return id;
@@ -54,17 +52,5 @@ public class WxMenu{
 	public void addSub_button(WxMenu sub_button) {
 		this.sub_button.add(sub_button);
 	}
-	public int getPost_flag() {
-		return post_flag;
-	}
-	public void setPost_flag(int post_flag) {
-		this.post_flag = post_flag;
-	}
-	public int getDelete_flag() {
-		return delete_flag;
-	}
-	public void setDelete_flag(int delete_flag) {
-		this.delete_flag = delete_flag;
-	} 
 
 }
