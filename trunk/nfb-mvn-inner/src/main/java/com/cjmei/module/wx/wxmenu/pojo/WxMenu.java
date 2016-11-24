@@ -1,7 +1,8 @@
 package com.cjmei.module.wx.wxmenu.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WxMenu implements Serializable{
 
@@ -36,7 +37,11 @@ public class WxMenu implements Serializable{
     */
     private String accountid;
 
-
+    private int lvl=0;
+    
+    private int childnum=0;
+    
+    private List<WxMenu> children=new ArrayList<WxMenu>();
 
     public String getId(){
         return id;
@@ -86,6 +91,25 @@ public class WxMenu implements Serializable{
     public void setAccountid(String accountid){
         this.accountid = accountid;
     }
-
-
+	public int getLvl() {
+		return lvl;
+	}
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
+	public List<WxMenu> getChildren() {
+		return children;
+	}
+	public void setChildren(List<WxMenu> children) {
+		this.children = children;
+	}
+	public void addChildren(WxMenu wx) {
+		this.children.add(wx);
+	}
+	public int getChildnum() {
+		return childnum;
+	}
+	public void setChildnum(int childnum) {
+		this.childnum = childnum;
+	}
 }

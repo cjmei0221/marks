@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.domain.PojoDomain;
+import com.cjmei.common.domain.Result;
 
 public interface WxMenuService{
 
@@ -17,4 +18,7 @@ public interface WxMenuService{
 	public List<WxMenu> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<WxMenu> list(int page_number, int page_size,Map<String,Object> param);
+	public List<WxMenu> listTree(Map<String, Object> param);
+	public List<WxMenu> getChildWxMenuList(String id);
+	public Result syncWx(String accountid) throws Exception;
 }
