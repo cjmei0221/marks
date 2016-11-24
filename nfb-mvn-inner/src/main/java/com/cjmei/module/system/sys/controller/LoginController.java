@@ -1,7 +1,10 @@
 package com.cjmei.module.system.sys.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +22,8 @@ import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.service.LoginService;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
+import com.cjmei.module.wx.wxaccount.service.WxAccountService;
 
 /**
  * 用户登录 控制层 File Name: com.grgbanking.inner.controller.LoginController.java
@@ -32,6 +37,8 @@ import com.cjmei.module.system.sysuser.pojo.SysUser;
 public class LoginController {
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private WxAccountService wxAccountService;
 
 	/**
 	 * 登录 queryDepartmentList:描述 <br/>
@@ -61,33 +68,42 @@ public class LoginController {
 			} else {
 				String password = EncryptUtil.encrypt(pwd);
 				if (password.equals(user.getPassword())) {
-					List<SysRole> roleList=loginService.getUserRoleList(user.getUserid());
-					if(roleList !=null && roleList.size()>0){
+					List<SysRole> roleList = loginService.getUserRoleList(user.getUserid());
+					if (roleList != null && roleList.size() > 0) {
 						result.setCode(0);
 						result.setMessage("success");
 						user.setLoginTime(new Date());
 						user.setPassword("");
 						user.setRoleIds(roleList);
-						//组织架构
-						boolean topflag=true;
-						for(SysRole sr:roleList){
-							if(Constants.top_org_parentid_id.equals(sr.getOrgParentId()) || "0".equals(sr.getOrgParentId())){
-								topflag=false;
+						// 组织架构
+						boolean topflag = true;
+						for (SysRole sr : roleList) {
+							if (Constants.top_org_parentid_id.equals(sr.getOrgParentId())
+									|| "0".equals(sr.getOrgParentId())) {
+								topflag = false;
 								break;
 							}
 						}
-						if(topflag){
-							List<String> orgids=loginService.getOrgidBySysUser(roleList);
+						if (topflag) {
+							List<String> orgids = loginService.getOrgidBySysUser(roleList);
 							user.setOrgids(orgids);
-						}else{
+						} else {
 							user.setOrgids(null);
 						}
+						user.setAccountids(null);
+						if (null != user.getOrgids() && null != user.getCompanyId()) {
+							Map<String, Object> param = new HashMap<String, Object>();
+							param.put("conpanyId", user.getCompanyId());
+							param.put("orgids", user.getOrgids());
+							List<String> accountids = wxAccountService.getAccountIdsByLoginUser(param);
+							user.setAccountids(accountids);
+						}
 						SysUserHelper.setCurrentUserInfo(request, user);
-					}else{
+					} else {
 						result.setCode(4005);
 						result.setMessage("您没有权限登录");
 					}
-					
+
 				} else {
 					result.setCode(4003);
 					result.setMessage("密码错误");

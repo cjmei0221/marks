@@ -26,6 +26,9 @@ import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
 import com.cjmei.module.wx.wxaccount.service.WxAccountService;
+import com.cjmei.module.wx.wxmenu.pojo.WxMenu;
+
+import net.sf.json.JSONArray;
 
 @Controller
 public class WxAccountController extends SupportContorller{
@@ -216,8 +219,7 @@ public class WxAccountController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("conpanyId", admin.getCompanyId());
-			param.put("orgids", admin.getOrgids());
+			param.put("accountIds", admin.getAccountids());
 			PojoDomain<WxAccount> list = wxAccountService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -233,5 +235,16 @@ public class WxAccountController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
     }
+	
+	@RequestMapping("/wxAccount/combox")
+	public void combox(HttpServletRequest request, HttpServletResponse response) {
+
+		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("accountIds", admin.getAccountids());
+		List<WxAccount> list = wxAccountService.combox(param);
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+	}
 	
 }

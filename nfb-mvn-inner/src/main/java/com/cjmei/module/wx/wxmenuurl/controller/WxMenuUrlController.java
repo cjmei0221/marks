@@ -206,6 +206,7 @@ public class WxMenuUrlController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("accountIds", admin.getAccountids());
 			PojoDomain<WxMenuUrl> list = wxMenuUrlService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

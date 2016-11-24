@@ -64,6 +64,8 @@ public class SysUser implements Serializable{
 	
 	private List<String> orgids=new ArrayList<String>();
 	
+	private List<String> accountids;
+	
 	private Date loginTime;
 	
 	private String companyId;
@@ -199,5 +201,11 @@ public class SysUser implements Serializable{
 	}
 	public void setOrgidsStr(String orgidsStr) {
 		this.orgidsStr = orgidsStr;
+	}
+	public List<String> getAccountids() {
+		return accountids;
+	}
+	public void setAccountids(List<String> accountids) {
+		this.accountids = accountids;
 	}
 }
