@@ -50,7 +50,7 @@ public class WxMenuController {
 					first.setId(json.getString("id"));
 					first.setType(json.getString("type"));
 					JSONArray subarr = JSONArray.fromObject(json
-							.get("sub_button"));
+							.get("children"));
 					if (null != subarr && subarr.size() > 0) {
 						for (Object second : subarr) {
 							JSONObject secondjson = JSONObject
