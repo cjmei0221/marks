@@ -256,7 +256,7 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 	}
 
 	// 多条件查询--<if>
-	public String producedTypeIfStatement(String attrName, AutoBean autoBean) {
+	public String producedTypeIfStatement() {
 		StringBuffer sBuffer = new StringBuffer();
 		sBuffer.append(LEFT_ANGLE).append(START_IF_VALUE).append(BANK_VALUE_1).append(TEST_VALUE).append(EQUAL_VALUE)
 				.append("\"");
@@ -270,6 +270,9 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 	// 多条件if循环
 	public String producedFindToType(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
+		sBuffer.append(producedSpace());
+		sBuffer.append(producedSpace());
+		sBuffer.append(producedTypeIfStatement());
 		sBuffer.append(" and (");
 		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
 		for (int i = 0; i < autoAttrs.size(); i++) {
@@ -278,22 +281,14 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 			if (i > 0) {
 				sBuffer.append(producedSpace());
 				sBuffer.append(producedSpace());
-				sBuffer.append(producedTypeIfStatement(attrName, autoBean));
-
-				sBuffer.append(producedSpace());
-				sBuffer.append(producedSpace());
 				sBuffer.append(BANK_VALUE_4).append(DEFAULT_OR);
 			}
-
 			sBuffer.append(producedMiddleStatement(attrName, type, autoBean));
-			if (i > 0) {
-				sBuffer.append(producedSpace());
-				sBuffer.append(producedSpace());
-				sBuffer.append(producedEndIfStatement());
-			}
-
 		}
 		sBuffer.append(" )");
+		sBuffer.append(producedSpace());
+		sBuffer.append(producedSpace());
+		sBuffer.append(producedEndIfStatement());
 		return sBuffer.toString();
 	}
 
