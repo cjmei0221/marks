@@ -17,12 +17,10 @@ import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
+import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
-
 import com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay;
 import com.cjmei.module.wx.wxautoreplay.service.WxAutoReplayService;
 
@@ -48,7 +46,7 @@ public class WxAutoReplayController extends SupportContorller{
         Result result = new Result();
 		try {
 		    WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
-			WxAutoReplay requestWxAutoReplay = wxAutoReplayService.findById(wxAutoReplay.getCparentType());
+			WxAutoReplay requestWxAutoReplay = wxAutoReplayService.findById(wxAutoReplay.getCtype());
 			result.getData().put("wxAutoReplay",requestWxAutoReplay);
 			result.setMessage("findById wxAutoReplay successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -72,11 +70,12 @@ public class WxAutoReplayController extends SupportContorller{
 	    	WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
 	 //     wxAutoReplay.setCparentType(IDUtil.getTimeID());
 			 WxAutoReplay ori=null;
-	 		if(wxAutoReplay.getCparentType() != null){
-	 			ori=wxAutoReplayService.findById(wxAutoReplay.getCparentType());
+	 		if(wxAutoReplay.getCkey() != null){
+	 			ori=wxAutoReplayService.findByCkey(wxAutoReplay.getCkey());
 	 		}
 	 		
 	 		if(ori==null){
+	 			wxAutoReplay.setCreator(admin.getUserid());
 	 			wxAutoReplayService.save(wxAutoReplay);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -100,16 +99,27 @@ public class WxAutoReplayController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
-		    WxAutoReplay ori=wxAutoReplayService.findById(wxAutoReplay.getCparentType());
+		    WxAutoReplay ori=wxAutoReplayService.findById(wxAutoReplay.getCtype());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	wxAutoReplayService.update(wxAutoReplay);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
+		    	if(ori.getCkey().equals(wxAutoReplay.getCkey())){
+		    		wxAutoReplayService.update(wxAutoReplay);
+					result.setMessage("更新成功!");
+					result.setCode(Code.CODE_SUCCESS);
+		    	}else{
+		    		ori=wxAutoReplayService.findByCkey(wxAutoReplay.getCkey());
+		    		if(ori ==null){
+		    			wxAutoReplayService.update(wxAutoReplay);
+						result.setMessage("更新成功!");
+						result.setCode(Code.CODE_SUCCESS);
+		    		}else{
+		    			result.setMessage("此关键字已存在!");
+						result.setCode(4002);
+		    		}
+		    	}
 		    }
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -128,7 +138,7 @@ public class WxAutoReplayController extends SupportContorller{
 		Result result = new Result();
 		try {
 		   	WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
-			wxAutoReplayService.delete(wxAutoReplay.getCparentType());
+			wxAutoReplayService.delete(wxAutoReplay.getCtype());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -158,38 +168,6 @@ public class WxAutoReplayController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
 	}
-	
-	/**
-	 * 删除多个微信回复管理
-	 */
-	@RequestMapping("/wxAutoReplay/deleteIds")
-	public void deleteWxAutoReplay(HttpServletRequest request,
-			HttpServletResponse response){
-		Result result = new Result();
-		try {
-			String id = request.getParameter("cparentType");
-			String[] ids = id.split(",");
-			List<String> idList = new ArrayList<String>();
-			for(int i=0;i<ids.length;i++){
-				idList.add(ids[i]);
-			}
-			if(idList.size()>0){
-				wxAutoReplayService.deleteBatch(idList);
-				result.setMessage("删除成功!");
-				result.setCode(Code.CODE_SUCCESS);
-			}else{
-				result.setMessage("删除失败，请联系管理员!");
-				result.setCode(Code.CODE_FAIL);
-			}
-			
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("delete wxAutoReplay fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
 	/**
 	 * jqGrid多种条件查询
 	 */
@@ -206,6 +184,7 @@ public class WxAutoReplayController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("accountIds", admin.getAccountids());
 			PojoDomain<WxAutoReplay> list = wxAutoReplayService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
