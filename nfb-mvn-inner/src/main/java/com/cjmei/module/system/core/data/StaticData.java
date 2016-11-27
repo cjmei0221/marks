@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.util.Constants;
+import com.cjmei.module.system.datadir.pojo.DataDir;
 import com.cjmei.module.system.orginfo.pojo.OrgInfo;
-import com.cjmei.module.system.sys.pojo.DataDir;
-import com.cjmei.module.system.sys.pojo.SysConf;
+import com.cjmei.module.system.sysconf.pojo.SysConf;
 import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
 
 /**
