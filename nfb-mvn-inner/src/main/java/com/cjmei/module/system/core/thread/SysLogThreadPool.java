@@ -51,6 +51,10 @@ class SysLogThread implements Runnable{
 				log.setMenuname(logc.get(0).getMenuname());
 				log.setOpername(logc.get(0).getOpername());
 				sysLogDao.saveSysLog(log);
+			}else if("/sys/login".equals(log.getUrl())){
+				log.setMenuname("登录管理");
+				log.setOpername("登录");
+				sysLogDao.saveSysLog(log);
 			}
 		}
 	}

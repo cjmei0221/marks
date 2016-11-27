@@ -11,6 +11,7 @@ public class SysLog {
 	private String username;
 	private String retain1;//保留字段1
 	private String retain2;//保留字段2
+	private String retain3;//保留字段2
 	private Date createtime;//创建时间
 	private String menuname;//菜单名称
 	private String opername;//操作名称
@@ -68,6 +69,13 @@ public class SysLog {
 	}
 	public void setRetain2(String retain2) {
 		this.retain2 = retain2;
+	}
+	
+	public String getRetain3() {
+		return retain3;
+	}
+	public void setRetain3(String retain3) {
+		this.retain3 = retain3;
 	}
 	public String getMenuname() {
 		return menuname;

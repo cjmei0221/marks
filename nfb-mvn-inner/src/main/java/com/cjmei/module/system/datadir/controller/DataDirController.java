@@ -21,6 +21,7 @@ import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.datadir.pojo.DataDir;
 import com.cjmei.module.system.datadir.service.DataDirService;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
 
 import net.sf.json.JSONArray;
 
@@ -199,6 +200,14 @@ public class DataDirController extends SupportContorller {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("companyId", admin.getCompanyId());
 		List<DataDir> list = dataDirService.listTree(param);
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+	}
+	
+	@RequestMapping("/dataDir/combox")
+	public void combox(HttpServletRequest request, HttpServletResponse response) {
+
+		String parentId=request.getParameter("parentId");
+		List<DataDir> list = dataDirService.findChildList(parentId);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 
