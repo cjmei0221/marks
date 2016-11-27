@@ -45,30 +45,31 @@ public class PopedomFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		SysUser sysUser = SysUserHelper.getCurrentUserInfo(request);
 		String url = RequestRegex.repace("/", request.getRequestURI());
-		url = url.substring(request.getContextPath().length());
-		if (sysUser == null) {
-			if (RequestRegex.matches(url, regexUnLoginPattern)) {
-				arg2.doFilter(arg0, arg1);
-			} else {
-				// 表示登录
-				Result result = new Result();
-				result.setCode(-1000);
-				result.setMessage("未登录用户不可以访问此地址[" + request.getRequestURI() + "]");
-				JsonUtil.output((HttpServletResponse) arg1, result);
-			}
+		int idx = url.indexOf(".");
+		url = url.substring(request.getContextPath().length(), idx);
+		Log.info("----url: " + url);
+		List<String> list = StaticData.getUrlList();
+		boolean flag = false;
+		if (list.contains(url) && sysUser != null && sysUser.getUserUrlList().contains(url)) {
+			Log.info("----url: 2");
+			flag = true;
 		} else {
-			List<String> list = StaticData.getUrlList();
-			/*if (list.contains(url) && !sysUser.getUserUrlList().contains(url)) {
-				// 无权访问
-				Result result = new Result();
-				result.setCode(-2000);
-				result.setMessage("请与管理员确认您是否具有相关操作权限");
-				JsonUtil.output((HttpServletResponse) arg1, result);
+			if ("/sys/menu".equals(url) && sysUser == null) {
+				Log.info("----url: 4");
+				flag = false;
 			} else {
-				arg2.doFilter(arg0, arg1);
-			}*/
-			
+				Log.info("----url: 5");
+				flag = true;
+			}
+		}
+		if (flag) {
 			arg2.doFilter(arg0, arg1);
+		} else {
+			// 表示登录
+			Result result = new Result();
+			result.setCode(-1000);
+			result.setMessage("未登录用户不可以访问此地址[" + request.getRequestURI() + "]");
+			JsonUtil.output((HttpServletResponse) arg1, result);
 		}
 	}
 

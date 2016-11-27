@@ -56,7 +56,7 @@ public class SysLogFilter implements Filter {
 		SysLog log=new SysLog();
 		log.setIp(ip);
 		log.setRetain1(success+"");
-		log.setRetain2(msg);
+		log.setRetain2(url);
 		log.setUserid(userid);
 		log.setUsername(username);
 		log.setUrl(url);
