@@ -31,6 +31,7 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
+		$("#ckey").removeAttr("readonly");
 	});
 
 	// 编辑
@@ -41,6 +42,7 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
+			$("#ckey").attr("readonly","readonly");
 		}
 	});
 
