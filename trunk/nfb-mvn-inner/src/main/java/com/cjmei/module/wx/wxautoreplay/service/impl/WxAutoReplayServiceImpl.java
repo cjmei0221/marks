@@ -83,5 +83,9 @@ public class WxAutoReplayServiceImpl implements WxAutoReplayService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+	@Override
+	public WxAutoReplay findByCkey(String ckey) {
+		  return wxAutoReplayDao.findByCkey(ckey);
+	}
 	
 }
