@@ -81,14 +81,7 @@ $(function() {
  * 保存菜单
  */
 function formSubmit() {
-	var path = $(".ke-img").attr("src"); // 图路径
-	if (path == undefined) {
-		top.G.alert("必须添加图片!");
-		return false;
-	}
-	path = path.substr(path.indexOf("=") + 1);
 
-	$("#imageUrl").val(path);
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	$('#ff').form('submit', {
@@ -225,42 +218,61 @@ function loadList() {
 }
 
 function initForPic(main) {
-	var mainPic = $("#mainPic").html();
-	$("#remove").append(mainPic);
-	var flag = false;
-	if (main != null && main != "") {
-		flag = true;
+	if ("" != main) {
+		console.log(main);
+		document.getElementById('image').src = main;
 	}
-	initForModPic("buttonPlaceholder", "photoContainer", "errorMsg1", 2, flag,
-			[ main ]);
 
 }
-function initForModPic(buttonPlaceholder, photoContainer, errorMsg, i, flag,
-		edit_pic) {
-	var options = {
-		flash_url : top.window.urlBase + "/js/uploadImage/swfupload.swf",
-		upload_url : top.window.urlBase + "/upload/image.do", // 处理上传的servlet
-		file_size_limit : "1 MB",// 文件的大小 注意: 中间要有空格
-		types : "*.jpg;*.jpeg;*.gif", // 注意是 " ; " 分割
-		typesdesc : "web iamge file", // 这里可以自定义
-		file_upload_limit : i,
-		button_image_url : top.window.urlBase + "/images/add.png",// 必传
-		button_placeholder_id : buttonPlaceholder,// 必传
-		custom_settings : {
-			photoContainer_Id : photoContainer, // 图片的容器id
-			btnUpload_ID : "", // 上传按钮
-			upload_type : "1",
-			errorMsg_Id : errorMsg, // 错误信息
-			errorMsg_fadeOutTime : 2000, // 错误信息谈出的时间
-			width : 160,// 图片显示宽度
-			height : 100, // 图片显示高度
-			edit : flag,
-			edit_pic : edit_pic
+
+function selectImage(file, eInput) {
+	if (!file.files || !file.files[0]) {
+		return;
+	}
+	var image = '';
+	var reader = new FileReader();
+	reader.onload = function(evt) {
+		// $('.'+eInput).attr("src",evt.target.result);
+		image = evt.target.result;
+		uploadImage(image, eInput);
+	}
+	reader.readAsDataURL(file.files[0]);
+}
+function uploadImage(image, eInput) {
+	$.ajax({
+
+		type : 'POST',
+
+		url : top.window.urlBase + "/fileUpload/image.do",
+
+		data : {
+			image : image
 		},
-		post_params : {
-			"uploadType" : "1"
+
+		async : false,
+
+		dataType : 'json',
+
+		success : function(data) {
+			console.log(data);
+			if (data.retcode == 0) {
+				$("#" + eInput).val(data.fileUrl);
+				$('.' + eInput).attr("src", data.fileUrl)
+				showMsg('上传成功');
+
+			} else {
+
+				showMsg('上传失败');
+
+			}
+
+		},
+
+		error : function(err) {
+			alert('网络故障');
+
 		}
-	// 针对一个页面需要多个上传控件上传不同类别的图片
-	};
-	initSwfupload(options);
+
+	});
+
 }

@@ -11,9 +11,6 @@
 <link rel="stylesheet" type="text/css"
 	href="../../../js/uploadImage/swfupload-default.css">
 <%@include file="../../include/common.jsp"%>
-<script type="text/javascript"
-	src="../../../js/uploadImage/swfupload.js"></script>
-<script type="text/javascript" src="../../../js/uploadImage/handler.js"></script>
 </head>
 
 <body>
@@ -50,24 +47,35 @@
 				<tr>
 					<th>商品名称</th>
 					<td><input id="goodName" name="goodName"
-						class="easyui-validatebox" data-options="required:true"></td>
+						class="easyui-validatebox" data-options="required:true" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>商品单价(单位分)</th>
 					<td><input id="goodPrice" name="goodPrice"
-						class="easyui-numberbox" data-options="required:true"></td>
+						class="easyui-numberbox" data-options="required:true" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>商品单位</th>
 					<td><input id="unit" name="unit" class="easyui-validatebox"
-						data-options="required:true"></td>
+						data-options="required:true" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>商品主图</th>
 					<td><input id="imageUrl" name="imageUrl"
-						type="hidden" data-options="required:true">
-						<div class="imageUrlDiv" style="height: 200px;" id="remove"></div>
-					</td>
+						class="easyui-validatebox" data-options="required:true"
+						placeholder="图片访问路径" style="width: 200px;"> <input type="file"
+						onchange="selectImage(this,'imageUrl');"> <img
+						class="imageUrl" src="" style="width: 160px; height: 100px;" /> <input
+						type="button" onclick="deleteImage();" value="删除" /></td>
+				</tr>
+				<tr>
+					<th>详细图片</th>
+					<td><input id="imageDetailUrl" name="imageDetailUrl"
+						class="easyui-validatebox" data-options="required:true"
+						placeholder="图片访问路径" style="width: 200px;"> <input type="file"
+						onchange="selectImage(this,'imageDetailUrl');"> <img
+						class="imageDetailUrl" src="" style="width: 160px; height: 100px;" />
+						<input type="button" onclick="deleteImage();" value="删除" /></td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input
