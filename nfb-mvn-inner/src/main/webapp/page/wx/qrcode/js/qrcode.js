@@ -1,9 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxAutoReplay/list.do',// 获取微信回复管理列表接口
-	// WxAutoReplay
-	saveUrl : top.window.urlBase + '/wxAutoReplay/save.do',// 保存新增微信回复管理接口
-	updateUrl : top.window.urlBase + '/wxAutoReplay/update.do',// 编辑微信回复管理信息接口
-	deleteUrl : top.window.urlBase + '/wxAutoReplay/delete.do',// 删除微信回复管理接口
+	listUrl : top.window.urlBase + '/qrcode/list.do',// 获取二维码管理列表接口 Qrcode
+	saveUrl : top.window.urlBase + '/qrcode/save.do',// 保存新增二维码管理接口
+	updateUrl : top.window.urlBase + '/qrcode/update.do',// 编辑二维码管理信息接口
+	deleteUrl : top.window.urlBase + '/qrcode/delete.do',// 删除二维码管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -32,8 +31,9 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
-		$("#ckey").removeAttr('readonly');
-		$("#delFlagTr").show();
+		$(".hideCls").hide();
+		$("#qrTypeTr").show();
+		$("#btnOK").removeAttr("disabled");
 	});
 
 	// 编辑
@@ -44,31 +44,17 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
-			if (appInfo.selectedData.delFlag == 0) {
-				$("#ckey").attr('readonly', 'readonly');
-				$("#delFlagTr").hide();
-			} else {
-				$("#ckey").removeAttr('readonly');
-				$("#delFlagTr").show();
-			}
-			if(appInfo.selectedData.replayType=='NEWS'){
-				$("#newsList").combobox("setValues", appInfo.selectedData.creplay.split(","));
-			}else{
-				$("#newsList").combobox("setValues", '');
-			}
+			$(".hideCls").hide();
+			$("#btnOK").removeAttr("disabled");
 		}
 	});
 
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			if (appInfo.selectedData.delFlag == 0) {
-				showMsg("此记录不可删除");
-				return;
-			}
 			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
 				if (r) {
-					var parms = "ctype=" + appInfo.selectedId;
+					var parms = "id=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
 						if (data.retcode == 0) {
 							app.myreload("#tbList");
@@ -91,25 +77,22 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-	$('#replayType').combobox({
+
+	$('#qrType').combobox({
 		onChange : function(newValue, oldValue) {
-			if (newValue == 'NEWS') {
-				$("#newsListTr").show();
+			if (newValue == '0') {
+				$("#qrUrlTr").show();
+				$("#accountidTr").hide();
+				$("#sceneTypeTr").hide();
+				$("#qrNoTr").hide();
 			} else {
-				$("#newsListTr").hide();
-				$("#newsList").combobox("setValues", '');
+				$("#qrUrlTr").hide();
+				$("#accountidTr").show();
+				$("#sceneTypeTr").show();
+				$("#qrNoTr").show();
 			}
 		}
 	});
-	$('#newsList').combobox({
-		onHidePanel : function() {
-			var vals = $("#newsList").combobox("getValues");
-			console.log(vals);
-			if (vals != null && vals != undefined) {
-				$("#creplay").val(vals);
-			}
-		}
-	})
 });
 /**
  * 保存菜单
@@ -119,12 +102,45 @@ function formSubmit() {
 		showMsg("表单校验不通过");
 		return;
 	}
+	var qrTypeVal = $("#qrType").combobox("getValue");
+	if (qrTypeVal == 0) {
+		var qrUrlVal = $("#qrUrl").val();
+		if (qrUrlVal == '') {
+			showMsg("链接URL不能为空");
+			return;
+		}
+	} else {
+		var accountidVal = $("#accountid").combobox("getValue");
+		var sceneTypeVal = $("#sceneType").combobox("getValue");
+		var qrNoVal = $("#qrNo").numberbox('getValue');
+		if (accountidVal == '') {
+			showMsg("公众号不能为空");
+			return;
+		}
+		if (sceneTypeVal == '') {
+			showMsg("场景类型不能为空");
+			return;
+		}
+		if (qrNoVal == '') {
+			showMsg("标识不能为空");
+			return;
+		}
+		if (sceneTypeVal == 0 && qrNoVal < 100001) {
+			showMsg("临时二维码的标识不能小于100000");
+			return;
+		}
+		if (sceneTypeVal == 1 && qrNoVal > 100000) {
+			showMsg("永久二维码标识不能大于100000");
+			return;
+		}
+	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	$('#ff').form('submit', {
 		url : reqUrl,
 		onSubmit : function(param) {
 			param.formStatus = appInfo.formStatus;
+			$("#btnOK").attr("disabled","disabled");
 		},
 		success : function(data) {
 			if (typeof data === 'string') {
@@ -143,11 +159,18 @@ function formSubmit() {
 				showMsg("保存成功");
 			} else {
 				showMsg(data.retmsg);
+				$("#btnOK").removeAttr("disabled");
 			}
 		}
 	});
 }
 
+function showImage(imagePath){
+	$("#showWin").window({
+		title : "二维码图片"
+	}).window("open");
+	$("#showImage").attr("src",imagePath);
+}
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
@@ -158,62 +181,66 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		pagination : true,
-		idField : 'ctype',
+		idField : 'id',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : 'ID',
-			field : 'ctype',
-			width : 100,
-			align : "center",
-			hidden : true
-		}, {
+
 			title : '名称',
-			field : 'ctypeName',
+			field : 'qrName',
 			width : 100,
 			align : "center"
 		}, {
-			title : '关键字',
-			field : 'ckey',
+			title : '类型',
+			field : 'qrType',
 			width : 100,
-			align : "center"
-		}, {
-			title : '回复方式',
-			field : 'replayType',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if (value == 'NEWS') {
-					return "图文 (NEWS)";
-				} else if (value == 'MODULE') {
-					return "指令 (MODULE)";
-				}
-				return "文字 (TEXT)";
-			}
-		}, {
-			title : '回复内容',
-			field : 'creplay',
-			width : 200,
-			align : "center"
-		}, {
-			title : '是否可删除',
-			field : 'delFlag',
-			width : 80,
 			align : "center",
 			formatter : function(value, row, index) {
 				if (value == 0) {
-					return "否";
-				} 
-				return "是";
+					return "链接";
+				} else if (value == 1) {
+					return "公众号";
+				}
+				return "";
 			}
+		}, {
+			title : '链接',
+			field : 'qrUrl',
+			width : 200,
+			align : "center"
 		}, {
 			title : '公众号ID',
 			field : 'accountid',
 			width : 100,
 			align : "center"
+		}, {
+			title : '场景类型',
+			field : 'sceneType',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 0) {
+					return "临时";
+				} else if (value == 1) {
+					return "永久";
+				}
+				return "";
+			}
+		}, {
+			title : '标识',
+			field : 'qrNo',
+			width : 100,
+			align : "center"
+		}, {
+			title : '图片路径',
+			field : 'qrPath',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				return '<img alt="二维码" src="'+value+'" style="width:80px;height:60px;"';
+			}
 		}, {
 			title : '创建时间',
 			field : 'createtime',
@@ -229,14 +256,20 @@ function loadList() {
 			field : 'creator',
 			width : 100,
 			align : "center"
+
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
 			loader(that, params, success, loadError);
 		},
 		onClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.cparentType;
+			appInfo.selectedId = rowData.id;
 			appInfo.selectedData = rowData;
+		},
+		onDblClickRow : function(rowIndex, rowData) {
+			appInfo.selectedId = rowData.id;
+			appInfo.selectedData = rowData;
+			showImage(rowData.qrPath);
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');

@@ -6,44 +6,94 @@
 <!-- WxAutoReplay.html -->
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/wxAutoReplay.css" />
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/wxAutoReplay.css" />
 
-	<%@include file="../../include/common.jsp"%>
+<%@include file="../../include/common.jsp"%>
 </head>
-	
-	<body>
-	
+
+<body>
+
 	<div id="mainPanel">
 		<p class="nav-header-cls">微信回复管理>>微信回复管理</p>
 		<div id="tb" style="padding: 5px 0;">
-		<table>
+			<table>
 				<tr>
-					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="关键字"/></td>
-					<td><button type="button" id="doSearch" data-oper="query" style="cursor: pointer;">查询</button>
+					<td><input type="text" id="keyword" name="keyword"
+						style="width: 260px;" placeholder="关键字" /></td>
+					<td><button type="button" id="doSearch" data-oper="query"
+							style="cursor: pointer;">查询</button>
 				</tr>
-				 <tr>
-					<td colspan="7">
-						<wt:button />
-					</td>
-				</tr> 
+				<tr>
+					<td colspan="7"><wt:button /></td>
+				</tr>
 			</table>
 		</div>
 		<table id="tbList">
 		</table>
 	</div>
-	
+
 	<div id="editWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 300px; padding: 10px;">
+		style="width: 400px; height: 400px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
-			<input type="hidden"  id="cparentType" name="cparentType">
+			<input type="hidden" id="ctype" name="ctype">
 			<table class="out-win-cls">
-				<tr><th>关键字</th><td><input id="ckey" name="ckey" class="easyui-validatebox" data-options="required:true"></td></tr><tr><th>回复内容</th><td><input id="creplay" name="creplay" class="easyui-validatebox" data-options="required:true"></td></tr><tr><th>ID</th><td><input id="ctype" name="ctype" class="easyui-validatebox" data-options="required:true"></td></tr><tr><th>名称</th><td><input id="ctypeName" name="ctypeName" class="easyui-validatebox" data-options="required:true"></td></tr><tr><th>公众号ID</th><td><input id="accountid" name="accountid" class="easyui-validatebox" data-options="required:true"></td></tr><tr><th>回复方式</th><td><input id="replayType" name="replayType" class="easyui-validatebox" data-options="required:true"></td></tr><tr><th>创建时间</th><td><input id="createtime" name="createtime" class="easyui-datetimebox" data-options="required:true"></td></tr><tr><th>更新时间</th><td><input id="updatetime" name="updatetime" class="easyui-datetimebox" data-options="required:true"></td></tr><tr><th>创建者</th><td><input id="creator" name="creator" class="easyui-validatebox" data-options="required:true"></td></tr>
+
+				<tr>
+					<th>名称</th>
+					<td><input id="ctypeName" name="ctypeName"
+						class="easyui-validatebox" data-options="required:true"
+						style="width: 200px;"></td>
+				</tr>
+				<tr>
+					<th>关键字</th>
+					<td><input id="ckey" name="ckey" class="easyui-validatebox"
+						data-options="required:true" style="width: 200px;"></td>
+				</tr>
+				<tr>
+					<th>回复方式</th>
+					<td><select id="replayType" class="easyui-combobox"
+						name="replayType" style="width: 200px;">
+							<option value="TEXT">文字</option>
+							<option value="NEWS">图文</option>
+							<option value="MODULE">指令</option>
+					</select></td>
+				</tr>
+				<tr id="newsListTr" style="display: none;">
+					<th>图文</th>
+					<td><input id="newsList" class="easyui-combobox"
+						data-options="multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/newsItem/combox.do'"
+						name="newsList" style="width: 200px;"></td>
+				</tr>
+				<tr>
+					<th>回复内容</th>
+					<td><textarea rows="5" cols="30" style="width: 200px;"
+							id="creplay" name="creplay"></textarea></td>
+				</tr>
+
+
+				<tr id="accountidTr">
+					<th>公众号</th>
+					<td><input id="accountid" name="accountid"
+						class="easyui-combobox"
+						data-options="required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/wxAccount/combox.do'"
+						style="width: 200px;"></td>
+				</tr>
+				<tr id="delFlagTr">
+					<th>是否可删除</th>
+					<td><select id="delFlag" class="easyui-combobox"
+						name="delFlag" style="width: 200px;">
+							<option value="1">是</option>
+							<option value="0">否</option>
+
+					</select></td>
+				</tr>
+
 				<tr>
 					<td colspan="2" style="text-align: center"><input
 						type="button" id="btnOK" name="btnOK" value=" 保 存 " />
@@ -53,7 +103,7 @@
 			</table>
 		</form>
 	</div>
-	
+
 </body>
 <script src="js/wxAutoReplay.js"></script>
 </html>
