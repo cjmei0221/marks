@@ -98,7 +98,6 @@ public class SysConfController extends SupportContorller {
 	public void updateSysConf(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			SysConf sysConf = getModel(SysConf.class);
 			SysConf ori = sysConfService.findById(sysConf.getCkey());
 			if (ori == null) {
