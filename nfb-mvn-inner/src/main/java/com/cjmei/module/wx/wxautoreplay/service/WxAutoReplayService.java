@@ -17,4 +17,5 @@ public interface WxAutoReplayService{
 	public List<WxAutoReplay> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<WxAutoReplay> list(int page_number, int page_size,Map<String,Object> param);
+	public WxAutoReplay findByCkey(String ckey);
 }

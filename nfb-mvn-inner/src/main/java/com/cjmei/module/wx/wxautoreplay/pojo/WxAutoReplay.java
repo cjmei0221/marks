@@ -6,11 +6,6 @@ import java.sql.Timestamp;
 public class WxAutoReplay implements Serializable{
 
     private static final long serialVersionUID = 1L;
-
-    /**
-    *父ID
-    */
-    private String cparentType;
     /**
     *关键字
     */
@@ -49,13 +44,7 @@ public class WxAutoReplay implements Serializable{
     private String creator;
 
 
-
-    public String getCparentType(){
-        return cparentType;
-    }
-    public void setCparentType(String cparentType){
-        this.cparentType = cparentType;
-    }
+    private int delFlag;//是否可删除 1：是  0：否
 
     public String getCkey(){
         return ckey;
@@ -119,6 +108,10 @@ public class WxAutoReplay implements Serializable{
     public void setCreator(String creator){
         this.creator = creator;
     }
-
-
+	public int getDelFlag() {
+		return delFlag;
+	}
+	public void setDelFlag(int delFlag) {
+		this.delFlag = delFlag;
+	}
 }

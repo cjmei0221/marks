@@ -4,9 +4,10 @@ package com.cjmei.module.wx.wxautoreplay.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.apache.ibatis.annotations.Param;
 
 import com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface WxAutoReplayDao {
 
@@ -23,4 +24,6 @@ public interface WxAutoReplayDao {
 	void deleteBatch(List<String> list);
 
 	List<WxAutoReplay> list(PageBounds pageBounds, Map<String,Object> param);
+
+	WxAutoReplay findByCkey(@Param("ckey")String ckey);
 }

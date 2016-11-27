@@ -71,6 +71,8 @@ public class WxUser implements Serializable{
     *二维码标识
     */
     private String qrNo;
+    
+    private String qrName;//来源
     /**
     *备注
     */
@@ -148,7 +150,13 @@ public class WxUser implements Serializable{
         this.issubscribe = issubscribe;
     }
 
-    public Timestamp getSubscribetime(){
+    public String getQrName() {
+		return qrName;
+	}
+	public void setQrName(String qrName) {
+		this.qrName = qrName;
+	}
+	public Timestamp getSubscribetime(){
         return subscribetime;
     }
     public void setSubscribetime(Timestamp subscribetime){
