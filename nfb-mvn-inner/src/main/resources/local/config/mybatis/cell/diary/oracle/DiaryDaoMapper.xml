@@ -78,10 +78,10 @@
 			and diary.CREATOR =#{userid:VARCHAR}
 		</if>
 		<if test="statedate!=null and statedate!=''">
-			and to_char(diary.TIME) &gt;= #{statedate}
+			and to_char(diary.TIME,'yyyy-mm-dd') &gt;= #{statedate}
 		</if>
 		<if test="enddate!=null and enddate!=''">
-			and to_char(diary.TIME) &lt;= #{enddate}
+			and to_char(diary.TIME,'yyyy-mm-dd') &lt;= #{enddate}
 		</if>
 		order by diary.TIME desc
 	</select>

@@ -3,109 +3,146 @@
 
 <mapper namespace="com.cjmei.module.wx.newsitem.dao.NewsItemDao">
 
-    <select id="findById" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
-		SELECT * FROM TB_WX_AUTO_REPLAY_NEWSITEM newsitem where newsitem.ID = #{id}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
-		<selectKey keyProperty="id" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+	<select id="findById" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
+		SELECT * FROM
+		TB_WX_AUTO_REPLAY_NEWSITEM newsitem where newsitem.ID = #{id}
+	</select>
 
- 		INSERT INTO TB_WX_AUTO_REPLAY_NEWSITEM newsitem (
-            newsitem.ID,
-            newsitem.TITLE,
-            newsitem.DESCRIPTION,
-            newsitem.PICURL,
-            newsitem.URL,
-            newsitem.SORT,
-            newsitem.ACCOUNTID,
-            newsitem.CREATETIME,
-            newsitem.UPDATETIME,
-            newsitem.CREATOR
+	<insert id="save" parameterType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">SELECT
+			'N'||SEQ_WX_AUTO_REPLAY_NEWS.nextval FROM dual
+		</selectKey>
+
+		INSERT INTO TB_WX_AUTO_REPLAY_NEWSITEM newsitem (
+		newsitem.ID,
+		newsitem.TITLE,
+		newsitem.DESCRIPTION,
+		newsitem.PICURL,
+		newsitem.URL,
+		newsitem.SORT,
+		newsitem.ACCOUNTID,
+		newsitem.CREATETIME,
+		newsitem.UPDATETIME,
+		newsitem.CREATOR
 		)
 		VALUES(
-            #{id:VARCHAR},
-            #{title:VARCHAR},
-            #{description:VARCHAR},
-            #{picUrl:VARCHAR},
-            #{url:VARCHAR},
-            #{sort:NUMERIC},
-            #{accountid:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{creator:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
- 		UPDATE TB_WX_AUTO_REPLAY_NEWSITEM newsitem
-		SET 
-                newsitem.TITLE = #{title:VARCHAR},
-                newsitem.DESCRIPTION = #{description:VARCHAR},
-                newsitem.PICURL = #{picUrl:VARCHAR},
-                newsitem.URL = #{url:VARCHAR},
-                newsitem.SORT = #{sort:NUMERIC},
-                newsitem.ACCOUNTID = #{accountid:VARCHAR},
-                newsitem.CREATETIME = #{createtime:TIMESTAMP},
-                newsitem.UPDATETIME = #{updatetime:TIMESTAMP},
-                newsitem.CREATOR = #{creator:VARCHAR}
+		#{id:VARCHAR},
+		#{title:VARCHAR},
+		#{description:VARCHAR},
+		#{picUrl:VARCHAR},
+		#{url:VARCHAR},
+		#{sort:NUMERIC},
+		#{accountid:VARCHAR},
+		sysdate,
+		sysdate,
+		#{creator:VARCHAR}
+
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
+		UPDATE
+		TB_WX_AUTO_REPLAY_NEWSITEM newsitem
+		SET
+		newsitem.TITLE =
+		#{title:VARCHAR},
+		newsitem.DESCRIPTION = #{description:VARCHAR},
+		newsitem.PICURL = #{picUrl:VARCHAR},
+		newsitem.URL = #{url:VARCHAR},
+		newsitem.SORT = #{sort:NUMERIC},
+		newsitem.UPDATETIME = sysdate
 		WHERE
-			newsitem.ID = #{id}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_WX_AUTO_REPLAY_NEWSITEM newsitem WHERE newsitem.ID=#{id}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
- 		SELECT * FROM TB_WX_AUTO_REPLAY_NEWSITEM
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_WX_AUTO_REPLAY_NEWSITEM WHERE ID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
+		newsitem.ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_WX_AUTO_REPLAY_NEWSITEM newsitem WHERE newsitem.ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
+		SELECT * FROM
+		TB_WX_AUTO_REPLAY_NEWSITEM
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_AUTO_REPLAY_NEWSITEM WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
 		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_WX_AUTO_REPLAY_NEWSITEM newsitem
-						WHERE 1=1
- and ( newsitem.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.TITLE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.DESCRIPTION LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.PICURL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.URL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.SORT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
- )
-					
-					
- 	</select>
- 	
- 	
- 	
+	</delete>
+
+	<select id="list" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_AUTO_REPLAY_NEWSITEM newsitem
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxmenuurl.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		and (
+		newsitem.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.TITLE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.DESCRIPTION LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.PICURL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.URL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.SORT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or newsitem.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		)
+		order by newsitem.UPDATETIME desc
+
+	</select>
+	<select id="getnewItems" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem"
+		parameterType="java.util.Map">
+		SELECT newsitem.id,newsitem.title||' ( '||to_char(newsitem.updatetime,'yyyy-MM-dd')||' )' text
+		FROM
+		TB_WX_AUTO_REPLAY_NEWSITEM newsitem
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxmenuurl.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		order by newsitem.UPDATETIME desc
+
+	</select>
+
+
 </mapper>
