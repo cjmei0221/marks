@@ -47,18 +47,16 @@ public class SysLogFilter implements Filter {
 			msg=e.getMessage();
 		}
 		SysUser user=SysUserHelper.getCurrentUserInfo(request);
-		String userid="";
-		String username="";
-		if(user!=null){
-			userid=user.getUserid();
-			username=user.getUsername();
-		}
 		SysLog log=new SysLog();
+		if(user!=null){
+			log.setUserid(user.getUserid());
+			log.setUsername(user.getUsername());
+			log.setRetain3(user.getCompanyId());
+		}
 		log.setIp(ip);
 		log.setRetain1(success+"");
 		log.setRetain2(url);
-		log.setUserid(userid);
-		log.setUsername(username);
+		
 		log.setUrl(url);
 		SysLogThreadPool.saveSysLog(log);
 		
