@@ -45,9 +45,8 @@
 				<table>
 					<tr>
 						<th style="width: 80px; text-align: right;">主键&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="ckey" name="ckey"
-							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;"></td>
+						<td><input id="ckey" name="ckey" class="easyui-validatebox"
+							data-options="required:true" style="width: 200px;" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<th style="width: 80px; text-align: right;">主键值&nbsp;&nbsp;:&nbsp;&nbsp;</th>
