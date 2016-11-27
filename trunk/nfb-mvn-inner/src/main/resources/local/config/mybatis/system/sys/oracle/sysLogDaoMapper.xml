@@ -26,7 +26,8 @@
 		menuname,
 		opername,
 		retain1,
-		retain2
+		retain2,
+		retain3
 		)
 		VALUES
 		(
@@ -38,7 +39,37 @@
 		#{log.menuname:VARCHAR},
 		#{log.opername:VARCHAR},
 		#{log.retain1:VARCHAR},
-		#{log.retain2:VARCHAR}
+		#{log.retain2:VARCHAR},
+		#{log.retain3:VARCHAR}
 		)
 	</insert>
+
+	<select id="list" resultType="com.cjmei.module.system.sys.pojo.SysLog"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_SYS_LOG syslog
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( syslog.ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslog.USERID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslog.USERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslog.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslog.IP LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslog.MENUNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslog.OPERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslog.RETAIN2 LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by syslog.CREATETIME desc
+
+
+	</select>
 </mapper>
