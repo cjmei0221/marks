@@ -23,4 +23,6 @@ public interface NewsItemDao {
 	void deleteBatch(List<String> list);
 
 	List<NewsItem> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<NewsItem> getnewItems(Map<String, Object> param);
 }

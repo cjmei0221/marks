@@ -49,6 +49,7 @@ public class NewsItem implements Serializable{
     private String creator;
 
 
+    private String text;
 
     public String getId(){
         return id;
@@ -119,6 +120,10 @@ public class NewsItem implements Serializable{
     public void setCreator(String creator){
         this.creator = creator;
     }
-
-
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
 }

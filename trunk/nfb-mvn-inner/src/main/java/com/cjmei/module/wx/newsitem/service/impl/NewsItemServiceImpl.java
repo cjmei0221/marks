@@ -83,5 +83,8 @@ public class NewsItemServiceImpl implements NewsItemService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
-	
+	@Override
+	public List<NewsItem> getnewItems(Map<String, Object> param) {
+		return newsItemDao.getnewItems(param);
+	}
 }

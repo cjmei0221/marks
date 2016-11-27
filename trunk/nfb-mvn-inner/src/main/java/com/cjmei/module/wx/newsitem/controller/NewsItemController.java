@@ -25,6 +25,9 @@ import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 import com.cjmei.module.wx.newsitem.pojo.NewsItem;
 import com.cjmei.module.wx.newsitem.service.NewsItemService;
+import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
+
+import net.sf.json.JSONArray;
 
 @Controller
 public class NewsItemController extends SupportContorller{
@@ -77,6 +80,7 @@ public class NewsItemController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
+	 			newsItem.setCreator(admin.getUserid());
 	 			newsItemService.save(newsItem);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -206,6 +210,7 @@ public class NewsItemController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("accountIds", admin.getAccountids());
 			PojoDomain<NewsItem> list = newsItemService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -221,5 +226,14 @@ public class NewsItemController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
     }
-	
+	@RequestMapping("/newsItem/combox")
+	public void combox(HttpServletRequest request, HttpServletResponse response) {
+
+		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("accountIds", admin.getAccountids());
+		List<NewsItem> list = newsItemService.getnewItems(param);
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+	}
 }

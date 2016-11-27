@@ -17,4 +17,5 @@ public interface NewsItemService{
 	public List<NewsItem> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<NewsItem> list(int page_number, int page_size,Map<String,Object> param);
+	public List<NewsItem> getnewItems(Map<String, Object> param);
 }
