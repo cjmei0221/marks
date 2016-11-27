@@ -3,109 +3,123 @@
 
 <mapper namespace="com.cjmei.module.wx.wxautoreplay.dao.WxAutoReplayDao">
 
-    <select id="findById" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
-		SELECT * FROM TB_WX_AUTO_REPLAY wxautoreplay where wxautoreplay.CPARENTTYPE = #{cparentType}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
-		<selectKey keyProperty="cparentType" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+	<select id="findById" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+		SELECT * FROM TB_WX_AUTO_REPLAY
+		wxautoreplay where wxautoreplay.CTYPE = #{ctype:VARCHAR}
+	</select>
+	
+	<select id="findByCkey" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+		SELECT * FROM TB_WX_AUTO_REPLAY
+		wxautoreplay where wxautoreplay.CKEY like '%${ckey}%'
+	</select>
 
- 		INSERT INTO TB_WX_AUTO_REPLAY wxautoreplay (
-            wxautoreplay.CPARENTTYPE,
-            wxautoreplay.CKEY,
-            wxautoreplay.CREPLAY,
-            wxautoreplay.CTYPE,
-            wxautoreplay.CTYPENAME,
-            wxautoreplay.ACCOUNTID,
-            wxautoreplay.REPLAYTYPE,
-            wxautoreplay.CREATETIME,
-            wxautoreplay.UPDATETIME,
-            wxautoreplay.CREATOR
+	<insert id="save" parameterType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+		<selectKey keyProperty="ctype" resultType="String"
+			order="BEFORE">select sys_guid() from dual</selectKey>
+
+		INSERT INTO TB_WX_AUTO_REPLAY wxautoreplay (
+		wxautoreplay.CKEY,
+		wxautoreplay.CREPLAY,
+		wxautoreplay.CTYPE,
+		wxautoreplay.CTYPENAME,
+		wxautoreplay.ACCOUNTID,
+		wxautoreplay.REPLAYTYPE,
+		wxautoreplay.CREATETIME,
+		wxautoreplay.UPDATETIME,
+		wxautoreplay.CREATOR,
+		wxautoreplay.DELFLAG
 		)
 		VALUES(
-            #{cparentType:VARCHAR},
-            #{ckey:VARCHAR},
-            #{creplay:VARCHAR},
-            #{ctype:VARCHAR},
-            #{ctypeName:VARCHAR},
-            #{accountid:VARCHAR},
-            #{replayType:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{creator:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
- 		UPDATE TB_WX_AUTO_REPLAY wxautoreplay
-		SET 
-                wxautoreplay.CKEY = #{ckey:VARCHAR},
-                wxautoreplay.CREPLAY = #{creplay:VARCHAR},
-                wxautoreplay.CTYPE = #{ctype:VARCHAR},
-                wxautoreplay.CTYPENAME = #{ctypeName:VARCHAR},
-                wxautoreplay.ACCOUNTID = #{accountid:VARCHAR},
-                wxautoreplay.REPLAYTYPE = #{replayType:VARCHAR},
-                wxautoreplay.CREATETIME = #{createtime:TIMESTAMP},
-                wxautoreplay.UPDATETIME = #{updatetime:TIMESTAMP},
-                wxautoreplay.CREATOR = #{creator:VARCHAR}
+		#{ckey:VARCHAR},
+		#{creplay:VARCHAR},
+		#{ctype:VARCHAR},
+		#{ctypeName:VARCHAR},
+		#{accountid:VARCHAR},
+		#{replayType:VARCHAR},
+		sysdate,
+		sysdate,
+		#{creator:VARCHAR},
+		#{delFlag:NUMERIC}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+		UPDATE TB_WX_AUTO_REPLAY wxautoreplay
+		SET
+		wxautoreplay.CKEY = #{ckey:VARCHAR},
+		wxautoreplay.CREPLAY = #{creplay:VARCHAR},
+		wxautoreplay.CTYPENAME = #{ctypeName:VARCHAR},
+		wxautoreplay.REPLAYTYPE = #{replayType:VARCHAR},
+		wxautoreplay.UPDATETIME = sysdate,
+		wxautoreplay.DELFLAG=#{delFlag:NUMERIC}
 		WHERE
-			wxautoreplay.CPARENTTYPE = #{cparentType}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_WX_AUTO_REPLAY wxautoreplay WHERE wxautoreplay.CPARENTTYPE=#{cparentType}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
- 		SELECT * FROM TB_WX_AUTO_REPLAY
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_WX_AUTO_REPLAY WHERE CPARENTTYPE in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
+		wxautoreplay.CTYPE = #{ctype:VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_AUTO_REPLAY wxautoreplay WHERE
+		wxautoreplay.CTYPE = #{ctype:VARCHAR}
+	</delete>
+
+	<select id="findAll" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+		SELECT * FROM TB_WX_AUTO_REPLAY
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_AUTO_REPLAY WHERE CTYPE in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
 		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_WX_AUTO_REPLAY wxautoreplay
-						WHERE 1=1
- and ( wxautoreplay.CPARENTTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CREPLAY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CTYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.REPLAYTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
- )
-					
-					
- 	</select>
- 	
- 	
- 	
+	</delete>
+
+	<select id="list" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_AUTO_REPLAY wxautoreplay
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxmenuurl.accountid in
+			<foreach collection="accountIds" item="oid" index="index" open="("
+				separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		and ( wxautoreplay.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		<if test="keyword!=null and keyword!=''">
+			or wxautoreplay.CREPLAY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or wxautoreplay.CTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or wxautoreplay.CTYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or wxautoreplay.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or wxautoreplay.REPLAYTYPE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or wxautoreplay.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or wxautoreplay.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			or wxautoreplay.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		</if>
+		)
+
+
+	</select>
+
+
+
 </mapper>
