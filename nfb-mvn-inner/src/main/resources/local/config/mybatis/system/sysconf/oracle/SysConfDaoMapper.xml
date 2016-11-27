@@ -9,10 +9,6 @@
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.system.sysconf.pojo.SysConf">
-		<selectKey keyProperty="ckey" resultType="String" order="BEFORE">select
-			sys_guid() from dual
-		</selectKey>
-
 		INSERT INTO TB_SYS_CONF sysconf (
 		sysconf.CKEY,
 		sysconf.CVALUE,
@@ -69,7 +65,7 @@
 		FROM TB_SYS_CONF sysconf
 		WHERE 1=1
 		<if test="companyId !=null and companyId !=''">
-			and sysconf.CTYPE=#{companyId}
+			and sysconf.COMPANYID=#{companyId}
 		</if>
 		<if test="keyword!=null and keyword!=''">
 			and ( sysconf.CKEY LIKE
