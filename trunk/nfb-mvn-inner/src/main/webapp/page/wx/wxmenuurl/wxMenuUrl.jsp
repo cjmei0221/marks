@@ -6,33 +6,33 @@
 <!-- WxMenuUrl.html -->
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/wxMenuUrl.css" />
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/wxMenuUrl.css" />
 
-	<%@include file="../../include/common.jsp"%>
+<%@include file="../../include/common.jsp"%>
 </head>
-	
-	<body>
-	
+
+<body>
+
 	<div id="mainPanel">
 		<p class="nav-header-cls">微信菜单URL>>微信菜单URL</p>
 		<div id="tb" style="padding: 5px 0;">
-		<table>
+			<table>
 				<tr>
-					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="关键字"/></td>
-					<td><button type="button" id="doSearch" data-oper="query" style="cursor: pointer;">查询</button>
+					<td><input type="text" id="keyword" name="keyword"
+						style="width: 260px;" placeholder="关键字" /></td>
+					<td><button type="button" id="doSearch" data-oper="query"
+							style="cursor: pointer;">查询</button>
 				</tr>
-				 <tr>
-					<td colspan="7">
-						<wt:button />
-					</td>
-				</tr> 
+				<tr>
+					<td colspan="7"><wt:button /></td>
+				</tr>
 			</table>
 		</div>
 		<table id="tbList">
 		</table>
 	</div>
-	
+
 	<div id="editWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
@@ -41,9 +41,24 @@
 		collapsible:false"
 		style="width: 400px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
-			<input type="hidden"  id="id" name="id">
+			<input type="hidden" id="id" name="id">
 			<table class="out-win-cls">
-				<tr><th>菜单名称</th><td><input id="menuName" name="menuName" class="easyui-validatebox" data-options="required:true"></td></tr><tr><th>菜单URL</th><td><input id="menuUrl" name="menuUrl" class="easyui-validatebox" data-options="required:true"></td></tr><tr><th>公众号ID</th><td><input id="accountid" name="accountid" class="easyui-validatebox" data-options="required:true"></td></tr>
+				<tr>
+					<th>菜单名称</th>
+					<td><input id="menuName" name="menuName"
+						class="easyui-validatebox" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<th>菜单URL</th>
+					<td><input id="menuUrl" name="menuUrl"
+						class="easyui-validatebox" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<th>公众号ID</th>
+					<td><input  id="accountid" name="accountid" class="easyui-combobox" 
+						data-options="required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/wxAccount/combox.do'">
+						</td>
+				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input
 						type="button" id="btnOK" name="btnOK" value=" 保 存 " />
@@ -53,7 +68,7 @@
 			</table>
 		</form>
 	</div>
-	
+
 </body>
 <script src="js/wxMenuUrl.js"></script>
 </html>
