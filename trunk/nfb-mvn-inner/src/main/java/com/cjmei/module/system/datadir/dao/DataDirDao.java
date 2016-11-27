@@ -4,23 +4,28 @@ package com.cjmei.module.system.datadir.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.apache.ibatis.annotations.Param;
 
 import com.cjmei.module.system.datadir.pojo.DataDir;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface DataDirDao {
 
-	DataDir findById(String ckey);
+	DataDir findById(@Param("ckey")String ckey,@Param("parentKey")String parentKey);
 
 	void save(DataDir dataDir);
 
 	void update(DataDir dataDir);
 
-	void delete(String ckey);
+	void delete(@Param("ckey")String ckey,@Param("parentKey")String parentKey);
 
 	List<DataDir> findAll();
 
 	void deleteBatch(List<String> list);
 
 	List<DataDir> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<DataDir> listByParam(Map<String, Object> param);
+
+	List<DataDir> findChildList(@Param("ckey")String ckey);
 }
