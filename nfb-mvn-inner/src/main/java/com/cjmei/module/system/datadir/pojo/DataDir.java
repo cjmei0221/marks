@@ -1,7 +1,8 @@
 package com.cjmei.module.system.datadir.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataDir implements Serializable{
 
@@ -22,7 +23,7 @@ public class DataDir implements Serializable{
     /**
     *公司ID
     */
-    private String typename;
+    private String companyId;
     /**
     *排序
     */
@@ -40,7 +41,9 @@ public class DataDir implements Serializable{
     */
     private String creator;
 
+    private String idKey;
 
+    private List<DataDir> children=new ArrayList<DataDir>();
 
     public String getCkey(){
         return ckey;
@@ -63,14 +66,14 @@ public class DataDir implements Serializable{
         this.cvalue = cvalue;
     }
 
-    public String getTypename(){
-        return typename;
-    }
-    public void setTypename(String typename){
-        this.typename = typename;
-    }
-
-    public int getSort(){
+   
+    public String getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+	public int getSort(){
         return sort;
     }
     public void setSort(int sort){
@@ -97,6 +100,19 @@ public class DataDir implements Serializable{
     public void setCreator(String creator){
         this.creator = creator;
     }
-
-
+	public List<DataDir> getChildren() {
+		return children;
+	}
+	public void setChildren(List<DataDir> children) {
+		this.children = children;
+	}
+	
+	public void addChildren(DataDir dd) {
+		this.children.add(dd);
+	}
+	public String getIdKey() {
+		return this.parentkey+"_"+this.ckey;
+	}
+	
+	
 }
