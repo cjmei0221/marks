@@ -6,6 +6,7 @@ import javax.servlet.ServletContextListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.cjmei.module.cell.diary.threadPool.DairyThreadPool;
 import com.cjmei.module.system.core.helper.LoadDataHelper;
 import com.cjmei.module.system.core.thread.SysLogThreadPool;
 
@@ -21,6 +22,7 @@ public class InitServletContextListener implements ServletContextListener {
 
 	public void contextDestroyed(ServletContextEvent arg0) {
 		SysLogThreadPool.destroy();
+		DairyThreadPool.destroy();
 	}
 
 	public void contextInitialized(ServletContextEvent sce) {
@@ -32,5 +34,7 @@ public class InitServletContextListener implements ServletContextListener {
 		SysLogThreadPool.init();
 		/*首次加载基础数据*/
 		new LoadDataHelper().doJob();
+		
+		DairyThreadPool.init();
 	}
 }
