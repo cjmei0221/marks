@@ -72,7 +72,7 @@ public class WxbModuleMsg implements Serializable{
     */
     private String resultMsg;
 
-
+    private String note;
 
     public String getId(){
         return id;
@@ -185,6 +185,12 @@ public class WxbModuleMsg implements Serializable{
     public void setResultMsg(String resultMsg){
         this.resultMsg = resultMsg;
     }
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 
 
 }
