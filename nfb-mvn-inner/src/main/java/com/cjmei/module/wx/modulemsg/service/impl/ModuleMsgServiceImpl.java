@@ -57,7 +57,7 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 			mmsg.setCreatetime(new Date());
 			mmsg.setData(wxMsg.toJsonString());
 			mmsg.setNeedFlag(1);
-			mmsg.setNote(sdf.format(new Date())+" "+temp.getTemplate_name());
+			mmsg.setNote(sdf.format(new Date())+" "+wxUser.getNickname()+" "+temp.getTemplate_name());
 			mmsg.setSendFlag(0);
 			mmsg.setSendTimes(0);
 			mmsg.setTemplate_id(temp.getTemplate_id());

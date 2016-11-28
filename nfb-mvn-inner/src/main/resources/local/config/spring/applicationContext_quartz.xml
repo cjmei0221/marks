@@ -6,8 +6,24 @@
 		<property name="triggers">
 			<list>
 				<ref bean="loadDataTrigger" />
+				<ref bean="dairyTrigger" />
 			</list>
 		</property>
+	</bean>
+	
+	<bean id="dairyDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass">
+			<value>com.cjmei.module.system.core.helper.DairyHelper</value>
+		</property>
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="true" />
+	</bean>
+	<bean id="dairyTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="dairyDetail" />
+		<!-- 每22分钟触发 -->
+		<property name="cronExpression" value="0 0 22 * * ?" />
 	</bean>
 
 	<bean id="loadDataDetail"
