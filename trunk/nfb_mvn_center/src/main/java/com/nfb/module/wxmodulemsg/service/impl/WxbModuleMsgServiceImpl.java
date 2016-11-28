@@ -73,7 +73,7 @@ public class WxbModuleMsgServiceImpl implements WxbModuleMsgService{
 		wxbModuleMsgDao.deleteBatch(ids);
 	}
 	@Override
-	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data) {
+	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data,String note) {
 		JsonResult result=SendMsgUtils.getInstance().sendTemplateMsg(accountid, toUser, templateCode, url, data);
 		WxbModuleMsg msg=new WxbModuleMsg();
 		int isSend = 0;//未发送
@@ -94,10 +94,11 @@ public class WxbModuleMsgServiceImpl implements WxbModuleMsgService{
          
          msg.setAccountid(accountid);
          msg.setData(data);
-         msg.setNeedflag(0);
+         msg.setNeedflag(1);
          msg.setTemplate_id(templateCode);
          msg.setTouser(toUser);
          msg.setUrl(url);
+         msg.setNote(note);
          wxbModuleMsgDao.save(msg);
          result.setErrorCode(SysCode.SUCCESS);
          result.setErrorMsg("已推送，若未推送成功，将启动定时器，进行推送，共推送3次");

@@ -14,7 +14,7 @@ public interface WxbModuleMsgService{
 	public void delete(String id);
 	public List<WxbModuleMsg> findAll();
 	public void deleteBatch(List<String> ids);
-	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data);
+	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data,String note);
 	public void pustWxbModuleMsg();
 	
 }
