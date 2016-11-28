@@ -86,7 +86,7 @@
 					<tr>
 						<th style="width: 80px; text-align: right;">访问URL&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="detailUrl" name="detailUrl"
-							class="easyui-validatebox" data-options="required:true"
+							class="easyui-validatebox"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
