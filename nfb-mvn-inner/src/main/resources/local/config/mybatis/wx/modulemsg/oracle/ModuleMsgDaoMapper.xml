@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjmei.module.wx.modulemsg.dao.ModuleMsgDao">
+
+	<select id="findById" resultType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg">
+		SELECT * FROM TB_WX_MODULE_MSG
+		modulemsg where modulemsg.ID = #{id}
+	</select>
+
+	<insert id="save" parameterType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
+			sys_guid() from dual
+		</selectKey>
+
+		INSERT INTO TB_WX_MODULE_MSG modulemsg (
+		modulemsg.ID,
+		modulemsg.ACCOUNTID,
+		modulemsg.TEMPLATE_ID,
+		modulemsg.TOUSER,
+		modulemsg.URL,
+		modulemsg.DATA,
+		modulemsg.NEEDFLAG,
+		modulemsg.SENDFLAG,
+		modulemsg.SENDTIMES,
+		modulemsg.CREATETIME,
+		modulemsg.NOTE
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{accountid:VARCHAR},
+		#{template_id:VARCHAR},
+		#{touser:VARCHAR},
+		#{url:VARCHAR},
+		#{data:VARCHAR},
+		#{needFlag:NUMERIC},
+		#{sendFlag:NUMERIC},
+		#{sendTimes:NUMERIC},
+		sysdate,
+		#{note:VARCHAR}
+
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg">
+		UPDATE TB_WX_MODULE_MSG
+		modulemsg
+		SET
+		modulemsg.ACCOUNTID = #{accountid:VARCHAR},
+		modulemsg.TEMPLATE_ID = #{template_id:VARCHAR},
+		modulemsg.TOUSER =
+		#{touser:VARCHAR},
+		modulemsg.URL = #{url:VARCHAR},
+		modulemsg.DATA =
+		#{data:VARCHAR},
+		modulemsg.NEEDFLAG = #{needFlag:NUMERIC},
+		modulemsg.SENDFLAG = #{sendFlag:NUMERIC},
+		modulemsg.SENDTIMES =
+		#{sendTimes:NUMERIC},
+		modulemsg.CREATETIME = #{createtime:TIMESTAMP},
+		modulemsg.SENDTIME = #{sendtime:TIMESTAMP},
+		modulemsg.MSGID =
+		#{msgId:VARCHAR},
+		modulemsg.PUSH_CODE = #{push_code:VARCHAR},
+		modulemsg.PUSH_MSG = #{push_msg:VARCHAR},
+		modulemsg.RESULTCODE =
+		#{resultCode:VARCHAR},
+		modulemsg.RESULTMSG = #{resultMsg:VARCHAR},
+		modulemsg.NOTE = #{note:VARCHAR}
+		WHERE
+		modulemsg.ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_MODULE_MSG
+		modulemsg WHERE modulemsg.ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg">
+		SELECT * FROM TB_WX_MODULE_MSG
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_MODULE_MSG WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_MODULE_MSG modulemsg
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( modulemsg.ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.TEMPLATE_ID
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.TOUSER
+			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.URL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.DATA LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.NEEDFLAG LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.SENDFLAG LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.SENDTIMES LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.CREATETIME
+			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.SENDTIME
+			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.MSGID
+			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.PUSH_CODE
+			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.PUSH_MSG
+			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			modulemsg.RESULTCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.RESULTMSG LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.NOTE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+		order by modulemsg.CREATETIME desc
+
+	</select>
+
+
+
+</mapper>
