@@ -26,7 +26,8 @@
             wxbmodulemsg.PUSH_CODE,
             wxbmodulemsg.PUSH_MSG,
             wxbmodulemsg.RESULTCODE,
-            wxbmodulemsg.RESULTMSG
+            wxbmodulemsg.RESULTMSG,
+            wxbmodulemsg.NOTE
 		)
 		VALUES(
             #{id:VARCHAR},
@@ -44,8 +45,8 @@
             #{push_code:VARCHAR},
             #{push_msg:VARCHAR},
             #{resultcode:VARCHAR},
-            #{resultMsg:VARCHAR}
-			
+            #{resultMsg:VARCHAR},
+            #{note:VARCHAR}
 			)
  	</insert>
  	
@@ -72,7 +73,7 @@
  		SELECT * FROM TB_WX_MODULE_MSG
  	</select>
  	<select id="getNeedPustMsg" resultType="com.nfb.module.wxmodulemsg.entity.WxbModuleMsg">
- 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=0 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; 3 and ROWNUM &lt; #{limitnum}
+ 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=1 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; 3 and ROWNUM &lt; #{limitnum}
  	</select>
  	<delete id="deleteBatch" parameterType="java.util.List">
  		DELETE FROM TB_WX_MODULE_MSG WHERE ID in 

@@ -21,7 +21,7 @@
 		</property>
 		<!-- 每天的8点到21点每隔5分钟触发，具体说明见附录 -->
 		<property name="cronExpression">
-			<value>0 4/30 * * * ?</value>
+			<value>0 0 0/2 * * ?</value>
 		</property>
 	</bean>
 	
