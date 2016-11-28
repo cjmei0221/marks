@@ -7,6 +7,11 @@
 		SELECT * FROM TB_WX_USER wxuser
 		where wxuser.OPENID = #{openid}
 	</select>
+	
+	<select id="findWxUserListForDairy" resultType="com.cjmei.module.wx.wxuser.pojo.WxUser">
+		SELECT * FROM TB_WX_USER wxuser
+		where wxuser.DAIRYFLAG = 1
+	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.wx.wxuser.pojo.WxUser">
 		INSERT INTO TB_WX_USER wxuser (
