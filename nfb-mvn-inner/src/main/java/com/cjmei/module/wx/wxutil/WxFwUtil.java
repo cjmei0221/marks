@@ -23,7 +23,7 @@ import net.sf.json.JSONArray;
  */
 public class WxFwUtil {
 	private static String CHARSET = "UTF-8";
-	private static String wx_host_url = "http://127.0.0.1:6080/";
+	private static String wx_host_url = "http://127.0.0.1:6080";
 	private static Logger logger = Logger.getLogger(WxFwUtil.class);
 	private static WxFwUtil util = null;
 
@@ -130,7 +130,7 @@ public class WxFwUtil {
 	 * 
 	 * @param msg
 	 */
-	public Result pushTemplateMsg(String accountid, String toUser, String templateid, String toUrl, String data) {
+	public Result pushTemplateMsg(String accountid, String toUser, String templateid, String toUrl, String data,String note) {
 		Result result = new Result();
 		try {
 			Map<String, String> params = new HashMap<String, String>();
@@ -143,6 +143,7 @@ public class WxFwUtil {
 				params.put("toUrl", "");
 			}
 			params.put("data", URLEncoder.encode(data, CHARSET));
+			params.put("note", URLEncoder.encode(note, CHARSET));
 			logger.info("pushMessage>>url>>" + wx_host_url + "/wechat/receive/sendTemplateMsg.do");
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/receive/sendTemplateMsg.do", params,
 					null, CHARSET);

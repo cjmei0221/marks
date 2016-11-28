@@ -23,4 +23,6 @@ public interface WxUserDao {
 	void deleteBatch(List<String> list);
 
 	List<WxUser> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<WxUser> findWxUserListForDairy();
 }
