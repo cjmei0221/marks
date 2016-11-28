@@ -137,35 +137,39 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '模板ID',
-			field : 'template_id',
-			width : 100,
-			align : "center"
-		}, {
-			title : '接受者',
-			field : 'touser',
-			width : 100,
-			align : "center"
-		}, {
-			title : '访问URL',
-			field : 'url',
-			width : 100,
+			title : '备注',
+			field : 'note',
+			width : 300,
 			align : "center"
 		}, {
 			title : '内容',
 			field : 'data',
-			width : 300,
+			width : 700,
 			align : "center"
 		}, {
 			title : '需要发送标识',
 			field : 'needFlag',
 			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 0) {
+					return '否';
+				}
+				return '是';
+			}
 		}, {
 			title : '发送标识',
 			field : 'sendFlag',
 			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 0) {
+					return '未发送';
+				}else if(value == 2){
+					return '发送失败';
+				}
+				return '发送成功';
+			}
 		}, {
 			title : '发送次数',
 			field : 'sendTimes',
@@ -179,11 +183,6 @@ function loadList() {
 		}, {
 			title : '发送时间',
 			field : 'sendtime',
-			width : 100,
-			align : "center"
-		}, {
-			title : '备注',
-			field : 'note',
 			width : 100,
 			align : "center"
 		} ] ],
