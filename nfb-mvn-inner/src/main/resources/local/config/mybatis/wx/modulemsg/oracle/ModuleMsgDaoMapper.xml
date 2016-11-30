@@ -90,8 +90,9 @@
 
 	<select id="list" resultType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg"
 		parameterType="java.util.Map">
-		SELECT *
+		SELECT modulemsg.*,twu.nickname
 		FROM TB_WX_MODULE_MSG modulemsg
+		left join tb_wx_user twu on modulemsg.touser = twu.openid
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
 			and ( modulemsg.ID LIKE
@@ -129,6 +130,8 @@
 			or modulemsg.RESULTMSG LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or modulemsg.NOTE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or twu.nickname LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
