@@ -269,7 +269,6 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		pagination : true,
 		idField : 'menuid',
 		treeField : 'menuitem',
 		frozenColumns : [ [ {

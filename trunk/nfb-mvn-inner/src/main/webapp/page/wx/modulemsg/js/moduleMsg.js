@@ -115,7 +115,7 @@ function loadList() {
 		url : appInfo.listUrl,
 		toolbar : "#tb",
 		striped : true,
-		nowrap : true,
+		nowrap : false,
 		rownumbers : true,
 		animate : true,
 		collapsible : true,
@@ -137,26 +137,23 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '备注',
-			field : 'note',
-			width : 300,
+			title : '介绍者',
+			field : 'nickName',
+			width : 100,
 			align : "center"
 		}, {
 			title : '内容',
 			field : 'data',
 			width : 700,
-			align : "center"
-		}, {
-			title : '需要发送标识',
-			field : 'needFlag',
-			width : 100,
-			align : "center",
+			align : "left",
 			formatter : function(value, row, index) {
-				if (value == 0) {
-					return '否';
-				}
-				return '是';
+				return value.replace(/},/g,"},<br/>");
 			}
+		}, {
+			title : '备注',
+			field : 'note',
+			width : 300,
+			align : "center"
 		}, {
 			title : '发送标识',
 			field : 'sendFlag',
@@ -178,12 +175,12 @@ function loadList() {
 		}, {
 			title : '创建时间',
 			field : 'createtime',
-			width : 100,
+			width : 150,
 			align : "center"
 		}, {
 			title : '发送时间',
 			field : 'sendtime',
-			width : 100,
+			width : 150,
 			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
