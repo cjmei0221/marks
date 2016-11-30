@@ -6,7 +6,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.cjmei.module.cell.diary.threadPool.DairyThreadPool;
+import com.cjmei.module.note.diary.threadPool.DairyThreadPool;
 import com.cjmei.module.system.core.listener.DatabaseHelper;
 import com.cjmei.module.wx.wxuser.dao.WxUserDao;
 import com.cjmei.module.wx.wxuser.pojo.WxUser;

@@ -6,6 +6,16 @@ public class Msg {
 
 	private String color="#000000";
 	private String value;
+	public Msg(){
+		
+	}
+	public Msg(String value){
+		this.value=value;
+	}
+	public Msg(String value,String color){
+		this.value=value;
+		this.color=color;
+	}
 	public String getColor() {
 		return color;
 	}

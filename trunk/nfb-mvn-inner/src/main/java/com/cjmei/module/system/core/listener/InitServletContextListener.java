@@ -6,7 +6,7 @@ import javax.servlet.ServletContextListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.cjmei.module.cell.diary.threadPool.DairyThreadPool;
+import com.cjmei.module.note.diary.threadPool.DairyThreadPool;
 import com.cjmei.module.system.core.helper.LoadDataHelper;
 import com.cjmei.module.system.core.thread.SysLogThreadPool;
 

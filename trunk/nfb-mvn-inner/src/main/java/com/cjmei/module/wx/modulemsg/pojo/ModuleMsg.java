@@ -23,6 +23,8 @@ public class ModuleMsg implements Serializable{
     *接受者
     */
     private String touser;
+    
+    private String nickName;
     /**
     *访问URL
     */
@@ -196,6 +198,10 @@ public class ModuleMsg implements Serializable{
     public void setNote(String note){
         this.note = note;
     }
-
-
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 }

@@ -9,34 +9,32 @@ public class WxMsg {
 
 	private String first;
 
-	private List<Msg> keywordList = new ArrayList<Msg>();
+	private List<String> keywordList = new ArrayList<String>();
 
 	private String remark;
 
-	public Msg getFirst() {
-		Msg	msg = new Msg();
-		msg.setValue(first);
-		return msg;
+	public String getFirst() {
+		return first;
 	}
 
 	public void setFirst(String first) {
 		this.first = first;
 	}
 
-	public List<Msg> getKeywordList() {
+	public List<String> getKeywordList() {
 		return keywordList;
 	}
 
-	public void addKeyword(String keyword) {
-		Msg msg = new Msg();
-		msg.setValue(keyword);
-		this.keywordList.add(msg);
+	public void setKeywordList(List<String> keywordList) {
+		this.keywordList = keywordList;
 	}
 
-	public Msg getRemark() {
-		Msg msg = new Msg();
-		msg.setValue(remark);
-		return msg;
+	public void addKeyword(String keyword) {
+		this.keywordList.add(keyword);
+	}
+
+	public String getRemark() {
+		return remark;
 	}
 
 	public void setRemark(String remark) {
@@ -45,13 +43,13 @@ public class WxMsg {
 
 	public String toJsonString() {
 		JSONObject obj = new JSONObject();
-		obj.put("first", this.getFirst().toJsonString());
+		obj.put("first", new Msg(first).toJsonString());
 		if (keywordList.size() > 0) {
 			for (int i = 0; i < keywordList.size(); i++) {
-				obj.put("keyword" + (i + 1), keywordList.get(i).toJsonString());
+				obj.put("keyword" + (i + 1), new Msg(keywordList.get(i)).toJsonString());
 			}
 		}
-		obj.put("remark", this.getRemark().toJsonString());
+		obj.put("remark", new Msg(remark).toJsonString());
 		return obj.toString();
 	}
 

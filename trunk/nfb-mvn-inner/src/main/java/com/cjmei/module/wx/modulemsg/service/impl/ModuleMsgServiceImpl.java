@@ -1,11 +1,15 @@
 package com.cjmei.module.wx.modulemsg.service.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.cjmei.common.domain.PojoDomain;
+import com.cjmei.common.domain.Result;
 import com.cjmei.module.wx.modulemsg.dao.ModuleMsgDao;
 import com.cjmei.module.wx.modulemsg.pojo.ModuleMsg;
 import com.cjmei.module.wx.modulemsg.pojo.WxMsg;
@@ -18,7 +22,7 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 public class ModuleMsgServiceImpl implements ModuleMsgService {
-
+	private static Logger logger = Logger.getLogger(ModuleMsgServiceImpl.class);
 	private WxTemplateDao wxTemplateDao;
 
 	private ModuleMsgDao moduleMsgDao;
@@ -41,36 +45,70 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 
 	@Override
 	public void pushDairyWxMsg(WxUser wxUser) {
-		WxTemplate temp = wxTemplateDao.findById("wxtemplate_dairy", wxUser.getAccountid());
-		if(null != temp){
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-			String firstMsg=temp.getFirst_content();
-			String remarkMsg=temp.getRemark_content();
-			WxMsg wxMsg=new WxMsg();
-			wxMsg.setFirst(firstMsg);
-			wxMsg.setRemark(remarkMsg);
-			wxMsg.addKeyword(wxUser.getNickname());
-			wxMsg.addKeyword(sdf.format(new Date()));
-			
-			ModuleMsg mmsg=new ModuleMsg();
-			mmsg.setAccountid(wxUser.getAccountid());
-			mmsg.setCreatetime(new Date());
-			mmsg.setData(wxMsg.toJsonString());
-			mmsg.setNeedFlag(1);
-			mmsg.setNote(sdf.format(new Date())+" "+wxUser.getNickname()+" "+temp.getTemplate_name());
-			mmsg.setSendFlag(0);
-			mmsg.setSendTimes(0);
-			mmsg.setTemplate_id(temp.getTemplate_id());
-			mmsg.setTouser(wxUser.getOpenid());
-			mmsg.setUrl(temp.getDetailUrl());
-			pustModuleMsg(mmsg,false);
+
+		List<String> openidList = new ArrayList<String>();
+		openidList.add(wxUser.getOpenid());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String note = sdf.format(new Date());
+		List<String> keywordList = new ArrayList<String>();
+		keywordList.add(wxUser.getNickname());
+		keywordList.add(sdf.format(new Date()));
+
+		pushModuleMsgByParams(wxUser.getAccountid(), "wxtemplate_dairy", openidList, keywordList, note);
+
+	}
+
+	public Result pushModuleMsgByParams(String accountid, String tempType, List<String> openidList,
+			List<String> keywordList, String note) {
+
+		Result result = new Result();
+		if (null != openidList && openidList.size() > 0) {
+
+			WxTemplate temp = wxTemplateDao.findById(tempType, accountid);
+			if (null != temp) {
+				for (String openid : openidList) {
+
+					String firstMsg = temp.getFirst_content();
+					String remarkMsg = temp.getRemark_content();
+					String detailUrl=temp.getDetailUrl();
+					WxMsg wxMsg = new WxMsg();
+					wxMsg.setFirst(firstMsg);
+					wxMsg.setRemark(remarkMsg);
+					wxMsg.setKeywordList(keywordList);
+
+					ModuleMsg mmsg = new ModuleMsg();
+					mmsg.setAccountid(accountid);
+					mmsg.setCreatetime(new Date());
+					mmsg.setData(wxMsg.toJsonString());
+					mmsg.setNeedFlag(1);
+					mmsg.setNote(temp.getTemplate_name()+" "+note);
+					mmsg.setSendFlag(0);
+					mmsg.setSendTimes(0);
+					mmsg.setTemplate_id(temp.getTemplate_id());
+					mmsg.setTouser(openid);
+					mmsg.setUrl(detailUrl);
+					pustModuleMsg(mmsg, false);
+				}
+			} else {
+				result.setCode(4002);
+				result.setMessage("模板不存在");
+				logger.info("模板不存在");
+			}
+		} else {
+			logger.info("openid 为空");
 		}
+
+		return result;
 	}
 
 	private void pustModuleMsg(ModuleMsg mmsg, boolean b) {
-		if(b){
-			WxFwUtil.getInstance().pushTemplateMsg(mmsg.getAccountid(), mmsg.getTouser(), mmsg.getTemplate_id(), mmsg.getUrl(), mmsg.getData(),mmsg.getNote());
-		}else{
+		if (b) {
+			Result result = WxFwUtil.getInstance().pushTemplateMsg(mmsg.getAccountid(), mmsg.getTouser(),
+					mmsg.getTemplate_id(), mmsg.getUrl(), mmsg.getData(), mmsg.getNote());
+			if (0 != result.getCode()) {
+				this.moduleMsgDao.save(mmsg);
+			}
+		} else {
 			this.moduleMsgDao.save(mmsg);
 		}
 	}
