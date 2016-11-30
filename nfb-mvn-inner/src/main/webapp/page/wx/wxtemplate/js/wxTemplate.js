@@ -128,7 +128,7 @@ function loadList() {
 		url : appInfo.listUrl,
 		toolbar : "#tb",
 		striped : true,
-		nowrap : true,
+		nowrap : false,
 		rownumbers : true,
 		animate : true,
 		collapsible : true,
@@ -157,7 +157,7 @@ function loadList() {
 		}, {
 			title : '微信模板ID',
 			field : 'template_id',
-			width : 200,
+			width : 400,
 			align : "center"
 		}, {
 			title : '微信模板标题',
@@ -177,7 +177,7 @@ function loadList() {
 		}, {
 			title : '访问URL',
 			field : 'detailUrl',
-			width : 300,
+			width : 200,
 			align : "left"
 		}, {
 			title : '启用标识',
