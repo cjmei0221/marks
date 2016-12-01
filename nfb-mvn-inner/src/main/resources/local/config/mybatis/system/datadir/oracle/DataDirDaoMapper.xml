@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="findChildList" resultType="com.cjmei.module.system.datadir.pojo.DataDir">
-		select * from tb_sys_datadir_info t where t.parentkey=#{ckey}
+		select * from tb_sys_datadir_info t where t.parentkey=#{ckey} order by t.SORT
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.system.datadir.pojo.DataDir">
