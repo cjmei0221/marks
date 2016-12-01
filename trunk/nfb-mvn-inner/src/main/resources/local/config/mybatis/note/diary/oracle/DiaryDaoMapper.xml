@@ -4,7 +4,7 @@
 <mapper namespace="com.cjmei.module.note.diary.dao.DiaryDao">
 
 	<select id="findById" resultType="com.cjmei.module.note.diary.pojo.Diary">
-		SELECT * FROM TB_DIARY diary
+		SELECT * FROM TB_NOTE_DIARY diary
 		where diary.ID = #{ID}
 	</select>
 
@@ -12,7 +12,7 @@
 		<selectKey keyProperty="ID" resultType="String" order="BEFORE">select
 			sys_guid() from dual</selectKey>
 
-		INSERT INTO TB_DIARY diary (
+		INSERT INTO TB_NOTE_DIARY diary (
 		diary.ID,
 		diary.UPDATETIME,
 		diary.CONTENT,
@@ -34,7 +34,7 @@
 	</insert>
 
 	<update id="update" parameterType="com.cjmei.module.note.diary.pojo.Diary">
-		UPDATE TB_DIARY diary
+		UPDATE TB_NOTE_DIARY diary
 		SET
 		diary.UPDATETIME = #{updatetime:TIMESTAMP},
 		diary.CONTENT = #{content:VARCHAR},
@@ -45,15 +45,15 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_DIARY diary WHERE diary.ID=#{ID}
+		DELETE FROM TB_NOTE_DIARY diary WHERE diary.ID=#{ID}
 	</delete>
 
 	<select id="findAll" resultType="com.cjmei.module.note.diary.pojo.Diary">
-		SELECT * FROM TB_DIARY
+		SELECT * FROM TB_NOTE_DIARY
 	</select>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
-		DELETE FROM TB_DIARY WHERE ID in
+		DELETE FROM TB_NOTE_DIARY WHERE ID in
 		<foreach collection="list" item="ids" index="index" open="("
 			separator="," close=")">
 			#{ids}
@@ -63,7 +63,7 @@
 	<select id="list" resultType="com.cjmei.module.note.diary.pojo.Diary"
 		parameterType="java.util.Map">
 		SELECT *
-		FROM TB_DIARY diary
+		FROM TB_NOTE_DIARY diary
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
 			and (
