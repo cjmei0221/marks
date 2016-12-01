@@ -213,3 +213,10 @@ function myfarmat(date){
 $(window).on("resize",function(e){
 	$("#tbList").datagrid("resize",{width:$(window).width()});//修复调整窗口时，内容表格不会随窗伸缩；
 });
+
+
+function del_html_tags(str, reallyDo, replaceWith) {
+	var e = new RegExp(reallyDo, "g");
+	words = str.replace(e, replaceWith);
+	return words;
+}
