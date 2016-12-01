@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/moduleMsg/list.do',// 获取模板消息列表接口 ModuleMsg
-	saveUrl : top.window.urlBase + '/moduleMsg/save.do',// 保存新增模板消息接口
-	updateUrl : top.window.urlBase + '/moduleMsg/update.do',// 编辑模板消息信息接口
-	deleteUrl : top.window.urlBase + '/moduleMsg/delete.do',// 删除模板消息接口
+	listUrl : top.window.urlBase + '/question/list.do',// 获取工作问题记录列表接口 Question
+	saveUrl : top.window.urlBase + '/question/save.do',// 保存新增工作问题记录接口
+	updateUrl : top.window.urlBase + '/question/update.do',// 编辑工作问题记录信息接口
+	deleteUrl : top.window.urlBase + '/question/delete.do',// 删除工作问题记录接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -41,6 +41,9 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
+			
+			var str=del_html_tags(appInfo.selectedData.solution,"<br/>","\r\n");
+			$("#solution").val(str);
 		}
 	});
 
@@ -115,7 +118,7 @@ function loadList() {
 		url : appInfo.listUrl,
 		toolbar : "#tb",
 		striped : true,
-		nowrap : false,
+		nowrap : true,
 		rownumbers : true,
 		animate : true,
 		collapsible : true,
@@ -132,55 +135,44 @@ function loadList() {
 			align : "center",
 			hidden : true
 		}, {
-			title : '公众号ID',
-			field : 'accountid',
+			title : '级别',
+			field : 'lvl',
+			width : 50,
+			align : "center"
+		}, {
+			title : '级别名称',
+			field : 'lvlName',
 			width : 100,
 			align : "center"
 		}, {
-			title : '介绍者',
-			field : 'nickName',
-			width : 150,
+			title : '问题',
+			field : 'question',
+			width : 200,
+			align : "left"
+		}, {
+			title : '解决方案',
+			field : 'solution',
+			width : 500,
+			align : "left"
+		}, {
+			title : '标签',
+			field : 'labels',
+			width : 200,
 			align : "center"
 		}, {
-			title : '内容',
-			field : 'data',
-			width : 700,
-			align : "left",
-			formatter : function(value, row, index) {
-				return value.replace(/},/g,"},<br/>");
-			}
-		}, {
-			title : '备注',
-			field : 'note',
-			width : 300,
-			align : "center"
-		}, {
-			title : '发送标识',
-			field : 'sendFlag',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if (value == 0) {
-					return '未发送';
-				}else if(value == 2){
-					return '发送失败';
-				}
-				return '发送成功';
-			}
-		}, {
-			title : '发送次数',
-			field : 'sendTimes',
+			title : '更新时间',
+			field : 'updatetime',
 			width : 100,
 			align : "center"
 		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 150,
+			title : '创建者',
+			field : 'creator',
+			width : 100,
 			align : "center"
 		}, {
-			title : '发送时间',
-			field : 'sendtime',
-			width : 150,
+			title : '更新者',
+			field : 'updater',
+			width : 100,
 			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
