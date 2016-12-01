@@ -121,11 +121,7 @@ function formSubmit() {
 		}
 	});
 }
-function del_html_tags(str, reallyDo, replaceWith) {
-	var e = new RegExp(reallyDo, "g");
-	words = str.replace(e, replaceWith);
-	return words;
-}
+
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
