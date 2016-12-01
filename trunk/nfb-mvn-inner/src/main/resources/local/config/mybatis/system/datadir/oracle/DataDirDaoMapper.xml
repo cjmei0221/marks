@@ -43,14 +43,13 @@
 		UPDATE TB_SYS_DATADIR_INFO
 		datadir
 		SET
-		datadir.PARENTKEY = #{parentkey:VARCHAR},
 		datadir.CVALUE =
 		#{cvalue:VARCHAR},
 		datadir.SORT = #{sort:NUMERIC},
 		datadir.UPDATETIME =
 		sysdate
 		WHERE
-		datadir.CKEY = #{ckey}
+		datadir.CKEY = #{ckey} and datadir.PARENTKEY = #{parentkey:VARCHAR}
 	</update>
 
 	<delete id="delete" parameterType="String">
