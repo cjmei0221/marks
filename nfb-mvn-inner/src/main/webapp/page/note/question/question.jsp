@@ -50,7 +50,7 @@
 							data-options="required:true,valueField:'ckey',textField:'cvalue',url:'<%=request.getContextPath()%>/dataDir/combox.do?parentId=question_level'"
 							style="width: 300px;"></td>
 					</tr>
-					<tr style="mmargin-top: 50px;">
+					<tr>
 						<td colspan="2" width="600px"><textarea id="question"
 								name="question" class="easyui-validatebox"
 								data-options="required:true"
@@ -67,10 +67,10 @@
 						</textarea></td>
 					</tr>
 					<tr>
-						<td colspan="2" width="600px"><input id="labels"
+						<th>标签&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td width="600px" align="left"><input id="labels"
 							name="labels" class="easyui-validatebox"
-							data-options="required:true" style="width: 872px;"
-							placeholder="标签"></td>
+							style='width: 800px; height: 30px;' data-options="required:true"></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center"><input
