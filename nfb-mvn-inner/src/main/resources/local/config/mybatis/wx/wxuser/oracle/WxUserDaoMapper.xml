@@ -83,6 +83,15 @@
 		WHERE
 		wxuser.OPENID = #{openid}
 	</update>
+	
+	<update id="udateDairyFlag">
+		UPDATE TB_WX_USER wxuser
+		SET
+		wxuser.DAIRYFLAG = #{dairyFlag},
+		wxuser.UPDATETIME =sysdate
+		WHERE
+		wxuser.OPENID = #{openid}
+	</update>
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM TB_WX_USER wxuser

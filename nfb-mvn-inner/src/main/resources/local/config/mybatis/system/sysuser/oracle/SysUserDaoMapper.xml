@@ -4,6 +4,9 @@
 <mapper namespace="com.cjmei.module.system.sysuser.dao.SysUserDao">
 
 	<select id="findById" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
+		select * from tb_sys_user t where t.userid=#{userid}
+	</select>
+	<select id="findByUserid" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
 		select distinct
 		u.*,listagg(t.roleid, ',') within
 		group(
@@ -15,9 +18,15 @@
 		join tb_sys_role tsr on t.roleid = tsr.roleid where u.USERID =
 		#{userid}
 	</select>
+	
+	<select id="findByMobile" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
+		select * from tb_sys_user t where t.bind_mobile=#{mobile}
+	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
-
+		<selectKey keyProperty="userid" resultType="String" order="BEFORE">SELECT
+			'U'||SEQ_SYS_USER.nextval FROM dual
+		</selectKey>
 		INSERT INTO TB_SYS_USER sysuser
 		(
 		sysuser.USERID,
@@ -52,16 +61,31 @@
 		UPDATE TB_SYS_USER sysuser
 		SET
 		sysuser.USERNAME = #{username:VARCHAR},
-		sysuser.BIND_MOBILE =
-		#{bind_mobile:VARCHAR},
 		sysuser.ACTIVEFLAG = #{activeFlag:NUMERIC},
 		sysuser.UPDATETIME = sysdate,
 		sysuser.COMPANYID =
 		#{companyId:VARCHAR},
-		sysuser.TOKEN = #{token:VARCHAR},
-		sysuser.USERTYPE = #{userType:VARCHAR},
-		sysuser.LASTLOGINTIME =
-		#{lastLoginTime:TIMESTAMP}
+		sysuser.TOKEN = #{token:VARCHAR}
+		WHERE
+		sysuser.USERID
+		= #{userid}
+	</update>
+	
+	<update id="updatetPwd" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
+		UPDATE TB_SYS_USER sysuser
+		SET
+		sysuser.PASSWORD = #{password:VARCHAR},
+		sysuser.UPDATETIME = sysdate
+		WHERE
+		sysuser.USERID
+		= #{userid}
+	</update>
+	
+	<update id="updateMobile">
+		UPDATE TB_SYS_USER sysuser
+		SET
+		sysuser.BIND_MOBILE = #{newPhone:VARCHAR},
+		sysuser.UPDATETIME = sysdate
 		WHERE
 		sysuser.USERID
 		= #{userid}
@@ -138,60 +162,51 @@
 				#{oid}
 			</foreach>
 		</if>
+		<if test="userType !=null and userType != ''">
+			and sysuser.USERTYPE = #{userType}
+		</if>
 		<if test="companyId !=null and companyId != ''">
 			and sysuser.COMPANYID = #{companyId}
 		</if>
-		and (
-		sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
+		and (
+			sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		
 			or sysuser.USERNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or sysuser.PASSWORD LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or sysuser.BIND_MOBILE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or sysuser.ACTIVEFLAG LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or sysuser.CREATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+	
 			or sysuser.UPDATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or sysuser.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or sysuser.COMPANYID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or sysuser.TOKEN LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or sysuser.USERTYPE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or sysuser.LASTLOGINTIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+		
 			or tsr.rolename LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
+		
 		)
+		</if>
 		<if test="sorgid !=null and sorgid != ''">
 			and tsr.orgid = #{sorgid}
 		</if>
