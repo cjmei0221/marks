@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css"
 	href="../../../js/uploadImage/swfupload-default.css">
 <%@include file="../../include/common.jsp"%>
+<script type="text/javascript" src="../../../js/editImage/image.js"></script>
 </head>
 
 <body>
@@ -43,7 +44,7 @@
 		style="width: 500px; height: 500px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="goodId" name="goodId">
-			<table class="out-win-cls">
+			<table>
 				<tr>
 					<th>商品名称</th>
 					<td><input id="goodName" name="goodName"
@@ -60,22 +61,13 @@
 						data-options="required:true" style="width: 200px;"></td>
 				</tr>
 				<tr>
-					<th>商品主图</th>
-					<td><input id="imageUrl" name="imageUrl"
+					<th>商品列表图片</th>
+					<td valign="top"><input id="imageUrl" name="imageUrl"
 						class="easyui-validatebox" data-options="required:true"
-						placeholder="图片访问路径" style="width: 200px;"> <input type="file"
-						onchange="selectImage(this,'imageUrl');"> <img
-						class="imageUrl" src="" style="width: 160px; height: 100px;" /> <input
-						type="button" onclick="deleteImage();" value="删除" /></td>
-				</tr>
-				<tr>
-					<th>详细图片</th>
-					<td><input id="imageDetailUrl" name="imageDetailUrl"
-						class="easyui-validatebox" data-options="required:true"
-						placeholder="图片访问路径" style="width: 200px;"> <input type="file"
-						onchange="selectImage(this,'imageDetailUrl');"> <img
-						class="imageDetailUrl" src="" style="width: 160px; height: 100px;" />
-						<input type="button" onclick="deleteImage();" value="删除" /></td>
+						placeholder="图片访问路径" style="width: 200px;" readonly="readonly"> <input
+						type="file" onchange="selectImage(this);"> <br/><img
+						class="imageUrl" src="" style="width: 160px; height: 100px;display:none;" /> <input
+						type="button" onclick="deleteImage(this);" value="删除" style="display:none;"/></td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input

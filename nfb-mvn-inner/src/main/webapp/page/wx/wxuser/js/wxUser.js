@@ -3,6 +3,7 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/wxUser/save.do',// 保存新增粉丝管理接口
 	updateUrl : top.window.urlBase + '/wxUser/update.do',// 编辑粉丝管理信息接口
 	deleteUrl : top.window.urlBase + '/wxUser/delete.do',// 删除粉丝管理接口
+	useDairyUrl : top.window.urlBase + '/wxUser/dairy.do',// 删除粉丝管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -56,6 +57,27 @@ $(function() {
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
 							showMsg("删除成功");
+						} else {
+							showMsg(data.retmsg);
+						}
+					});
+				}
+			});
+		}
+	});
+	
+	// 是否推送日记提醒模板消息
+	$("#dairyBtn").on("click", function() {
+		if (isSelectedOne(appInfo.selectedId)) {
+			$.messager.confirm('Confirm', '确认切换吗?', function(r) {
+				if (r) {
+					var parms = "openid=" + appInfo.selectedId;
+					$.post(appInfo.useDairyUrl, parms, function(data) {
+						if (data.retcode == 0) {
+							app.myreload("#tbList");
+							appInfo.selectedData = {};
+							appInfo.selectedId = -1;
+							showMsg("操作成功");
 						} else {
 							showMsg(data.retmsg);
 						}
@@ -200,6 +222,18 @@ function loadList() {
 			field : 'qrName',
 			width : 100,
 			align : "center"
+		}, {
+			title : '日记提醒',
+			field : 'dairyFlag',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "提醒";
+				} else {
+					return "不提醒";
+				}
+			}
 		}, {
 			title : '备注',
 			field : 'remark',

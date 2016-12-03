@@ -32,7 +32,7 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
-		initForPic("");
+		deleteImageByName("imageUrl");
 	});
 
 	// 编辑
@@ -44,7 +44,7 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
-			initForPic(appInfo.selectedData.imageUrl);
+			editImage("imageUrl");
 		}
 	});
 
@@ -151,7 +151,10 @@ function loadList() {
 			title : '商品主图',
 			field : 'imageUrl',
 			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				return ' <img class="picUrl" src="'+value+'" style="width: 100px; height: 80px;" />';
+			}
 		}, {
 			title : '创建时间',
 			field : 'createtime',
@@ -215,64 +218,4 @@ function loadList() {
 			}
 		});
 	}
-}
-
-function initForPic(main) {
-	if ("" != main) {
-		console.log(main);
-		document.getElementById('image').src = main;
-	}
-
-}
-
-function selectImage(file, eInput) {
-	if (!file.files || !file.files[0]) {
-		return;
-	}
-	var image = '';
-	var reader = new FileReader();
-	reader.onload = function(evt) {
-		// $('.'+eInput).attr("src",evt.target.result);
-		image = evt.target.result;
-		uploadImage(image, eInput);
-	}
-	reader.readAsDataURL(file.files[0]);
-}
-function uploadImage(image, eInput) {
-	$.ajax({
-
-		type : 'POST',
-
-		url : top.window.urlBase + "/fileUpload/image.do",
-
-		data : {
-			image : image
-		},
-
-		async : false,
-
-		dataType : 'json',
-
-		success : function(data) {
-			console.log(data);
-			if (data.retcode == 0) {
-				$("#" + eInput).val(data.fileUrl);
-				$('.' + eInput).attr("src", data.fileUrl)
-				showMsg('上传成功');
-
-			} else {
-
-				showMsg('上传失败');
-
-			}
-
-		},
-
-		error : function(err) {
-			alert('网络故障');
-
-		}
-
-	});
-
 }
