@@ -47,16 +47,16 @@
 		collapsible:false"
 		style="width: 400px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
+			<input type="hidden" id="userid" name="userid">
 			<table class="out-win-cls">
 				<tr>
 					<th>权限角色</th>
 					<td><a href="javascript:;" id="chooseRole">选择权限角色</a></td>
 				</tr>
 				<tr>
-					<th>登录ID</th>
-					<td><input id="userid" name="userid"
-						class="easyui-validatebox" data-options="required:true"
-						maxlength="25"></td>
+					<th>手机号码</th>
+					<td><input id="bind_mobile" name="bind_mobile"
+						class="easyui-numberbox" data-options="required:true,min:10000000000,precision:0"></td>
 				</tr>
 				<tr>
 					<th>用户名称</th>

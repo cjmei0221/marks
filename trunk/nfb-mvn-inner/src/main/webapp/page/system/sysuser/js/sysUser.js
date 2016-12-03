@@ -4,6 +4,7 @@ var appInfo = {
 	updateUrl : top.window.urlBase + '/sysUser/update.do',// 编辑用户管理信息接口
 	deleteUrl : top.window.urlBase + '/sysUser/delete.do',// 删除用户管理接口
 	roleidsUrl : top.window.urlBase + '/sysUser/findSysUserById.do',// 删除用户管理接口
+	resetPwdUrl : top.window.urlBase + '/sysUser/resetPwd.do',// 删除用户管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -37,6 +38,7 @@ $(function() {
 		appInfo.formStatus = "new";
 		appInfo.checkRole = [];
 		$("#inputRoleDiv").html('');
+		$("#bind_mobile").numberbox({disabled:false});
 	});
 
 	// 编辑
@@ -57,6 +59,7 @@ $(function() {
 					showMsg(data.retmsg);
 				}
 			});
+			$("#bind_mobile").numberbox({disabled:true});
 		}
 	});
 
@@ -81,6 +84,24 @@ $(function() {
 		}
 	});
 
+	// 重置密码
+	$("#resetPwdBtn").on("click", function() {
+		if (isSelectedOne(appInfo.selectedId)) {
+			$.messager.confirm('Confirm', '确认重置密码吗?', function(r) {
+				if (r) {
+					var parms = "userid=" + appInfo.selectedId;
+					$.post(appInfo.resetPwdUrl, parms, function(data) {
+						if (data.retcode == 0) {
+							showMsg("重置成功");
+						} else {
+							showMsg(data.retmsg);
+						}
+					});
+				}
+			});
+		}
+	});
+	
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -102,18 +123,34 @@ $(function() {
 			showMsg("权限角色为空");
 			return;
 		}
-		alert(appInfo.checkRole);
 		$("#roleWin").window("close");
 	});
 });
+function checkPhone(val){ 
+    if(!(/^1(3|4|5|7|8)\d{9}$/.test(val))){ 
+    	showMsg("手机号码格式有误，请重填");
+        return false; 
+    } 
+    return true;
+}
 /**
  * 保存菜单
  */
 function formSubmit() {
+	$("#bind_mobile").numberbox({disabled:false});
+	if (!$('#ff').form('validate')) {
+		showMsg("表单校验不通过");
+		return;
+	}
 	if (appInfo.checkRole.length == 0) {
 		showMsg("权限角色为空");
 		return;
 	}
+	var phoneVar=checkPhone($("bind_mobile").val());
+	if(phoneVar){
+		return;	
+	}
+	
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	$('#ff').form('submit', {
@@ -169,6 +206,11 @@ function loadList() {
 			width : 100,
 			align : "center",
 			hidden : true
+		}, {
+			title : '绑定手机',
+			field : 'bind_mobile',
+			width : 100,
+			align : "center"
 		}, {
 			title : '用户名称',
 			field : 'username',
