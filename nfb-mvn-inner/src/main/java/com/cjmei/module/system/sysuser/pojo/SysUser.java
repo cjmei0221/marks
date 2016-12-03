@@ -176,9 +176,6 @@ public class SysUser implements Serializable{
 		this.orgids = orgids;
 	}
 	public String getCompanyId() {
-		if("0".equals(companyId)){
-			return null;
-		}
 		return companyId;
 	}
 	public void setCompanyId(String companyId) {

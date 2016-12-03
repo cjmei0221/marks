@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.enums.Enums;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.encrypt.EncryptUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
@@ -30,11 +31,10 @@ import com.cjmei.module.system.sysuser.service.SysUserService;
 public class SysUserController extends SupportContorller{
     private static Logger logger = Logger.getLogger( SysUserController.class);
     
+    private String defaultPwd="B15A268148D9C5A9363E915581CE1819";
     @Autowired
     private SysUserService  sysUserService;
    
-    @Autowired
-	private OrgInfoService orgInfoService;
     @Override
 	public Logger getLogger() {
 		return logger;
@@ -49,7 +49,7 @@ public class SysUserController extends SupportContorller{
         Result result = new Result();
 		try {
 		    SysUser sysUser = getModel(SysUser.class);
-			SysUser requestSysUser = sysUserService.findById(sysUser.getUserid());
+			SysUser requestSysUser = sysUserService.findByUserid(sysUser.getUserid());
 			result.getData().put("sysUser",requestSysUser);
 			result.setMessage("findById sysUser successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -72,12 +72,13 @@ public class SysUserController extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	SysUser sysUser = getModel(SysUser.class);
 	 //     sysUser.setUserid(IDUtil.getTimeID());
-	 		SysUser ori=sysUserService.findById(sysUser.getUserid());
+	 		SysUser ori=sysUserService.findByMobile(sysUser.getBind_mobile());
 	 		if(ori==null){
 	 			//密码处理
 	 			String roleIdsPut=request.getParameter("roleIdsPut");
-	 			sysUser.setPassword("B15A268148D9C5A9363E915581CE1819");
+	 			sysUser.setPassword(defaultPwd);
 	 			sysUser.setCreator(admin.getUserid());
+	 			sysUser.setUserType(Enums.UserType.SYS.getValue());
 	 			sysUserService.save(sysUser,roleIdsPut);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -102,7 +103,7 @@ public class SysUserController extends SupportContorller{
 		Result result = new Result();
 		try {
 		    SysUser sysUser = getModel(SysUser.class);
-		    SysUser ori=sysUserService.findById(sysUser.getUserid());
+		    SysUser ori=sysUserService.findByMobile(sysUser.getBind_mobile());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
@@ -211,6 +212,7 @@ public class SysUserController extends SupportContorller{
 			param.put("orgids", admin.getOrgids());
 			param.put("companyId", admin.getCompanyId());
 			param.put("sorgid", ssorgid);
+			param.put("userType", Enums.UserType.SYS.getValue());
 			PojoDomain<SysUser> list = sysUserService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -227,4 +229,94 @@ public class SysUserController extends SupportContorller{
 		JsonUtil.output(response, result);
     }
 	
+	/**
+	 * 重置密码
+	 */
+    @RequestMapping("/sysUser/resetPwd")
+    public void resetPwd(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+			String userid=request.getParameter("userid");
+			SysUser su=sysUserService.findById(userid);
+			if(su !=null){
+				su.setPassword(defaultPwd);
+				sysUserService.updatetPwd(su);
+				result.setMessage("resetPwd sysUser successs!");
+				result.setCode(Code.CODE_SUCCESS);
+			}else{
+				result.setMessage("此记录已删除!");
+				result.setCode(Code.CODE_FAIL);
+			}
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			result.setMessage("findAll sysUser fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+    
+    /**
+     * 更新密码
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/sysUser/updatePwd")
+    public void updatePwd(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+			String newPwd=request.getParameter("newPwd");
+			String oldPwd=request.getParameter("oldPwd");
+			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			SysUser su=sysUserService.findById(admin.getUserid());
+			if(su.getPassword().equals(EncryptUtil.encrypt(oldPwd))){
+				admin.setPassword(EncryptUtil.encrypt(newPwd));
+				sysUserService.updatetPwd(admin);
+			}else{
+				result.setMessage("原密码错误");
+				result.setCode(2001);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			result.setMessage("findAll sysUser fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+    /**
+     * 更新手机号码
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/sysUser/updateMobile")
+    public void updateMobile(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+			String newPhone=request.getParameter("newPhone");
+			String newPwd=request.getParameter("newPwd");
+			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			SysUser su=sysUserService.findById(admin.getUserid());
+			if(su.getPassword().equals(EncryptUtil.encrypt(newPwd))){
+				SysUser sUser=sysUserService.findByMobile(newPhone);
+				if(sUser==null){
+					sysUserService.updateMobile(admin.getUserid(),newPhone);
+				}else{
+					result.setMessage("此手机号已注册");
+					result.setCode(4001);
+				}
+				
+			}else{
+				result.setMessage("密码错误");
+				result.setCode(2001);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			result.setMessage("findAll sysUser fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
 }

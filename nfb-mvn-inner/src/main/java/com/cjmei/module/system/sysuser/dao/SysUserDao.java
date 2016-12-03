@@ -12,7 +12,8 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface SysUserDao {
 
-	SysUser findById(String userid);
+	SysUser findByUserid(String userid);
+	SysUser findByMobile(String mobile);
 
 	void save(SysUser sysUser);
 
@@ -29,4 +30,7 @@ public interface SysUserDao {
 	void deleteSysUserRole(@Param("userid")String userid);
 
 	void saveSysUserRole(SysUserRole su);
+	SysUser findById(@Param("userid")String userid);
+	void updatetPwd(SysUser sysUser);
+	void updateMobile(@Param("userid")String userid, @Param("newPhone")String newPhone);
 }
