@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.enums.Enums;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.IDUtil;
 import com.cjmei.module.autocode.core.util.Code;
@@ -222,5 +223,32 @@ public class WxUserController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
     }
+	
+	/**
+	 * 推送日记模板消息
+	 * @param request
+	 * @param response
+	 */
+    @RequestMapping("/wxUser/dairy")
+    public void dairy(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+			String openid=request.getParameter("openid");
+			WxUser wxUser=wxUserService.findById(openid);
+			int dairyFlag=Enums.DairyUse.NOUSE.getValue();
+			if(Enums.DairyUse.NOUSE.getValue()==wxUser.getDairyFlag()){
+				dairyFlag=Enums.DairyUse.USE.getValue();
+			}
+			wxUserService.updateDairyFlag(openid,dairyFlag);
+			result.setMessage("pushdairy wxUser successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			result.setMessage("findAll wxUser fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
 	
 }

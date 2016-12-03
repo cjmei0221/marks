@@ -80,7 +80,7 @@ public class FileUploadController {
 
 				byte[] decodedBytes = decoder.decodeBuffer(image);
 				String commPath = UploadUtil.getUploadPath(req);
-				String picName = IDUtil.getUUID() + fileType;
+				String picName = IDUtil.getTimeID()+ fileType;
 				//String imgFilePath = "D://uploadimage";
 				File saveFile = new File(commPath + picName);
 				FileOutputStream out = new FileOutputStream(saveFile);

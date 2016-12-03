@@ -78,9 +78,17 @@ public class WxUser implements Serializable{
     */
     private String remark;
 
+    private int dairyFlag;//日记推送标识 0不推送 1 推送
+    
+    
 
-
-    public String getOpenid(){
+    public int getDairyFlag() {
+		return dairyFlag;
+	}
+	public void setDairyFlag(int dairyFlag) {
+		this.dairyFlag = dairyFlag;
+	}
+	public String getOpenid(){
         return openid;
     }
     public void setOpenid(String openid){
