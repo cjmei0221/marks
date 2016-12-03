@@ -23,7 +23,7 @@ public class LoginServiceImpl implements LoginService {
 	public SysUser getSysUserByUserid(String userid) {
 		SysUser user = loginDao.getSysUserByUserid(userid);
 		if(null !=user){
-			List<String> list=loginDao.getUrlByUserid(userid);
+			List<String> list=loginDao.getUrlByUserid(user.getUserid());
 			user.setUserUrlList(list);
 		}
 		return user;

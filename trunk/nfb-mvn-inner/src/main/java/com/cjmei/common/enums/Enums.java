@@ -8,17 +8,17 @@ package com.cjmei.common.enums;
 public class Enums {
 	
 	/**
-	 * 机构类型
+	 * 用户类型
 	 * @author cjmei
 	 *
 	 */
-	public enum Shop{
-		shop(0),//商铺
-		company(1);//公司
+	public enum DairyUse{
+		USE(1),//系统用户
+		NOUSE(0);//会员
 
 		private int status;
 		
-		private Shop(int status){
+		private DairyUse(int status){
 			this.status = status;
 		}
 		
@@ -26,6 +26,29 @@ public class Enums {
 			return String.valueOf(status);
 		}
 		public int getValue(){
+			return status;
+		}
+	}
+	
+	/**
+	 * 用户类型
+	 * @author cjmei
+	 *
+	 */
+	public enum UserType{
+		SYS("SYS"),//系统用户
+		VIP("VIP");//会员
+
+		private String status;
+		
+		private UserType(String status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return String.valueOf(status);
+		}
+		public String getValue(){
 			return status;
 		}
 	}

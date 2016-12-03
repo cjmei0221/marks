@@ -70,6 +70,9 @@ public class LoginController {
 				if (password.equals(user.getPassword())) {
 					List<SysRole> roleList = loginService.getUserRoleList(user.getUserid());
 					if (roleList != null && roleList.size() > 0) {
+						if("0".equals(user.getCompanyId())){
+							user.setCompanyId(null);
+						}
 						result.setCode(0);
 						result.setMessage("success");
 						user.setLoginTime(new Date());
