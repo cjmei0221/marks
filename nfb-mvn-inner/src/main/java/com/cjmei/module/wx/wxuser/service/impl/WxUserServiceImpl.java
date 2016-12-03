@@ -83,5 +83,9 @@ public class WxUserServiceImpl implements WxUserService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+	@Override
+	public void updateDairyFlag(String openid, int dairyFlag) {
+		wxUserDao.udateDairyFlag(openid, dairyFlag);
+	}
 	
 }

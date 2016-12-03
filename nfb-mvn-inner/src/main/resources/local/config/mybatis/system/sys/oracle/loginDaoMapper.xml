@@ -8,7 +8,7 @@
 		FROM
 		TB_SYS_USER tsu
 		WHERE
-		tsu.USERID = #{userid}
+		tsu.USERID = #{userid} or tsu.bind_mobile=#{userid}
 	</select>
 	<!-- 加载父级菜单 -->
 	<select id="getParentSysMenu" resultType="com.cjmei.module.system.sys.pojo.SysMenu">

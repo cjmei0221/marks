@@ -4,9 +4,10 @@ package com.cjmei.module.wx.wxuser.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.apache.ibatis.annotations.Param;
 
 import com.cjmei.module.wx.wxuser.pojo.WxUser;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface WxUserDao {
 
@@ -25,4 +26,6 @@ public interface WxUserDao {
 	List<WxUser> list(PageBounds pageBounds, Map<String,Object> param);
 
 	List<WxUser> findWxUserListForDairy();
+
+	void udateDairyFlag( @Param("openid")String openid, @Param("dairyFlag")int dairyFlag);
 }

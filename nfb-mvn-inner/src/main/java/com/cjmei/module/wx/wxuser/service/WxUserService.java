@@ -17,4 +17,5 @@ public interface WxUserService{
 	public List<WxUser> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<WxUser> list(int page_number, int page_size,Map<String,Object> param);
+	public void updateDairyFlag(String openid, int dairyFlag);
 }

@@ -28,11 +28,24 @@ public class SysUserServiceImpl implements SysUserService{
     *根据ID查找用户管理
     */
     @Override
-    public SysUser findById(String userid){
-        return sysUserDao.findById(userid);
+    public SysUser findByUserid(String userid){
+        return sysUserDao.findByUserid(userid);
     }
     
     /**
+     * 根據手機號查詢用戶信息
+     */
+    @Override
+	public SysUser findByMobile(String bind_mobile) {
+    	 return sysUserDao.findByMobile(bind_mobile);
+	}
+    
+    
+	@Override
+	public SysUser findById(String userid) {
+		return sysUserDao.findById(userid);
+	}
+	/**
     *保存用户管理
     */
     @Override
@@ -48,7 +61,13 @@ public class SysUserServiceImpl implements SysUserService{
     public void update(SysUser sysUser,String roleidPut){
         sysUserDao.update(sysUser);
     }
-    private void saveSysUserRole(String userid,String roleidPut,SysUser sysUser){
+    
+    
+    @Override
+	public void updatetPwd(SysUser su) {
+    	 sysUserDao.updatetPwd(su);
+	}
+	private void saveSysUserRole(String userid,String roleidPut,SysUser sysUser){
     	sysUserDao.deleteSysUserRole(userid);
     	SysUserRole su=null;
     	String[] roleArr=roleidPut.split(",");
@@ -99,6 +118,10 @@ public class SysUserServiceImpl implements SysUserService{
 		pojoDomain.setPage_size(page_size);
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
+	}
+	@Override
+	public void updateMobile(String userid, String newPhone) {
+		 sysUserDao.updateMobile(userid,newPhone);
 	}
 	
 	
