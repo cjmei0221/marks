@@ -48,11 +48,11 @@
 				<tr>
 					<td colspan="2" style="text-align: center">
 							<a id="btnOK"
-							name="btnOK" href="#" class="easyui-linkbutton" style="width:100px;"
+							name="btnOK" href="javascript:void(0)"  class="easyui-linkbutton" style="width:100px;"
 							data-options="iconCls:'icon-save'">保存</a>
 							&nbsp;&nbsp;&nbsp;&nbsp;
 							<a id="btnCancel"
-							name="btnCancel" href="#" class="easyui-linkbutton" style="width:100px;"
+							name="btnCancel" href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;"
 							data-options="iconCls:'icon-remove'">取消</a>
 						</td>
 				</tr>
