@@ -150,7 +150,6 @@ function loadList() {
 			data : appInfo.requestParam,
 			dataType : "json",
 			success : function(data, status, xhr) {
-				checkLogin(data);
 				if (data.retcode == 0) {
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
