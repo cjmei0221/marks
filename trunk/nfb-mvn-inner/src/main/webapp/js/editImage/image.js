@@ -62,6 +62,7 @@ function deleteImage(eInput){
 	var imageUrl=$(eInputParent.children('img')); 
 	imageUrl.attr('src','');
 	imageUrl.hide();
+	$(eInput).hide();
 }
 
 function deleteImageByName(eInput){
