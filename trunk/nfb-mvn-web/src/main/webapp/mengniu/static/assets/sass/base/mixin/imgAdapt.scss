@@ -1,0 +1,17 @@
+@mixin paddingParent($paddingTop: 45%){
+	width: 100%;
+	padding-top: $paddingTop;
+	position: relative;
+}
+
+@mixin paddingChildren{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	&>img{
+		width: 100%;
+		height: 100%;
+	}
+}
