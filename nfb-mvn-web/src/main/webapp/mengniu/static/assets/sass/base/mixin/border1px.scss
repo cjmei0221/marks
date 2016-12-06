@@ -1,0 +1,77 @@
+@import '../variable/color.scss';
+$lineColor: $borderColor;
+
+@mixin setScaleY($dpr){
+	$scale: 1 / $dpr;
+	transform: scaleY($scale);
+}
+
+@mixin setScaleX($dpr){
+	$scale: 1 / $dpr;
+	transform: scaleX($scale);
+}
+
+@mixin setScale($dpr){
+	$scale: 1 / $dpr;
+	transform: scale($scale);
+}
+
+@mixin topLine($color: $lineColor, $dpr: 2){
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	border-top: solid 1px $color;
+	transform-origin: 0 0;
+	@include setScaleY($dpr);
+}
+
+@mixin rightLine($color: $lineColor, $dpr: 2){
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 1px;
+	border-right: solid 1px $color;
+	transform-origin: 100% 0;
+	@include setScaleX($dpr);
+}
+
+@mixin bottomLine($color: $lineColor, $dpr: 2){
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 1px;
+	border-bottom: solid 1px $color;
+	transform-origin: 0 100%;
+	@include setScaleY($dpr);
+}
+
+@mixin leftLine($color: $lineColor, $dpr: 2){
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 1px;
+	border-left: solid 1px $color;
+	transform-origin: 0 0;
+	@include setScaleX($dpr);
+}
+
+@mixin allLine($color: $lineColor, $dpr: 2){
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 200%;
+	height: 200%;
+	border: solid 1px $color;
+	transform-origin: 0 0;
+	@include setScale($dpr);
+}
