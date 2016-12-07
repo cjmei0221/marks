@@ -39,7 +39,7 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 500px; padding: 10px;">
+		style="width: 650px; height: 500px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="goodId" name="goodId">
 			<table>
@@ -48,8 +48,6 @@
 					<td><input id="sku_num" name="sku_num"
 						class="easyui-validatebox" data-options="required:true"
 						style="width: 200px;"></td>
-				</tr>
-				<tr>
 					<th>商品名称</th>
 					<td><input id="goodName" name="goodName"
 						class="easyui-validatebox" data-options="required:true"
@@ -59,39 +57,27 @@
 					<th>品牌名称</th>
 					<td><input id="brand" name="brand" class="easyui-validatebox"
 						data-options="required:true" style="width: 200px;"></td>
+					<th>产地</th>
+					<td><input id="madeIn" name="madeIn"
+						class="easyui-validatebox" data-options="required:true"
+						style="width: 200px;"></td>
 				</tr>
+
 				<tr>
 					<th>商品单价(单位分)</th>
 					<td><input id="goodPrice" name="goodPrice"
 						class="easyui-numberbox" data-options="required:true"
 						style="width: 200px;"></td>
-				</tr>
-				<tr>
 					<th>商品单位</th>
 					<td><input id="unit" name="unit" class="easyui-validatebox"
 						data-options="required:true" style="width: 200px;"></td>
-				</tr>
-
-				<tr>
-					<th>产地</th>
-					<td><input id="madeIn" name="madeIn"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>材质</th>
 					<td><input id="material" name="material"
 						class="easyui-validatebox" data-options="required:true"
 						style="width: 200px;"></td>
-				</tr>
-				<tr>
-					<th>特色描述</th>
-					<td><input id="description" name="description"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
-				</tr>
-				<tr>
-					<th>重量</th>
+						<th>重量</th>
 					<td><input id="weight" name="weight" class="easyui-numberbox"
 						data-options="required:true" style="width: 145px;">&nbsp;<input
 						id="weight_unit" name="weight_unit" class="easyui-validatebox"
@@ -99,26 +85,28 @@
 				</tr>
 				<tr>
 					<th>特色描述</th>
-					<td><input id="description" name="description"
+					<td colspan="3"><input id="description" name="description"
 						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
+						style="width: 460px;"></td>
 				</tr>
+				
+				
 				<tr>
 					<th>备注</th>
-					<td><input id="remark" name="remark"
+					<td colspan="3"><input id="remark" name="remark"
 						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
+						style="width: 460px;"></td>
 				</tr>
 				<tr>
 					<th>列表图片</th>
-					<td valign="top" height="150px"><a class="uploadImage"
+					<td colspan="3" valign="top" height="150px"><a class="uploadImage"
 						href="#"> <input type="file" onchange="selectImage(this,1);" />添加图片
 					</a>
 						<div id="addMainImg"></div></td>
 				</tr>
 				<tr>
 					<th>详情页图片</th>
-					<td><a href="javascript:void(0)" onclick="addImage()">添加图片</a>
+					<td colspan="3"><a href="javascript:void(0)" onclick="addImage()">添加图片</a>
 					</td>
 				</tr>
 				<tr>
