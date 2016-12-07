@@ -16,15 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
+import com.cjmei.common.enums.Enums;
 import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.autocode.core.util.Code;
+import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
-
+import com.cjmei.module.autocode.core.util.Code;
+import com.cjmei.module.mall.goodinfo.pojo.GoodImg;
 import com.cjmei.module.mall.goodinfo.pojo.GoodInfo;
 import com.cjmei.module.mall.goodinfo.service.GoodInfoService;
+import com.cjmei.module.system.core.helper.SysUserHelper;
+import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 @Controller
 public class GoodInfoController extends SupportContorller {
@@ -57,6 +58,23 @@ public class GoodInfoController extends SupportContorller {
 		}
 		JsonUtil.output(response, result);
 	}
+	
+	@RequestMapping("/goodInfo/findGoodImgByGoodId")
+	public void findGoodImgByGoodId(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			GoodInfo goodInfo = getModel(GoodInfo.class);
+			List<GoodImg> requestGoodInfo = goodInfoService.findGoodImgByGoodId(goodInfo.getGoodId());
+			result.getData().put("goodImgList", requestGoodInfo);
+			result.setMessage("findGoodImgByGoodId GoodImg successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
 
 	/**
 	 * 保存商品管理
@@ -67,13 +85,21 @@ public class GoodInfoController extends SupportContorller {
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			GoodInfo goodInfo = getModel(GoodInfo.class);
-			goodInfo.setGoodId("G" + IDUtil.getTimeID());
-
-			goodInfo.setCreator(admin.getUserid());
-			goodInfoService.save(goodInfo);
-			result.setMessage("保存成功");
-			result.setCode(Code.CODE_SUCCESS);
-
+			
+			GoodInfo old=goodInfoService.getGoodInfoBySkuNum(goodInfo.getSku_num());
+			if(old !=null){
+				result.setMessage("此商品编码已存在");
+				result.setCode(4001);
+			}else{
+				goodInfo.setGoodId("P"+IDUtil.getTimeID());
+				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
+				String addMainImagePut=request.getParameter("addMainImagePut");
+				String addDetailImagePut=request.getParameter("addDetailImagePut");
+				goodInfo.setCreator(admin.getUserid());
+				goodInfoService.save(goodInfo,addMainImagePut,addDetailImagePut);
+				result.setMessage("保存成功");
+				result.setCode(Code.CODE_SUCCESS);
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("保存失败，请联系管理员！");
@@ -95,9 +121,18 @@ public class GoodInfoController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				goodInfoService.update(goodInfo);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
+				GoodInfo sku = goodInfoService.getGoodInfoBySkuNum(goodInfo.getSku_num());
+				if(sku !=null && !sku.getGoodId().equals(goodInfo.getGoodId())){
+					result.setMessage("此商品编码已存在!");
+					result.setCode(2001);
+				}else{
+					goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
+					String addMainImagePut=request.getParameter("addMainImagePut");
+					String addDetailImagePut=request.getParameter("addDetailImagePut");
+					goodInfoService.update(goodInfo,addMainImagePut,addDetailImagePut);
+					result.setMessage("更新成功!");
+					result.setCode(Code.CODE_SUCCESS);
+				}
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -207,4 +242,34 @@ public class GoodInfoController extends SupportContorller {
 		JsonUtil.output(response, result);
 	}
 
+	/**
+	 * 删除商品管理
+	 */
+	@RequestMapping("/goodSale/onsale")
+	public void onsale(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			String goodId=request.getParameter("goodId");
+			GoodInfo goodInfo =goodInfoService.findById(goodId);
+			if(null != goodInfo){
+				if(Enums.GoodOnsale.onsale.getValue()==goodInfo.getOnsale_status()){
+					goodInfoService.onsale(goodId,Enums.GoodOnsale.shelves.getValue());
+					result.setMessage("下架成功!");
+				}else{
+					goodInfoService.onsale(goodId,Enums.GoodOnsale.onsale.getValue());
+					result.setMessage("上架成功!");
+				}
+				result.setCode(Code.CODE_SUCCESS);
+			}else{
+				result.setMessage("此记录已删除!");
+				result.setCode(Code.CODE_FAIL);
+			}
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("删除失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
 }
