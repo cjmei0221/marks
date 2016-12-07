@@ -1,3 +1,4 @@
+var img={};
 function selectImage(file,snum) {
 	var showDiv = $($(file).parent().next());
 	var num=showDiv.children('span').length;
@@ -59,17 +60,17 @@ function deleteImage(eInput) {
 	eInputParent.remove();
 }
 
-function deleteImageDiv(eInput) {
+img.deleteImageDiv=function deleteImageDiv(eInput) {
 	$("#" + eInput).html("");
 }
 
-function editImage(eInput,fileUrl) {
+img.editImage=function editImage(eInput,fileUrl) {
 	var showDiv = $("#"+eInput);
 	var imgDiv=showImage(fileUrl);
 	showDiv.append(imgDiv);
 }
 
-function getImageVal(eInput){
+img.getImageVal=function getImageVal(eInput){
 	var showDiv = $("#"+eInput);
 	var objArr=$("#"+eInput+" > span > img");
 	var inputArr=[];
@@ -80,7 +81,6 @@ function getImageVal(eInput){
 	
 	}
 	var str=inputArr.join(",");
-	alert(str);
 	return str
 }
 
