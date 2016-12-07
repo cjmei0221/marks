@@ -8,8 +8,15 @@
 		goodinfo where goodinfo.GOODID = #{goodId}
 	</select>
 
+	<select id="getGoodInfoBySkuNum" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+		SELECT * FROM
+		TB_MALL_GOOD_INFO
+		goodinfo where goodinfo.SKU_NUM = #{sku_num}
+	</select>
+
 	<insert id="save" parameterType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
-		INSERT INTO TB_MALL_GOOD_INFO goodinfo (
+		INSERT INTO TB_MALL_GOOD_INFO
+		goodinfo (
 		goodinfo.GOODID,
 		goodinfo.GOODNAME,
 		goodinfo.GOODPRICE,
@@ -17,7 +24,15 @@
 		goodinfo.IMAGEURL,
 		goodinfo.CREATETIME,
 		goodinfo.UPDATETIME,
-		goodinfo.CREATOR
+		goodinfo.CREATOR,
+		goodinfo.BRAND,
+		goodinfo.MADEIN,
+		goodinfo.MATERIAL,
+		goodinfo.DESCRIPTION,
+		goodinfo.REMARK,
+		goodinfo.SKU_NUM,
+		goodinfo.WEIGHT,
+		goodinfo.WEIGHT_UNIT
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -27,25 +42,53 @@
 		#{imageUrl:VARCHAR},
 		sysdate,
 		sysdate,
-		#{creator:VARCHAR}
-
+		#{creator:VARCHAR},
+		#{brand:VARCHAR},
+		#{madeIn:VARCHAR},
+		#{material:VARCHAR},
+		#{description:VARCHAR},
+		#{remark:VARCHAR},
+		#{sku_num:VARCHAR},
+		#{weight:VARCHAR},
+		#{weight_unit:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
-		UPDATE TB_MALL_GOOD_INFO goodinfo
+		UPDATE TB_MALL_GOOD_INFO
+		goodinfo
 		SET
 		goodinfo.GOODNAME = #{goodName:VARCHAR},
-		goodinfo.GOODPRICE = #{goodPrice:NUMERIC},
+		goodinfo.GOODPRICE
+		= #{goodPrice:NUMERIC},
 		goodinfo.UNIT = #{unit:VARCHAR},
 		goodinfo.IMAGEURL = #{imageUrl:VARCHAR},
+		goodinfo.UPDATETIME = sysdate,
+		goodinfo.BRAND=#{brand:VARCHAR},
+		goodinfo.MADEIN=#{madeIn:VARCHAR},
+		goodinfo.MATERIAL=#{material:VARCHAR},
+		goodinfo.DESCRIPTION=#{description:VARCHAR},
+		goodinfo.REMARK=#{remark:VARCHAR},
+		goodinfo.SKU_NUM=#{sku_num:VARCHAR},
+		goodinfo.WEIGHT=#{weight:VARCHAR},
+		goodinfo.WEIGHT_UNIT=#{weight_unit:VARCHAR}
+		WHERE
+		goodinfo.GOODID = #{goodId}
+	</update>
+	<update id="onSale">
+	UPDATE TB_MALL_GOOD_INFO
+		goodinfo
+		SET
+		goodinfo.ONSALE_STATUS = #{state},
+		goodinfo.ONSALE_TIME=sysdate,
 		goodinfo.UPDATETIME = sysdate
 		WHERE
 		goodinfo.GOODID = #{goodId}
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_MALL_GOOD_INFO goodinfo WHERE goodinfo.GOODID=#{goodId}
+		DELETE FROM TB_MALL_GOOD_INFO
+		goodinfo WHERE goodinfo.GOODID=#{goodId}
 	</delete>
 
 	<select id="findAll" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
@@ -65,33 +108,69 @@
 		SELECT *
 		FROM TB_MALL_GOOD_INFO goodinfo
 		WHERE 1=1
-		and ( goodinfo.GOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
-			or goodinfo.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or goodinfo.GOODPRICE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or goodinfo.UNIT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or goodinfo.IMAGEURL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or goodinfo.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or goodinfo.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or goodinfo.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		)
+			and ( goodinfo.GOODID
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
+			or goodinfo.GOODNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			goodinfo.GOODPRICE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			goodinfo.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
+			or goodinfo.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or goodinfo.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or goodinfo.BRAND LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or goodinfo.MADEIN LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or goodinfo.MATERIAL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or goodinfo.SKU_NUM LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+			order by goodinfo.onsale_status,goodinfo.UPDATETIME desc
 	</select>
 
-
+	<insert id="saveGoodImg" parameterType="com.cjmei.module.mall.goodinfo.pojo.GoodImg">
+		INSERT INTO
+		TB_MALL_GOOD_IMG  (
+		ID,
+		GOODID,
+		IMGTYPE,
+		IMGURL,
+		CREATETIME,
+		SORT,
+		IMGNAME
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{goodId:VARCHAR},
+		#{imgType:NUMERIC},
+		#{imgUrl:VARCHAR},
+		sysdate,
+		#{sort:NUMERIC},
+		#{imgName:VARCHAR}
+		)
+	</insert>
+	<delete id="deleteGoodImg">
+		delete from TB_MALL_GOOD_IMG where goodId=#{goodId}
+	</delete>
+	<select id="getGoodImgByGoodId" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodImg">
+		select * from TB_MALL_GOOD_IMG where goodId=#{goodId}
+	</select>
 
 </mapper>

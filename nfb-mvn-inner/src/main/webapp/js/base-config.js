@@ -4,6 +4,21 @@ window.nfb = {};
 window.urlBase = "/inner";
 app = {};
 
+$(document).on('ajaxStart', function(){
+
+
+}).on('ajaxComplete', function(event, xhr, status){
+    if(xhr.status == 200){
+    	 var _data = $.parseJSON(xhr.responseText);
+         //_data = xhr.response;
+        if (_data.retcode == -1000) {
+    		alert("您未登录,请重新登录！")
+    		top.location.replace(window.urlBase + "/login.html");
+    		return false;
+    	}
+    }
+
+});
 /**
  * 为grid添加自己重新加载方法,解决带条件查询的时候分页栏不能回到首页问题
  */
@@ -142,11 +157,11 @@ function fen2yuan(val) {
 }
 // 当返回为-1000时，提示去登陆
 function checkLogin(data) {
-	if (data.retcode == -1000) {
+	/*if (data.retcode == -1000) {
 		alert("未登录,请重新登录！")
 		top.location.replace(window.urlBase + "/login.html");
 		return;
-	}
+	}*/
 }
 // 文本框添加清除按钮
 $.extend($.fn.textbox.methods, {
