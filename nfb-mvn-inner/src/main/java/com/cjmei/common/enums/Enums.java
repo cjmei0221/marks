@@ -53,4 +53,41 @@ public class Enums {
 		}
 	}
 	
+	
+	public enum GoodImgType{
+		Main(1),//系统用户
+		Detail(2);//会员
+
+		private int status;
+		
+		private GoodImgType(int status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return String.valueOf(status);
+		}
+		public int getValue(){
+			return status;
+		}
+	}
+	
+	public enum GoodOnsale{
+		onsale(1),//系统用户
+		init(2),
+		shelves(3);//会员
+
+		private int status;
+		
+		private GoodOnsale(int status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return String.valueOf(status);
+		}
+		public int getValue(){
+			return status;
+		}
+	}
 }
