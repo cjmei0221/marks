@@ -9,7 +9,6 @@ public class DataDir {
 	private String parentkey;
 	private String cvalue;
 	private int sort;
-	private String typename;
 	private List<DataDir> children=new ArrayList<DataDir>();
 
 	public String getCkey() {
@@ -41,12 +40,6 @@ public class DataDir {
 	}
 	public void addChildren(DataDir children) {
 		this.children.add(children);
-	}
-	public String getTypename() {
-		return typename;
-	}
-	public void setTypename(String typename) {
-		this.typename = typename;
 	}
 	public String getCid() {
 		return ckey+parentkey;
