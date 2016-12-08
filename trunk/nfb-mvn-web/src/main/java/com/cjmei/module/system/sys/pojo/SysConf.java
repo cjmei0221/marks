@@ -12,8 +12,6 @@ public class SysConf implements Serializable {
 	private String ckey;
 	private String cvalue;
 	private String ckeyname;
-	private String ctype;
-	private String ctypename;
 	private Date createtime;
 	private Date updatetime;
 	private String creator;
@@ -40,22 +38,6 @@ public class SysConf implements Serializable {
 
 	public void setCkeyname(String ckeyname) {
 		this.ckeyname = ckeyname;
-	}
-
-	public String getCtype() {
-		return ctype;
-	}
-
-	public void setCtype(String ctype) {
-		this.ctype = ctype;
-	}
-
-	public String getCtypename() {
-		return ctypename;
-	}
-
-	public void setCtypename(String ctypename) {
-		this.ctypename = ctypename;
 	}
 
 	public Date getCreatetime() {
