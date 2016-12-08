@@ -39,9 +39,9 @@
             #{language:VARCHAR},
             #{issubscribe:NUMERIC},
             #{subscribetime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
+            sysdate,
             #{accountid:VARCHAR},
-            #{createtime:TIMESTAMP},
+            sysdate,
             #{useflag:NUMERIC},
             #{qrNo:VARCHAR},
             #{remark:VARCHAR}
@@ -62,11 +62,8 @@
                 wxuser.LANGUAGE = #{language:VARCHAR},
                 wxuser.ISSUBSCRIBE = #{issubscribe:NUMERIC},
                 wxuser.SUBSCRIBETIME = #{subscribetime:TIMESTAMP},
-                wxuser.UPDATETIME = #{updatetime:TIMESTAMP},
+                wxuser.UPDATETIME =sysdate,
                 wxuser.ACCOUNTID = #{accountid:VARCHAR},
-                wxuser.CREATETIME = #{createtime:TIMESTAMP},
-                wxuser.USEFLAG = #{useflag:NUMERIC},
-                wxuser.QRNO = #{qrNo:VARCHAR},
                 wxuser.REMARK = #{remark:VARCHAR}
 		WHERE
 			wxuser.OPENID = #{openid}
