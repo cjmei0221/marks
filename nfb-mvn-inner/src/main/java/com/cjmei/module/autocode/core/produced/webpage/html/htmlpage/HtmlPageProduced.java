@@ -92,7 +92,7 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 				type="datebox";
 			}
 			
-			String str = "<tr><th style=\"width:80px;text-align: right;\">" + desc + "&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id=\"" + attrName + "\" name=\"" + attrName
+			String str = "<tr><th style=\"width:80px;text-align: right;\">" + desc + "&nbsp;&nbsp;:&nbsp;&nbsp;</th><td width=\"250px\"><input id=\"" + attrName + "\" name=\"" + attrName
 					+ "\" class=\"easyui-"+type+"\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
 			
 			sBuffer.append(str);
