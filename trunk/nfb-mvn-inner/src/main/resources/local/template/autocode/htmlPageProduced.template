@@ -43,7 +43,7 @@
 		<div align="center" style="width: 100%;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden"  id="@{PKAttrValue}" name="@{PKAttrValue}">
-			<table>
+			<table style="width: 100%;">
 				@{GetInputField}
 				<tr>
 					<td colspan="2" style="text-align: center">
