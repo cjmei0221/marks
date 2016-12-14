@@ -8,15 +8,17 @@
 	</select>
 	<select id="findByUserid" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
 		select distinct
-		u.*,listagg(t.roleid, ',') within
-		group(
-		order by t.roleid) over(partition by t.userid) roleidsStr,
-		listagg(tsr.rolename, ',') within
-		group(
-		order by tsr.rolename) over(partition by t.userid) rolenamesStr
-		from TB_SYS_USER u join tb_sys_user_role t on u.userid=t.userid
-		join tb_sys_role tsr on t.roleid = tsr.roleid where u.USERID =
-		#{userid}
+   			 u.*,
+   			 sur.roleidsStr,
+   			 sur.rolenamesStr
+    	from TB_SYS_USER u join (
+   			 select 
+    			t.userid,
+    			listagg(t.roleid, ',') within group(order by t.roleid) over(partition by t.userid) roleidsStr,
+    			listagg(tsr.rolename, ',') within group(order by t.roleid) over(partition by t.userid) rolenamesStr
+    		from tb_sys_user_role t 
+   				 join tb_sys_role tsr on t.roleid = tsr.roleid) sur on u.userid=sur.userid 
+   		where u.USERID =#{userid}
 	</select>
 	
 	<select id="findByMobile" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
