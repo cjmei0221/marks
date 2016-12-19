@@ -1,9 +1,0 @@
-@for $i from 5 through 10 {
-    .f-#{2 * $i} {
-        font-size: 2px * $i;
-    }
-}
-
-.fontBold{
-	font-weight: bold;
-}
