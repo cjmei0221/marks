@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title>首页</title>
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
+	rel="stylesheet">
+<link href="index.css"
+	rel="stylesheet">
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<script type="text/javascript" src="../assets/vue.min.js"></script>
+<script type="text/javascript" src="../js/showMsg.js"></script>
+
+</head>
+<body>
+	<div id="showMsg"></div>
+	<div class="sui-navbar">
+		<div class="navbar-inner">
+			<a href="#" class="sui-brand">SUI</a>
+			<ul class="sui-nav">
+				<li class="active"><a href="#">首页</a></li>
+				<li><a href="#">组件</a></li>
+				<li class="sui-dropdown"><a href="javascript:void(0);"
+					data-toggle="dropdown" class="dropdown-toggle">其他 <i
+						class="caret"></i></a>
+					<ul role="menu" class="sui-dropdown-menu">
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">关于</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">项目组成员</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">版权</a></li>
+					</ul></li>
+			</ul>
+			<ul class="sui-nav pull-right">
+				<li><a href="#">个人中心</a></li>
+				<li><a href="#">帮助</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class='container'>
+		<div id="app">
+			<table id="myOrderArea">
+				<tr>
+					<td align="center" valign="top" class="sidebar-border-cls">
+						<table class="sidebar-table-cls">
+							<tr>
+								<td class="sidebar-td-cls">私</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">人</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">定</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">制</td>
+							</tr>
+
+						</table>
+					</td>
+					<td valign="top" align="left">
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div style="height: 30px;"></div>
+			<table id="mujiArea">
+				<tr>
+					<td align="center" valign="top"
+						class="sidebar-border-cls boder-muji-cls">
+						<table class="sidebar-table-cls muji-cls">
+							<tr>
+								<td class="sidebar-td-cls">私</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">人</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">定</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">制</td>
+							</tr>
+
+						</table>
+					</td>
+					<td valign="top" align="left">
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div style="height: 30px;"></div>
+			<table id="goodArea">
+				<tr>
+					<td align="center" valign="top"
+						class="sidebar-border-cls goodArea-border-cls">
+						<table class="sidebar-table-cls goodArea-title-cls">
+							<tr>
+								<td class="sidebar-td-cls">私</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">人</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">定</td>
+							</tr>
+							<tr>
+								<td class="sidebar-td-cls">制</td>
+							</tr>
+
+						</table>
+					</td>
+					<td valign="top" align="left">
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+		</div>
+	</div>
+</body>
+<script src="index.js"></script>
+</html>

@@ -1,0 +1,43 @@
+.cls1 {
+	display: -webkit-flex;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: left;
+}
+
+.sidebar-td-cls {
+	height: 35px;
+	text-align: center;
+}
+
+.sidebar-table-cls {
+	width: 50px;
+	font-size: 24px;
+	color: seashell;
+	background-color: #c3764a;
+	border-radius: 5px 0px 0px 5px;
+}
+
+.sidebar-border-cls {
+	border-right: 1px solid #c3764a;
+	padding-right: 0px;
+}
+
+.muji-cls {
+	background-color: salmon;
+	color: seashell;
+}
+
+.boder-muji-cls {
+	border-right: 1px solid salmon;
+}
+
+.goodArea-border-cls {
+	border-right: 1px solid #FF6537;
+}
+
+.goodArea-title-cls {
+	background-color: #FF6537;
+	color: seashell;
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title>商品</title>
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
+	rel="stylesheet">
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<script type="text/javascript" src="../../assets/vue.min.js"></script>
+<script type="text/javascript" src="../../js/showMsg.js"></script>
+<style type="text/css">
+.cls1 {
+	display: -webkit-flex;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: left;
+}
+</style>
+</head>
+<body>
+	<div id="showMsg"></div>
+	<div class="sui-navbar">
+		<div class="navbar-inner">
+			<a href="#" class="sui-brand">SUI</a>
+			<ul class="sui-nav">
+				<li class="active"><a href="#">首页</a></li>
+				<li><a href="#">组件</a></li>
+				<li class="sui-dropdown"><a href="javascript:void(0);"
+					data-toggle="dropdown" class="dropdown-toggle">其他 <i
+						class="caret"></i></a>
+					<ul role="menu" class="sui-dropdown-menu">
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">关于</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">项目组成员</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">版权</a></li>
+					</ul></li>
+			</ul>
+			<form class="sui-form sui-form pull-left">
+				<input type="text" placeholder="宝贝名称...">
+				<button class="sui-btn">搜索</button>
+			</form>
+			<ul class="sui-nav pull-right">
+				<li><a href="#">个人中心</a></li>
+				<li><a href="#">帮助</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class='container'>
+		<div id="app">
+
+			<div class="sui-layout">
+				<div class="sidebar" style="text-align: center;">
+					<ul class="sui-nav nav-tabs nav-xlarge nav-pills tab-vertical"
+						style="width: 100%;">
+						<li><a>最新</a></li>
+						<li class="active"><a href="#">最热</a></li>
+						<li><a href="#">时尚</a></li>
+					</ul>
+				</div>
+				<div class="content">
+					<div class="sui-row">
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+					</div>
+					<div class="sui-pagination pagination-large"
+						style="text-align: center;">
+						<ul>
+							<li class="prev disabled"><a href="#">«上一页</a></li>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li class="dotted"><span>...</span></li>
+							<li class="next"><a href="#">下一页»</a></li>
+						</ul>
+						<div>
+							<span>共10页&nbsp;</span><span> 到 <input type="text"
+								class="page-num">
+								<button class="page-confirm" onclick="alert(1)">确定</button> 页
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+<script src="goodList.js"></script>
+</html>
