@@ -11,7 +11,10 @@ $(function() {
 		},
 		methods: {
 			toDatail:function(id){
-				 location.href ='./detail.html?id=' + id
+				 location.href ='./detail.html?id=' + id+"&_t="+new Date().getTime();
+			},
+			toAdd:function(){
+				location.href ='./add.html?'+"_t="+new Date().getTime();;
 			}
 		}
 	});

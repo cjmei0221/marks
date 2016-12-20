@@ -7,7 +7,10 @@ $(function() {
 		},
 		methods: {
 			toList:function(){
-				location.href ='./list.html';
+				location.href ='./list.html?'+"_t="+new Date().getTime();;
+			},
+			toAdd:function(){
+				location.href ='./add.html?'+"_t="+new Date().getTime();;
 			}
 		}
 	});
