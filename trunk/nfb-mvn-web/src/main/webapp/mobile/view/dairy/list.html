@@ -16,8 +16,9 @@
 
 </head>
 <body>
+
 	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
-	<div class="page-group">
+	<div id="app" class="page-group">
 		<!-- 单个page ,第一个.page默认被展示-->
 		<div class="page">
 			<!-- 标题栏 -->
@@ -33,47 +34,28 @@
 					</div>
 				</div>
 			</div>
-
-
 			<!-- 这里是页面内容区 -->
-			<div class="content">
-				<div class="list-block media-list">
-					<ul>
-						<li><a href="#" class="item-link item-content">
-								<div class="item-inner">
-									<div class="item-title">标题</div>
-									<div class="item-subtitle">标题</div>
-									<div class="item-text">此处是文本内容...</div>
-								</div>
-						</a></li>
-					</ul>
+			<div id="content" class="content infinite-scroll" data-distance="100">
+				<div v-for="item in dataList" track-by="id">
+					<div class="list-block media-list">
+						<ul>
+							<li><a href="javascript:void(0)" @click="toDatail(item.id)"
+								class="item-link item-content">
+									<div class="item-inner">
+										<div class="item-title">{{item.title}}</div>
+										<div class="item-subtitle">{{item.dairyDate}}</div>
+										<div class="item-text" style="word-wrap: break-word;">{{item.shortContent}}</div>
+									</div>
+							</a></li>
+						</ul>
+					</div>
 				</div>
-				<div class="list-block media-list">
-					<ul>
-						<li><a href="#" class="item-link item-content">
-								<div class="item-inner">
-									<div class="item-title">标题</div>
-									<div class="item-subtitle">标题</div>
-									<div class="item-text">此处是文本内容...</div>
-								</div>
-						</a></li>
-					</ul>
-				</div>
-				<div class="list-block media-list">
-					<ul>
-						<li><a href="#" class="item-link item-content">
-								<div class="item-inner">
-									<div class="item-title">标题</div>
-									<div class="item-subtitle">标题</div>
-									<div class="item-text">此处是文本内容...</div>
-								</div>
-						</a></li>
-					</ul>
+				<!-- 加载提示符 -->
+				<div v-show="isLoading" class="infinite-scroll-preloader">
+					<div class="preloader"></div>
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 
 	<script type='text/javascript'
@@ -87,6 +69,7 @@
 		charset='utf-8'></script>
 	<script type='text/javascript' src='../../js/my-config.js'
 		charset='utf-8'></script>
+	<script type='text/javascript' src='./list.js' charset='utf-8'></script>
 
 </body>
 </html>
