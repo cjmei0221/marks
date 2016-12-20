@@ -5,7 +5,7 @@
 	<artifactId>nfb-mvn-web</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>nfb-mvn-web Maven Webapp</name>
+	<name>nfb-mvn-inner Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<profiles>
