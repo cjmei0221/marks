@@ -4,18 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
-<title>首页</title>
+<title>商品</title>
 <link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
-	rel="stylesheet">
-<link href="index.css"
 	rel="stylesheet">
 <script type="text/javascript"
 	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript"
 	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
-<script type="text/javascript" src="../assets/vue.min.js"></script>
-<script type="text/javascript" src="../js/showMsg.js"></script>
-
+<script type="text/javascript" src="../../../assets/vue.min.js"></script>
+<script type="text/javascript" src="../../../js/showMsg.js"></script>
+<style type="text/css">
+.cls1 {
+	display: -webkit-flex;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: left;
+}
+</style>
 </head>
 <body>
 	<div id="showMsg"></div>
@@ -23,9 +29,9 @@
 		<div class="navbar-inner">
 			<a href="#" class="sui-brand">定制商城</a>
 			<ul class="sui-nav">
-				<li class="active"><a href="#" style="color:red;">首页</a></li>
+				<li><a href="#" style="color:red;">首页</a></li>
 				<li><a href="#" style="color:red;">私人定制</a></li>
-				<li><a href="./goodList/goodList.html" style="color:red;">商城区</a></li>
+				<li  class="active"><a href="./goodList/goodList.html" style="color:red;">商城区</a></li>
 				<li><a href="#" style="color:red;">募集区</a></li>
 			</ul>
 			<ul class="sui-nav pull-right">
@@ -36,26 +42,18 @@
 	</div>
 	<div class='container'>
 		<div id="app">
-			<table id="myOrderArea">
-				<tr>
-					<td align="center" valign="top" class="sidebar-border-cls">
-						<table class="sidebar-table-cls">
-							<tr>
-								<td class="sidebar-td-cls">私</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">人</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">定</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">制</td>
-							</tr>
 
-						</table>
-					</td>
-					<td valign="top" align="left">
+			<div class="sui-layout">
+				<div class="sidebar" style="text-align: center;">
+					<ul class="sui-nav nav-tabs nav-xlarge nav-pills tab-vertical"
+						style="width: 100%;">
+						<li><a>最新</a></li>
+						<li class="active"><a href="#">最热</a></li>
+						<li><a href="#">时尚</a></li>
+					</ul>
+				</div>
+				<div class="content">
+					<div class="sui-row">
 						<div class="span2">
 							<img :src="imageUrl"> <span>1 ￥</span>
 						</div>
@@ -80,100 +78,58 @@
 						<div class="span2">
 							<img :src="imageUrl"> <span>1 ￥</span>
 						</div>
-					</td>
-				</tr>
-			</table>
-			<div style="height: 30px;"></div>
-			<table id="mujiArea">
-				<tr>
-					<td align="center" valign="top"
-						class="sidebar-border-cls boder-muji-cls">
-						<table class="sidebar-table-cls muji-cls">
-							<tr>
-								<td class="sidebar-td-cls">热</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">门</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">募</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">集</td>
-							</tr>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+						<div class="span2">
+							<img :src="imageUrl"> <span>1 ￥</span>
+						</div>
+					</div>
+					<div class="sui-pagination pagination-large"
+						style="text-align: center;">
+						<ul>
+							<li class="prev disabled"><a href="#">«上一页</a></li>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li class="dotted"><span>...</span></li>
+							<li class="next"><a href="#">下一页»</a></li>
+						</ul>
+						<div>
+							<span>共10页&nbsp;</span><span> 到 <input type="text"
+								class="page-num">
+								<button class="page-confirm" onclick="alert(1)">确定</button> 页
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
-						</table>
-					</td>
-					<td valign="top" align="left">
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-					</td>
-				</tr>
-			</table>
-			<div style="height: 30px;"></div>
-			<table id="goodArea">
-				<tr>
-					<td align="center" valign="top"
-						class="sidebar-border-cls goodArea-border-cls">
-						<a href="./goodList/goodList.html">
-						<table class="sidebar-table-cls goodArea-title-cls">
-							<tr>
-								<td class="sidebar-td-cls">热</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">销</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">商</td>
-							</tr>
-							<tr>
-								<td class="sidebar-td-cls">品</td>
-							</tr>
-
-						</table>
-						</a>
-					</td>
-					<td valign="top" align="left">
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-						<div class="span2">
-							<img :src="imageUrl"> <span>1 ￥</span>
-						</div>
-					</td>
-				</tr>
-			</table>
-			
 		</div>
 	</div>
 </body>
-<script src="index.js"></script>
+<script src="goodList.js"></script>
 </html>
