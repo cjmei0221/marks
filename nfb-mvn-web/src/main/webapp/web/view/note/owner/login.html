@@ -11,14 +11,21 @@
 	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript"
 	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
-<script type="text/javascript" src="../../../assets/vue.min.js"></script>
 <script type="text/javascript" src="../../../js/showMsg.js"></script>
+<script type="text/javascript" src="../../../assets/vue.min.js"></script>
+
 
 </head>
 <body>
-	<div id="showMsg"></div>
+
 	<div class='container'>
 		<div id="app">
+			<div id="showMsg" v-show="msgFlag">
+				<div class="sui-msg msg-large msg-block msg-error">
+					<div class="msg-con">{{errorMsg}}</div>
+					<s class="msg-icon"></s>
+				</div>
+			</div>
 			<div style="height: 180px;"></div>
 			<form class="sui-form form-horizontal"
 				style="margin: 18px; text-align: -webkit-center;">
@@ -36,12 +43,14 @@
 							<input type="password" v-model="c_password" placeholder="密码">
 						</div>
 					</div>
-
 				</fieldset>
 				<div class="control-group">
 					<div class="controls">
-						<button class="sui-btn btn-primary" href="javascript:void(0)" @click="summitForm()">提交</button>
-						&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="sui-btn btn-primary" href="javascript:void(0)" @click="resetForm">重置</button>
+						<button class="sui-btn btn-primary" href="javascript:void(0)"
+							@click="summitForm()">提交</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="submit" class="sui-btn btn-primary"
+							href="javascript:void(0)" @click="resetForm">重置</button>
 					</div>
 				</div>
 			</form>

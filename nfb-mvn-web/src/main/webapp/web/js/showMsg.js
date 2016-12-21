@@ -1,17 +1,21 @@
+
 var msg={};
 msg.info=function show_info(msg){
 	msg_info(msg);
-	window.setTimeout(remove_msg,5000); 
+	//setTimeout(remove_msg,5000); 
 }
 
 msg.success=function show_success(msg){
 	msg_success(msg);
-	window.setTimeout(remove_msg,5000); 
+	//setTimeout(remove_msg,5000); 
 }
 
 msg.error=function show_error(msg){
+	alert("1");
 	msg_error(msg);
-	window.setTimeout(remove_msg,5000); 
+	alert("2");
+	//setTimeout(remove_msg,5000); 
+	alert("6");
 }
 msg.remove=function remove_msg(){
 	$("#showMsg").html("");
@@ -45,4 +49,6 @@ function msg_error(msg){
 	+'<s class="msg-icon"></s>'
 	+'</div>';
 	$("#showMsg").html(divStr);
+	alert("5");
+	console.log($("#showMsg").html());
 }
