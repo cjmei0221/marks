@@ -23,7 +23,8 @@
 		<div class="page">
 			<!-- 标题栏 -->
 			<header class="bar bar-nav">
-				<a class="icon icon-edit pull-right" href="javascript:void(0)"
+				<a class="icon icon-me pull-left open-panel"></a> <a
+					class="icon icon-edit pull-right" href="javascript:void(0)"
 					@click="toAdd()"></a>
 				<h1 class="title">日记</h1>
 			</header>
@@ -46,7 +47,8 @@
 										<div class="item-title-row">
 											<div class="item-title">{{item.title}}</div>
 										</div>
-										 <div class="item-subtitle" style="font-size: .60rem;margin-bottom: 10px;">{{item.dairyDate}}</div>
+										<div class="item-subtitle"
+											style="font-size: .60rem; margin-bottom: 10px;">{{item.dairyDate}}</div>
 										<div class="item-text" style="word-wrap: break-word;">{{item.shortContent}}</div>
 									</div>
 							</a></li>
@@ -59,6 +61,23 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="panel panel-left panel-reveal">
+			<div class="content-block">
+				<p>
+					<a class="icon icon-me" href="javascript:void(0)" @click="toMyInfo">cjmei</a>
+				</p>
+				<p>
+					<a href="javascript:void(0)" @click="toChangePwd">修改密码</a>
+				</p>
+				<!-- Click on link with "close-panel" class will close panel -->
+				<p>
+					<a href="#" class="close-panel">关闭</a>
+				</p>
+			</div>
+		</div>
+
+
 	</div>
 
 	<script type='text/javascript'

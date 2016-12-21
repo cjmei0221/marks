@@ -15,6 +15,12 @@ $(function() {
 			},
 			toAdd:function(){
 				location.href ='./add.html?'+"_t="+new Date().getTime();;
+			},
+			toChangePwd:function(){
+				location.href ='./owner/changePwd.html?'+"_t="+new Date().getTime();
+			},
+			toMyInfo:function(){
+				location.href ='./owner/myInfo.html?'+"_t="+new Date().getTime();
 			}
 		}
 	});
