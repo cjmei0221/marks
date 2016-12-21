@@ -25,7 +25,7 @@ public class LoginUtil {
 		}
 		if (RunModel.getInstance().getWeixinMode().equals("N")) {
 			user=new SysUser();
-			
+			user.setUserid("admin");
 		}
 		return user;
 	}
