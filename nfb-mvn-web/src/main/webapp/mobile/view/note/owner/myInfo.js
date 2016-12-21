@@ -7,7 +7,7 @@ $(function() {
 		},
 		methods: {
 			toList:function(){
-				location.href ='../list.html?_t='+new Date().getTime();
+				location.href ='../dairy/list.html?_t='+new Date().getTime();
 			}
 		}
 	});

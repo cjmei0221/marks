@@ -29,7 +29,7 @@ $(function() {
 					},
 					success : function(data) {
 						vm.isLoading = true;
-						location.href ='../list.html?' +"_t="+new Date().getTime();
+						location.href ='../dairy/list.html?' +"_t="+new Date().getTime();
 					},
 					complete : function() {
 						// 重置加载flag

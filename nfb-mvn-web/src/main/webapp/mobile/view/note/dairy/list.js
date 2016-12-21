@@ -17,10 +17,10 @@ $(function() {
 				location.href ='./add.html?'+"_t="+new Date().getTime();;
 			},
 			toChangePwd:function(){
-				location.href ='./owner/changePwd.html?'+"_t="+new Date().getTime();
+				location.href ='../owner/changePwd.html?'+"_t="+new Date().getTime();
 			},
 			toMyInfo:function(){
-				location.href ='./owner/myInfo.html?'+"_t="+new Date().getTime();
+				location.href ='../owner/myInfo.html?'+"_t="+new Date().getTime();
 			}
 		}
 	});
@@ -29,7 +29,7 @@ $(function() {
 	
 	function getDairylist(){
 		$.ajax({
-			url : './data/dairyData.json',
+			url : '../data/dairyData.json',
 			type : 'GET',
 			dataType : "json",
 			success : function(data) {
