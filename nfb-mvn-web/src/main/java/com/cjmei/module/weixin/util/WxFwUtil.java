@@ -10,12 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cjmei.common.domain.Result;
 import com.cjmei.module.system.core.data.StaticData;
+import com.cjmei.module.system.core.listener.DatabaseHelper;
 import com.cjmei.module.weixin.wfhao.pojo.UserGet;
 import com.cjmei.module.weixin.wfhao.pojo.WxMenu;
 import com.cjmei.module.weixin.wfhao.pojo.WxUser;
+import com.cjmei.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -31,6 +34,7 @@ import net.sf.json.JSONObject;
 public class WxFwUtil {
 	private static String CHARSET = "UTF-8";
 	private static String wx_host_url =  StaticData.getSysConf("wx_host_url");
+	//private static String wx_host_url =  "http://127.0.0.1:6080";
 	private static Logger logger = Logger.getLogger(WxFwUtil.class);
 	private static WxFwUtil util = null;
 
@@ -249,5 +253,17 @@ public class WxFwUtil {
 		}
 
 		return str;
+	}
+	public static void main(String[] args) throws Exception {
+		String accountid="ctest";
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:config/spring/applicationContext.xml");
+		DatabaseHelper.init(context);
+		UpdateWxUserhreadPool.init();
+		UserGet ug=WxFwUtil.getInstance().getWXUserOpenId(accountid, "");
+		if(ug !=null){
+			for(String openid:ug.getOpenid_list()){
+				UpdateWxUserhreadPool.updateWxUser(accountid, openid);
+			}
+		}
 	}
 }
