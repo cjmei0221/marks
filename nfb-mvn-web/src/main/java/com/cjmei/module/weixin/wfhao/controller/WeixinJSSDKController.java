@@ -1,7 +1,5 @@
 package com.cjmei.module.weixin.wfhao.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.IDUtil;
 import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.login.util.LoginUtil;
 import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.weixin.mp.SHAUtil;
 import com.cjmei.module.weixin.util.WxFwUtil;
+import com.cjmei.module.weixin.wfhao.util.WxUtil;
 
 @Controller
 public class WeixinJSSDKController {
@@ -33,7 +31,7 @@ public class WeixinJSSDKController {
 		Result result = new Result();
 		result.setCode(0);
 		try {
-			String accountId = LoginUtil.getInstance().getCurrentAccountid(request);
+			String accountId = WxUtil.getInstance().getCurrentAccountid(request);
 			String location = request.getParameter("location");
 
 			String newTicket = WxFwUtil.getInstance().getJsSDKTicket(accountId);

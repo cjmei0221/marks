@@ -28,7 +28,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.cjmei.module.login.util.LoginUtil;
 import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.weixin.mp.DataDicUtil;
 import com.cjmei.module.weixin.mp.aes.AesException;
@@ -38,6 +37,7 @@ import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
 import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
 import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
 import com.cjmei.module.weixin.wfhao.service.RequestDispatchService;
+import com.cjmei.module.weixin.wfhao.util.WxUtil;
 
 /**
  * 处理微信服务号请求与响应的类 核心类
@@ -165,8 +165,8 @@ public class WeixinChatController {
 		// 消息转换
 		RequestMessage requestMessage = MessageConverter.convertMessage(
 				accountId, xml);
-		LoginUtil.getInstance().setCurrentOpenid(request, requestMessage.getFromUserName());
-		LoginUtil.getInstance().setCurrentAccountid(request, accountId);
+		WxUtil.getInstance().setCurrentOpenid(request, requestMessage.getFromUserName());
+		WxUtil.getInstance().setCurrentAccountid(request, accountId);
 		logger.info("==============="+requestMessage);
 		ResponseMessage responseMessage = null;
 		try {
