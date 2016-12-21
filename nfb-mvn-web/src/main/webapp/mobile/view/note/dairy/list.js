@@ -27,7 +27,7 @@ $(function() {
 	getDairylist(false);
 	initScroll();
 	
-	function getDairylist(){
+	function getDairylist(scroll){
 		$.ajax({
 			url : '../data/dairyData.json',
 			type : 'GET',
