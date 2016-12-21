@@ -7,6 +7,28 @@ package com.cjmei.common.enums;
  */
 public class Enums {
 	/**
+	 * 系统用户启禁用
+	 * @author cjmei
+	 *
+	 */
+	public enum SysUserUse{
+		USE(1),//系统用户
+		NOUSE(0);//会员
+
+		private int status;
+		
+		private SysUserUse(int status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return String.valueOf(status);
+		}
+		public int getValue(){
+			return status;
+		}
+	}
+	/**
 	 * 机构类型
 	 * @author cjmei
 	 *
