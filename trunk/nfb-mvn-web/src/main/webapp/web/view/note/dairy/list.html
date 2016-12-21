@@ -32,7 +32,7 @@
 		</div>
 	</div>
 	<div class='container'>
-		<div id="app">
+		<div id="app" style="text-align: center;">
 
 			<table class="sui-table table-nobordered">
 				<thead>
@@ -42,38 +42,24 @@
 						<th width="68%">内容</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody v-for="item in dataList" track-by="id">
 					<tr>
-						<td>2016-12-21 12:12:12</td>
-						<td><p style="word-break: break-word;">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p></td>
-						<td><p style="word-break: break-word; text-indent: 2em;">999aaaaaaaaaaaa
-							</p></td>
-					</tr>
-					<tr>
-						<td>2016-12-21 12:12:12</td>
-						<td><p style="word-break: break-word;">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p></td>
-						<td><p style="word-break: break-word; text-indent: 2em;">999aaaaaaaaaaaa
-							</p></td>
-					</tr>
-					<tr>
-						<td>2016-12-21 12:12:12</td>
-						<td><p style="word-break: break-word;">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p></td>
-						<td><p style="word-break: break-word; text-indent: 2em;">999aaaaaaaaaaaa
-							</p></td>
-					</tr>
-					<tr>
-						<td>2016-12-21 12:12:12</td>
-						<td><p style="word-break: break-word;">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p></td>
-						<td><p style="word-break: break-word; text-indent: 2em;">999aaaaaaaaaaaa
+						<td><a class="sui-text-info" href="javascript:void(0)" @click="toDatail(item.id)">{{item.dairyDate}}</a></td>
+						<td><p style="word-break: break-word;">{{item.title}}</p></td>
+						<td><p style="word-break: break-word; text-indent: 2em;">{{item.content}}
 							</p></td>
 					</tr>
 				</tbody>
 			</table>
-
+			<div class="sui-pagination pagination-naked pagination-large">
+				<ul>
+					<li class="prev"><a href="#">上一页</a></li>
+					<li><span class="ex-page-status">{{pageNum}}/{{pageTotal}}</span></li>
+					<li class="next"><a href="#">下一页 </a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-
-</script>
+<script type="text/javascript" src="./list.js"></script>
 </html>
