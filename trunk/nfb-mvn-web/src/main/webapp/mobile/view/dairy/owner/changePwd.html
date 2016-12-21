@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>日记</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+
+</head>
+<body>
+
+	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+	<div id="app" class="page-group">
+		<!-- 单个page ,第一个.page默认被展示-->
+		<div class="page">
+			<!-- 标题栏 -->
+			<header class="bar bar-nav">
+				<a class="icon icon-left pull-left" href="javascript:void(0)" @click="toList"></a>
+				<h1 class="title">修改密码</h1>
+			</header>
+			<!-- 这里是页面内容区 -->
+			<div id="content" class="content">
+				<div class="list-block">
+					<ul>
+						<!-- Text inputs -->
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-name"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-input">
+										<input type="password" v-model="c_oldPwd" placeholder="原密码"
+											maxlength="11" min="10000000000" max="19999999999">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-email"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-input">
+										<input type="password" v-model="c_newPwd" placeholder="新密码"
+											maxlength="20">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-email"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-input">
+										<input type="password" v-model="c_newPwd2" placeholder="确认密码"
+											maxlength="20">
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="content-block">
+					<div v-show="isLoading" class="row" style="margin-left: 0px;">
+						<div>
+							<a href="javascript:void(0)" @click="summitForm()"
+								class="button button-big button-fill button-success">提交</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type='text/javascript'
+		src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript'
+		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript'
+		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
+		charset='utf-8'></script>
+	<script type='text/javascript' src='../../../assets/vue/vue.min.js'
+		charset='utf-8'></script>
+	<script type='text/javascript' src='../../../js/my-config.js'
+		charset='utf-8'></script>
+	<script type='text/javascript' src='./changePwd.js'
+		charset='utf-8'></script>
+</body>
+</html>
