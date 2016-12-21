@@ -6,3 +6,4 @@ tool.getUrlParams = function(name) {
 		return unescape(r[2]);
 	return null;
 }
+tool.baseUrl="/web";
