@@ -11,7 +11,7 @@ public class Diary implements Serializable{
     /**
     *主键
     */
-    private String ID;
+    private String id;
     /**
     *更新时间
     */
@@ -47,15 +47,14 @@ public class Diary implements Serializable{
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
-	public String getID(){
-        return ID;
-    }
-    public void setID(String ID){
-        this.ID = ID;
-    }
-
-   
-    public String getContent(){
+	
+    public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getContent(){
         return content;
     }
     public void setContent(String content){

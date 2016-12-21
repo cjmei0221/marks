@@ -1,54 +1,59 @@
+var appInfo = {
+	pageNum : 1,
+	pageSize : 10,
+	pageTotal : 0,
+	keyword : ""
+}
+
 $(function() {
-	
-	var vm = new Vue({
-		el : '#app',
+	getDairylist();
+});
+function lastPage() {
+	appInfo.pageNum--;
+	if (appInfo.pageNum < 1) {
+		appInfo.pageNum = 1;
+		return;
+	}
+	getDairylist();
+}
+
+function nextPage() {
+	appInfo.pageNum++;
+	if (appInfo.pageNum > appInfo.pageTotal) {
+		appInfo.pageNum = appInfo.pageTotal;
+		return;
+	}
+	getDairylist();
+}
+function getDairylist() {
+	appInfo.keyword = $("#keyword").val();
+	$.ajax({
+		url : tool.reqUrl.dairyList,
+		type : 'POST',
+		dataType : "json",
 		data : {
-			dataList : [],
-			pageNum : 1,
-			pageSize : 10,
-			pageTotal : 0,
-			isLoading : false
+			keyword : appInfo.keyword,
+			page_number : appInfo.pageNum,
+			page_size : appInfo.pageSize
 		},
-		methods: {
-			toDatail:function(id){
-				 location.href ='./detail.html?id=' + id+"&_t="+new Date().getTime();
-			},
-			toAdd:function(){
-				location.href ='./add.html?'+"_t="+new Date().getTime();;
-			},
-			toChangePwd:function(){
-				location.href ='../owner/changePwd.html?'+"_t="+new Date().getTime();
-			},
-			toMyInfo:function(){
-				location.href ='../owner/myInfo.html?'+"_t="+new Date().getTime();
+		success : function(data) {
+			if (data.retcode == 0) {
+				var dairyList = data.list;
+				var pageTotal = data.page_total;
+				appInfo.pageTotal=pageTotal;
+				$("#pageShow").html(appInfo.pageNum + "/" + pageTotal);
+				var arr = [];
+				$.each(dairyList, function(i, o) {
+					// 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法.
+					arr.push(tool.fillTemplate($("#trDivTmp").html(), o));
+				});
+				$('#trDiv').html(arr.join(''));
+			} else {
+				msg.error(data.retmsg);
 			}
+		},
+		complete : function() {
+
 		}
 	});
-	getDairylist();
-	
-	function getDairylist(){
-		$.ajax({
-			url : '../data/dairyData.json',
-			type : 'GET',
-			dataType : "json",
-			success : function(data) {
-				var dairyList = data.list;
-				var totalPage = data.list.length;
-				if (scroll) {
-					var myArr = vm.dataList;
-					if (dairyList.length > 0)
-						vm.dataList = myArr.concat(dairyList);
-				} else {
-					vm.dataList = dairyList;
-				}
-				vm.pageTotal = totalPage/vm.pageSize+1;
-				vm.pageNum++;
-				vm.isLoading = false;
-			},
-			complete : function() {
-				// 重置加载flag
-				vm.isLoading = false;
-			}
-		});
-	}
-});
+}

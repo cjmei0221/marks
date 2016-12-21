@@ -46,7 +46,7 @@ public class DiaryController extends SupportContorller{
         Result result = new Result();
 		try {
 		    Diary diary = getModel(Diary.class);
-			Diary requestDiary = diaryService.findById(diary.getID());
+			Diary requestDiary = diaryService.findById(diary.getId());
 			result.getData().put("diary",requestDiary);
 			result.setMessage("findById diary successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -110,7 +110,7 @@ public class DiaryController extends SupportContorller{
 		Result result = new Result();
 		try {
 		   	Diary diary = getModel(Diary.class);
-			diaryService.delete(diary.getID());
+			diaryService.delete(diary.getId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -184,12 +184,8 @@ public class DiaryController extends SupportContorller{
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			Map<String,Object> param=new HashMap<String,Object>();
 			String keyword=request.getParameter("keyword");
-			String statedate=request.getParameter("statedate");
-			String enddate=request.getParameter("enddate");
 			param.put("userid", admin.getUserid());
 			param.put("keyword", keyword);
-			param.put("statedate", statedate);
-			param.put("enddate", enddate);
 			PojoDomain<Diary> list = diaryService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
