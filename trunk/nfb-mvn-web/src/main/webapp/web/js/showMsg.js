@@ -1,18 +1,19 @@
-function show_info(msg){
+var msg={};
+msg.info=function show_info(msg){
 	msg_info(msg);
 	window.setTimeout(remove_msg,5000); 
 }
 
-function show_success(msg){
+msg.success=function show_success(msg){
 	msg_success(msg);
 	window.setTimeout(remove_msg,5000); 
 }
 
-function show_error(msg){
+msg.error=function show_error(msg){
 	msg_error(msg);
 	window.setTimeout(remove_msg,5000); 
 }
-function remove_msg(){
+msg.remove=function remove_msg(){
 	$("#showMsg").html("");
 }
 function msg_info(msg){
