@@ -72,9 +72,9 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List<String> getOrgidBySysUser(List<SysRole> roleList) {
+	public List<String> getOrgidBySysUser(String orgid) {
 		
-		return loginDao.getOrgidBySysUser(roleList);
+		return loginDao.getOrgidBySysUser(orgid);
 	}
 	
 	

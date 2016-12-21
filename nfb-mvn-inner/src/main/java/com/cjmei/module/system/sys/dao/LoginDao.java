@@ -44,7 +44,7 @@ public interface LoginDao {
 
 	List<SysRole> getUserRoleList(@Param("userid")String userid);
 
-	List<String> getOrgidBySysUser(@Param("roleList")List<SysRole> roleList);
+	List<String> getOrgidBySysUser(@Param("orgid")String orgid);
 
 
 }

@@ -18,8 +18,6 @@ public class SysRole implements Serializable{
     */
     private String orgid;
     
-    private String orgParentId;
-    
     private String orgname;
     /**
     *更新时间
@@ -95,12 +93,6 @@ public class SysRole implements Serializable{
 	}
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
-	}
-	public String getOrgParentId() {
-		return orgParentId;
-	}
-	public void setOrgParentId(String orgParentId) {
-		this.orgParentId = orgParentId;
 	}
 	public String getOrgFullName() {
 		if(orgid != null){

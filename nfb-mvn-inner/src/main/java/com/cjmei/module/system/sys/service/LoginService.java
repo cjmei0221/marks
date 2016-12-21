@@ -26,6 +26,6 @@ public interface LoginService {
 
 	List<SysRole> getUserRoleList(String userid);
 
-	List<String> getOrgidBySysUser(List<SysRole> roleList);
+	List<String> getOrgidBySysUser(String orgid);
 
 }

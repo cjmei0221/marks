@@ -215,10 +215,7 @@ public class OrgInfoController extends SupportContorller {
 		List<String> plist = new ArrayList<String>();
 		String parentId = request.getParameter("parentId");
 		if (parentId == null || "".equals(parentId)) {
-			List<SysRole> s = admin.getRoleIds();
-			for (SysRole sv : s) {
-				plist.add(sv.getOrgParentId());
-			}
+			plist.add(admin.getOrgInfo().getParentId());
 		} else {
 			plist.add(parentId);
 		}
@@ -238,10 +235,7 @@ public class OrgInfoController extends SupportContorller {
 
 		List<String> plist = new ArrayList<String>();
 
-		List<SysRole> s = admin.getRoleIds();
-		for (SysRole sv : s) {
-			plist.add(sv.getOrgParentId());
-		}
+		plist.add(admin.getOrgInfo().getParentId());
 
 		List<OrgInfo> list = orgInfoService.list(plist);
 
