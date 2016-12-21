@@ -17,28 +17,24 @@
 		diary.UPDATETIME,
 		diary.CONTENT,
 		diary.CREATOR,
-		diary.TIME,
 		diary.TITLE,
 		diary.CREATETIME
 		)
 		VALUES(
 		#{ID:VARCHAR},
-		#{updatetime:TIMESTAMP},
+		sysdate,
 		#{content:VARCHAR},
 		#{creator:VARCHAR},
-		#{time:TIMESTAMP},
 		#{title:VARCHAR},
-		#{createtime:TIMESTAMP}
-
+		sysdate
 		)
 	</insert>
 
 	<update id="update" parameterType="com.cjmei.module.note.diary.pojo.Diary">
 		UPDATE TB_NOTE_DIARY diary
 		SET
-		diary.UPDATETIME = #{updatetime:TIMESTAMP},
+		diary.UPDATETIME = sysdate,
 		diary.CONTENT = #{content:VARCHAR},
-		diary.TIME = #{time:TIMESTAMP},
 		diary.TITLE = #{title:VARCHAR}
 		WHERE
 		diary.ID = #{ID}
@@ -69,7 +65,7 @@
 			and (
 			diary.CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			diary.TIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			diary.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
 			diary.TITLE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
@@ -78,12 +74,12 @@
 			and diary.CREATOR =#{userid:VARCHAR}
 		</if>
 		<if test="statedate!=null and statedate!=''">
-			and to_char(diary.TIME,'yyyy-mm-dd') &gt;= #{statedate}
+			and to_char(diary.CREATETIME,'yyyy-mm-dd') &gt;= #{statedate}
 		</if>
 		<if test="enddate!=null and enddate!=''">
-			and to_char(diary.TIME,'yyyy-mm-dd') &lt;= #{enddate}
+			and to_char(diary.CREATETIME,'yyyy-mm-dd') &lt;= #{enddate}
 		</if>
-		order by diary.TIME desc
+		order by diary.CREATETIME desc
 	</select>
 
 
