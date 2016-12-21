@@ -43,10 +43,10 @@
 		<div align="center" style="width: 100%;">
 			<form id="ff" name="ff" method="post">
 				<input type="hidden" id="id" name="id">
-				<table>
+				<table style="width: 100%;">
 					<tr>
 						<th style="width: 80px; text-align: right;">名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="qrName" name="qrName"
+						<td width="250px"><input id="qrName" name="qrName"
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px;"></td>
 					</tr>
