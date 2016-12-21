@@ -8,8 +8,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.login.util.LoginUtil;
 import com.cjmei.module.weixin.wfhao.pojo.WxUser;
+import com.cjmei.module.weixin.wfhao.util.WxUtil;
 
 public class WxUserInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log= Logger.getLogger(WxUserInterceptor.class);
@@ -23,7 +23,7 @@ public class WxUserInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Result result = new Result();
-		WxUser wxUser=LoginUtil.getInstance().getCurrentWxbUser(request);
+		WxUser wxUser=WxUtil.getInstance().getCurrentWxbUser(request);
 		if (null != wxUser) {
 			return true;
 		} else {

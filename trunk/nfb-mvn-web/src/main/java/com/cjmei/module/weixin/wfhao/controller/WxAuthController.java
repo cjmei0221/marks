@@ -12,12 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cjmei.common.domain.Result;
-import com.cjmei.module.login.util.LoginUtil;
-import com.cjmei.module.login.util.RunModel;
+import com.cjmei.module.runModel.RunModel;
 import com.cjmei.module.weixin.wfhao.config.PageConfigUtil;
 import com.cjmei.module.weixin.wfhao.pojo.WxUser;
 import com.cjmei.module.weixin.wfhao.service.WeixinAccountService;
 import com.cjmei.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.cjmei.module.weixin.wfhao.util.WxUtil;
 
 @Controller
 public class WxAuthController {
@@ -52,14 +52,14 @@ public class WxAuthController {
 					response.sendRedirect(return_url);
 				} else {
 					// 组装授权URL
-					String url = LoginUtil.getInstance().getWeixinUrl(accountid,
-							"/WECHAT/wxauth/callback.do?accountid=" + accountid);
+					String url = WxUtil.getInstance().getWeixinUrl(accountid,
+							request.getContextPath() + "/WECHAT/wxauth/callback.do?accountid=" + accountid);
 					response.sendRedirect(url);
 				}
 			} else {
 				logger.info("调用微信授权接口去授权>>6");
 				response.sendRedirect(
-						LoginUtil.getInstance().getCompleteUrl(accountid, PageConfigUtil.getProperty("errorUrl")));
+						WxUtil.getInstance().getCompleteUrl(accountid,request.getContextPath() + PageConfigUtil.getProperty("errorUrl")));
 			}
 		} catch (Exception e) {
 			logger.error("Exception:", e);
@@ -81,28 +81,28 @@ public class WxAuthController {
 			WxUser user = null;
 			if (RunModel.getInstance().getWeixinMode().equals("Y")) {
 				logger.info("通过code获取openid>>start");
-				String openid = LoginUtil.getInstance().getOpenIdByCode(code, accountid);
+				String openid = WxUtil.getInstance().getOpenIdByCode(code, accountid);
 				logger.info("通过code获取openid>>end");
 				if (null != openid && openid.length() > 5) {
 					logger.info(" weixin openid >> " + openid);
-					LoginUtil.getInstance().setCurrentOpenid(request, openid);
-					LoginUtil.getInstance().setCurrentAccountid(request, accountid);
+					WxUtil.getInstance().setCurrentOpenid(request, openid);
+					WxUtil.getInstance().setCurrentAccountid(request, accountid);
 					user = weixinAccountService.queryWxUserByOpenID(accountid, openid);
 					if (null == user || (null != user && user.getIssubscribe() == 0)) {
 						logger.info("未关注服务号>>openid>>" + openid);
-						to_url = PageConfigUtil.getProperty("unsubscribeurl");
+						to_url =request.getContextPath() + PageConfigUtil.getProperty("unsubscribeurl");
 					} else {
-						LoginUtil.getInstance().setCurrentWxbUser(request, user);
+						WxUtil.getInstance().setCurrentWxbUser(request, user);
 					}
 					// 更新关注者信息
 					UpdateWxUserhreadPool.updateWxUser(accountid, openid);
 				} else {
 					logger.info(" weixin openid is null ,openid=" + openid);
-					to_url = PageConfigUtil.getProperty("unsubscribeurl");
+					to_url = request.getContextPath() + PageConfigUtil.getProperty("unsubscribeurl");
 				}
 			}
 			logger.info("微信授权回调>>end");
-			String return_url = LoginUtil.getInstance().getCompleteUrl(accountid, to_url);
+			String return_url = WxUtil.getInstance().getCompleteUrl(accountid, to_url);
 			logger.info("微信授权回调结束之后跳转url>>" + return_url);
 			response.sendRedirect(return_url);
 		} catch (Exception e) {
@@ -111,7 +111,7 @@ public class WxAuthController {
 			result.setMessage("系统繁忙");
 			try {
 				response.sendRedirect(
-						LoginUtil.getInstance().getCompleteUrl(accountid, PageConfigUtil.getProperty("errorUrl")));
+						WxUtil.getInstance().getCompleteUrl(accountid, request.getContextPath() +PageConfigUtil.getProperty("errorUrl")));
 			} catch (IOException e1) {
 
 			}
