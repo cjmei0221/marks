@@ -4,24 +4,19 @@ $(function() {
 		el : '#app',
 		data : {
 			c_mobile : "",
-			c_password : "",
-			errorMsg:"ewrt",
-			msgFlag:false
+			c_password : ""
 		},
 		methods: {
 			summitForm:function(){
 				var _this=this;
 				if(_this.c_mobile == ''){
-					this.errorMsg="手机号码为空";
-					this.msgFlag=true;
-					return;
+					msg.error("手机号码为空");
+					return false;
 				}
 				if(_this.c_password == ''){
-					this.errorMsg="密码为空";
-					this.msgFlag=true;
-					return;
+					msg.error("密码为空");
+					return false;
 				}
-				console.log(this.msgFlag);
 				$.ajax({
 					url : '../data/dairyData.json',
 					type : 'POST',

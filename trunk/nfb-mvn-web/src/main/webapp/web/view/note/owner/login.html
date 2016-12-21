@@ -17,17 +17,11 @@
 
 </head>
 <body>
-
+	<div id="showMsg"></div>
 	<div class='container'>
 		<div id="app">
-			<div id="showMsg" v-show="msgFlag">
-				<div class="sui-msg msg-large msg-block msg-error">
-					<div class="msg-con">{{errorMsg}}</div>
-					<s class="msg-icon"></s>
-				</div>
-			</div>
 			<div style="height: 180px;"></div>
-			<form class="sui-form form-horizontal"
+			<div class="sui-form form-horizontal"
 				style="margin: 18px; text-align: -webkit-center;">
 				<fieldset>
 					<legend>登录</legend>
@@ -43,6 +37,7 @@
 							<input type="password" v-model="c_password" placeholder="密码">
 						</div>
 					</div>
+
 				</fieldset>
 				<div class="control-group">
 					<div class="controls">
@@ -53,7 +48,7 @@
 							href="javascript:void(0)" @click="resetForm">重置</button>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 </body>

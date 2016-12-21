@@ -1,23 +1,19 @@
-
 var msg={};
 msg.info=function show_info(msg){
 	msg_info(msg);
-	//setTimeout(remove_msg,5000); 
+	setTimeout(remove_msg,5000); 
 }
 
 msg.success=function show_success(msg){
 	msg_success(msg);
-	//setTimeout(remove_msg,5000); 
+	setTimeout(remove_msg,5000); 
 }
 
-msg.error=function show_error(msg){
-	alert("1");
+msg.error=function show_error(msg){	
 	msg_error(msg);
-	alert("2");
-	//setTimeout(remove_msg,5000); 
-	alert("6");
+	setTimeout(remove_msg,5000); 
 }
-msg.remove=function remove_msg(){
+function remove_msg(){
 	$("#showMsg").html("");
 }
 function msg_info(msg){
@@ -25,7 +21,7 @@ function msg_info(msg){
 	+'<div class="msg-con">'
 	+msg
 	+' </div>'
-	+'<s class="msg-icon"></s>'
+	/*+'<s class="msg-icon"></s>'*/
 	+'</div>';
 	$("#showMsg").html(divStr);
 }
@@ -35,7 +31,7 @@ function msg_success(msg){
 	+'<div class="msg-con">'
 	+msg
 	+' </div>'
-	+'<s class="msg-icon"></s>'
+	/*+'<s class="msg-icon"></s>'*/
 	+'</div>';
 	$("#showMsg").html(divStr);
 }
@@ -46,9 +42,7 @@ function msg_error(msg){
 	+'<div class="msg-con">'
 	+msg
 	+' </div>'
-	+'<s class="msg-icon"></s>'
+	/*+'<s class="msg-icon"></s>'*/
 	+'</div>';
 	$("#showMsg").html(divStr);
-	alert("5");
-	console.log($("#showMsg").html());
 }
