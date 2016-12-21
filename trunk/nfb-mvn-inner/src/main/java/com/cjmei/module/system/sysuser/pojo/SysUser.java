@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
 
 public class SysUser implements Serializable{
@@ -73,7 +74,16 @@ public class SysUser implements Serializable{
 	private String roleidsStr;
 	private String rolenamesStr;
 	private String orgidsStr;
-    public String getUserid(){
+	
+	private OrgInfo orgInfo;//所属组织最高机构
+	
+    public OrgInfo getOrgInfo() {
+		return orgInfo;
+	}
+	public void setOrgInfo(OrgInfo orgInfo) {
+		this.orgInfo = orgInfo;
+	}
+	public String getUserid(){
         return userid;
     }
     public void setUserid(String userid){

@@ -1,6 +1,5 @@
 package com.cjmei.module.system.sys.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +16,13 @@ import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.Constants;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.encrypt.EncryptUtil;
+import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.system.core.helper.SysUserHelper;
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.service.LoginService;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
-import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
 import com.cjmei.module.wx.wxaccount.service.WxAccountService;
 
 /**
@@ -70,7 +70,7 @@ public class LoginController {
 				if (password.equals(user.getPassword())) {
 					List<SysRole> roleList = loginService.getUserRoleList(user.getUserid());
 					if (roleList != null && roleList.size() > 0) {
-						if("0".equals(user.getCompanyId())){
+						if ("0".equals(user.getCompanyId())) {
 							user.setCompanyId(null);
 						}
 						result.setCode(0);
@@ -78,17 +78,16 @@ public class LoginController {
 						user.setLoginTime(new Date());
 						user.setPassword("");
 						user.setRoleIds(roleList);
+						OrgInfo orgInfo = StaticData.getOrgInfo(roleList.get(0).getOrgid());
+						user.setOrgInfo(orgInfo);
 						// 组织架构
 						boolean topflag = true;
-						for (SysRole sr : roleList) {
-							if (Constants.top_org_parentid_id.equals(sr.getOrgParentId())
-									|| "0".equals(sr.getOrgParentId())) {
-								topflag = false;
-								break;
-							}
+						if (Constants.top_org_parentid_id.equals(orgInfo.getParentId())
+								|| "0".equals(orgInfo.getParentId())) {
+							topflag = false;
 						}
 						if (topflag) {
-							List<String> orgids = loginService.getOrgidBySysUser(roleList);
+							List<String> orgids = loginService.getOrgidBySysUser(orgInfo.getOrgid());
 							user.setOrgids(orgids);
 						} else {
 							user.setOrgids(null);
