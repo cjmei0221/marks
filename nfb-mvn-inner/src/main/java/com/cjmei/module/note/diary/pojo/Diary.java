@@ -2,6 +2,7 @@ package com.cjmei.module.note.diary.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Diary implements Serializable{
 
@@ -14,7 +15,7 @@ public class Diary implements Serializable{
     /**
     *更新时间
     */
-    private Timestamp updatetime;
+    private Date updatetime;
     /**
     *正文
     */
@@ -24,34 +25,36 @@ public class Diary implements Serializable{
     */
     private String creator;
     /**
-    *日记时间
-    */
-    private Timestamp time;
-    /**
     *标题
     */
     private String title;
     /**
     *创建时间
     */
-    private Timestamp createtime;
+    private Date createtime;
 
 
 
-    public String getID(){
+    public Date getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+	public Date getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+	public String getID(){
         return ID;
     }
     public void setID(String ID){
         this.ID = ID;
     }
 
-    public Timestamp getUpdatetime(){
-        return updatetime;
-    }
-    public void setUpdatetime(Timestamp updatetime){
-        this.updatetime = updatetime;
-    }
-
+   
     public String getContent(){
         return content;
     }
@@ -66,13 +69,7 @@ public class Diary implements Serializable{
         this.creator = creator;
     }
 
-    public Timestamp getTime(){
-        return time;
-    }
-    public void setTime(Timestamp time){
-        this.time = time;
-    }
-
+    
     public String getTitle(){
         return title;
     }
@@ -80,12 +77,6 @@ public class Diary implements Serializable{
         this.title = title;
     }
 
-    public Timestamp getCreatetime(){
-        return createtime;
-    }
-    public void setCreatetime(Timestamp createtime){
-        this.createtime = createtime;
-    }
 
 
 }

@@ -44,7 +44,7 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
-			initTime();
+			$("#dateStr").html(appInfo.selectedData.createtime);
 			var str=del_html_tags(appInfo.selectedData.content,"<br/>","\r\n");
 			$("#content").val(str);
 		}
@@ -87,7 +87,7 @@ function initTime() {
 	strDate += curr_time.getHours() + ":";
 	strDate += curr_time.getMinutes() + ":";
 	strDate += curr_time.getSeconds();
-	$("#time").datetimebox("setValue", strDate);
+	$("#dateStr").html(strDate+"");
 }
 /**
  * 保存菜单
@@ -145,7 +145,7 @@ function loadList() {
 			hidden : true
 		}, {
 			title : '日记时间',
-			field : 'time',
+			field : 'createtime',
 			width : 120,
 			align : "center"
 		}, {
@@ -186,7 +186,6 @@ function loadList() {
 			data : appInfo.requestParam,
 			dataType : "json",
 			success : function(data, status, xhr) {
-				checkLogin(data);
 				if (data.retcode == 0) {
 					var list = data.list;
 					that.data().datagrid["cache"] = data;

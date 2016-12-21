@@ -49,16 +49,15 @@
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="ID" name="ID">
 			<table class="out-win-cls">
-				<tr>
-					<th width="50px">日记时间</th>
-					<td width="600px" align="left"><input id="time" name="time"
-						class="easyui-datetimebox"></td>
-				</tr>
+				
 				<tr>
 					<th width="50px">标题</th>
 					<td width="600px" align="left"><input id="title" name="title"
 						class="easyui-validatebox"
 						style='width: 800px; height: 30px;'></td>
+				</tr>
+				<tr>
+					<td width="650px" colspan="2" style="padding: 10px 0px;"><span id="dateStr"></span></td>
 				</tr>
 				<tr>
 					<td colspan="2" width="650px"><textarea id="content"
@@ -72,8 +71,8 @@
 
 				<tr>
 					<td colspan="2" style="text-align: center"><input
-						type="button" id="btnCancel" name="btnCancel" value=" 取 消 " />&nbsp;&nbsp;&nbsp;
-						<input type="button" id="btnOK" name="btnOK" value=" 保 存 " /></td>
+						type="button" id="btnCancel" name="btnCancel" value=" 取 消 " style="display:none;" />&nbsp;&nbsp;&nbsp;
+						<input type="button" id="btnOK" name="btnOK" value=" 保 存 " style="width:200px;height:35px;"/></td>
 				</tr>
 			</table>
 		</form>

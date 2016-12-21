@@ -71,8 +71,6 @@ public class DiaryController extends SupportContorller{
 	    	Diary diary = getModel(Diary.class);
 	 //     diary.setID(IDUtil.getTimeID());
 	    	diary.setCreator(admin.getUserid());
-	    	diary.setCreatetime(new Timestamp(System.currentTimeMillis()));
-	    	diary.setUpdatetime(new Timestamp(System.currentTimeMillis()));
 			diaryService.save(diary);
 			result.setMessage("保存成功");
 			result.setCode(Code.CODE_SUCCESS);
@@ -93,7 +91,6 @@ public class DiaryController extends SupportContorller{
 		Result result = new Result();
 		try {
 		    Diary diary = getModel(Diary.class);
-	    	diary.setUpdatetime(new Timestamp(System.currentTimeMillis()));
 			diaryService.update(diary);
 			result.setMessage("更新成功!");
 			result.setCode(Code.CODE_SUCCESS);
