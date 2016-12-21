@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.enums.Enums;
 import com.cjmei.common.util.Constants;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.encrypt.EncryptUtil;
@@ -62,7 +63,7 @@ public class LoginController {
 			result.setCode(4001);
 			result.setMessage("用户不存在");
 		} else {
-			if (Constants.sys_user_activeflag_nouse == user.getActiveFlag()) {
+			if (Enums.SysUserUse.NOUSE.getValue() == user.getActiveFlag()) {
 				result.setCode(4002);
 				result.setMessage("用户被禁用");
 			} else {
