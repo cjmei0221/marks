@@ -51,18 +51,18 @@ public class PopedomFilter implements Filter {
 		List<String> list = StaticData.getUrlList();
 		boolean flag = false;
 		if (list.contains(url)) {
-			Log.info("----url: 2");
-			if(sysUser != null && sysUser.getUserUrlList().contains(url)){
-				Log.info("----url: 1");
+
+			if (sysUser != null && sysUser.getUserUrlList().contains(url)) {
+
 				flag = true;
 			}
-			
+
 		} else {
 			if ("/sys/menu".equals(url) && sysUser == null) {
-				Log.info("----url: 4");
+
 				flag = false;
 			} else {
-				Log.info("----url: 5");
+
 				flag = true;
 			}
 		}
