@@ -13,7 +13,13 @@
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
 <link rel="stylesheet"
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-
+<script type='text/javascript'
+	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+	src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+	src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
+	charset='utf-8'></script>
 </head>
 <body>
 
@@ -24,8 +30,7 @@
 			<!-- 标题栏 -->
 			<header class="bar bar-nav">
 				<a class="icon icon-me pull-left open-panel"></a> <a
-					class="icon icon-edit pull-right" href="javascript:void(0)"
-					@click="toAdd()"></a>
+					class="icon icon-edit pull-right" href="./add.html"></a>
 				<h1 class="title">日记</h1>
 			</header>
 			<div class="bar bar-header-secondary">
@@ -38,25 +43,9 @@
 			</div>
 			<!-- 这里是页面内容区 -->
 			<div id="content" class="content infinite-scroll" data-distance="100">
-				<div v-for="item in dataList" track-by="id">
-					<div class="list-block media-list">
-						<ul>
-							<li><a href="javascript:void(0)" @click="toDatail(item.id)"
-								class="item-link item-content">
-									<div class="item-inner">
-										<div class="item-title-row">
-											<div class="item-title">{{item.title}}</div>
-										</div>
-										<div class="item-subtitle"
-											style="font-size: .60rem; margin-bottom: 10px;">{{item.dairyDate}}</div>
-										<div class="item-text" style="word-wrap: break-word;">{{item.shortContent}}</div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-				</div>
+				<div id="listDiv"></div>
 				<!-- 加载提示符 -->
-				<div v-show="isLoading" class="infinite-scroll-preloader">
+				<div id="isLoading" class="infinite-scroll-preloader">
 					<div class="preloader"></div>
 				</div>
 			</div>
@@ -65,10 +54,10 @@
 		<div class="panel panel-left panel-reveal">
 			<div class="content-block">
 				<p>
-					<a class="icon icon-me" href="javascript:void(0)" @click="toMyInfo">cjmei</a>
+					<a class="icon icon-me close-panel" href="../owner/myInfo.html">cjmei</a>
 				</p>
 				<p>
-					<a href="javascript:void(0)" @click="toChangePwd">修改密码</a>
+					<a class="close-panel" href="../owner/changePwd.html">修改密码</a>
 				</p>
 				<!-- Click on link with "close-panel" class will close panel -->
 				<p>
@@ -76,22 +65,25 @@
 				</p>
 			</div>
 		</div>
-
-
 	</div>
-
-	<script type='text/javascript'
-		src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-	<script type='text/javascript'
-		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-	<script type='text/javascript'
-		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
-		charset='utf-8'></script>
-	<script type='text/javascript' src='../../../assets/vue/vue.min.js'
-		charset='utf-8'></script>
-	<script type='text/javascript' src='../../../js/my-config.js'
-		charset='utf-8'></script>
-	<script type='text/javascript' src='./list.js' charset='utf-8'></script>
-
 </body>
+<script type='text/javascript' src='../../../js/my-config.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../js/tool.js' charset='utf-8'></script>
+<script type='text/javascript' src='./list.js' charset='utf-8'></script>
+<script type="text/html" id="listTrTmp">
+  <div class="list-block media-list">
+	<ul>
+		<li><a href="./detail.html?id={id}" class="item-link item-content">
+			<div class="item-inner">
+				<div class="item-title-row">
+					<div class="item-title">{title}</div>
+				</div>
+				<div class="item-subtitle" style="font-size: .60rem; margin-bottom: 10px;">{dairyDate}</div>
+				<div class="item-text" style="word-wrap: break-word;">{shortContent}</div>
+			</div>
+		</a></li>
+	</ul>
+ </div>
+</script>
 </html>
