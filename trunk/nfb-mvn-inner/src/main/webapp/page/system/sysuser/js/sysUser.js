@@ -11,7 +11,7 @@ var appInfo = {
 		page_number : 1,
 		page_size : 10,
 		keyword : "",
-		ssorgid:""
+		ssorgid : ""
 	},
 	formStatus : "new",
 	checkRole : []
@@ -38,7 +38,9 @@ $(function() {
 		appInfo.formStatus = "new";
 		appInfo.checkRole = [];
 		$("#inputRoleDiv").html('');
-		$("#bind_mobile").numberbox({disabled:false});
+		$("#bind_mobile").numberbox({
+			disabled : false
+		});
 	});
 
 	// 编辑
@@ -59,7 +61,9 @@ $(function() {
 					showMsg(data.retmsg);
 				}
 			});
-			$("#bind_mobile").numberbox({disabled:true});
+			$("#bind_mobile").numberbox({
+				disabled : true
+			});
 		}
 	});
 
@@ -101,7 +105,7 @@ $(function() {
 			});
 		}
 	});
-	
+
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -126,39 +130,41 @@ $(function() {
 		$("#roleWin").window("close");
 	});
 });
-function checkPhone(val){ 
-    if(!(/^1(3|4|5|7|8)\d{9}$/.test(val))){ 
-    	showMsg("手机号码格式有误，请重填");
-        return false; 
-    } 
-    return true;
+function checkPhone(val) {
+	if (!(/^1(3|4|5|7|8)\d{9}$/.test(val))) {
+		showMsg("手机号码格式有误，请重填");
+		return false;
+	}
+	return true;
 }
 /**
  * 保存菜单
  */
 function formSubmit() {
-	$("#bind_mobile").numberbox({disabled:false});
+	$("#bind_mobile").numberbox({
+		disabled : false
+	});
 	if (!$('#ff').form('validate')) {
 		showMsg("表单校验不通过");
 		return;
 	}
 	if (appInfo.checkRole.length == 0) {
-		showMsg("权限角色为空");
+		showMsg("所属组织为空");
 		return;
 	}
-	var phoneVar=checkPhone($("bind_mobile").val());
-	if(phoneVar){
-		return;	
+	var phoneVar = checkPhone($("bind_mobile").val());
+	if (phoneVar) {
+		return;
 	}
-	
+
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	$('#ff').form('submit', {
 		url : reqUrl,
 		onSubmit : function(param) {
 			param.formStatus = appInfo.formStatus;
-			param.roleIdsPut = appInfo.checkRole.join(",");
-			param.companyId=$("#companyId").val();
+			param.orgIdsPut = appInfo.checkRole.join(",");
+			param.companyId = $("#companyId").val();
 		},
 		success : function(data) {
 			if (typeof data === 'string') {
@@ -233,7 +239,7 @@ function loadList() {
 					return "启用";
 				}
 			}
-		
+
 		}, {
 			title : '创建时间',
 			field : 'createtime',
@@ -297,109 +303,75 @@ function loadList() {
 }
 
 function loadRoleList() {
-	$('#roleList')
-			.datagrid(
-					{
-						url : top.window.urlBase + '/sysRole/list.do',
-						toolbar : "#roleTb",
-						striped : true,
-						nowrap : true,
-						rownumbers : true,
-						animate : true,
-						collapsible : true,
-						fitColumns : true,
-						pagination : true,
-						idField : 'roleid',
-						pagination : true,
-						pageNumber : 1,
-						pageSize : 10,
-						singleSelect : true,
-						columns : [ [ {
-							title : '角色ID',
-							field : 'roleid',
-							width : 100,
-							align : "center"
-						}, {
-							title : '角色名称',
-							field : 'rolename',
-							width : 100,
-							align : "center"
-						}, {
-							title : '组织名称',
-							field : 'orgname',
-							width : 100,
-							align : "center"
-						}, {
-							title : '组织全称',
-							field : 'orgFullName',
-							width : 200,
-							align : "left"
-						} ] ],
-						loader : function(params, success, loadError) {
-							var that = $(this);
-							roleloader(that, params, success, loadError);
-						},
-						onClickRow : function(rowIndex, rowData) {
-							var flag = true;
-							var conp = $("#companyId").val();
-							if (conp == null || conp == '') {
-								$("#companyId").val(rowData.companyId);
-							} else {
-								if (conp != rowData.companyId) {
-									flag = false;
-									showMsg("所属公司不一致");
-								}
-							}
-							if(appInfo.checkRole.length<1){
-								if (flag) {
-									if(addRole(rowData.roleid)){
-										initRolePut(rowData.roleid,rowData.rolename);
-									}
-									
-								}
-							}else{
-								showMsg("只能添加一个角色");
-							}
-						},
-						onLoadSuccess : function(data) {
-
+	$('#tbList').treegrid(
+			{
+				url : top.window.urlBase + '/orgInfo/list.do',
+				striped : true,
+				nowrap : true,
+				rownumbers : true,
+				animate : true,
+				collapsible : true,
+				fitColumns : true,
+				idField : 'orgid',
+				treeField : 'orgname',
+				singleSelect : true,
+				queryParams : {
+					userflag : 1
+				},
+				columns : [ [ {
+					title : '组织名称',
+					field : 'orgname',
+					width : 150,
+					align : "left"
+				}, {
+					title : '组织ID',
+					field : 'orgid',
+					width : 100,
+					align : "center"
+				}, {
+					title : '创建时间',
+					field : 'createtime',
+					width : 100,
+					align : "center"
+				}, {
+					title : '更新时间',
+					field : 'updatetime',
+					width : 100,
+					align : "center"
+				}, {
+					title : '创建者',
+					field : 'creator',
+					width : 100,
+					align : "center"
+				} ] ],
+				onBeforeExpand : function(row) {
+					$("#tbList").treegrid("options").url = appInfo.listUrl
+							+ "?parentId=" + row.orgid + "&_timer="
+							+ new Date().getTime();
+				},
+				onClickRow : function(rowData) {
+					var flag = true;
+					var conp = $("#companyId").val();
+					if (conp == null || conp == '') {
+						$("#companyId").val(rowData.companyId);
+					} else {
+						if (conp != rowData.companyId) {
+							flag = false;
+							showMsg("所属公司不一致");
 						}
-					});
-	// 请求加载数据
-	function roleloader(that, params, success, loadError) {
-		var opts = that.datagrid("options");
-		var reqParam = {
-			page_number : params.page,
-			page_size : params.rows,
-			sorgid : $("#sorgid").combotree("getValue")
-		}
-		$.ajax({
-			url : opts.url,
-			type : "get",
-			data : reqParam,
-			dataType : "json",
-			success : function(data, status, xhr) {
-				if (data.retcode == 0) {
-					var list = data.list;
-					that.data().datagrid["cache"] = data;
-					success({
-						"total" : list.length,
-						"rows" : list
-					});
-					return true;
-				} else {
-					showMsg(data.retmsg);
-					success({
-						"total" : 0,
-						"rows" : []
-					});
+					}
+
+					if (flag) {
+						if (addRole(rowData.roleid)) {
+							initRolePut(rowData.roleid, rowData.rolename);
+						}
+
+					}
+				},
+				onLoadSuccess : function(row, data) {
+
 				}
-			},
-			error : function(err) {
-				loadError.apply(this, arguments);
-			}
-		});
-	}
+			});
 }
 
 // 删除功能
@@ -439,22 +411,21 @@ function delRole(id) {
 		appInfo.checkRole.remove(id);
 	}
 }
-function initUser(user){
+function initUser(user) {
 	$("#companyId").val(user.companyId);
-	appInfo.checkRole=user.roleidsStr.split(",");
-	var rolenames=user.rolenamesStr.split(",");
-	for(var i=0;i<appInfo.checkRole.length;i++){
-		initRolePut(appInfo.checkRole[i],rolenames[i]);
+	appInfo.checkRole = user.roleidsStr.split(",");
+	var rolenames = user.rolenamesStr.split(",");
+	for (var i = 0; i < appInfo.checkRole.length; i++) {
+		initRolePut(appInfo.checkRole[i], rolenames[i]);
 	}
 }
-function initRolePut(roleid,rolename){
+function initRolePut(roleid, rolename) {
 	$("#inputRoleDiv")
-	.append(
-			"<p id='"
-					+ roleid
-					+ "'>角色：<span>"
-					+ rolename
-					+ "</span>&nbsp;&nbsp;<a href='#' onclick=\"javascript:delRoleTr(\'"
-					+ roleid
-					+ "\')\">删除</a></p>");
+			.append(
+					"<p id='"
+							+ roleid
+							+ "'>角色：<span>"
+							+ rolename
+							+ "</span>&nbsp;&nbsp;<a href='#' onclick=\"javascript:delRoleTr(\'"
+							+ roleid + "\')\">删除</a></p>");
 }

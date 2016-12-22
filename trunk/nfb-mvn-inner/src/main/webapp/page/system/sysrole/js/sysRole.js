@@ -3,7 +3,6 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/sysRole/save.do',// 保存新增角色管理接口
 	updateUrl : top.window.urlBase + '/sysRole/update.do',// 编辑角色管理信息接口
 	deleteUrl : top.window.urlBase + '/sysRole/delete.do',// 删除角色管理接口
-	orgListUrl : top.window.urlBase + '/orgInfo/list.do',// 删除角色管理接口
 	funcListUrl : top.window.urlBase + '/sysRole/funclist.do',// 删除角色管理接口
 	funcSaveUrl : top.window.urlBase + '/sysRole/funcSave.do',// 删除角色管理接口
 	selectedId : -1,
@@ -12,7 +11,7 @@ var appInfo = {
 		page_number : 1,
 		page_size : 10,
 		keyword : "",
-		sorgid : ""
+		s_lvl : ""
 	},
 	formStatus : "new"
 };
@@ -195,7 +194,7 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
-		appInfo.requestParam.sorgid = $("#sorgid").combotree("getValue");
+		appInfo.requestParam.s_lvl = $("#s_lvl").combobox("getValue");
 		$.ajax({
 			url : opts.url,
 			type : "get",
