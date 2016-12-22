@@ -15,12 +15,15 @@
 		from TB_SYS_USER u join (
 		select
 		t.userid,
-		listagg(t.roleid, ',') within group(order by t.roleid) over(partition by t.userid)
+		listagg(t.roleid, ',') within group(order by t.roleid)
+		over(partition by t.userid)
 		roleidsStr,
-		listagg(tsr.rolename, ',') within group(order by t.roleid) over(partition by t.userid)
+		listagg(tsr.rolename, ',')
+		within group(order by t.roleid) over(partition by t.userid)
 		rolenamesStr
 		from tb_sys_user_role t
-		join tb_sys_role tsr on t.roleid = tsr.roleid) sur on u.userid=sur.userid
+		join tb_sys_role tsr on t.roleid =
+		tsr.roleid) sur on u.userid=sur.userid
 		where u.USERID =#{userid}
 	</select>
 
@@ -145,25 +148,30 @@
 
 	<select id="list" resultType="com.cjmei.module.system.sysuser.pojo.SysUser"
 		parameterType="java.util.Map">
-		SELECT distinct sysuser.*, listagg(tsr.roleid, ',') within
+		SELECT distinct sysuser.*,
+		rtb.roleidsStr,
+		rtb.rolenamesStr,
+		orgtb.orgidsStr,
+		orgtb.orgidNamesStr
+		FROM TB_SYS_USER sysuser
+		join (select tsur.userid, listagg(tsr.roleid, ',') within
 		group(
-		order
-		by tsr.roleid) over(partition by sysuser.userid) as roleidsStr,
+		order by tsr.roleid) over(partition by tsur.userid) as roleidsStr,
 		listagg(tsr.rolename, ',') within
 		group(
-		order by tsr.rolename)
-		over(partition by sysuser.userid) as rolenamesStr,
-		listagg(tsr.orgid,
-		',') within
+		order by tsr.rolename) over(partition by tsur.userid) as rolenamesStr
+		from tb_sys_user_role tsur
+		join tb_sys_role tsr on tsur.roleid = tsr.roleid
+		) rtb on sysuser.userid = rtb.userid
+		join (select tsuo.userid, listagg(toi.orgid, ',') within
 		group(
-		order by tsr.orgid) over(partition by sysuser.userid)
-		as orgidsStr
-		FROM TB_SYS_USER sysuser
-		join tb_sys_user_role tsur on
-		sysuser.userid = tsur.userid
-		join tb_sys_role tsr on tsur.roleid =
-		tsr.roleid
-		WHERE 1=1
+		order by toi.orgid) over(partition by tsuo.userid) as orgidsStr,
+		listagg(toi.orgname, ',') within
+		group(
+		order by toi.orgid) over(partition by tsuo.userid) as orgidNamesStr
+		from tb_sys_user_org tsuo
+		join tb_org_info toi on tsuo.orgid = toi.orgid
+		where 1=1
 		<if test="orgids !=null">
 			and tsr.orgid in
 			<foreach collection="orgids" item="oid" index="index" open="("
@@ -171,20 +179,19 @@
 				#{oid}
 			</foreach>
 		</if>
-		<if test="userType !=null and userType != ''">
-			and sysuser.USERTYPE = #{userType}
-		</if>
+		) orgtb on sysuser.userid =
+		orgtb.userid
+		WHERE 1=1
+		and sysuser.USERTYPE is not null
 		<if test="companyId !=null and companyId != ''">
 			and sysuser.COMPANYID = #{companyId}
 		</if>
 		<if test="keyword!=null and keyword!=''">
 			and (
-			sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or sysuser.USERNAME LIKE
+			sysuser.USERID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or sysuser.PASSWORD LIKE
+			or sysuser.USERNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
 			or sysuser.BIND_MOBILE LIKE
@@ -196,9 +203,6 @@
 			or sysuser.CREATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or sysuser.UPDATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
 			or sysuser.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
@@ -208,19 +212,15 @@
 			or sysuser.TOKEN LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or sysuser.USERTYPE LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or tsr.rolename LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
 			)
 		</if>
 		<if test="sorgid !=null and sorgid != ''">
-			and tsr.orgid = #{sorgid}
+			and orgtb.orgidsStr like '%${sorgid}%'
+		</if>
+		<if test="s_role !=null and s_role != ''">
+			and rtb.roleidsStr like '%${s_role}%'
 		</if>
 		order by sysuser.UPDATETIME desc
-
 	</select>
 
 	<delete id="deleteSysUserOrg" parameterType="String">
@@ -235,7 +235,6 @@
 		CREATETIME,
 		UPDATETIME,
 		CREATOR
-
 		)
 		VALUES(
 		#{userid:VARCHAR},

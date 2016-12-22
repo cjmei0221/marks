@@ -19,10 +19,10 @@
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
-					<td>用户级别：
-						<ul id="s_lvl" name="s_lvl" class="easyui-combobox"
-							data-options="url:'<%=request.getContextPath()%>/sysRole/lvl.do'"
-							style="width: 200px"></ul>
+					<td>用户级别： <input id="s_lvl" name="s_lvl"
+						class="easyui-combobox"
+						data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/sysRole/lvl.do'"
+						style="width: 200px" />
 					</td>
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="关键字" /></td>
@@ -50,31 +50,36 @@
 				<input type="hidden" id="roleid" name="roleid">
 				<table>
 					<tr>
-						<th align="right">英文缩写</th>
+						<th align="right" style="width: 100px">英文缩写</th>
 						<td><input id="userType" name="userType"
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px"></td>
 					</tr>
 					<tr>
-						<th align="right">名称</th>
+						<th align="right" style="width: 100px">名称</th>
 						<td><input id="rolename" name="rolename"
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px"></td>
 					</tr>
 					<tr>
-						<th align="right">级别</th>
-						<td><ul id="lvl" name="lvl" class="easyui-combobox"
-								data-options="url:'<%=request.getContextPath()%>/sysRole/lvl.do'"
-								style="width: 200px" data-options="required:true"></ul></td>
+						<th align="right" style="width: 100px">级别</th>
+						<td><input id="lvl" name="lvl" class="easyui-combobox"
+							data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/sysRole/lvl.do',required:true"
+							style="width: 200px" data-options="required:true"></td>
 					</tr>
 					<tr>
-						<th align="right">表单标识</th>
-						<td>
-							<select id="showFlag" name="showFlag" class="easyui-combobox" data-options="required:true">
+						<th align="right" style="width: 100px">表单标识</th>
+						<td><select id="showFlag" name="showFlag"
+							class="easyui-combobox" data-options="required:true" style="width: 200px">
 								<option value="1">是</option>
 								<option value="0">否</option>
-							</select>
-						</td>
+						</select></td>
+					</tr>
+					<tr>
+						<th align="right" style="width: 100px">公司</th>
+						<td><input id="companyId" name="companyId" class="easyui-combobox"
+							data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/orgInfo/combo.do',required:true"
+							style="width: 200px" data-options="required:true"></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center"><input
