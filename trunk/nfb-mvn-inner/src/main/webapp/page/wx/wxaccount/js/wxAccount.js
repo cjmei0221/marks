@@ -3,6 +3,7 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/wxAccount/save.do',// 保存新增公众号管理接口
 	updateUrl : top.window.urlBase + '/wxAccount/update.do',// 编辑公众号管理信息接口
 	deleteUrl : top.window.urlBase + '/wxAccount/delete.do',// 删除公众号管理接口
+	syncWxFansUrl : top.window.urlBase + '/wxUser/sync.do',//更新粉丝
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -68,7 +69,23 @@ $(function() {
 			});
 		}
 	});
-
+	// 更新粉丝
+	$("#syncWxFans").on("click", function() {
+		if (isSelectedOne(appInfo.selectedId)) {
+			$.messager.confirm('Confirm', '确认同步更新粉丝吗?', function(r) {
+				if (r) {
+					var parms = "accountId=" + appInfo.selectedId;
+					$.post(appInfo.syncWxFansUrl, parms, function(data) {
+						if (data.retcode == 0) {
+							showMsg("是否更新以实际为准");
+						} else {
+							showMsg(data.retmsg);
+						}
+					});
+				}
+			});
+		}
+	});
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();

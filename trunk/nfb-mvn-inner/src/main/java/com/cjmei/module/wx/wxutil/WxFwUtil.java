@@ -1,7 +1,10 @@
 package com.cjmei.module.wx.wxutil;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +13,11 @@ import org.apache.log4j.Logger;
 
 import com.cjmei.common.domain.Result;
 import com.cjmei.module.wx.wxmenu.pojo.WxMenu;
+import com.cjmei.module.wx.wxuser.pojo.UserGet;
+import com.cjmei.module.wx.wxuser.pojo.WxUser;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 调用微信接口服务工具类
@@ -210,5 +216,78 @@ public class WxFwUtil {
 		}
 
 		return str;
+	}
+	
+	/**
+	 * 获取粉丝列表
+	 * 
+	 * @param accountId
+	 * @param openid
+	 * @param content
+	 * @throws Exception
+	 */
+	public UserGet getWXUserOpenId(String accountid, String next_openid) throws Exception {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("accountid", accountid);
+		params.put("next_openid", next_openid);
+		JsonResult result = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/getWXUserOpenId.do", params, null,
+				CHARSET);
+		if (result.getSuccess()) {
+			JSONObject userobj = JSONObject.fromObject(result.getResult());
+			UserGet ug = new UserGet();
+			ug.setNext_openid(userobj.getString("next_openid"));
+			JSONArray arrobj = JSONArray.fromObject(userobj.get("openid_list"));
+			List<String> openid_list = new ArrayList<String>();
+			if (null != arrobj && arrobj.size() > 0) {
+				for (Object openid : arrobj) {
+					openid_list.add(String.valueOf(openid));
+				}
+			}
+			ug.setOpenid_list(openid_list);
+			return ug;
+		}
+		return null;
+	}
+	/**
+	 * 获取用户基本信息
+	 * 
+	 * @param accountId
+	 * @param openid
+	 * @return
+	 * @throws Exception
+	 */
+	public WxUser getUserInfo(String accountId, String openid) throws Exception {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("accountid", accountId);
+		params.put("openid", openid);
+		WxUser user = null;
+		JsonResult result = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/getUserInfo.do", params, null,
+				CHARSET);
+		if (result.getSuccess()) {
+			JSONObject userobj = JSONObject.fromObject(result.getResult());
+			if (null != userobj) {
+				user = new WxUser();
+				user.setAccountid(accountId);
+				user.setCity(userobj.getString("city"));
+				user.setCountry(userobj.getString("country"));
+				user.setGroupid(userobj.getInt("group_id"));
+				user.setImageUrl(userobj.getString("image_url"));
+				user.setIssubscribe(userobj.getInt("is_subscribe"));
+				user.setLanguage(userobj.getString("language"));
+				String username = userobj.getString("nickname");
+				try {
+					username = URLDecoder.decode(username, "utf-8");
+				} catch (Exception e) {
+					username = user.getNickname();
+				}
+				user.setNickname(username);
+				user.setOpenid(openid);
+				user.setSex(userobj.getInt("sex"));
+				user.setProvince(userobj.getString("province"));
+				user.setSubscribetime(new Timestamp(userobj.getLong("subscribe_time")));
+				user.setRemark(userobj.getString("remark"));
+			}
+		}
+		return user;
 	}
 }

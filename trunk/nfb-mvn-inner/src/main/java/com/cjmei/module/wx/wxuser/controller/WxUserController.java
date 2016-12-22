@@ -18,14 +18,14 @@ import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.enums.Enums;
 import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
+import com.cjmei.module.autocode.core.util.Code;
 import com.cjmei.module.system.core.helper.SysUserHelper;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
-
+import com.cjmei.module.wx.wxuser.pojo.UserGet;
 import com.cjmei.module.wx.wxuser.pojo.WxUser;
 import com.cjmei.module.wx.wxuser.service.WxUserService;
+import com.cjmei.module.wx.wxutil.WxFwUtil;
 
 @Controller
 public class WxUserController extends SupportContorller{
@@ -246,6 +246,32 @@ public class WxUserController extends SupportContorller{
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			result.setMessage("findAll wxUser fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+    
+	/**
+	 * 删除粉丝管理
+	 */
+    @RequestMapping("/wxUser/sync")
+    public void syncWxFans(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+		   	String accountId=request.getParameter("accountId");
+		   	UserGet ug=WxFwUtil.getInstance().getWXUserOpenId(accountId, "");
+		   	if(ug !=null){
+				for(String openid:ug.getOpenid_list()){
+					WxUser user = WxFwUtil.getInstance().getUserInfo(accountId, openid);
+					wxUserService.saveOrUpdateWxUser(user);
+				}
+			}
+			result.setMessage("删除成功!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			result.setMessage("删除失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
