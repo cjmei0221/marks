@@ -76,18 +76,18 @@ public class SysUser implements Serializable{
 	private String roleidsStr;
 	private String rolenamesStr;
 	private String orgidsStr;
+	private String orgidNamesStr;
 	/**
 	 * 用户所属机构集合
 	 */
 	private List<OrgInfo> orgInfoList;
 	
-	private int roleTopLvl;
 	
-	public int getRoleTopLvl() {
-		return roleTopLvl;
+	public String getOrgidNamesStr() {
+		return orgidNamesStr;
 	}
-	public void setRoleTopLvl(int roleTopLvl) {
-		this.roleTopLvl = roleTopLvl;
+	public void setOrgidNamesStr(String orgidNamesStr) {
+		this.orgidNamesStr = orgidNamesStr;
 	}
 	public List<OrgInfo> getOrgInfoList() {
 		return orgInfoList;

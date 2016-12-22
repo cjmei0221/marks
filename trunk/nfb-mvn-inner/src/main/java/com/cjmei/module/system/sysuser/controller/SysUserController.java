@@ -75,11 +75,10 @@ public class SysUserController extends SupportContorller{
 	 		SysUser ori=sysUserService.findByMobile(sysUser.getBind_mobile());
 	 		if(ori==null){
 	 			//密码处理
-	 			String roleIdsPut=request.getParameter("s_role");
+	 			String roleIdsPut=request.getParameter("roleids");
 	 			String orgIdsPut=request.getParameter("orgIdsPut");
 	 			sysUser.setPassword(defaultPwd);
 	 			sysUser.setCreator(admin.getUserid());
-	 			sysUser.setUserType(Enums.UserType.SYS.getValue());
 	 			sysUserService.save(sysUser,roleIdsPut,orgIdsPut);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -109,7 +108,7 @@ public class SysUserController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	String roleIdsPut=request.getParameter("s_role");
+		    	String roleIdsPut=request.getParameter("roleids");
 	 			String orgIdsPut=request.getParameter("orgIdsPut");
 		    	sysUserService.update(sysUser,roleIdsPut,orgIdsPut);
 				result.setMessage("更新成功!");
@@ -206,6 +205,7 @@ public class SysUserController extends SupportContorller{
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");
 			String ssorgid=request.getParameter("ssorgid");
+			String s_role=request.getParameter("s_role");
 			if(keyword==null){
 				keyword="";
 			}
@@ -214,6 +214,7 @@ public class SysUserController extends SupportContorller{
 			param.put("orgids", admin.getOrgids());
 			param.put("companyId", admin.getCompanyId());
 			param.put("sorgid", ssorgid);
+			param.put("s_role", s_role);
 			param.put("userType", Enums.UserType.SYS.getValue());
 			PojoDomain<SysUser> list = sysUserService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());

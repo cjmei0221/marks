@@ -29,4 +29,6 @@ public interface OrgInfoDao {
 
 	List<OrgInfo> getChildList(@Param("orgid")String orgid);
 
+	List<OrgInfo> frameCombo(Map<String, Object> param);
+
 }

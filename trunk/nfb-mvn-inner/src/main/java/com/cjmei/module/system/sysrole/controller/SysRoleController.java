@@ -17,6 +17,7 @@ import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.domain.TreeVo;
+import com.cjmei.common.util.IDUtil;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
@@ -74,6 +75,7 @@ public class SysRoleController extends SupportContorller {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			SysRole sysRole = getModel(SysRole.class);
 			sysRole.setCreator(admin.getUserid());
+			sysRole.setRoleid(IDUtil.getTimeID());
 			SysRole ori = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
 			if (ori == null) {
 				sysRoleService.save(sysRole);

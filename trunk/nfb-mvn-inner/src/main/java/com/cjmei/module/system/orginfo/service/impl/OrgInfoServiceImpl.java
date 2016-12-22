@@ -125,6 +125,8 @@ public class OrgInfoServiceImpl implements OrgInfoService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
-
-	
+	@Override
+	public List<OrgInfo> frameCombo(Map<String, Object> param) {
+		return orgInfoDao.frameCombo(param);
+	}	
 }
