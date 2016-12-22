@@ -23,7 +23,7 @@
 		<div class="page">
 			<!-- 标题栏 -->
 			<header class="bar bar-nav">
-				<a class="icon icon-left pull-left" href="javascript:void(0)" @click="toList"></a>
+				<a class="icon icon-left pull-left back" href="../dairy/list.html"></a>
 				<h1 class="title">修改密码</h1>
 			</header>
 			<!-- 这里是页面内容区 -->
@@ -38,7 +38,7 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="password" v-model="c_oldPwd" placeholder="原密码"
+										<input type="password" id="c_oldPwd" name="c_oldPwd" placeholder="原密码"
 											maxlength="11" min="10000000000" max="19999999999">
 									</div>
 								</div>
@@ -51,7 +51,7 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="password" v-model="c_newPwd" placeholder="新密码"
+										<input type="password" name="c_newPwd" id="c_newPwd" placeholder="新密码"
 											maxlength="20">
 									</div>
 								</div>
@@ -64,7 +64,7 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="password" v-model="c_newPwd2" placeholder="确认密码"
+										<input type="password" id="c_newPwd2" name="c_newPwd2" placeholder="确认密码"
 											maxlength="20">
 									</div>
 								</div>
@@ -73,9 +73,9 @@
 					</ul>
 				</div>
 				<div class="content-block">
-					<div v-show="isLoading" class="row" style="margin-left: 0px;">
+					<div id="isLoading" class="row" style="margin-left: 0px;">
 						<div>
-							<a href="javascript:void(0)" @click="summitForm()"
+							<a href="javascript:void(0)" onclick="summitForm()"
 								class="button button-big button-fill button-success">提交</a>
 						</div>
 					</div>
@@ -90,8 +90,6 @@
 		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 	<script type='text/javascript'
 		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
-		charset='utf-8'></script>
-	<script type='text/javascript' src='../../../assets/vue/vue.min.js'
 		charset='utf-8'></script>
 	<script type='text/javascript' src='../../../js/my-config.js'
 		charset='utf-8'></script>
