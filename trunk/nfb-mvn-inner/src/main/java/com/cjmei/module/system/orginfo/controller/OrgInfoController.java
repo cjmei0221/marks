@@ -215,7 +215,10 @@ public class OrgInfoController extends SupportContorller {
 		List<String> plist = new ArrayList<String>();
 		String parentId = request.getParameter("parentId");
 		if (parentId == null || "".equals(parentId)) {
-			plist.add(admin.getOrgInfo().getParentId());
+			List<OrgInfo> s = admin.getOrgInfoList();
+			for (OrgInfo sv : s) {
+				plist.add(sv.getParentId());
+			}
 		} else {
 			plist.add(parentId);
 		}
@@ -230,15 +233,13 @@ public class OrgInfoController extends SupportContorller {
 	 */
 	@RequestMapping("/orgInfo/tree")
 	public void tree(HttpServletRequest request, HttpServletResponse response) {
-
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
-
 		List<String> plist = new ArrayList<String>();
-
-		plist.add(admin.getOrgInfo().getParentId());
-
+		List<OrgInfo> s = admin.getOrgInfoList();
+		for (OrgInfo sv : s) {
+			plist.add(sv.getParentId());
+		}
 		List<OrgInfo> list = orgInfoService.list(plist);
-
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 

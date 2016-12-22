@@ -21,6 +21,7 @@ public interface SysRoleService{
 	public void addSysFuncByRoleId(String role_id, List<String> funcIds);
 	public List<SysMenu> funcList(SysUser admin,String roleId);
 	public void saveSysFuncByRoleId(SysUser admin, String roleId, List<String> funcList);
-	public SysRole findByRoleNameAndOrgid(String rolename, String orgid, String companyId);
+	public SysRole findByUserTypeAndCompanyId(String roleid, String companyId);
 	public boolean isDelete(String roleid);
+	public List<SysRole> getUserlist(Map<String, Object> param);
 }

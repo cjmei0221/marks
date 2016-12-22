@@ -2,6 +2,7 @@ package com.cjmei.module.system.sys.service;
 
 import java.util.List;
 
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
@@ -26,6 +27,8 @@ public interface LoginService {
 
 	List<SysRole> getUserRoleList(String userid);
 
-	List<String> getOrgidBySysUser(String orgid);
+	List<String> getOrgidBySysUser(List<OrgInfo> orgInfo);
+
+	List<OrgInfo> getOrgInfoListByUserid(String userid);
 
 }

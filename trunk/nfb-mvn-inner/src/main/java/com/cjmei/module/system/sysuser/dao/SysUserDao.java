@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.cjmei.module.system.sys.pojo.SysUserOrg;
 import com.cjmei.module.system.sys.pojo.SysUserRole;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
@@ -33,4 +34,6 @@ public interface SysUserDao {
 	SysUser findById(@Param("userid")String userid);
 	void updatetPwd(SysUser sysUser);
 	void updateMobile(@Param("userid")String userid, @Param("newPhone")String newPhone);
+	void deleteSysUserOrg(@Param("userid") String userid);
+	void saveSysUserOrg(SysUserOrg su);
 }

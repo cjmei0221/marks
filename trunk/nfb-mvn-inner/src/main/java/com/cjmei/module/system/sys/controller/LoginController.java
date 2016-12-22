@@ -79,16 +79,19 @@ public class LoginController {
 						user.setLoginTime(new Date());
 						user.setPassword("");
 						user.setRoleIds(roleList);
-						OrgInfo orgInfo = StaticData.getOrgInfo(roleList.get(0).getOrgid());
-						user.setOrgInfo(orgInfo);
+						List<OrgInfo> orgInfo = loginService.getOrgInfoListByUserid(user.getUserid());
+						user.setOrgInfoList(orgInfo);
 						// 组织架构
 						boolean topflag = true;
-						if (Constants.top_org_parentid_id.equals(orgInfo.getParentId())
-								|| "0".equals(orgInfo.getParentId())) {
-							topflag = false;
+						for (OrgInfo sr : orgInfo) {
+							if (Constants.top_org_parentid_id.equals(sr.getParentId())
+									|| "0".equals(sr.getParentId())) {
+								topflag = false;
+								break;
+							}
 						}
 						if (topflag) {
-							List<String> orgids = loginService.getOrgidBySysUser(orgInfo.getOrgid());
+							List<String> orgids = loginService.getOrgidBySysUser(orgInfo);
 							user.setOrgids(orgids);
 						} else {
 							user.setOrgids(null);

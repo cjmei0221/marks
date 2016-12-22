@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.domain.PojoDomain;
+import com.cjmei.module.system.sys.pojo.SysUserOrg;
 import com.cjmei.module.system.sys.pojo.SysUserRole;
+import com.cjmei.module.system.sysrole.dao.SysRoleDao;
+import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysuser.dao.SysUserDao;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.cjmei.module.system.sysuser.service.SysUserService;
@@ -22,7 +25,15 @@ public class SysUserServiceImpl implements SysUserService{
     public void setSysUserDao(SysUserDao sysUserDao){
         this.sysUserDao =sysUserDao;
     }
+    private SysRoleDao sysRoleDao;
 
+	public SysRoleDao getSysRoleDao() {
+		return sysRoleDao;
+	}
+
+	public void setSysRoleDao(SysRoleDao sysRoleDao) {
+		this.sysRoleDao = sysRoleDao;
+	}
     
     /**
     *根据ID查找用户管理
@@ -49,25 +60,44 @@ public class SysUserServiceImpl implements SysUserService{
     *保存用户管理
     */
     @Override
-    public void save(SysUser sysUser,String roleidPut){
+    public void save(SysUser sysUser,String roleidPut,String orgIdsPut){
+    	SysRole sRole=sysRoleDao.findById(roleidPut);
+    	sysUser.setUserType(sRole.getUserType());
         sysUserDao.save(sysUser);
-        saveSysUserRole(sysUser.getUserid(),roleidPut,sysUser);
+        saveSysUserRole(sysUser.getUserid(),roleidPut,sysUser.getCreator());
     }
     
     /**
     *更新用户管理
     */
     @Override
-    public void update(SysUser sysUser,String roleidPut){
+    public void update(SysUser sysUser,String roleidPut,String orgIdsPut){
+    	SysRole sRole=sysRoleDao.findById(roleidPut);
+    	sysUser.setUserType(sRole.getUserType());
         sysUserDao.update(sysUser);
+        saveSysUserRole(sysUser.getUserid(),roleidPut,sysUser.getCreator());
     }
-    
+    private void saveSysUserOrg(String userid,String orgIdsPut,SysUser sysUser){
+    	sysUserDao.deleteSysUserOrg(userid);
+    	SysUserOrg su=null;
+    	String[] arr=orgIdsPut.split(",");
+    	for(String id:arr){
+    		if(id !=null && !"".equals(id)){
+    			su=new SysUserOrg();
+        		su.setOrgid(id);
+        		su.setUserid(userid);
+        		su.setCreator(sysUser.getUserid());
+        		sysUserDao.saveSysUserOrg(su);
+    		}
+    	}
+    	
+    }
     
     @Override
 	public void updatetPwd(SysUser su) {
     	 sysUserDao.updatetPwd(su);
 	}
-	private void saveSysUserRole(String userid,String roleidPut,SysUser sysUser){
+	private void saveSysUserRole(String userid,String roleidPut,String creator){
     	sysUserDao.deleteSysUserRole(userid);
     	SysUserRole su=null;
     	String[] roleArr=roleidPut.split(",");
@@ -76,7 +106,7 @@ public class SysUserServiceImpl implements SysUserService{
     			su=new SysUserRole();
         		su.setRoleid(roleid);
         		su.setUserid(userid);
-        		su.setCreator(sysUser.getUserid());
+        		su.setCreator(creator);
         		sysUserDao.saveSysUserRole(su);
     		}
     	}

@@ -1,10 +1,5 @@
 package com.cjmei.common.domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class TreeVo {
 	private String id;
 	private String text;
