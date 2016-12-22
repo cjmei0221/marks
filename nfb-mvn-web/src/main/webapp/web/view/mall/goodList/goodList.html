@@ -27,12 +27,13 @@
 	<div id="showMsg"></div>
 	<div class="sui-navbar">
 		<div class="navbar-inner">
-			<a href="#" class="sui-brand">定制商城</a>
+			<a href="#" class="sui-brand">商城</a>
 			<ul class="sui-nav">
-				<li><a href="#" style="color:red;">首页</a></li>
-				<li><a href="#" style="color:red;">私人定制</a></li>
-				<li  class="active"><a href="./goodList/goodList.html" style="color:red;">商城区</a></li>
-				<li><a href="#" style="color:red;">募集区</a></li>
+				<li><a href="#" style="color: red;">首页</a></li>
+				<li><a href="#" style="color: red;">私人定制</a></li>
+				<li class="active"><a href="./goodList/goodList.html"
+					style="color: red;">商城区</a></li>
+				<li><a href="#" style="color: red;">募集区</a></li>
 			</ul>
 			<ul class="sui-nav pull-right">
 				<li><a href="#">个人中心</a></li>
@@ -42,7 +43,12 @@
 	</div>
 	<div class='container'>
 		<div id="app">
-
+			<ul class="sui-nav nav-tabs nav-xlarge nav-primary"
+				style="margin-left: 205px;">
+				<li class="active"><a>首页</a></li>
+				<li><a href="#">女装</a></li>
+				<li><a href="#">男装</a></li>
+			</ul>
 			<div class="sui-layout">
 				<div class="sidebar" style="text-align: center;">
 					<ul class="sui-nav nav-tabs nav-xlarge nav-pills tab-vertical"
@@ -106,24 +112,12 @@
 							<img :src="imageUrl"> <span>1 ￥</span>
 						</div>
 					</div>
-					<div class="sui-pagination pagination-large"
-						style="text-align: center;">
+					<div class="sui-pagination pagination-naked pagination-large" style="text-align: center;">
 						<ul>
-							<li class="prev disabled"><a href="#">«上一页</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li class="dotted"><span>...</span></li>
-							<li class="next"><a href="#">下一页»</a></li>
+							<li class="prev disabled"><a href="#">上一页</a></li>
+							<li><span class="ex-page-status">1/10</span></li>
+							<li class="next"><a href="#">下一页 </a></li>
 						</ul>
-						<div>
-							<span>共10页&nbsp;</span><span> 到 <input type="text"
-								class="page-num">
-								<button class="page-confirm" onclick="alert(1)">确定</button> 页
-							</span>
-						</div>
 					</div>
 				</div>
 			</div>
