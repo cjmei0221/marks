@@ -92,7 +92,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		</if>
 		)
-		and orginfo.PARENTID='0'
+		and (orginfo.PARENTID='0' or orginfo.ORGID='0')
 		order by orginfo.UPDATETIME desc
 	</select>
 	<select id="getTreeGridByParentId" resultType="com.cjmei.module.system.orginfo.pojo.OrgInfo">

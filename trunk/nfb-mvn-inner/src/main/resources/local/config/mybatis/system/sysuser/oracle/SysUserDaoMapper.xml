@@ -4,25 +4,29 @@
 <mapper namespace="com.cjmei.module.system.sysuser.dao.SysUserDao">
 
 	<select id="findById" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
-		select * from tb_sys_user t where t.userid=#{userid}
+		select * from tb_sys_user t
+		where t.userid=#{userid}
 	</select>
 	<select id="findByUserid" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
 		select distinct
-   			 u.*,
-   			 sur.roleidsStr,
-   			 sur.rolenamesStr
-    	from TB_SYS_USER u join (
-   			 select 
-    			t.userid,
-    			listagg(t.roleid, ',') within group(order by t.roleid) over(partition by t.userid) roleidsStr,
-    			listagg(tsr.rolename, ',') within group(order by t.roleid) over(partition by t.userid) rolenamesStr
-    		from tb_sys_user_role t 
-   				 join tb_sys_role tsr on t.roleid = tsr.roleid) sur on u.userid=sur.userid 
-   		where u.USERID =#{userid}
+		u.*,
+		sur.roleidsStr,
+		sur.rolenamesStr
+		from TB_SYS_USER u join (
+		select
+		t.userid,
+		listagg(t.roleid, ',') within group(order by t.roleid) over(partition by t.userid)
+		roleidsStr,
+		listagg(tsr.rolename, ',') within group(order by t.roleid) over(partition by t.userid)
+		rolenamesStr
+		from tb_sys_user_role t
+		join tb_sys_role tsr on t.roleid = tsr.roleid) sur on u.userid=sur.userid
+		where u.USERID =#{userid}
 	</select>
-	
+
 	<select id="findByMobile" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
-		select * from tb_sys_user t where t.bind_mobile=#{mobile}
+		select * from tb_sys_user t
+		where t.bind_mobile=#{mobile}
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
@@ -63,7 +67,8 @@
 		UPDATE TB_SYS_USER sysuser
 		SET
 		sysuser.USERNAME = #{username:VARCHAR},
-		sysuser.ACTIVEFLAG = #{activeFlag:NUMERIC},
+		sysuser.ACTIVEFLAG =
+		#{activeFlag:NUMERIC},
 		sysuser.UPDATETIME = sysdate,
 		sysuser.COMPANYID =
 		#{companyId:VARCHAR},
@@ -72,7 +77,7 @@
 		sysuser.USERID
 		= #{userid}
 	</update>
-	
+
 	<update id="updatetPwd" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
 		UPDATE TB_SYS_USER sysuser
 		SET
@@ -82,15 +87,17 @@
 		sysuser.USERID
 		= #{userid}
 	</update>
-	
+
 	<update id="updateMobile">
 		UPDATE TB_SYS_USER sysuser
 		SET
-		sysuser.BIND_MOBILE = #{newPhone:VARCHAR},
+		sysuser.BIND_MOBILE =
+		#{newPhone:VARCHAR},
 		sysuser.UPDATETIME = sysdate
 		WHERE
 		sysuser.USERID
-		= #{userid}
+		=
+		#{userid}
 	</update>
 
 	<delete id="delete" parameterType="String">
@@ -171,43 +178,43 @@
 			and sysuser.COMPANYID = #{companyId}
 		</if>
 		<if test="keyword!=null and keyword!=''">
-		and (
+			and (
 			sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.USERNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.PASSWORD LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.BIND_MOBILE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.ACTIVEFLAG LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.CREATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-	
+
 			or sysuser.UPDATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.COMPANYID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.TOKEN LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or sysuser.USERTYPE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
+
 			or tsr.rolename LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		
-		)
+
+			)
 		</if>
 		<if test="sorgid !=null and sorgid != ''">
 			and tsr.orgid = #{sorgid}
@@ -215,5 +222,28 @@
 		order by sysuser.UPDATETIME desc
 
 	</select>
+
+	<delete id="deleteSysUserOrg" parameterType="String">
+		DELETE FROM
+		tb_sys_user_org t WHERE t.USERID=#{userid}
+	</delete>
+	<insert id="saveSysUserOrg" parameterType="com.cjmei.module.system.sys.pojo.SysUserOrg">
+		INSERT INTO
+		tb_sys_user_org (
+		USERID,
+		ORGID,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR
+
+		)
+		VALUES(
+		#{userid:VARCHAR},
+		#{orgid:VARCHAR},
+		sysdate,
+		sysdate,
+		#{creator:VARCHAR}
+		)
+	</insert>
 
 </mapper>

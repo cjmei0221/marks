@@ -12,7 +12,9 @@
 		INSERT INTO TB_SYS_ROLE sysrole
 		(
 		sysrole.ROLEID,
-		sysrole.ORGID,
+		sysrole.USERTYPE,
+		sysrole.LVL,
+		sysrole.showflag,
 		sysrole.UPDATETIME,
 		sysrole.CREATOR,
 		sysrole.ROLENAME,
@@ -21,7 +23,9 @@
 		)
 		VALUES(
 		#{roleid:VARCHAR},
-		#{orgid:VARCHAR},
+		#{userType:VARCHAR},
+		#{lvl:NUMERIC},
+		#{showFlag:NUMERIC},
 		sysdate,
 		#{creator:VARCHAR},
 		#{rolename:VARCHAR},
@@ -33,7 +37,9 @@
 	<update id="update" parameterType="com.cjmei.module.system.sysrole.pojo.SysRole">
 		UPDATE TB_SYS_ROLE sysrole
 		SET
-		sysrole.ORGID = #{orgid:VARCHAR},
+		sysrole.USERTYPE = #{userType:VARCHAR},
+		sysrole.LVL=#{lvl:NUMERIC},
+		sysrole.showflag=#{showFlag:NUMERIC},
 		sysrole.UPDATETIME =
 		sysdate,
 		sysrole.ROLENAME =
@@ -58,52 +64,55 @@
 			#{ids}
 		</foreach>
 	</delete>
-
-	<select id="list" resultType="com.cjmei.module.system.sysrole.pojo.SysRole"
+	
+	<select id="getUserlist" resultType="com.cjmei.module.system.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
-		SELECT sysrole.*,o.orgname
+		SELECT sysrole.*,o.companyName
 		FROM TB_SYS_ROLE sysrole left join
-		tb_org_info o on sysrole.orgid=o.orgid
+		tb_org_info o on sysrole.companyId=o.orgid
 		WHERE 1=1
-
-		<if test="orgids !=null">
-			and sysrole.orgid in
-			<foreach collection="orgids" item="oid" index="index" open="("
-				separator="," close=")">
-				#{oid}
-			</foreach>
-		</if>
 		<if test="companyId !=null and companyId != ''">
 			and sysrole.COMPANYID = #{companyId}
 		</if>
-		and ( sysrole.ROLEID
-		LIKE
-		CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		and sysrole.lvl >#{lvl}
+		ORDER BY sysrole.lvl
+	</select>
+
+	<select id="list" resultType="com.cjmei.module.system.sysrole.pojo.SysRole"
+		parameterType="java.util.Map">
+		SELECT sysrole.*,o.companyName
+		FROM TB_SYS_ROLE sysrole left join
+		tb_org_info o on sysrole.companyId=o.orgid
+		WHERE 1=1
+		<if test="companyId !=null and companyId != ''">
+			and sysrole.COMPANYID = #{companyId}
+		</if>
 		<if test="keyword!=null and keyword!=''">
+			and ( sysrole.ROLEID
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or sysrole.ORGID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or sysrole.UPDATETIME LIKE
+			or
+			sysrole.UPDATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or sysrole.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or sysrole.ROLENAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or sysrole.CREATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
 		</if>
-		)
-		
-		<if test="sorgid !=null and sorgid != ''">
-			and sysrole.orgid = #{sorgid}
+		<if test="s_lvl !=null and s_lvl != ''">
+			and sysrole.lvl = #{s_lvl}
 		</if>
+		and sysrole.lvl >#{lvl}
+
 		ORDER BY sysrole.UPDATETIME desc
 
 	</select>
@@ -155,10 +164,10 @@
 		</if>
 		order by vsrf.sort
 	</select>
-	<select id="findByRoleNameAndOrgid" resultType="com.cjmei.module.system.sysrole.pojo.SysRole">
+	<select id="findByUserTypeAndCompanyId" resultType="com.cjmei.module.system.sysrole.pojo.SysRole">
 		select * from
-		tb_sys_role t where t.rolename=#{rolename} and
-		t.companyid=#{companyId} and t.orgid=#{orgid}
+		tb_sys_role t where t.roleid=#{roleid} and
+		t.companyid=#{companyId}
 	</select>
 	<select id="countUserByRoleid" resultType="int">
 		select count(1) from
