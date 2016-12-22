@@ -22,9 +22,16 @@
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
-					<td>所属组织<ul id="ssorgid" name="ssorgid" class="easyui-combotree"
-						data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
-						style="width: 200px"></ul></td>
+					<td>用户类型
+						<ul id="s_role" name="s_role" class="easyui-combotree"
+							data-options="url:'<%=request.getContextPath()%>/sysRole/combo.do'"
+							style="width: 200px"></ul>
+					</td>
+					<td>所属组织
+						<ul id="ssorgid" name="ssorgid" class="easyui-combotree"
+							data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
+							style="width: 200px"></ul>
+					</td>
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="关键字" /></td>
 					<td><button type="button" id="doSearch" data-oper="query"
@@ -50,13 +57,21 @@
 			<input type="hidden" id="userid" name="userid">
 			<table class="out-win-cls">
 				<tr>
-					<th>权限角色</th>
+					<th>用户类型</th>
+					<td><a href="javascript:;" id="chooseRole">选择权限角色</a> <select
+						id="s_role" name="s_role" class="easyui-combobox"
+						data-options="url:'<%=request.getContextPath()%>/sysRole/combo.do'"
+						style="width: 200px"></select></td>
+				</tr>
+				<tr>
+					<th>所属组织</th>
 					<td><a href="javascript:;" id="chooseRole">选择权限角色</a></td>
 				</tr>
 				<tr>
 					<th>手机号码</th>
 					<td><input id="bind_mobile" name="bind_mobile"
-						class="easyui-numberbox" data-options="required:true,min:10000000000,precision:0"></td>
+						class="easyui-numberbox"
+						data-options="required:true,min:10000000000,precision:0"></td>
 				</tr>
 				<tr>
 					<th>用户名称</th>
@@ -76,10 +91,9 @@
 					</select></td>
 				</tr>
 
-				<tr>
+				<tr style="display: none;">
 					<th>口令</th>
-					<td><input id="token" name="token" class="easyui-validatebox"
-						data-options="required:true"></td>
+					<td><input id="token" name="token" class="easyui-validatebox"></td>
 				</tr>
 
 
@@ -98,23 +112,14 @@
 		draggable:true,
 		collapsible:false,inline:false"
 				style="width: 800px; height: 500px; padding: 10px;">
-				
-				<div id="roleTb">
-					<ul id="sorgid" name="sorgid" class="easyui-combotree"
-						data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
-						style="width: 200px"></ul>&nbsp;&nbsp;&nbsp;<input type="button" id="searchRoleBtn"
-						name="searchRoleBtn" value="查询" />
-						
-				</div>
 				<table id="roleList"></table>
 				已选：
 				<div id="inputDiv" style="height: 80px;">
 					公司：<input id="companyId" name="companyId" readonly="readonly">
-					<div id="inputRoleDiv">
-						
+					<div id="inputRoleDiv"></div>
+					<div align="center">
+						<input type="button" id="roleBtn" name="roleBtn" value="确定" />
 					</div>
-					<div align="center"><input type="button" id="roleBtn"
-						name="roleBtn" value="确定" /></div>
 				</div>
 			</div>
 		</form>

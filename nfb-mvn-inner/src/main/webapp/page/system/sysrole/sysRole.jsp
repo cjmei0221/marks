@@ -15,13 +15,13 @@
 <body>
 
 	<div id="mainPanel">
-		<p class="nav-header-cls">角色管理>>角色管理</p>
+		<p class="nav-header-cls">用户类型>>用户类型</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
-					<td>
-						组织机构：<ul id="sorgid" name="sorgid" class="easyui-combotree"
-							data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
+					<td>用户级别：
+						<ul id="s_lvl" name="s_lvl" class="easyui-combobox"
+							data-options="url:'<%=request.getContextPath()%>/sysRole/lvl.do'"
 							style="width: 200px"></ul>
 					</td>
 					<td><input type="text" id="keyword" name="keyword"
@@ -49,20 +49,33 @@
 			<form id="ff" name="ff" method="post">
 				<input type="hidden" id="roleid" name="roleid">
 				<table>
-
 					<tr>
-						<th align="right">角色名称</th>
+						<th align="right">英文缩写</th>
+						<td><input id="userType" name="userType"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px"></td>
+					</tr>
+					<tr>
+						<th align="right">名称</th>
 						<td><input id="rolename" name="rolename"
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px"></td>
 					</tr>
 					<tr>
-						<th align="right">机构</th>
-						<td><ul id="orgid" name="orgid" class="easyui-combotree"
-								data-options="url:'<%=request.getContextPath()%>/orgInfo/tree.do'"
-								style="width: 200px"></ul></td>
+						<th align="right">级别</th>
+						<td><ul id="lvl" name="lvl" class="easyui-combobox"
+								data-options="url:'<%=request.getContextPath()%>/sysRole/lvl.do'"
+								style="width: 200px" data-options="required:true"></ul></td>
 					</tr>
-
+					<tr>
+						<th align="right">表单标识</th>
+						<td>
+							<select id="showFlag" name="showFlag" class="easyui-combobox" data-options="required:true">
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+						</td>
+					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center"><input
 							type="button" id="btnOK" name="btnOK" value=" 保 存 " />
