@@ -19,7 +19,7 @@
 		sysrole.CREATOR,
 		sysrole.ROLENAME,
 		sysrole.CREATETIME,
-		COMPANYID
+		sysrole.COMPANYID
 		)
 		VALUES(
 		#{roleid:VARCHAR},
@@ -39,6 +39,7 @@
 		SET
 		sysrole.USERTYPE = #{userType:VARCHAR},
 		sysrole.LVL=#{lvl:NUMERIC},
+		sysrole.COMPANYID=#{companyId:VARCHAR},
 		sysrole.showflag=#{showFlag:NUMERIC},
 		sysrole.UPDATETIME =
 		sysdate,

@@ -87,5 +87,15 @@ public class WxUserServiceImpl implements WxUserService{
 	public void updateDairyFlag(String openid, int dairyFlag) {
 		wxUserDao.udateDairyFlag(openid, dairyFlag);
 	}
+	@Override
+	public void saveOrUpdateWxUser(WxUser user) {
+		WxUser old=wxUserDao.findById(user.getOpenid());
+		if(old !=null){
+			wxUserDao.update(user);
+		}else{
+			wxUserDao.save(user);
+		}
+		
+	}
 	
 }
