@@ -15,7 +15,7 @@ public class SysRole implements Serializable{
     /**
     *更新时间
     */
-    private Timestamp updatetime;
+    private Date updatetime;
     /**
     *创建者
     */
@@ -78,14 +78,15 @@ public class SysRole implements Serializable{
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public Timestamp getUpdatetime(){
-        return updatetime;
-    }
-    public void setUpdatetime(Timestamp updatetime){
-        this.updatetime = updatetime;
-    }
+	
 
-    public String getCreator(){
+    public Date getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+	public String getCreator(){
         return creator;
     }
     public void setCreator(String creator){

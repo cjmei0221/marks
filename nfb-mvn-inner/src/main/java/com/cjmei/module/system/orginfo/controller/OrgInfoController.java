@@ -259,6 +259,7 @@ public class OrgInfoController extends SupportContorller {
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<OrgInfo> list = orgInfoService.framelist(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -275,4 +276,13 @@ public class OrgInfoController extends SupportContorller {
 		JsonUtil.output(response, result);
 	}
 
+	@RequestMapping("/orgInfo/combo")
+	public void combo(HttpServletRequest request, HttpServletResponse response) {
+		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+		Map<String, Object> param = new HashMap<String, Object>();
+		String companyId=admin.getCompanyId();	
+		param.put("companyId", companyId);
+		List<OrgInfo> list = orgInfoService.frameCombo(param);
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+	}
 }
