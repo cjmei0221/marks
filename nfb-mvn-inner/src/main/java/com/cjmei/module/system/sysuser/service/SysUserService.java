@@ -11,8 +11,8 @@ import com.cjmei.common.domain.PojoDomain;
 public interface SysUserService{
 
 	public SysUser findByUserid(String userid);
-	public void save(SysUser sysUser,String roleidPut);
-	public void update(SysUser sysUser,String roleidPut);
+	public void save(SysUser sysUser,String roleidPut,String orgIdsPut);
+	public void update(SysUser sysUser,String roleidPut,String orgIdsPut);
 	public void delete(String userid);
 	public List<SysUser> findAll();
 	public void deleteBatch(List<String> ids);

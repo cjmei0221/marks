@@ -75,11 +75,12 @@ public class SysUserController extends SupportContorller{
 	 		SysUser ori=sysUserService.findByMobile(sysUser.getBind_mobile());
 	 		if(ori==null){
 	 			//密码处理
-	 			String roleIdsPut=request.getParameter("roleIdsPut");
+	 			String roleIdsPut=request.getParameter("s_role");
+	 			String orgIdsPut=request.getParameter("orgIdsPut");
 	 			sysUser.setPassword(defaultPwd);
 	 			sysUser.setCreator(admin.getUserid());
 	 			sysUser.setUserType(Enums.UserType.SYS.getValue());
-	 			sysUserService.save(sysUser,roleIdsPut);
+	 			sysUserService.save(sysUser,roleIdsPut,orgIdsPut);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -108,8 +109,9 @@ public class SysUserController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	String roleIdsPut=request.getParameter("roleIdsPut");
-		    	sysUserService.update(sysUser,roleIdsPut);
+		    	String roleIdsPut=request.getParameter("s_role");
+	 			String orgIdsPut=request.getParameter("orgIdsPut");
+		    	sysUserService.update(sysUser,roleIdsPut,orgIdsPut);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }

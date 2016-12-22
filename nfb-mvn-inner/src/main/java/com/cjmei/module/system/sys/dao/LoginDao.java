@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
@@ -44,7 +45,9 @@ public interface LoginDao {
 
 	List<SysRole> getUserRoleList(@Param("userid")String userid);
 
-	List<String> getOrgidBySysUser(@Param("orgid")String orgid);
+	List<String> getOrgidBySysUser(@Param("orglist")List<OrgInfo> orglist);
+
+	List<OrgInfo> getOrgInfoListByUserid(@Param("userid")String userid);
 
 
 }

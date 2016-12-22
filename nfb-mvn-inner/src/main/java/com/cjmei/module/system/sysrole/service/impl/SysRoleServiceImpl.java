@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.enums.Enums;
 import com.cjmei.module.system.sys.dao.LoginDao;
 import com.cjmei.module.system.sys.pojo.SysFunc;
 import com.cjmei.module.system.sys.pojo.SysMenu;
@@ -96,6 +95,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+	
+	
+
+	@Override
+	public List<SysRole> getUserlist(Map<String, Object> param) {
+		List<SysRole> list = sysRoleDao.getUserlist(param);
+		return list;
+	}
 
 	@Override
 	public void addSysFuncByRoleId(String role_id, List<String> funcIds) {
@@ -169,8 +176,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public SysRole findByRoleNameAndOrgid(String rolename, String orgid, String companyId) {
-		return sysRoleDao.findByRoleNameAndOrgid(rolename,orgid,companyId);
+	public SysRole findByUserTypeAndCompanyId(String roleid,  String companyId) {
+		return sysRoleDao.findByUserTypeAndCompanyId(roleid,companyId);
 	}
 
 	@Override

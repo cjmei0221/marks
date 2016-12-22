@@ -32,8 +32,10 @@ public interface SysRoleDao {
 
 	List<SysFunc> getFuncList(@Param("list") List<SysRole> list, @Param("roleId") String roleId);
 
-	SysRole findByRoleNameAndOrgid(@Param("rolename") String rolename, @Param("orgid") String orgid,
+	SysRole findByUserTypeAndCompanyId(@Param("roleid") String roleid, 
 			@Param("companyId") String companyId);
 
 	int countUserByRoleid( @Param("roleId") String roleid);
+
+	List<SysRole> getUserlist(Map<String, Object> param);
 }

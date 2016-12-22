@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cjmei.common.enums.Enums;
+import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sys.dao.LoginDao;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.pojo.SysOperate;
@@ -72,9 +73,14 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List<String> getOrgidBySysUser(String orgid) {
+	public List<String> getOrgidBySysUser(List<OrgInfo> orglist) {
 		
-		return loginDao.getOrgidBySysUser(orgid);
+		return loginDao.getOrgidBySysUser(orglist);
+	}
+
+	@Override
+	public List<OrgInfo> getOrgInfoListByUserid(String userid) {
+		return loginDao.getOrgInfoListByUserid(userid);
 	}
 	
 	

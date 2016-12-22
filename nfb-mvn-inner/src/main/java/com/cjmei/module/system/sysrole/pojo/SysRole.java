@@ -2,8 +2,7 @@ package com.cjmei.module.system.sysrole.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
-import com.cjmei.module.system.orginfo.util.OrgUtil;
+import java.util.Date;
 
 public class SysRole implements Serializable{
 
@@ -13,12 +12,6 @@ public class SysRole implements Serializable{
     *角色ID
     */
     private String roleid;
-    /**
-    *公司ID
-    */
-    private String orgid;
-    
-    private String orgname;
     /**
     *更新时间
     */
@@ -34,28 +27,58 @@ public class SysRole implements Serializable{
     /**
     *创建时间
     */
-    private Timestamp createtime;
+    private Date createtime;
 
 
     private String companyId;
     
-    private String orgFullName;
+    
+    private String companyName;
+    /**
+     * 级别
+     */
+    private int lvl;
+    /**
+     * 用户类型
+     */
+    private String userType;
+    /**
+     * 是否用户下拉组件 显示  0：不显示 1：显示
+     */
+    private int showFlag=1;
 
-    public String getRoleid(){
+    public int getShowFlag() {
+		return showFlag;
+	}
+	public void setShowFlag(int showFlag) {
+		this.showFlag = showFlag;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	public int getLvl() {
+		return lvl;
+	}
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
+	public String getRoleid(){
         return roleid;
     }
     public void setRoleid(String roleid){
         this.roleid = roleid;
     }
 
-    public String getOrgid(){
-        return orgid;
-    }
-    public void setOrgid(String orgid){
-        this.orgid = orgid;
-    }
-
-    public Timestamp getUpdatetime(){
+    public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public Timestamp getUpdatetime(){
         return updatetime;
     }
     public void setUpdatetime(Timestamp updatetime){
@@ -76,17 +99,12 @@ public class SysRole implements Serializable{
         this.rolename = rolename;
     }
 
-    public Timestamp getCreatetime(){
-        return createtime;
-    }
-    public void setCreatetime(Timestamp createtime){
-        this.createtime = createtime;
-    }
-	public String getOrgname() {
-		return orgname;
+   
+	public Date getCreatetime() {
+		return createtime;
 	}
-	public void setOrgname(String orgname) {
-		this.orgname = orgname;
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
 	}
 	public String getCompanyId() {
 		return companyId;
@@ -94,11 +112,6 @@ public class SysRole implements Serializable{
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
-	public String getOrgFullName() {
-		if(orgid != null){
-			return OrgUtil.getInstance().getOrgFullName(orgid);
-		}
-		return "";
-	}
+	
 	
 }

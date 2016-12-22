@@ -62,7 +62,9 @@ public class SysUser implements Serializable{
 	private List<String> userUrlList = new ArrayList<String>();
 
 	private List<SysRole> roleIds=new ArrayList<SysRole>();
-	
+	/**
+	 * 用户管辖下所属机构ID集合
+	 */
 	private List<String> orgids=new ArrayList<String>();
 	
 	private List<String> accountids;
@@ -74,15 +76,26 @@ public class SysUser implements Serializable{
 	private String roleidsStr;
 	private String rolenamesStr;
 	private String orgidsStr;
+	/**
+	 * 用户所属机构集合
+	 */
+	private List<OrgInfo> orgInfoList;
 	
-	private OrgInfo orgInfo;//所属组织最高机构
+	private int roleTopLvl;
 	
-    public OrgInfo getOrgInfo() {
-		return orgInfo;
+	public int getRoleTopLvl() {
+		return roleTopLvl;
 	}
-	public void setOrgInfo(OrgInfo orgInfo) {
-		this.orgInfo = orgInfo;
+	public void setRoleTopLvl(int roleTopLvl) {
+		this.roleTopLvl = roleTopLvl;
 	}
+	public List<OrgInfo> getOrgInfoList() {
+		return orgInfoList;
+	}
+	public void setOrgInfoList(List<OrgInfo> orgInfoList) {
+		this.orgInfoList = orgInfoList;
+	}
+	
 	public String getUserid(){
         return userid;
     }
