@@ -67,20 +67,21 @@
 	
 	<select id="getUserlist" resultType="com.cjmei.module.system.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
-		SELECT sysrole.*,o.companyName
+		SELECT sysrole.*,o.orgname companyName
 		FROM TB_SYS_ROLE sysrole left join
 		tb_org_info o on sysrole.companyId=o.orgid
 		WHERE 1=1
 		<if test="companyId !=null and companyId != ''">
 			and sysrole.COMPANYID = #{companyId}
 		</if>
-		and sysrole.lvl >#{lvl}
+		and sysrole.lvl &gt;= #{lvl}
+		and sysrole.SHOWFLAG=1
 		ORDER BY sysrole.lvl
 	</select>
 
 	<select id="list" resultType="com.cjmei.module.system.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
-		SELECT sysrole.*,o.companyName
+		SELECT sysrole.*,o.orgname companyName
 		FROM TB_SYS_ROLE sysrole left join
 		tb_org_info o on sysrole.companyId=o.orgid
 		WHERE 1=1
@@ -111,7 +112,7 @@
 		<if test="s_lvl !=null and s_lvl != ''">
 			and sysrole.lvl = #{s_lvl}
 		</if>
-		and sysrole.lvl >#{lvl}
+		and sysrole.lvl &gt;= #{lvl}
 
 		ORDER BY sysrole.UPDATETIME desc
 

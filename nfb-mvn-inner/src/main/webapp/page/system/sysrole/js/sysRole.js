@@ -140,8 +140,8 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '角色ID',
-			field : 'roleid',
+			title : '英文缩写',
+			field : 'userType',
 			width : 100,
 			align : "center"
 		}, {
@@ -151,14 +151,28 @@ function loadList() {
 			align : "center"
 		}, {
 			title : '组织名称',
-			field : 'orgname',
+			field : 'companyName',
 			width : 100,
 			align : "center"
 		}, {
-			title : '组织全称',
-			field : 'orgFullName',
-			width : 200,
-			align : "left"
+			title : '级别',
+			field : 'lvl',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+					return "L"+value;
+			}
+		}, {
+			title : '表单标识',
+			field : 'showFlag',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value == 0){
+					return "否";
+				}
+				return "是";
+			}
 		}, {
 			title : '创建时间',
 			field : 'createtime',

@@ -23,8 +23,8 @@
 			<table>
 				<tr>
 					<td>用户类型
-						<ul id="s_role" name="s_role" class="easyui-combotree"
-							data-options="url:'<%=request.getContextPath()%>/sysRole/combo.do'"
+						<ul id="s_role" name="s_role" class="easyui-combobox"
+							data-options="valueField:'roleid',textField:'rolename',url:'<%=request.getContextPath()%>/sysRole/combo.do'"
 							style="width: 200px"></ul>
 					</td>
 					<td>所属组织
@@ -58,10 +58,10 @@
 			<table class="out-win-cls">
 				<tr>
 					<th>用户类型</th>
-					<td><a href="javascript:;" id="chooseRole">选择权限角色</a> <select
-						id="s_role" name="s_role" class="easyui-combobox"
-						data-options="url:'<%=request.getContextPath()%>/sysRole/combo.do'"
-						style="width: 200px"></select></td>
+					<td><input
+						id="roleids" name="roleids" class="easyui-combobox"
+						data-options="required:true,valueField:'roleid',textField:'rolename',url:'<%=request.getContextPath()%>/sysRole/combo.do'"
+						style="width: 175px"></td>
 				</tr>
 				<tr>
 					<th>所属组织</th>

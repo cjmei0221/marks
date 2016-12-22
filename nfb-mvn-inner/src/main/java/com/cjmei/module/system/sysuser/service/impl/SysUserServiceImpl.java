@@ -65,6 +65,7 @@ public class SysUserServiceImpl implements SysUserService{
     	sysUser.setUserType(sRole.getUserType());
         sysUserDao.save(sysUser);
         saveSysUserRole(sysUser.getUserid(),roleidPut,sysUser.getCreator());
+        saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
     }
     
     /**
@@ -76,8 +77,9 @@ public class SysUserServiceImpl implements SysUserService{
     	sysUser.setUserType(sRole.getUserType());
         sysUserDao.update(sysUser);
         saveSysUserRole(sysUser.getUserid(),roleidPut,sysUser.getCreator());
+        saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
     }
-    private void saveSysUserOrg(String userid,String orgIdsPut,SysUser sysUser){
+    private void saveSysUserOrg(String userid,String orgIdsPut,String creator){
     	sysUserDao.deleteSysUserOrg(userid);
     	SysUserOrg su=null;
     	String[] arr=orgIdsPut.split(",");
@@ -86,7 +88,7 @@ public class SysUserServiceImpl implements SysUserService{
     			su=new SysUserOrg();
         		su.setOrgid(id);
         		su.setUserid(userid);
-        		su.setCreator(sysUser.getUserid());
+        		su.setCreator(creator);
         		sysUserDao.saveSysUserOrg(su);
     		}
     	}

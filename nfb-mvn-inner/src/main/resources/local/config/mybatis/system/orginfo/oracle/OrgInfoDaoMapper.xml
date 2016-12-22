@@ -63,37 +63,51 @@
 			#{ids}
 		</foreach>
 	</delete>
-
+	<select id="frameCombo" resultType="com.cjmei.module.system.orginfo.pojo.OrgInfo"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_ORG_INFO orginfo
+		WHERE 1=1
+		and (orginfo.PARENTID='0' or
+		orginfo.ORGID='0')
+		<if test="companyId !=null and companyId !=''">
+			orginfo.ORGID=#{companyId}
+		</if>
+		order by
+		orginfo.UPDATETIME desc
+	</select>
 	<select id="list" resultType="com.cjmei.module.system.orginfo.pojo.OrgInfo"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_ORG_INFO orginfo
 		WHERE 1=1
-		and ( orginfo.ORGID LIKE
-		CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
+			and ( orginfo.ORGID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
 			or orginfo.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or orginfo.ORGNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or orginfo.CREATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or orginfo.UPDATETIME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or orginfo.USEFLAG LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
 		</if>
-		)
 		and (orginfo.PARENTID='0' or orginfo.ORGID='0')
-		order by orginfo.UPDATETIME desc
+		<if test="companyId !=null and companyId !=''">
+			orginfo.ORGID=#{companyId}
+		</if>
+		order by
+		orginfo.UPDATETIME desc
 	</select>
 	<select id="getTreeGridByParentId" resultType="com.cjmei.module.system.orginfo.pojo.OrgInfo">
 		select t.*,
