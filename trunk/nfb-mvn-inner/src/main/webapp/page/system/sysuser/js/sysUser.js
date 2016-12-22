@@ -3,7 +3,6 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/sysUser/save.do',// 保存新增用户管理接口
 	updateUrl : top.window.urlBase + '/sysUser/update.do',// 编辑用户管理信息接口
 	deleteUrl : top.window.urlBase + '/sysUser/delete.do',// 删除用户管理接口
-	roleidsUrl : top.window.urlBase + '/sysUser/findSysUserById.do',// 删除用户管理接口
 	resetPwdUrl : top.window.urlBase + '/sysUser/resetPwd.do',// 删除用户管理接口
 	selectedId : -1,
 	selectedData : {},
@@ -11,7 +10,8 @@ var appInfo = {
 		page_number : 1,
 		page_size : 10,
 		keyword : "",
-		ssorgid : ""
+		ssorgid : "",
+		s_role:null
 	},
 	formStatus : "new",
 	checkRole : []
@@ -53,17 +53,11 @@ $(function() {
 			$('#ff').form('load', appInfo.selectedData);
 			appInfo.checkRole = [];
 			$("#inputRoleDiv").html('');
-			var parms = "userid=" + appInfo.selectedId;
-			$.post(appInfo.roleidsUrl, parms, function(data) {
-				if (data.retcode == 0) {
-					initUser(data.sysUser);
-				} else {
-					showMsg(data.retmsg);
-				}
-			});
+			initUser(appInfo.selectedData);
 			$("#bind_mobile").numberbox({
 				disabled : true
 			});
+			$('#roleids').combobox('setValues',appInfo.selectedData.roleidsStr.split(",")[0]);
 		}
 	});
 
@@ -167,7 +161,7 @@ function formSubmit() {
 			param.companyId = $("#companyId").val();
 		},
 		success : function(data) {
-			if (typeof data === 'string') {
+			if (typeof data == 'string') {
 				try {
 					data = $.parseJSON(data);
 				} catch (e0) {
@@ -223,8 +217,13 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '角色名称',
+			title : '用户类型',
 			field : 'rolenamesStr',
+			width : 100,
+			align : "center"
+		}, {
+			title : '所属组织',
+			field : 'orgidNamesStr',
 			width : 100,
 			align : "center"
 		}, {
@@ -272,6 +271,7 @@ function loadList() {
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
 		appInfo.requestParam.ssorgid = $("#ssorgid").combotree("getValue");
+		appInfo.requestParam.s_role = $("#s_role").combotree("getValue");
 		$.ajax({
 			url : opts.url,
 			type : "get",
@@ -303,9 +303,10 @@ function loadList() {
 }
 
 function loadRoleList() {
-	$('#tbList').treegrid(
+	var roleUrl=top.window.urlBase + '/orgInfo/list.do';
+	$('#roleList').treegrid(
 			{
-				url : top.window.urlBase + '/orgInfo/list.do',
+				url : roleUrl,
 				striped : true,
 				nowrap : true,
 				rownumbers : true,
@@ -345,7 +346,7 @@ function loadRoleList() {
 					align : "center"
 				} ] ],
 				onBeforeExpand : function(row) {
-					$("#tbList").treegrid("options").url = appInfo.listUrl
+					$("#roleList").treegrid("options").url = roleUrl
 							+ "?parentId=" + row.orgid + "&_timer="
 							+ new Date().getTime();
 				},
@@ -362,8 +363,8 @@ function loadRoleList() {
 					}
 
 					if (flag) {
-						if (addRole(rowData.roleid)) {
-							initRolePut(rowData.roleid, rowData.rolename);
+						if (addRole(rowData.orgid)) {
+							initRolePut(rowData.orgid, rowData.orgname);
 						}
 
 					}
@@ -413,8 +414,8 @@ function delRole(id) {
 }
 function initUser(user) {
 	$("#companyId").val(user.companyId);
-	appInfo.checkRole = user.roleidsStr.split(",");
-	var rolenames = user.rolenamesStr.split(",");
+	appInfo.checkRole = user.orgidsStr.split(",");
+	var rolenames = user.orgidNamesStr.split(",");
 	for (var i = 0; i < appInfo.checkRole.length; i++) {
 		initRolePut(appInfo.checkRole[i], rolenames[i]);
 	}
