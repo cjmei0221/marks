@@ -1,3 +1,3 @@
 $(function() {
-	$("#headImage").attr("src", "../../image/Tulips.jpg");
+	$("#headImage").attr("src", "../../../assets/image/Tulips.jpg");
 });
