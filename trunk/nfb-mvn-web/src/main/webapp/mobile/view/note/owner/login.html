@@ -18,15 +18,16 @@
 <body>
 
 	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
-	<div id="app" class="page-group">
+	<div id="app">
 		<!-- 单个page ,第一个.page默认被展示-->
-		<div class="page">
+		<div>
 			<!-- 标题栏 -->
 			<header class="bar bar-nav">
 				<h1 class="title">登录</h1>
 			</header>
 			<!-- 这里是页面内容区 -->
 			<div id="content" class="content">
+				<div id="tooltips" class="tooltips"></div>
 				<div class="list-block">
 					<ul>
 						<!-- Text inputs -->
@@ -37,8 +38,9 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="tel" id="c_mobile" name="c_mobile" placeholder="手机号码"
-											maxlength="11" min="10000000000" max="19999999999">
+										<input type="tel" id="c_mobile" name="c_mobile"
+											placeholder="手机号码" maxlength="11" min="10000000000"
+											max="19999999999">
 									</div>
 								</div>
 							</div>
@@ -50,8 +52,8 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="password" id="c_password" name="c_password" placeholder="密码"
-											maxlength="20">
+										<input type="password" id="c_password" name="c_password"
+											placeholder="密码" maxlength="20">
 									</div>
 								</div>
 							</div>
@@ -62,7 +64,7 @@
 					<div class="row" style="margin-left: 0px;">
 						<div id="isLoading">
 							<a href="javascript:void(0)" onclick="summitForm()"
-								class="button button-big button-fill button-success" >提交</a>
+								class="button button-big button-fill button-success">提交</a>
 						</div>
 					</div>
 				</div>
@@ -72,14 +74,8 @@
 
 	<script type='text/javascript'
 		src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-	<script type='text/javascript'
-		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-	<script type='text/javascript'
-		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
-		charset='utf-8'></script>
 	<script type='text/javascript' src='../../../js/my-config.js'
 		charset='utf-8'></script>
-	<script type='text/javascript' src='login.js'
-		charset='utf-8'></script>
+	<script type='text/javascript' src='login.js' charset='utf-8'></script>
 </body>
 </html>

@@ -14,19 +14,13 @@
 <link rel="stylesheet"
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
 <link rel="stylesheet" href="myInfo.css">
-<script type='text/javascript'
-	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript'
-	src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript'
-	src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
-	charset='utf-8'></script>
+
 </head>
 <body>
 	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
-	<div id="app" class="page-group">
+	<div id="app">
 		<!-- 单个page ,第一个.page默认被展示-->
-		<div class="page">
+		<div>
 			<!-- 标题栏 -->
 			<header class="bar bar-nav">
 				<a class="icon icon-left pull-left back" href="../dairy/list.html"></a>
@@ -34,6 +28,7 @@
 			</header>
 			<!-- 这里是页面内容区 -->
 			<div class="content">
+				<div id="tooltips" class="tooltips"></div>
 				<div align="center" style="margin: 10px 0px;">
 					<div class="guiderAvatar">
 						<img id="headImage" alt="" src="../../image/Tulips.jpg">
@@ -105,6 +100,8 @@
 		</div>
 	</div>
 </body>
+<script type='text/javascript'
+	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='../../../js/my-config.js'
 	charset='utf-8'></script>
 <script type='text/javascript' src='../../../js/tool.js' charset='utf-8'></script>

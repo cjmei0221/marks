@@ -2,37 +2,38 @@ var appInfo = {
 	pageNum : 1,
 	pageSize : 10,
 	pageTotal : 0,
-	isLoadingFlag : false
+	isLoadingFlag : false,
+	leftPanel : false
 }
 $(function() {
 	appInfo.isLoadingFlag = false;
 	$("#isLoading").hide();
-	
-	appInfo.pageNum=1;
-	appInfo.pageSize=10;
-	
+
+	appInfo.pageNum = 1;
+	appInfo.pageSize = 10;
+
 	getDairylist(false);
 	initScroll();
 });
-//搜索
-function search(){
-	appInfo.pageNum=1;
-	appInfo.pageSize=10;
+// 搜索
+function search() {
+	appInfo.pageNum = 1;
+	appInfo.pageSize = 10;
 	getDairylist(false);
 }
 function getDairylist(scroll) {
-	appInfo.isLoadingFlag=true;
+	appInfo.isLoadingFlag = true;
 	$("#isLoading").show();
 	$.ajax({
 		url : tool.reqUrl.dairy_list,
 		type : 'POST',
-		data:{
-			keyword:$("#search").val(),
-			page_number:appInfo.pageNum,
-			page_size:appInfo.pageSize
+		data : {
+			keyword : $("#search").val(),
+			page_number : appInfo.pageNum,
+			page_size : appInfo.pageSize
 		},
 		success : function(data) {
-			if(data.retcode == 0){
+			if (data.retcode == 0) {
 				var dairyList = data.list;
 				var totalPage = data.page_total;
 				appInfo.pageTotal = totalPage;
@@ -43,14 +44,14 @@ function getDairylist(scroll) {
 					arr.push(tool.fillTemplate($("#listTrTmp").html(), o));
 				});
 				$('#listDiv').append(arr.join(''));
-			}else{
-				$.toast("加载失败【"+data.retcode+"】");
+			} else {
+				msg.info("加载失败【" + data.retcode + "】");
 			}
 		},
 		complete : function() {
 			// 重置加载flag
 			$("#isLoading").hide();
-			appInfo.isLoadingFlag=false;
+			appInfo.isLoadingFlag = false;
 		}
 	});
 }
@@ -64,4 +65,18 @@ function initScroll() {
 					return false;
 				getDairylist(true);
 			});
+}
+/**
+ * 侧栏显示控制
+ */
+function showLeftPanal(dvl) {
+	
+	if(!appInfo.leftPanel){
+		$("#"+dvl).show();
+		appInfo.leftPanel = true;
+	}else{
+		$("#"+dvl).hide();
+		appInfo.leftPanel = false;
+	}
+	
 }

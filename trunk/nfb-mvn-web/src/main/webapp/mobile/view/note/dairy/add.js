@@ -3,14 +3,14 @@ var appInfo={
 		formStatus:"add",
 }
 $(function() {
-	if(id !=null || id !='undefined'){
+	if(id !=null && id !='undefined' ){
 		//编辑
 		appInfo.formStatus="edit";
-		$("#t_title").html("修改日记");
+		$("#t_title").html("修改");
 		getDetail();
 	}else{
 		appInfo.formStatus="add";
-		$("#t_title").html("添加日记");
+		$("#t_title").html("添加");
 		$("#createtime").val(initTime());
 	}
 });
