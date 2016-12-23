@@ -17,21 +17,21 @@
 </head>
 <body>
 	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
-	<div id="app" class="page-group">
+	<div id="app">
 		<!-- 单个page ,第一个.page默认被展示-->
-		<div class="page">
+		<div>
 			<!-- 标题栏 -->
 			<header class="bar bar-nav">
 				<a class="icon icon-left pull-left back" href="./list.html"></a> <a
-					class="icon icon-edit pull-right" href="./add.html"></a>
-				<h1 class="title">2016-12-20 日记</h1>
+					class="icon icon-edit pull-right" href="javascript:void(0)" onclick="toEdit()"></a>
+				<h1 class="title"><span id="t_title">2016-12-20</span>   日记</h1>
 			</header>
 			<!-- 这里是页面内容区 -->
 			<div class="content">
 				<div class="content-padded">
-					<h3 style="margin-bottom: 5px;">领悟</h3>
-					<h6 style="margin-top: 5px; font-weight: normal;">2016-12-20</h6>
-					<p style="text-indent: 2em;">这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落</p>
+					<h3 style="margin-bottom: 5px;" id="c_title">领悟</h3>
+					<h6 style="margin-top: 5px; font-weight: normal;" id="c_createtime">2016-12-20</h6>
+					<p style="WORD-BREAK: break-word;text-indent: 2em;" id="c_content">这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落这是一个段落</p>
 				</div>
 			</div>
 
@@ -40,11 +40,6 @@
 
 		<script type='text/javascript'
 			src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-		<script type='text/javascript'
-			src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-		<script type='text/javascript'
-			src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
-			charset='utf-8'></script>
 		<script type='text/javascript' src='../../../js/my-config.js'
 			charset='utf-8'></script>
 		<script type='text/javascript' src='../../../js/tool.js'

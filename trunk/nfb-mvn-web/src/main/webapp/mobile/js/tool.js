@@ -6,7 +6,7 @@ tool.getUrlParams = function(name) {
 		return unescape(r[2]);
 	return null;
 }
-tool.baseUrl="";
+
 tool.fillTemplate = function(tmpl, obj) {
 	if(tmpl==null){
 		msg.error('tmpl is null,请检查"tmpl"是否为空');
@@ -18,3 +18,11 @@ tool.fillTemplate = function(tmpl, obj) {
 	}
 	return html;
 };
+
+tool.baseUrl="";
+tool.reqUrl={
+		dairy_list:tool.baseUrl+"/diary/list.do",
+		dairy_add:tool.baseUrl+"/diary/save.do",
+		dairy_update:tool.baseUrl+"/diary/update.do",
+		dairy_detail:tool.baseUrl+"/diary/findDiaryById.do"
+}

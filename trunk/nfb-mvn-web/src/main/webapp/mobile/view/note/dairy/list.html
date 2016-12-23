@@ -13,20 +13,13 @@
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
 <link rel="stylesheet"
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-<script type='text/javascript'
-	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript'
-	src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript'
-	src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
-	charset='utf-8'></script>
 </head>
 <body>
 
 	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
-	<div id="app" class="page-group">
+	<div id="app">
 		<!-- 单个page ,第一个.page默认被展示-->
-		<div class="page">
+		<div>
 			<!-- 标题栏 -->
 			<header class="bar bar-nav">
 				<a class="icon icon-me pull-left open-panel"></a> <a
@@ -67,6 +60,8 @@
 		</div>
 	</div>
 </body>
+<script type='text/javascript'
+	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='../../../js/my-config.js'
 	charset='utf-8'></script>
 <script type='text/javascript' src='../../../js/tool.js' charset='utf-8'></script>
@@ -79,7 +74,7 @@
 				<div class="item-title-row">
 					<div class="item-title">{title}</div>
 				</div>
-				<div class="item-subtitle" style="font-size: .60rem; margin-bottom: 10px;">{dairyDate}</div>
+				<div class="item-subtitle" style="font-size: .60rem; margin-bottom: 10px;">{createtime}</div>
 				<div class="item-text" style="word-wrap: break-word;">{shortContent}</div>
 			</div>
 		</a></li>
