@@ -66,6 +66,7 @@ public class DiaryController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
+			String content=request.getParameter("content");
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Diary diary = getModel(Diary.class);
 	 //     diary.setID(IDUtil.getTimeID());

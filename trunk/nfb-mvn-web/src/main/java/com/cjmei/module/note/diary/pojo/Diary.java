@@ -1,7 +1,7 @@
 package com.cjmei.module.note.diary.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Diary implements Serializable{
@@ -41,6 +41,10 @@ public class Diary implements Serializable{
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
 	}
+	public String getCreateDate() {
+		SimpleDateFormat sdf=new SimpleDateFormat("YYYY-MM-dd");
+		return sdf.format(createtime);
+	}
 	public Date getCreatetime() {
 		return createtime;
 	}
@@ -54,6 +58,9 @@ public class Diary implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getShortContent(){
+        return content.split("<br/>")[0];
+    }
 	public String getContent(){
         return content;
     }
