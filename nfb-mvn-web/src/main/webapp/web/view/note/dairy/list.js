@@ -28,7 +28,7 @@ function nextPage() {
 function getDairylist() {
 	appInfo.keyword = $("#keyword").val();
 	$.ajax({
-		url : tool.reqUrl.dairyList,
+		url : tool.reqUrl.dairy_list,
 		type : 'POST',
 		dataType : "json",
 		data : {

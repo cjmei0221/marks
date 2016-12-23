@@ -7,17 +7,13 @@
 <title>日记</title>
 <link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
 	rel="stylesheet">
-<script type="text/javascript"
-	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript"
-	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
-<script type="text/javascript" src="../../../js/showMsg.js"></script>
-<script type="text/javascript" src="../../../js/tool.js"></script>
+<link rel="stylesheet" href="../../../assets/css/marks.css">
+
 </head>
 <body>
-	<div >
+	<div>
 		<div id="showMsg"></div>
-		<div class="sui-navbar navbar-inverse">
+		<div class="sui-navbar navbar-inverse" style="margin-bottom: 0px;">
 			<div class="navbar-inner">
 				<a href="#" class="sui-brand">痕迹</a>
 				<ul class="sui-nav" style="font-size: 16px;">
@@ -31,15 +27,26 @@
 				</ul>
 			</div>
 		</div>
-		<div id="app" class='container'>
-			<div style="margin: 20px;">
-				<h2>AAAAAAAAAAAAAAAAAAAAAAAAA</h2>
-				<h5>2016-12-21</h5>
+		<div id="app" class='container cm-contnet-img'
+			style="width: 100%; height: 800px;">
+			<div style="padding: 20px;">
+				<h2 id="c_title">
+					AAAAAAAAAAAAAAAAAAAAAAAAA<a
+						class="">修改</a>
+				</h2>
+				<h5 id="c_createtime">2016-12-21</h5>
 				<div style="border-bottom: 1px solid #e6e6e6; margin-top: 30px;"></div>
-				<p style="word-break: break-word; text-indent: 2em;">asaaaaaaadsfgsddfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+				<p style="word-break: break-word; text-indent: 2em;" id="c_content">asaaaaaaadsfgsddfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
 			</div>
 		</div>
 	</div>
 </body>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<script type="text/javascript" src="../../../js/showMsg.js"></script>
+<script type='text/javascript' src='../../../../common/tool.js'
+	charset='utf-8'></script>
 <script type="text/javascript" src="./detail.js"></script>
 </html>
