@@ -9,13 +9,13 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface DiaryDao {
 
-	Diary findById(String ID);
+	Diary findById(String id);
 
 	void save(Diary diary);
 
 	void update(Diary diary);
 
-	void delete(String ID);
+	void delete(String id);
 
 	List<Diary> findAll();
 
