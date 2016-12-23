@@ -1,0 +1,9 @@
+.tooltips {
+	width: 100%;
+	background: #e7e7e7;
+	text-align: center;
+	color: red;
+	border-radius: 10px;
+    display: none;
+    position: absolute;
+}

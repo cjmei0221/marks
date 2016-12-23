@@ -13,21 +13,22 @@
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
 <link rel="stylesheet"
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-
+<link rel="stylesheet"
+	href="../../../assets/css/msg.css">
 </head>
 <body>
 	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
-	<div id="app" class="page-group">
+	<div id="app">
 		<!-- 单个page ,第一个.page默认被展示-->
-		<div class="page">
+		<div>
 			<!-- 标题栏 -->
 			<header class="bar bar-nav">
 				<a class="icon icon-left pull-left" href="./list.html"></a>
-				<h1 class="title">添加日记</h1>
+				<h1 class="title" id="t_title">添加日记</h1>
 			</header>
 			<!-- 这里是页面内容区 -->
 			<div class="content">
-
+				<div id="tooltips" class="tooltips"></div>
 				<div class="list-block">
 					<ul>
 						<!-- Text inputs -->
@@ -38,7 +39,8 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="text" placeholder="标题">
+										<input type="text" id="c_title" name="c_title"
+											placeholder="标题">
 									</div>
 								</div>
 							</div>
@@ -50,7 +52,8 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="email" value="2016-12-19" readonly="readonly">
+										<input type="text" id="createtime" name="createtime"
+											value="2016-12-19" readonly="readonly">
 									</div>
 								</div>
 							</div>
@@ -64,7 +67,7 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<textarea rows="30" cols="30" placeholder="内容"
+										<textarea id="c_content" name="c_content" placeholder="内容"
 											style="height: 15rem"></textarea>
 									</div>
 								</div>
@@ -76,30 +79,22 @@
 				<div class="content-block">
 					<div class="row" style="margin-left: 0px;">
 						<div>
-							<a href="#" class="button button-big button-fill button-success">提交</a>
+							<a href="javascript:void(0)" onclick="summitForm();"
+								class="button button-big button-fill button-success">提交</a>
 						</div>
 					</div>
 				</div>
-
 			</div>
+
 		</div>
-
-
 	</div>
 
-
-
-
-	<script type='text/javascript'
-		src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-	<script type='text/javascript'
-		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-	<script type='text/javascript'
-		src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
-		charset='utf-8'></script>
-	<script type='text/javascript' src='../../../js/my-config.js'
-		charset='utf-8'></script>
-	<script type='text/javascript' src='./add.js' charset='utf-8'></script>
-
 </body>
+<script type='text/javascript'
+	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../../../js/my-config.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../js/tool.js' charset='utf-8'></script>
+<script type='text/javascript' src='../../../js/msg.js' charset='utf-8'></script>
+<script type='text/javascript' src='./add.js' charset='utf-8'></script>
 </html>

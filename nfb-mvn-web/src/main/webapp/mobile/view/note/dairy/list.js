@@ -4,9 +4,7 @@ var appInfo = {
 	pageTotal : 0,
 	isLoadingFlag : false
 }
-console.log("2");
 $(function() {
-	console.log("1");
 	appInfo.isLoadingFlag = false;
 	$("#isLoading").hide();
 	
@@ -15,25 +13,39 @@ $(function() {
 	
 	getDairylist(false);
 	initScroll();
-	
 });
+//搜索
+function search(){
+	appInfo.pageNum=1;
+	appInfo.pageSize=10;
+	getDairylist(false);
+}
 function getDairylist(scroll) {
 	appInfo.isLoadingFlag=true;
 	$("#isLoading").show();
 	$.ajax({
-		url : '../data/dairyData.json',
-		type : 'GET',
+		url : tool.reqUrl.dairy_list,
+		type : 'POST',
+		data:{
+			keyword:$("#search").val(),
+			page_number:appInfo.pageNum,
+			page_size:appInfo.pageSize
+		},
 		success : function(data) {
-			var dairyList = data.list;
-			var totalPage = data.list.length;
-			appInfo.pageTotal = totalPage;
-			appInfo.pageNum++;
-			var arr = [];
-			$.each(dairyList, function(i, o) {
-				// 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法.
-				arr.push(tool.fillTemplate($("#listTrTmp").html(), o));
-			});
-			$('#listDiv').append(arr.join(''));
+			if(data.retcode == 0){
+				var dairyList = data.list;
+				var totalPage = data.page_total;
+				appInfo.pageTotal = totalPage;
+				appInfo.pageNum++;
+				var arr = [];
+				$.each(dairyList, function(i, o) {
+					// 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法.
+					arr.push(tool.fillTemplate($("#listTrTmp").html(), o));
+				});
+				$('#listDiv').append(arr.join(''));
+			}else{
+				$.toast("加载失败【"+data.retcode+"】");
+			}
 		},
 		complete : function() {
 			// 重置加载flag
@@ -52,5 +64,4 @@ function initScroll() {
 					return false;
 				getDairylist(true);
 			});
-	$.init();
 }
