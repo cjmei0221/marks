@@ -16,7 +16,8 @@ $(function() {
 	initScroll();
 });
 // 搜索
-function search() {
+function mysearch() {
+	appInfo.isLoadingFlag = false;
 	appInfo.pageNum = 1;
 	appInfo.pageSize = 10;
 	getDairylist(false);
@@ -34,6 +35,9 @@ function getDairylist(scroll) {
 		},
 		success : function(data) {
 			if (data.retcode == 0) {
+				if(!scroll){
+					$('#listDiv').html("");
+				}
 				var dairyList = data.list;
 				var totalPage = data.page_total;
 				appInfo.pageTotal = totalPage;
