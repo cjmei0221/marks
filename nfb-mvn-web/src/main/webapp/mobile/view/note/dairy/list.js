@@ -1,30 +1,23 @@
 var appInfo = {
 	pageNum : 1,
-	pageSize : 10,
+	pageSize : 9,
 	pageTotal : 0,
-	isLoadingFlag : false,
+	curNum : 0,
 	leftPanel : false
 }
 $(function() {
-	appInfo.isLoadingFlag = false;
-	$("#isLoading").hide();
-
 	appInfo.pageNum = 1;
-	appInfo.pageSize = 10;
-
+	appInfo.curNum = 0;
 	getDairylist(false);
-	initScroll();
 });
 // 搜索
 function mysearch() {
-	appInfo.isLoadingFlag = false;
 	appInfo.pageNum = 1;
-	appInfo.pageSize = 10;
+	appInfo.curNum = 0;
 	getDairylist(false);
 }
 function getDairylist(scroll) {
-	appInfo.isLoadingFlag = true;
-	$("#isLoading").show();
+	$("#isLoading").hide();
 	$.ajax({
 		url : tool.reqUrl.dairy_list,
 		type : 'POST',
@@ -35,52 +28,56 @@ function getDairylist(scroll) {
 		},
 		success : function(data) {
 			if (data.retcode == 0) {
-				if(!scroll){
+				if (!scroll) {
 					$('#listDiv').html("");
 				}
 				var dairyList = data.list;
-				var totalPage = data.page_total;
+				var totalPage = data.total_count;
 				appInfo.pageTotal = totalPage;
-				appInfo.pageNum++;
 				var arr = [];
 				$.each(dairyList, function(i, o) {
 					// 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法.
+					o.idx = appInfo.pageTotal - appInfo.curNum;
 					arr.push(tool.fillTemplate($("#listTrTmp").html(), o));
+					appInfo.curNum++;
 				});
 				$('#listDiv').append(arr.join(''));
+
+				if (appInfo.pageNum * appInfo.pageSize > appInfo.pageTotal) {
+					$("#isLoading").hide();
+				} else {
+					$("#isLoading").show();
+				}
 			} else {
 				msg.info("加载失败【" + data.retcode + "】");
 			}
 		},
 		complete : function() {
 			// 重置加载flag
-			$("#isLoading").hide();
-			appInfo.isLoadingFlag = false;
+
 		}
 	});
 }
 
-function initScroll() {
-	$(document).off('infinite', '#content').on('infinite', '#content',
-			function() {
-				if (appInfo.isLoadingFlag)
-					return false;
-				if (appInfo.pageNum * appInfo.pageSize > appInfo.pageTotal)
-					return false;
-				getDairylist(true);
-			});
+function loadMore() {
+	if (appInfo.pageNum * appInfo.pageSize > appInfo.pageTotal) {
+		$("#isLoading").hide();
+	} else {
+		appInfo.pageNum++;
+		getDairylist(true);
+	}
 }
 /**
  * 侧栏显示控制
  */
 function showLeftPanal(dvl) {
-	
-	if(!appInfo.leftPanel){
-		$("#"+dvl).show();
+
+	if (!appInfo.leftPanel) {
+		$("#" + dvl).show();
 		appInfo.leftPanel = true;
-	}else{
-		$("#"+dvl).hide();
+	} else {
+		$("#" + dvl).hide();
 		appInfo.leftPanel = false;
 	}
-	
+
 }
