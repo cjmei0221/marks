@@ -24,16 +24,18 @@ function summitForm() {
 	}
 	$("#isLoading").hide();
 	$.ajax({
-		url : '../data/dairyData.json',
+		url : tool.reqUrl.changePwd,
 		type : 'POST',
 		data : {
-			oldPwd : _this.c_oldPwd,
-			newPwd : _this.c_newPwd,
-			newPwd2 : _this.c_newPwd2
+			oldPwd : Encrypt(c_oldPwd),
+			newPwd : Encrypt(c_newPwd)
 		},
 		success : function(data) {
-			
-			location.href = './login.html?' + "_t=" + new Date().getTime();
+			if(data.retcode==0){
+				location.href = './login.html?' + "_t=" + new Date().getTime();
+			}else{
+				msg.info(data.retmsg);
+			}
 		},
 		complete : function() {
 			// 重置加载flag
