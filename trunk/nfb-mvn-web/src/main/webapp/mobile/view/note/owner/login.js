@@ -10,25 +10,29 @@ function resetForm() {
 function summitForm() {
 	var c_mobile = $("#c_mobile").val();
 	if (c_mobile == '') {
-		$.toast("手机号码为空");
+		msg.info("手机号码为空");
 		return false;
 	}
 	var c_password = $("#c_password").val();
 	if (c_password == '') {
-		$.toast("密码为空");
+		msg.info("密码为空");
 		return false;
 	}
 	$("#isLoading").hide();
 	$.ajax({
-		url : '../data/dairyData.json',
+		url : tool.reqUrl.login,
 		type : 'POST',
 		data : {
 			mobile : c_mobile,
-			password : c_password
+			password : Encrypt(c_password)
 		},
 		success : function(data) {
-			location.href = '../dairy/list.html?' + "_t="
-					+ new Date().getTime();
+			if(data.retcode==0){
+				location.href = '../dairy/list.html?' + "_t="
+				+ new Date().getTime();
+			}else{
+				msg.info(data.retmsg);
+			}
 		},
 		complete : function() {
 			$("#isLoading").show();
