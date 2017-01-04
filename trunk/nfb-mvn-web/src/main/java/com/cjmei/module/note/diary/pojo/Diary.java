@@ -33,9 +33,7 @@ public class Diary implements Serializable{
     */
     private Date createtime;
 
-
-
-    public Date getUpdatetime() {
+	public Date getUpdatetime() {
 		return updatetime;
 	}
 	public void setUpdatetime(Date updatetime) {
