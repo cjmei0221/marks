@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjmei.module.system.login.dao.SysUserDao">
+	<!-- 加载系统参数 -->
+	<select id="getSysUserByUserid" resultType="com.cjmei.module.system.login.pojo.SysUser">
+		SELECT
+		TSU.*
+		FROM
+		TB_SYS_USER tsu
+		WHERE
+		tsu.USERID = #{userid} or
+		tsu.bind_mobile=#{userid}
+	</select>
+	<update id="updatePwd" flushCache="true">
+		update tb_sys_user set password=#{password} where userid=#{userid}
+	</update>
+</mapper>

@@ -24,5 +24,7 @@ tool.reqUrl={
 		dairy_list:tool.baseUrl+"/diary/list.do",
 		dairy_add:tool.baseUrl+"/diary/save.do",
 		dairy_update:tool.baseUrl+"/diary/update.do",
-		dairy_detail:tool.baseUrl+"/diary/findDiaryById.do"
+		dairy_detail:tool.baseUrl+"/diary/findDiaryById.do",
+		login:tool.baseUrl+"/login.do",
+		changePwd:tool.baseUrl+"/changePwd.do"
 }
