@@ -9,9 +9,9 @@ $(document).on('ajaxStart', function(){
     		alert("访问已失效，请关闭重新进入！");
     		return;
     	}else if (_data.retcode == -100) {
-    		location.replace(tool.baseUrl+"/mobile/view/note/owner/login.html");
+    		alert("用户已失效，请重新登录！");
+    		location.replace(tool.baseUrl+"/web/view/note/owner/login.html");
     	}
-        console.log(_data.retcode+"-12");
     }
 
 });

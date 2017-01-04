@@ -19,9 +19,8 @@ function summitForm() {
 		return false;
 	}
 	$.ajax({
-		url : '../data/dairyData.json',
+		url : tool.reqUrl.login,
 		type : 'POST',
-		dataType : "json",
 		data : {
 			mobile : c_mobile,
 			password : Encrypt(c_password)
@@ -31,7 +30,7 @@ function summitForm() {
 				location.href = '../dairy/list.html?' + "_t="
 				+ new Date().getTime();
 			}else{
-				msg.info(data.retmsg);
+				msg.error(data.retmsg);
 			}
 			
 		},
