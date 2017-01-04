@@ -8,6 +8,13 @@ var appInfo = {
 $(function() {
 	getDairylist();
 });
+function search(){
+	appInfo.keyword=$("#keyword").val();
+	appInfo.pageNum=1;
+	appInfo.pageSize=10;
+	appInfo.pageTotal=0;
+	getDairylist();
+}
 function lastPage() {
 	appInfo.pageNum--;
 	if (appInfo.pageNum < 1) {
