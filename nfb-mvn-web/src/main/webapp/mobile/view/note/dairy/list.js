@@ -1,7 +1,7 @@
 var appInfo = {
 	pageNum : 1,
 	pageSize : 9,
-	pageTotal : 0,
+	total_count : 0,
 	curNum : 0,
 	leftPanel : false
 }
@@ -32,18 +32,18 @@ function getDairylist(scroll) {
 					$('#listDiv').html("");
 				}
 				var dairyList = data.list;
-				var totalPage = data.total_count;
-				appInfo.pageTotal = totalPage;
+				var total_count = data.total_count;
+				appInfo.total_count = total_count;
 				var arr = [];
 				$.each(dairyList, function(i, o) {
 					// 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法.
-					o.idx = appInfo.pageTotal - appInfo.curNum;
+					o.idx = appInfo.total_count - appInfo.curNum;
 					arr.push(tool.fillTemplate($("#listTrTmp").html(), o));
 					appInfo.curNum++;
 				});
 				$('#listDiv').append(arr.join(''));
 
-				if (appInfo.pageNum * appInfo.pageSize > appInfo.pageTotal) {
+				if (appInfo.pageNum * appInfo.pageSize > appInfo.total_count) {
 					$("#isLoading").hide();
 				} else {
 					$("#isLoading").show();
@@ -60,8 +60,9 @@ function getDairylist(scroll) {
 }
 
 function loadMore() {
-	if (appInfo.pageNum * appInfo.pageSize > appInfo.pageTotal) {
+	if (appInfo.pageNum * appInfo.pageSize > appInfo.total_count) {
 		$("#isLoading").hide();
+		return;
 	} else {
 		appInfo.pageNum++;
 		getDairylist(true);
