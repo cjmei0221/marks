@@ -11,6 +11,7 @@ $(document).on('ajaxStart', function(){
     	}else if (_data.retcode == -100) {
     		location.replace(tool.baseUrl+"/mobile/view/note/owner/login.html");
     	}
+        console.log(_data.retcode+"-12");
     }
 
 });

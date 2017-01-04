@@ -8,6 +8,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
+import com.cjmei.module.system.login.pojo.SysUser;
+import com.cjmei.module.system.login.util.LoginUtil;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log= Logger.getLogger(LoginInterceptor.class);
@@ -21,7 +23,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Result result = new Result();
-		String loginUser = null;
+		SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 		if (null != loginUser) {
 			return true;
 		} else {

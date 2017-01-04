@@ -24,11 +24,16 @@ function summitForm() {
 		dataType : "json",
 		data : {
 			mobile : c_mobile,
-			password : c_password
+			password : Encrypt(c_password)
 		},
 		success : function(data) {
-			location.href = '../dairy/list.html?' + "_t="
-					+ new Date().getTime();
+			if(data.retcode==0){
+				location.href = '../dairy/list.html?' + "_t="
+				+ new Date().getTime();
+			}else{
+				msg.info(data.retmsg);
+			}
+			
 		},
 		complete : function() {
 

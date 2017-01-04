@@ -26,7 +26,7 @@ public class SysUserController {
 	/**
 	 * 查询我的日记
 	 */
-	@RequestMapping("/changePwd")
+	@RequestMapping("/sysUser/changePwd")
 	public void findDiaryById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
