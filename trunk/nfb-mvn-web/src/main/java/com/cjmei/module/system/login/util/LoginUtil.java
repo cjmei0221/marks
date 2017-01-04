@@ -23,7 +23,7 @@ public class LoginUtil {
 		if (null != obj) {
 			user = (SysUser) obj;
 		}
-		if (RunModel.getInstance().getWeixinMode().equals("N")) {
+		if (RunModel.getInstance().getMode().equals("N")) {
 			user=new SysUser();
 			user.setUserid("admin");
 		}
