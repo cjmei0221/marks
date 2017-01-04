@@ -8,10 +8,8 @@ var appInfo = {
 $(function() {
 	getDairylist();
 });
-function search(){
-	appInfo.keyword=$("#keyword").val();
+function mysearch(){
 	appInfo.pageNum=1;
-	appInfo.pageSize=10;
 	appInfo.pageTotal=0;
 	getDairylist();
 }
