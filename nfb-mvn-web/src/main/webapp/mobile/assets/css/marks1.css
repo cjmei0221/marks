@@ -9,23 +9,7 @@
 }
 
 .cm-head {
-	background-color: deepskyblue;
-}
-
-.cm-contnet-img input {
-	color: white !important;
-}
-
-textarea {
-	color: white !important;
-}
-
-.cm-contnet-img div {
-	color: white !important;
-}
-
-h1 {
-	color: white !important;
+	background-color: pink;
 }
 
 .cm-search {
@@ -45,19 +29,10 @@ h1 {
 }
 
 .cm-contnet-img {
-	background-image: url('../image/back_3.jpg') !important;
+	background-image: url('../image/back_1.jpg') !important;
 	background-size: 100% 100%;
 }
 
 .cm-btn {
 	background-color: rgba(255, 235, 59, 0.81) !important;
-}
-
-.cm-item-content {
-	padding-left: 0 !important;
-}
-
-.cm-item-inner {
-	margin-right: 0.75rem;
-	padding-right: 0 !important;
 }
