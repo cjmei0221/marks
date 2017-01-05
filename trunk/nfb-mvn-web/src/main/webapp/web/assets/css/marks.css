@@ -1,7 +1,7 @@
 body {
 	background-image: url('../image/back_4.jpg');
-	background-size: 100% 60rem;
-	/* background-repeat: round; */
+	background-size: 100%;
+	background-repeat: repeat-y;
 }
 
 .cm-btn {
