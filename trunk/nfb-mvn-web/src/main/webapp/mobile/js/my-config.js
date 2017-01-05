@@ -34,7 +34,6 @@ function loadStyle() {
 		url : tool.reqUrl.getLoginUserInfo,
 		type : 'POST',
 		success : function(data) {
-			console.log(data.loginUser.skin);
 			myConfig.styleType = data.loginUser.skin;
 			if (myConfig.styleType != null || "" != myConfig.styleType) {
 				addStyle(tool.baseUrl + "/mobile/assets/css/marks" + myConfig.styleType
