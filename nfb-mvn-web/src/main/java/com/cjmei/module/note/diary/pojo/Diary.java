@@ -57,7 +57,7 @@ public class Diary implements Serializable{
 		this.id = id;
 	}
 	public String getShortContent(){
-        return content.split("<br/>")[0];
+        return content==null?"":content.split("<br/>")[0];
     }
 	public String getContent(){
         return content;
