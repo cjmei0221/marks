@@ -65,7 +65,7 @@
 				</tr>
 				<tr>
 					<th>所属组织</th>
-					<td><a href="javascript:;" id="chooseRole">选择权限角色</a></td>
+					<td><a href="javascript:;" id="chooseRole">选择组织</a></td>
 				</tr>
 				<tr>
 					<th>手机号码</th>

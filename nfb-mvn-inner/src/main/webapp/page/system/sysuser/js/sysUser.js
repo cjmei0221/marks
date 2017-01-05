@@ -37,6 +37,8 @@ $(function() {
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
 		appInfo.checkRole = [];
+		
+		$("#companyId").val('');
 		$("#inputRoleDiv").html('');
 		$("#bind_mobile").numberbox({
 			disabled : false
@@ -125,8 +127,7 @@ $(function() {
 	});
 });
 function checkPhone(val) {
-	if (!(/^1(3|4|5|7|8)\d{9}$/.test(val))) {
-		showMsg("手机号码格式有误，请重填");
+	if (!(/^1[34578]\d{9}$/.test(val))) {
 		return false;
 	}
 	return true;
@@ -146,8 +147,11 @@ function formSubmit() {
 		showMsg("所属组织为空");
 		return;
 	}
-	var phoneVar = checkPhone($("bind_mobile").val());
-	if (phoneVar) {
+	console.log($("#bind_mobile").val());
+	var phoneVar = checkPhone($("#bind_mobile").val());
+	console.log(phoneVar);
+	if (!phoneVar) {
+		showMsg("手机号码格式有误，请重填");
 		return;
 	}
 
@@ -178,8 +182,6 @@ function formSubmit() {
 			} else {
 				showMsg(data.retmsg);
 			}
-			appInfo.checkRole = [];
-			$("#inputRoleDiv").html('');
 		}
 	});
 }
