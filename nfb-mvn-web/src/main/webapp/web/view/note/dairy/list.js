@@ -1,6 +1,6 @@
 var appInfo = {
 	pageNum : 1,
-	pageSize : 20,
+	pageSize : 15,
 	pageTotal : 0,
 	keyword : ""
 }
