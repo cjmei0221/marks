@@ -2,10 +2,11 @@
 	width: 100%;
 	background: #e7e7e7;
 	text-align: center;
-	color: red;
+	color: red !important;
 	border-radius: 10px;
 	display: none;
 	position: absolute;
+	line-height: 2rem;
 }
 
 .cm-head {
@@ -21,7 +22,7 @@ textarea {
 }
 
 .cm-contnet-img div {
-	color: white !important;
+	color: white;
 }
 
 h1 {
