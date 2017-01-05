@@ -212,6 +212,7 @@ public class GainsController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("userid", admin.getUserid());
 			PojoDomain<Gains> list = gainsService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

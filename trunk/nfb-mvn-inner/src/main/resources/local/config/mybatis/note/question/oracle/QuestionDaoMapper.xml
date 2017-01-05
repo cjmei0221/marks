@@ -8,9 +8,10 @@
 		question where question.ID = #{id}
 	</select>
 	<select id="findByQuestion" resultType="com.cjmei.module.note.question.pojo.Question">
-		SELECT * FROM TB_NOTE_QUESTION question where question.question = #{question}
+		SELECT * FROM
+		TB_NOTE_QUESTION question where question.question = #{question}
 	</select>
-	
+
 
 	<insert id="save" parameterType="com.cjmei.module.note.question.pojo.Question">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
@@ -106,7 +107,9 @@
 			)
 		</if>
 
-
+		<if test="userid!=null and userid!=''">
+			and question.CREATOR =#{userid:VARCHAR}
+		</if>
 
 	</select>
 
