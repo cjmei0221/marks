@@ -40,7 +40,14 @@ public class SysUser implements Serializable{
 	
 	private String openid;
 	
+	private int skin;
 
+	public int getSkin() {
+		return skin;
+	}
+	public void setSkin(int skin) {
+		this.skin = skin;
+	}
 	public String getOpenid() {
 		return openid;
 	}

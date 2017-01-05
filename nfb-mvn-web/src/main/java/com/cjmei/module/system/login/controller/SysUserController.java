@@ -24,10 +24,10 @@ public class SysUserController {
 	private SysUserService sysUserService;
 
 	/**
-	 * 查询我的日记
+	 * 更改密码
 	 */
 	@RequestMapping("/sysUser/changePwd")
-	public void findDiaryById(HttpServletRequest request, HttpServletResponse response) {
+	public void changePwd(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			result.setMessage("findById diary successs!");
@@ -39,14 +39,51 @@ public class SysUserController {
 
 			String password = EncryptUtil.encrypt(oldPwd);
 			if (password.equals(user.getPassword())) {
-				sysUserService.updatePwd(user.getUserid(),EncryptUtil.encrypt(newPwd));
+				sysUserService.updatePwd(user.getUserid(), EncryptUtil.encrypt(newPwd));
 			} else {
 				result.setCode(4001);
 				result.setMessage("原密码错误");
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+
+	/**
+	 * 更改皮肤
+	 */
+	@RequestMapping("/sysUser/changeSkin")
+	public void changeSkin(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			result.setMessage("findById diary successs!");
+			result.setCode(Code.CODE_SUCCESS);
+			String skin = request.getParameter("skin");
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
+			sysUserService.updateSkin(loginUser.getUserid(), Integer.parseInt(skin));
+		} catch (Exception e) {
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	
+	/**
+	 * 获取登录用户信息
+	 */
+	@RequestMapping("/sysUser/getInfo")
+	public void getInfo(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			result.setMessage("findById diary successs!");
+			result.setCode(Code.CODE_SUCCESS);
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
+			SysUser user = sysUserService.getSysUserByUserid(loginUser.getUserid());
+			result.getData().put("loginUser", user);
+		} catch (Exception e) {
 			result.setMessage("查询失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}

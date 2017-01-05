@@ -10,4 +10,6 @@ public interface SysUserDao {
 
 	void updatePwd(@Param("userid")String userid, @Param("password")String password);
 
+	void updateSkin(@Param("userid")String userid,@Param("skin") int skin);
+
 }
