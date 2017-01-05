@@ -48,9 +48,12 @@ function getDairylist() {
 				appInfo.pageTotal=pageTotal;
 				$("#pageShow").html(appInfo.pageNum + "/" + pageTotal);
 				var arr = [];
+				var index=1;
 				$.each(dairyList, function(i, o) {
 					// 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法.
+					o.idx=index;
 					arr.push(tool.fillTemplate($("#trDivTmp").html(), o));
+					index++;
 				});
 				$('#trDiv').html(arr.join(''));
 			} else {
