@@ -22,7 +22,7 @@
 						<div class="controls">
 							<input type="text" id="c_title" name="c_title"
 								class="input-xlarge cm-input" placeholder="标题"
-								style="width: 100%; height: 35px;">
+								style="width: 100%; height: 35px;" onblur="submitForm()">
 						</div>
 					</div>
 					<div class="control-group" style="width: 100%;">
@@ -34,16 +34,17 @@
 					</div>
 					<div class="control-group" style="width: 100%;">
 						<div class="controls">
-							<textarea style="height: 372px; width: 100%;" id="c_content"
-								name="c_content" class="input-xxlarge cm-input" placeholder="内容"></textarea>
+							<textarea style="height:26rem;width: 100%;" id="c_content" name="c_content"
+								class="input-xxlarge cm-input" placeholder="内容"
+								onblur="submitForm()"></textarea>
 						</div>
 					</div>
-					<div class="control-group" style="width: 100%; text-align: center;">
+					<!-- <div class="control-group" style="width: 100%; text-align: center;">
 						<div class="controls">
 							<button class="sui-btn" style="width: 120px; height: 40px;"
 								onclick="submitForm()">提交</button>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
