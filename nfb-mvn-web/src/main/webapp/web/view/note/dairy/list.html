@@ -11,31 +11,14 @@
 </head>
 <body>
 	<div id="app">
-		<div class="sui-navbar navbar-inverse">
-			<div class="navbar-inner">
-				<a href="#" class="sui-brand">痕迹</a>
-				<ul class="sui-nav" style="font-size: 16px;">
-					<li class="active"><a href="#">日记</a></li>
-					<li><a href="./add.html"
-						style="color: #f3f3f3; background-color: #e8351f;">添加</a></li>
-				</ul>
-
-				<div class="sui-form sui-form pull-left">
+		<div id="cmHead"></div>
+		<div class='container'>
+			<div style="text-align: center;">
+				<div class="sui-form sui-form pull-right">
 					<input type="text" id="keyword" name="keyword"
 						placeholder="标题/内容/日期" style="width: 250px; margin-left: 10px;">
 					<button class="sui-btn" onclick="mysearch();">搜索</button>
 				</div>
-
-				<ul class="sui-nav pull-right">
-					<li><a href="#">个人中心</a></li>
-					<li><a href="#">帮助</a></li>
-				</ul>
-			</div>
-			<div id="showMsg"></div>
-		</div>
-		<div class='container'>
-			<div style="text-align: center;">
-
 				<table class="sui-table table-zebra">
 					<thead>
 						<tr>
