@@ -17,7 +17,7 @@ function getDetail(){
 				$("#c_createtime").html(data.diary.createtime);
 				$("#c_content").html(splitStrToP(data.diary.content));
 			}else{
-				$.toast("加载失败【"+data.retcode+"】");
+				msg.info("加载失败【"+data.retcode+"】");
 			}
 		},
 		complete : function() {
