@@ -50,7 +50,7 @@ function submitForm(){
 		},
 		success : function(data) {
 			if(data.retcode==0){	
-				location.href="./list.html";
+				/*location.href="./list.html";*/
 			}else{
 				msg.info("加载失败【"+data.retcode+"】");
 			}
