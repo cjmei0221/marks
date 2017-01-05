@@ -4,13 +4,15 @@
 <mapper namespace="com.cjmei.module.note.diary.dao.DiaryDao">
 
 	<select id="findById" resultType="com.cjmei.module.note.diary.pojo.Diary">
-		SELECT * FROM TB_NOTE_DIARY diary
+		SELECT * FROM TB_NOTE_DIARY
+		diary
 		where diary.ID = #{id}
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.note.diary.pojo.Diary">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
-			sys_guid() from dual</selectKey>
+			sys_guid() from dual
+		</selectKey>
 
 		INSERT INTO TB_NOTE_DIARY diary (
 		diary.ID,
@@ -41,7 +43,8 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_NOTE_DIARY diary WHERE diary.ID=#{id}
+		DELETE FROM TB_NOTE_DIARY
+		diary WHERE diary.ID=#{id}
 	</delete>
 
 	<select id="findAll" resultType="com.cjmei.module.note.diary.pojo.Diary">
@@ -58,16 +61,19 @@
 
 	<select id="list" resultType="com.cjmei.module.note.diary.pojo.Diary"
 		parameterType="java.util.Map">
-		SELECT *
+		SELECT diary.*
 		FROM TB_NOTE_DIARY diary
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
 			and (
-			diary.CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			diary.CONTENT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			to_char(diary.CREATETIME,'yyyy-mm-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			to_char(diary.CREATETIME,'yyyy-mm-dd') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			diary.TITLE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			diary.TITLE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 		<if test="userid!=null and userid!=''">

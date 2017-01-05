@@ -14,4 +14,7 @@
 	<update id="updatePwd" flushCache="true">
 		update tb_sys_user set password=#{password} where userid=#{userid}
 	</update>
+	<update id="updateSkin" flushCache="true">
+		update tb_sys_user set skin=#{skin} where userid=#{userid}
+	</update>
 </mapper>
