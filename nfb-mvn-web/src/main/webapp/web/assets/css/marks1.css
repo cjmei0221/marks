@@ -1,7 +1,7 @@
 body {
-	background-image: url('../image/back_4.jpg');
-	background-size: 100% 60rem;
-	/* background-repeat: round; */
+	background-image: url('../image/back_1.jpg');
+	background-size: 100%;
+	background-repeat:round;
 }
 
 .cm-btn {
@@ -26,5 +26,4 @@ input:-webkit-autofill, select:-webkit-autofill {
 	-webkit-user-select: text !important;
 	outline-color: transparent;
 	box-shadow: none !important;
-	background-color: rgba(255, 255, 255, 0.01) !important;
 }
