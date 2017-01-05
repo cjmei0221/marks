@@ -33,6 +33,13 @@ public class SysUserServiceImpl implements SysUserService{
 	public void updatePwd(String userid, String password) {
 		sysUserDao.updatePwd(userid,password);
 	}
+
+
+
+	@Override
+	public void updateSkin(String userid, int skin) {
+		sysUserDao.updateSkin(userid,skin);
+	}
 	
 	
 }

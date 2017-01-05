@@ -8,4 +8,6 @@ public interface SysUserService {
 
 	void updatePwd(String userid, String password);
 
+	void updateSkin(String userid, int skin);
+
 }
