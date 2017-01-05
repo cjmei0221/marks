@@ -5,21 +5,21 @@ $(function() {
 function summitForm() {
 	var c_oldPwd = $("#c_oldPwd").val();
 	if (c_oldPwd == '') {
-		$.toast("旧密码为空");
+		msg.info("旧密码为空");
 		return false;
 	}
 	var c_newPwd = $("#c_newPwd").val();
 	if (c_newPwd == '') {
-		$.toast("新密码为空");
+		msg.info("新密码为空");
 		return false;
 	}
 	var c_newPwd2 = $("#c_newPwd2").val();
 	if (c_newPwd2 == '') {
-		$.toast("确认密码为空");
+		msg.info("确认密码为空");
 		return false;
 	}
 	if (c_newPwd != c_newPwd2) {
-		$.toast("新密码与确认密码不一致");
+		msg.info("新密码与确认密码不一致");
 		return false;
 	}
 	$("#isLoading").hide();
