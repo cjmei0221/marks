@@ -36,10 +36,17 @@ function getDetail(){
 	});
 }
 function summitForm(){
-	var c_content=$("#c_content").val();
-	if(c_content==''){
-		msg.info("您还未添加任何内容哦");
-		return;
+	
+	if(appInfo.formStatus=="edit"){
+		if($.trim($("#c_content").val())=='' && $.trim($("#c_title").val())==''){
+			msg.info("您还未添加任何内容哦");
+			return;
+		}
+	}else{
+		if($.trim($("#c_content").val())=='' && $.trim($("#c_title").val())==''){
+			/*msg.info("您还未添加任何内容哦");*/
+			return;
+		}
 	}
 	var reqUrl=appInfo.formStatus=="edit"?tool.reqUrl.dairy_update:tool.reqUrl.dairy_add;
 	$.ajax({
