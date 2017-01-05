@@ -26,5 +26,7 @@ tool.reqUrl={
 		dairy_update:tool.baseUrl+"/diary/update.do",
 		dairy_detail:tool.baseUrl+"/diary/findDiaryById.do",
 		login:tool.baseUrl+"/login.do",
-		changePwd:tool.baseUrl+"/sysUser/changePwd.do"
+		changePwd:tool.baseUrl+"/sysUser/changePwd.do",
+		changeSkin:tool.baseUrl+"/sysUser/changeSkin.do",
+		getLoginUserInfo:tool.baseUrl+"/sysUser/getInfo.do"
 }
