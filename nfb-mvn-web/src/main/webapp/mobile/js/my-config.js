@@ -7,7 +7,7 @@ $(document).on('ajaxStart', function() {
 		'ajaxComplete',
 		function(event, xhr, status) {
 			if (xhr.status == 200) {
-				var _data = $.parseJSON(xhr.responseText);
+				 var _data =$.parseJSON(xhr.responseText);
 				if (_data.retcode == -101) {
 					alert("访问已失效，请关闭重新进入！");
 					return;
@@ -15,6 +15,7 @@ $(document).on('ajaxStart', function() {
 					alert("用户已失效，请重新登录！");
 					location.replace(tool.baseUrl
 							+ "/mobile/view/note/owner/login.html");
+					return;
 				}
 			}
 
@@ -34,7 +35,9 @@ function loadStyle() {
 		url : tool.reqUrl.getLoginUserInfo,
 		type : 'POST',
 		success : function(data) {
-			myConfig.styleType = data.loginUser.skin;
+			if(data.loginUser != null){
+				myConfig.styleType = data.loginUser.skin;
+			}
 			if (myConfig.styleType != null || "" != myConfig.styleType) {
 				addStyle(tool.baseUrl + "/mobile/assets/css/marks" + myConfig.styleType
 						+ ".css");

@@ -9,6 +9,7 @@ $(function() {
 		getDetail();
 	}else{
 		appInfo.formStatus="add";
+		getID();
 		$("#createtime").html(initTime());
 	}
 });
@@ -74,6 +75,32 @@ function initTime() {
 	dateTime += curr_time.getDate() + " ";
 	dateTime += curr_time.getHours() + ":";
 	dateTime += curr_time.getMinutes() + ":";
+	dateTime += curr_time.getSeconds();
+	return dateTime;
+}
+
+function getID(){
+	id=initTimeID();
+	$.ajax({
+		url : tool.reqUrl.getUUID,
+		type : 'GET',
+		success : function(data) {
+			if(data.retcode==0){
+				id=data.id;
+			}
+		},
+		complete : function() {
+			
+		}
+	});
+}
+function initTimeID() {
+	var curr_time = new Date();
+	var dateTime = curr_time.getFullYear() ;
+	dateTime += curr_time.getMonth() + 1;
+	dateTime += curr_time.getDate();
+	dateTime += curr_time.getHours() ;
+	dateTime += curr_time.getMinutes();
 	dateTime += curr_time.getSeconds();
 	return dateTime;
 }

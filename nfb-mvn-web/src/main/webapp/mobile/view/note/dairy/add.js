@@ -10,6 +10,7 @@ $(function() {
 		getDetail();
 	}else{
 		appInfo.formStatus="add";
+		getID();
 		$("#t_title").html("添加");
 		$("#createtime").val(initTime());
 	}
@@ -35,9 +36,25 @@ function getDetail(){
 		}
 	});
 }
+
+function getID(){
+	id=initTimeID();
+	$.ajax({
+		url : tool.reqUrl.getUUID,
+		type : 'GET',
+		success : function(data) {
+			if(data.retcode==0){
+				id=data.id;
+			}
+		},
+		complete : function() {
+			
+		}
+	});
+}
 function summitForm(){
 	
-	if(appInfo.formStatus=="edit"){
+	if(appInfo.formStatus=='edit'){
 		if($.trim($("#c_content").val())=='' && $.trim($("#c_title").val())==''){
 			msg.info("您还未添加任何内容哦");
 			return;
@@ -77,6 +94,16 @@ function initTime() {
 	dateTime += curr_time.getDate() + " ";
 	dateTime += curr_time.getHours() + ":";
 	dateTime += curr_time.getMinutes() + ":";
+	dateTime += curr_time.getSeconds();
+	return dateTime;
+}
+function initTimeID() {
+	var curr_time = new Date();
+	var dateTime = curr_time.getFullYear() ;
+	dateTime += curr_time.getMonth() + 1;
+	dateTime += curr_time.getDate();
+	dateTime += curr_time.getHours() ;
+	dateTime += curr_time.getMinutes();
 	dateTime += curr_time.getSeconds();
 	return dateTime;
 }
