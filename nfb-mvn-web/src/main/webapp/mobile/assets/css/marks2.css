@@ -25,6 +25,9 @@ textarea {
 	color: white;
 }
 
+.cm-text{
+	color: white !important;
+}
 h1 {
 	color: white !important;
 }

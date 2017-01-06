@@ -24,6 +24,9 @@ textarea {
 .cm-contnet-img div {
 	color: white;
 }
+.cm-text{
+	color: white !important;
+}
 
 h1 {
 	color: white !important;
