@@ -23,8 +23,8 @@ public class SysUserServiceImpl implements SysUserService{
 
 
 	@Override
-	public SysUser getSysUserByUserid(String userid) {
-		return sysUserDao.getSysUserByUserid(userid);
+	public SysUser getSysUserByUseridOrMobile(String userid) {
+		return sysUserDao.getSysUserByUseridOrMobile(userid);
 	}
 
 
@@ -39,6 +39,13 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	public void updateSkin(String userid, int skin) {
 		sysUserDao.updateSkin(userid,skin);
+	}
+
+
+
+	@Override
+	public void save(SysUser sysUser) {
+		sysUserDao.save(sysUser);
 	}
 	
 	

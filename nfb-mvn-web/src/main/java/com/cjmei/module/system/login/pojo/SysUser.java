@@ -41,7 +41,15 @@ public class SysUser implements Serializable{
 	private String openid;
 	
 	private int skin;
+	
+	private String creator;
 
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
 	public int getSkin() {
 		return skin;
 	}

@@ -10,7 +10,8 @@ package com.cjmei.common.util.encrypt;
  * @Copyright (c) 2016, cjmei  All Rights Reserved.
  */
 public class EncryptUtil {
-
+	
+	public static String defaultPwd="B15A268148D9C5A9363E915581CE1819";
 	/**
 	 * 加密方法
 	 * encrypt:描述 <br/>
