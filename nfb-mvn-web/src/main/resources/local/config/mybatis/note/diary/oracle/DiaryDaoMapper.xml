@@ -10,10 +10,6 @@
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.note.diary.pojo.Diary">
-		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
-			sys_guid() from dual
-		</selectKey>
-
 		INSERT INTO TB_NOTE_DIARY diary (
 		diary.ID,
 		diary.UPDATETIME,

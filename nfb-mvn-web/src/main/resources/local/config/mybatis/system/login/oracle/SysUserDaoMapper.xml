@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cjmei.module.system.login.dao.SysUserDao">
 	<!-- 加载系统参数 -->
-	<select id="getSysUserByUserid" resultType="com.cjmei.module.system.login.pojo.SysUser">
+	<select id="getSysUserByUseridOrMobile" resultType="com.cjmei.module.system.login.pojo.SysUser">
 		SELECT
 		TSU.*
 		FROM
@@ -12,9 +12,43 @@
 		tsu.bind_mobile=#{userid}
 	</select>
 	<update id="updatePwd" flushCache="true">
-		update tb_sys_user set password=#{password} where userid=#{userid}
+		update tb_sys_user set
+		password=#{password} where userid=#{userid}
 	</update>
 	<update id="updateSkin" flushCache="true">
-		update tb_sys_user set skin=#{skin} where userid=#{userid}
+		update tb_sys_user set
+		skin=#{skin} where userid=#{userid}
 	</update>
+	<insert id="save" parameterType="com.cjmei.module.system.login.pojo.SysUser">
+		<selectKey keyProperty="userid" resultType="String" order="BEFORE">SELECT
+			'U'||SEQ_SYS_USER.nextval FROM dual
+		</selectKey>
+		INSERT INTO TB_SYS_USER sysuser
+		(
+		sysuser.USERID,
+		sysuser.USERNAME,
+		sysuser.PASSWORD,
+		sysuser.BIND_MOBILE,
+		sysuser.ACTIVEFLAG,
+		sysuser.CREATETIME,
+		sysuser.UPDATETIME,
+		sysuser.CREATOR,
+		sysuser.COMPANYID,
+		sysuser.TOKEN,
+		sysuser.USERTYPE
+		)
+		VALUES(
+		#{userid:VARCHAR},
+		#{username:VARCHAR},
+		#{password:VARCHAR},
+		#{bind_mobile:VARCHAR},
+		#{activeFlag:NUMERIC},
+		sysdate,
+		sysdate,
+		#{creator:VARCHAR},
+		#{companyId:VARCHAR},
+		#{token:VARCHAR},
+		#{userType:VARCHAR}
+		)
+	</insert>
 </mapper>
