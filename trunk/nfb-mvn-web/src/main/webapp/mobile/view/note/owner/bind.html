@@ -14,6 +14,12 @@
 <link rel="stylesheet"
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
 <!-- <link rel="stylesheet" href="../../../assets/css/marks0.css"> -->
+<style type="text/css">
+#c_check {
+	display: inline;
+	width:7rem;
+}
+</style>
 </head>
 <body>
 
@@ -58,6 +64,35 @@
 								</div>
 							</div>
 						</li>
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-email"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-input">
+										<input type="password" id="c_password2" name="c_password2"
+											placeholder="确认密码" maxlength="20">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-email"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-input">
+										<input type="text" id="c_check" name="c_check"
+											placeholder="验证码" maxlength="20"><img
+											id="imgObj" alt="验证码"
+											src="/getValidateCode.do?width=80&height=30"
+											onclick="changeImg()" />
+									</div>
+								</div>
+							</div>
+						</li>
 					</ul>
 				</div>
 				<div class="content-block">
@@ -83,5 +118,5 @@
 <script type="text/javascript"
 	src="../../../../common/encrypt/mode-ecb.js"></script>
 <script type="text/javascript" src="../../../../common/encrypt/aes_u.js"></script>
-<script type='text/javascript' src='./login.js' charset='utf-8'></script>
+<script type='text/javascript' src='./bind.js' charset='utf-8'></script>
 </html>
