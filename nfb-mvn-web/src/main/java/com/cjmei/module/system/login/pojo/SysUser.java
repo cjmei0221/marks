@@ -43,7 +43,15 @@ public class SysUser implements Serializable{
 	private int skin;
 	
 	private String creator;
+	
+	private int bindFlag;//绑定标识 ，0：未绑定  1：绑定 绑定后可登陆
 
+	public int getBindFlag() {
+		return bindFlag;
+	}
+	public void setBindFlag(int bindFlag) {
+		this.bindFlag = bindFlag;
+	}
 	public String getCreator() {
 		return creator;
 	}

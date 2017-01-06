@@ -32,35 +32,48 @@ public class LoginController {
 		try {
 			result.setMessage("findById diary successs!");
 			result.setCode(Code.CODE_SUCCESS);
-			String userid=request.getParameter("mobile");
-			String pwd=request.getParameter("password");
-			SysUser loginUser=sysUserService.getSysUserByUseridOrMobile(userid);
-			if(loginUser!=null){
-				if (Enums.SysUserUse.NOUSE.getValue() == loginUser.getActiveFlag()) {
-					result.setCode(4002);
-					result.setMessage("用户被禁用");
-				}else{
-					String password = EncryptUtil.encrypt(pwd);
-					if (password.equals(loginUser.getPassword())) {
-						LoginUtil.getInstance().setCurrentUser(request, loginUser);
-					}else{
-						result.setCode(4003);
-						result.setMessage("密码错误");
-					}
-				}
-			}else{
+			String userid = request.getParameter("mobile");
+			String pwd = request.getParameter("password");
+			SysUser loginUser = sysUserService.getSysUserByUseridOrMobile(userid);
+			//盘点用户是否为空
+			if (loginUser == null) {
 				result.setMessage("用户不存在");
 				result.setCode(4001);
+				JsonUtil.output(response, result);
+				return;
 			}
+			//校验是否被禁用
+			if (Enums.SysUserUse.NOUSE.getValue() == loginUser.getActiveFlag()) {
+				result.setCode(4002);
+				result.setMessage("用户被禁用");
+				JsonUtil.output(response, result);
+				return;
+			}
+			//校验是否未绑定
+			if (Enums.SysUserBindFlag.NOUSE.getValue()==loginUser.getBindFlag()) {
+				result.setCode(4003);
+				result.setMessage("未绑定");
+				JsonUtil.output(response, result);
+				return;
+			}
+			//校验密码
+			String password = EncryptUtil.encrypt(pwd);
+			if (!password.equals(loginUser.getPassword())) {
+				result.setCode(4003);
+				result.setMessage("密码错误");
+				JsonUtil.output(response, result);
+				return;
+			} 
 			
+			LoginUtil.getInstance().setCurrentUser(request, loginUser);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("findDiaryById", e);
 			result.setMessage("查询失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 获取登录用户信息
 	 */
@@ -71,9 +84,16 @@ public class LoginController {
 			result.setMessage("findById diary successs!");
 			result.setCode(Code.CODE_SUCCESS);
 			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
+			if(loginUser==null){
+				result.setMessage("用户未登录");
+				result.setCode(-102);
+				JsonUtil.output(response, result);
+				return;
+			}
 			SysUser user = sysUserService.getSysUserByUseridOrMobile(loginUser.getUserid());
 			result.getData().put("loginUser", user);
 		} catch (Exception e) {
+			logger.error("getInfo", e);
 			result.setMessage("查询失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}

@@ -34,6 +34,28 @@ public class Enums {
 	 * @author cjmei
 	 *
 	 */
+	public enum SysUserBindFlag{
+		USE(1),//绑定
+		NOUSE(0);//未绑定
+
+		private int status;
+		
+		private SysUserBindFlag(int status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return String.valueOf(status);
+		}
+		public int getValue(){
+			return status;
+		}
+	}
+	/**
+	 * 系统用户启禁用
+	 * @author cjmei
+	 *
+	 */
 	public enum SysUserType{
 		VIP("VIP");//会员
 
