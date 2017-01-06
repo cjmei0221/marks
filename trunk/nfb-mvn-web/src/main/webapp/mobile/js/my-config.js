@@ -1,3 +1,4 @@
+
 var myConfig = {
 	styleType : 0
 }
@@ -35,7 +36,7 @@ function loadStyle() {
 		url : tool.reqUrl.getLoginUserInfo,
 		type : 'POST',
 		success : function(data) {
-			if(data.loginUser != null){
+			if (data.retcode == 0) {
 				myConfig.styleType = data.loginUser.skin;
 			}
 			if (myConfig.styleType != null || "" != myConfig.styleType) {
