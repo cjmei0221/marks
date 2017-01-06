@@ -35,7 +35,7 @@ public class SysUserController {
 			String oldPwd = request.getParameter("oldPwd");
 			String newPwd = request.getParameter("newPwd");
 			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
-			SysUser user = sysUserService.getSysUserByUserid(loginUser.getUserid());
+			SysUser user = sysUserService.getSysUserByUseridOrMobile(loginUser.getUserid());
 
 			String password = EncryptUtil.encrypt(oldPwd);
 			if (password.equals(user.getPassword())) {
@@ -71,22 +71,4 @@ public class SysUserController {
 		JsonUtil.output(response, result);
 	}
 	
-	/**
-	 * 获取登录用户信息
-	 */
-	@RequestMapping("/sysUser/getInfo")
-	public void getInfo(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			result.setMessage("findById diary successs!");
-			result.setCode(Code.CODE_SUCCESS);
-			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
-			SysUser user = sysUserService.getSysUserByUserid(loginUser.getUserid());
-			result.getData().put("loginUser", user);
-		} catch (Exception e) {
-			result.setMessage("查询失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
 }

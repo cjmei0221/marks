@@ -4,10 +4,12 @@ import com.cjmei.module.system.login.pojo.SysUser;
 
 public interface SysUserService {
 
-	SysUser getSysUserByUserid(String userid);
+	SysUser getSysUserByUseridOrMobile(String userid);
 
 	void updatePwd(String userid, String password);
 
 	void updateSkin(String userid, int skin);
+
+	void save(SysUser sysUser);
 
 }

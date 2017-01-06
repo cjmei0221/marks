@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.enums.Enums;
+import com.cjmei.common.util.IDUtil;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.code.Code;
+import com.cjmei.common.util.encrypt.EncryptUtil;
 import com.cjmei.module.note.diary.pojo.Diary;
 import com.cjmei.module.note.diary.service.DiaryService;
 import com.cjmei.module.system.login.pojo.SysUser;
+import com.cjmei.module.system.login.service.SysUserService;
 import com.cjmei.module.system.login.util.LoginUtil;
 import com.cjmei.module.system.sys.controller.SupportContorller;
 
@@ -30,7 +34,8 @@ public class DiaryController extends SupportContorller{
     
     @Autowired
     private DiaryService  diaryService;
-   
+    @Autowired
+	private SysUserService sysUserService;
 
     @Override
 	public Logger getLogger() {
@@ -57,6 +62,25 @@ public class DiaryController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
     }
+    /**
+	 * 保存我的日记
+	 */
+    @RequestMapping("/getUUID")
+    public void getID(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+			result.getData().put("id", IDUtil.getUUID());
+			result.setMessage("保存成功");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.info(e);
+			result.setMessage("保存失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	
     
     /**
 	 * 保存我的日记
@@ -71,7 +95,12 @@ public class DiaryController extends SupportContorller{
 	    	Diary diary = getModel(Diary.class);
 	 //     diary.setID(IDUtil.getTimeID());
 	    	diary.setCreator(admin.getUserid());
-			diaryService.save(diary);
+	    	Diary old=diaryService.findById(diary.getId());
+	    	if(old !=null){
+	    		diaryService.update(diary);
+	    	}else{
+	    		diaryService.save(diary);
+	    	}
 			result.setMessage("保存成功");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -202,5 +231,45 @@ public class DiaryController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
     }
+	
+	 /**
+		 * 保存我的日记
+		 */
+	    @RequestMapping("/saveForDiary")
+	    public void saveForDiary(HttpServletRequest request,
+	    HttpServletResponse response){
+			Result result = new Result();
+			try {
+		    	Diary diary = getModel(Diary.class);
+		    	Diary old=diaryService.findById(diary.getId());
+		    	String mobile=request.getParameter("mobile");
+		    	SysUser sysUser=sysUserService.getSysUserByUseridOrMobile(mobile);
+		    	if(sysUser==null){
+		    		sysUser=new SysUser();
+		    		sysUser.setActiveFlag(Enums.SysUserUse.USE.getValue());
+		    		sysUser.setBind_mobile(mobile);
+		    		sysUser.setCompanyId(LoginUtil.getInstance().getCompanyId());
+		    		sysUser.setPassword(EncryptUtil.defaultPwd);
+		    		sysUser.setUsername(mobile);
+		    		sysUser.setUserType(Enums.SysUserType.VIP.getValue());
+		    		sysUser.setCreator(mobile);
+		    		sysUserService.save(sysUser);
+		    		sysUser=sysUserService.getSysUserByUseridOrMobile(mobile);
+		    	}
+		    	diary.setCreator(sysUser.getUserid());
+		    	if(old !=null){
+		    		diaryService.update(diary);
+		    	}else{
+		    		diaryService.save(diary);
+		    	}
+				result.setMessage("保存成功");
+				result.setCode(Code.CODE_SUCCESS);
+			} catch (Exception e) {
+				logger.info(e);
+				result.setMessage("保存失败，请联系管理员！");
+				result.setCode(Code.CODE_FAIL);
+			}
+			JsonUtil.output(response, result);
+		}
 	
 }

@@ -34,7 +34,7 @@ public class LoginController {
 			result.setCode(Code.CODE_SUCCESS);
 			String userid=request.getParameter("mobile");
 			String pwd=request.getParameter("password");
-			SysUser loginUser=sysUserService.getSysUserByUserid(userid);
+			SysUser loginUser=sysUserService.getSysUserByUseridOrMobile(userid);
 			if(loginUser!=null){
 				if (Enums.SysUserUse.NOUSE.getValue() == loginUser.getActiveFlag()) {
 					result.setCode(4002);
@@ -61,5 +61,22 @@ public class LoginController {
 		JsonUtil.output(response, result);
 	}
 	
-	
+	/**
+	 * 获取登录用户信息
+	 */
+	@RequestMapping("/getInfo")
+	public void getInfo(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			result.setMessage("findById diary successs!");
+			result.setCode(Code.CODE_SUCCESS);
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
+			SysUser user = sysUserService.getSysUserByUseridOrMobile(loginUser.getUserid());
+			result.getData().put("loginUser", user);
+		} catch (Exception e) {
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
 }

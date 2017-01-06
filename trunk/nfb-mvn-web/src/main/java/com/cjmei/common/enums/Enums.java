@@ -28,6 +28,28 @@ public class Enums {
 			return status;
 		}
 	}
+	
+	/**
+	 * 系统用户启禁用
+	 * @author cjmei
+	 *
+	 */
+	public enum SysUserType{
+		VIP("VIP");//会员
+
+		private String status;
+		
+		private SysUserType(String status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return String.valueOf(status);
+		}
+		public String getValue(){
+			return status;
+		}
+	}
 	/**
 	 * 机构类型
 	 * @author cjmei
