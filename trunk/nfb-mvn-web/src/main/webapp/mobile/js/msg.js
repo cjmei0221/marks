@@ -8,3 +8,11 @@ function hideMsg(){
 	$("#tooltips").hide();
 	$("#tooltips").html("");
 }
+
+msg.confirm=function(msg){
+	if(confirm(msg)){
+        return true;
+     }else{
+        return false;
+    }
+}

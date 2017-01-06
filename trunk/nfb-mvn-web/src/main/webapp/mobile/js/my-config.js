@@ -19,7 +19,6 @@ $(document).on('ajaxStart', function() {
 					return;
 				}
 			}
-
 		});
 
 function addStyle(stylePath) {
