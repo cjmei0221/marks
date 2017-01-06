@@ -29,5 +29,6 @@ tool.reqUrl={
 		changePwd:tool.baseUrl+"/sysUser/changePwd.do",
 		changeSkin:tool.baseUrl+"/sysUser/changeSkin.do",
 		getLoginUserInfo:tool.baseUrl+"/getInfo.do",
-		getUUID:tool.baseUrl+"/getUUID.do"
+		getUUID:tool.baseUrl+"/getUUID.do",
+		saveForDiary:tool.baseUrl+"/saveForDiary.do"
 }
