@@ -18,7 +18,18 @@ tool.fillTemplate = function(tmpl, obj) {
 	}
 	return html;
 };
-
+tool.getCurEle=function getEle(){
+	var ele ='';
+	var req=window.location.pathname;
+	var arr=req.split('/'); 
+	if(arr.length>2){
+		ele = arr[arr.length-2];
+	}
+	if(ele == 'owner' || ele == ''){
+		ele='dairy';
+	}
+	return ele;
+}
 tool.baseUrl="";
 tool.reqUrl={
 		dairy_list:tool.baseUrl+"/diary/list.do",
@@ -31,5 +42,13 @@ tool.reqUrl={
 		getLoginUserInfo:tool.baseUrl+"/getInfo.do",
 		getUUID:tool.baseUrl+"/getUUID.do",
 		saveForDiary:tool.baseUrl+"/saveForDiary.do",
-		getValidateCode:tool.baseUrl+"/getValidateCode.do"
+		getValidateCode:tool.baseUrl+"/getValidateCode.do",
+		question_list:tool.baseUrl+"/question/list.do",
+		question_add:tool.baseUrl+"/question/save.do",
+		question_update:tool.baseUrl+"/question/update.do",
+		question_detail:tool.baseUrl+"/question/findQuestionById.do",
+		gains_list:tool.baseUrl+"/gains/list.do",
+		gains_add:tool.baseUrl+"/gains/save.do",
+		gains_update:tool.baseUrl+"/gains/update.do",
+		gains_detail:tool.baseUrl+"/gains/findGainsById.do",
 }

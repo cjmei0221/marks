@@ -1,5 +1,5 @@
 $(function() {
-	
+
 });
 
 function resetForm() {
@@ -26,13 +26,16 @@ function summitForm() {
 			password : Encrypt(c_password)
 		},
 		success : function(data) {
-			if(data.retcode==0){
-				location.href = '../dairy/list.html?' + "_t="
-				+ new Date().getTime();
-			}else{
+			if (data.retcode == 0) {
+				var ele = tool.getCurEle();
+
+				location.href = '../' + ele + '/list.html?' + "_t="
+						+ new Date().getTime();
+
+			} else {
 				msg.error(data.retmsg);
 			}
-			
+
 		},
 		complete : function() {
 
