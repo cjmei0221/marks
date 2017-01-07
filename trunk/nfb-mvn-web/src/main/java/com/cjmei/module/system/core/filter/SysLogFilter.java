@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import com.cjmei.common.util.RequestUtil;
+import com.cjmei.module.system.login.pojo.SysUser;
+import com.cjmei.module.system.login.util.LoginUtil;
+import com.cjmei.module.system.syslog.pojo.SysLog;
+import com.cjmei.module.system.syslog.thread.SysLogThreadPool;
 
 public class SysLogFilter implements Filter {
 	private final static Logger LOG = Logger.getLogger(SysLogFilter.class);
@@ -28,13 +32,24 @@ public class SysLogFilter implements Filter {
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 		String ip = RequestUtil.getIpAddr(request);
 		int success = 0;
-		String msg = "";
 		LOG.info("recordLogURI=" + url);
 
 		arg2.doFilter(arg0, arg1);
-
+		SysUser loginUser=LoginUtil.getInstance().getCurrentUser(request);
 		
-		
+		SysLog log = new SysLog();
+		if(null !=loginUser){
+			log.setUserid(loginUser.getUserid());
+			log.setUsername(loginUser.getUsername());
+		}else{
+			log.setRetain3(LoginUtil.getInstance().getCompanyId());
+		}
+		log.setIp(ip);
+		log.setRetain1(success + "");
+		log.setRetain2(url);
+		log.setUrl(url);
+		log.setSource(2);
+		SysLogThreadPool.saveSysLog(log);
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {
