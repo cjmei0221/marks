@@ -35,7 +35,8 @@
 		sysuser.CREATOR,
 		sysuser.COMPANYID,
 		sysuser.TOKEN,
-		sysuser.USERTYPE
+		sysuser.USERTYPE,
+		sysuser.BINDFLAG
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -48,7 +49,17 @@
 		#{creator:VARCHAR},
 		#{companyId:VARCHAR},
 		#{token:VARCHAR},
-		#{userType:VARCHAR}
+		#{userType:VARCHAR},
+		#{bindFlag:NUMERIC}
 		)
 	</insert>
+	<update id="sysUser">
+		update tb_sys_user set
+		password=#{password:VARCHAR},
+		BINDFLAG=#{bindFlag:NUMERIC},
+		USERNAME=#{username:VARCHAR},
+		BIND_MOBILE=#{bind_mobile:VARCHAR},
+		UPDATETIME=sysdate
+		where userid=#{userid:VARCHAR}
+	</update>
 </mapper>
