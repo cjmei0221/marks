@@ -36,8 +36,8 @@
 				<div class="navbar-inner">
 					<a href="#" class="sui-brand">痕迹</a>
 					<ul class="sui-nav">
-						<li class="active"><a href="#">登录</a></li>
-						<li><a href="./bind.html">绑定</a></li>
+						<li><a href="./login.html">登录</a></li>
+						<li class="active"><a href="#">绑定</a></li>
 					</ul>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 			<div class="sui-form form-horizontal"
 				style="margin: 18px; text-align: -webkit-center; background-color: wheat;">
 
-				<legend>登录</legend>
+				<legend>绑定</legend>
 				<div class="control-group">
 					<label class="control-label">手机号码：</label>
 					<div class="controls">
@@ -54,10 +54,25 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label">登录密码：</label>
+					<label class="control-label">密码：</label>
 					<div class="controls">
 						<input type="password" id="c_password" name="c_password"
 							placeholder="密码">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">确认密码：</label>
+					<div class="controls">
+						<input type="password" id="c_password2" name="c_password2"
+							placeholder="确认密码">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">验证码：</label>
+					<div class="controls">
+						<input type="text" id="c_check" name="c_check" placeholder="验证码"
+							maxlength="4" style="width: 70px; margin-right: 10px;"><img
+							id="imgObj" alt="验证码" src="" onclick="changeImg()" />
 					</div>
 				</div>
 				<div class="control-group">
@@ -82,5 +97,5 @@
 <script type="text/javascript"
 	src="../../../../common/encrypt/mode-ecb.js"></script>
 <script type="text/javascript" src="../../../../common/encrypt/aes_u.js"></script>
-<script type="text/javascript" src="./login.js"></script>
+<script type="text/javascript" src="./bind.js"></script>
 </html>

@@ -26,7 +26,7 @@ tool.getCurEle=function getEle(){
 		ele = arr[arr.length-2];
 	}
 	if(ele == 'owner' || ele == ''){
-		ele='dairy';
+		ele='diary';
 	}
 	return ele;
 }
@@ -51,4 +51,5 @@ tool.reqUrl={
 		gains_add:tool.baseUrl+"/gains/save.do",
 		gains_update:tool.baseUrl+"/gains/update.do",
 		gains_detail:tool.baseUrl+"/gains/findGainsById.do",
+		bind:tool.baseUrl+"/bind.do"
 }
