@@ -7,7 +7,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.cjmei.module.system.core.helper.LoadDataHelper;
-import com.cjmei.module.system.core.thread.SysLogThreadPool;
+import com.cjmei.module.system.syslog.thread.SysLogThreadPool;
 
 /**
  * 初始化上下文监听类
@@ -28,9 +28,11 @@ public class InitServletContextListener implements ServletContextListener {
 				.getRequiredWebApplicationContext(sce.getServletContext());
 		DatabaseHelper.init(context);
 		
-		/*记录系统操作日志*/
-		SysLogThreadPool.init();
 		/*首次加载基础数据*/
 		new LoadDataHelper().doJob();
+		/**
+		 * 保存访问日志
+		 */
+		SysLogThreadPool.init();
 	}
 }
