@@ -53,3 +53,10 @@ tool.reqUrl={
 		gains_detail:tool.baseUrl+"/gains/findGainsById.do",
 		bind:tool.baseUrl+"/bind.do"
 }
+
+tool.checkPhone=function checkPhone(val) {
+	if (!(/^1[34578]\d{9}$/.test(val))) {
+		return false;
+	}
+	return true;
+}

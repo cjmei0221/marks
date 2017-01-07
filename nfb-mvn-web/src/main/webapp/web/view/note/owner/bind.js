@@ -16,6 +16,10 @@ function summitForm() {
 		msg.info("手机号码为空");
 		return false;
 	}
+	if(!tool.checkPhone(c_mobile)){
+		msg.info("手机号码格式错误");
+		return false;
+	}
 	var c_check = $("#c_check").val();
 	if (c_check == '') {
 		msg.info("验证码为空");
