@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cjmei.common.util.validate.ValidateCode;
+import com.cjmei.common.util.validate.VcodeUtil;
 
 @Controller
 public class ValidateCodeImgController {
@@ -30,7 +31,7 @@ public class ValidateCodeImgController {
 			int width=Integer.parseInt(request.getParameter("width"));
 			int height=Integer.parseInt(request.getParameter("height"));
 			ValidateCode vCode = new ValidateCode(width,height,4,0);  
-			request.getSession().setAttribute("vCode", vCode.getCode());  
+			VcodeUtil.getInstance().setValidateCode(request, vCode.getCode());
 			vCode.write(response.getOutputStream());
 		} catch (IOException e) {
 			logger.error("getValidateCode", e);

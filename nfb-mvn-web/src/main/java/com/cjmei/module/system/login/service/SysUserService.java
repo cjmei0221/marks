@@ -12,4 +12,6 @@ public interface SysUserService {
 
 	void save(SysUser sysUser);
 
+	void update(SysUser sysUser);
+
 }

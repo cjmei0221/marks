@@ -255,7 +255,15 @@ public class DiaryController extends SupportContorller{
 		    		sysUser.setCreator(mobile);
 		    		sysUserService.save(sysUser);
 		    		sysUser=sysUserService.getSysUserByUseridOrMobile(mobile);
+		    	}else{
+		    		if(sysUser.getActiveFlag()==Enums.SysUserUse.NOUSE.getValue()){
+		    			result.setMessage("此手机号已禁用");
+						result.setCode(4001);
+						JsonUtil.output(response, result);
+						return;
+		    		}
 		    	}
+		    	
 		    	diary.setCreator(sysUser.getUserid());
 		    	if(old !=null){
 		    		diaryService.update(diary);

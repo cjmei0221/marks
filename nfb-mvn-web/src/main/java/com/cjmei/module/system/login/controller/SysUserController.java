@@ -22,7 +22,7 @@ public class SysUserController {
 	private static Logger logger = Logger.getLogger(SysUserController.class);
 	@Autowired
 	private SysUserService sysUserService;
-
+	
 	/**
 	 * 更改密码
 	 */
