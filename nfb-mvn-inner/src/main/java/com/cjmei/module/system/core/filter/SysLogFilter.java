@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.util.Constants;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.RequestUtil;
 import com.cjmei.module.system.core.helper.SysUserHelper;
@@ -51,13 +52,16 @@ public class SysLogFilter implements Filter {
 		if(user!=null){
 			log.setUserid(user.getUserid());
 			log.setUsername(user.getUsername());
-			log.setRetain3(user.getCompanyId());
+			log.setRetain3(user.getCompanyId()==null?"0":user.getCompanyId());
+		}else{
+			log.setRetain3(Constants.default_companyId);
 		}
 		log.setIp(ip);
 		log.setRetain1(success+"");
 		log.setRetain2(url);
 		
 		log.setUrl(url);
+		log.setSource(0);
 		SysLogThreadPool.saveSysLog(log);
 		
 	}
