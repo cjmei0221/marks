@@ -31,7 +31,10 @@ function summitForm() {
 
 				location.href = '../' + ele + '/list.html?' + "_t="
 						+ new Date().getTime();
-
+			}else if(data.retcode==4003){
+				if(msg.confirm("您尚未绑定，去绑定吗？")){
+					location.replace("./bind.html");
+				}
 			} else {
 				msg.error(data.retmsg);
 			}
