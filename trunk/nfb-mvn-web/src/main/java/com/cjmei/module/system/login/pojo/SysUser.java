@@ -44,7 +44,7 @@ public class SysUser implements Serializable{
 	
 	private String creator;
 	
-	private int bindFlag;//绑定标识 ，0：未绑定  1：绑定 绑定后可登陆
+	private int bindFlag=0;//绑定标识 ，0：未绑定  1：绑定 绑定后可登陆
 
 	public int getBindFlag() {
 		return bindFlag;

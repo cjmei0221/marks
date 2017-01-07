@@ -47,6 +47,13 @@ public class SysUserServiceImpl implements SysUserService{
 	public void save(SysUser sysUser) {
 		sysUserDao.save(sysUser);
 	}
+
+
+
+	@Override
+	public void update(SysUser sysUser) {
+		sysUserDao.update(sysUser);
+	}
 	
 	
 }

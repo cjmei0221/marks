@@ -14,4 +14,6 @@ public interface SysUserDao {
 
 	void save(SysUser sysUser);
 
+	void update(SysUser sysUser);
+
 }

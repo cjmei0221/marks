@@ -13,6 +13,7 @@ import com.cjmei.common.enums.Enums;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.code.Code;
 import com.cjmei.common.util.encrypt.EncryptUtil;
+import com.cjmei.common.util.validate.VcodeUtil;
 import com.cjmei.module.system.login.pojo.SysUser;
 import com.cjmei.module.system.login.service.SysUserService;
 import com.cjmei.module.system.login.util.LoginUtil;
@@ -59,7 +60,7 @@ public class LoginController {
 			//校验密码
 			String password = EncryptUtil.encrypt(pwd);
 			if (!password.equals(loginUser.getPassword())) {
-				result.setCode(4003);
+				result.setCode(4004);
 				result.setMessage("密码错误");
 				JsonUtil.output(response, result);
 				return;
@@ -92,6 +93,59 @@ public class LoginController {
 			}
 			SysUser user = sysUserService.getSysUserByUseridOrMobile(loginUser.getUserid());
 			result.getData().put("loginUser", user);
+		} catch (Exception e) {
+			logger.error("getInfo", e);
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	
+	@RequestMapping("/bind")
+	public void bind(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			result.setMessage("findById diary successs!");
+			result.setCode(Code.CODE_SUCCESS);
+			String code=request.getParameter("code");
+			boolean checkVcode=VcodeUtil.getInstance().checkValidateCode(request,code);
+			if(!checkVcode){
+				result.setCode(4001);
+				result.setMessage("验证码错误");
+				JsonUtil.output(response, result);
+				return;
+			}
+			String mobile=request.getParameter("mobile");
+			String password=request.getParameter("password");
+			SysUser sysUser=sysUserService.getSysUserByUseridOrMobile(mobile);
+			if(sysUser !=null){
+				if(Enums.SysUserUse.NOUSE.getValue()==sysUser.getActiveFlag()){
+					result.setCode(4002);
+					result.setMessage("此手机号已被禁用");
+					JsonUtil.output(response, result);
+					return;
+				}
+				if(Enums.SysUserBindFlag.USE.getValue()==sysUser.getBindFlag()){
+					result.setCode(4003);
+					result.setMessage("此手机号已被绑定");
+					JsonUtil.output(response, result);
+					return;
+				}
+			}
+			SysUser user=new SysUser();
+			user.setActiveFlag(Enums.SysUserUse.USE.getValue());
+			user.setBind_mobile(mobile);
+			user.setBindFlag(Enums.SysUserBindFlag.USE.getValue());
+			user.setCompanyId(LoginUtil.getInstance().getCompanyId());
+			user.setCreator(mobile);
+			user.setPassword(EncryptUtil.encrypt(password));
+			user.setUsername(mobile);
+			user.setUserType(Enums.SysUserType.VIP.getValue());
+			if(sysUser==null){
+				sysUserService.save(user);
+			}else{
+				sysUserService.update(user);
+			}
 		} catch (Exception e) {
 			logger.error("getInfo", e);
 			result.setMessage("查询失败，请联系管理员！");

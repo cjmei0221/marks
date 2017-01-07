@@ -73,9 +73,9 @@ public class GainsController extends SupportContorller {
 			gains.setCreator(userid);
 			gains.setUpdater(userid);
 			Gains old = gainsService.findById(gains.getId());
-			if(old==null){
+			if (old == null) {
 				gainsService.save(gains);
-			}else{
+			} else {
 				gainsService.update(gains);
 			}
 			result.setMessage("保存成功");
@@ -99,17 +99,13 @@ public class GainsController extends SupportContorller {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String userid = admin == null ? "" : admin.getUserid();
 			Gains gains = getModel(Gains.class);
-			Gains ori = gainsService.findById(gains.getTitle());
-			if (ori == null) {
-				result.setMessage("此记录已删除!");
-				result.setCode(Code.CODE_FAIL);
-			} else {
-				gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
-				gains.setUpdater(userid);
-				gainsService.update(gains);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
-			}
+
+			gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
+			gains.setUpdater(userid);
+			gainsService.update(gains);
+			result.setMessage("更新成功!");
+			result.setCode(Code.CODE_SUCCESS);
+
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");
