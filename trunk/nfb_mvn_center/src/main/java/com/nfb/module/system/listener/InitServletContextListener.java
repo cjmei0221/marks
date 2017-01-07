@@ -6,6 +6,7 @@ import javax.servlet.ServletContextListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.nfb.module.syslog.thread.SysLogThreadPool;
 import com.nfb.module.system.helper.TimingLoadingHelper;
 import com.nfb.module.wxmodulemsg.thread.pool.WxModuleMsgThreadPool;
 
@@ -33,6 +34,10 @@ public class InitServletContextListener implements ServletContextListener {
 		 * 初始化微信模板消息推送线程池
 		 */
 		WxModuleMsgThreadPool.init();
+		/**
+		 * 记录访问日志
+		 */
+		SysLogThreadPool.init();
 	}
 
 }
