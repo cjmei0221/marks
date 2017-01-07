@@ -56,9 +56,7 @@ $(function() {
 			appInfo.checkRole = [];
 			$("#inputRoleDiv").html('');
 			initUser(appInfo.selectedData);
-			$("#bind_mobile").numberbox({
-				disabled : true
-			});
+			notEdit();
 			$('#roleids').combobox('setValues',appInfo.selectedData.roleidsStr.split(",")[0]);
 		}
 	});
@@ -136,9 +134,6 @@ function checkPhone(val) {
  * 保存菜单
  */
 function formSubmit() {
-	$("#bind_mobile").numberbox({
-		disabled : false
-	});
 	if (!$('#ff').form('validate')) {
 		showMsg("表单校验不通过");
 		return;
@@ -157,6 +152,9 @@ function formSubmit() {
 
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
+	$("#bind_mobile").numberbox({
+		disabled : false
+	});
 	$('#ff').form('submit', {
 		url : reqUrl,
 		onSubmit : function(param) {
@@ -165,11 +163,11 @@ function formSubmit() {
 			param.companyId = $("#companyId").val();
 		},
 		success : function(data) {
+			notEdit();
 			if (typeof data == 'string') {
 				try {
 					data = $.parseJSON(data);
 				} catch (e0) {
-					showMsg("json 格式 错误");
 					return;
 				}
 			}
@@ -185,7 +183,13 @@ function formSubmit() {
 		}
 	});
 }
-
+function notEdit(){
+	if(appInfo.formStatus != "new"){
+		$("#bind_mobile").numberbox({
+			disabled : true
+		});
+	}
+}
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
@@ -218,6 +222,30 @@ function loadList() {
 			field : 'username',
 			width : 100,
 			align : "center"
+		}, {
+			title : '绑定标识',
+			field : 'bindFlag',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "绑定";
+				} else {
+					return "未绑定";
+				}
+			}
+		}, {
+			title : '内管登录权限',
+			field : 'roleidsStr',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == null || value=='') {
+					return "不可登录";
+				} else {
+					return "可登陆";
+				}
+			}
 		}, {
 			title : '用户类型',
 			field : 'rolenamesStr',
@@ -419,7 +447,9 @@ function initUser(user) {
 	appInfo.checkRole = user.orgidsStr.split(",");
 	var rolenames = user.orgidNamesStr.split(",");
 	for (var i = 0; i < appInfo.checkRole.length; i++) {
-		initRolePut(appInfo.checkRole[i], rolenames[i]);
+		if(appInfo.checkRole[i] !=null && appInfo.checkRole[i] !=''){
+			initRolePut(appInfo.checkRole[i], rolenames[i]);
+		}
 	}
 }
 function initRolePut(roleid, rolename) {
@@ -427,7 +457,7 @@ function initRolePut(roleid, rolename) {
 			.append(
 					"<p id='"
 							+ roleid
-							+ "'>角色：<span>"
+							+ "'>组织：<span>"
 							+ rolename
 							+ "</span>&nbsp;&nbsp;<a href='#' onclick=\"javascript:delRoleTr(\'"
 							+ roleid + "\')\">删除</a></p>");

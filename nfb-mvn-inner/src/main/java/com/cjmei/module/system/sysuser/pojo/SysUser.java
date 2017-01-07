@@ -34,6 +34,10 @@ public class SysUser implements Serializable{
     */
     private int activeFlag;
     /**
+     *激活标识
+     */
+     private int bindFlag;
+    /**
     *创建时间
     */
     private Timestamp createtime;
@@ -228,4 +232,11 @@ public class SysUser implements Serializable{
 	public void setAccountids(List<String> accountids) {
 		this.accountids = accountids;
 	}
+	public int getBindFlag() {
+		return bindFlag;
+	}
+	public void setBindFlag(int bindFlag) {
+		this.bindFlag = bindFlag;
+	}
+	
 }
