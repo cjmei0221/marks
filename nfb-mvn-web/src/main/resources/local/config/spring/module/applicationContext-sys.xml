@@ -24,12 +24,16 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
 	default-autowire="byName">
 	<!-- 加载基础数据管理 -->
-	<bean id="loadDataService" class="com.cjmei.module.system.sys.service.impl.LoadDataServiceImpl">
+	<bean id="loadDataService"
+		class="com.cjmei.module.system.sys.service.impl.LoadDataServiceImpl">
 		<property name="loadDataDao" ref="loadDataDao"></property>
 	</bean>
 	<bean id="loadDataDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.LoadDataDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
-
+	<bean id="sysLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cjmei.module.system.syslog.dao.SysLogDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
 </beans>
