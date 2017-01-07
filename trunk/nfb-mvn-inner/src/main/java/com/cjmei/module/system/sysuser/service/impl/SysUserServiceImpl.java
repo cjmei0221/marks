@@ -119,9 +119,10 @@ public class SysUserServiceImpl implements SysUserService{
     *删除用户管理
     */
     @Override
-    public void delete(String userid){
-        sysUserDao.delete(userid);  
+    public void delete(String userid){  
         sysUserDao.deleteSysUserRole(userid);
+        sysUserDao.deleteSysUserOrg(userid);
+        sysUserDao.delete(userid);  
     }
     
     /**

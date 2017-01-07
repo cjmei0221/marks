@@ -162,7 +162,7 @@
 		order by tsr.rolename) over(partition by tsur.userid) as rolenamesStr
 		from tb_sys_user_role tsur
 		join tb_sys_role tsr on tsur.roleid = tsr.roleid
-		) rtb on sysuser.userid = rtb.userid
+		where tsr.showflag=1) rtb on sysuser.userid = rtb.userid
 		join (select tsuo.userid, listagg(toi.orgid, ',') within
 		group(
 		order by toi.orgid) over(partition by tsuo.userid) as orgidsStr,
