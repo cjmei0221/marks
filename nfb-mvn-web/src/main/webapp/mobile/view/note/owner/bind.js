@@ -29,7 +29,7 @@ function summitForm() {
 		},
 		success : function(data) {
 			if (data.retcode == 0) {
-				location.replace('../dairy/list.html?' + "_t="
+				location.replace('../'+tool.getCurEle()+'/list.html?' + "_t="
 						+ new Date().getTime());
 			} else if (data.retcode == 4003) {
 				if (msg.confirm("您尚未绑定，去绑定吗？")) {

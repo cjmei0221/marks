@@ -15,7 +15,7 @@ $(document).on('ajaxStart', function() {
 				} else if (_data.retcode == -100) {
 					alert("用户已失效，请重新登录！");
 					location.replace(tool.baseUrl
-							+ "/mobile/view/note/owner/login.html");
+							+ "/mobile/view/note/owner/login.html?ele="+tool.getCurEle());
 					return;
 				}
 			}
