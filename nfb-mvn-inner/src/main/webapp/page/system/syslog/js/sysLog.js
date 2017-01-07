@@ -132,27 +132,25 @@ function loadList() {
 			align : "center",
 			hidden : true
 		}, {
-			title : '用户ID',
-			field : 'userid',
+			title : '来源',
+			field : 'source',
 			width : 100,
-			align : "center"
-		}, {
-			title : '用户姓名',
-			field : 'username',
-			width : 100,
-			align : "center"
-		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value == 1){
+					return "消息中心";
+				}else if(value == 2){
+					return "前端";
+				}
+				return "内管";
+			}
 		}, {
 			title : 'IP',
 			field : 'ip',
 			width : 100,
 			align : "center"
 		}, {
-			title : '菜单名称',
+			title : '功能名称',
 			field : 'menuname',
 			width : 100,
 			align : "center"
@@ -166,6 +164,22 @@ function loadList() {
 			field : 'retain2',
 			width : 100,
 			align : "left"
+		}, {
+			title : '创建时间',
+			field : 'createtime',
+			width : 100,
+			align : "center"
+		}, {
+			title : '用户ID',
+			field : 'userid',
+			width : 100,
+			align : "center"
+		}, {
+			title : '用户姓名',
+			field : 'username',
+			width : 100,
+			align : "center"
+		
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);

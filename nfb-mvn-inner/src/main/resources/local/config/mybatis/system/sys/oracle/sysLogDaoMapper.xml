@@ -27,7 +27,8 @@
 		opername,
 		retain1,
 		retain2,
-		retain3
+		retain3,
+		SOURCE
 		)
 		VALUES
 		(
@@ -40,7 +41,8 @@
 		#{log.opername:VARCHAR},
 		#{log.retain1:VARCHAR},
 		#{log.retain2:VARCHAR},
-		#{log.retain3:VARCHAR}
+		#{log.retain3:VARCHAR},
+		#{log.source:INTEGER}
 		)
 	</insert>
 
