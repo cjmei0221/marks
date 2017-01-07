@@ -44,16 +44,21 @@ class SysLogThread implements Runnable {
 
 	@Override
 	public void run() {
-		if (sysLogDao == null) {
-			sysLogDao = (SysLogDao) DatabaseHelper.getBean(SysLogDao.class);
-		}
-		if (log != null) {
-			SysLogParam param=sysLogDao.getSysLogParam(log.getUrl(),1);
-			if(null !=param){
-				log.setMenuname(param.getMenuName());
-				log.setOpername(param.getOperName());
+		try {
+			Thread.sleep(3000);
+			if (sysLogDao == null) {
+				sysLogDao = (SysLogDao) DatabaseHelper.getBean(SysLogDao.class);
 			}
-			sysLogDao.saveSysLog(log);
+			if (log != null) {
+				SysLogParam param=sysLogDao.getSysLogParam(log.getUrl(),1);
+				if(null !=param){
+					log.setMenuname(param.getMenuName());
+					log.setOpername(param.getOperName());
+				}
+				sysLogDao.saveSysLog(log);
+			}
+		} catch (InterruptedException e) {
+		
 		}
 	}
 
