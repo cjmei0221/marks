@@ -31,6 +31,14 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
+	<filter>
+		<filter-name>SysLogFilter</filter-name>
+		<filter-class>com.nfb.module.system.filter.SysLogFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SysLogFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

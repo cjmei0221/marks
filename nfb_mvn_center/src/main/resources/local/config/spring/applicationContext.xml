@@ -129,4 +129,9 @@
 			value="com.nfb.module.wxmodulemsg.dao.WxbModuleMsgDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
+	<bean id="sysLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.nfb.module.syslog.dao.SysLogDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
 </beans>
