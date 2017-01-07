@@ -4,6 +4,7 @@ var appInfo = {
 	updateUrl : top.window.urlBase + '/sysUser/update.do',// 编辑用户管理信息接口
 	deleteUrl : top.window.urlBase + '/sysUser/delete.do',// 删除用户管理接口
 	resetPwdUrl : top.window.urlBase + '/sysUser/resetPwd.do',// 删除用户管理接口
+	roleUrl : top.window.urlBase + '/sysRole/findSysRoleById.do',// 删除用户管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -109,9 +110,27 @@ $(function() {
 	});
 
 	$("#chooseRole").on("click", function() {
+		var roleId=$("#roleids").combobox("getValue")
+		if(roleId==''){
+			showMsg("请先选择用户类型");
+			return;
+		}
 		$("#roleWin").window({
 			title : "权限角色"
 		}).window("open");
+		$.ajax({
+			url : appInfo.roleUrl,
+			type : "get",
+			data : {
+				"roleid":roleId
+			},
+			dataType : "json",
+			success : function(data, status, xhr) {
+				if (data.retcode == 0) {
+					$("#companyId").val(data.sysRole.companyId);
+				} 
+			}
+		});
 	});
 	$("#searchRoleBtn").on("click", function() {
 		app.myreload("#roleList");
