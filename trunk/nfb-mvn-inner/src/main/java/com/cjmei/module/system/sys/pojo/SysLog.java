@@ -12,12 +12,21 @@ public class SysLog {
 	private String retain1;//保留字段1
 	private String retain2;//保留字段2
 	private String retain3;//保留字段2
+	private int source;//来源0:内管，1消息中心 2：前端
 	private Date createtime;//创建时间
 	private String menuname;//菜单名称
 	private String opername;//操作名称
 	private String ip;
 	
 	private String url;
+	
+	
+	public int getSource() {
+		return source;
+	}
+	public void setSource(int source) {
+		this.source = source;
+	}
 	public SysLog(){
 		id=IDUtil.getUUID();
 		createtime=new Date();
