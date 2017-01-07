@@ -58,7 +58,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or syslog.USERNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or syslog.CREATETIME LIKE
+			or to_char(syslog.CREATETIME,'yyyy-mm-dd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or syslog.IP LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -69,6 +69,9 @@
 			or syslog.RETAIN2 LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
+		</if>
+		<if test="source != null and source !=''">
+			and syslog.source=#{source}
 		</if>
 		order by syslog.CREATETIME desc
 

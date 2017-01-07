@@ -45,12 +45,14 @@ public class SysLogController extends SupportContorller{
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");
+			String source=request.getParameter("source");
 			if(keyword==null){
 				keyword="";
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
 			param.put("companyId", admin.getCompanyId());
+			param.put("source", source);
 			PojoDomain<SysLog> list = sysLogService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

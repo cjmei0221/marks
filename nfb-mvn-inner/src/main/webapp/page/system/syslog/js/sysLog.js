@@ -8,7 +8,8 @@ var appInfo = {
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		source : ""
 	},
 	formStatus : "new"
 };
@@ -137,9 +138,9 @@ function loadList() {
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-				if(value == 1){
+				if (value == 1) {
 					return "消息中心";
-				}else if(value == 2){
+				} else if (value == 2) {
 					return "前端";
 				}
 				return "内管";
@@ -167,7 +168,7 @@ function loadList() {
 		}, {
 			title : '创建时间',
 			field : 'createtime',
-			width : 100,
+			width : 120,
 			align : "center"
 		}, {
 			title : '用户ID',
@@ -179,7 +180,7 @@ function loadList() {
 			field : 'username',
 			width : 100,
 			align : "center"
-		
+
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
@@ -200,6 +201,7 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
+		appInfo.requestParam.source = $("#source").combobox('getValue');
 		$.ajax({
 			url : opts.url,
 			type : "get",
