@@ -18,8 +18,8 @@ import com.cjmei.common.util.Constants;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.common.util.RequestUtil;
 import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.core.thread.SysLogThreadPool;
 import com.cjmei.module.system.sys.pojo.SysLog;
+import com.cjmei.module.system.syslog.thread.SysLogThreadPool;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 
 public class SysLogFilter implements Filter {
