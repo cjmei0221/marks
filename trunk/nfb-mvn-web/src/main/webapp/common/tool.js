@@ -25,9 +25,6 @@ tool.getCurEle=function getEle(){
 	if(arr.length>2){
 		ele = arr[arr.length-2];
 	}
-	if(ele == 'owner' || ele == ''){
-		ele='diary';
-	}
 	return ele;
 }
 tool.baseUrl="";
@@ -51,7 +48,9 @@ tool.reqUrl={
 		gains_add:tool.baseUrl+"/gains/save.do",
 		gains_update:tool.baseUrl+"/gains/update.do",
 		gains_detail:tool.baseUrl+"/gains/findGainsById.do",
-		bind:tool.baseUrl+"/bind.do"
+		bind:tool.baseUrl+"/bind.do",
+		getVIPInfo:tool.baseUrl+"/sysUser/getVIPInfo.do",
+		changeMobile:tool.baseUrl+"/sysUser/changeMobile.do"
 }
 
 tool.checkPhone=function checkPhone(val) {

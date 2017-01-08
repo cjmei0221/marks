@@ -33,8 +33,21 @@ function summitForm() {
 		},
 		success : function(data) {
 			if(data.retcode==0){
-				location.replace('../'+ele+'/list.html?' + "_t="
-						+ new Date().getTime());
+				if(ele == null || ele =='undefined'){
+					ele="diary";
+				}
+				if(ele=="login"){
+					ele="diary";
+				}
+				if(ele=="owner"){
+					location.replace('../'+ele+'/myInfo.html?' + "_t="
+							+ new Date().getTime());
+					return;
+				}else{
+					location.replace('../'+ele+'/list.html?' + "_t="
+							+ new Date().getTime());
+					return;
+				}
 			}else if(data.retcode==4003){
 				if(msg.confirm("您尚未绑定，去绑定吗？")){
 					location.replace("./bind.html");

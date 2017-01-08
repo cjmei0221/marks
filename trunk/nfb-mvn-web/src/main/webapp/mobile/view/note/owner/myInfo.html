@@ -23,7 +23,8 @@
 		<div>
 			<!-- 标题栏 -->
 			<header class="bar bar-nav cm-head">
-				<a class="icon icon-left pull-left back" href="javascript:void(0)" onclick="toList()"></a>
+				<a class="icon icon-me pull-left open-panel"
+					href="javascript:void(0)" onclick="showLeftPanal('leftPanel')"></a>
 				<h1 class="title">我的信息</h1>
 			</header>
 			<!-- 这里是页面内容区 -->
@@ -118,6 +119,20 @@
 						</li>
 					</ul>
 				</div>
+			</div>
+		</div>
+		<div class="panel panel-left panel-reveal cm-leftPanel" id="leftPanel">
+			<div class="content-block">
+				<p>
+					<a class="close-panel" href="./changePwd.html">修改密码</a>
+				</p>
+				<p>
+					<a class="close-panel" href="./changeMobile.html">修改手机号</a>
+				</p>
+				<!-- Click on link with "close-panel" class will close panel -->
+				<p>
+					<a href="javascript:void(0)" class="close-panel" onclick="showLeftPanal('leftPanel')">关闭</a>
+				</p>
 			</div>
 		</div>
 	</div>

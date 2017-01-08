@@ -13,7 +13,7 @@
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
 <link rel="stylesheet"
 	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-<!-- <link rel="stylesheet" href="../../../assets/css/marks.css"> -->
+<!-- <link rel="stylesheet" href="../../../assets/css/marks0.css"> -->
 </head>
 <body>
 
@@ -24,7 +24,7 @@
 			<!-- 标题栏 -->
 			<header class="bar bar-nav cm-head">
 				<a class="icon icon-left pull-left back" href="./myInfo.html"></a>
-				<h1 class="title">修改密码</h1>
+				<h1 class="title">修改手机号码</h1>
 			</header>
 			<!-- 这里是页面内容区 -->
 			<div id="content" class="content cm-content-2">
@@ -39,8 +39,8 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="password" id="c_oldPwd" name="c_oldPwd"
-											placeholder="原密码" maxlength="11" min="10000000000"
+										<input type="tel" id="c_mobile" name="c_mobile"
+											placeholder="新手机号码" maxlength="11" min="10000000000"
 											max="19999999999">
 									</div>
 								</div>
@@ -53,21 +53,8 @@
 								</div>
 								<div class="item-inner">
 									<div class="item-input">
-										<input type="password" name="c_newPwd" id="c_newPwd"
-											placeholder="新密码" maxlength="20">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-media">
-									<i class="icon icon-form-email"></i>
-								</div>
-								<div class="item-inner">
-									<div class="item-input">
-										<input type="password" id="c_newPwd2" name="c_newPwd2"
-											placeholder="确认密码" maxlength="20">
+										<input type="password" id="c_password" name="c_password"
+											placeholder="登录密码" maxlength="20">
 									</div>
 								</div>
 							</div>
@@ -75,8 +62,8 @@
 					</ul>
 				</div>
 				<div class="content-block">
-					<div id="isLoading" class="row" style="margin-left: 0px;">
-						<div>
+					<div class="row" style="margin-left: 0px;">
+						<div id="isLoading">
 							<a href="javascript:void(0)" onclick="summitForm()"
 								class="button button-big button-fill button-success cm-btn">提交</a>
 						</div>
@@ -92,10 +79,10 @@
 	charset='utf-8'></script>
 <script type='text/javascript' src='../../../js/my-config.js'
 	charset='utf-8'></script>
-	<script type='text/javascript' src='../note.js' charset='utf-8'></script>
 <script type='text/javascript' src='../../../js/msg.js' charset='utf-8'></script>
 <script type="text/javascript" src="../../../../common/encrypt/aes.js"></script>
-<script type="text/javascript" src="../../../../common/encrypt/mode-ecb.js"></script>
+<script type="text/javascript"
+	src="../../../../common/encrypt/mode-ecb.js"></script>
 <script type="text/javascript" src="../../../../common/encrypt/aes_u.js"></script>
-<script type='text/javascript' src='./changePwd.js' charset='utf-8'></script>
+<script type='text/javascript' src='./changeMobile.js' charset='utf-8'></script>
 </html>

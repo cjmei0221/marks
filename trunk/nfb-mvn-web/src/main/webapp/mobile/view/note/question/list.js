@@ -68,17 +68,3 @@ function loadMore() {
 		getlist(true);
 	}
 }
-/**
- * 侧栏显示控制
- */
-function showLeftPanal(dvl) {
-
-	if (!appInfo.leftPanel) {
-		$("#" + dvl).show();
-		appInfo.leftPanel = true;
-	} else {
-		$("#" + dvl).hide();
-		appInfo.leftPanel = false;
-	}
-
-}
