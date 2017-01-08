@@ -322,4 +322,36 @@ public class SysUserController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
 	}
+    /**
+     * 更新手机号码
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/sysUser/updateActiveFlag")
+    public void updateActiveFlag(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+			String userid=request.getParameter("userid");
+			SysUser su=sysUserService.findById(userid);
+			if(su !=null){
+				int flag=Enums.SysUserUse.USE.getValue();
+				if(Enums.SysUserUse.USE.getValue()==su.getActiveFlag()){
+					flag=Enums.SysUserUse.NOUSE.getValue();
+				}
+				sysUserService.updateActiveFlag(userid,flag);
+				result.setMessage("resetPwd sysUser successs!");
+				result.setCode(Code.CODE_SUCCESS);
+			}else{
+				result.setMessage("此记录已删除!");
+				result.setCode(Code.CODE_FAIL);
+			}
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			result.setMessage("findAll sysUser fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
 }
