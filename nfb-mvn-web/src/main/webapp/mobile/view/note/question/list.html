@@ -32,7 +32,7 @@
 				<a class="icon icon-me pull-left open-panel"
 					href="javascript:void(0)" onclick="showLeftPanal('leftPanel')"></a>
 				<a class="icon icon-edit pull-right" href="./add.html"></a>
-				<h1 class="title" id="t_title">日记</h1>
+				<h1 class="title" id="t_title">问题</h1>
 			</header>
 			<div class="bar bar-header-secondary cm-search">
 				<div class="searchbar">
@@ -86,10 +86,10 @@
 		<li><a href="./detail.html?id={id}" class="item-link item-content">
 			<div class="item-inner">
 				<div class="item-title-row">
-					<div class="item-title">{idx} - {title}</div>
+					<div class="item-title">{idx} - {question}</div>
 				</div>
-				<div class="item-subtitle" style="font-size: .60rem; margin-bottom: 10px;">{createtime}</div>
-				<div class="item-text cm-text" style="word-wrap: break-word;">{shortContent}</div>
+				<div class="item-subtitle" style="font-size: .60rem; margin-bottom: 10px;">{createtime} - {lvlName} - {labels}</div>
+				<div class="item-text cm-text" style="word-wrap: break-word;">{solution}</div>
 			</div>
 		</a></li>
 	</ul>
