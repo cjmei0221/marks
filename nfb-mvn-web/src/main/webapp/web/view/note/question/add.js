@@ -46,7 +46,7 @@ function submitForm(){
 			return;
 		}
 	}else{
-		if(trim($("#c_content").val())=='' && trim($("#c_title").val())==''){
+		if(trim($("#c_title").val())==''){
 			/*msg.info("您还未添加任何内容哦");*/
 			return;
 		}
