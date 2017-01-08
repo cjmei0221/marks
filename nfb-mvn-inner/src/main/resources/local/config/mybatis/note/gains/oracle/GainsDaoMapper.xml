@@ -28,7 +28,8 @@
 		gains.CREATETIME,
 		gains.UPDATETIME,
 		gains.CREATOR,
-		gains.UPDATER
+		gains.UPDATER,
+		gains.MOBILE
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -40,8 +41,8 @@
 		sysdate,
 		sysdate,
 		#{creator:VARCHAR},
-		#{updater:VARCHAR}
-
+		#{updater:VARCHAR},
+		#{mobile:VARCHAR}
 		)
 	</insert>
 
@@ -92,9 +93,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or gains.LABELS LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or gains.CREATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or gains.UPDATETIME LIKE
+			or to_char(gains.CREATETIME,'yyyy-MM-dd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or gains.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -105,7 +104,7 @@
 		<if test="userid!=null and userid!=''">
 			and gains.CREATOR =#{userid:VARCHAR}
 		</if>
-
+		order by gains.UPDATETIME desc
 
 	</select>
 

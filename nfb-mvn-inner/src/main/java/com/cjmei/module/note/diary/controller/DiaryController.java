@@ -71,6 +71,7 @@ public class DiaryController extends SupportContorller{
 	    	Diary diary = getModel(Diary.class);
 	 //     diary.setID(IDUtil.getTimeID());
 	    	diary.setCreator(admin.getUserid());
+	    	diary.setMobile(admin.getBind_mobile());
 			diaryService.save(diary);
 			result.setMessage("保存成功");
 			result.setCode(Code.CODE_SUCCESS);
@@ -187,7 +188,11 @@ public class DiaryController extends SupportContorller{
 			String keyword=request.getParameter("keyword");
 			String statedate=request.getParameter("statedate");
 			String enddate=request.getParameter("enddate");
-			param.put("userid", admin.getUserid());
+			String userid=admin.getUserid();
+			if("admin".equals(admin.getUserid())){
+				userid=null;
+			}
+			param.put("userid", userid);
 			param.put("keyword", keyword);
 			param.put("statedate", statedate);
 			param.put("enddate", enddate);

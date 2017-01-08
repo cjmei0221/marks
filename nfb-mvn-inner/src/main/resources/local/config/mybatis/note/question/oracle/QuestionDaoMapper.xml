@@ -28,7 +28,8 @@
 		question.CREATETIME,
 		question.UPDATETIME,
 		question.CREATOR,
-		question.UPDATER
+		question.UPDATER,
+		question.MOBILE
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -40,8 +41,8 @@
 		sysdate,
 		sysdate,
 		#{creator:VARCHAR},
-		#{updater:VARCHAR}
-
+		#{updater:VARCHAR},
+		#{mobile:VARCHAR}
 		)
 	</insert>
 
@@ -96,9 +97,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or question.LABELS LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or question.CREATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or question.UPDATETIME LIKE
+			or to_char(question.CREATETIME,'yyyy-MM-dd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or question.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -110,7 +109,7 @@
 		<if test="userid!=null and userid!=''">
 			and question.CREATOR =#{userid:VARCHAR}
 		</if>
-
+			order by question.UPDATETIME desc
 	</select>
 
 
