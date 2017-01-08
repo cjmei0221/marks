@@ -165,13 +165,8 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '创建者',
-			field : 'creator',
-			width : 100,
-			align : "center"
-		}, {
-			title : '更新者',
-			field : 'updater',
+			title : '编写手机号',
+			field : 'mobile',
 			width : 100,
 			align : "center"
 		} ] ],

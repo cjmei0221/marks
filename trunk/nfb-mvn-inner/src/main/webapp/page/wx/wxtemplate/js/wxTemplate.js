@@ -157,8 +157,8 @@ function loadList() {
 		}, {
 			title : '微信模板ID',
 			field : 'template_id',
-			width : 400,
-			align : "center"
+			width : 100,
+			align : "center" 
 		}, {
 			title : '微信模板标题',
 			field : 'template_name',
@@ -177,7 +177,7 @@ function loadList() {
 		}, {
 			title : '访问URL',
 			field : 'detailUrl',
-			width : 200,
+			width : 300,
 			align : "left"
 		}, {
 			title : '启用标识',
