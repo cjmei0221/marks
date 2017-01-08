@@ -91,6 +91,17 @@
 		= #{userid}
 	</update>
 
+	<update id="updateActiveFlag">
+		UPDATE TB_SYS_USER
+		SET
+		ACTIVEFLAG = #{flag},
+		UPDATETIME =
+		sysdate
+		WHERE
+		USERID
+		= #{userid}
+	</update>
+
 	<update id="updateMobile">
 		UPDATE TB_SYS_USER sysuser
 		SET
@@ -154,23 +165,33 @@
 		orgtb.orgidsStr,
 		orgtb.orgidNamesStr
 		FROM TB_SYS_USER sysuser
-		join (select tsur.userid, listagg(tsr.roleid, ',') within
+		join
+		(select tsur.userid, listagg(tsr.roleid, ',') within
 		group(
-		order by tsr.roleid) over(partition by tsur.userid) as roleidsStr,
+		order by
+		tsr.roleid) over(partition by tsur.userid) as roleidsStr,
 		listagg(tsr.rolename, ',') within
 		group(
-		order by tsr.rolename) over(partition by tsur.userid) as rolenamesStr
-		from tb_sys_user_role tsur
+		order by tsr.rolename)
+		over(partition by tsur.userid) as rolenamesStr
+		from tb_sys_user_role
+		tsur
 		join tb_sys_role tsr on tsur.roleid = tsr.roleid
-		where tsr.showflag=1) rtb on sysuser.userid = rtb.userid
-		join (select tsuo.userid, listagg(toi.orgid, ',') within
+		where
+		tsr.showflag=1) rtb on sysuser.userid = rtb.userid
+		join (select
+		tsuo.userid, listagg(toi.orgid, ',') within
 		group(
-		order by toi.orgid) over(partition by tsuo.userid) as orgidsStr,
-		listagg(toi.orgname, ',') within
+		order by toi.orgid)
+		over(partition by tsuo.userid) as orgidsStr,
+		listagg(toi.orgname, ',')
+		within
 		group(
-		order by toi.orgid) over(partition by tsuo.userid) as orgidNamesStr
+		order by toi.orgid) over(partition by tsuo.userid) as
+		orgidNamesStr
 		from tb_sys_user_org tsuo
-		join tb_org_info toi on tsuo.orgid = toi.orgid
+		join tb_org_info toi on
+		tsuo.orgid = toi.orgid
 		where 1=1
 		<if test="orgids !=null">
 			and tsr.orgid in
@@ -182,7 +203,8 @@
 		) orgtb on sysuser.userid =
 		orgtb.userid
 		WHERE 1=1
-		and sysuser.USERTYPE is not null
+		and sysuser.USERTYPE
+		is not null
 		<if test="companyId !=null and companyId != ''">
 			and sysuser.COMPANYID = #{companyId}
 		</if>
