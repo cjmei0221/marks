@@ -1,3 +1,6 @@
+var appInfo = {
+	leftPanel : false
+}
 $(function() {
 	$("#headImage").attr("src", "../../../assets/image/Tulips.jpg");
 	loadInfo();
@@ -5,7 +8,7 @@ $(function() {
 
 function loadInfo() {
 	$.ajax({
-		url : tool.reqUrl.getLoginUserInfo,
+		url : tool.reqUrl.getVIPInfo,
 		type : 'POST',
 		success : function(data) {
 			if (data.retcode == 0) {
@@ -34,4 +37,18 @@ function changeStyle() {
 		complete : function() {
 		}
 	});
+}
+/**
+ * 侧栏显示控制
+ */
+function showLeftPanal(dvl) {
+
+	if (!appInfo.leftPanel) {
+		$("#" + dvl).show();
+		appInfo.leftPanel = true;
+	} else {
+		$("#" + dvl).hide();
+		appInfo.leftPanel = false;
+	}
+
 }

@@ -1,6 +1,5 @@
-var ele=tool.getUrlParams("ele");
 $(function() {
-
+	$("#isLoading").show();
 });
 
 function resetForm() {
@@ -11,20 +10,21 @@ function resetForm() {
 function summitForm() {
 	var c_mobile = $("#c_mobile").val();
 	if (c_mobile == '') {
-		msg.error("手机号码为空");
+		msg.info("新手机号码为空");
 		return false;
 	}
-	if(!tool.checkPhone(c_mobile)){
-		msg.info("手机号码格式错误");
+	if (!tool.checkPhone(c_mobile)) {
+		msg.info("新手机号码格式错误");
 		return false;
 	}
 	var c_password = $("#c_password").val();
 	if (c_password == '') {
-		msg.error("密码为空");
+		msg.info("密码为空");
 		return false;
 	}
+	$("#isLoading").hide();
 	$.ajax({
-		url : tool.reqUrl.login,
+		url : tool.reqUrl.changeMobile,
 		type : 'POST',
 		data : {
 			mobile : c_mobile,
@@ -32,22 +32,15 @@ function summitForm() {
 		},
 		success : function(data) {
 			if (data.retcode == 0) {
-				if(ele=="owner" || ele == null || ele =='undefined'){
-					ele="diary";
-				}
-				location.href = '../' + ele + '/list.html?' + "_t="
-						+ new Date().getTime();
-			}else if(data.retcode==4003){
-				if(msg.confirm("您尚未绑定，去绑定吗？")){
-					location.replace("./bind.html");
-				}
+				location.replace('../login/login.html?ele=owner' + "&_t="
+						+ new Date().getTime());
+				return;
 			} else {
-				msg.error(data.retmsg);
+				msg.info(data.retmsg);
 			}
-
 		},
 		complete : function() {
-
+			$("#isLoading").show();
 		}
 	});
 }
