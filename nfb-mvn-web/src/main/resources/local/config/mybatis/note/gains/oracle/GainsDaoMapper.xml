@@ -14,7 +14,8 @@
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.note.gains.pojo.Gains">
-		INSERT INTO TB_NOTE_GAINS gains (
+		INSERT INTO TB_NOTE_GAINS gains
+		(
 		gains.ID,
 		gains.LVL,
 		gains.LVLNAME,
@@ -24,7 +25,8 @@
 		gains.CREATETIME,
 		gains.UPDATETIME,
 		gains.CREATOR,
-		gains.UPDATER
+		gains.UPDATER,
+		gains.MOBILE
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -36,8 +38,8 @@
 		sysdate,
 		sysdate,
 		#{creator:VARCHAR},
-		#{updater:VARCHAR}
-
+		#{updater:VARCHAR},
+		#{mobile:VARCHAR}
 		)
 	</insert>
 
@@ -103,7 +105,7 @@
 				and (gains.CREATOR is null)
 			</when>
 			<otherwise>
-				and (gains.CREATOR =#{userid:VARCHAR} or gains.CREATOR is null)
+				and (gains.CREATOR =#{userid:VARCHAR})
 			</otherwise>
 		</choose>
 		order by gains.UPDATETIME desc
