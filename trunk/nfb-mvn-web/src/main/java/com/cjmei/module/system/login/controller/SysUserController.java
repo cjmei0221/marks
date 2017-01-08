@@ -99,29 +99,5 @@ public class SysUserController {
 		JsonUtil.output(response, result);
 	}
 	
-	/**
-	 * 获取登录用户信息
-	 */
-	@RequestMapping("/sysUser/getVIPInfo")
-	public void getInfo(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			result.setMessage("findById diary successs!");
-			result.setCode(Code.CODE_SUCCESS);
-			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
-			if(loginUser==null){
-				result.setMessage("用户未登录");
-				result.setCode(-102);
-				JsonUtil.output(response, result);
-				return;
-			}
-			SysUser user = sysUserService.getSysUserByUseridOrMobile(loginUser.getUserid());
-			result.getData().put("loginUser", user);
-		} catch (Exception e) {
-			logger.error("getInfo", e);
-			result.setMessage("查询失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
+	
 }
