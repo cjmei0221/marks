@@ -54,4 +54,9 @@ public class SysUserServiceImpl implements SysUserService {
 		sysUserDao.update(sysUser);
 	}
 
+	@Override
+	public void updateMobile(String userid, String mobile) {
+		sysUserDao.updateMobile(userid, mobile);
+	}
+
 }
