@@ -19,7 +19,7 @@ function mysearch() {
 function getDairylist(scroll) {
 	$("#isLoading").hide();
 	$.ajax({
-		url : tool.reqUrl.dairy_list,
+		url : tool.reqUrl.dairy_list+"?&_t="+new Date().getTime(),
 		type : 'POST',
 		data : {
 			keyword : $("#search").val(),

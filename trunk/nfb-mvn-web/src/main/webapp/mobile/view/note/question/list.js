@@ -19,7 +19,7 @@ function mysearch() {
 function getlist(scroll) {
 	$("#isLoading").hide();
 	$.ajax({
-		url : tool.reqUrl.question_list,
+		url : tool.reqUrl.question_list+"?&_t="+new Date().getTime(),
 		type : 'POST',
 		data : {
 			keyword : $("#search").val(),
