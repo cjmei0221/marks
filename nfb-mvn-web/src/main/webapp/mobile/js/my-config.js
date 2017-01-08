@@ -13,7 +13,6 @@ $(document).on('ajaxStart', function() {
 					alert("访问已失效，请关闭重新进入！");
 					return;
 				} else if (_data.retcode == -100) {
-					alert("用户已失效，请重新登录！");
 					location.replace(tool.baseUrl
 							+ "/mobile/view/note/login/login.html?ele="+tool.getCurEle());
 					return;
