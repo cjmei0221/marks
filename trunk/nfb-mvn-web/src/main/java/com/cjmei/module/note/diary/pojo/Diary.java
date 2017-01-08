@@ -32,6 +32,16 @@ public class Diary implements Serializable{
     *创建时间
     */
     private Date createtime;
+    
+    private String mobile;
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	public Date getUpdatetime() {
 		return updatetime;

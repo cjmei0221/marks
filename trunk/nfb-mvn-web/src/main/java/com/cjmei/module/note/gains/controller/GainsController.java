@@ -72,6 +72,7 @@ public class GainsController extends SupportContorller {
 			gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
 			gains.setCreator(userid);
 			gains.setUpdater(userid);
+			gains.setMobile(admin.getBind_mobile());
 			Gains old = gainsService.findById(gains.getId());
 			if (old == null) {
 				gainsService.save(gains);
