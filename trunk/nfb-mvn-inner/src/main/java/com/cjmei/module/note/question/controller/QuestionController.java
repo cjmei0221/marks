@@ -78,6 +78,7 @@ public class QuestionController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
+	 			question.setMobile(admin.getBind_mobile());
 	 			question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
 	 			question.setCreator(admin.getUserid());
 	 			question.setUpdater(admin.getUserid());
@@ -211,8 +212,12 @@ public class QuestionController extends SupportContorller{
 				keyword="";
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
+			String userid=admin.getUserid();
+			if("admin".equals(admin.getUserid())){
+				userid=null;
+			}
+			param.put("userid", userid);
 			param.put("keyword", keyword);
-			param.put("userid", admin.getUserid());
 			PojoDomain<Question> list = questionService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

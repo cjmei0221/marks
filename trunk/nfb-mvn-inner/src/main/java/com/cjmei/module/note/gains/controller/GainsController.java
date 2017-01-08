@@ -78,6 +78,7 @@ public class GainsController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
+	 			gains.setMobile(admin.getBind_mobile());
 	 			gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
 	 			gains.setCreator(admin.getUserid());
 	 			gains.setUpdater(admin.getUserid());
@@ -211,8 +212,12 @@ public class GainsController extends SupportContorller{
 				keyword="";
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
+			String userid=admin.getUserid();
+			if("admin".equals(admin.getUserid())){
+				userid=null;
+			}
+			param.put("userid", userid);
 			param.put("keyword", keyword);
-			param.put("userid", admin.getUserid());
 			PojoDomain<Gains> list = gainsService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

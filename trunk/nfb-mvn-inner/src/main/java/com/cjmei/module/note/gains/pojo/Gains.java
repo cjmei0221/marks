@@ -48,9 +48,15 @@ public class Gains implements Serializable{
     */
     private String updater;
 
-
-
-    public String getId(){
+    private String mobile;
+    
+    public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getId(){
         return id;
     }
     public void setId(String id){

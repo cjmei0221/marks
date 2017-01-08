@@ -158,6 +158,11 @@ function loadList() {
 			field : 'content',
 			width : 600,
 			align : "left"
+		}, {
+			title : '编写手机号',
+			field : 'mobile',
+			width : 100,
+			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
