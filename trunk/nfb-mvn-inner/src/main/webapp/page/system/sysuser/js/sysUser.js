@@ -254,18 +254,6 @@ function loadList() {
 				}
 			}
 		}, {
-			title : '内管登录权限',
-			field : 'roleidsStr',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if (value == null || value=='') {
-					return "不可登录";
-				} else {
-					return "可登陆";
-				}
-			}
-		}, {
 			title : '用户类型',
 			field : 'rolenamesStr',
 			width : 100,
@@ -282,9 +270,9 @@ function loadList() {
 			align : "center",
 			formatter : function(value, row, index) {
 				if (value == 1) {
-					return "激活";
-				} else {
 					return "启用";
+				} else {
+					return "禁用";
 				}
 			}
 
