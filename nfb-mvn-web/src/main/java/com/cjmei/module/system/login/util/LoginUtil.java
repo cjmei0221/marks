@@ -18,6 +18,7 @@ public class LoginUtil {
 		return "Marks";
 	}
 	public void setCurrentUser(HttpServletRequest request,SysUser user) {
+		user.setPassword("");
 		request.getSession().setAttribute("cSysUser", user);
 	}
 	public SysUser getCurrentUser(HttpServletRequest request){

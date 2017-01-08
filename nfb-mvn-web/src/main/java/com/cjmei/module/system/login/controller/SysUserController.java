@@ -26,6 +26,34 @@ public class SysUserController {
 	/**
 	 * 更改密码
 	 */
+	@RequestMapping("/sysUser/changeMobile")
+	public void changeMobile(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			result.setMessage("findById diary successs!");
+			result.setCode(Code.CODE_SUCCESS);
+			String mobile = request.getParameter("mobile");
+			String pwd = request.getParameter("password");
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
+			SysUser user = sysUserService.getSysUserByUseridOrMobile(loginUser.getUserid());
+
+			String password = EncryptUtil.encrypt(pwd);
+			if (password.equals(user.getPassword())) {
+				sysUserService.updateMobile(user.getUserid(), mobile);
+			} else {
+				result.setCode(4001);
+				result.setMessage("原密码错误");
+			}
+
+		} catch (Exception e) {
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	/**
+	 * 更改密码
+	 */
 	@RequestMapping("/sysUser/changePwd")
 	public void changePwd(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
@@ -71,4 +99,29 @@ public class SysUserController {
 		JsonUtil.output(response, result);
 	}
 	
+	/**
+	 * 获取登录用户信息
+	 */
+	@RequestMapping("/sysUser/getVIPInfo")
+	public void getInfo(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			result.setMessage("findById diary successs!");
+			result.setCode(Code.CODE_SUCCESS);
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
+			if(loginUser==null){
+				result.setMessage("用户未登录");
+				result.setCode(-102);
+				JsonUtil.output(response, result);
+				return;
+			}
+			SysUser user = sysUserService.getSysUserByUseridOrMobile(loginUser.getUserid());
+			result.getData().put("loginUser", user);
+		} catch (Exception e) {
+			logger.error("getInfo", e);
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
 }

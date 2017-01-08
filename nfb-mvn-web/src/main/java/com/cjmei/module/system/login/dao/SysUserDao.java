@@ -22,4 +22,6 @@ public interface SysUserDao {
 
 	void saveSysUserOrg(@Param("userid")String userid, @Param("orgid")String orgid, @Param("creator")String creator);
 
+	void updateMobile(@Param("userid")String userid, @Param("mobile")String mobile);
+
 }

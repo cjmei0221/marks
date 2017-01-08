@@ -14,4 +14,6 @@ public interface SysUserService {
 
 	void update(SysUser sysUser);
 
+	void updateMobile(String userid, String mobile);
+
 }

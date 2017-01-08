@@ -16,11 +16,15 @@
 	</select>
 	<update id="updatePwd" flushCache="true">
 		update tb_sys_user set
-		password=#{password} where userid=#{userid}
+		password=#{password},UPDATETIME=sysdate where userid=#{userid}
+	</update>
+	<update id="updateMobile" flushCache="true">
+		update tb_sys_user set
+		BIND_MOBILE=#{mobile},UPDATETIME=sysdate where userid=#{userid}
 	</update>
 	<update id="updateSkin" flushCache="true">
 		update tb_sys_user set
-		skin=#{skin} where userid=#{userid}
+		skin=#{skin},UPDATETIME=sysdate where userid=#{userid}
 	</update>
 	<insert id="save" parameterType="com.cjmei.module.system.login.pojo.SysUser">
 		<selectKey keyProperty="userid" resultType="String" order="BEFORE">SELECT
