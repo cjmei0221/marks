@@ -1,7 +1,6 @@
 package com.cjmei.module.system.sysuser.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,26 +24,26 @@ public class SysUser implements Serializable{
     *用户密码
     */
     private String password;
-    /**
-    *绑定手机号码
-    */
-    private String bind_mobile;
-    /**
-    *激活标识
-    */
-    private int activeFlag;
-    /**
-     *激活标识
-     */
-     private int bindFlag;
+	/**
+	 * 绑定手机号码
+	 */
+	private String bind_mobile;
+	/**
+	 * 激活标识
+	 */
+	private int activeFlag;
+	/**
+	 * 激活标识
+	 */
+	private int bindFlag;
     /**
     *创建时间
     */
-    private Timestamp createtime;
+    private Date createtime;
     /**
     *更新时间
     */
-    private Timestamp updatetime;
+    private Date updatetime;
     /**
     *创建者
     */
@@ -60,7 +59,7 @@ public class SysUser implements Serializable{
     /**
     *上次登录时间
     */
-    private Timestamp lastLoginTime;
+    private Date lastLoginTime;
 
 
 	private List<String> userUrlList = new ArrayList<String>();
@@ -135,17 +134,17 @@ public class SysUser implements Serializable{
         this.activeFlag = activeFlag;
     }
 
-    public Timestamp getCreatetime(){
+    public Date getCreatetime(){
         return createtime;
     }
-    public void setCreatetime(Timestamp createtime){
+    public void setCreatetime(Date createtime){
         this.createtime = createtime;
     }
 
-    public Timestamp getUpdatetime(){
+    public Date getUpdatetime(){
         return updatetime;
     }
-    public void setUpdatetime(Timestamp updatetime){
+    public void setUpdatetime(Date updatetime){
         this.updatetime = updatetime;
     }
 
@@ -171,10 +170,10 @@ public class SysUser implements Serializable{
         this.userType = userType;
     }
 
-    public Timestamp getLastLoginTime(){
+    public Date getLastLoginTime(){
         return lastLoginTime;
     }
-    public void setLastLoginTime(Timestamp lastLoginTime){
+    public void setLastLoginTime(Date lastLoginTime){
         this.lastLoginTime = lastLoginTime;
     }
 	public List<String> getUserUrlList() {

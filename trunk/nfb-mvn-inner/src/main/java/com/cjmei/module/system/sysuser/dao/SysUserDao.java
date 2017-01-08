@@ -36,4 +36,5 @@ public interface SysUserDao {
 	void updateMobile(@Param("userid")String userid, @Param("newPhone")String newPhone);
 	void deleteSysUserOrg(@Param("userid") String userid);
 	void saveSysUserOrg(SysUserOrg su);
+	void updateActiveFlag(@Param("userid") String userid,@Param("flag") int flag);
 }

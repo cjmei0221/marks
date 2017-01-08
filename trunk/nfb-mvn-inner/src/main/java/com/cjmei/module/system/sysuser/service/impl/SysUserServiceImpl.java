@@ -99,6 +99,11 @@ public class SysUserServiceImpl implements SysUserService{
 	public void updatetPwd(SysUser su) {
     	 sysUserDao.updatetPwd(su);
 	}
+    
+	@Override
+	public void updateActiveFlag(String userid, int flag) {
+		 sysUserDao.updateActiveFlag(userid,flag);
+	}
 	private void saveSysUserRole(String userid,String roleidPut,String creator){
     	sysUserDao.deleteSysUserRole(userid);
     	SysUserRole su=null;

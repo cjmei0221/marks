@@ -21,5 +21,6 @@ public interface SysUserService{
 	public SysUser findById(String userid);
 	public void updatetPwd(SysUser su);
 	public void updateMobile(String userid, String newPhone);
+	public void updateActiveFlag(String userid, int flag);
 
 }
