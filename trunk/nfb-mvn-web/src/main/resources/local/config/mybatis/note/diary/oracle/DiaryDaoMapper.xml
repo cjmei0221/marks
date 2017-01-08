@@ -16,7 +16,8 @@
 		diary.CONTENT,
 		diary.CREATOR,
 		diary.TITLE,
-		diary.CREATETIME
+		diary.CREATETIME,
+		diary.MOBILE
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -24,7 +25,8 @@
 		#{content:VARCHAR},
 		#{creator:VARCHAR},
 		#{title:VARCHAR},
-		sysdate
+		sysdate,
+		#{mobile:VARCHAR}
 		)
 	</insert>
 

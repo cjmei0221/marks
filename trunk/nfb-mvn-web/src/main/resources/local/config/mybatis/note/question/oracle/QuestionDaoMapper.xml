@@ -14,7 +14,8 @@
 
 
 	<insert id="save" parameterType="com.cjmei.module.note.question.pojo.Question">
-		INSERT INTO TB_NOTE_QUESTION question (
+		INSERT INTO TB_NOTE_QUESTION
+		question (
 		question.ID,
 		question.LVL,
 		question.LVLNAME,
@@ -24,7 +25,8 @@
 		question.CREATETIME,
 		question.UPDATETIME,
 		question.CREATOR,
-		question.UPDATER
+		question.UPDATER,
+		question.MOBILE
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -36,8 +38,8 @@
 		sysdate,
 		sysdate,
 		#{creator:VARCHAR},
-		#{updater:VARCHAR}
-
+		#{updater:VARCHAR},
+		#{mobile:VARCHAR}
 		)
 	</insert>
 
@@ -107,12 +109,11 @@
 				and (question.CREATOR is null)
 			</when>
 			<otherwise>
-				and (question.CREATOR =#{userid:VARCHAR} or question.CREATOR is
-				null)
+				and (question.CREATOR =#{userid:VARCHAR})
 			</otherwise>
 		</choose>
 		order by question.UPDATETIME desc
-		
+
 	</select>
 
 
