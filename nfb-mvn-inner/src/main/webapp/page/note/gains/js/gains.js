@@ -159,23 +159,13 @@ function loadList() {
 			width : 200,
 			align : "center"
 		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 100,
-			align : "center"
-		}, {
 			title : '更新时间',
 			field : 'updatetime',
 			width : 100,
 			align : "center"
 		}, {
-			title : '创建者',
-			field : 'creator',
-			width : 100,
-			align : "center"
-		}, {
-			title : '更新者',
-			field : 'updater',
+			title : '编写手机号',
+			field : 'mobile',
 			width : 100,
 			align : "center"
 		} ] ],
