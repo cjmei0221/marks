@@ -49,8 +49,10 @@ tool.reqUrl={
 		gains_update:tool.baseUrl+"/gains/update.do",
 		gains_detail:tool.baseUrl+"/gains/findGainsById.do",
 		bind:tool.baseUrl+"/bind.do",
-		getVIPInfo:tool.baseUrl+"/sysUser/getVIPInfo.do",
-		changeMobile:tool.baseUrl+"/sysUser/changeMobile.do"
+		getVIPInfo:tool.baseUrl+"/vipInfo/findVipInfoById.do",
+		changeMobile:tool.baseUrl+"/sysUser/changeMobile.do",
+		vipInfo_save:tool.baseUrl+"/vipInfo/save.do"
+		
 }
 
 tool.checkPhone=function checkPhone(val) {
