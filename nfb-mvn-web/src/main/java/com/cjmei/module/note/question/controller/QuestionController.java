@@ -72,6 +72,7 @@ public class QuestionController extends SupportContorller {
 			question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
 			question.setCreator(userid);
 			question.setUpdater(userid);
+			question.setMobile(admin.getBind_mobile());
 			Question old = questionService.findById(question.getId());
 			if (old == null) {
 				questionService.save(question);

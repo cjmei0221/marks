@@ -96,6 +96,7 @@ public class DiaryController extends SupportContorller{
 	 //     diary.setID(IDUtil.getTimeID());
 	    	diary.setCreator(admin.getUserid());
 	    	Diary old=diaryService.findById(diary.getId());
+	    	diary.setMobile(admin.getBind_mobile());
 	    	if(old !=null){
 	    		diaryService.update(diary);
 	    	}else{
@@ -263,7 +264,6 @@ public class DiaryController extends SupportContorller{
 						return;
 		    		}
 		    	}
-		    	
 		    	diary.setCreator(sysUser.getUserid());
 		    	if(old !=null){
 		    		diaryService.update(diary);
