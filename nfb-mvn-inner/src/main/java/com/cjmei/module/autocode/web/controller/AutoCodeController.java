@@ -18,6 +18,7 @@ import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
+import com.cjmei.module.autocode.core.produced.introduction.introduction.IntroductionPageProduced;
 import com.cjmei.module.autocode.core.produced.pojo.AttrType;
 import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
 import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
@@ -270,6 +271,37 @@ public class AutoCodeController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
 	}
+    
+    /**
+	 * 自动生成代码
+	 */
+    @RequestMapping("/autoCode/autocodeIntroFile")
+    public void autocodeIntroFile(HttpServletRequest request,
+    HttpServletResponse response){
+		Result result = new Result();
+		try {
+			String tableName=request.getParameter("tableName");
+			AutoCode info=autoCodeService.findDetailById(tableName);
+			if(info==null){
+				result.setMessage("该表记录不存在");
+				result.setCode(3);
+			}else{
+				if(null !=info.getAttrList() && info.getAttrList().size()>0 ){
+					AutoBean autoBean=getAutoBean(info);
+					AutoCodeFactory.getInstance().autoCodeOneFile(autoBean, new IntroductionPageProduced());
+				}else{
+					result.setMessage("该表没有字段，请添加字段");
+					result.setCode(4);
+				}
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("autoCode fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+    
     private AutoBean getAutoBean(AutoCode info) {
 		AutoBean autoBean = new AutoBean();
 		autoBean.setBeanName(info.getBeanName());

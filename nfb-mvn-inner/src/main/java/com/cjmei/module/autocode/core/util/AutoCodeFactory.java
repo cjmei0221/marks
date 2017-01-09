@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.cjmei.module.autocode.core.produced.DBProduced;
+import com.cjmei.module.autocode.core.produced.ModuleProduced;
 import com.cjmei.module.autocode.core.produced.annotation.TableField;
 import com.cjmei.module.autocode.core.produced.annotation.TableName;
 import com.cjmei.module.autocode.core.produced.extern.ExternAutoCode;
@@ -37,6 +38,11 @@ public class AutoCodeFactory {
 	public void autoCode(AutoBean autoBean) {
 		ExternAutoCode autoCode = new DefaultExternAutoBeanFactory().externAutoCodeBean();
 		autoCode.autoProducedCode(autoBean, true);
+	}
+	
+	public void autoCodeOneFile(AutoBean autoBean,ModuleProduced moduleProduced) {
+		ExternAutoCode autoCode = new DefaultExternAutoBeanFactory().externAutoCodeBean();
+		autoCode.autoProducedCode(autoBean,moduleProduced, true);
 	}
 
 	public void createTable(AutoBean autoBean) {
