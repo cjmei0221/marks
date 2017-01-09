@@ -4,8 +4,7 @@
 	<!-- 加载系统参数 -->
 	<select id="getWxAutoReplayByKey" resultType="com.cjmei.module.weixin.wfhao.pojo.WxAutoReplay">
 		select * from
-		tb_wx_auto_replay t where t.accountid=#{accountId} and t.ckey like
-		'%${ckey}%'
+		tb_wx_auto_replay t where t.accountid=#{accountId} and t.ckey=#{ckey}
 	</select>
 
 	<select id="getNewsItemByIds" resultType="com.cjmei.module.weixin.wfhao.pojo.NewsItem">
