@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>痕迹</title>
+<title>@{GetCaption}</title>
 <link rel="stylesheet" type="text/css" href="../nfb.css">
 </head>
 <body>
