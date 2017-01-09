@@ -276,6 +276,7 @@ public class AutoCodeController extends SupportContorller{
 		autoBean.setModuleDesc(info.getModuleDesc());
 		autoBean.setTableName(info.getTableName().toUpperCase());
 		autoBean.setParentPackage(info.getParentPackage());
+		autoBean.setDescription(info.getDescription());
 		// 包路径
 		// autoBean.setDefaultPackageUrl("cluster.scheme.module.rbac.");
 		List<AutoAttr> autoAttrs = new ArrayList<AutoAttr>();
@@ -289,6 +290,7 @@ public class AutoCodeController extends SupportContorller{
 				attr.setAttrType(AttrType.getAttrTypeByString(vo.getAttrType()));
 				attr.setPK(vo.getIsPK()==1?true:false);
 				attr.setSeq("");
+				attr.setNote(vo.getNote());
 				autoAttrs.add(attr);
 			}
 		}
