@@ -3,6 +3,8 @@ package com.cjmei.module.autocode.web.pojo;
 import java.io.Serializable;
 import java.util.List;
 
+import com.cjmei.module.autocode.core.produced.util.StringUtil;
+
 public class AutoCode implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +48,9 @@ public class AutoCode implements Serializable{
     public String getBeanName(){
         return beanName;
     }
+    public String getFactBeanName(){
+		return StringUtil.getLowerCaseChar(this.getBeanName());
+	}
     public void setBeanName(String beanName){
         this.beanName = beanName;
     }
