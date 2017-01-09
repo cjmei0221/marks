@@ -64,11 +64,19 @@ public class AutoBean implements Serializable{
 	
 	private String defaultTableOtherName;
 	
-	private String moduleDesc;//模块描述：比如：商品
+	private String moduleDesc;//模块名称：比如：商品
 	
+	private String description;//描述
+	
+    public String getDescription() {
+		return description;
+	}
 
-	
-    public String getModuleDesc() {
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getModuleDesc() {
         return moduleDesc;
     }
 
