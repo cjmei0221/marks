@@ -6,6 +6,7 @@ var appInfo = {
 	deleteUrl : top.window.urlBase + '/autoCode/delete.do',// 删除自动生成代码记录接口
 	attrListUrl : top.window.urlBase + '/autoCode/attrList.do',// 删除自动生成代码记录接口
 	autoCodeUrl : top.window.urlBase + '/autoCode/autocode.do',// 删除自动生成代码记录接口
+	autocodeIntroFileUrl : top.window.urlBase + '/autoCode/autocodeIntroFile.do',// 删除自动生成代码记录接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -100,7 +101,23 @@ $(function() {
 			title : "字段编辑"
 		}).window("open");
 	});
-	
+	//自动生成代码
+	$("#introBtn").on("click", function() {
+		if (isSelectedOne(appInfo.selectedId)) {
+			$.messager.confirm('Confirm', '确认要说明文档吗?', function(r) {
+				if (r) {
+					var parms = "tableName=" + appInfo.selectedId;
+					$.post(appInfo.autocodeIntroFileUrl, parms, function(data) {
+						if (data.retcode == 0) {
+							showMsg("重新编译后起效");
+						} else {
+							showMsg(data.retmsg);
+						}
+					});
+				}
+			});
+		}
+	});
 	//自动生成代码
 	$("#autoCodeBtn").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
