@@ -277,7 +277,7 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
 		for (int i = 0; i < autoAttrs.size(); i++) {
 			String attrName = autoAttrs.get(i).getAttrName();
-			String type = AttrType.String.getMybatisType();
+			String type = autoAttrs.get(i).getAttrType().getMybatisType();
 			if (i > 0) {
 				sBuffer.append(producedSpace());
 				sBuffer.append(producedSpace());
@@ -293,11 +293,18 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 	}
 
 	// 多条件查询
-	public String producedMiddleStatement(String attrName, String type, AutoBean autoBean) {
+	public String producedMiddleStatement(String attrName, String attrType, AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
-
-		sBuffer.append(BANK_VALUE_1).append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE)
-				.append(attrName.toUpperCase()).append(BANK_VALUE_1);
+		String type = AttrType.String.getMybatisType();
+		sBuffer.append(BANK_VALUE_1);
+		if (attrType.equals(AttrType.Date.getMybatisType())) {
+			sBuffer.append("to_char(");
+			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE).append(attrName.toUpperCase());
+			sBuffer.append(",'yyyy-MM-dd')");
+		} else {
+			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE).append(attrName.toUpperCase());
+		}
+		sBuffer.append(BANK_VALUE_1);
 		sBuffer.append(LIKE_VALUE).append(BANK_VALUE_1).append(CONCAT_VALUE).append(LEFT_PATEN).append(CONCAT_VALUE)
 				.append(LEFT_PATEN);
 		sBuffer.append("\'").append(PERCENT_VALUE).append("\'").append(COMMA_VALUE);
