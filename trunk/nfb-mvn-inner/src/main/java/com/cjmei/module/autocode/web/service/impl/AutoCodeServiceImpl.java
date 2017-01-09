@@ -72,6 +72,7 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 						info.setAttrType(infos[1]);
 						info.setTableName(tableName);
 						info.setSort(i);
+						info.setNote(infos[4]);
 						list.add(info);
 						
 					}

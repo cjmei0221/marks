@@ -18,7 +18,8 @@
 		autocode.IS_AUTH,
 		autocode.CREATETIME,
 		autocode.UPDATETIME,
-		autocode.PARENTPACKAGE
+		autocode.PARENTPACKAGE,
+		autocode.DESCRIPTION
 		)
 		VALUES(
 		#{tableName:VARCHAR},
@@ -28,7 +29,8 @@
 		#{is_auth:INTEGER},
 		sysdate,
 		sysdate,
-		#{parentPackage:VARCHAR}
+		#{parentPackage:VARCHAR},
+		#{description:VARCHAR}
 		)
 	</insert>
 
@@ -41,7 +43,8 @@
 		autocode.IS_CREATETABLE=#{is_createtable:INTEGER},
 		autocode.IS_AUTH=#{is_auth:INTEGER},
 		autocode.UPDATETIME=sysdate,
-		autocode.PARENTPACKAGE=#{parentPackage:VARCHAR}
+		autocode.PARENTPACKAGE=#{parentPackage:VARCHAR},
+		autocode.DESCRIPTION=#{description:VARCHAR}
 		WHERE
 		autocode.TABLENAME = #{tableName}
 	</update>
@@ -114,7 +117,8 @@
 		ATTRSIZE,
 		ATTRDESC,
 		TABLENAME,
-		SORT
+		SORT,
+		NOTE
 		)
 		values
 		(
@@ -125,7 +129,8 @@
 		#{attrSize:INTEGER},
 		#{attrDesc:VARCHAR},
 		#{tableName:VARCHAR},
-		#{sort:INTEGER}
+		#{sort:INTEGER},
+		#{note:VARCHAR}
 		)
 	</insert>
 </mapper>

@@ -14,7 +14,15 @@ public class AutoCodeAttr implements Serializable{
 	private String tableName;
 	
 	private int sort;
+	private String note;
 	
+	
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	public String getAttrName() {
 		return attrName;
 	}

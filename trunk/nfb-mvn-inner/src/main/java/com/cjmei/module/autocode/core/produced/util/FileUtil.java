@@ -36,6 +36,9 @@ public class FileUtil {
 	    return (getFileRootSrc() + WEB_SRC );
 	}
 	
+	public static String getIntroSrc(){
+	    return (getFileRootSrc() + AutoConfig.FILE_Intro_SRC );
+	}
 
 	/**
 	 * 判断文件是否存在，文件存在则返回false

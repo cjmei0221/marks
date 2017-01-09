@@ -27,8 +27,16 @@ public class AutoCode implements Serializable{
     private String parentPackage="cell";
    
     List<AutoCodeAttr> attrList=null;
+    
+    private String description;
 
-    public String getTableName(){
+    public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getTableName(){
         return tableName;
     }
     public void setTableName(String tableName){
