@@ -56,7 +56,7 @@ public class IntroductionPageProduced extends AbstractIntroHtmlProduced {
 			sBuffer.append("<td>" + autoAttr.getAttrName() + "</td>");
 			sBuffer.append("<td>" + autoAttr.getAttrDesc() + "</td>");
 			sBuffer.append("<td>" + autoAttr.getAttrType().getOracleType() + "</td>");
-			sBuffer.append("<td>" + autoAttr.getNote() + "</td>");
+			sBuffer.append("<td>" + (autoAttr.getNote()==null?"无":autoAttr.getNote()) + "</td>");
 			sBuffer.append("</tr>");
 		}
 		return sBuffer.toString();
