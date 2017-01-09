@@ -10,7 +10,7 @@
 	
 	<select id="findByCkey" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
-		wxautoreplay where wxautoreplay.CKEY like '%${ckey}%'
+		wxautoreplay where wxautoreplay.CKEY=#{ckey}
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">

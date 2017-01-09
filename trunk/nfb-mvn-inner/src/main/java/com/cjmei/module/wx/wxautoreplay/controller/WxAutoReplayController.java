@@ -25,164 +25,161 @@ import com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay;
 import com.cjmei.module.wx.wxautoreplay.service.WxAutoReplayService;
 
 @Controller
-public class WxAutoReplayController extends SupportContorller{
-    private static Logger logger = Logger.getLogger( WxAutoReplayController.class);
-    
-    @Autowired
-    private WxAutoReplayService  wxAutoReplayService;
-   
+public class WxAutoReplayController extends SupportContorller {
+	private static Logger logger = Logger.getLogger(WxAutoReplayController.class);
 
-    @Override
+	@Autowired
+	private WxAutoReplayService wxAutoReplayService;
+
+	@Override
 	public Logger getLogger() {
 		return logger;
 	}
 
-    /**
+	/**
 	 * 查询微信回复管理
 	 */
-    @RequestMapping("/wxAutoReplay/findWxAutoReplayById")
-    public void findWxAutoReplayById(HttpServletRequest request,
-    HttpServletResponse response){
-        Result result = new Result();
+	@RequestMapping("/wxAutoReplay/findWxAutoReplayById")
+	public void findWxAutoReplayById(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
 		try {
-		    WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
+			WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
 			WxAutoReplay requestWxAutoReplay = wxAutoReplayService.findById(wxAutoReplay.getCtype());
-			result.getData().put("wxAutoReplay",requestWxAutoReplay);
+			result.getData().put("wxAutoReplay", requestWxAutoReplay);
 			result.setMessage("findById wxAutoReplay successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("查询失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-    }
-    
-    /**
+	}
+
+	/**
 	 * 保存微信回复管理
 	 */
-    @RequestMapping("/wxAutoReplay/save")
-    public void saveWxAutoReplay(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/wxAutoReplay/save")
+	public void saveWxAutoReplay(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
-	    	WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
-	 //     wxAutoReplay.setCparentType(IDUtil.getTimeID());
-			 WxAutoReplay ori=null;
-	 		if(wxAutoReplay.getCkey() != null){
-	 			ori=wxAutoReplayService.findByCkey(wxAutoReplay.getCkey());
-	 		}
-	 		
-	 		if(ori==null){
-	 			wxAutoReplay.setCreator(admin.getUserid());
-	 			wxAutoReplayService.save(wxAutoReplay);
-	 			result.setMessage("保存成功");
+			WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
+			// wxAutoReplay.setCparentType(IDUtil.getTimeID());
+			wxAutoReplay.setCkey(wxAutoReplay.getCkey().toLowerCase());
+			WxAutoReplay ori = null;
+			if (wxAutoReplay.getCkey() != null) {
+				ori = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey().toLowerCase());
+			}
+
+			if (ori == null) {
+				wxAutoReplay.setCreator(admin.getUserid());
+				wxAutoReplayService.save(wxAutoReplay);
+				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
-	 		}else{
-	    		result.setMessage("此记录已存在");
+			} else {
+				result.setMessage("此记录已存在");
 				result.setCode(Code.CODE_FAIL);
-	    	}
+			}
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("保存失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 更改微信回复管理
 	 */
-    @RequestMapping("/wxAutoReplay/update")
-    public void updateWxAutoReplay(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/wxAutoReplay/update")
+	public void updateWxAutoReplay(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-		    WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
-		    WxAutoReplay ori=wxAutoReplayService.findById(wxAutoReplay.getCtype());
-		    if(ori == null){
-		    	result.setMessage("此记录已删除!");
+			WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
+			wxAutoReplay.setCkey(wxAutoReplay.getCkey().toLowerCase());
+			WxAutoReplay ori = wxAutoReplayService.findById(wxAutoReplay.getCtype());
+			if (ori == null) {
+				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
-		    }else{
-		    	if(ori.getCkey().equals(wxAutoReplay.getCkey())){
-		    		wxAutoReplayService.update(wxAutoReplay);
+			} else {
+				if (ori.getCkey().equals(wxAutoReplay.getCkey())) {
+					wxAutoReplayService.update(wxAutoReplay);
 					result.setMessage("更新成功!");
 					result.setCode(Code.CODE_SUCCESS);
-		    	}else{
-		    		ori=wxAutoReplayService.findByCkey(wxAutoReplay.getCkey());
-		    		if(ori ==null){
-		    			wxAutoReplayService.update(wxAutoReplay);
+				} else {
+					ori = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey());
+					if (ori == null) {
+						wxAutoReplayService.update(wxAutoReplay);
 						result.setMessage("更新成功!");
 						result.setCode(Code.CODE_SUCCESS);
-		    		}else{
-		    			result.setMessage("此关键字已存在!");
+					} else {
+						result.setMessage("此关键字已存在!");
 						result.setCode(4002);
-		    		}
-		    	}
-		    }
+					}
+				}
+			}
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 删除微信回复管理
 	 */
-    @RequestMapping("/wxAutoReplay/delete")
-    public void deleteWxAutoReplayById(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/wxAutoReplay/delete")
+	public void deleteWxAutoReplayById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-		   	WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
+			WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
 			wxAutoReplayService.delete(wxAutoReplay.getCtype());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("删除失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 查询全部微信回复管理
 	 */
-    @RequestMapping("/wxAutoReplay/findAllWxAutoReplay")
-    public void findAllWxAutoReplay(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/wxAutoReplay/findAllWxAutoReplay")
+	public void findAllWxAutoReplay(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			List<WxAutoReplay> wxAutoReplayList = wxAutoReplayService.findAll();
-			result.getData().put("wxAutoReplayList",wxAutoReplayList);
+			result.getData().put("wxAutoReplayList", wxAutoReplayList);
 			result.setMessage("findAll wxAutoReplay successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("findAll wxAutoReplay fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
+
 	/**
 	 * jqGrid多种条件查询
 	 */
 	@RequestMapping("/wxAutoReplay/list")
-    public void list(HttpServletRequest request,HttpServletResponse response){
-       PaginationResult result = new PaginationResult();
+	public void list(HttpServletRequest request, HttpServletResponse response) {
+		PaginationResult result = new PaginationResult();
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
+			String keyword = request.getParameter("keyword");
+			if (keyword == null) {
+				keyword = "";
 			}
-			Map<String,Object> param=new HashMap<String,Object>();
+			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("accountIds", admin.getAccountids());
 			PojoDomain<WxAutoReplay> list = wxAutoReplayService.list(page_number, page_size, param);
@@ -194,11 +191,11 @@ public class WxAutoReplayController extends SupportContorller{
 			result.setMessage("find wxAutoReplay successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("find wxAutoReplay fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-    }
-	
+	}
+
 }
