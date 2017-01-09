@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>痕迹</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>会员信息</h1>
+	<p></p>
+	<h2>实体类  (VipInfo)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>userid</td><td>USERID</td><td>varchar2</td><td>null</td></tr><tr><td>2</td><td>realname</td><td>真实姓名</td><td>varchar2</td><td>null</td></tr><tr><td>3</td><td>gender</td><td>性别</td><td>varchar2</td><td>null</td></tr><tr><td>4</td><td>birthdate</td><td>生日</td><td>varchar2</td><td>null</td></tr><tr><td>5</td><td>email</td><td>邮箱</td><td>varchar2</td><td>null</td></tr><tr><td>6</td><td>signature</td><td>签名</td><td>varchar2</td><td>null</td></tr><tr><td>7</td><td>createtime</td><td>创建时间</td><td>TIMESTAMP</td><td>null</td></tr><tr><td>8</td><td>updatetime</td><td>更新时间</td><td>TIMESTAMP</td><td>null</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (VipInfoController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/vipInfo/findVipInfoById</td><td>findVipInfoById</td><td>查询会员信息</td></tr><tr><td>2</td><td>/vipInfo/save</td><td>saveVipInfo</td><td>保存会员信息</td></tr><tr><td>3</td><td>/vipInfo/update</td><td>updateVipInfo</td><td>更新会员信息</td></tr><tr><td>4</td><td>/vipInfo/delete</td><td>deleteVipInfoById</td><td>删除会员信息</td></tr><tr><td>5</td><td>/vipInfo/findAllVipInfo</td><td>findAllVipInfo</td><td>查询全部会员信息</td></tr><tr><td>6</td><td>/vipInfo/deleteIds</td><td>deleteVipInfo</td><td>删除多个会员信息</td></tr><tr><td>7</td><td>/vipInfo/list</td><td>list</td><td>列表查询会员信息</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (VipInfoService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询会员信息</td></tr><tr><td>2</td><td>save</td><td>保存会员信息</td></tr><tr><td>3</td><td>update</td><td>更新会员信息</td></tr><tr><td>4</td><td>deleteById</td><td>删除会员信息</td></tr><tr><td>5</td><td>findAll</td><td>查询全部会员信息</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个会员信息</td></tr><tr><td>7</td><td>list</td><td>列表查询会员信息</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(VipInfoDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询会员信息</td></tr><tr><td>2</td><td>save</td><td>保存会员信息</td></tr><tr><td>3</td><td>update</td><td>更新会员信息</td></tr><tr><td>4</td><td>deleteById</td><td>删除会员信息</td></tr><tr><td>5</td><td>findAll</td><td>查询全部会员信息</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个会员信息</td></tr><tr><td>7</td><td>list</td><td>列表查询会员信息</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
