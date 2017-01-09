@@ -54,7 +54,6 @@ public class AutoConfig {
 		String returnPath="";
 		String clsPath=getClass().getResource("").getPath();
 		int num=clsPath.indexOf("/src/main");
-		System.out.println(clsPath.substring(0, num));
 		returnPath=clsPath.substring(0, num);
 		return returnPath;
 	}
