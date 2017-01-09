@@ -1,5 +1,6 @@
 package com.cjmei.module.autocode.core.produced.extern;
 
+import com.cjmei.module.autocode.core.produced.ModuleProduced;
 import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
 import com.cjmei.module.autocode.core.produced.pojo.OutPutFileResult;
 
@@ -22,5 +23,7 @@ public interface ExternAutoCode {
 	 *重载方法
 	 */
 	public OutPutFileResult autoProducedCode(AutoBean autoBean);
+
+	public OutPutFileResult autoProducedCode(AutoBean autoBean, ModuleProduced moduleProduced, boolean b);
 	
 }
