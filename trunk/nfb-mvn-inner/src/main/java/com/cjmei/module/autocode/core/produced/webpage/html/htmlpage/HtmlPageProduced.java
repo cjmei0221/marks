@@ -84,12 +84,12 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 			String attrName = attrs.get(i).getAttrName();
 			String desc = attrs.get(i).getAttrDesc();
 			
-			AttrType at=attrs.get(i).getAttrType();
+			String at=attrs.get(i).getAttrType().getMybatisType();
 			String type="validatebox";
-			if(AttrType.Integer.equals(at)){
+			if(AttrType.Integer.getMybatisType().equals(at)){
 				type="numberbox";
-			}else if(AttrType.Timestamp.equals(at)){
-				type="datebox";
+			}else if(AttrType.Timestamp.getMybatisType().equals(at)){
+				type="datetimebox";
 			}
 			
 			String str = "<tr><th style=\"width:80px;text-align: right;\">" + desc + "&nbsp;&nbsp;:&nbsp;&nbsp;</th><td width=\"250px\"><input id=\"" + attrName + "\" name=\"" + attrName
