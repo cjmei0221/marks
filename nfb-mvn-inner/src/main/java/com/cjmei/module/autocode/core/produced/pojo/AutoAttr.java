@@ -45,6 +45,8 @@ public class AutoAttr implements Serializable {
      */
     private String attrDesc;
     
+    private String note;
+    
     public void initAttrDefault(){
     	this.setAttrDesc("");
     	this.setAttrName("");
@@ -53,8 +55,19 @@ public class AutoAttr implements Serializable {
     	this.setPK(false);
     	this.setSeq("");
     }
-    
 	
+	public String getNote() {
+		return note;
+	}
+
+
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+
+
 	public int getAttrSize() {
         return attrSize;
     }

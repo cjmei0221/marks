@@ -77,6 +77,10 @@ public class ControllerProduced extends AbstractCodeProduced{
         return autoBean.getModuleDesc();
     }
     
+    public String producedGetDesc(AutoBean autoBean){
+        return autoBean.getDescription();
+    }
+    
     
    public String producedGetIdAttrValue(AutoBean autoBean){
              List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();

@@ -58,4 +58,5 @@ public class AutoConfig {
 		returnPath=clsPath.substring(0, num);
 		return returnPath;
 	}
+	public static String FILE_Intro_SRC=AutoCodePropsUtil.getProperty("FILE_Intro_SRC");
 }
