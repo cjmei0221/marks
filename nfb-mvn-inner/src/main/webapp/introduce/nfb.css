@@ -1,0 +1,15 @@
+body {
+	background-color: lightseagreen;
+}
+
+td {
+	border: solid #add9c0;
+	border-width: 0px 1px 1px 0px;
+	padding-left: 10px;
+}
+
+table {
+	border: solid #add9c0;
+	border-width: 1px 0px 0px 1px;
+	width: 90%;
+}

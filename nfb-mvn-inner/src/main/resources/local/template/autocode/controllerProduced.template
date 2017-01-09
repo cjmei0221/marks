@@ -26,6 +26,9 @@ import com.cjmei.module.system.sysuser.pojo.SysUser;
 import @{beanPackageUrl}.@{beanName};
 import @{ServicePackageUrl}.@{beanName}Service;
 
+ /**
+	 * @{GetModuleDesc}: @{GetDesc}
+	 */
 @Controller
 public class @{beanName}Controller extends SupportContorller{
     private static Logger logger = Logger.getLogger( @{beanName}Controller.class);
