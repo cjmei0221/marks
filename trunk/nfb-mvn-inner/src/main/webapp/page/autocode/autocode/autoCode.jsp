@@ -39,7 +39,7 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 300px; padding: 10px;">
+		style="width: 400px; height: 350px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<table class="out-win-cls">
 				<tr>
@@ -64,12 +64,14 @@
 				</tr>
 				<tr>
 					<th>字段</th>
-					<td><a href="javascript:;" id="editAttr" data-options="required:true">编辑字段</a></td>
+					<td><a href="javascript:;" id="editAttr"
+						data-options="required:true">编辑字段</a></td>
 				</tr>
 				<tr>
 					<th>是否生成表</th>
 					<td><select id="is_createtable" class="easyui-combobox"
-						name="is_createtable" style="width: 180px;" data-options="required:true">
+						name="is_createtable" style="width: 180px;"
+						data-options="required:true">
 							<option value="0">不生成</option>
 							<option value="1">生成</option>
 					</select></td>
@@ -81,6 +83,11 @@
 							<option value="0">否</option>
 							<option value="1">是</option>
 					</select></td>
+				</tr>
+				<tr>
+					<th>逻辑描述</th>
+					<td><textarea id="description" name="description"
+							style="width: 200px; height: 3rem;"></textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input

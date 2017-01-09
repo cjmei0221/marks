@@ -131,7 +131,7 @@ function formSubmit() {
 	for (var i = 0; i < row.length; i++) {
 		if(row[i].attrName != ""){
 			var items = row[i].attrName + "#" + row[i].attrType + "#"
-			+ row[i].attrSize + "#" + row[i].attrDesc;
+			+ row[i].attrSize + "#" + row[i].attrDesc+"#"+row[i].note;
 			attrList.push(items);
 		}
 		
@@ -354,8 +354,13 @@ function initAttrList() {
 			}
 		}, {
 			field : 'attrSize',
-			title : '字段大小',
-			width : 150,
+			title : '大小',
+			width : 50,
+			editor : "validatebox"
+		}, {
+			field : 'note',
+			title : '备注',
+			width : 250,
 			editor : "validatebox"
 		}, {
 			field : 'isPK',
