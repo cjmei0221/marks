@@ -39,7 +39,7 @@ public abstract class AbstractRequestService implements RequestService{
 		TextResponseMessage textResponseMessage = new TextResponseMessage(requestMessage);
 		ResponseMessage responseMessage=null;
 		WxAutoReplayDao wxAutoReplayDao=(WxAutoReplayDao) DatabaseHelper.getBean(WxAutoReplayDao.class);
-		WxAutoReplay reply = wxAutoReplayDao.getWxAutoReplayByKey(key,requestMessage.getAccountId());
+		WxAutoReplay reply = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(),requestMessage.getAccountId());
 		if(null != reply){
 			String content=reply.getCreplay();
 			if(Constants.weixin_replay_type_news.equals(reply.getReplayType())){

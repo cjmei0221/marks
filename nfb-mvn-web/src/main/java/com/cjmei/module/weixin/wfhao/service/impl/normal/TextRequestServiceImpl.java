@@ -31,6 +31,6 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 		
 		TextRequestMessage textRequestMessage = (TextRequestMessage) requestMessage;
 		logger.info("TextRequestServiceImpl deal start  content>"+textRequestMessage.getContent());
-		return handle(requestMessage, textRequestMessage.getContent().toLowerCase());
+		return handle(requestMessage, textRequestMessage.getContent());
 	}
 }
