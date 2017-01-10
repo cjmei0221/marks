@@ -44,7 +44,8 @@
 		autocode.IS_AUTH=#{is_auth:INTEGER},
 		autocode.UPDATETIME=sysdate,
 		autocode.PARENTPACKAGE=#{parentPackage:VARCHAR},
-		autocode.DESCRIPTION=#{description:VARCHAR}
+		autocode.DESCRIPTION=#{description:VARCHAR},
+		autocode.ISAUTO=#{isAuto:INTEGER}
 		WHERE
 		autocode.TABLENAME = #{tableName}
 	</update>
