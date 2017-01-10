@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cjmei.common.domain.PaginationResult;
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.common.domain.Result;
+import com.cjmei.common.enums.Enums;
 import com.cjmei.common.util.JsonUtil;
 import com.cjmei.module.autocode.core.produced.SupportContorller;
 import com.cjmei.module.autocode.core.util.Code;
@@ -72,13 +73,14 @@ public class OrgInfoController extends SupportContorller {
 			// orgInfo.setOrgid(IDUtil.getTimeID());
 			OrgInfo ori = orgInfoService.findById(orgInfo.getOrgid());
 			if (ori == null) {
-				if (null != orgInfo.getParentId() && !("0").equals(orgInfo.getParentId())) {
+				if (Enums.OrgType.company.getValue() == orgInfo.getOrgType()) {
+					orgInfo.setParentId("0");
+					orgInfo.setCompanyId(orgInfo.getOrgid());
+					orgInfo.setLvl(1);
+				} else {
 					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
 					orgInfo.setLvl(parentVo.getLvl() + 1);
 					orgInfo.setCompanyId(parentVo.getCompanyId());
-				} else {
-					orgInfo.setCompanyId(orgInfo.getOrgid());
-					orgInfo.setLvl(1);
 				}
 				orgInfo.setCreator(admin.getUserid());
 				StaticData.putOrgInfo(orgInfo);
@@ -110,11 +112,12 @@ public class OrgInfoController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				if (null != orgInfo.getParentId() && !("0").equals(orgInfo.getParentId())) {
+				if (Enums.OrgType.company.getValue() == orgInfo.getOrgType()) {
+					orgInfo.setParentId("0");
+					orgInfo.setLvl(1);
+				} else {
 					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
 					orgInfo.setLvl(parentVo.getLvl() + 1);
-				} else {
-					orgInfo.setLvl(1);
 				}
 				StaticData.putOrgInfo(orgInfo);
 				orgInfoService.update(orgInfo);
@@ -223,7 +226,7 @@ public class OrgInfoController extends SupportContorller {
 			plist.add(parentId);
 		}
 
-		List<OrgInfo> list = orgInfoService.listGrid(plist);
+		List<OrgInfo> list = orgInfoService.listGrid(plist,admin.getCompanyId());
 
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
@@ -239,7 +242,7 @@ public class OrgInfoController extends SupportContorller {
 		for (OrgInfo sv : s) {
 			plist.add(sv.getParentId());
 		}
-		List<OrgInfo> list = orgInfoService.list(plist);
+		List<OrgInfo> list = orgInfoService.list(plist,admin.getCompanyId());
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 
@@ -280,7 +283,7 @@ public class OrgInfoController extends SupportContorller {
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();
-		String companyId=admin.getCompanyId();	
+		String companyId = admin.getCompanyId();
 		param.put("companyId", companyId);
 		List<OrgInfo> list = orgInfoService.frameCombo(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());

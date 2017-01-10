@@ -43,9 +43,30 @@ public class OrgInfo implements Serializable{
     
     private String companyId;
     
+    private int orgType;//0:普通 1：公司
+    
+    private int isMain;//0:非 1：主公司
+    
     private List<OrgInfo> children=new ArrayList<OrgInfo>();
+  
+    
+    public int getOrgType() {
+		return orgType;
+	}
 
-    public String getOrgid(){
+	public void setOrgType(int orgType) {
+		this.orgType = orgType;
+	}
+
+	public int getIsMain() {
+		return isMain;
+	}
+
+	public void setIsMain(int isMain) {
+		this.isMain = isMain;
+	}
+
+	public String getOrgid(){
         return orgid;
     }
     

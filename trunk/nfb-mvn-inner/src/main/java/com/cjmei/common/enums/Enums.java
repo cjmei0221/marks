@@ -6,6 +6,28 @@ package com.cjmei.common.enums;
  * 2015年2月5日上午10:46:04
  */
 public class Enums {
+	/**
+	 * 系统用户启禁用
+	 * @author cjmei
+	 *
+	 */
+	public enum OrgType{
+		company(1),//公司
+		common(0);//普通
+
+		private int status;
+		
+		private OrgType(int status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return String.valueOf(status);
+		}
+		public int getValue(){
+			return status;
+		}
+	}
 	
 	/**
 	 * 系统用户启禁用

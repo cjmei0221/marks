@@ -1,6 +1,7 @@
 package com.cjmei.module.autocode.web.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.cjmei.module.autocode.core.produced.util.StringUtil;
@@ -27,12 +28,20 @@ public class AutoCode implements Serializable{
     private int is_auth;//是否授权 0：否  1：是
     
     private String parentPackage="cell";
+    
+    private Date createtime;
    
     List<AutoCodeAttr> attrList=null;
     
     private String description;
 
-    public String getDescription() {
+    public Date getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
