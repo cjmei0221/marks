@@ -34,8 +34,16 @@ public class AutoCode implements Serializable{
     List<AutoCodeAttr> attrList=null;
     
     private String description;
+    
+    private int isAuto;//是否可再生成代码 0：可以 1：不可以
 
-    public Date getCreatetime() {
+    public int getIsAuto() {
+		return isAuto;
+	}
+	public void setIsAuto(int isAuto) {
+		this.isAuto = isAuto;
+	}
+	public Date getCreatetime() {
 		return createtime;
 	}
 	public void setCreatetime(Date createtime) {

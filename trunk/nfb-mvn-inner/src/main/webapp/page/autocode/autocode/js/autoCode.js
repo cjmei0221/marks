@@ -44,6 +44,7 @@ $(function() {
 
 	// 新增
 	$("#add").on("click", function() {
+		$('#isAutoTr').show();
 		$("#editWin").window({
 			title : "新增"
 		}).window("open");
@@ -59,9 +60,13 @@ $(function() {
 			$("#editWin").window({
 				title : "编辑"
 			}).window("open");
+			$('#isAutoTr').show();
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
 			$('#tableName').attr("readonly", "readonly");
+			if(appInfo.selectedData.isAuto==0){
+				$('#isAutoTr').hide();
+			}
 			initAttrList();
 		}
 	});
@@ -105,6 +110,10 @@ $(function() {
 	// 自动生成代码
 	$("#introBtn").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
+			if(appInfo.selectedData.isAuto==0){
+				showMsg("不能覆盖");
+				return;
+			}
 			$.messager.confirm('Confirm', '确认要说明文档吗?', function(r) {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
@@ -122,6 +131,10 @@ $(function() {
 	// 自动生成代码
 	$("#autoCodeBtn").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
+			if(appInfo.selectedData.isAuto==0){
+				showMsg("不能覆盖");
+				return;
+			}
 			$.messager.confirm('Confirm', '确认要生成记录吗?', function(r) {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
@@ -258,6 +271,18 @@ function loadList() {
 								}, {
 									title : '是否授权',
 									field : 'is_auth',
+									width : 100,
+									align : "center",
+									formatter : function(value, row, index) {
+										if (value == 1) {
+											return "是";
+										} else {
+											return "否";
+										}
+									}
+								}, {
+									title : '是否可覆盖',
+									field : 'isAuto',
 									width : 100,
 									align : "center",
 									formatter : function(value, row, index) {

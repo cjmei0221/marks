@@ -89,6 +89,14 @@
 					<td><textarea id="description" name="description"
 							style="width: 200px; height: 3rem;"></textarea></td>
 				</tr>
+				<tr id="isAutoTr">
+					<th>是否可覆盖</th>
+					<td><select id="isAuto" class="easyui-combobox"
+						name="isAuto" style="width: 180px;" data-options="required:true">
+							<option value="0">否</option>
+							<option value="1">是</option>
+					</select></td>
+				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input
 						type="button" id="btnOK" name="btnOK" value=" 保 存 " />
