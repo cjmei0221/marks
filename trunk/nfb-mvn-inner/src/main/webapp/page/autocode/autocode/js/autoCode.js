@@ -110,10 +110,6 @@ $(function() {
 	// 自动生成代码
 	$("#introBtn").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			if(appInfo.selectedData.isAuto==0){
-				showMsg("不能覆盖");
-				return;
-			}
 			$.messager.confirm('Confirm', '确认要说明文档吗?', function(r) {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
