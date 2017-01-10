@@ -72,7 +72,7 @@ public class LoginController {
 					List<SysRole> roleList = loginService.getUserRoleList(user.getUserid());
 					if (roleList != null && roleList.size() > 0) {
 						if ("0".equals(user.getCompanyId())) {
-							user.setCompanyId(null);
+							
 						}
 						result.setCode(0);
 						result.setMessage("success");
@@ -84,8 +84,7 @@ public class LoginController {
 						// 组织架构
 						boolean topflag = true;
 						for (OrgInfo sr : orgInfo) {
-							if (Constants.top_org_parentid_id.equals(sr.getParentId())
-									|| "0".equals(sr.getParentId())) {
+							if (1 == sr.getIsMain()){
 								topflag = false;
 								break;
 							}
@@ -95,6 +94,7 @@ public class LoginController {
 							user.setOrgids(orgids);
 						} else {
 							user.setOrgids(null);
+							user.setCompanyId(null);
 						}
 						user.setAccountids(null);
 						if (null != user.getOrgids() && null != user.getCompanyId()) {

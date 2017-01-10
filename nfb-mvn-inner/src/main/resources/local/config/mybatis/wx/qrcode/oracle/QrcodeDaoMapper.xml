@@ -10,7 +10,7 @@
 
 	<select id="findByQrNo" resultType="com.cjmei.module.wx.qrcode.pojo.Qrcode">
 		SELECT * FROM TB_WX_QRCODE
-		qrcode where qrcode.QRNO = #{qrNo}
+		qrcode where qrcode.QRNO = #{qrNo} and qrcode.ACCOUNTID=#{accountid}
 	</select>
 
 	<insert id="save" parameterType="com.cjmei.module.wx.qrcode.pojo.Qrcode">

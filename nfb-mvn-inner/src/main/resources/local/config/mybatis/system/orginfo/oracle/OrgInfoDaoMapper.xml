@@ -19,7 +19,8 @@
 		orginfo.USEFLAG,
 		orginfo.PARENTID,
 		orginfo.LVL,
-		orginfo.COMPANYID
+		orginfo.COMPANYID,
+		orginfo.ORGTYPE
 		)
 		VALUES(
 		#{orgid:VARCHAR},
@@ -30,7 +31,8 @@
 		#{useflag:NUMERIC},
 		#{parentId:VARCHAR},
 		#{lvl:NUMERIC},
-		#{companyId:VARCHAR}
+		#{companyId:VARCHAR},
+		#{orgType:VARCHAR}
 		)
 	</insert>
 
@@ -41,7 +43,8 @@
 		orginfo.UPDATETIME = sysdate,
 		orginfo.USEFLAG = #{useflag:NUMERIC},
 		orginfo.PARENTID=#{parentId:VARCHAR},
-		orginfo.LVL=#{lvl:NUMERIC}
+		orginfo.LVL=#{lvl:NUMERIC},
+		orginfo.ORGTYPE=#{orgType:VARCHAR}
 		WHERE
 		orginfo.ORGID = #{orgid}
 	</update>
@@ -54,6 +57,9 @@
 	<select id="findAll" resultType="com.cjmei.module.system.orginfo.pojo.OrgInfo">
 		SELECT * FROM TB_ORG_INFO t
 		where t.USEFLAG=1
+		<if test="companyId !=null and companyId !=''">
+			and t.COMPANYID=#{companyId}
+		</if>
 	</select>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
@@ -68,10 +74,9 @@
 		SELECT *
 		FROM TB_ORG_INFO orginfo
 		WHERE 1=1
-		and (orginfo.PARENTID='0' or
-		orginfo.ORGID='0')
+		and orginfo.ORGTYPE=1
 		<if test="companyId !=null and companyId !=''">
-			orginfo.ORGID=#{companyId}
+			and orginfo.ORGID=#{companyId}
 		</if>
 		order by
 		orginfo.UPDATETIME desc
@@ -91,7 +96,7 @@
 			or orginfo.ORGNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or orginfo.CREATETIME LIKE
+			or to_char(orginfo.CREATETIME,'yyyy-MM-dd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
 			or orginfo.UPDATETIME LIKE
@@ -102,9 +107,9 @@
 
 			)
 		</if>
-		and (orginfo.PARENTID='0' or orginfo.ORGID='0')
+		and (orginfo.ORGTYPE=1)
 		<if test="companyId !=null and companyId !=''">
-			orginfo.ORGID=#{companyId}
+			and orginfo.COMPANYID=#{companyId}
 		</if>
 		order by
 		orginfo.UPDATETIME desc
@@ -131,6 +136,9 @@
 				separator="," close=")">
 				#{ids}
 			</foreach>
+		</if>
+		<if test="companyId !=null and companyId !=''">
+			and t.COMPANYID=#{companyId}
 		</if>
 	</select>
 

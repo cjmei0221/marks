@@ -15,10 +15,10 @@ public interface OrgInfoService{
 	public void delete(String orgid);
 	public List<OrgInfo> findAll();
 	public void deleteBatch(List<String> ids);
-	public List<OrgInfo> list(List<String> list);
+	public List<OrgInfo> list(List<String> list,String companyId);
 	public PojoDomain<OrgInfo> framelist(int page_number, int page_size, Map<String, Object> param);
 	public List<OrgInfo> getChildList(String orgid);
-	public List<OrgInfo> listGrid(List<String> plist);
+	public List<OrgInfo> listGrid(List<String> plist,String companyId);
 	public List<OrgInfo> frameCombo(Map<String, Object> param);
 
 }

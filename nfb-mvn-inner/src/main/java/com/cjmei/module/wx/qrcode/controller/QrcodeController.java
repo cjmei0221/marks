@@ -80,7 +80,7 @@ public class QrcodeController extends SupportContorller {
 			// qrcode.setQrNo(IDUtil.getTimeID());
 			Qrcode ori = null;
 			if ("1".equals(qrcode.getQrType())) {// 公众号
-				ori = qrcodeService.findByQrNo(qrcode.getQrNo());
+				ori = qrcodeService.findByQrNo(qrcode.getQrNo(),qrcode.getAccountid());
 				if (ori == null) {
 					qrcode.setCompanyId(admin.getCompanyId());
 					qrcode.setCreator(admin.getUserid());

@@ -23,7 +23,7 @@
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="dairyDetail" />
 		<!-- 每22分钟触发 -->
-		<property name="cronExpression" value="0 30 16 * * ?" />
+		<property name="cronExpression" value="0 0 20 * * ?" />
 	</bean>
 
 	<bean id="loadDataDetail"

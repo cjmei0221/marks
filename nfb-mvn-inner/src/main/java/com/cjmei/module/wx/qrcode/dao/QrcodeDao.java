@@ -25,5 +25,5 @@ public interface QrcodeDao {
 
 	List<Qrcode> list(PageBounds pageBounds, Map<String,Object> param);
 
-	Qrcode findByQrNo(@Param("qrNo")String qrNo);
+	Qrcode findByQrNo(@Param("qrNo")String qrNo,@Param("accountid")String accountid);
 }

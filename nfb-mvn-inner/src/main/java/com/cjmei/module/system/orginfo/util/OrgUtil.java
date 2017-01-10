@@ -1,5 +1,6 @@
 package com.cjmei.module.system.orginfo.util;
 
+import com.cjmei.common.enums.Enums;
 import com.cjmei.common.util.Constants;
 import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.system.orginfo.pojo.OrgInfo;
@@ -24,7 +25,7 @@ public class OrgUtil {
 		// 一级
 		OrgInfo info = StaticData.getOrgInfo(orgid);
 		name = format + info.getOrgname() + name;
-		if ("0".equals(info.getParentId()) || Constants.top_org_parentid_id.equals(info.getParentId())) {
+		if (Enums.OrgType.company.getValue()==info.getOrgType()) {
 			return name.substring(format.length());
 		}
 		// 二级
