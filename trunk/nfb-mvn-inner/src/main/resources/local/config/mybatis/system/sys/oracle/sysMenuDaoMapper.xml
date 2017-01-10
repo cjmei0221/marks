@@ -27,8 +27,8 @@
 		#{sm.menuitem:VARCHAR},
 		#{sm.url:VARCHAR},
 		#{sm.sort:INTEGER},
-		#{sm.createtime:TIMESTAMP},
-		#{sm.updatetime:TIMESTAMP},
+		sysdate,
+		sysdate,
 		#{sm.creator:VARCHAR}
 		)
 	</insert>
@@ -42,7 +42,7 @@
 		#{sm.url:VARCHAR},
 		"SORT" = #{sm.sort:INTEGER},
 		"UPDATETIME" =
-		#{sm.updatetime:TIMESTAMP},
+		sysdate,
 		"CREATOR" = #{sm.creator:VARCHAR}
 		WHERE
 		"MENUID" = #{sm.menuid:VARCHAR}
