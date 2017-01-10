@@ -8,7 +8,7 @@
 <body>
 	<h1>机构管理</h1>
 	<p>组织架构</p>
-	<h2>实体类  (OrgInfo)</h2>
+	<h2>实体类 (OrgInfo)</h2>
 	<div id="entity">
 		<table>
 			<thead>
@@ -21,7 +21,69 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>1</td><td>orgid</td><td>机构ID</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>creator</td><td>创建者</td><td>varchar2</td><td>无</td></tr><tr><td>3</td><td>orgname</td><td>机构名称</td><td>varchar2</td><td>无</td></tr><tr><td>4</td><td>createtime</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>5</td><td>updatetime</td><td>更新时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>6</td><td>useflag</td><td>启用标识</td><td>number</td><td>无</td></tr><tr><td>7</td><td>lvl</td><td>级别</td><td>number</td><td>无</td></tr><tr><td>8</td><td>companyId</td><td>公司ID</td><td>varchar2</td><td>无</td></tr>
+				<tr>
+					<td>1</td>
+					<td>orgid</td>
+					<td>机构ID</td>
+					<td>varchar2</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>creator</td>
+					<td>创建者</td>
+					<td>varchar2</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>orgname</td>
+					<td>机构名称</td>
+					<td>varchar2</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>createtime</td>
+					<td>创建时间</td>
+					<td>TIMESTAMP</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>updatetime</td>
+					<td>更新时间</td>
+					<td>TIMESTAMP</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>useflag</td>
+					<td>启用标识</td>
+					<td>number</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>lvl</td>
+					<td>级别</td>
+					<td>number</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>companyId</td>
+					<td>公司ID</td>
+					<td>varchar2</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>orgType</td>
+					<td>机构类型</td>
+					<td>number</td>
+					<td>0:普通组织 1：公司</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -37,7 +99,48 @@
 				</tr>
 			</thead>
 			<tbody>
-			   <tr><td>1</td><td>/orgInfo/findOrgInfoById</td><td>findOrgInfoById</td><td>查询机构管理</td></tr><tr><td>2</td><td>/orgInfo/save</td><td>saveOrgInfo</td><td>保存机构管理</td></tr><tr><td>3</td><td>/orgInfo/update</td><td>updateOrgInfo</td><td>更新机构管理</td></tr><tr><td>4</td><td>/orgInfo/delete</td><td>deleteOrgInfoById</td><td>删除机构管理</td></tr><tr><td>5</td><td>/orgInfo/findAllOrgInfo</td><td>findAllOrgInfo</td><td>查询全部机构管理</td></tr><tr><td>6</td><td>/orgInfo/deleteIds</td><td>deleteOrgInfo</td><td>删除多个机构管理</td></tr><tr><td>7</td><td>/orgInfo/list</td><td>list</td><td>列表查询机构管理</td></tr>
+				<tr>
+					<td>1</td>
+					<td>/orgInfo/findOrgInfoById</td>
+					<td>findOrgInfoById</td>
+					<td>查询机构管理</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>/orgInfo/save</td>
+					<td>saveOrgInfo</td>
+					<td>保存机构管理</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>/orgInfo/update</td>
+					<td>updateOrgInfo</td>
+					<td>更新机构管理</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>/orgInfo/delete</td>
+					<td>deleteOrgInfoById</td>
+					<td>删除机构管理</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>/orgInfo/findAllOrgInfo</td>
+					<td>findAllOrgInfo</td>
+					<td>查询全部机构管理</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>/orgInfo/deleteIds</td>
+					<td>deleteOrgInfo</td>
+					<td>删除多个机构管理</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>/orgInfo/list</td>
+					<td>list</td>
+					<td>列表查询机构管理</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -52,7 +155,41 @@
 				</tr>
 			</thead>
 			<tbody>
-			  <tr><td>1</td><td>findById</td><td>查询机构管理</td></tr><tr><td>2</td><td>save</td><td>保存机构管理</td></tr><tr><td>3</td><td>update</td><td>更新机构管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除机构管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部机构管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个机构管理</td></tr><tr><td>7</td><td>list</td><td>列表查询机构管理</td></tr>
+				<tr>
+					<td>1</td>
+					<td>findById</td>
+					<td>查询机构管理</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>save</td>
+					<td>保存机构管理</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>update</td>
+					<td>更新机构管理</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>deleteById</td>
+					<td>删除机构管理</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>findAll</td>
+					<td>查询全部机构管理</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>deleteBatch</td>
+					<td>删除多个机构管理</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>list</td>
+					<td>列表查询机构管理</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -67,7 +204,41 @@
 				</tr>
 			</thead>
 			<tbody>
-			   <tr><td>1</td><td>findById</td><td>查询机构管理</td></tr><tr><td>2</td><td>save</td><td>保存机构管理</td></tr><tr><td>3</td><td>update</td><td>更新机构管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除机构管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部机构管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个机构管理</td></tr><tr><td>7</td><td>list</td><td>列表查询机构管理</td></tr>
+				<tr>
+					<td>1</td>
+					<td>findById</td>
+					<td>查询机构管理</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>save</td>
+					<td>保存机构管理</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>update</td>
+					<td>更新机构管理</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>deleteById</td>
+					<td>删除机构管理</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>findAll</td>
+					<td>查询全部机构管理</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>deleteBatch</td>
+					<td>删除多个机构管理</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>list</td>
+					<td>列表查询机构管理</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
