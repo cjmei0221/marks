@@ -19,13 +19,13 @@ public interface OrgInfoDao {
 
 	void delete(String orgid);
 
-	List<OrgInfo> findAll();
+	List<OrgInfo> findAll(@Param("companyId")String companyId);
 
 	void deleteBatch(List<String> list);
 
 	List<OrgInfo> list(PageBounds pageBounds, Map<String,Object> param);
 
-	List<OrgInfo> getTreeGridByParentId(@Param("plist")List<String>  plist);
+	List<OrgInfo> getTreeGridByParentId(@Param("plist")List<String>  plist,@Param("companyId")String companyId);
 
 	List<OrgInfo> getChildList(@Param("orgid")String orgid);
 
