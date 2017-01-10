@@ -8,7 +8,8 @@ var appInfo = {
 	requestParam : {
 		parentId : ""
 	},
-	formStatus : "new"
+	formStatus : "new",
+	orgType:0
 };
 
 $(function() {
@@ -39,12 +40,8 @@ $(function() {
 	// 编辑
 	$("#edit").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			if(appInfo.selectedId=='0'){
+			if(appInfo.selectedData.orgType==1){
 				showMsg("根节点不可编辑");
-				return;
-			}
-			if(appInfo.selectedData.parentId=='0'){
-				showMsg("请在公司管理编辑");
 				return;
 			}
 			$("#editWin").window({
@@ -103,6 +100,7 @@ function formSubmit() {
 		url : reqUrl,
 		onSubmit : function(param) {
 			param.formStatus = appInfo.formStatus;
+			param.orgType=appInfo.orgType;
 		},
 		success : function(data) {
 			if (typeof data === 'string') {

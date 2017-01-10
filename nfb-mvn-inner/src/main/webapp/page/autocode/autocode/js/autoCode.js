@@ -267,6 +267,11 @@ function loadList() {
 											return "否";
 										}
 									}
+								}, {
+									title : '创建时间',
+									field : 'createtime',
+									width : 100,
+									align : "center"
 								} ] ],
 						loader : function(params, success, loadError) {
 							var that = $(this);

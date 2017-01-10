@@ -10,7 +10,8 @@ var appInfo = {
 		page_size : 10,
 		keyword : ""
 	},
-	formStatus : "new"
+	formStatus : "new",
+	orgType:1
 };
 
 $(function() {
@@ -31,16 +32,22 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
+		$("#orgid").removeAttr("readonly");
 	});
 
 	// 编辑
 	$("#edit").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
+			if(appInfo.selectedData.isMain==1){
+				showMsg("主公司不可编辑");
+				return;
+			}
 			$("#editWin").window({
 				title : "编辑"
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
+			$("#orgid").attr("readonly","readonly");
 		}
 	});
 
@@ -83,6 +90,7 @@ function formSubmit() {
 		url : reqUrl,
 		onSubmit : function(param) {
 			param.formStatus = appInfo.formStatus;
+			param.orgType=appInfo.orgType;
 		},
 		success : function(data) {
 			if (typeof data === 'string') {
@@ -144,6 +152,7 @@ function loadList() {
 					return "禁用";
 				}
 			}
+		
 		}, {
 			title : '创建时间',
 			field : 'createtime',
@@ -159,6 +168,16 @@ function loadList() {
 			field : 'creator',
 			width : 100,
 			align : "center"
+		}, {
+			title : '公司类别',
+			field : 'isMain',
+			width : 50,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "主公司";
+				} 
+			}
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
