@@ -104,7 +104,7 @@
 		parameterType="java.util.Map">
 		SELECT wxuser.*, wq.qrname
 		FROM TB_WX_USER wxuser
-		left join tb_wx_qrcode wq on wxuser.qrno = wq.qrno
+		left join tb_wx_qrcode wq on (wxuser.qrno = wq.qrno and wxuser.accountid=wq.accountid and wq.QRTYPE='1')
 		WHERE 1=1
 		<if test="accountIds !=null">
 			and wxuser.accountid in

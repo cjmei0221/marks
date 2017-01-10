@@ -17,5 +17,5 @@ public interface QrcodeService{
 	public List<Qrcode> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<Qrcode> list(int page_number, int page_size,Map<String,Object> param);
-	public Qrcode findByQrNo(String qrNo);
+	public Qrcode findByQrNo(String qrNo,String accountid);
 }

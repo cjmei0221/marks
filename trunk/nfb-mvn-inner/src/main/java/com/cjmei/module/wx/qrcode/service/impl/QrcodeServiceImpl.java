@@ -84,8 +84,8 @@ public class QrcodeServiceImpl implements QrcodeService{
 		return pojoDomain;
 	}
 	@Override
-	public Qrcode findByQrNo(String qrNo) {
-		 return qrcodeDao.findByQrNo(qrNo);
+	public Qrcode findByQrNo(String qrNo,String accountid) {
+		 return qrcodeDao.findByQrNo(qrNo,accountid);
 	}
 	
 }

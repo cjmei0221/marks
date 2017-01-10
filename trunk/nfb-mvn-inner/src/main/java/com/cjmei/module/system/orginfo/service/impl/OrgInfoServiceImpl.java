@@ -61,7 +61,7 @@ public class OrgInfoServiceImpl implements OrgInfoService{
     */
     @Override
     public List<OrgInfo> findAll(){
-        return orgInfoDao.findAll();   
+        return orgInfoDao.findAll(null);   
     }
     
     /**
@@ -74,11 +74,11 @@ public class OrgInfoServiceImpl implements OrgInfoService{
     
 	
 	@Override
-	public List<OrgInfo> listGrid(List<String> plist) {
-		return orgInfoDao.getTreeGridByParentId(plist);
+	public List<OrgInfo> listGrid(List<String> plist,String companyId) {
+		return orgInfoDao.getTreeGridByParentId(plist,companyId);
 	}
-	public List<OrgInfo> list(List<String> plist) {
-		List<OrgInfo> allList=orgInfoDao.findAll();
+	public List<OrgInfo> list(List<String> plist,String companyId) {
+		List<OrgInfo> allList=orgInfoDao.findAll(companyId);
 		List<OrgInfo> list=new ArrayList<OrgInfo>(); 
 		for(OrgInfo vo:allList){
 			for(String parentid:plist){
