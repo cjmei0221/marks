@@ -25,7 +25,7 @@
 							style="cursor: pointer;">查询</button></td>
 				</tr>
 				<tr>
-					<td colspan="7"><wt:button /></td>
+					<td colspan="2"><wt:button /></td>
 				</tr>
 			</table>
 		</div>
@@ -91,8 +91,8 @@
 				</tr>
 				<tr id="isAutoTr">
 					<th>是否可覆盖</th>
-					<td><select id="isAuto" class="easyui-combobox"
-						name="isAuto" style="width: 180px;" data-options="required:true">
+					<td><select id="isAuto" class="easyui-combobox" name="isAuto"
+						style="width: 180px;" data-options="required:true">
 							<option value="0">否</option>
 							<option value="1">是</option>
 					</select></td>
