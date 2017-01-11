@@ -5,10 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 视频消息对象服务
@@ -29,8 +27,8 @@ public class VideoRequestServiceImpl extends AbstractRequestService {
 	 * @throws Exception
 	 */
 	@Override
-	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws JSONException {
-		logger.info("TextRequestServiceImpl deal start  ");
+	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws JSONException {
+		logger.info("VideoRequestServiceImpl start >");
 		return null;
 	}
 

@@ -5,10 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.request.impl.LocationRequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 地理位置消息对象服务
@@ -31,13 +29,11 @@ public class LocationRequestServiceImpl extends AbstractRequestService {
 	 * @throws Exception
 	 */
 	@Override
-	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws JSONException {
-		logger.info("LocationRequestServiceImpl deal start >");
-		LocationRequestMessage locationRequestMessage = (LocationRequestMessage) requestMessage;
+	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws JSONException {
+		logger.info("LocationRequestServiceImpl > 您的位置是 ： "+ requestMessage.getLabel());
+		WechatResponse responseMessage = new WechatResponse(requestMessage);
 
-		TextResponseMessage responseMessage = new TextResponseMessage(requestMessage);
-
-		responseMessage.setContent("您的位置是 ：" + locationRequestMessage.getLabel());
+		responseMessage.setContent("您的位置是 ：" + requestMessage.getLabel());
 
 		return responseMessage;
 	}
