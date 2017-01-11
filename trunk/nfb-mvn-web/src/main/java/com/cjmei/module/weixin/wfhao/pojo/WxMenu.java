@@ -1,8 +1,5 @@
 package com.cjmei.module.weixin.wfhao.pojo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 微信菜单对象类
  * @author ldyong

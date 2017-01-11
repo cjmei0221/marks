@@ -1,7 +1,6 @@
 package com.cjmei.module.weixin.wfhao.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 public class NewsItem implements Serializable{
 
@@ -35,18 +34,6 @@ public class NewsItem implements Serializable{
     *服务号ID
     */
     private String accountid;
-    /**
-    *创建时间
-    */
-    private Timestamp createtime;
-    /**
-    *更新时间
-    */
-    private Timestamp updatetime;
-    /**
-    *创建者
-    */
-    private String creator;
 
 
 
@@ -97,27 +84,6 @@ public class NewsItem implements Serializable{
     }
     public void setAccountid(String accountid){
         this.accountid = accountid;
-    }
-
-    public Timestamp getCreatetime(){
-        return createtime;
-    }
-    public void setCreatetime(Timestamp createtime){
-        this.createtime = createtime;
-    }
-
-    public Timestamp getUpdatetime(){
-        return updatetime;
-    }
-    public void setUpdatetime(Timestamp updatetime){
-        this.updatetime = updatetime;
-    }
-
-    public String getCreator(){
-        return creator;
-    }
-    public void setCreator(String creator){
-        this.creator = creator;
     }
 
 
