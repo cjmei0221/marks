@@ -184,7 +184,7 @@
 				#{oid}
 			</foreach>
 		</if>
-		and wxaccount.accttype=0
+		and wxaccount.accttype=0 and wxaccount.is_service=1
 		order by wxaccount.ACCOUNTNAME
 	</select>
 	

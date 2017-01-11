@@ -105,12 +105,9 @@
 			or qrcode.SCENETYPE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or qrcode.CREATETIME LIKE
+			or to_char(qrcode.CREATETIME,'yyyy-MM-dd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or qrcode.UPDATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
+			
 			or qrcode.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)

@@ -83,8 +83,9 @@ public class WxAccountController extends SupportContorller{
 	 			wxAccount.setUpdatetime(wxAccount.getCreatetime());
 	 			wxAccount.setCreator(admin.getUserid());
 	 			wxAccount.setUrl(getUrl(wxAccount));
-	 			OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
-	 			wxAccount.setCompanyId(info.getCompanyId());
+//	 			OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
+//	 			wxAccount.setCompanyId(info.getCompanyId());
+	 			wxAccount.setCompanyId(wxAccount.getOrgid());
 	 			wxAccountService.save(wxAccount);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -118,8 +119,9 @@ public class WxAccountController extends SupportContorller{
 		    }else{
 		    	wxAccount.setUpdatetime(new Timestamp(System.currentTimeMillis()));
 		    	wxAccount.setUrl(getUrl(wxAccount));
-		    	OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
-	 			wxAccount.setCompanyId(info.getCompanyId());
+		    	/*OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
+	 			wxAccount.setCompanyId(info.getCompanyId());*/
+		    	wxAccount.setCompanyId(wxAccount.getOrgid());
 		    	wxAccountService.update(wxAccount);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
