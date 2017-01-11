@@ -2,10 +2,8 @@ package com.cjmei.module.weixin.wfhao.module;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 业务逻辑模块处理控制器
@@ -24,9 +22,9 @@ public class ModuleController {
 	 * @param requestMessage
 	 * @return
 	 */
-	public static ResponseMessage moduleHandle(String module_path,RequestMessage requestMessage){
+	public static WechatResponse moduleHandle(String module_path,WechatRequest requestMessage){
 		Module module =null;
-		ResponseMessage responseMessage=null;
+		WechatResponse responseMessage=new WechatResponse(requestMessage);
 		try {
 			logger.info("module_path>>"+module_path );
 			//采用反射创建具体的业务逻辑模块实例对象，调用同步请求消息处理
@@ -35,10 +33,8 @@ public class ModuleController {
 			responseMessage=module.syncRequest(requestMessage);
 			logger.info("returnMsg>>"+responseMessage.getContent() );
 		} catch (Exception e) {
-			logger.info("Exception:",e);
-			TextResponseMessage textResponseMessage = new TextResponseMessage(requestMessage);			
-			textResponseMessage.setContent("");
-			responseMessage=textResponseMessage;			
+			logger.info("Exception:",e);			
+			responseMessage.setContent("");
 		}
 		return responseMessage;
 	}	

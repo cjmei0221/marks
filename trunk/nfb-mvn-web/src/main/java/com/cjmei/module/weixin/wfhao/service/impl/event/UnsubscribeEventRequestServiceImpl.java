@@ -5,9 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 import com.cjmei.module.weixin.wfhao.pojo.WxUser;
 import com.cjmei.module.weixin.wfhao.service.WeixinAccountService;
 import com.cjmei.module.weixin.wfhao.service.impl.normal.AbstractRequestService;
@@ -33,7 +32,7 @@ public class UnsubscribeEventRequestServiceImpl extends AbstractRequestService {
 	 * @throws Exception
 	 */
 	@Override
-	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) {
+	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) {
 
 		WxUser user = null;
 		try {
