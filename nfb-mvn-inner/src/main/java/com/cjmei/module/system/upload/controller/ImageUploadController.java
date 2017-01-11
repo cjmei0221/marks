@@ -79,7 +79,7 @@ public class ImageUploadController {
 						result.getData().put("realname", picName);
 
 						result.getData().put("message", FTPUtil.ftp_url + picName);
-						FTPUtil.uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
+						FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
 								FTPUtil.ftpFileDirectory, picName, saveFile, "");
 						JsonUtil.output(response, result);
 					}
