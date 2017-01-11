@@ -10,7 +10,7 @@ public class WxAutoReplay implements Serializable{
     /**
     *父ID
     */
-    private String cparentType;
+    private String parentType;
     /**
     *关键字
     */
@@ -35,27 +35,6 @@ public class WxAutoReplay implements Serializable{
     *回复方式
     */
     private String replayType;
-    /**
-    *创建时间
-    */
-    private Timestamp createtime;
-    /**
-    *更新时间
-    */
-    private Timestamp updatetime;
-    /**
-    *创建者
-    */
-    private String creator;
-
-
-
-    public String getCparentType(){
-        return cparentType;
-    }
-    public void setCparentType(String cparentType){
-        this.cparentType = cparentType;
-    }
 
     public String getCkey(){
         return ckey;
@@ -98,27 +77,5 @@ public class WxAutoReplay implements Serializable{
     public void setReplayType(String replayType){
         this.replayType = replayType;
     }
-
-    public Timestamp getCreatetime(){
-        return createtime;
-    }
-    public void setCreatetime(Timestamp createtime){
-        this.createtime = createtime;
-    }
-
-    public Timestamp getUpdatetime(){
-        return updatetime;
-    }
-    public void setUpdatetime(Timestamp updatetime){
-        this.updatetime = updatetime;
-    }
-
-    public String getCreator(){
-        return creator;
-    }
-    public void setCreator(String creator){
-        this.creator = creator;
-    }
-
 
 }
