@@ -25,7 +25,7 @@
 	default-autowire="byName">
 	<bean id="requestDispatchService"
 		class="com.cjmei.module.weixin.wfhao.service.impl.RequestDispatchServiceImpl">
-		<property name="componentMap">
+<!-- 		<property name="componentMap">
 			<map>
 				<entry key="text" value-ref="textRequestService"></entry>
 				<entry key="event" value-ref="eventRequestService"></entry>
@@ -35,7 +35,7 @@
 				<entry key="location" value-ref="locationRequestService"></entry>
 				<entry key="link" value-ref="linkRequestService"></entry>
 			</map>
-		</property>
+		</property> -->
 	</bean>
 	<bean id="textRequestService"
 		class="com.cjmei.module.weixin.wfhao.service.impl.normal.TextRequestServiceImpl" />
@@ -52,7 +52,7 @@
 
 	<bean id="eventRequestService"
 		class="com.cjmei.module.weixin.wfhao.service.impl.normal.EventRequestServiceImpl">
-		<property name="componentMap">
+		<!-- <property name="componentMap">
 			<map>
 				<entry key="subscribe" value-ref="subscribeRequestService"></entry>
 				<entry key="unsubscribe" value-ref="unsubscribeRequestService"></entry>
@@ -60,7 +60,7 @@
 				<entry key="view" value-ref="viewEventRequestService"></entry>
 				<entry key="scan" value-ref="scanEventRequestService"></entry>
 			</map>
-		</property>
+		</property> -->
 	</bean>
 	<bean id="locationEventRequestService"
 		class="com.cjmei.module.weixin.wfhao.service.impl.event.LocationEventRequestServiceImpl">
