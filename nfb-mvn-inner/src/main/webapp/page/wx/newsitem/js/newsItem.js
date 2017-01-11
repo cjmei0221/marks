@@ -126,7 +126,6 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		pagination : true,
 		idField : 'id',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
@@ -158,8 +157,7 @@ function loadList() {
 		}, {
 			title : '链接',
 			field : 'url',
-			width : 100,
-			align : "center"
+			width : 300
 		}, {
 			title : '排序',
 			field : 'sort',
@@ -175,11 +173,11 @@ function loadList() {
 			field : 'createtime',
 			width : 100,
 			align : "center"
-		}, {
+		/*}, {
 			title : '更新时间',
 			field : 'updatetime',
 			width : 100,
-			align : "center"
+			align : "center"*/
 		}, {
 			title : '创建者',
 			field : 'creator',
