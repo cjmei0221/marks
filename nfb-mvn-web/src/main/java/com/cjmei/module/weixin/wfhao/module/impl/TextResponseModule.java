@@ -1,8 +1,7 @@
 package com.cjmei.module.weixin.wfhao.module.impl;
 
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 import com.cjmei.module.weixin.wfhao.module.Module;
 
 /**
@@ -18,8 +17,8 @@ public class TextResponseModule extends Module{
 	private static final long serialVersionUID = 1000L;
 
 	@Override
-	public ResponseMessage syncRequest(RequestMessage requestMessage) {
-		TextResponseMessage textResponseMessage = new TextResponseMessage(requestMessage);
+	public WechatResponse syncRequest(WechatRequest requestMessage) {
+		WechatResponse textResponseMessage = new WechatResponse(requestMessage);
 		textResponseMessage.setContent(requestMessage.getContent());
 		return textResponseMessage;
 	}

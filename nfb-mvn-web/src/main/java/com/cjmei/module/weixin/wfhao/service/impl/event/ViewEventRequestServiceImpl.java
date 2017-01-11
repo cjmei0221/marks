@@ -5,9 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.request.impl.ViewEventRequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 import com.cjmei.module.weixin.wfhao.service.impl.normal.AbstractRequestService;
 
 /**
@@ -31,12 +30,11 @@ public class ViewEventRequestServiceImpl extends AbstractRequestService {
 	 * @throws Exception
 	 */
 	@Override
-	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws JSONException {
-		ResponseMessage responseMessage = null;
-		ViewEventRequestMessage viewEventRequestMessage = (ViewEventRequestMessage) requestMessage;
-		logger.info("----------url:" + viewEventRequestMessage.getEventKey());
+	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws JSONException {
+		
+		logger.info("----------url:" + requestMessage.getEventKey());
 		// 返回的响应请求对象为null，为了让微信端直接跳转到URL
-		return responseMessage;
+		return null;
 	}
 
 }

@@ -6,9 +6,8 @@ import org.apache.log4j.Logger;
 
 import com.cjmei.module.system.core.listener.DatabaseHelper;
 import com.cjmei.module.weixin.wfhao.dao.WxMenuDao;
-import com.cjmei.module.weixin.wfhao.message.request.EventRequestMessage;
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 import com.cjmei.module.weixin.wfhao.pojo.WxMenu;
 import com.cjmei.module.weixin.wfhao.service.impl.normal.AbstractRequestService;
 
@@ -35,11 +34,10 @@ public class ClickEventRequestServiceImpl extends AbstractRequestService {
 	 * @throws Exception
 	 */
 	@Override
-	public ResponseMessage handle(HttpServletRequest request,RequestMessage requestMessage) throws Exception {
-		EventRequestMessage eventRequestMessage=(EventRequestMessage)requestMessage;
-		logger.info("ClickEventRequestServiceImpl deal start eventkey > "+eventRequestMessage.getEventKey());
+	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage) throws Exception {
+		logger.info("ClickEventRequestServiceImpl deal start eventkey > "+requestMessage.getEventKey());
 		WxMenuDao wxMenuDao=(WxMenuDao) DatabaseHelper.getBean(WxMenuDao.class);
-		WxMenu weixinMenu=wxMenuDao.queryMenuById(eventRequestMessage.getEventKey());
+		WxMenu weixinMenu=wxMenuDao.queryMenuById(requestMessage.getEventKey());
 		String module = "";
 		if(weixinMenu!=null){
 			module=weixinMenu.getContent();

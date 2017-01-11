@@ -2,8 +2,8 @@ package com.cjmei.module.weixin.wfhao.service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 请求消息对象服务接口
@@ -21,5 +21,6 @@ public interface RequestService {
 	 * @return 响应消息对象
 	 * @throws Exception
 	 */
-	public ResponseMessage handle(HttpServletRequest request,RequestMessage requestMessage)throws Exception;
+	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage)throws Exception;
+	
 }

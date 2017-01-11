@@ -2,8 +2,8 @@ package com.cjmei.module.weixin.wfhao.module;
 
 import java.io.Serializable;
 
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 业务逻辑模块抽象类，所有功能模块必须实现
@@ -22,7 +22,7 @@ public abstract class Module implements Serializable{
 	 * @param requestMessage
 	 * @return
 	 */
-	public abstract ResponseMessage syncRequest(RequestMessage requestMessage) throws Exception;
+	public abstract WechatResponse syncRequest(WechatRequest requestMessage) throws Exception;
 	
 	protected String exception;	
 
