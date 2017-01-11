@@ -23,7 +23,7 @@
 					<td><button type="button" id="doSearch" data-oper="query" style="cursor: pointer;">查询</button>
 				</tr>
 				 <tr>
-					<td colspan="7">
+					<td colspan="2">
 						<wt:button />
 					</td>
 				</tr> 
@@ -39,11 +39,11 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 450px; padding: 10px;">
+		style="width: 600px; height: 450px; padding: 10px;">
 		<div align="center" style="width: 100%;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden"  id="@{PKAttrValue}" name="@{PKAttrValue}">
-			<table style="width: 100%;">
+			<table>
 				@{GetInputField}
 				<tr>
 					<td colspan="2" style="text-align: center">
