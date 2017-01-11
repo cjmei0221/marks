@@ -31,6 +31,9 @@ public interface ModuleProduced {
 	    String COMMA_VALUE = ",";
 	    String COlON_VALUE = ":";
 	    
+	    String createTime="createtime";
+	    String updateTime="updatetime";
+	    
 		/**
 		 * bean package url
 		 * @param autoBean

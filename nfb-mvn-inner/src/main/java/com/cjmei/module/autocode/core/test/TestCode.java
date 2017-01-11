@@ -11,7 +11,7 @@ public class TestCode {
 	@TableField(value = "name", desc = "名称", dataType = AttrType.String, size = 250)
 	private String name;
 
-	@TableField(value = "createtime", desc = "创建时间", dataType = AttrType.Timestamp, size = 50)
+	@TableField(value = "createtime", desc = "创建时间", dataType = AttrType.Date, size = 50)
 	private String createtime;
 	
 	public int getCode() {

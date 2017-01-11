@@ -38,24 +38,6 @@ public enum AttrType {
 			return "int";
 		}
 	},
-	Timestamp {
-		public String getOracleType() {
-			return "date";
-		}
-
-		@Override
-		public java.lang.String getMybatisType() {
-			return "TIMESTAMP";
-		}
-
-		public String getMySqlType() {
-			return "date";
-		}
-
-		public String getJavaType() {
-			return "Timestamp";
-		}
-	},
 
 	Date {
 		public String getOracleType() {
