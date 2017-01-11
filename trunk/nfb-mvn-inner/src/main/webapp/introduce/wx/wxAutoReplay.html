@@ -8,6 +8,25 @@
 <body>
 	<h1>微信回复管理</h1>
 	<p>微信公众号自动回复</p>
+	
+	<h2>微信回复管理表  (TB_WX_AUTO_REPLAY)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>CPARENTTYPE</td><td>父ID</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>CKEY</td><td>关键字</td><td>varchar2</td><td>关键字英文全部小写</td></tr><tr><td>3</td><td>CREPLAY</td><td>回复内容</td><td>varchar2</td><td>无</td></tr><tr><td>4</td><td>CTYPE</td><td>ID</td><td>varchar2</td><td>无</td></tr><tr><td>5</td><td>CTYPENAME</td><td>名称</td><td>varchar2</td><td>无</td></tr><tr><td>6</td><td>ACCOUNTID</td><td>公众号ID</td><td>varchar2</td><td>无</td></tr><tr><td>7</td><td>REPLAYTYPE</td><td>回复方式</td><td>varchar2</td><td>NEWS：图文 MODULE：指令 TEXT：文本</td></tr><tr><td>8</td><td>CREATETIME</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>9</td><td>UPDATETIME</td><td>更新时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>10</td><td>CREATOR</td><td>创建者</td><td>varchar2</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	
 	<h2>实体类  (WxAutoReplay)</h2>
 	<div id="entity">
 		<table>
@@ -21,7 +40,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>1</td><td>cparentType</td><td>父ID</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>ckey</td><td>关键字</td><td>varchar2</td><td>关键字英文全部小写</td></tr><tr><td>3</td><td>creplay</td><td>回复内容</td><td>varchar2</td><td>无</td></tr><tr><td>4</td><td>ctype</td><td>ID</td><td>varchar2</td><td>无</td></tr><tr><td>5</td><td>ctypeName</td><td>名称</td><td>varchar2</td><td>无</td></tr><tr><td>6</td><td>accountid</td><td>公众号ID</td><td>varchar2</td><td>无</td></tr><tr><td>7</td><td>replayType</td><td>回复方式</td><td>varchar2</td><td>NEWS：图文 MODULE：指令 TEXT：文本</td></tr><tr><td>8</td><td>createtime</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>9</td><td>updatetime</td><td>更新时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>10</td><td>creator</td><td>创建者</td><td>varchar2</td><td>无</td></tr>
+				<tr><td>1</td><td>cparentType</td><td>父ID</td><td>String</td><td>无</td></tr><tr><td>2</td><td>ckey</td><td>关键字</td><td>String</td><td>关键字英文全部小写</td></tr><tr><td>3</td><td>creplay</td><td>回复内容</td><td>String</td><td>无</td></tr><tr><td>4</td><td>ctype</td><td>ID</td><td>String</td><td>无</td></tr><tr><td>5</td><td>ctypeName</td><td>名称</td><td>String</td><td>无</td></tr><tr><td>6</td><td>accountid</td><td>公众号ID</td><td>String</td><td>无</td></tr><tr><td>7</td><td>replayType</td><td>回复方式</td><td>String</td><td>NEWS：图文 MODULE：指令 TEXT：文本</td></tr><tr><td>8</td><td>createtime</td><td>创建时间</td><td>Date</td><td>无</td></tr><tr><td>9</td><td>updatetime</td><td>更新时间</td><td>Date</td><td>无</td></tr><tr><td>10</td><td>creator</td><td>创建者</td><td>String</td><td>无</td></tr>
 			</tbody>
 		</table>
 	</div>
