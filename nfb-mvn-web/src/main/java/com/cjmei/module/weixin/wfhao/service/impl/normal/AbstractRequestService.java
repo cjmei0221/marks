@@ -5,51 +5,47 @@ import org.apache.log4j.Logger;
 import com.cjmei.common.util.Constants;
 import com.cjmei.module.system.core.listener.DatabaseHelper;
 import com.cjmei.module.weixin.wfhao.dao.WxAutoReplayDao;
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 import com.cjmei.module.weixin.wfhao.module.ModuleController;
 import com.cjmei.module.weixin.wfhao.pojo.WxAutoReplay;
 import com.cjmei.module.weixin.wfhao.service.RequestService;
 import com.cjmei.module.weixin.wfhao.service.impl.NewsHelper;
 
 /**
- * 请求消息对象分发接口的抽象类实现
- * 核心功能：提供统一请求消息处理
+ * 请求消息对象分发接口的抽象类实现 核心功能：提供统一请求消息处理
  * 
- * @author 
- * @createTime 
+ * @author
+ * @createTime
  * @history 1.修改时间,修改;修改内容：
  * 
  */
-public abstract class AbstractRequestService implements RequestService{
-	
+public abstract class AbstractRequestService implements RequestService {
+
 	private static Logger logger = Logger.getLogger(AbstractRequestService.class);
-	
-	
 
 	/**
 	 * 业务组件处理接口
+	 * 
 	 * @param requestMessage
 	 * @param content
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public ResponseMessage handle(RequestMessage requestMessage,String key) throws Exception {
-		TextResponseMessage textResponseMessage = new TextResponseMessage(requestMessage);
-		ResponseMessage responseMessage=null;
-		WxAutoReplayDao wxAutoReplayDao=(WxAutoReplayDao) DatabaseHelper.getBean(WxAutoReplayDao.class);
-		WxAutoReplay reply = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(),requestMessage.getAccountId());
-		if(null != reply){
-			String content=reply.getCreplay();
-			if(Constants.weixin_replay_type_news.equals(reply.getReplayType())){
-				content=Constants.weixin_replay_type_news+":"+reply.getCreplay();
-				responseMessage=NewsHelper.Handle(requestMessage, content);	
-			}else if(Constants.weixin_replay_type_module.equals(reply.getReplayType())){
-				responseMessage = moduleProcess(requestMessage,content);
-			}else{
-				textResponseMessage.setContent(content);
-				responseMessage=textResponseMessage;
+	public WechatResponse handle(WechatRequest requestMessage, String key) throws Exception {
+		WechatResponse responseMessage =null;
+		WxAutoReplayDao wxAutoReplayDao = (WxAutoReplayDao) DatabaseHelper.getBean(WxAutoReplayDao.class);
+		WxAutoReplay reply = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(), requestMessage.getAccountId());
+		if (null != reply) {
+			responseMessage = new WechatResponse(requestMessage);
+			String content = reply.getCreplay();
+			if (Constants.weixin_replay_type_news.equals(reply.getReplayType())) {
+				content = Constants.weixin_replay_type_news + ":" + reply.getCreplay();
+				responseMessage = NewsHelper.Handle(requestMessage, content);
+			} else if (Constants.weixin_replay_type_module.equals(reply.getReplayType())) {
+				responseMessage = moduleProcess(requestMessage, content);
+			} else {
+				responseMessage.setContent(content);
 			}
 		}
 		return responseMessage;
@@ -57,12 +53,13 @@ public abstract class AbstractRequestService implements RequestService{
 
 	/**
 	 * 业务组件处理
+	 * 
 	 * @param requestMessage
 	 * @param content
 	 * @return
 	 */
-	private ResponseMessage moduleProcess(RequestMessage requestMessage,String content){
-		logger.info("Module path:"+content);
+	private WechatResponse moduleProcess(WechatRequest requestMessage, String content) {
+		logger.info("Module path:" + content);
 		return ModuleController.moduleHandle(content, requestMessage);
-	}	
+	}
 }

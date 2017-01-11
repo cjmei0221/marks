@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 图片消息对象服务
@@ -25,8 +25,9 @@ public class ImageRequestServiceImpl extends AbstractRequestService  {
 	 * @throws Exception
 	 */
 	@Override
-	public ResponseMessage handle(HttpServletRequest request,RequestMessage requestMessage) throws JSONException {
+	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage) throws JSONException {
 		logger.info("ImageRequestServiceImpl deal start");
+		
 		return null;
 	}
 

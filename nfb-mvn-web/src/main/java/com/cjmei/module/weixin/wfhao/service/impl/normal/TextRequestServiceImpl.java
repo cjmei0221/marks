@@ -4,9 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.request.impl.TextRequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 文本消息对象服务
@@ -27,10 +26,8 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 	 * @throws Exception
 	 */
 	@Override
-	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws Exception {
-		
-		TextRequestMessage textRequestMessage = (TextRequestMessage) requestMessage;
-		logger.info("TextRequestServiceImpl deal start  content>"+textRequestMessage.getContent());
-		return handle(requestMessage, textRequestMessage.getContent());
+	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
+		logger.info("TextRequestServiceImpl > "+requestMessage.getContent());
+		return handle(requestMessage, requestMessage.getContent());
 	}
 }

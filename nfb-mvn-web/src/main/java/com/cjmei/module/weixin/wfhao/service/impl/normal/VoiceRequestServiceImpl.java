@@ -5,11 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.weixin.wfhao.message.request.RequestMessage;
-import com.cjmei.module.weixin.wfhao.message.request.impl.VoiceRequestMessage;
-import com.cjmei.module.weixin.wfhao.message.response.ResponseMessage;
-import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
+import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 语音消息对象服务
@@ -19,7 +16,7 @@ import com.cjmei.module.weixin.wfhao.message.response.impl.TextResponseMessage;
  * @history 1.修改时间,修改;修改内容：
  * 
  */
-public class VoiceRequestServiceImpl extends AbstractRequestService {
+public class VoiceRequestServiceImpl extends AbstractRequestService{
 
 	private static Logger logger = Logger.getLogger(VoiceRequestServiceImpl.class);
 
@@ -32,14 +29,14 @@ public class VoiceRequestServiceImpl extends AbstractRequestService {
 	 * @throws Exception
 	 */
 	@Override
-	public ResponseMessage handle(HttpServletRequest request, RequestMessage requestMessage) throws Exception {
-		VoiceRequestMessage voiceRequestMessage = (VoiceRequestMessage) requestMessage;
-		logger.info("-----------------------语音解析结果：" + voiceRequestMessage.getRecognition());
-		ResponseMessage responseMessage=null;
-		if (StringUtils.isEmpty(voiceRequestMessage.getRecognition())) {
+	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
+		
+		logger.info("VoiceRequestServiceImpl 语音解析结果：" + requestMessage.getRecognition());
+		WechatResponse responseMessage=null;
+		if (StringUtils.isEmpty(requestMessage.getRecognition())) {
 			
 		} else {
-			responseMessage = handle(requestMessage, voiceRequestMessage.getRecognition());
+			responseMessage = handle(requestMessage, requestMessage.getRecognition());
 		}
 		return responseMessage;
 	}
