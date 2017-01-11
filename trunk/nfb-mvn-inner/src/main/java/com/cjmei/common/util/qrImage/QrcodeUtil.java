@@ -82,7 +82,7 @@ public class QrcodeUtil {
 			matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, width, height, hints);
 			File qrcodeFile = new File(UploadUtil.getUploadPath(request) + name );
 			MatrixToImageWriter.writeToFile(matrix, "png", qrcodeFile);
-			if (FTPUtil.uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password, FTPUtil.ftpFileDirectory,
+			if (FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password, FTPUtil.ftpFileDirectory,
 					name, qrcodeFile, "")) {
 				// 上传成功
 				path = FTPUtil.ftp_url + qrcodeFile.getName();
@@ -124,7 +124,7 @@ public class QrcodeUtil {
 			is.close();
 			out.close();
 			connection.disconnect();
-			FTPUtil.uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password, FTPUtil.ftpFileDirectory,
+			FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password, FTPUtil.ftpFileDirectory,
 					filename, saveFile, "");
 			return FTPUtil.ftp_url + filename;
 		} catch (Exception e) {

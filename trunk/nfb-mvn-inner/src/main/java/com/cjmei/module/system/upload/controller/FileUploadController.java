@@ -91,7 +91,7 @@ public class FileUploadController {
 
 				success = true;
 				result.getData().put("fileUrl", FTPUtil.ftp_url + picName);
-				FTPUtil.uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
+				FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
 						FTPUtil.ftpFileDirectory, picName, saveFile, "");
 
 			} catch (Exception e) {
