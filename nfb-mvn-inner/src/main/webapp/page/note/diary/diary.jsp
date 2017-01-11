@@ -21,7 +21,7 @@
 				<tr>
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="关键字" /></td>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp; <input id="statedate"
+					<td><input id="statedate"
 						name="statedate" type="text" editable="false"
 						class="easyui-datebox" style="width: 120px;">
 					</td>

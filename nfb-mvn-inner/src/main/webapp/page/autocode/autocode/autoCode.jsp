@@ -24,10 +24,8 @@
 					<td><button type="button" id="doSearch" data-oper="query"
 							style="cursor: pointer;">查询</button></td>
 				</tr>
-				<tr>
-					<td colspan="2"><wt:button /></td>
-				</tr>
 			</table>
+			<div><wt:button /></div>
 		</div>
 		<table id="tbList">
 		</table>
