@@ -116,7 +116,7 @@ $(function() {
 					var parms = "tableName=" + appInfo.selectedId;
 					$.post(appInfo.autocodeIntroFileUrl, parms, function(data) {
 						if (data.retcode == 0) {
-							showMsg("重新编译后起效");
+							showMsg("刷新后起效");
 						} else {
 							showMsg(data.retmsg);
 						}
