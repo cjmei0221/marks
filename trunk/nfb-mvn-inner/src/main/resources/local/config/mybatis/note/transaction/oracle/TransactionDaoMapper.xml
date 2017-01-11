@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjmei.module.note.transaction.dao.TransactionDao">
+
+    <select id="findById" resultType="com.cjmei.module.note.transaction.pojo.Transaction">
+		SELECT * FROM TB_NOTE_TRANSACTION transaction where transaction.ID = #{id}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.cjmei.module.note.transaction.pojo.Transaction">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+
+ 		INSERT INTO TB_NOTE_TRANSACTION transaction (
+            transaction.ID,
+            transaction.TRANTYPE,
+            transaction.TRANDATE,
+            transaction.ISREPEAT,
+            transaction.TRANCONTENT,
+            transaction.AHEADDAYS,
+            transaction.TRANTIME,
+            transaction.ISAHEAD,
+            transaction.CREATETIME,
+            transaction.UPDATETIME,
+            transaction.CREATOR
+		)
+		VALUES(
+            #{id:VARCHAR},
+            #{tranType:NUMERIC},
+            #{tranDate:TIMESTAMP},
+            #{isRepeat:NUMERIC},
+            #{tranContent:VARCHAR},
+            #{aheadDays:NUMERIC},
+            #{tranTime:VARCHAR},
+            #{isAhead:NUMERIC},
+            #{createtime:TIMESTAMP},
+            #{updatetime:TIMESTAMP},
+            #{creator:VARCHAR}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.cjmei.module.note.transaction.pojo.Transaction">
+ 		UPDATE TB_NOTE_TRANSACTION transaction
+		SET 
+                transaction.TRANTYPE = #{tranType:NUMERIC},
+                transaction.TRANDATE = #{tranDate:TIMESTAMP},
+                transaction.ISREPEAT = #{isRepeat:NUMERIC},
+                transaction.TRANCONTENT = #{tranContent:VARCHAR},
+                transaction.AHEADDAYS = #{aheadDays:NUMERIC},
+                transaction.TRANTIME = #{tranTime:VARCHAR},
+                transaction.ISAHEAD = #{isAhead:NUMERIC},
+                transaction.CREATETIME = #{createtime:TIMESTAMP},
+                transaction.UPDATETIME = #{updatetime:TIMESTAMP},
+                transaction.CREATOR = #{creator:VARCHAR}
+		WHERE
+			transaction.ID = #{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_NOTE_TRANSACTION transaction WHERE transaction.ID=#{id}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.cjmei.module.note.transaction.pojo.Transaction">
+ 		SELECT * FROM TB_NOTE_TRANSACTION
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_NOTE_TRANSACTION WHERE ID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.cjmei.module.note.transaction.pojo.Transaction" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_NOTE_TRANSACTION transaction
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( transaction.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or transaction.TRANTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or to_char(transaction.TRANDATE,'yyyy-MM-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or transaction.ISREPEAT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or transaction.TRANCONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or transaction.AHEADDAYS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or transaction.TRANTIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or transaction.ISAHEAD LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or to_char(transaction.CREATETIME,'yyyy-MM-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or to_char(transaction.UPDATETIME,'yyyy-MM-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or transaction.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+					
+					
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>
