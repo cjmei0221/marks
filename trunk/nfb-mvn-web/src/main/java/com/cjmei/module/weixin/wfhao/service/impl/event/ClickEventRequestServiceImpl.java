@@ -4,11 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.weixin.wfhao.dao.WxMenuDao;
 import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
 import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
-import com.cjmei.module.weixin.wfhao.pojo.WxMenu;
 import com.cjmei.module.weixin.wfhao.service.impl.normal.AbstractRequestService;
 
 
@@ -36,15 +33,7 @@ public class ClickEventRequestServiceImpl extends AbstractRequestService {
 	@Override
 	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage) throws Exception {
 		logger.info("ClickEventRequestServiceImpl deal start eventkey > "+requestMessage.getEventKey());
-		WxMenuDao wxMenuDao=(WxMenuDao) DatabaseHelper.getBean(WxMenuDao.class);
-		WxMenu weixinMenu=wxMenuDao.queryMenuById(requestMessage.getEventKey());
-		String module = "";
-		if(weixinMenu!=null){
-			module=weixinMenu.getContent();
-		}else{
-			logger.info("---------------------weixinMenu is null,please check wxb_menu table data");
-		}
-		return handle(requestMessage,module);
+		return handle(requestMessage,requestMessage.getEventKey());
 	}
 	
 }
