@@ -71,9 +71,6 @@ public class LoginController {
 				if (password.equals(user.getPassword())) {
 					List<SysRole> roleList = loginService.getUserRoleList(user.getUserid());
 					if (roleList != null && roleList.size() > 0) {
-						if ("0".equals(user.getCompanyId())) {
-							
-						}
 						result.setCode(0);
 						result.setMessage("success");
 						user.setLoginTime(new Date());
@@ -100,7 +97,8 @@ public class LoginController {
 						if (null != user.getOrgids() && null != user.getCompanyId()) {
 							Map<String, Object> param = new HashMap<String, Object>();
 							param.put("conpanyId", user.getCompanyId());
-							param.put("orgids", user.getOrgids());
+//							param.put("orgids", user.getOrgids());
+							param.put("orgids",null);
 							List<String> accountids = wxAccountService.getAccountIdsByLoginUser(param);
 							user.setAccountids(accountids);
 						}
