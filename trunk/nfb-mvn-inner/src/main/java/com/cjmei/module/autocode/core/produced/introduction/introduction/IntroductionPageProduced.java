@@ -45,6 +45,22 @@ public class IntroductionPageProduced extends AbstractIntroHtmlProduced {
 	public String getFileSrc(AutoBean autoBean) {
 		return autoBean.getFactBeanName().toLowerCase();
 	}
+	
+	public String producedGetTableField(AutoBean autoBean) {
+		StringBuffer sBuffer = new StringBuffer();
+		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
+		for (int i = 0; i < autoAttrs.size(); i++) {
+			AutoAttr autoAttr = autoAttrs.get(i);
+			sBuffer.append("<tr>");
+			sBuffer.append("<td>" + (i + 1) + "</td>");
+			sBuffer.append("<td>" + autoAttr.getAttrName().toUpperCase() + "</td>");
+			sBuffer.append("<td>" + autoAttr.getAttrDesc() + "</td>");
+			sBuffer.append("<td>" + autoAttr.getAttrType().getOracleType() + "</td>");
+			sBuffer.append("<td>" + (autoAttr.getNote()==null?"无":autoAttr.getNote()) + "</td>");
+			sBuffer.append("</tr>");
+		}
+		return sBuffer.toString();
+	}
 
 	public String producedGetEntityField(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
@@ -55,7 +71,7 @@ public class IntroductionPageProduced extends AbstractIntroHtmlProduced {
 			sBuffer.append("<td>" + (i + 1) + "</td>");
 			sBuffer.append("<td>" + autoAttr.getAttrName() + "</td>");
 			sBuffer.append("<td>" + autoAttr.getAttrDesc() + "</td>");
-			sBuffer.append("<td>" + autoAttr.getAttrType().getOracleType() + "</td>");
+			sBuffer.append("<td>" + autoAttr.getAttrType().getJavaType() + "</td>");
 			sBuffer.append("<td>" + (autoAttr.getNote()==null?"无":autoAttr.getNote()) + "</td>");
 			sBuffer.append("</tr>");
 		}
@@ -209,6 +225,17 @@ public class IntroductionPageProduced extends AbstractIntroHtmlProduced {
 		sBuffer.append("</tr>");
 
 		return sBuffer.toString();
+	}
+	/**
+	 * 设置数据库表名
+	 * 
+	 * @param autoBean
+	 * @return String
+	 * @author lffei1
+	 */
+	public String producedTableName(AutoBean autoBean) {
+		String tableName = autoBean.getFactTableName();
+		return tableName;
 	}
 	
 	//表标题
