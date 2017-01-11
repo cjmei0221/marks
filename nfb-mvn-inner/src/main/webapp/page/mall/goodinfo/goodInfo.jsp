@@ -102,7 +102,8 @@
 					<td colspan="3" valign="top" height="150px"><a class="uploadImage"
 						href="#"> <input type="file" onchange="selectImage(this,1);" />添加图片
 					</a>
-						<div id="addMainImg"></div></td>
+						<div id="addMainImg"></div>
+					</td>
 				</tr>
 				<tr>
 					<th>详情页图片</th>
