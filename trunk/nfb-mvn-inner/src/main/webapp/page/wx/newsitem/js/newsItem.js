@@ -31,7 +31,6 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
-		deleteImage("picUrl");
 	});
 
 	// 编辑
@@ -42,7 +41,6 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
-			editImage("picUrl");
 		}
 	});
 
@@ -83,12 +81,18 @@ function formSubmit() {
 		showMsg("表单校验不通过");
 		return;
 	}
+	var imageUrlPut=img.getImageVal("addMainImg");
+	if(imageUrlPut ==''){
+		showMsg("请添加图片");
+		return;
+	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	$('#ff').form('submit', {
 		url : reqUrl,
 		onSubmit : function(param) {
 			param.formStatus = appInfo.formStatus;
+			param.picUrl=imageUrlPut;
 		},
 		success : function(data) {
 			if (typeof data === 'string') {
@@ -229,70 +233,4 @@ function loadList() {
 			}
 		});
 	}
-}
-
-function selectImage(file, eInput) {
-	if (!file.files || !file.files[0]) {
-		return;
-	}
-	var image = '';
-	var reader = new FileReader();
-	reader.onload = function(evt) {
-		// $('.'+eInput).attr("src",evt.target.result);
-		image = evt.target.result;
-		uploadImage(image, eInput);
-	}
-	reader.readAsDataURL(file.files[0]);
-}
-function uploadImage(image, eInput) {
-	$.ajax({
-
-		type : 'POST',
-
-		url : top.window.urlBase + "/fileUpload/image.do",
-
-		data : {
-			image : image
-		},
-
-		async : false,
-
-		dataType : 'json',
-
-		success : function(data) {
-			if (data.retcode == 0) {
-				$("#" + eInput).val(data.fileUrl);
-				$('.' + eInput).attr("src", data.fileUrl)
-				$('.'+eInput).show();
-				showMsg('上传成功');
-
-			} else {
-
-				showMsg('上传失败');
-
-			}
-
-		},
-
-		error : function(err) {
-			alert('网络故障');
-
-		}
-
-	});
-
-}
-
-function deleteImage(eInput){
-	$('#'+eInput).val('');
-	$('#'+eInput+"File").show();
-	$('#'+eInput+"File").val('');
-	$('.'+eInput).attr('src','');
-	$('.'+eInput).hide();
-}
-function editImage(eInput){
-	var path=$('#'+eInput).val();
-	$('#'+eInput+"File").hide();
-	$('.'+eInput).attr('src',path);
-	$('.'+eInput).show();
 }

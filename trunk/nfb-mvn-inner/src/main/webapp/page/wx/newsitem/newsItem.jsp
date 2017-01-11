@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="css/newsItem.css" />
 
 <%@include file="../../include/common.jsp"%>
+<script type="text/javascript" src="../../../js/editImage/image.js"></script>
+
 </head>
 
 <body>
@@ -55,12 +57,12 @@
 				</tr>
 				<tr>
 					<th style="width:80px;height:160px;text-align: right;">图片路径</th>
-					<td valign="top"><input id="picUrl" name="picUrl"
-						class="easyui-validatebox" data-options="required:true"
-						placeholder="图片访问路径" style="width: 200px;" readonly="readonly"> <input
-						type="file" id="picUrlFile" onchange="selectImage(this,'picUrl');"> <img
-						class="picUrl" src="" style="width: 160px; height: 100px;display:none;" /> <input class="picUrl"
-						type="button" onclick="deleteImage('picUrl');" value="删除" style="display:none;"/></td>
+					<td colspan="3" valign="top" height="150px">
+						<a class="uploadImage" href="#"> 
+							<input type="file" onchange="selectImage(this,1);" />添加图片
+						</a>
+						<div id="addMainImg"></div>
+					</td>
 				</tr>
 				<tr>
 					<th style="width:80px;text-align: right;">链接</th>
