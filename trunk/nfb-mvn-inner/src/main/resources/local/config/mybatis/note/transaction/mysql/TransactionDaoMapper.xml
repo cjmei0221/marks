@@ -32,8 +32,8 @@
             #{aheadDays:NUMERIC},
             #{tranTime:VARCHAR},
             #{isAhead:NUMERIC},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
+            now(),
+            now(),
             #{creator:VARCHAR}
 			
 			)
@@ -49,8 +49,7 @@
                 AHEADDAYS = #{aheadDays:NUMERIC},
                 TRANTIME = #{tranTime:VARCHAR},
                 ISAHEAD = #{isAhead:NUMERIC},
-                CREATETIME = #{createtime:TIMESTAMP},
-                UPDATETIME = #{updatetime:TIMESTAMP},
+                UPDATETIME = now(),
                 CREATOR = #{creator:VARCHAR}
 		WHERE
 			ID = #{id}
@@ -91,7 +90,7 @@
  )                        </if>
 
 						
-					
+			    order by  transaction.UPDATETIME DESC		
  	</select>
  	
  	
