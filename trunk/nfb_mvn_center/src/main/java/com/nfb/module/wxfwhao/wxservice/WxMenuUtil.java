@@ -71,7 +71,7 @@ public class WxMenuUtil {
 		json.put("name", menu.getName());
 		json.put("type", menu.getType());
 		json.put("url", menu.getContent());
-		json.put("key", menu.getId());
+		json.put("key", menu.getContent());
 		return json;
 	}
 }
