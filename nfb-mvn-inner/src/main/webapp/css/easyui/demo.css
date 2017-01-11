@@ -44,3 +44,7 @@ h2 {
 .uploadImage{display:inline-block; width:100px; height:30px; background:purple; position:relative; overflow:hidden;border-radius:10px;text-align: center;line-height:30px;text-decoration:none;color: #ffffff;}
 .uploadImage:hover{background:#a06060;}
 .uploadImage > input{position:absolute; right:0; top:0; font-size:100px; opacity:0; filter:alpha(opacity=0);}
+
+#tb td{
+	padding-right: 5px;
+}
