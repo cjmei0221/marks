@@ -81,19 +81,25 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 			 if(attrs.get(i).isPK()){
 				 continue;
 			 }
+			 if(createTime.equals(attrs.get(i).getAttrName().toLowerCase()) || updateTime.equals(attrs.get(i).getAttrName().toLowerCase())){
+				 continue;
+			 }
 			String attrName = attrs.get(i).getAttrName();
 			String desc = attrs.get(i).getAttrDesc();
 			
 			String at=attrs.get(i).getAttrType().getMybatisType();
 			String type="validatebox";
+			String length="maxlength=\""+attrs.get(i).getAttrSize()+"\"";
 			if(AttrType.Integer.getMybatisType().equals(at)){
 				type="numberbox";
-			}else if(AttrType.Timestamp.getMybatisType().equals(at)){
+				length="";
+			}else if(AttrType.Date.getMybatisType().equals(at)){
 				type="datetimebox";
+				length="";
 			}
 			
-			String str = "<tr><th style=\"text-align: right;\">" + desc + "&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id=\"" + attrName + "\" name=\"" + attrName
-					+ "\" class=\"easyui-"+type+"\" data-options=\"required:true\" style=\"width: 200px;\"></td></tr>";
+			String str = "<tr><th style=\"width: 200px;text-align: right;\">" + desc + "&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id=\"" + attrName + "\" name=\"" + attrName
+					+ "\" class=\"easyui-"+type+"\" data-options=\"required:true\" style=\"width: 200px;\" "+length+"></td></tr>";
 			
 			sBuffer.append(str);
 		}

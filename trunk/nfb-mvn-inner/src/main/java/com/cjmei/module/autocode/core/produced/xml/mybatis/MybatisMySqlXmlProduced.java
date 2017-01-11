@@ -176,14 +176,19 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 		for (int i = 0; i < autoAttrs.size(); i++) {
 			AutoAttr autoAttr = autoAttrs.get(i);
 			sBuffer.append(BANK_VALUE_4).append(BANK_VALUE_4).append(BANK_VALUE_4);
-			sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS);
-			sBuffer.append(autoAttr.getAttrName());
-			sBuffer.append(COlON_VALUE).append(autoAttr.getAttrType().getMybatisType());
-			if (i == autoAttrs.size() - 1) {
-				sBuffer.append(RIGHT_BRACKETS).append(ENTER_VALUE);
-			} else {
-				sBuffer.append(RIGHT_BRACKETS).append(COMMA_VALUE).append(ENTER_VALUE);
-			}
+			if(createTime.equals(autoAttr.getAttrName().toLowerCase()) || updateTime.equals(autoAttr.getAttrName().toLowerCase())){
+				sBuffer.append("now()");
+				sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
+			}else{
+				sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS);
+				sBuffer.append(autoAttr.getAttrName());
+				sBuffer.append(COlON_VALUE).append(autoAttr.getAttrType().getMybatisType());
+				if (i == autoAttrs.size() - 1) {
+					sBuffer.append(RIGHT_BRACKETS).append(ENTER_VALUE);
+				} else {
+					sBuffer.append(RIGHT_BRACKETS).append(COMMA_VALUE).append(ENTER_VALUE);
+				}
+			}	
 		}
 
 		return sBuffer.toString();
@@ -201,6 +206,9 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
 		for (int i = 0; i < autoAttrs.size(); i++) {
 			String attrName = autoAttrs.get(i).getAttrName();
+			if (createTime.equals(attrName.toLowerCase())) {
+				continue;
+			}
 			String type = autoAttrs.get(i).getAttrType().getMybatisType();
 			if (!autoAttrs.get(i).isPK()) {
 
@@ -240,14 +248,32 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 	// <if></if>中间的语句
 	public String producedSaveValue(String attrName, String type, AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
-
 		sBuffer.append(BANK_VALUE_4).append(attrName.toUpperCase()).append(BANK_VALUE_1).append(EQUAL_VALUE)
-				.append(BANK_VALUE_1).append(DEFAULT_POUND).append(LEFT_BRACKETS).append(attrName).append(COlON_VALUE)
-				.append(type).append(RIGHT_BRACKETS);
-
+		.append(BANK_VALUE_1);
+		if (updateTime.equals(attrName.toLowerCase())) {
+			sBuffer.append("now()");
+		}else{
+			sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS).append(attrName).append(COlON_VALUE)
+			.append(type).append(RIGHT_BRACKETS);
+		}
 		return sBuffer.toString();
 	}
 
+	public String producedOrderBy(AutoBean autoBean) {
+		StringBuffer sBuffer = new StringBuffer();
+
+		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
+		for (int i = 0; i < autoAttrs.size(); i++) {
+			String attrName = autoAttrs.get(i).getAttrName();
+			if (updateTime.equals(attrName.toLowerCase())) {
+				sBuffer.append(BANK_VALUE_4).append("order by ").append(BANK_VALUE_1);
+				sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE)
+				.append(attrName.toUpperCase()).append(BANK_VALUE_1);
+				sBuffer.append("DESC");
+			}
+		}
+		return sBuffer.toString();
+	}
 	// </if>
 	public String producedEndIfStatement() {
 		StringBuffer sBuffer = new StringBuffer();
@@ -348,7 +374,7 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 		autoAttr.setSeq("SYS_USERS_SEQ");// 不设置则默认为uuid策略
 
 		autoAttr1.setAttrName("penName");
-		autoAttr1.setAttrType(AttrType.Timestamp);
+		autoAttr1.setAttrType(AttrType.Date);
 		autoAttr1.setAttrDesc("笔名");
 		autoAttr1.setAttrSize(50);
 
