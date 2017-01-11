@@ -9,7 +9,7 @@
 	<h1>@{GetCaption}</h1>
 	<p>@{GetDesc}</p>
 	
-	<h2>@{GetCaption} 表 (@{TableName})</h2>
+	<h2>@{GetCaption}表  (@{TableName})</h2>
 	<div id="entity">
 		<table>
 			<thead>
