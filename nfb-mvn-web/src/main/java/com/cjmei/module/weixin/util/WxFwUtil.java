@@ -16,7 +16,6 @@ import com.cjmei.common.domain.Result;
 import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.system.core.listener.DatabaseHelper;
 import com.cjmei.module.weixin.wfhao.pojo.UserGet;
-import com.cjmei.module.weixin.wfhao.pojo.WxMenu;
 import com.cjmei.module.weixin.wfhao.pojo.WxUser;
 import com.cjmei.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
 
