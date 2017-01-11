@@ -8,6 +8,25 @@
 <body>
 	<h1>我的日记</h1>
 	<p>日记功能</p>
+	
+	<h2>我的日记表  (TB_DIARY)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>主键</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>UPDATETIME</td><td>更新时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>3</td><td>CONTENT</td><td>正文</td><td>varchar2</td><td>无</td></tr><tr><td>4</td><td>CREATOR</td><td>创建者</td><td>varchar2</td><td>无</td></tr><tr><td>5</td><td>TIME</td><td>日记时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>6</td><td>TITLE</td><td>标题</td><td>varchar2</td><td>无</td></tr><tr><td>7</td><td>CREATETIME</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	
 	<h2>实体类  (Diary)</h2>
 	<div id="entity">
 		<table>
@@ -21,7 +40,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>1</td><td>ID</td><td>主键</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>updatetime</td><td>更新时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>3</td><td>content</td><td>正文</td><td>varchar2</td><td>无</td></tr><tr><td>4</td><td>creator</td><td>创建者</td><td>varchar2</td><td>无</td></tr><tr><td>5</td><td>time</td><td>日记时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>6</td><td>title</td><td>标题</td><td>varchar2</td><td>无</td></tr><tr><td>7</td><td>createtime</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr>
+				<tr><td>1</td><td>ID</td><td>主键</td><td>String</td><td>无</td></tr><tr><td>2</td><td>updatetime</td><td>更新时间</td><td>Date</td><td>无</td></tr><tr><td>3</td><td>content</td><td>正文</td><td>String</td><td>无</td></tr><tr><td>4</td><td>creator</td><td>创建者</td><td>String</td><td>无</td></tr><tr><td>5</td><td>time</td><td>日记时间</td><td>Date</td><td>无</td></tr><tr><td>6</td><td>title</td><td>标题</td><td>String</td><td>无</td></tr><tr><td>7</td><td>createtime</td><td>创建时间</td><td>Date</td><td>无</td></tr>
 			</tbody>
 		</table>
 	</div>
