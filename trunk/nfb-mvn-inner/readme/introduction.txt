@@ -1,3 +1,0 @@
---2016-09-28
-monitoring
-http://localhost:7080/inner/monitoring
