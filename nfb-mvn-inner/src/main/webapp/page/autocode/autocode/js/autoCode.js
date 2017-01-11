@@ -44,13 +44,14 @@ $(function() {
 
 	// 新增
 	$("#add").on("click", function() {
-		$('#isAutoTr').show();
 		$("#editWin").window({
 			title : "新增"
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
 		$('#tableName').removeAttr("readonly");
+		$('#isAutoTr').hide();
+		$('#isAuto').combobox("setValue",1);
 		initAttrList();
 	});
 
