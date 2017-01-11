@@ -45,64 +45,52 @@
 				<input type="hidden" id="id" name="id">
 				<table>
 					<tr>
-						<th style="text-align: right;">事务类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 200px; text-align: right;">事务类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="tranType" name="tranType"
 							class="easyui-numberbox" data-options="required:true"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
-						<th style="text-align: right;">特殊日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 200px; text-align: right;">特殊日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="tranDate" name="tranDate"
 							class="easyui-datetimebox" data-options="required:true"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
-						<th style="text-align: right;">是否重复&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 200px; text-align: right;">是否重复&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="isRepeat" name="isRepeat"
 							class="easyui-numberbox" data-options="required:true"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
-						<th style="text-align: right;">提醒内容&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 200px; text-align: right;">提醒内容&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="tranContent" name="tranContent"
 							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;"></td>
+							style="width: 200px;" maxlength="250"></td>
 					</tr>
 					<tr>
-						<th style="text-align: right;">提前天数&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 200px; text-align: right;">提前天数&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="aheadDays" name="aheadDays"
 							class="easyui-numberbox" data-options="required:true"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
-						<th style="text-align: right;">提醒时间&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 200px; text-align: right;">提醒时间&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="tranTime" name="tranTime"
 							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;"></td>
+							style="width: 200px;" maxlength="20"></td>
 					</tr>
 					<tr>
-						<th style="text-align: right;">是否提前提醒&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 200px; text-align: right;">是否提前提醒&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="isAhead" name="isAhead"
 							class="easyui-numberbox" data-options="required:true"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
-						<th style="text-align: right;">创建时间&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="createtime" name="createtime"
-							class="easyui-datetimebox" data-options="required:true"
-							style="width: 200px;"></td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">更新时间&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="updatetime" name="updatetime"
-							class="easyui-datetimebox" data-options="required:true"
-							style="width: 200px;"></td>
-					</tr>
-					<tr>
-						<th style="text-align: right;">创建者&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 200px; text-align: right;">创建者&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="creator" name="creator"
 							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;"></td>
+							style="width: 200px;" maxlength="150"></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center"><a id="btnOK"
