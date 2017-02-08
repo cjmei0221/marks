@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.cjmei.common.domain.Result;
+import com.cjmei.module.system.core.data.StaticData;
 import com.cjmei.module.wx.wxmenu.pojo.WxMenu;
 import com.cjmei.module.wx.wxuser.pojo.UserGet;
 import com.cjmei.module.wx.wxuser.pojo.WxUser;
@@ -29,7 +30,8 @@ import net.sf.json.JSONObject;
  */
 public class WxFwUtil {
 	private static String CHARSET = "UTF-8";
-	private static String wx_host_url = "http://127.0.0.1:6080";
+//	private static String wx_host_url = "http://127.0.0.1:6080";
+	private static String wx_host_url = StaticData.getSysConf("wx_host_url");
 	private static Logger logger = Logger.getLogger(WxFwUtil.class);
 	private static WxFwUtil util = null;
 
