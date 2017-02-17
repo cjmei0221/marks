@@ -1,4 +1,4 @@
-package com.cjmei.common.enums;
+package com.marks.common.enums;
 
 /**
  * 枚举
@@ -8,7 +8,7 @@ package com.cjmei.common.enums;
 public class Enums {
 	/**
 	 * 系统用户启禁用
-	 * @author cjmei
+	 * @author marks
 	 *
 	 */
 	public enum SysUserUse{
@@ -31,7 +31,7 @@ public class Enums {
 	
 	/**
 	 * 系统用户启禁用
-	 * @author cjmei
+	 * @author marks
 	 *
 	 */
 	public enum SysUserBindFlag{
@@ -53,7 +53,7 @@ public class Enums {
 	}
 	/**
 	 * 系统用户启禁用
-	 * @author cjmei
+	 * @author marks
 	 *
 	 */
 	public enum SysUserType{
@@ -74,7 +74,7 @@ public class Enums {
 	}
 	/**
 	 * 机构类型
-	 * @author cjmei
+	 * @author marks
 	 *
 	 */
 	public enum Shop{
@@ -98,7 +98,7 @@ public class Enums {
 	 * 领券渠道
 	 * File Name: com.grgbanking.gbot.enums.Enums.java
 	 * 
-	 * @author:cjmei@grgbanking.com
+	 * @author:marks@grgbanking.com
 	 * @Date:2016年8月25日下午4:42:38
 	 * @see (optional) 
 	 * @Copyright (c) 2016, 广电运通信息科技有限公司  All Rights Reserved.

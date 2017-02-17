@@ -1,4 +1,4 @@
-package com.cjmei.common.util;
+package com.marks.common.util;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -18,10 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cjmei.common.annotation.JsonObject;
-import com.cjmei.common.annotation.JsonObjectProperty;
-import com.cjmei.common.annotation.JsonProperty;
-import com.cjmei.common.domain.Result;
+import com.marks.common.annotation.JsonObject;
+import com.marks.common.annotation.JsonObjectProperty;
+import com.marks.common.annotation.JsonProperty;
+import com.marks.common.domain.Result;
 
 /**
  * json工具类

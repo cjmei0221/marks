@@ -1,4 +1,4 @@
-package com.cjmei.module.note.gains.dao;
+package com.marks.module.note.gains.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.note.gains.pojo.Gains;
+import com.marks.module.note.gains.pojo.Gains;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface GainsDao {

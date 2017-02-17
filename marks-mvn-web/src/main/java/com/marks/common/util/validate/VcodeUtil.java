@@ -1,4 +1,4 @@
-package com.cjmei.common.util.validate;
+package com.marks.common.util.validate;
 
 import javax.servlet.http.HttpServletRequest;
 

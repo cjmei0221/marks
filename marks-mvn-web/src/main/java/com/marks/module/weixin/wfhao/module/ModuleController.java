@@ -1,9 +1,9 @@
-package com.cjmei.module.weixin.wfhao.module;
+package com.marks.module.weixin.wfhao.module;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 业务逻辑模块处理控制器

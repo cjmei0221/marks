@@ -1,16 +1,16 @@
-package com.cjmei.module.weixin.wfhao.module.impl;
+package com.marks.module.weixin.wfhao.module.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cjmei.common.util.Constants;
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.weixin.wfhao.dao.WxAutoReplayDao;
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.ArticleResponse;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
-import com.cjmei.module.weixin.wfhao.module.Module;
-import com.cjmei.module.weixin.wfhao.pojo.NewsItem;
+import com.marks.common.util.Constants;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.weixin.wfhao.dao.WxAutoReplayDao;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.ArticleResponse;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.module.Module;
+import com.marks.module.weixin.wfhao.pojo.NewsItem;
 
 public class NewItemResponseModule extends Module {
 	

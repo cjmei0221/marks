@@ -1,4 +1,4 @@
-package com.cjmei.module.mall.goodinfo.dao;
+package com.marks.module.mall.goodinfo.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
-import com.cjmei.module.mall.goodinfo.pojo.GoodInfo;
+import com.marks.module.mall.goodinfo.pojo.GoodInfo;
 
 public interface GoodInfoDao {
 

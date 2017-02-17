@@ -1,23 +1,23 @@
-package com.cjmei.module.system.core.data;
+package com.marks.module.system.core.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.util.Constants;
-import com.cjmei.module.system.sys.pojo.DataDir;
-import com.cjmei.module.system.sys.pojo.SysConf;
-import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
+import com.marks.common.util.Constants;
+import com.marks.module.system.sys.pojo.DataDir;
+import com.marks.module.system.sys.pojo.SysConf;
+import com.marks.module.weixin.wfhao.pojo.WxAccount;
 
 /**
  * 
  * File Name: com.grgbanking.inner.data.StaticData.java
  * 
- * @author:cjmei0221@163.com
+ * @author:marks0221@163.com
  * @Date:2016年7月26日上午9:02:19
  * @see (optional) 
- * @Copyright (c) 2016, cjmei  All Rights Reserved.
+ * @Copyright (c) 2016, marks  All Rights Reserved.
  */
 public class StaticData {
 	private static Map<String, String> paramsMap = new HashMap<String, String>();

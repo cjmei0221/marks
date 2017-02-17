@@ -1,4 +1,4 @@
-package com.cjmei.module.system.core.interceptor;
+package com.marks.module.system.core.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.system.login.pojo.SysUser;
-import com.cjmei.module.system.login.util.LoginUtil;
+import com.marks.common.domain.Result;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.system.login.pojo.SysUser;
+import com.marks.module.system.login.util.LoginUtil;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log= Logger.getLogger(LoginInterceptor.class);

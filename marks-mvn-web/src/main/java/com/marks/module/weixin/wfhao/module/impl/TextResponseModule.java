@@ -1,8 +1,8 @@
-package com.cjmei.module.weixin.wfhao.module.impl;
+package com.marks.module.weixin.wfhao.module.impl;
 
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
-import com.cjmei.module.weixin.wfhao.module.Module;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.module.Module;
 
 /**
  * 回复文本消息

@@ -1,4 +1,4 @@
-package com.cjmei.module.system.core.interceptor;
+package com.marks.module.system.core.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.weixin.wfhao.pojo.WxUser;
-import com.cjmei.module.weixin.wfhao.util.WxUtil;
+import com.marks.common.domain.Result;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.weixin.wfhao.pojo.WxUser;
+import com.marks.module.weixin.wfhao.util.WxUtil;
 
 public class WxUserInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log= Logger.getLogger(WxUserInterceptor.class);

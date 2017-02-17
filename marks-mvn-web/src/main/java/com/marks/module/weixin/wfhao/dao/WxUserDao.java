@@ -1,7 +1,7 @@
-package com.cjmei.module.weixin.wfhao.dao;
+package com.marks.module.weixin.wfhao.dao;
 
 
-import com.cjmei.module.weixin.wfhao.pojo.WxUser;
+import com.marks.module.weixin.wfhao.pojo.WxUser;
 
 public interface WxUserDao {
 

@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.mp;
+package com.marks.module.weixin.mp;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

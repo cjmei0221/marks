@@ -1,4 +1,4 @@
-package com.cjmei.common.util.code;
+package com.marks.common.util.code;
 
 public class Code {
 	

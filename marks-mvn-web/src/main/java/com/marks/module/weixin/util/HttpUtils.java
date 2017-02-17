@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.util;
+package com.marks.module.weixin.util;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

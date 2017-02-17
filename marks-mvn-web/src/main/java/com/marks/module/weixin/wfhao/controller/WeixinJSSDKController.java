@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.controller;
+package com.marks.module.weixin.wfhao.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,13 +7,13 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.weixin.mp.SHAUtil;
-import com.cjmei.module.weixin.util.WxFwUtil;
-import com.cjmei.module.weixin.wfhao.util.WxUtil;
+import com.marks.common.domain.Result;
+import com.marks.common.util.IDUtil;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.weixin.mp.SHAUtil;
+import com.marks.module.weixin.util.WxFwUtil;
+import com.marks.module.weixin.wfhao.util.WxUtil;
 
 @Controller
 public class WeixinJSSDKController {

@@ -1,9 +1,9 @@
-package com.cjmei.module.weixin.wfhao.module;
+package com.marks.module.weixin.wfhao.module;
 
 import java.io.Serializable;
 
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 业务逻辑模块抽象类，所有功能模块必须实现

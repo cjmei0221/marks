@@ -1,12 +1,12 @@
-package com.cjmei.module.weixin.wfhao.threadPool;
+package com.marks.module.weixin.wfhao.threadPool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.weixin.util.WxFwUtil;
-import com.cjmei.module.weixin.wfhao.pojo.WxUser;
-import com.cjmei.module.weixin.wfhao.service.WeixinAccountService;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.weixin.util.WxFwUtil;
+import com.marks.module.weixin.wfhao.pojo.WxUser;
+import com.marks.module.weixin.wfhao.service.WeixinAccountService;
 
 public class UpdateWxUserhreadPool {
 	private static ExecutorService pool;

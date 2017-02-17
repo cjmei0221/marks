@@ -1,10 +1,10 @@
-package com.cjmei.module.note.diary.dao;
+package com.marks.module.note.diary.dao;
 
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.module.note.diary.pojo.Diary;
+import com.marks.module.note.diary.pojo.Diary;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface DiaryDao {

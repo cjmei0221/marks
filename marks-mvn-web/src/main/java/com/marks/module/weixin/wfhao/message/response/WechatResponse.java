@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cjmei.module.weixin.wfhao.message.response;
+package com.marks.module.weixin.wfhao.message.response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.cjmei.module.weixin.event.MType;
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.event.MType;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
 
 /**
  * 用于回复的基本消息类型

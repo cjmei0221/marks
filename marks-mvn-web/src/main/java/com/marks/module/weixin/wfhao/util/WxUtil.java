@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.util;
+package com.marks.module.weixin.wfhao.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
-import com.cjmei.common.util.properties.PropsUtil;
-import com.cjmei.module.runModel.RunModel;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.weixin.util.HttpUtils;
-import com.cjmei.module.weixin.util.JsonResult;
-import com.cjmei.module.weixin.wfhao.config.WxFwConfig;
-import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
-import com.cjmei.module.weixin.wfhao.pojo.WxUser;
+import com.marks.common.util.properties.PropsUtil;
+import com.marks.module.runModel.RunModel;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.weixin.util.HttpUtils;
+import com.marks.module.weixin.util.JsonResult;
+import com.marks.module.weixin.wfhao.config.WxFwConfig;
+import com.marks.module.weixin.wfhao.pojo.WxAccount;
+import com.marks.module.weixin.wfhao.pojo.WxUser;
 
 public class WxUtil {
 	public static WxUtil util=null;

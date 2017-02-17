@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cjmei.module.weixin.wfhao.message.request;
+package com.marks.module.weixin.wfhao.message.request;
 
 import javax.xml.bind.annotation.XmlElement;
 

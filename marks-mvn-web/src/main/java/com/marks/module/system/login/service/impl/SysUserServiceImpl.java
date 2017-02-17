@@ -1,8 +1,8 @@
-package com.cjmei.module.system.login.service.impl;
+package com.marks.module.system.login.service.impl;
 
-import com.cjmei.module.system.login.dao.SysUserDao;
-import com.cjmei.module.system.login.pojo.SysUser;
-import com.cjmei.module.system.login.service.SysUserService;
+import com.marks.module.system.login.dao.SysUserDao;
+import com.marks.module.system.login.pojo.SysUser;
+import com.marks.module.system.login.service.SysUserService;
 
 public class SysUserServiceImpl implements SysUserService {
 

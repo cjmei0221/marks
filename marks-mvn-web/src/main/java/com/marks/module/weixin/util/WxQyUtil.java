@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.util;
+package com.marks.module.weixin.util;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -9,12 +9,12 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.weixin.qyhao.pojo.Department;
-import com.cjmei.module.weixin.qyhao.pojo.EnterpriseUser;
-import com.cjmei.module.weixin.qyhao.pojo.QyHaoMsg;
-import com.cjmei.module.weixin.qyhao.pojo.UidToOpenid;
+import com.marks.common.domain.Result;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.weixin.qyhao.pojo.Department;
+import com.marks.module.weixin.qyhao.pojo.EnterpriseUser;
+import com.marks.module.weixin.qyhao.pojo.QyHaoMsg;
+import com.marks.module.weixin.qyhao.pojo.UidToOpenid;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

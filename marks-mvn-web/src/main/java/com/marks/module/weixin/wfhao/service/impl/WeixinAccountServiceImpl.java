@@ -1,9 +1,9 @@
-package com.cjmei.module.weixin.wfhao.service.impl;
+package com.marks.module.weixin.wfhao.service.impl;
 
-import com.cjmei.module.weixin.wfhao.dao.WeixinAccountDao;
-import com.cjmei.module.weixin.wfhao.dao.WxUserDao;
-import com.cjmei.module.weixin.wfhao.pojo.WxUser;
-import com.cjmei.module.weixin.wfhao.service.WeixinAccountService;
+import com.marks.module.weixin.wfhao.dao.WeixinAccountDao;
+import com.marks.module.weixin.wfhao.dao.WxUserDao;
+import com.marks.module.weixin.wfhao.pojo.WxUser;
+import com.marks.module.weixin.wfhao.service.WeixinAccountService;
 
 public class WeixinAccountServiceImpl implements WeixinAccountService {
 

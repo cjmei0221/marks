@@ -1,10 +1,10 @@
-package com.cjmei.module.system.sys.dao;
+package com.marks.module.system.sys.dao;
 
 import java.util.List;
 
-import com.cjmei.module.system.sys.pojo.DataDir;
-import com.cjmei.module.system.sys.pojo.SysConf;
-import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
+import com.marks.module.system.sys.pojo.DataDir;
+import com.marks.module.system.sys.pojo.SysConf;
+import com.marks.module.weixin.wfhao.pojo.WxAccount;
 
 public interface LoadDataDao {
 

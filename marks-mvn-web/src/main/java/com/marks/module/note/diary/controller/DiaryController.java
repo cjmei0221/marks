@@ -1,4 +1,4 @@
-package com.cjmei.module.note.diary.controller;
+package com.marks.module.note.diary.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,20 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.PaginationResult;
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.enums.Enums;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.code.Code;
-import com.cjmei.common.util.encrypt.EncryptUtil;
-import com.cjmei.module.note.diary.pojo.Diary;
-import com.cjmei.module.note.diary.service.DiaryService;
-import com.cjmei.module.system.login.pojo.SysUser;
-import com.cjmei.module.system.login.service.SysUserService;
-import com.cjmei.module.system.login.util.LoginUtil;
-import com.cjmei.module.system.sys.controller.SupportContorller;
+import com.marks.common.domain.PaginationResult;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.common.enums.Enums;
+import com.marks.common.util.IDUtil;
+import com.marks.common.util.JsonUtil;
+import com.marks.common.util.code.Code;
+import com.marks.common.util.encrypt.EncryptUtil;
+import com.marks.module.note.diary.pojo.Diary;
+import com.marks.module.note.diary.service.DiaryService;
+import com.marks.module.system.login.pojo.SysUser;
+import com.marks.module.system.login.service.SysUserService;
+import com.marks.module.system.login.util.LoginUtil;
+import com.marks.module.system.sys.controller.SupportContorller;
 
 @Controller
 public class DiaryController extends SupportContorller{

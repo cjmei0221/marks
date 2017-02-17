@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.qyhao.pojo;
+package com.marks.module.weixin.qyhao.pojo;
 
 public class UidToOpenid {
 	private String appid;

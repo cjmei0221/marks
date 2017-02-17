@@ -1,4 +1,4 @@
-package com.cjmei.common.util.properties;
+package com.marks.common.util.properties;
 
 import java.io.IOException;
 import java.io.InputStream;

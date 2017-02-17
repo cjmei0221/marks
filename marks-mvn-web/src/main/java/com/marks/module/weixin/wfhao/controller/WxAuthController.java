@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.controller;
+package com.marks.module.weixin.wfhao.controller;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.module.runModel.RunModel;
-import com.cjmei.module.weixin.wfhao.config.PageConfigUtil;
-import com.cjmei.module.weixin.wfhao.pojo.WxUser;
-import com.cjmei.module.weixin.wfhao.service.WeixinAccountService;
-import com.cjmei.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
-import com.cjmei.module.weixin.wfhao.util.WxUtil;
+import com.marks.common.domain.Result;
+import com.marks.module.runModel.RunModel;
+import com.marks.module.weixin.wfhao.config.PageConfigUtil;
+import com.marks.module.weixin.wfhao.pojo.WxUser;
+import com.marks.module.weixin.wfhao.service.WeixinAccountService;
+import com.marks.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.marks.module.weixin.wfhao.util.WxUtil;
 
 @Controller
 public class WxAuthController {

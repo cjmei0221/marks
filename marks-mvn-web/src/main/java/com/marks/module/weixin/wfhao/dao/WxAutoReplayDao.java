@@ -1,11 +1,11 @@
-package com.cjmei.module.weixin.wfhao.dao;
+package com.marks.module.weixin.wfhao.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.weixin.wfhao.pojo.NewsItem;
-import com.cjmei.module.weixin.wfhao.pojo.WxAutoReplay;
+import com.marks.module.weixin.wfhao.pojo.NewsItem;
+import com.marks.module.weixin.wfhao.pojo.WxAutoReplay;
 
 public interface WxAutoReplayDao {
 

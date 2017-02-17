@@ -1,8 +1,8 @@
-package com.cjmei.module.system.sys.pojo;
+package com.marks.module.system.sys.pojo;
 
 import java.util.Date;
 
-import com.cjmei.common.util.IDUtil;
+import com.marks.common.util.IDUtil;
 
 public class FrontLog {
 

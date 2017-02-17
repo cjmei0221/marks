@@ -1,4 +1,4 @@
-package com.cjmei.module.system.login.controller;
+package com.marks.module.system.login.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,15 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.enums.Enums;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.code.Code;
-import com.cjmei.common.util.encrypt.EncryptUtil;
-import com.cjmei.common.util.validate.VcodeUtil;
-import com.cjmei.module.system.login.pojo.SysUser;
-import com.cjmei.module.system.login.service.SysUserService;
-import com.cjmei.module.system.login.util.LoginUtil;
+import com.marks.common.domain.Result;
+import com.marks.common.enums.Enums;
+import com.marks.common.util.JsonUtil;
+import com.marks.common.util.code.Code;
+import com.marks.common.util.encrypt.EncryptUtil;
+import com.marks.common.util.validate.VcodeUtil;
+import com.marks.module.system.login.pojo.SysUser;
+import com.marks.module.system.login.service.SysUserService;
+import com.marks.module.system.login.util.LoginUtil;
 
 @Controller
 public class LoginController {

@@ -1,15 +1,15 @@
-package com.cjmei.module.note.question.service.impl;
+package com.marks.module.note.question.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.note.question.pojo.Question;
-import com.cjmei.module.note.question.dao.QuestionDao;
-import com.cjmei.module.note.question.service.QuestionService;
+import com.marks.module.note.question.pojo.Question;
+import com.marks.module.note.question.dao.QuestionDao;
+import com.marks.module.note.question.service.QuestionService;
 
 public class QuestionServiceImpl implements QuestionService{
    

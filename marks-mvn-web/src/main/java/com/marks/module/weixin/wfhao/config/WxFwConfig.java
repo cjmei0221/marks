@@ -1,6 +1,6 @@
-package com.cjmei.module.weixin.wfhao.config;
+package com.marks.module.weixin.wfhao.config;
 
-import com.cjmei.common.util.properties.PropsUtil;
+import com.marks.common.util.properties.PropsUtil;
 
 public class WxFwConfig {
 

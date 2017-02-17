@@ -1,12 +1,12 @@
-package com.cjmei.module.note.vipinfo.service;
+package com.marks.module.note.vipinfo.service;
 
 
-import com.cjmei.module.note.vipinfo.pojo.VipInfo;
+import com.marks.module.note.vipinfo.pojo.VipInfo;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface VipInfoService{
 

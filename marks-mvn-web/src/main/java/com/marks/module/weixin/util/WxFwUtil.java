@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.util;
+package com.marks.module.weixin.util;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -12,12 +12,12 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.weixin.wfhao.pojo.UserGet;
-import com.cjmei.module.weixin.wfhao.pojo.WxUser;
-import com.cjmei.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.marks.common.domain.Result;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.weixin.wfhao.pojo.UserGet;
+import com.marks.module.weixin.wfhao.pojo.WxUser;
+import com.marks.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -211,7 +211,7 @@ public class WxFwUtil {
 	 * @param to_groupid
 	 * @return
 	 * @throws Exception
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	public Result moveOpenidtoGroup(String accountid, String openid, String to_groupid) throws Exception {

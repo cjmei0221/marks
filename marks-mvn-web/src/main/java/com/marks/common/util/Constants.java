@@ -1,4 +1,4 @@
-package com.cjmei.common.util;
+package com.marks.common.util;
 
 public class Constants {
 

@@ -1,10 +1,10 @@
-package com.cjmei.module.weixin.wfhao.message;
+package com.marks.module.weixin.wfhao.message;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.weixin.util.JaxbParser;
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.util.JaxbParser;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 微信服务器发送的XML到对象的转化

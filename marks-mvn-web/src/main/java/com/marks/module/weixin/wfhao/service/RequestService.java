@@ -1,9 +1,9 @@
-package com.cjmei.module.weixin.wfhao.service;
+package com.marks.module.weixin.wfhao.service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
 
 /**
  * 请求消息对象服务接口
