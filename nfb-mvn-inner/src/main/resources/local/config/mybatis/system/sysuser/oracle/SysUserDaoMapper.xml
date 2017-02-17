@@ -37,7 +37,7 @@
 		sysuser.CREATOR,
 		sysuser.COMPANYID,
 		sysuser.TOKEN,
-		sysuser.USERTYPE
+		sysuser.ROLEID
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -50,7 +50,7 @@
 		#{creator:VARCHAR},
 		#{companyId:VARCHAR},
 		#{token:VARCHAR},
-		#{userType:VARCHAR}
+		#{roleid:VARCHAR}
 
 		)
 	</insert>
@@ -64,7 +64,8 @@
 		sysuser.UPDATETIME = sysdate,
 		sysuser.COMPANYID =
 		#{companyId:VARCHAR},
-		sysuser.TOKEN = #{token:VARCHAR}
+		sysuser.TOKEN = #{token:VARCHAR},
+		sysuser.ROLEID=#{roleid:VARCHAR}
 		WHERE
 		sysuser.USERID
 		= #{userid}
