@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="questionService" class="com.cjmei.module.note.question.service.impl.QuestionServiceImpl">
+	<bean id="questionService" class="com.marks.module.note.question.service.impl.QuestionServiceImpl">
 		<property name="questionDao" ref="questionDao"></property>
 	</bean>
 	<bean id="questionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.note.question.dao.QuestionDao"></property>
+		<property name="mapperInterface" value="com.marks.module.note.question.dao.QuestionDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

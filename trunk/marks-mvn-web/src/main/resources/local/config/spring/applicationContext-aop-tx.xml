@@ -32,7 +32,7 @@
 		<!-- spring集成 -->
 		<aop:aspectj-autoproxy proxy-target-class="true" />      
 		<context:annotation-config/>
-		<context:component-scan base-package="com.cjmei.module"  />
+		<context:component-scan base-package="com.marks.module"  />
 		
 		<tx:annotation-driven transaction-manager="transactionManager"/>
 		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
@@ -53,7 +53,7 @@
 	    </tx:advice>  
 	
 		<aop:config>   
-	        <aop:pointcut id="txPointcut" expression="execution(* com.cjmei.module.*.*.service.*Service.*(..))" />  
+	        <aop:pointcut id="txPointcut" expression="execution(* com.marks.module.*.*.service.*Service.*(..))" />  
 	        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />  
 	    </aop:config>
 </beans>
