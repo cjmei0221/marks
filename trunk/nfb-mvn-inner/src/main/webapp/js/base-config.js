@@ -12,7 +12,7 @@ $(document).on('ajaxStart', function(){
     	 var _data = $.parseJSON(xhr.responseText);
          //_data = xhr.response;
         if (_data.retcode == -1000) {
-    		alert("您未登录,请重新登录！")
+//    		alert("您未登录,请重新登录！")
     		top.location.replace(window.urlBase + "/login.html");
     		return false;
     	}
