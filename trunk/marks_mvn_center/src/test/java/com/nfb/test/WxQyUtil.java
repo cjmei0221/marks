@@ -9,10 +9,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.nfb.module.wxqyhao.entity.Department;
-import com.nfb.module.wxqyhao.entity.EnterpriseUser;
-import com.nfb.module.wxqyhao.entity.QyHaoMsg;
-import com.nfb.module.wxqyhao.entity.UidToOpenid;
+import com.marks.module.wxqyhao.common.entity.Department;
+import com.marks.module.wxqyhao.common.entity.EnterpriseUser;
+import com.marks.module.wxqyhao.common.entity.QyHaoMsg;
+import com.marks.module.wxqyhao.common.entity.UidToOpenid;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
