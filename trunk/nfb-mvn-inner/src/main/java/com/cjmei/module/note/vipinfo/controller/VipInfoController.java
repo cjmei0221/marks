@@ -206,7 +206,7 @@ public class VipInfoController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("companyId", "Marks");
+			param.put("companyId",admin.getCompanyId());
 			PojoDomain<VipInfo> list = vipInfoService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
