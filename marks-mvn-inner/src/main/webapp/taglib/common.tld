@@ -11,7 +11,7 @@
 	<!-- wt:button -->
 	<tag>
 		<name>button</name>
-		<tagclass>com.cjmei.common.util.tag.ButtonTag</tagclass>
+		<tagclass>com.marks.common.util.tag.ButtonTag</tagclass>
 	</tag>
 
 </taglib>

@@ -114,5 +114,7 @@ public class SysRole implements Serializable{
 		this.companyId = companyId;
 	}
 	
-	
+	public String getRoleFullName() {
+		return this.getRolename()+" ( "+this.getCompanyName()+" )";
+	}
 }

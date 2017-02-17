@@ -49,7 +49,7 @@
 			<form id="ff" name="ff" method="post">
 				<input type="hidden" id="roleid" name="roleid">
 				<table>
-					<tr>
+					<tr id="userTypeTr">
 						<th align="right" style="width: 100px">英文缩写</th>
 						<td><input id="userType" name="userType"
 							class="easyui-validatebox" data-options="required:true"
@@ -75,11 +75,11 @@
 								<option value="0">否</option>
 						</select></td>
 					</tr>
-					<tr>
+					<tr id="companyIdTr">
 						<th align="right" style="width: 100px">公司</th>
 						<td><input id="companyId" name="companyId" class="easyui-combobox"
 							data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/orgInfo/combo.do',required:true"
-							style="width: 200px" data-options="required:true"></td>
+							style="width: 200px"></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center"><input

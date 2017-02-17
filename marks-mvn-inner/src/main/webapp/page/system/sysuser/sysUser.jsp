@@ -24,7 +24,7 @@
 				<tr>
 					<td>用户类型
 						<ul id="s_role" name="s_role" class="easyui-combobox"
-							data-options="valueField:'roleid',textField:'rolename',url:'<%=request.getContextPath()%>/sysRole/combo.do'"
+							data-options="valueField:'roleid',textField:'roleFullName',url:'<%=request.getContextPath()%>/sysRole/combo.do'"
 							style="width: 200px"></ul>
 					</td>
 					<td>所属组织
@@ -60,7 +60,7 @@
 					<th>用户类型</th>
 					<td><input
 						id="roleid" name="roleid" class="easyui-combobox"
-						data-options="required:true,valueField:'roleid',textField:'rolename',url:'<%=request.getContextPath()%>/sysRole/combo.do'"
+						data-options="required:true,valueField:'roleid',textField:'roleFullName',url:'<%=request.getContextPath()%>/sysRole/combo.do'"
 						style="width: 175px"></td>
 				</tr>
 				<tr>
