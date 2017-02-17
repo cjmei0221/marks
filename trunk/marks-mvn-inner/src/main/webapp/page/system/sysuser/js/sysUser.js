@@ -21,8 +21,7 @@ var appInfo = {
 $(function() {
 	// 加载列表
 	loadList();
-	// 加载角色信息
-	loadRoleList();
+	
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
@@ -127,6 +126,8 @@ $(function() {
 			success : function(data, status, xhr) {
 				if (data.retcode == 0) {
 					$("#companyId").val(data.sysRole.companyId);
+					// 加载角色信息
+					loadRoleList(data.sysRole.companyId);
 				} 
 			}
 		});
@@ -254,7 +255,7 @@ function loadList() {
 			}
 		}, {
 			title : '用户类型',
-			field : 'rolenamesStr',
+			field : 'rolename',
 			width : 100,
 			align : "center"
 		}, {
@@ -338,8 +339,8 @@ function loadList() {
 	}
 }
 
-function loadRoleList() {
-	var roleUrl=top.window.urlBase + '/orgInfo/list.do';
+function loadRoleList(id) {
+	var roleUrl=top.window.urlBase + '/orgInfo/list.do?parentId='+id;
 	$('#roleList').treegrid(
 			{
 				url : roleUrl,

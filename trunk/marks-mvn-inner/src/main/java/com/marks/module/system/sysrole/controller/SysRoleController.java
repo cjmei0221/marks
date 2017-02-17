@@ -277,10 +277,7 @@ public class SysRoleController extends SupportContorller {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		int lvl = admin.getRole().getLvl();
 		List<TreeVo> list = new ArrayList<TreeVo>();
-		TreeVo vo = new TreeVo();
-		vo.setId("");
-		vo.setText("请选择");
-		list.add(vo);
+		TreeVo vo =null;
 		for (int i = lvl; i < 10; i++) {
 			vo = new TreeVo();
 			vo.setId(i + "");

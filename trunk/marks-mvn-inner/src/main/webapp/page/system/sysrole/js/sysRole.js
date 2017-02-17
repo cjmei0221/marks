@@ -34,6 +34,8 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
+		$('#userTypeTr').show();
+		$('#companyIdTr').show();
 	});
 
 	// 编辑
@@ -44,6 +46,8 @@ $(function() {
 			}).window("open");
 			appInfo.formStatus = "edit";
 			$('#ff').form('load', appInfo.selectedData);
+			$('#userTypeTr').hide();
+			$('#companyIdTr').hide();
 		}
 	});
 
@@ -140,6 +144,11 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
+			title : '组织名称',
+			field : 'companyName',
+			width : 100,
+			align : "center"
+		}, {
 			title : '英文缩写',
 			field : 'userType',
 			width : 100,
@@ -147,11 +156,6 @@ function loadList() {
 		}, {
 			title : '角色名称',
 			field : 'rolename',
-			width : 100,
-			align : "center"
-		}, {
-			title : '组织名称',
-			field : 'companyName',
 			width : 100,
 			align : "center"
 		}, {
