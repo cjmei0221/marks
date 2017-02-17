@@ -1,4 +1,4 @@
-package com.nfb.common.util;
+package com.marks.common.util;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -22,9 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.nfb.common.annotation.JsonObject;
-import com.nfb.common.annotation.JsonObjectProperty;
-import com.nfb.common.annotation.JsonProperty;
+import com.marks.common.annotation.JsonObject;
+import com.marks.common.annotation.JsonObjectProperty;
+import com.marks.common.annotation.JsonProperty;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 /**

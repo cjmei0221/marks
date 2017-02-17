@@ -6,7 +6,7 @@
  * 修改记录：
  * 
  */
-package com.nfb.common.util;
+package com.marks.common.util;
 
 import java.io.Serializable;
 
