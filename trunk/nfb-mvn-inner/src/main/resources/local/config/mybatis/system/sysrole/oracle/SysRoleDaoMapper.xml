@@ -157,12 +157,8 @@
 		tsrf.roleid=#{roleId:VARCHAR}
 		) t2 on t2.funcid = vsrf.funcid
 		where 1=1
-		<if test="list != null">
-			AND vsrf.ROLEID IN
-			<foreach collection="list" item="ids" index="index" open="("
-				separator="," close=")">
-				#{ids.roleid}
-			</foreach>
+		<if test="loginUserRoleId != null">
+			AND vsrf.ROLEID =#{loginUserRoleId}
 		</if>
 		order by vsrf.sort
 	</select>
@@ -173,6 +169,6 @@
 	</select>
 	<select id="countUserByRoleid" resultType="int">
 		select count(1) from
-		tb_sys_user_role t where t.roleid=#{roleId}
+		tb_sys_user t where t.roleid=#{roleId}
 	</select>
 </mapper>

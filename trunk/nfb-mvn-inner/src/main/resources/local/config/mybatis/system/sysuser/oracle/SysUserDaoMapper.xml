@@ -10,20 +10,9 @@
 	<select id="findByUserid" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
 		select distinct
 		u.*,
-		sur.roleidsStr,
-		sur.rolenamesStr
-		from TB_SYS_USER u join (
-		select
-		t.userid,
-		listagg(t.roleid, ',') within group(order by t.roleid)
-		over(partition by t.userid)
-		roleidsStr,
-		listagg(tsr.rolename, ',')
-		within group(order by t.roleid) over(partition by t.userid)
-		rolenamesStr
-		from tb_sys_user_role t
-		join tb_sys_role tsr on t.roleid =
-		tsr.roleid) sur on u.userid=sur.userid
+		tsr.rolename
+		from TB_SYS_USER u 
+		join tb_sys_role tsr on u.roleid = tsr.roleid
 		where u.USERID =#{userid}
 	</select>
 
@@ -118,33 +107,6 @@
 		DELETE FROM TB_SYS_USER
 		sysuser WHERE sysuser.USERID=#{userid}
 	</delete>
-
-	<delete id="deleteSysUserRole" parameterType="String">
-		DELETE FROM
-		tb_sys_user_role t WHERE t.USERID=#{userid}
-	</delete>
-	<insert id="saveSysUserRole" parameterType="com.cjmei.module.system.sys.pojo.SysUserRole">
-
-		INSERT INTO
-		TB_SYS_USER_ROLE (
-		USERID,
-		ROLEID,
-		CREATETIME,
-		UPDATETIME,
-		CREATOR
-
-		)
-		VALUES(
-		#{userid:VARCHAR},
-		#{roleid:VARCHAR},
-		sysdate,
-		sysdate,
-
-		#{creator:VARCHAR}
-
-		)
-	</insert>
-
 	<select id="findAll" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
 		SELECT * FROM TB_SYS_USER
 	</select>
@@ -160,25 +122,11 @@
 	<select id="list" resultType="com.cjmei.module.system.sysuser.pojo.SysUser"
 		parameterType="java.util.Map">
 		SELECT distinct sysuser.*,
-		rtb.roleidsStr,
-		rtb.rolenamesStr,
+		tsr.rolename,
 		orgtb.orgidsStr,
 		orgtb.orgidNamesStr
 		FROM TB_SYS_USER sysuser
-		join
-		(select tsur.userid, listagg(tsr.roleid, ',') within
-		group(
-		order by
-		tsr.roleid) over(partition by tsur.userid) as roleidsStr,
-		listagg(tsr.rolename, ',') within
-		group(
-		order by tsr.rolename)
-		over(partition by tsur.userid) as rolenamesStr
-		from tb_sys_user_role
-		tsur
-		join tb_sys_role tsr on tsur.roleid = tsr.roleid
-		where
-		tsr.showflag=1) rtb on sysuser.userid = rtb.userid
+		join tb_sys_role tsr on ( sysuser.roleid = tsr.roleid and tsr.showflag=1)
 		join (select
 		tsuo.userid, listagg(toi.orgid, ',') within
 		group(
@@ -240,7 +188,7 @@
 			and orgtb.orgidsStr like '%${sorgid}%'
 		</if>
 		<if test="s_role !=null and s_role != ''">
-			and rtb.roleidsStr like '%${s_role}%'
+			and sysuser.roleid like '%${s_role}%'
 		</if>
 		order by sysuser.UPDATETIME desc
 	</select>

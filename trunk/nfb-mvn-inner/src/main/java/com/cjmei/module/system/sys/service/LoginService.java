@@ -25,8 +25,6 @@ public interface LoginService {
 
 	List<SysOperate> getSysOperate(String menuid,SysUser user);
 
-	List<SysRole> getUserRoleList(String userid);
-
 	List<String> getOrgidBySysUser(List<OrgInfo> orgInfo);
 
 	List<OrgInfo> getOrgInfoListByUserid(String userid);

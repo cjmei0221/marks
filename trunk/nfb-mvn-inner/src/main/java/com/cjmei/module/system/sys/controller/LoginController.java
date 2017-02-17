@@ -23,6 +23,7 @@ import com.cjmei.module.system.orginfo.pojo.OrgInfo;
 import com.cjmei.module.system.sys.pojo.SysMenu;
 import com.cjmei.module.system.sys.service.LoginService;
 import com.cjmei.module.system.sysrole.pojo.SysRole;
+import com.cjmei.module.system.sysrole.service.SysRoleService;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.cjmei.module.wx.wxaccount.service.WxAccountService;
 
@@ -40,6 +41,9 @@ public class LoginController {
 	private LoginService loginService;
 	@Autowired
 	private WxAccountService wxAccountService;
+	
+	@Autowired
+	private SysRoleService sysRoleService;
 
 	/**
 	 * 登录 queryDepartmentList:描述 <br/>
@@ -69,13 +73,13 @@ public class LoginController {
 			} else {
 				String password = EncryptUtil.encrypt(pwd);
 				if (password.equals(user.getPassword())) {
-					List<SysRole> roleList = loginService.getUserRoleList(user.getUserid());
-					if (roleList != null && roleList.size() > 0) {
+					SysRole role = sysRoleService.findById(user.getRoleid());
+					if (role != null) {
 						result.setCode(0);
 						result.setMessage("success");
 						user.setLoginTime(new Date());
 						user.setPassword("");
-						user.setRoleIds(roleList);
+						user.setRole(role);
 						List<OrgInfo> orgInfo = loginService.getOrgInfoListByUserid(user.getUserid());
 						user.setOrgInfoList(orgInfo);
 						// 组织架构

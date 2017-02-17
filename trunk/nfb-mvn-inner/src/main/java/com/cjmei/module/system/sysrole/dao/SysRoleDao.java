@@ -30,7 +30,7 @@ public interface SysRoleDao {
 
 	void deleteFuncByRoleid(String roleid);
 
-	List<SysFunc> getFuncList(@Param("list") List<SysRole> list, @Param("roleId") String roleId);
+	List<SysFunc> getFuncList(@Param("loginUserRoleId") String loginUserRoleId, @Param("roleId") String roleId);
 
 	SysRole findByUserTypeAndCompanyId(@Param("roleid") String roleid, 
 			@Param("companyId") String companyId);

@@ -30,25 +30,12 @@ public class LoginServiceImpl implements LoginService {
 		return user;
 	}
 	
-
-	@Override
-	public List<SysRole> getUserRoleList(String userid) {
-		return loginDao.getUserRoleList(userid);
-	}
-
 	@Override
 	public List<SysMenu> getSysMenuOfSysUser(SysUser user) {
-		List<SysRole> roleIds = user.getRoleIds();
 		boolean getflag = false;// 请求数据标识
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
-
-		// 未指定用户角色不可查看任何菜单
-		if (null != roleIds && roleIds.size() > 0) {
-			getflag = true;
-		}
-
 		if (getflag) {
-			List<SysMenu> child = loginDao.getChildMenu(roleIds);
+			List<SysMenu> child = loginDao.getChildMenu(user.getRoleid());
 			if (null != child && child.size() > 0) {
 				List<SysMenu> parentMenu = loginDao.getParentSysMenu();
 				for (SysMenu pm : parentMenu) {
@@ -68,7 +55,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List<SysOperate> getSysOperate(String menuid, SysUser user) {
-		List<SysOperate> list = loginDao.getSysOperate(menuid, user.getRoleIds());
+		List<SysOperate> list = loginDao.getSysOperate(menuid, user.getRoleid());
 		return list;
 	}
 

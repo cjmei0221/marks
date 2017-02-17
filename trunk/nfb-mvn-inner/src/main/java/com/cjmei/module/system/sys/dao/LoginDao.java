@@ -23,7 +23,7 @@ public interface LoginDao {
 	 */
 	SysUser getSysUserByUserid(@Param("userid")String userid);
 
-	List<SysMenu> getChildMenu(@Param("list") List<SysRole> list);
+	List<SysMenu> getChildMenu(@Param("roleId") String roleId);
 
 	/**
 	 * 通过角色和菜单ID获取功能列表
@@ -35,15 +35,11 @@ public interface LoginDao {
 	 * @author cjmei
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	List<SysOperate> getSysOperate(@Param("menuid") String menuid,@Param("list") List<SysRole> list);
+	List<SysOperate> getSysOperate(@Param("menuid") String menuid,@Param("roleId") String roleId);
 
 	public List<SysMenu> getParentSysMenu();
 
 	List<String> getUrlByUserid(@Param("userid") String userid);
-
-	List<String> getRoleIdsByUserid(@Param("userid") String userid);
-
-	List<SysRole> getUserRoleList(@Param("userid")String userid);
 
 	List<String> getOrgidBySysUser(@Param("orglist")List<OrgInfo> orglist);
 
