@@ -34,7 +34,7 @@ public class SysUser implements Serializable{
     /**
     *用户类型
     */
-    private String userType;
+    private String roleid;
 	
 	private String companyId;
 	
@@ -113,14 +113,12 @@ public class SysUser implements Serializable{
         this.token = token;
     }
 
-    public String getUserType(){
-        return userType;
-    }
-    public void setUserType(String userType){
-        this.userType = userType;
-    }
-
-  
+	public String getRoleid() {
+		return roleid;
+	}
+	public void setRoleid(String roleid) {
+		this.roleid = roleid;
+	}
 	public String getCompanyId() {
 		return companyId;
 	}

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cjmei.module.system.login.dao.SysUserDao">
-	<!-- 加载系统参数 -->
-	<select id="getRoleIdByUserTypeAndCompanyId" resultType="String">
-		select t.roleid from tb_sys_role t where t.companyid=#{companyId} and t.usertype=#{userType}
-	</select>
 	<select id="getSysUserByUseridOrMobile" resultType="com.cjmei.module.system.login.pojo.SysUser">
 		SELECT
 		TSU.*
@@ -42,7 +38,7 @@
 		sysuser.CREATOR,
 		sysuser.COMPANYID,
 		sysuser.TOKEN,
-		sysuser.USERTYPE,
+		sysuser.ROLEID,
 		sysuser.BINDFLAG
 		)
 		VALUES(
@@ -56,7 +52,7 @@
 		#{creator:VARCHAR},
 		#{companyId:VARCHAR},
 		#{token:VARCHAR},
-		#{userType:VARCHAR},
+		#{roleid:VARCHAR},
 		#{bindFlag:NUMERIC}
 		)
 	</insert>
@@ -70,25 +66,6 @@
 		where userid=#{userid:VARCHAR}
 	</update>
 	
-	<insert id="saveSysUserRole">
-
-		INSERT INTO
-		TB_SYS_USER_ROLE (
-		USERID,
-		ROLEID,
-		CREATETIME,
-		UPDATETIME,
-		CREATOR
-
-		)
-		VALUES(
-		#{userid:VARCHAR},
-		#{roleid:VARCHAR},
-		sysdate,
-		sysdate,
-		#{creator:VARCHAR}
-		)
-	</insert>
 	<insert id="saveSysUserOrg" >
 		INSERT INTO
 		tb_sys_user_org (

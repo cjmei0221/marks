@@ -252,7 +252,7 @@ public class DiaryController extends SupportContorller{
 		    		sysUser.setCompanyId(LoginUtil.getInstance().getCompanyId());
 		    		sysUser.setPassword(EncryptUtil.defaultPwd);
 		    		sysUser.setUsername(mobile);
-		    		sysUser.setUserType(Enums.SysUserType.VIP.getValue());
+		    		sysUser.setRoleid(sysUser.getCompanyId()+"_"+Enums.SysUserType.VIP.getValue());
 		    		sysUser.setCreator(mobile);
 		    		sysUserService.save(sysUser);
 		    		sysUser=sysUserService.getSysUserByUseridOrMobile(mobile);

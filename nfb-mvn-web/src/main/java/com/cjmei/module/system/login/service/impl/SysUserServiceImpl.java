@@ -34,15 +34,7 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	public void save(SysUser sysUser) {
 		sysUserDao.save(sysUser);
-		saveSysUserRole(sysUser.getUserid(), sysUser.getUserType(), sysUser.getCreator(), sysUser.getCompanyId());
 		saveSysUserOrg(sysUser.getUserid(), sysUser.getCompanyId(), sysUser.getCreator());
-	}
-
-	private void saveSysUserRole(String userid, String userType, String creator, String companyId) {
-		String roleId = sysUserDao.getRoleIdByUserTypeAndCompanyId(userType, companyId);
-		if(roleId !=null){
-			sysUserDao.saveSysUserRole(userid, roleId, creator);
-		}
 	}
 
 	private void saveSysUserOrg(String userid, String orgid, String creator) {
