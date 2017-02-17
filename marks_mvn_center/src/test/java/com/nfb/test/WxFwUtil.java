@@ -11,9 +11,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.nfb.module.wxfwhao.entity.UserGet;
-import com.nfb.module.wxfwhao.entity.WxMenu;
-import com.nfb.module.wxmodulemsg.entity.ModuleMsg;
+import com.marks.module.wxfwhao.common.entity.UserGet;
+import com.marks.module.wxfwhao.common.entity.WxMenu;
 import com.nfb.test.pojo.WxUser;
 
 import net.sf.json.JSONArray;
@@ -212,19 +211,20 @@ public class WxFwUtil {
 	 * 
 	 * @param msg
 	 */
-	public Result pushMessage(ModuleMsg msg) {
+	public Result pushMessage(String accountid, String toUser, String templateid, String toUrl, String data,String note) {
 		Result result = new Result();
 		try {
 			Map<String, String> params = new HashMap<String, String>();
-			params.put("accountid", msg.getAccountid());
-			params.put("toUser", msg.getTouser());
-			params.put("templateCode", msg.getTemplate_id());
-			if (null != msg.getUrl() && msg.getUrl().length() > 5) {
-				params.put("toUrl", URLEncoder.encode(msg.getUrl(), CHARSET));
+			params.put("accountid", accountid);
+			params.put("toUser", toUser);
+			params.put("templateCode", templateid);
+			if (null != toUrl && toUrl.length() > 5) {
+				params.put("toUrl", URLEncoder.encode(toUrl, CHARSET));
 			} else {
 				params.put("toUrl", "");
 			}
-			params.put("data", URLEncoder.encode(msg.getData(), CHARSET));
+			params.put("data", URLEncoder.encode(data, CHARSET));
+			params.put("note", URLEncoder.encode(note, CHARSET));
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/receive/sendTemplateMsg.do", params,
 					null, CHARSET);
 			if (res.getSuccess()) {

@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.nfb.common.annotation.JsonObject;
-import com.nfb.common.annotation.JsonObjectProperty;
-import com.nfb.common.annotation.JsonProperty;
+import com.marks.common.annotation.JsonObject;
+import com.marks.common.annotation.JsonObjectProperty;
+import com.marks.common.annotation.JsonProperty;
 
 /**
  * 调用接口响应结果类
