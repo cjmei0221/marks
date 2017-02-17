@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.nfb.module.syslog.dao.SysLogDao">
-	<select id="getSysLogParam" resultType="com.nfb.module.syslog.entity.SysLogParam">
+<mapper namespace="com.marks.module.system.syslog.dao.SysLogDao">
+	<select id="getSysLogParam" resultType="com.marks.module.system.syslog.entity.SysLogParam">
 		SELECT * FROM
 		TB_SYS_LOG_PARAM syslogparam where syslogparam.url = #{reqUrl} and
 		syslogparam.SOURCE=#{source}
 	</select>
-	<insert id="saveSysLog" parameterType="com.nfb.module.syslog.entity.SysLog">
+	<insert id="saveSysLog" parameterType="com.marks.module.system.syslog.entity.SysLog">
 		INSERT INTO TB_SYS_LOG (
 		ID,
 		USERID,
