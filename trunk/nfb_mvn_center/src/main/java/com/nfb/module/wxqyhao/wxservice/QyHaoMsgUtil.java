@@ -6,9 +6,9 @@ import org.json.JSONObject;
 import com.nfb.common.util.JsonResult;
 import com.nfb.common.util.SysCode;
 import com.nfb.module.wxqyhao.entity.QyHaoMsg;
-import com.nfb.module.wxqyhao.util.QyAccessTokenUtil;
-import com.nfb.module.wxqyhao.util.WxQyHttpUtils;
-import com.nfb.module.wxqyhao.util.WxqyConfig;
+import com.nfb.module.wxqyhao.utils.QyAccessTokenUtil;
+import com.nfb.module.wxqyhao.utils.WxQyHttpUtils;
+import com.nfb.module.wxqyhao.utils.WxqyConfig;
 
 public class QyHaoMsgUtil {
 	// 通知企业号用户

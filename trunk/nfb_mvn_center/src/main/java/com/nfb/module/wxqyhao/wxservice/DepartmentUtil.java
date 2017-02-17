@@ -10,10 +10,10 @@ import org.json.JSONObject;
 import com.nfb.common.util.JsonResult;
 import com.nfb.common.util.SysCode;
 import com.nfb.module.wxqyhao.entity.Department;
-import com.nfb.module.wxqyhao.util.QyAccessTokenUtil;
-import com.nfb.module.wxqyhao.util.QyGetUrlUtils;
-import com.nfb.module.wxqyhao.util.WxQyHttpUtils;
-import com.nfb.module.wxqyhao.util.WxqyConfig;
+import com.nfb.module.wxqyhao.utils.QyAccessTokenUtil;
+import com.nfb.module.wxqyhao.utils.QyGetUrlUtils;
+import com.nfb.module.wxqyhao.utils.WxQyHttpUtils;
+import com.nfb.module.wxqyhao.utils.WxqyConfig;
 
 public class DepartmentUtil {
 	private static Logger logger = Logger.getLogger(DepartmentUtil.class);
