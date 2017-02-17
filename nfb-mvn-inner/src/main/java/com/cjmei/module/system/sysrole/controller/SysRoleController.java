@@ -74,10 +74,10 @@ public class SysRoleController extends SupportContorller {
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			SysRole sysRole = getModel(SysRole.class);
-			sysRole.setCreator(admin.getUserid());
-			sysRole.setRoleid(IDUtil.getTimeID());
+			sysRole.setCreator(admin.getUserid());	
 			SysRole ori = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
 			if (ori == null) {
+				sysRole.setRoleid(sysRole.getCompanyId()+"_"+sysRole.getUserType());
 				sysRoleService.save(sysRole);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -217,7 +217,7 @@ public class SysRoleController extends SupportContorller {
 			param.put("keyword", keyword);
 			param.put("s_lvl", s_lvl);
 			param.put("companyId", admin.getCompanyId());
-			param.put("lvl", admin.getRoleIds().get(0).getLvl());
+			param.put("lvl", admin.getRole().getLvl());
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -280,7 +280,7 @@ public class SysRoleController extends SupportContorller {
 	@RequestMapping("/sysRole/lvl")
 	public void combox(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
-		int lvl = admin.getRoleIds().get(0).getLvl();
+		int lvl = admin.getRole().getLvl();
 		List<TreeVo> list = new ArrayList<TreeVo>();
 		TreeVo vo = new TreeVo();
 		vo.setId("");
@@ -299,7 +299,7 @@ public class SysRoleController extends SupportContorller {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("companyId", admin.getCompanyId());
-		param.put("lvl", admin.getRoleIds().get(0).getLvl());
+		param.put("lvl", admin.getRole().getLvl());
 		List<SysRole> list = sysRoleService.getUserlist(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}

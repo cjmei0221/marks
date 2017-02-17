@@ -5,9 +5,7 @@ import java.util.Map;
 
 import com.cjmei.common.domain.PojoDomain;
 import com.cjmei.module.system.sys.pojo.SysUserOrg;
-import com.cjmei.module.system.sys.pojo.SysUserRole;
 import com.cjmei.module.system.sysrole.dao.SysRoleDao;
-import com.cjmei.module.system.sysrole.pojo.SysRole;
 import com.cjmei.module.system.sysuser.dao.SysUserDao;
 import com.cjmei.module.system.sysuser.pojo.SysUser;
 import com.cjmei.module.system.sysuser.service.SysUserService;
@@ -61,10 +59,7 @@ public class SysUserServiceImpl implements SysUserService{
     */
     @Override
     public void save(SysUser sysUser,String roleidPut,String orgIdsPut){
-    	SysRole sRole=sysRoleDao.findById(roleidPut);
-    	sysUser.setUserType(sRole.getUserType());
         sysUserDao.save(sysUser);
-        saveSysUserRole(sysUser.getUserid(),roleidPut,sysUser.getCreator());
         saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
     }
     
@@ -73,10 +68,7 @@ public class SysUserServiceImpl implements SysUserService{
     */
     @Override
     public void update(SysUser sysUser,String roleidPut,String orgIdsPut){
-    	SysRole sRole=sysRoleDao.findById(roleidPut);
-    	sysUser.setUserType(sRole.getUserType());
         sysUserDao.update(sysUser);
-        saveSysUserRole(sysUser.getUserid(),roleidPut,sysUser.getCreator());
         saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
     }
     private void saveSysUserOrg(String userid,String orgIdsPut,String creator){
@@ -104,28 +96,12 @@ public class SysUserServiceImpl implements SysUserService{
 	public void updateActiveFlag(String userid, int flag) {
 		 sysUserDao.updateActiveFlag(userid,flag);
 	}
-	private void saveSysUserRole(String userid,String roleidPut,String creator){
-    	sysUserDao.deleteSysUserRole(userid);
-    	SysUserRole su=null;
-    	String[] roleArr=roleidPut.split(",");
-    	for(String roleid:roleArr){
-    		if(roleid !=null && !"".equals(roleid)){
-    			su=new SysUserRole();
-        		su.setRoleid(roleid);
-        		su.setUserid(userid);
-        		su.setCreator(creator);
-        		sysUserDao.saveSysUserRole(su);
-    		}
-    	}
-    	
-    }
     
     /**
     *删除用户管理
     */
     @Override
     public void delete(String userid){  
-        sysUserDao.deleteSysUserRole(userid);
         sysUserDao.deleteSysUserOrg(userid);
         sysUserDao.delete(userid);  
     }
