@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cjmei.module.system.login.dao.SysUserDao">
-	<select id="getSysUserByUseridOrMobile" resultType="com.cjmei.module.system.login.pojo.SysUser">
+<mapper namespace="com.marks.module.system.login.dao.SysUserDao">
+	<select id="getSysUserByUseridOrMobile" resultType="com.marks.module.system.login.pojo.SysUser">
 		SELECT
 		TSU.*
 		FROM
@@ -22,7 +22,7 @@
 		update tb_sys_user set
 		skin=#{skin},UPDATETIME=sysdate where userid=#{userid}
 	</update>
-	<insert id="save" parameterType="com.cjmei.module.system.login.pojo.SysUser">
+	<insert id="save" parameterType="com.marks.module.system.login.pojo.SysUser">
 		<selectKey keyProperty="userid" resultType="String" order="BEFORE">SELECT
 			'U'||SEQ_SYS_USER.nextval FROM dual
 		</selectKey>
@@ -56,7 +56,7 @@
 		#{bindFlag:NUMERIC}
 		)
 	</insert>
-	<update id="update" parameterType="com.cjmei.module.system.login.pojo.SysUser">
+	<update id="update" parameterType="com.marks.module.system.login.pojo.SysUser">
 		update tb_sys_user set
 		password=#{password:VARCHAR},
 		BINDFLAG=#{bindFlag:NUMERIC},

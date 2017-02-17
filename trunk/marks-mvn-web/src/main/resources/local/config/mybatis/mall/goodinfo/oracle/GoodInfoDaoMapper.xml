@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.mall.goodinfo.dao.GoodInfoDao">
+<mapper namespace="com.marks.module.mall.goodinfo.dao.GoodInfoDao">
 
-	<select id="findById" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+	<select id="findById" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
 		SELECT * FROM TB_MALL_GOOD_INFO
 		goodinfo where goodinfo.GOODID = #{goodId}
 	</select>
 
-	<select id="list" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo"
+	<select id="list" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_MALL_GOOD_INFO goodinfo
