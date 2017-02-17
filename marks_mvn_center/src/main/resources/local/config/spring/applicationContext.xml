@@ -94,7 +94,7 @@
 
 	<aop:config>
 		<aop:pointcut id="txPointcut"
-			expression="execution(* com.nfb.module.*.service.*Service.*(..))" />
+			expression="execution(* com.marks.module.*.*.service.*Service.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
 
@@ -103,35 +103,35 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations"
-			value="classpath:/config/mybatis/**/${jdbc.dialect}/*Mapper.xml" />
+			value="classpath:/config/mybatis/*/*/${jdbc.dialect}/*Mapper.xml" />
 	</bean>
 
 
 	<!-- DAO Bean Define -->
 	<bean id="wxAccountService"
-		class="com.nfb.module.wxfwhao.service.impl.WxAccountServiceImpl">
+		class="com.marks.module.wxfwhao.common.service.impl.WxAccountServiceImpl">
 		<property name="wxAccountDao" ref="wxAccountDao" />
 	</bean>
 
 	<bean id="wxAccountDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.nfb.module.wxfwhao.dao.WxAccountDao"></property>
+			value="com.marks.module.wxfwhao.common.dao.WxAccountDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 <!-- DAO Bean Define -->
 	<bean id="wxbModuleMsgService"
-		class="com.nfb.module.wxmodulemsg.service.impl.WxbModuleMsgServiceImpl">
+		class="com.marks.module.wxfwhao.wxmodulemsg.service.impl.WxbModuleMsgServiceImpl">
 		<property name="wxbModuleMsgDao" ref="wxbModuleMsgDao" />
 	</bean>
 
 	<bean id="wxbModuleMsgDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.nfb.module.wxmodulemsg.dao.WxbModuleMsgDao"></property>
+			value="com.marks.module.wxfwhao.wxmodulemsg.dao.WxbModuleMsgDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	<bean id="sysLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.nfb.module.syslog.dao.SysLogDao"></property>
+			value="com.marks.module.system.syslog.dao.SysLogDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 </beans>
