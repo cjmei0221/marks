@@ -140,7 +140,7 @@ public class LoginController {
 			user.setCreator(mobile);
 			user.setPassword(EncryptUtil.encrypt(password));
 			user.setUsername(mobile);
-			user.setUserType(Enums.SysUserType.VIP.getValue());
+			user.setRoleid(user.getCompanyId()+"_"+Enums.SysUserType.VIP.getValue());
 			if(sysUser==null){
 				sysUserService.save(user);
 			}else{

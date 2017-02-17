@@ -16,10 +16,6 @@ public interface SysUserDao {
 
 	void update(SysUser sysUser);
 
-	String getRoleIdByUserTypeAndCompanyId(@Param("userType")String userType, @Param("companyId")String companyId);
-
-	void saveSysUserRole(@Param("userid")String userid, @Param("roleid")String roleId,@Param("creator") String creator);
-
 	void saveSysUserOrg(@Param("userid")String userid, @Param("orgid")String orgid, @Param("creator")String creator);
 
 	void updateMobile(@Param("userid")String userid, @Param("mobile")String mobile);
