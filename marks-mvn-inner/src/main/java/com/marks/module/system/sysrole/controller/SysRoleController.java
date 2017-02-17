@@ -17,12 +17,10 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.domain.TreeVo;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
 import com.marks.module.autocode.core.util.Code;
 import com.marks.module.system.core.helper.SysUserHelper;
-import com.marks.module.system.orginfo.service.OrgInfoService;
 import com.marks.module.system.sys.pojo.SysMenu;
 import com.marks.module.system.sysrole.pojo.SysRole;
 import com.marks.module.system.sysrole.service.SysRoleService;
@@ -36,9 +34,6 @@ public class SysRoleController extends SupportContorller {
 
 	@Autowired
 	private SysRoleService sysRoleService;
-
-	@Autowired
-	private OrgInfoService orgInfoService;
 
 	@Override
 	public Logger getLogger() {
