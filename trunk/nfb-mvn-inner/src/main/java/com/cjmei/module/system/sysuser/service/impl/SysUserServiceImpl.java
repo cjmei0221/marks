@@ -58,7 +58,7 @@ public class SysUserServiceImpl implements SysUserService{
     *保存用户管理
     */
     @Override
-    public void save(SysUser sysUser,String roleidPut,String orgIdsPut){
+    public void save(SysUser sysUser,String orgIdsPut){
         sysUserDao.save(sysUser);
         saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
     }
@@ -67,7 +67,7 @@ public class SysUserServiceImpl implements SysUserService{
     *更新用户管理
     */
     @Override
-    public void update(SysUser sysUser,String roleidPut,String orgIdsPut){
+    public void update(SysUser sysUser,String orgIdsPut){
         sysUserDao.update(sysUser);
         saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
     }

@@ -58,7 +58,6 @@ $(function() {
 			$("#inputRoleDiv").html('');
 			initUser(appInfo.selectedData);
 			notEdit();
-			$('#roleids').combobox('setValues',appInfo.selectedData.roleidsStr.split(",")[0]);
 		}
 	});
 
@@ -110,7 +109,7 @@ $(function() {
 	});
 
 	$("#chooseRole").on("click", function() {
-		var roleId=$("#roleids").combobox("getValue")
+		var roleId=$("#roleid").combobox("getValue")
 		if(roleId==''){
 			showMsg("请先选择用户类型");
 			return;
