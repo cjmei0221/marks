@@ -1,4 +1,4 @@
-package com.nfb.common.util;
+package com.marks.common.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

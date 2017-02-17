@@ -1,4 +1,4 @@
-package com.nfb.common.util;
+package com.marks.common.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
