@@ -27,6 +27,7 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Result result = new Result();
+		log.info("----url: " + request.getRequestURI());
 		SysUser loginUser = SysUserHelper.getCurrentUserInfo(request);
 		if (null == loginUser) {
 			result.setCode(-1000);
@@ -37,7 +38,6 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 		String url = RequestRegex.repace("/", request.getRequestURI());
 		int idx = url.indexOf(".");
 		url = url.substring(request.getContextPath().length(), idx);
-		log.info("----url: " + url);
 		List<String> list = StaticData.getUrlList();
 		if (list.contains(url) && !loginUser.getUserUrlList().contains(url)) {
 			result.setCode(-1000);

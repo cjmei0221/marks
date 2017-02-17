@@ -23,33 +23,33 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public SysUser getSysUserByUserid(String userid) {
 		SysUser user = loginDao.getSysUserByUserid(userid);
-		if(null !=user){
-			List<String> list=loginDao.getUrlByUserid(user.getUserid());
+		if (null != user) {
+			List<String> list = loginDao.getUrlByUserid(user.getUserid());
 			user.setUserUrlList(list);
 		}
 		return user;
 	}
-	
+
 	@Override
 	public List<SysMenu> getSysMenuOfSysUser(SysUser user) {
 		boolean getflag = false;// 请求数据标识
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
-		if (getflag) {
-			List<SysMenu> child = loginDao.getChildMenu(user.getRoleid());
-			if (null != child && child.size() > 0) {
-				List<SysMenu> parentMenu = loginDao.getParentSysMenu();
-				for (SysMenu pm : parentMenu) {
-					for (SysMenu cm : child) {
-						if (pm.getMenuid().equals(cm.getParentid())) {
-							pm.addChildren(cm);
-						}
+
+		List<SysMenu> child = loginDao.getChildMenu(user.getRoleid());
+		if (null != child && child.size() > 0) {
+			List<SysMenu> parentMenu = loginDao.getParentSysMenu();
+			for (SysMenu pm : parentMenu) {
+				for (SysMenu cm : child) {
+					if (pm.getMenuid().equals(cm.getParentid())) {
+						pm.addChildren(cm);
 					}
-					if (pm.getChildren().size() > 0) {
-						returnMenu.add(pm);
-					}
+				}
+				if (pm.getChildren().size() > 0) {
+					returnMenu.add(pm);
 				}
 			}
 		}
+
 		return returnMenu;
 	}
 
@@ -61,7 +61,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List<String> getOrgidBySysUser(List<OrgInfo> orglist) {
-		
+
 		return loginDao.getOrgidBySysUser(orglist);
 	}
 
@@ -69,7 +69,5 @@ public class LoginServiceImpl implements LoginService {
 	public List<OrgInfo> getOrgInfoListByUserid(String userid) {
 		return loginDao.getOrgInfoListByUserid(userid);
 	}
-	
-	
 
 }
