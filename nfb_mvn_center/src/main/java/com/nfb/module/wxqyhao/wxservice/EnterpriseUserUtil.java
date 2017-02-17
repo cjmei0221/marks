@@ -13,10 +13,10 @@ import com.nfb.common.util.JsonResult;
 import com.nfb.common.util.JsonUtil;
 import com.nfb.common.util.SysCode;
 import com.nfb.module.wxqyhao.entity.EnterpriseUser;
-import com.nfb.module.wxqyhao.util.QyAccessTokenUtil;
-import com.nfb.module.wxqyhao.util.QyGetUrlUtils;
-import com.nfb.module.wxqyhao.util.WxQyHttpUtils;
-import com.nfb.module.wxqyhao.util.WxqyConfig;
+import com.nfb.module.wxqyhao.utils.QyAccessTokenUtil;
+import com.nfb.module.wxqyhao.utils.QyGetUrlUtils;
+import com.nfb.module.wxqyhao.utils.WxQyHttpUtils;
+import com.nfb.module.wxqyhao.utils.WxqyConfig;
 
 public class EnterpriseUserUtil {
 	private static Logger logger = Logger.getLogger(EnterpriseUserUtil.class);
