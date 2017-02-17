@@ -133,7 +133,7 @@ public class LoginController {
 		JsonUtil.output(response, result);
 	}
 
-	@RequestMapping("/sys/menu")
+	@RequestMapping("/menu")
 	public void sysMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);
