@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="gainsService" class="com.cjmei.module.note.gains.service.impl.GainsServiceImpl">
+	<bean id="gainsService" class="com.marks.module.note.gains.service.impl.GainsServiceImpl">
 		<property name="gainsDao" ref="gainsDao"></property>
 	</bean>
 	<bean id="gainsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.note.gains.dao.GainsDao"></property>
+		<property name="mapperInterface" value="com.marks.module.note.gains.dao.GainsDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cjmei.module.system.sys.dao.SysLogDao">
+<mapper namespace="com.marks.module.system.sys.dao.SysLogDao">
 	<!-- 根据url获取菜单名称和操作名称 -->
-	<select id="getSysLogParam" resultType="com.cjmei.module.system.sys.pojo.SysLog">
+	<select id="getSysLogParam" resultType="com.marks.module.system.sys.pojo.SysLog">
 		SELECT
 		SM.MENUITEM
 		menuname,
@@ -16,7 +16,7 @@
 		WHERE
 		sf.url = #{url}
 	</select>
-	<insert id="saveSysLog" parameterType="com.cjmei.module.system.sys.pojo.SysLog">
+	<insert id="saveSysLog" parameterType="com.marks.module.system.sys.pojo.SysLog">
 		INSERT INTO TB_SYS_LOG (
 		ID,
 		USERID,
@@ -46,7 +46,7 @@
 		)
 	</insert>
 
-	<select id="list" resultType="com.cjmei.module.system.sys.pojo.SysLog"
+	<select id="list" resultType="com.marks.module.system.sys.pojo.SysLog"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_SYS_LOG syslog

@@ -25,12 +25,12 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="moduleMsgService" class="com.cjmei.module.wx.modulemsg.service.impl.ModuleMsgServiceImpl">
+	<bean id="moduleMsgService" class="com.marks.module.wx.modulemsg.service.impl.ModuleMsgServiceImpl">
 		<property name="moduleMsgDao" ref="moduleMsgDao"></property>
 		<property name="wxTemplateDao" ref="wxTemplateDao"></property>
 	</bean>
 	<bean id="moduleMsgDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.wx.modulemsg.dao.ModuleMsgDao"></property>
+		<property name="mapperInterface" value="com.marks.module.wx.modulemsg.dao.ModuleMsgDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="wxAutoReplayService" class="com.cjmei.module.wx.wxautoreplay.service.impl.WxAutoReplayServiceImpl">
+	<bean id="wxAutoReplayService" class="com.marks.module.wx.wxautoreplay.service.impl.WxAutoReplayServiceImpl">
 		<property name="wxAutoReplayDao" ref="wxAutoReplayDao"></property>
 	</bean>
 	<bean id="wxAutoReplayDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.wx.wxautoreplay.dao.WxAutoReplayDao"></property>
+		<property name="mapperInterface" value="com.marks.module.wx.wxautoreplay.dao.WxAutoReplayDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

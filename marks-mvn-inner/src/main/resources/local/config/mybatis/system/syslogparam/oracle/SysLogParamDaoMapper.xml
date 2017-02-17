@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.system.syslogparam.dao.SysLogParamDao">
+<mapper namespace="com.marks.module.system.syslogparam.dao.SysLogParamDao">
 
-    <select id="findById" resultType="com.cjmei.module.system.syslogparam.pojo.SysLogParam">
+    <select id="findById" resultType="com.marks.module.system.syslogparam.pojo.SysLogParam">
 		SELECT * FROM TB_SYS_LOG_PARAM syslogparam where syslogparam.ID = #{id}
  	</select>
- 	 <select id="findByUrlAndSource" resultType="com.cjmei.module.system.syslogparam.pojo.SysLogParam">
+ 	 <select id="findByUrlAndSource" resultType="com.marks.module.system.syslogparam.pojo.SysLogParam">
 		SELECT * FROM TB_SYS_LOG_PARAM syslogparam where syslogparam.url = #{reqUrl} and syslogparam.SOURCE=#{source}
  	</select>
  	
- 	<insert id="save" parameterType="com.cjmei.module.system.syslogparam.pojo.SysLogParam">
+ 	<insert id="save" parameterType="com.marks.module.system.syslogparam.pojo.SysLogParam">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
 
  		INSERT INTO TB_SYS_LOG_PARAM syslogparam (
@@ -36,7 +36,7 @@
 			)
  	</insert>
  	
- 	<update id="update" parameterType="com.cjmei.module.system.syslogparam.pojo.SysLogParam">
+ 	<update id="update" parameterType="com.marks.module.system.syslogparam.pojo.SysLogParam">
  		UPDATE TB_SYS_LOG_PARAM syslogparam
 		SET 
                 syslogparam.SOURCE = #{source:NUMERIC},
@@ -52,7 +52,7 @@
  		DELETE FROM TB_SYS_LOG_PARAM syslogparam WHERE syslogparam.ID=#{id}
  	</delete>
  	
- 	<select id="findAll" resultType="com.cjmei.module.system.syslogparam.pojo.SysLogParam">
+ 	<select id="findAll" resultType="com.marks.module.system.syslogparam.pojo.SysLogParam">
  		SELECT * FROM TB_SYS_LOG_PARAM
  	</select>
  	
@@ -63,7 +63,7 @@
 		</foreach>
  	</delete>
  	
- 	<select id="list" resultType="com.cjmei.module.system.syslogparam.pojo.SysLogParam" 
+ 	<select id="list" resultType="com.marks.module.system.syslogparam.pojo.SysLogParam" 
  	parameterType="java.util.Map">
  		SELECT  *
 		  FROM   TB_SYS_LOG_PARAM syslogparam

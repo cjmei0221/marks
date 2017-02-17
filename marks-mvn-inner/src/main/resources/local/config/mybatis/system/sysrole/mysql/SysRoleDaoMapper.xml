@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.cell.sysrole.dao.SysRoleDao">
+<mapper namespace="com.marks.module.cell.sysrole.dao.SysRoleDao">
 
-	<select id="findById" resultType="com.cjmei.module.cell.sysrole.pojo.SysRole">
+	<select id="findById" resultType="com.marks.module.cell.sysrole.pojo.SysRole">
 		SELECT * FROM TB_SYS_ROLE where
 		ROLEID = #{roleid}
 	</select>
 
-	<insert id="save" parameterType="com.cjmei.module.cell.sysrole.pojo.SysRole">
+	<insert id="save" parameterType="com.marks.module.cell.sysrole.pojo.SysRole">
 		<selectKey keyProperty="roleid" resultType="String" order="BEFORE">select
 			replace(uuid(),'-','')</selectKey>
 
@@ -31,7 +31,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.cell.sysrole.pojo.SysRole">
+	<update id="update" parameterType="com.marks.module.cell.sysrole.pojo.SysRole">
 		UPDATE TB_SYS_ROLE
 		SET
 		ORGID = #{orgid:VARCHAR},
@@ -47,7 +47,7 @@
 		DELETE FROM TB_SYS_ROLE WHERE ROLEID=#{roleid}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.cell.sysrole.pojo.SysRole">
+	<select id="findAll" resultType="com.marks.module.cell.sysrole.pojo.SysRole">
 		SELECT * FROM TB_SYS_ROLE
 	</select>
 
@@ -59,7 +59,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.cell.sysrole.pojo.SysRole"
+	<select id="list" resultType="com.marks.module.cell.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_SYS_ROLE

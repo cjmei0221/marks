@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.autocode.autocode.dao.AutoCodeDao">
+<mapper namespace="com.marks.module.autocode.autocode.dao.AutoCodeDao">
 
-    <select id="findById" resultType="com.cjmei.module.autocode.autocode.pojo.AutoCode">
+    <select id="findById" resultType="com.marks.module.autocode.autocode.pojo.AutoCode">
 		SELECT * FROM tb_autocode_bean where TABLENAME = #{tableName}
  	</select>
  	
- 	<insert id="save" parameterType="com.cjmei.module.autocode.autocode.pojo.AutoCode">
+ 	<insert id="save" parameterType="com.marks.module.autocode.autocode.pojo.AutoCode">
  		INSERT INTO tb_autocode_bean (
             TABLENAME,
             BEANNAME,
@@ -21,7 +21,7 @@
 			)
  	</insert>
  	
- 	<update id="update" parameterType="com.cjmei.module.autocode.autocode.pojo.AutoCode">
+ 	<update id="update" parameterType="com.marks.module.autocode.autocode.pojo.AutoCode">
  		UPDATE tb_autocode_bean 
 		SET 
                 BEANNAME = #{beanName:VARCHAR},
@@ -34,7 +34,7 @@
  		DELETE FROM tb_autocode_bean WHERE TABLENAME=#{tableName}
  	</delete>
  	
- 	<select id="findAll" resultType="com.cjmei.module.autocode.autocode.pojo.AutoCode">
+ 	<select id="findAll" resultType="com.marks.module.autocode.autocode.pojo.AutoCode">
  		SELECT * FROM tb_autocode_bean
  	</select>
  	
@@ -45,7 +45,7 @@
 		</foreach>
  	</delete>
  	
- 	<select id="list" resultType="com.cjmei.module.autocode.autocode.pojo.AutoCode" 
+ 	<select id="list" resultType="com.marks.module.autocode.autocode.pojo.AutoCode" 
  	parameterType="java.util.Map">
  		SELECT  *
 		  FROM   tb_autocode_bean 

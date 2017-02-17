@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cjmei.module.system.sys.dao.SysMenuDao">
-	<select id="getChildSysMenuList" resultType="com.cjmei.module.system.sys.pojo.SysMenu">
+<mapper namespace="com.marks.module.system.sys.dao.SysMenuDao">
+	<select id="getChildSysMenuList" resultType="com.marks.module.system.sys.pojo.SysMenu">
 		SELECT * FROM
 		TB_SYS_MENU t where t.PARENTID != '0' ORDER BY t."SORT"
 	</select>
-	<select id="getParentSysMenuList" resultType="com.cjmei.module.system.sys.pojo.SysMenu">
+	<select id="getParentSysMenuList" resultType="com.marks.module.system.sys.pojo.SysMenu">
 		SELECT * FROM
 		TB_SYS_MENU t where t.PARENTID = '0' ORDER BY t."SORT"
 	</select>
-	<insert id="save" parameterType="com.cjmei.module.system.sys.pojo.SysMenu">
+	<insert id="save" parameterType="com.marks.module.system.sys.pojo.SysMenu">
 		INSERT INTO "TB_SYS_MENU" (
 		"MENUID",
 		"PARENTID",
@@ -32,7 +32,7 @@
 		#{sm.creator:VARCHAR}
 		)
 	</insert>
-	<update id="update" parameterType="com.cjmei.module.system.sys.pojo.SysMenu"
+	<update id="update" parameterType="com.marks.module.system.sys.pojo.SysMenu"
 		flushCache="true">
 		UPDATE "TB_SYS_MENU"
 		SET "PARENTID" =
@@ -59,11 +59,11 @@
 	<delete id="deleteFunc">
 		delete from tb_sys_func where menuid= #{menuid}
 	</delete>
-	<select id="getSysMenuByMenuid" resultType="com.cjmei.module.system.sys.pojo.SysMenu">
+	<select id="getSysMenuByMenuid" resultType="com.marks.module.system.sys.pojo.SysMenu">
 		SELECT * FROM
 		TB_SYS_MENU t where t.MENUID=#{menuid}
 	</select>
-	<select id="getChildListByParentid" resultType="com.cjmei.module.system.sys.pojo.SysMenu">
+	<select id="getChildListByParentid" resultType="com.marks.module.system.sys.pojo.SysMenu">
 		SELECT * FROM
 		TB_SYS_MENU t where t.PARENTID=#{menuid}
 	</select>
@@ -76,7 +76,7 @@
 		delete from
 		tb_sys_func where FUNCID=#{funcid}
 	</delete>
-	<insert id="saveSysFunc" parameterType="com.cjmei.module.system.sys.pojo.SysFunc">
+	<insert id="saveSysFunc" parameterType="com.marks.module.system.sys.pojo.SysFunc">
 		INSERT INTO
 		tb_sys_func (
 		FUNCID,
@@ -98,11 +98,11 @@
 		#{sf.creator:VARCHAR}
 		)
 	</insert>
-	<select id="getSysOperateByOperid" resultType="com.cjmei.module.system.sys.pojo.SysOperate">
+	<select id="getSysOperateByOperid" resultType="com.marks.module.system.sys.pojo.SysOperate">
 		select * from
 		tb_sys_operate where OPERID=#{operid}
 	</select>
-	<select id="getSysOperateListByMenuid" resultType="com.cjmei.module.system.sys.pojo.SysOperate">
+	<select id="getSysOperateListByMenuid" resultType="com.marks.module.system.sys.pojo.SysOperate">
 		SELECT
 		distinct
 		SOPER.*,sf.funcid,sf.url
@@ -114,11 +114,11 @@
 		sf.operid=soper.operid
 		and sf.menuid= #{menuid}
 	</select>
-	<select id="getSysFuncByOperIdAndMenuid" resultType="com.cjmei.module.system.sys.pojo.SysFunc">
+	<select id="getSysFuncByOperIdAndMenuid" resultType="com.marks.module.system.sys.pojo.SysFunc">
 		select *
 		from tb_sys_func where MENUID=#{menuid} and OPERID=#{operid}
 	</select>
-	<select id="getSysOperateList" resultType="com.cjmei.module.system.sys.pojo.SysOperate">
+	<select id="getSysOperateList" resultType="com.marks.module.system.sys.pojo.SysOperate">
 		select * from
 		tb_sys_operate
 	</select>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.autocode.web.dao.AutoCodeDao">
+<mapper namespace="com.marks.module.autocode.web.dao.AutoCodeDao">
 
-	<select id="findById" resultType="com.cjmei.module.autocode.web.pojo.AutoCode">
+	<select id="findById" resultType="com.marks.module.autocode.web.pojo.AutoCode">
 		SELECT * FROM tb_autocode_bean
 		autocode where autocode.TABLENAME = #{tableName}
 	</select>
 
-	<insert id="save" parameterType="com.cjmei.module.autocode.web.pojo.AutoCode">
+	<insert id="save" parameterType="com.marks.module.autocode.web.pojo.AutoCode">
 		INSERT INTO tb_autocode_bean
 		autocode (
 		autocode.TABLENAME,
@@ -34,7 +34,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.autocode.web.pojo.AutoCode">
+	<update id="update" parameterType="com.marks.module.autocode.web.pojo.AutoCode">
 		UPDATE tb_autocode_bean
 		autocode
 		SET
@@ -55,7 +55,7 @@
 		autocode WHERE autocode.TABLENAME=#{tableName}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.autocode.web.pojo.AutoCode">
+	<select id="findAll" resultType="com.marks.module.autocode.web.pojo.AutoCode">
 		SELECT * FROM tb_autocode_bean
 	</select>
 
@@ -67,7 +67,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.autocode.web.pojo.AutoCode"
+	<select id="list" resultType="com.marks.module.autocode.web.pojo.AutoCode"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM tb_autocode_bean autocode
@@ -90,7 +90,7 @@
 	</select>
 
 
-	<select id="attrList" resultType="com.cjmei.module.autocode.web.pojo.AutoCodeAttr"
+	<select id="attrList" resultType="com.marks.module.autocode.web.pojo.AutoCodeAttr"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM tb_autocode_attr autocode
@@ -108,7 +108,7 @@
 		tablename=#{tableName}
 	</delete>
 
-	<insert id="saveAttr" parameterType="com.cjmei.module.autocode.web.pojo.AutoCodeAttr">
+	<insert id="saveAttr" parameterType="com.marks.module.autocode.web.pojo.AutoCodeAttr">
 		insert into tb_autocode_attr
 		(
 		ATTRNAME,

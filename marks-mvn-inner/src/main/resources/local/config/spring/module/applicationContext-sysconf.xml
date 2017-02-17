@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="sysConfService" class="com.cjmei.module.system.sysconf.service.impl.SysConfServiceImpl">
+	<bean id="sysConfService" class="com.marks.module.system.sysconf.service.impl.SysConfServiceImpl">
 		<property name="sysConfDao" ref="sysConfDao"></property>
 	</bean>
 	<bean id="sysConfDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.system.sysconf.dao.SysConfDao"></property>
+		<property name="mapperInterface" value="com.marks.module.system.sysconf.dao.SysConfDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

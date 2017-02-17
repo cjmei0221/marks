@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="qrcodeService" class="com.cjmei.module.wx.qrcode.service.impl.QrcodeServiceImpl">
+	<bean id="qrcodeService" class="com.marks.module.wx.qrcode.service.impl.QrcodeServiceImpl">
 		<property name="qrcodeDao" ref="qrcodeDao"></property>
 	</bean>
 	<bean id="qrcodeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.wx.qrcode.dao.QrcodeDao"></property>
+		<property name="mapperInterface" value="com.marks.module.wx.qrcode.dao.QrcodeDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

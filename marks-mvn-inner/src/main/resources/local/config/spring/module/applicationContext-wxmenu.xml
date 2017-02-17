@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="wxMenuService" class="com.cjmei.module.wx.wxmenu.service.impl.WxMenuServiceImpl">
+	<bean id="wxMenuService" class="com.marks.module.wx.wxmenu.service.impl.WxMenuServiceImpl">
 		<property name="wxMenuDao" ref="wxMenuDao"></property>
 	</bean>
 	<bean id="wxMenuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.wx.wxmenu.dao.WxMenuDao"></property>
+		<property name="mapperInterface" value="com.marks.module.wx.wxmenu.dao.WxMenuDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

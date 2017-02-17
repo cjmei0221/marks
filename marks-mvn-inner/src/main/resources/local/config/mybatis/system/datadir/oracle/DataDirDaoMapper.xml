@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.system.datadir.dao.DataDirDao">
+<mapper namespace="com.marks.module.system.datadir.dao.DataDirDao">
 
-	<select id="findById" resultType="com.cjmei.module.system.datadir.pojo.DataDir">
+	<select id="findById" resultType="com.marks.module.system.datadir.pojo.DataDir">
 		SELECT * FROM
 		TB_SYS_DATADIR_INFO datadir where datadir.CKEY = #{ckey} and
 		datadir.PARENTKEY=#{parentKey}
 	</select>
 	
-	<select id="findChildList" resultType="com.cjmei.module.system.datadir.pojo.DataDir">
+	<select id="findChildList" resultType="com.marks.module.system.datadir.pojo.DataDir">
 		select * from tb_sys_datadir_info t where t.parentkey=#{ckey} order by t.SORT
 	</select>
 
-	<insert id="save" parameterType="com.cjmei.module.system.datadir.pojo.DataDir">
+	<insert id="save" parameterType="com.marks.module.system.datadir.pojo.DataDir">
 
 		INSERT INTO TB_SYS_DATADIR_INFO
 		datadir (
@@ -39,7 +39,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.system.datadir.pojo.DataDir">
+	<update id="update" parameterType="com.marks.module.system.datadir.pojo.DataDir">
 		UPDATE TB_SYS_DATADIR_INFO
 		datadir
 		SET
@@ -58,7 +58,7 @@
 		datadir.PARENTKEY=#{parentKey}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.system.datadir.pojo.DataDir">
+	<select id="findAll" resultType="com.marks.module.system.datadir.pojo.DataDir">
 		SELECT * FROM
 		TB_SYS_DATADIR_INFO
 	</select>
@@ -71,7 +71,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.system.datadir.pojo.DataDir"
+	<select id="list" resultType="com.marks.module.system.datadir.pojo.DataDir"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_SYS_DATADIR_INFO datadir
@@ -98,7 +98,7 @@
 		</if>
 	</select>
 
-	<select id="listByParam" resultType="com.cjmei.module.system.datadir.pojo.DataDir"
+	<select id="listByParam" resultType="com.marks.module.system.datadir.pojo.DataDir"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_SYS_DATADIR_INFO datadir

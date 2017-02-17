@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="dataDirService" class="com.cjmei.module.system.datadir.service.impl.DataDirServiceImpl">
+	<bean id="dataDirService" class="com.marks.module.system.datadir.service.impl.DataDirServiceImpl">
 		<property name="dataDirDao" ref="dataDirDao"></property>
 	</bean>
 	<bean id="dataDirDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.system.datadir.dao.DataDirDao"></property>
+		<property name="mapperInterface" value="com.marks.module.system.datadir.dao.DataDirDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

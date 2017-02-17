@@ -24,39 +24,39 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
 	default-autowire="byName">
 	<!-- 加载基础数据管理 -->
-	<bean id="loadDataService" class="com.cjmei.module.system.sys.service.impl.LoadDataServiceImpl">
+	<bean id="loadDataService" class="com.marks.module.system.sys.service.impl.LoadDataServiceImpl">
 		<property name="loadDataDao" ref="loadDataDao"></property>
 	</bean>
 	<bean id="loadDataDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.LoadDataDao"></property>
+		<property name="mapperInterface" value="com.marks.module.system.sys.dao.LoadDataDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 
 	
 	<!-- 登录管理 -->
-	<bean id="loginService" class="com.cjmei.module.system.sys.service.impl.LoginServiceImpl">
+	<bean id="loginService" class="com.marks.module.system.sys.service.impl.LoginServiceImpl">
 		<property name="loginDao" ref="loginDao"></property>
 	</bean>
 	<bean id="loginDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.LoginDao"></property>
+		<property name="mapperInterface" value="com.marks.module.system.sys.dao.LoginDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
 	<!-- 系统菜单管理 -->
-	<bean id="sysMenuService" class="com.cjmei.module.system.sys.service.impl.SysMenuServiceImpl">
+	<bean id="sysMenuService" class="com.marks.module.system.sys.service.impl.SysMenuServiceImpl">
 		<property name="sysMenuDao" ref="sysMenuDao"></property>
 	</bean>
 	<bean id="sysMenuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.SysMenuDao"></property>
+		<property name="mapperInterface" value="com.marks.module.system.sys.dao.SysMenuDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
 	<!-- 按钮操作 -->
-	<bean id="sysOperateService" class="com.cjmei.module.system.sys.service.impl.SysOperateServiceImpl">
+	<bean id="sysOperateService" class="com.marks.module.system.sys.service.impl.SysOperateServiceImpl">
 		<property name="sysOperateDao" ref="sysOperateDao"></property>
 	</bean>
 	<bean id="sysOperateDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.SysOperateDao"></property>
+		<property name="mapperInterface" value="com.marks.module.system.sys.dao.SysOperateDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 
