@@ -1,12 +1,12 @@
-package com.cjmei.module.note.question.service;
+package com.marks.module.note.question.service;
 
 
-import com.cjmei.module.note.question.pojo.Question;
+import com.marks.module.note.question.pojo.Question;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface QuestionService{
 

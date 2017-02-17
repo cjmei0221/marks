@@ -1,9 +1,9 @@
-package com.cjmei.module.autocode.core.produced.backstagecode;
+package com.marks.module.autocode.core.produced.backstagecode;
 
-import com.cjmei.module.autocode.core.produced.AbstractProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.util.FileUtil;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.AbstractProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.util.FileUtil;
+import com.marks.module.autocode.core.produced.util.StringUtil;
 
 /**
  * 基本方法实现类

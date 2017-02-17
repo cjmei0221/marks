@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.modulemsg.service.impl;
+package com.marks.module.wx.modulemsg.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,16 +8,16 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.module.wx.modulemsg.dao.ModuleMsgDao;
-import com.cjmei.module.wx.modulemsg.pojo.ModuleMsg;
-import com.cjmei.module.wx.modulemsg.pojo.WxMsg;
-import com.cjmei.module.wx.modulemsg.service.ModuleMsgService;
-import com.cjmei.module.wx.wxtemplate.dao.WxTemplateDao;
-import com.cjmei.module.wx.wxtemplate.pojo.WxTemplate;
-import com.cjmei.module.wx.wxuser.pojo.WxUser;
-import com.cjmei.module.wx.wxutil.WxFwUtil;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.module.wx.modulemsg.dao.ModuleMsgDao;
+import com.marks.module.wx.modulemsg.pojo.ModuleMsg;
+import com.marks.module.wx.modulemsg.pojo.WxMsg;
+import com.marks.module.wx.modulemsg.service.ModuleMsgService;
+import com.marks.module.wx.wxtemplate.dao.WxTemplateDao;
+import com.marks.module.wx.wxtemplate.pojo.WxTemplate;
+import com.marks.module.wx.wxuser.pojo.WxUser;
+import com.marks.module.wx.wxutil.WxFwUtil;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

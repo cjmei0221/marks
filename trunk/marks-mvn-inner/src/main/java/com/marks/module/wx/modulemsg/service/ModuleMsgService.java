@@ -1,11 +1,11 @@
-package com.cjmei.module.wx.modulemsg.service;
+package com.marks.module.wx.modulemsg.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.wx.modulemsg.pojo.ModuleMsg;
-import com.cjmei.module.wx.wxuser.pojo.WxUser;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.wx.modulemsg.pojo.ModuleMsg;
+import com.marks.module.wx.wxuser.pojo.WxUser;
 
 public interface ModuleMsgService {
 

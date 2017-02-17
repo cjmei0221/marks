@@ -1,4 +1,4 @@
-package com.cjmei.common.enums;
+package com.marks.common.enums;
 
 /**
  * 枚举

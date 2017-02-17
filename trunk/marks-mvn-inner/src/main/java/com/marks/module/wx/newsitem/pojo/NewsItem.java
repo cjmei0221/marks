@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.newsitem.pojo;
+package com.marks.module.wx.newsitem.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

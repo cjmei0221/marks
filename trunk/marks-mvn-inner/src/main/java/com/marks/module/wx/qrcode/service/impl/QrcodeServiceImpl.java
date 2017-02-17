@@ -1,15 +1,15 @@
-package com.cjmei.module.wx.qrcode.service.impl;
+package com.marks.module.wx.qrcode.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.wx.qrcode.pojo.Qrcode;
-import com.cjmei.module.wx.qrcode.dao.QrcodeDao;
-import com.cjmei.module.wx.qrcode.service.QrcodeService;
+import com.marks.module.wx.qrcode.pojo.Qrcode;
+import com.marks.module.wx.qrcode.dao.QrcodeDao;
+import com.marks.module.wx.qrcode.service.QrcodeService;
 
 public class QrcodeServiceImpl implements QrcodeService{
    

@@ -1,9 +1,9 @@
-package com.cjmei.module.note.vipinfo.pojo;
+package com.marks.module.note.vipinfo.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import com.cjmei.module.system.core.data.StaticData;
+import com.marks.module.system.core.data.StaticData;
 
 public class VipInfo implements Serializable {
 

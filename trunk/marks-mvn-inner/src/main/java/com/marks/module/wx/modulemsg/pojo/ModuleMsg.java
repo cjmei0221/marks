@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.modulemsg.pojo;
+package com.marks.module.wx.modulemsg.pojo;
 
 import java.io.Serializable;
 import java.util.Date;

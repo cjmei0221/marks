@@ -1,11 +1,11 @@
-package com.cjmei.module.autocode.web.dao;
+package com.marks.module.autocode.web.dao;
 
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.module.autocode.web.pojo.AutoCode;
-import com.cjmei.module.autocode.web.pojo.AutoCodeAttr;
+import com.marks.module.autocode.web.pojo.AutoCode;
+import com.marks.module.autocode.web.pojo.AutoCodeAttr;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface AutoCodeDao {

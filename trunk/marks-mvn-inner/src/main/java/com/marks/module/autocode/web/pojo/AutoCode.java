@@ -1,10 +1,10 @@
-package com.cjmei.module.autocode.web.pojo;
+package com.marks.module.autocode.web.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.util.StringUtil;
 
 public class AutoCode implements Serializable{
 

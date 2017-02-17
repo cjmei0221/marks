@@ -1,13 +1,13 @@
-package com.cjmei.module.system.sys.service.impl;
+package com.marks.module.system.sys.service.impl;
 
 import java.util.List;
 
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.system.datadir.pojo.DataDir;
-import com.cjmei.module.system.sys.dao.LoadDataDao;
-import com.cjmei.module.system.sys.service.LoadDataService;
-import com.cjmei.module.system.sysconf.pojo.SysConf;
-import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.system.datadir.pojo.DataDir;
+import com.marks.module.system.sys.dao.LoadDataDao;
+import com.marks.module.system.sys.service.LoadDataService;
+import com.marks.module.system.sysconf.pojo.SysConf;
+import com.marks.module.wx.wxaccount.pojo.WxAccount;
 
 public class LoadDataServiceImpl implements LoadDataService{
 

@@ -1,4 +1,4 @@
-package com.cjmei.module.system.sysconf.pojo;
+package com.marks.module.system.sysconf.pojo;
 
 import java.io.Serializable;
 import java.util.Date;

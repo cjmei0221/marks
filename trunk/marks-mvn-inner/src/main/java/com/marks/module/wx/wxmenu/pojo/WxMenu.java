@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.wxmenu.pojo;
+package com.marks.module.wx.wxmenu.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;

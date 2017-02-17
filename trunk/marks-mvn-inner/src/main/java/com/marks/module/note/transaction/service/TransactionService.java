@@ -1,12 +1,12 @@
-package com.cjmei.module.note.transaction.service;
+package com.marks.module.note.transaction.service;
 
 
-import com.cjmei.module.note.transaction.pojo.Transaction;
+import com.marks.module.note.transaction.pojo.Transaction;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface TransactionService{
 

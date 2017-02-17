@@ -1,15 +1,15 @@
-package com.cjmei.module.system.syslogparam.service.impl;
+package com.marks.module.system.syslogparam.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.system.syslogparam.pojo.SysLogParam;
-import com.cjmei.module.system.syslogparam.dao.SysLogParamDao;
-import com.cjmei.module.system.syslogparam.service.SysLogParamService;
+import com.marks.module.system.syslogparam.pojo.SysLogParam;
+import com.marks.module.system.syslogparam.dao.SysLogParamDao;
+import com.marks.module.system.syslogparam.service.SysLogParamService;
 
 public class SysLogParamServiceImpl implements SysLogParamService{
    

@@ -6,15 +6,15 @@
  * @see (optional) 
  * @Copyright (c) 2016, 广电运通信息科技有限公司  All Rights Reserved.
  */
-package com.cjmei.module.autocode.core.produced.backstagecode.service;
+package com.marks.module.autocode.core.produced.backstagecode.service;
 
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.backstagecode.AbstractCodeProduced;
-import com.cjmei.module.autocode.core.produced.backstagecode.CodeProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.backstagecode.AbstractCodeProduced;
+import com.marks.module.autocode.core.produced.backstagecode.CodeProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoAttr;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.util.StringUtil;
 
 /**
  * File Name: util.autocode.backstagecode.service.ServiceProduced.java

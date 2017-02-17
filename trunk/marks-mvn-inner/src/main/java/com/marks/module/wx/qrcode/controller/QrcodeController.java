@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.qrcode.controller;
+package com.marks.module.wx.qrcode.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,21 +20,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.PaginationResult;
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.qrImage.QrcodeUtil;
-import com.cjmei.module.autocode.core.produced.SupportContorller;
-import com.cjmei.module.autocode.core.util.Code;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
-import com.cjmei.module.system.upload.util.FTPUtil;
-import com.cjmei.module.system.upload.util.UploadUtil;
-import com.cjmei.module.wx.qrcode.pojo.Qrcode;
-import com.cjmei.module.wx.qrcode.service.QrcodeService;
-import com.cjmei.module.wx.wxutil.WxFwUtil;
+import com.marks.common.domain.PaginationResult;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.common.util.IDUtil;
+import com.marks.common.util.JsonUtil;
+import com.marks.common.util.qrImage.QrcodeUtil;
+import com.marks.module.autocode.core.produced.SupportContorller;
+import com.marks.module.autocode.core.util.Code;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.sysuser.pojo.SysUser;
+import com.marks.module.system.upload.util.FTPUtil;
+import com.marks.module.system.upload.util.UploadUtil;
+import com.marks.module.wx.qrcode.pojo.Qrcode;
+import com.marks.module.wx.qrcode.service.QrcodeService;
+import com.marks.module.wx.wxutil.WxFwUtil;
 
 @Controller
 public class QrcodeController extends SupportContorller {

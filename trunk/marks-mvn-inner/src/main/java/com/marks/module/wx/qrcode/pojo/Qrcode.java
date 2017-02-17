@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.qrcode.pojo;
+package com.marks.module.wx.qrcode.pojo;
 
 import java.io.Serializable;
 import java.util.Date;

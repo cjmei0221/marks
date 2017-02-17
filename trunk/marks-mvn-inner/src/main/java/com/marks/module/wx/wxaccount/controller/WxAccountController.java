@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.wxaccount.controller;
+package com.marks.module.wx.wxaccount.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,19 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.PaginationResult;
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.autocode.core.produced.SupportContorller;
-import com.cjmei.module.autocode.core.util.Code;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
-import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
-import com.cjmei.module.wx.wxaccount.service.WxAccountService;
-import com.cjmei.module.wx.wxmenu.pojo.WxMenu;
+import com.marks.common.domain.PaginationResult;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.autocode.core.produced.SupportContorller;
+import com.marks.module.autocode.core.util.Code;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.sysuser.pojo.SysUser;
+import com.marks.module.wx.wxaccount.pojo.WxAccount;
+import com.marks.module.wx.wxaccount.service.WxAccountService;
+import com.marks.module.wx.wxmenu.pojo.WxMenu;
 
 import net.sf.json.JSONArray;
 

@@ -1,8 +1,8 @@
-package com.cjmei.module.autocode.core.test;
+package com.marks.module.autocode.core.test;
 
-import com.cjmei.module.autocode.core.produced.annotation.TableField;
-import com.cjmei.module.autocode.core.produced.annotation.TableName;
-import com.cjmei.module.autocode.core.produced.pojo.AttrType;
+import com.marks.module.autocode.core.produced.annotation.TableField;
+import com.marks.module.autocode.core.produced.annotation.TableName;
+import com.marks.module.autocode.core.produced.pojo.AttrType;
 
 @TableName(value = "tb_testcode", desc = "测试代码")
 public class TestCode {

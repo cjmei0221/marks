@@ -1,13 +1,13 @@
-package com.cjmei.module.mall.goodinfo.service;
+package com.marks.module.mall.goodinfo.service;
 
 
-import com.cjmei.module.mall.goodinfo.pojo.GoodImg;
-import com.cjmei.module.mall.goodinfo.pojo.GoodInfo;
+import com.marks.module.mall.goodinfo.pojo.GoodImg;
+import com.marks.module.mall.goodinfo.pojo.GoodInfo;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface GoodInfoService{
 

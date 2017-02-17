@@ -1,10 +1,10 @@
-package com.cjmei.module.system.core.helper;
+package com.marks.module.system.core.helper;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 /**
  * 用户助手类

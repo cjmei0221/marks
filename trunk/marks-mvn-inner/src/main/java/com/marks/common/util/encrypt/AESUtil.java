@@ -1,4 +1,4 @@
-package com.cjmei.common.util.encrypt;
+package com.marks.common.util.encrypt;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

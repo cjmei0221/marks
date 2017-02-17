@@ -1,12 +1,12 @@
-package com.cjmei.module.wx.qrcode.service;
+package com.marks.module.wx.qrcode.service;
 
 
-import com.cjmei.module.wx.qrcode.pojo.Qrcode;
+import com.marks.module.wx.qrcode.pojo.Qrcode;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface QrcodeService{
 

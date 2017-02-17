@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.modulemsg.pojo;
+package com.marks.module.wx.modulemsg.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

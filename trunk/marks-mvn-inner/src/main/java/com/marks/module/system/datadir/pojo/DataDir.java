@@ -1,4 +1,4 @@
-package com.cjmei.module.system.datadir.pojo;
+package com.marks.module.system.datadir.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;

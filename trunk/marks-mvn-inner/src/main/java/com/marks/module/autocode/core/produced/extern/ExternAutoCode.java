@@ -1,8 +1,8 @@
-package com.cjmei.module.autocode.core.produced.extern;
+package com.marks.module.autocode.core.produced.extern;
 
-import com.cjmei.module.autocode.core.produced.ModuleProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.pojo.OutPutFileResult;
+import com.marks.module.autocode.core.produced.ModuleProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.pojo.OutPutFileResult;
 
 /**
  * 外部调用接口

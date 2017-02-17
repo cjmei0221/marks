@@ -1,11 +1,11 @@
-package com.cjmei.module.note.diary.threadPool;
+package com.marks.module.note.diary.threadPool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.wx.modulemsg.service.ModuleMsgService;
-import com.cjmei.module.wx.wxuser.pojo.WxUser;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.wx.modulemsg.service.ModuleMsgService;
+import com.marks.module.wx.wxuser.pojo.WxUser;
 
 public class DairyThreadPool {
 

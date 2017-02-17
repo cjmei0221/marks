@@ -1,4 +1,4 @@
-package com.cjmei.common.util.tag;
+package com.marks.common.util.tag;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,11 +10,11 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.service.LoginService;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sys.service.LoginService;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 public class ButtonTag extends TagSupport{
 	private static Logger logger = Logger.getLogger(ButtonTag.class);

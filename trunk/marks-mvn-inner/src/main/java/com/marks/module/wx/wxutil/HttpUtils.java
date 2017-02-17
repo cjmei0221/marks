@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.wxutil;
+package com.marks.module.wx.wxutil;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,4 +1,4 @@
-package com.cjmei.module.note.vipinfo.dao;
+package com.marks.module.note.vipinfo.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
-import com.cjmei.module.note.vipinfo.pojo.VipInfo;
+import com.marks.module.note.vipinfo.pojo.VipInfo;
 
 public interface VipInfoDao {
 

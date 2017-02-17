@@ -1,11 +1,11 @@
-package com.cjmei.module.system.orginfo.service;
+package com.marks.module.system.orginfo.service;
 
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
 
 public interface OrgInfoService{
 

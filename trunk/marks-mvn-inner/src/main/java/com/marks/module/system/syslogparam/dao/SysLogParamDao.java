@@ -1,4 +1,4 @@
-package com.cjmei.module.system.syslogparam.dao;
+package com.marks.module.system.syslogparam.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.syslogparam.pojo.SysLogParam;
+import com.marks.module.system.syslogparam.pojo.SysLogParam;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface SysLogParamDao {

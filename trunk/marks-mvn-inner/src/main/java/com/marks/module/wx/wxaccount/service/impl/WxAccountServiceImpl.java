@@ -1,12 +1,12 @@
-package com.cjmei.module.wx.wxaccount.service.impl;
+package com.marks.module.wx.wxaccount.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.wx.wxaccount.dao.WxAccountDao;
-import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
-import com.cjmei.module.wx.wxaccount.service.WxAccountService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.wx.wxaccount.dao.WxAccountDao;
+import com.marks.module.wx.wxaccount.pojo.WxAccount;
+import com.marks.module.wx.wxaccount.service.WxAccountService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

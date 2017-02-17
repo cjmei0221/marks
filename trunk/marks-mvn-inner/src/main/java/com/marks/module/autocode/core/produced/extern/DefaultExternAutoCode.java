@@ -1,26 +1,26 @@
-package com.cjmei.module.autocode.core.produced.extern;
+package com.marks.module.autocode.core.produced.extern;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.ModuleProduced;
-import com.cjmei.module.autocode.core.produced.backstagecode.CodeProduced;
-import com.cjmei.module.autocode.core.produced.config.AutoConfig;
-import com.cjmei.module.autocode.core.produced.factory.DefaultExternAutoBeanFactory;
-import com.cjmei.module.autocode.core.produced.fileformat.DefaultTemplateFileFormat;
-import com.cjmei.module.autocode.core.produced.fileformat.TemplateFileFormat;
-import com.cjmei.module.autocode.core.produced.introduction.introduction.IntroductionPageProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.pojo.OutFileContent;
-import com.cjmei.module.autocode.core.produced.pojo.OutPutFileResult;
-import com.cjmei.module.autocode.core.produced.template.input.DefaultTemplateRead;
-import com.cjmei.module.autocode.core.produced.template.input.TemplateInput;
-import com.cjmei.module.autocode.core.produced.template.output.DefaultTemplateOutPut;
-import com.cjmei.module.autocode.core.produced.template.output.TemplateOutPut;
-import com.cjmei.module.autocode.core.produced.util.ReflectUtil;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
-import com.cjmei.module.autocode.core.test.Test;
+import com.marks.module.autocode.core.produced.ModuleProduced;
+import com.marks.module.autocode.core.produced.backstagecode.CodeProduced;
+import com.marks.module.autocode.core.produced.config.AutoConfig;
+import com.marks.module.autocode.core.produced.factory.DefaultExternAutoBeanFactory;
+import com.marks.module.autocode.core.produced.fileformat.DefaultTemplateFileFormat;
+import com.marks.module.autocode.core.produced.fileformat.TemplateFileFormat;
+import com.marks.module.autocode.core.produced.introduction.introduction.IntroductionPageProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.pojo.OutFileContent;
+import com.marks.module.autocode.core.produced.pojo.OutPutFileResult;
+import com.marks.module.autocode.core.produced.template.input.DefaultTemplateRead;
+import com.marks.module.autocode.core.produced.template.input.TemplateInput;
+import com.marks.module.autocode.core.produced.template.output.DefaultTemplateOutPut;
+import com.marks.module.autocode.core.produced.template.output.TemplateOutPut;
+import com.marks.module.autocode.core.produced.util.ReflectUtil;
+import com.marks.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.test.Test;
 
 public class DefaultExternAutoCode implements ExternAutoCode {
 

@@ -6,7 +6,7 @@
  * @see (optional) 
  * @Copyright (c) 2016, 广电运通信息科技有限公司  All Rights Reserved.
  */
-package com.cjmei.module.autocode.core.produced.table;
+package com.marks.module.autocode.core.produced.table;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -17,11 +17,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.autocode.core.produced.DBProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AttrType;
-import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.util.JdbcUtil;
+import com.marks.module.autocode.core.produced.DBProduced;
+import com.marks.module.autocode.core.produced.pojo.AttrType;
+import com.marks.module.autocode.core.produced.pojo.AutoAttr;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.util.JdbcUtil;
 
 /**
  * File Name: cluster.scheme.autocode.table.MySqlTableProduced.java

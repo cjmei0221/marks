@@ -1,14 +1,14 @@
-package com.cjmei.module.system.sys.dao;
+package com.marks.module.system.sys.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
-import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sysrole.pojo.SysRole;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sysrole.pojo.SysRole;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 public interface LoginDao {
 
@@ -18,7 +18,7 @@ public interface LoginDao {
 	 *
 	 * @param userid
 	 * @return
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	SysUser getSysUserByUserid(@Param("userid")String userid);
@@ -32,7 +32,7 @@ public interface LoginDao {
 	 * @param menuid
 	 * @param rolelist
 	 * @return
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	List<SysOperate> getSysOperate(@Param("menuid") String menuid,@Param("roleId") String roleId);

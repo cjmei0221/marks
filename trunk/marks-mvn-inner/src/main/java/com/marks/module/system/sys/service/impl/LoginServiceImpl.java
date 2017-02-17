@@ -1,16 +1,16 @@
-package com.cjmei.module.system.sys.service.impl;
+package com.marks.module.system.sys.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cjmei.common.enums.Enums;
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
-import com.cjmei.module.system.sys.dao.LoginDao;
-import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.service.LoginService;
-import com.cjmei.module.system.sysrole.pojo.SysRole;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.common.enums.Enums;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.sys.dao.LoginDao;
+import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sys.service.LoginService;
+import com.marks.module.system.sysrole.pojo.SysRole;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 public class LoginServiceImpl implements LoginService {
 

@@ -1,4 +1,4 @@
-package com.cjmei.module.system.core.interceptor;
+package com.marks.module.system.core.interceptor;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.system.core.filter.RequestRegex;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.common.domain.Result;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.system.core.filter.RequestRegex;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 public class PopedomInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log = Logger.getLogger(PopedomInterceptor.class);

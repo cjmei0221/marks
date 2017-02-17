@@ -1,4 +1,4 @@
-package com.cjmei.module.system.core.helper;
+package com.marks.module.system.core.helper;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.cjmei.module.note.diary.threadPool.DairyThreadPool;
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.wx.wxuser.dao.WxUserDao;
-import com.cjmei.module.wx.wxuser.pojo.WxUser;
+import com.marks.module.note.diary.threadPool.DairyThreadPool;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.wx.wxuser.dao.WxUserDao;
+import com.marks.module.wx.wxuser.pojo.WxUser;
 
 public class DairyHelper extends QuartzJobBean {
 

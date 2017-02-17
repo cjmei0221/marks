@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.produced.pojo;
+package com.marks.module.autocode.core.produced.pojo;
 
 //java类型与数据库类型对应
 public enum AttrType {

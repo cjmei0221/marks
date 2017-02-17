@@ -1,4 +1,4 @@
-package com.cjmei.module.system.orginfo.dao;
+package com.marks.module.system.orginfo.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface OrgInfoDao {

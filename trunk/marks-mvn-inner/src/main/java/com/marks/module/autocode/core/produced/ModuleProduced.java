@@ -1,7 +1,7 @@
-package com.cjmei.module.autocode.core.produced;
+package com.marks.module.autocode.core.produced;
 
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.pojo.OutFileContent;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.pojo.OutFileContent;
 
 public interface ModuleProduced {
 

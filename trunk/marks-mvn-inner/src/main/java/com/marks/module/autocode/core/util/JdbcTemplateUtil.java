@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.util;
+package com.marks.module.autocode.core.util;
 
 import javax.servlet.ServletContext;
 import javax.sql.DataSource;

@@ -1,15 +1,15 @@
-package com.cjmei.module.wx.wxtemplate.service.impl;
+package com.marks.module.wx.wxtemplate.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.wx.wxtemplate.pojo.WxTemplate;
-import com.cjmei.module.wx.wxtemplate.dao.WxTemplateDao;
-import com.cjmei.module.wx.wxtemplate.service.WxTemplateService;
+import com.marks.module.wx.wxtemplate.pojo.WxTemplate;
+import com.marks.module.wx.wxtemplate.dao.WxTemplateDao;
+import com.marks.module.wx.wxtemplate.service.WxTemplateService;
 
 public class WxTemplateServiceImpl implements WxTemplateService{
    

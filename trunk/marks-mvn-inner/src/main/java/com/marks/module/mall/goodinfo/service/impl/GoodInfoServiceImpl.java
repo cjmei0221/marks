@@ -1,15 +1,15 @@
-package com.cjmei.module.mall.goodinfo.service.impl;
+package com.marks.module.mall.goodinfo.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.enums.Enums;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.mall.goodinfo.dao.GoodInfoDao;
-import com.cjmei.module.mall.goodinfo.pojo.GoodImg;
-import com.cjmei.module.mall.goodinfo.pojo.GoodInfo;
-import com.cjmei.module.mall.goodinfo.service.GoodInfoService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.enums.Enums;
+import com.marks.common.util.IDUtil;
+import com.marks.module.mall.goodinfo.dao.GoodInfoDao;
+import com.marks.module.mall.goodinfo.pojo.GoodImg;
+import com.marks.module.mall.goodinfo.pojo.GoodInfo;
+import com.marks.module.mall.goodinfo.service.GoodInfoService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

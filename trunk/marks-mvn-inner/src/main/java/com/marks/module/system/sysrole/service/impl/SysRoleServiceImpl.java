@@ -1,19 +1,19 @@
-package com.cjmei.module.system.sysrole.service.impl;
+package com.marks.module.system.sysrole.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.system.sys.dao.LoginDao;
-import com.cjmei.module.system.sys.pojo.SysFunc;
-import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sys.pojo.SysRoleFunc;
-import com.cjmei.module.system.sysrole.dao.SysRoleDao;
-import com.cjmei.module.system.sysrole.pojo.SysRole;
-import com.cjmei.module.system.sysrole.service.SysRoleService;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.system.sys.dao.LoginDao;
+import com.marks.module.system.sys.pojo.SysFunc;
+import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sys.pojo.SysRoleFunc;
+import com.marks.module.system.sysrole.dao.SysRoleDao;
+import com.marks.module.system.sysrole.pojo.SysRole;
+import com.marks.module.system.sysrole.service.SysRoleService;
+import com.marks.module.system.sysuser.pojo.SysUser;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

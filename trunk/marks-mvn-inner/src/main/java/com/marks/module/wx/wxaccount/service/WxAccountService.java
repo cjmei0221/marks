@@ -1,11 +1,11 @@
-package com.cjmei.module.wx.wxaccount.service;
+package com.marks.module.wx.wxaccount.service;
 
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.wx.wxaccount.pojo.WxAccount;
 
 public interface WxAccountService{
 

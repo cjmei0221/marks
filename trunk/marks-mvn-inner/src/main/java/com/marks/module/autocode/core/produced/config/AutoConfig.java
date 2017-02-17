@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.produced.config;
+package com.marks.module.autocode.core.produced.config;
 
 public class AutoConfig {
 

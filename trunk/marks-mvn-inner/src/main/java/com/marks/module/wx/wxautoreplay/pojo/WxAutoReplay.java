@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.wxautoreplay.pojo;
+package com.marks.module.wx.wxautoreplay.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

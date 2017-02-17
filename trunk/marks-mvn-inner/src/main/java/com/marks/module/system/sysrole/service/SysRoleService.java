@@ -1,13 +1,13 @@
-package com.cjmei.module.system.sysrole.service;
+package com.marks.module.system.sysrole.service;
 
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sysrole.pojo.SysRole;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sysrole.pojo.SysRole;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 public interface SysRoleService{
 

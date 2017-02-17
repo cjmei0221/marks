@@ -1,12 +1,12 @@
-package com.cjmei.module.note.diary.service.impl;
+package com.marks.module.note.diary.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.note.diary.dao.DiaryDao;
-import com.cjmei.module.note.diary.pojo.Diary;
-import com.cjmei.module.note.diary.service.DiaryService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.note.diary.dao.DiaryDao;
+import com.marks.module.note.diary.pojo.Diary;
+import com.marks.module.note.diary.service.DiaryService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

@@ -1,4 +1,4 @@
-package com.cjmei.module.system.upload.util;
+package com.marks.module.system.upload.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.log4j.Logger;
 
-import com.cjmei.common.util.properties.Config;
+import com.marks.common.util.properties.Config;
 
 
 /**

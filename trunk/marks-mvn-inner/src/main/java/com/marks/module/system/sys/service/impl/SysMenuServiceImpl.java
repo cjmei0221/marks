@@ -1,14 +1,14 @@
-package com.cjmei.module.system.sys.service.impl;
+package com.marks.module.system.sys.service.impl;
 
 import java.util.List;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.system.sys.dao.SysMenuDao;
-import com.cjmei.module.system.sys.pojo.SysFunc;
-import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.service.SysMenuService;
+import com.marks.common.domain.Result;
+import com.marks.common.util.IDUtil;
+import com.marks.module.system.sys.dao.SysMenuDao;
+import com.marks.module.system.sys.pojo.SysFunc;
+import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sys.service.SysMenuService;
 
 public class SysMenuServiceImpl implements SysMenuService{
 

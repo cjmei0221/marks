@@ -1,4 +1,4 @@
-package com.cjmei.module.note.question.pojo;
+package com.marks.module.note.question.pojo;
 
 import java.io.Serializable;
 import java.util.Date;

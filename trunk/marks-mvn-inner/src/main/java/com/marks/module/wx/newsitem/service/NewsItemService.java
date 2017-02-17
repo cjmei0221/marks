@@ -1,12 +1,12 @@
-package com.cjmei.module.wx.newsitem.service;
+package com.marks.module.wx.newsitem.service;
 
 
-import com.cjmei.module.wx.newsitem.pojo.NewsItem;
+import com.marks.module.wx.newsitem.pojo.NewsItem;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface NewsItemService{
 

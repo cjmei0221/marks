@@ -1,4 +1,4 @@
-package com.cjmei.module.note.transaction.dao;
+package com.marks.module.note.transaction.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
-import com.cjmei.module.note.transaction.pojo.Transaction;
+import com.marks.module.note.transaction.pojo.Transaction;
 
 public interface TransactionDao {
 

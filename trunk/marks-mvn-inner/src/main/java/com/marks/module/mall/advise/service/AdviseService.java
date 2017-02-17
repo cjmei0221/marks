@@ -1,12 +1,12 @@
-package com.cjmei.module.mall.advise.service;
+package com.marks.module.mall.advise.service;
 
 
-import com.cjmei.module.mall.advise.pojo.Advise;
+import com.marks.module.mall.advise.pojo.Advise;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface AdviseService{
 

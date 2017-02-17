@@ -6,9 +6,9 @@
  * @see (optional) 
  * @Copyright (c) 2016, 广电运通信息科技有限公司  All Rights Reserved.
  */
-package com.cjmei.module.autocode.core.produced.webpage.js;
+package com.marks.module.autocode.core.produced.webpage.js;
 
-import com.cjmei.module.autocode.core.produced.ModuleProduced;
+import com.marks.module.autocode.core.produced.ModuleProduced;
 
 /**
  * File Name: cluster.scheme.autocode.webpage.js.JsProduced.java

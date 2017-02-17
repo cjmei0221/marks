@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.newsitem.controller;
+package com.marks.module.wx.newsitem.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,19 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.PaginationResult;
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.autocode.core.util.Code;
-import com.cjmei.module.autocode.core.produced.SupportContorller;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.common.domain.PaginationResult;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.common.util.JsonUtil;
+import com.marks.common.util.IDUtil;
+import com.marks.module.autocode.core.util.Code;
+import com.marks.module.autocode.core.produced.SupportContorller;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
-import com.cjmei.module.wx.newsitem.pojo.NewsItem;
-import com.cjmei.module.wx.newsitem.service.NewsItemService;
-import com.cjmei.module.wx.wxaccount.pojo.WxAccount;
+import com.marks.module.wx.newsitem.pojo.NewsItem;
+import com.marks.module.wx.newsitem.service.NewsItemService;
+import com.marks.module.wx.wxaccount.pojo.WxAccount;
 
 import net.sf.json.JSONArray;
 

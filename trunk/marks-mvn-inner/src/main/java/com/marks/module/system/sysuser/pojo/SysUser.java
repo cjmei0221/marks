@@ -1,12 +1,12 @@
-package com.cjmei.module.system.sysuser.pojo;
+package com.marks.module.system.sysuser.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
-import com.cjmei.module.system.sysrole.pojo.SysRole;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.sysrole.pojo.SysRole;
 
 public class SysUser implements Serializable {
 

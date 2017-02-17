@@ -1,14 +1,14 @@
-package com.cjmei.module.system.sysuser.service.impl;
+package com.marks.module.system.sysuser.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.system.sys.pojo.SysUserOrg;
-import com.cjmei.module.system.sysrole.dao.SysRoleDao;
-import com.cjmei.module.system.sysuser.dao.SysUserDao;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
-import com.cjmei.module.system.sysuser.service.SysUserService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.system.sys.pojo.SysUserOrg;
+import com.marks.module.system.sysrole.dao.SysRoleDao;
+import com.marks.module.system.sysuser.dao.SysUserDao;
+import com.marks.module.system.sysuser.pojo.SysUser;
+import com.marks.module.system.sysuser.service.SysUserService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

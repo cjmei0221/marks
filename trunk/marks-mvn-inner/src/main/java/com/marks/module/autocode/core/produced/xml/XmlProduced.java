@@ -1,6 +1,6 @@
-package com.cjmei.module.autocode.core.produced.xml;
+package com.marks.module.autocode.core.produced.xml;
 
-import com.cjmei.module.autocode.core.produced.ModuleProduced;
+import com.marks.module.autocode.core.produced.ModuleProduced;
 
 public interface XmlProduced extends ModuleProduced{
 

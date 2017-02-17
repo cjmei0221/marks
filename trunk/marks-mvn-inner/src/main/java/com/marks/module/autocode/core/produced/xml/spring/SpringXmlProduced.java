@@ -1,8 +1,8 @@
-package com.cjmei.module.autocode.core.produced.xml.spring;
+package com.marks.module.autocode.core.produced.xml.spring;
 
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
-import com.cjmei.module.autocode.core.produced.xml.AbstractSpringXmlProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.xml.AbstractSpringXmlProduced;
 
 public class SpringXmlProduced extends AbstractSpringXmlProduced {
 

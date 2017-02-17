@@ -1,12 +1,12 @@
-package com.cjmei.module.system.syslogparam.service;
+package com.marks.module.system.syslogparam.service;
 
 
-import com.cjmei.module.system.syslogparam.pojo.SysLogParam;
+import com.marks.module.system.syslogparam.pojo.SysLogParam;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface SysLogParamService{
 	public SysLogParam findById(String id);

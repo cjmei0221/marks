@@ -1,15 +1,15 @@
-package com.cjmei.module.system.sysconf.service.impl;
+package com.marks.module.system.sysconf.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.system.sysconf.pojo.SysConf;
-import com.cjmei.module.system.sysconf.dao.SysConfDao;
-import com.cjmei.module.system.sysconf.service.SysConfService;
+import com.marks.module.system.sysconf.pojo.SysConf;
+import com.marks.module.system.sysconf.dao.SysConfDao;
+import com.marks.module.system.sysconf.service.SysConfService;
 
 public class SysConfServiceImpl implements SysConfService{
    

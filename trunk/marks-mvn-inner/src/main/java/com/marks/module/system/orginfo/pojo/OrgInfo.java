@@ -1,4 +1,4 @@
-package com.cjmei.module.system.orginfo.pojo;
+package com.marks.module.system.orginfo.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

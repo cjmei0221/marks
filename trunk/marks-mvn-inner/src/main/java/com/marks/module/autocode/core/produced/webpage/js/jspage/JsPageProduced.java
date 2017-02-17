@@ -6,14 +6,14 @@
  * @see (optional) 
  * @Copyright (c) 2016, 广电运通信息科技有限公司  All Rights Reserved.
  */
-package com.cjmei.module.autocode.core.produced.webpage.js.jspage;
+package com.marks.module.autocode.core.produced.webpage.js.jspage;
 
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
-import com.cjmei.module.autocode.core.produced.webpage.js.AbstractJsProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoAttr;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.webpage.js.AbstractJsProduced;
 
 /**
  * File Name: cluster.scheme.autocode.webpage.js.jspage.Jsproduced.java

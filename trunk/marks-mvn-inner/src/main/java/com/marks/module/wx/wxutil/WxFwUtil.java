@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.wxutil;
+package com.marks.module.wx.wxutil;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -11,11 +11,11 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.wx.wxmenu.pojo.WxMenu;
-import com.cjmei.module.wx.wxuser.pojo.UserGet;
-import com.cjmei.module.wx.wxuser.pojo.WxUser;
+import com.marks.common.domain.Result;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.wx.wxmenu.pojo.WxMenu;
+import com.marks.module.wx.wxuser.pojo.UserGet;
+import com.marks.module.wx.wxuser.pojo.WxUser;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -177,7 +177,7 @@ public class WxFwUtil {
 	 * @param to_groupid
 	 * @return
 	 * @throws Exception
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	public Result moveOpenidtoGroup(String accountid, String openid, String to_groupid) throws Exception {

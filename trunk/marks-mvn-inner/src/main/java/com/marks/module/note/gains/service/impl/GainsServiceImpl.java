@@ -1,15 +1,15 @@
-package com.cjmei.module.note.gains.service.impl;
+package com.marks.module.note.gains.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.note.gains.pojo.Gains;
-import com.cjmei.module.note.gains.dao.GainsDao;
-import com.cjmei.module.note.gains.service.GainsService;
+import com.marks.module.note.gains.pojo.Gains;
+import com.marks.module.note.gains.dao.GainsDao;
+import com.marks.module.note.gains.service.GainsService;
 
 public class GainsServiceImpl implements GainsService{
    

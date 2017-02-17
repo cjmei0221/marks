@@ -1,19 +1,19 @@
-package com.cjmei.module.autocode.core.produced.template.output;
+package com.marks.module.autocode.core.produced.template.output;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.backstagecode.CodeProduced;
-import com.cjmei.module.autocode.core.produced.fileformat.DefaultTemplateFileFormat;
-import com.cjmei.module.autocode.core.produced.pojo.AttrType;
-import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.pojo.OutFileContent;
-import com.cjmei.module.autocode.core.produced.pojo.OutPutFileResult;
-import com.cjmei.module.autocode.core.produced.template.input.DefaultTemplateRead;
-import com.cjmei.module.autocode.core.produced.util.FileUtil;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.backstagecode.CodeProduced;
+import com.marks.module.autocode.core.produced.fileformat.DefaultTemplateFileFormat;
+import com.marks.module.autocode.core.produced.pojo.AttrType;
+import com.marks.module.autocode.core.produced.pojo.AutoAttr;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.pojo.OutFileContent;
+import com.marks.module.autocode.core.produced.pojo.OutPutFileResult;
+import com.marks.module.autocode.core.produced.template.input.DefaultTemplateRead;
+import com.marks.module.autocode.core.produced.util.FileUtil;
+import com.marks.module.autocode.core.produced.util.StringUtil;
 /**
  * 
  * @author ykai5

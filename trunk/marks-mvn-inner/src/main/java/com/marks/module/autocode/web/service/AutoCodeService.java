@@ -1,12 +1,12 @@
-package com.cjmei.module.autocode.web.service;
+package com.marks.module.autocode.web.service;
 
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.autocode.web.pojo.AutoCode;
-import com.cjmei.module.autocode.web.pojo.AutoCodeAttr;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.autocode.web.pojo.AutoCode;
+import com.marks.module.autocode.web.pojo.AutoCodeAttr;
 
 public interface AutoCodeService{
 

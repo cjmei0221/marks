@@ -1,13 +1,13 @@
-package com.cjmei.module.system.sysrole.dao;
+package com.marks.module.system.sysrole.dao;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.sys.pojo.SysFunc;
-import com.cjmei.module.system.sys.pojo.SysRoleFunc;
-import com.cjmei.module.system.sysrole.pojo.SysRole;
+import com.marks.module.system.sys.pojo.SysFunc;
+import com.marks.module.system.sys.pojo.SysRoleFunc;
+import com.marks.module.system.sysrole.pojo.SysRole;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface SysRoleDao {

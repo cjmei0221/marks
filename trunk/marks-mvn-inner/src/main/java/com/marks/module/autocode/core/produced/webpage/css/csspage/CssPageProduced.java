@@ -1,9 +1,9 @@
 
-package com.cjmei.module.autocode.core.produced.webpage.css.csspage;
+package com.marks.module.autocode.core.produced.webpage.css.csspage;
 
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
-import com.cjmei.module.autocode.core.produced.webpage.css.AbstractCssProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.webpage.css.AbstractCssProduced;
 
 /**
  * File Name: cluster.scheme.autocode.webpage.css.CssPageProduced.java

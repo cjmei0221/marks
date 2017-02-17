@@ -1,12 +1,12 @@
-package com.cjmei.module.system.syslog.service.impl;
+package com.marks.module.system.syslog.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.system.sys.dao.SysLogDao;
-import com.cjmei.module.system.sys.pojo.SysLog;
-import com.cjmei.module.system.syslog.service.SysLogService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.system.sys.dao.SysLogDao;
+import com.marks.module.system.sys.pojo.SysLog;
+import com.marks.module.system.syslog.service.SysLogService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
