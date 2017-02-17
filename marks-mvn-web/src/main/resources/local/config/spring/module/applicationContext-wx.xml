@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
 	default-autowire="byName">
 	<bean id="requestDispatchService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.RequestDispatchServiceImpl">
+		class="com.marks.module.weixin.wfhao.service.impl.RequestDispatchServiceImpl">
 <!-- 		<property name="componentMap">
 			<map>
 				<entry key="text" value-ref="textRequestService"></entry>
@@ -38,20 +38,20 @@
 		</property> -->
 	</bean>
 	<bean id="textRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.normal.TextRequestServiceImpl" />
+		class="com.marks.module.weixin.wfhao.service.impl.normal.TextRequestServiceImpl" />
 	<bean id="imageRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.normal.ImageRequestServiceImpl" />
+		class="com.marks.module.weixin.wfhao.service.impl.normal.ImageRequestServiceImpl" />
 	<bean id="voiceRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.normal.VoiceRequestServiceImpl" />
+		class="com.marks.module.weixin.wfhao.service.impl.normal.VoiceRequestServiceImpl" />
 	<bean id="videoRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.normal.VideoRequestServiceImpl" />
+		class="com.marks.module.weixin.wfhao.service.impl.normal.VideoRequestServiceImpl" />
 	<bean id="locationRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.normal.LocationRequestServiceImpl" />
+		class="com.marks.module.weixin.wfhao.service.impl.normal.LocationRequestServiceImpl" />
 	<bean id="linkRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.normal.LinkRequestServiceImpl" />
+		class="com.marks.module.weixin.wfhao.service.impl.normal.LinkRequestServiceImpl" />
 
 	<bean id="eventRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.normal.EventRequestServiceImpl">
+		class="com.marks.module.weixin.wfhao.service.impl.normal.EventRequestServiceImpl">
 		<!-- <property name="componentMap">
 			<map>
 				<entry key="subscribe" value-ref="subscribeRequestService"></entry>
@@ -63,46 +63,46 @@
 		</property> -->
 	</bean>
 	<bean id="locationEventRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.event.LocationEventRequestServiceImpl">
+		class="com.marks.module.weixin.wfhao.service.impl.event.LocationEventRequestServiceImpl">
 	</bean>
 	<bean id="subscribeRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.event.SubscribeEventRequestServiceImpl">
+		class="com.marks.module.weixin.wfhao.service.impl.event.SubscribeEventRequestServiceImpl">
 	</bean>
 	<bean id="unsubscribeRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.event.UnsubscribeEventRequestServiceImpl">
+		class="com.marks.module.weixin.wfhao.service.impl.event.UnsubscribeEventRequestServiceImpl">
 	</bean>
 	<bean id="clickEventRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.event.ClickEventRequestServiceImpl">
+		class="com.marks.module.weixin.wfhao.service.impl.event.ClickEventRequestServiceImpl">
 	</bean>
 	<bean id="viewEventRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.event.ViewEventRequestServiceImpl">
+		class="com.marks.module.weixin.wfhao.service.impl.event.ViewEventRequestServiceImpl">
 	</bean>
 	<bean id="scanEventRequestService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.event.ScanEventRequestServiceImpl"></bean>
+		class="com.marks.module.weixin.wfhao.service.impl.event.ScanEventRequestServiceImpl"></bean>
 
 	<!-- 加载基础数据管理 -->
 	<bean id="weixinAccountService"
-		class="com.cjmei.module.weixin.wfhao.service.impl.WeixinAccountServiceImpl">
+		class="com.marks.module.weixin.wfhao.service.impl.WeixinAccountServiceImpl">
 		<property name="weixinAccountDao" ref="weixinAccountDao"></property>
 		<property name="wxUserDao" ref="wxUserDao"></property>
 	</bean>
 	<bean id="weixinAccountDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.cjmei.module.weixin.wfhao.dao.WeixinAccountDao"></property>
+			value="com.marks.module.weixin.wfhao.dao.WeixinAccountDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	<bean id="wxUserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.weixin.wfhao.dao.WxUserDao"></property>
+		<property name="mapperInterface" value="com.marks.module.weixin.wfhao.dao.WxUserDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	<bean id="wxMenuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.weixin.wfhao.dao.WxMenuDao"></property>
+		<property name="mapperInterface" value="com.marks.module.weixin.wfhao.dao.WxMenuDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 
 	<bean id="wxAutoReplayDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.cjmei.module.weixin.wfhao.dao.WxAutoReplayDao"></property>
+			value="com.marks.module.weixin.wfhao.dao.WxAutoReplayDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 

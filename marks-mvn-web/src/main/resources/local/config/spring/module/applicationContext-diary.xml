@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="diaryService" class="com.cjmei.module.note.diary.service.impl.DiaryServiceImpl">
+	<bean id="diaryService" class="com.marks.module.note.diary.service.impl.DiaryServiceImpl">
 		<property name="diaryDao" ref="diaryDao"></property>
 	</bean>
 	<bean id="diaryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.note.diary.dao.DiaryDao"></property>
+		<property name="mapperInterface" value="com.marks.module.note.diary.dao.DiaryDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

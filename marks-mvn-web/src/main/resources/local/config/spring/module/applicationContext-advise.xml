@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="adviseService" class="com.cjmei.module.mall.advise.service.impl.AdviseServiceImpl">
+	<bean id="adviseService" class="com.marks.module.mall.advise.service.impl.AdviseServiceImpl">
 		<property name="adviseDao" ref="adviseDao"></property>
 	</bean>
 	<bean id="adviseDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.mall.advise.dao.AdviseDao"></property>
+		<property name="mapperInterface" value="com.marks.module.mall.advise.dao.AdviseDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

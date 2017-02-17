@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="vipInfoService" class="com.cjmei.module.note.vipinfo.service.impl.VipInfoServiceImpl">
+	<bean id="vipInfoService" class="com.marks.module.note.vipinfo.service.impl.VipInfoServiceImpl">
 		<property name="vipInfoDao" ref="vipInfoDao"></property>
 	</bean>
 	<bean id="vipInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.note.vipinfo.dao.VipInfoDao"></property>
+		<property name="mapperInterface" value="com.marks.module.note.vipinfo.dao.VipInfoDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

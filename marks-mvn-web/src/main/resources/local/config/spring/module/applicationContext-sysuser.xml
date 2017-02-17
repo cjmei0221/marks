@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="sysUserService" class="com.cjmei.module.system.login.service.impl.SysUserServiceImpl">
+	<bean id="sysUserService" class="com.marks.module.system.login.service.impl.SysUserServiceImpl">
 		<property name="sysUserDao" ref="sysUserDao"></property>
 	</bean>
 	<bean id="sysUserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.system.login.dao.SysUserDao"></property>
+		<property name="mapperInterface" value="com.marks.module.system.login.dao.SysUserDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
