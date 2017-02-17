@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>nfb</groupId>
-	<artifactId>nfb-mvn-inner</artifactId>
+	<groupId>marks</groupId>
+	<artifactId>marks-mvn-inner</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>nfb-mvn-inner Maven Webapp</name>
+	<name>marks-mvn-inner Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<profiles>
@@ -352,7 +352,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>nfb-mvn-inner</finalName>
+		<finalName>marks-mvn-inner</finalName>
 		<resources>
 			<resource>
 				<directory>
