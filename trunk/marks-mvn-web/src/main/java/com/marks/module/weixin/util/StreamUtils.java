@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cjmei.module.weixin.util;
+package com.marks.module.weixin.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.pojo;
+package com.marks.module.weixin.wfhao.pojo;
 
 /**
  * 微信菜单对象类

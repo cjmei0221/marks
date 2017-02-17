@@ -1,4 +1,4 @@
-package com.cjmei.module.mall.advise.controller;
+package com.marks.module.mall.advise.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.PaginationResult;
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.code.Code;
-import com.cjmei.module.mall.advise.pojo.Advise;
-import com.cjmei.module.mall.advise.service.AdviseService;
-import com.cjmei.module.system.sys.controller.SupportContorller;
+import com.marks.common.domain.PaginationResult;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.common.util.JsonUtil;
+import com.marks.common.util.code.Code;
+import com.marks.module.mall.advise.pojo.Advise;
+import com.marks.module.mall.advise.service.AdviseService;
+import com.marks.module.system.sys.controller.SupportContorller;
 
 @Controller
 public class AdviseController extends SupportContorller{

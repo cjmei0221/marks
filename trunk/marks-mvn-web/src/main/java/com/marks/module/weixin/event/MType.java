@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cjmei.module.weixin.event;
+package com.marks.module.weixin.event;
 
 /**
  * 微信消息类型,大小写对应微信接口，msgType的枚举值

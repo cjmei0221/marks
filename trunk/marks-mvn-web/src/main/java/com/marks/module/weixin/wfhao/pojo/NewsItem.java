@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.pojo;
+package com.marks.module.weixin.wfhao.pojo;
 
 import java.io.Serializable;
 

@@ -1,12 +1,12 @@
-package com.cjmei.module.note.gains.service;
+package com.marks.module.note.gains.service;
 
 
-import com.cjmei.module.note.gains.pojo.Gains;
+import com.marks.module.note.gains.pojo.Gains;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface GainsService{
 

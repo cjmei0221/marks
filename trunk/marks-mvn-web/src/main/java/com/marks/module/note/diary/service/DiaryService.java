@@ -1,11 +1,11 @@
-package com.cjmei.module.note.diary.service;
+package com.marks.module.note.diary.service;
 
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.note.diary.pojo.Diary;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.note.diary.pojo.Diary;
 
 public interface DiaryService{
 

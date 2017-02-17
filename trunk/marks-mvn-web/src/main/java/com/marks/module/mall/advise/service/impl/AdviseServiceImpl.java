@@ -1,15 +1,15 @@
-package com.cjmei.module.mall.advise.service.impl;
+package com.marks.module.mall.advise.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.mall.advise.pojo.Advise;
-import com.cjmei.module.mall.advise.dao.AdviseDao;
-import com.cjmei.module.mall.advise.service.AdviseService;
+import com.marks.module.mall.advise.pojo.Advise;
+import com.marks.module.mall.advise.dao.AdviseDao;
+import com.marks.module.mall.advise.service.AdviseService;
 
 public class AdviseServiceImpl implements AdviseService{
    

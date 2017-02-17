@@ -1,12 +1,12 @@
-package com.cjmei.module.weixin.wfhao.service.impl.event;
+package com.marks.module.weixin.wfhao.service.impl.event;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
-import com.cjmei.module.weixin.wfhao.service.impl.normal.AbstractRequestService;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.service.impl.normal.AbstractRequestService;
 
 
 

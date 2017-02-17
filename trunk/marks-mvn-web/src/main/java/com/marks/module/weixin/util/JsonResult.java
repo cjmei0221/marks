@@ -6,7 +6,7 @@
  * 修改记录：
  * 
  */
-package com.cjmei.module.weixin.util;
+package com.marks.module.weixin.util;
 
 import java.io.Serializable;
 

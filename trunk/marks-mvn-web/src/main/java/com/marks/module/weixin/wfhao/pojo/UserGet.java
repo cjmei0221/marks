@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.pojo;
+package com.marks.module.weixin.wfhao.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

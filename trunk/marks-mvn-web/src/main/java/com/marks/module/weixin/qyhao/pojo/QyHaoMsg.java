@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.qyhao.pojo;
+package com.marks.module.weixin.qyhao.pojo;
 
 public class QyHaoMsg {
 	private String accountid;

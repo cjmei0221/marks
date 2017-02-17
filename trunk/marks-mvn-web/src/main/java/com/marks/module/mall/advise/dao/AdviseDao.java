@@ -1,4 +1,4 @@
-package com.cjmei.module.mall.advise.dao;
+package com.marks.module.mall.advise.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
-import com.cjmei.module.mall.advise.pojo.Advise;
+import com.marks.module.mall.advise.pojo.Advise;
 
 public interface AdviseDao {
 

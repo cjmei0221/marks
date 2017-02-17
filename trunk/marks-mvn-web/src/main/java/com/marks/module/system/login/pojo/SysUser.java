@@ -1,4 +1,4 @@
-package com.cjmei.module.system.login.pojo;
+package com.marks.module.system.login.pojo;
 
 import java.io.Serializable;
 

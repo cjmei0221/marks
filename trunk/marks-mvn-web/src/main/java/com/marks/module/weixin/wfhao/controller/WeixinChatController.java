@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.controller;
+package com.marks.module.weixin.wfhao.controller;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -16,15 +16,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.weixin.mp.DataDicUtil;
-import com.cjmei.module.weixin.util.StreamUtils;
-import com.cjmei.module.weixin.wfhao.message.MessageConverter;
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
-import com.cjmei.module.weixin.wfhao.pojo.WxAccount;
-import com.cjmei.module.weixin.wfhao.service.RequestDispatchService;
-import com.cjmei.module.weixin.wfhao.util.WxUtil;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.weixin.mp.DataDicUtil;
+import com.marks.module.weixin.util.StreamUtils;
+import com.marks.module.weixin.wfhao.message.MessageConverter;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.pojo.WxAccount;
+import com.marks.module.weixin.wfhao.service.RequestDispatchService;
+import com.marks.module.weixin.wfhao.util.WxUtil;
 
 /**
  * 处理微信服务号请求与响应的类 核心类

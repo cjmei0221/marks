@@ -1,8 +1,8 @@
-package com.cjmei.module.system.login.dao;
+package com.marks.module.system.login.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.login.pojo.SysUser;
+import com.marks.module.system.login.pojo.SysUser;
 
 public interface SysUserDao {
 

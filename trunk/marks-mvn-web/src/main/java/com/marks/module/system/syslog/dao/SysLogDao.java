@@ -1,9 +1,9 @@
-package com.cjmei.module.system.syslog.dao;
+package com.marks.module.system.syslog.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.syslog.pojo.SysLog;
-import com.cjmei.module.system.syslog.pojo.SysLogParam;
+import com.marks.module.system.syslog.pojo.SysLog;
+import com.marks.module.system.syslog.pojo.SysLogParam;
 
 public interface SysLogDao {
 

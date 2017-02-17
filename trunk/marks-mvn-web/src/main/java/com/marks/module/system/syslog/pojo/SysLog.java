@@ -1,8 +1,8 @@
-package com.cjmei.module.system.syslog.pojo;
+package com.marks.module.system.syslog.pojo;
 
 import java.util.Date;
 
-import com.cjmei.common.util.IDUtil;
+import com.marks.common.util.IDUtil;
 
 public class SysLog {
 

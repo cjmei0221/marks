@@ -1,13 +1,13 @@
-package com.cjmei.common.util.encrypt;
+package com.marks.common.util.encrypt;
 
 /**
  * 加解密接口工具类型
  * File Name: com.grgbanking.inner.util.encrypt.EncryptUtil.java
  * 
- * @author:cjmei0221@163.com
+ * @author:marks0221@163.com
  * @Date:2016年7月28日下午4:31:15
  * @see (optional) 
- * @Copyright (c) 2016, cjmei  All Rights Reserved.
+ * @Copyright (c) 2016, marks  All Rights Reserved.
  */
 public class EncryptUtil {
 	
@@ -17,7 +17,7 @@ public class EncryptUtil {
 	 * encrypt:描述 <br/>
 	 *
 	 * @param src
-	 * @author cjmei
+	 * @author marks
 	 * @throws Exception 
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
@@ -32,7 +32,7 @@ public class EncryptUtil {
 	 * @param src
 	 * @return
 	 * @throws Exception
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	public static String decrypt(String src) throws Exception{

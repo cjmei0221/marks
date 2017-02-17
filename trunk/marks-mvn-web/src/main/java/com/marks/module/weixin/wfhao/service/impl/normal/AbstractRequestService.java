@@ -1,16 +1,16 @@
-package com.cjmei.module.weixin.wfhao.service.impl.normal;
+package com.marks.module.weixin.wfhao.service.impl.normal;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.common.util.Constants;
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.weixin.wfhao.dao.WxAutoReplayDao;
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
-import com.cjmei.module.weixin.wfhao.module.ModuleController;
-import com.cjmei.module.weixin.wfhao.pojo.WxAutoReplay;
-import com.cjmei.module.weixin.wfhao.service.RequestService;
-import com.cjmei.module.weixin.wfhao.service.impl.NewsHelper;
+import com.marks.common.util.Constants;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.weixin.wfhao.dao.WxAutoReplayDao;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.module.ModuleController;
+import com.marks.module.weixin.wfhao.pojo.WxAutoReplay;
+import com.marks.module.weixin.wfhao.service.RequestService;
+import com.marks.module.weixin.wfhao.service.impl.NewsHelper;
 
 /**
  * 请求消息对象分发接口的抽象类实现 核心功能：提供统一请求消息处理

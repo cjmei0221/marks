@@ -6,7 +6,7 @@
 
 // ------------------------------------------------------------------------
 
-package com.cjmei.module.weixin.mp.aes;
+package com.marks.module.weixin.mp.aes;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;

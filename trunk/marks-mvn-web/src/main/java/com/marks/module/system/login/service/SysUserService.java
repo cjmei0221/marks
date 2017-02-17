@@ -1,6 +1,6 @@
-package com.cjmei.module.system.login.service;
+package com.marks.module.system.login.service;
 
-import com.cjmei.module.system.login.pojo.SysUser;
+import com.marks.module.system.login.pojo.SysUser;
 
 public interface SysUserService {
 

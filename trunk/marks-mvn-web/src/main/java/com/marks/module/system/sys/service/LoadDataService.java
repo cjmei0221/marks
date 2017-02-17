@@ -1,4 +1,4 @@
-package com.cjmei.module.system.sys.service;
+package com.marks.module.system.sys.service;
 
 public interface LoadDataService {
 

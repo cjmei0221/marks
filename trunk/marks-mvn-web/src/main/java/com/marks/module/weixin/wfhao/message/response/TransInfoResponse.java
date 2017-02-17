@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.message.response;
+package com.marks.module.weixin.wfhao.message.response;
 
 import javax.xml.bind.annotation.XmlElement;
 

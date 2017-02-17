@@ -1,14 +1,14 @@
-package com.cjmei.module.weixin.wfhao.service.impl;
+package com.marks.module.weixin.wfhao.service.impl;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.weixin.wfhao.message.request.WechatRequest;
-import com.cjmei.module.weixin.wfhao.message.response.WechatResponse;
-import com.cjmei.module.weixin.wfhao.service.RequestDispatchService;
-import com.cjmei.module.weixin.wfhao.service.RequestService;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.weixin.wfhao.message.request.WechatRequest;
+import com.marks.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.service.RequestDispatchService;
+import com.marks.module.weixin.wfhao.service.RequestService;
 
 /**
  * 请求消息对象分发接口实现

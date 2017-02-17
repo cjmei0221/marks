@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.controller;
+package com.marks.module.weixin.wfhao.controller;
 
 import java.net.URLEncoder;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.module.weixin.wfhao.config.PageConfigUtil;
+import com.marks.module.weixin.wfhao.config.PageConfigUtil;
 
 @Controller
 public class WxMenuController {

@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.mp.aes;
+package com.marks.module.weixin.mp.aes;
 
 @SuppressWarnings("serial")
 public class AesException extends Exception {

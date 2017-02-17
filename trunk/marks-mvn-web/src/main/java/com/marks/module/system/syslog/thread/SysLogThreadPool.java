@@ -1,20 +1,20 @@
-package com.cjmei.module.system.syslog.thread;
+package com.marks.module.system.syslog.thread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.system.syslog.dao.SysLogDao;
-import com.cjmei.module.system.syslog.pojo.SysLog;
-import com.cjmei.module.system.syslog.pojo.SysLogParam;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.system.syslog.dao.SysLogDao;
+import com.marks.module.system.syslog.pojo.SysLog;
+import com.marks.module.system.syslog.pojo.SysLogParam;
 
 /**
  * 系统日志记录线程池 File Name: com.grgbanking.inner.thread.SysLogThreadPool.java
  * 
- * @author:cjmei0221@163.com
+ * @author:marks0221@163.com
  * @Date:2016年7月26日上午11:51:06
  * @see (optional)
- * @Copyright (c) 2016, cjmei All Rights Reserved.
+ * @Copyright (c) 2016, marks All Rights Reserved.
  */
 public class SysLogThreadPool {
 

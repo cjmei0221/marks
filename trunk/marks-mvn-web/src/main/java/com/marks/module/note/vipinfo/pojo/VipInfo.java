@@ -1,8 +1,8 @@
-package com.cjmei.module.note.vipinfo.pojo;
+package com.marks.module.note.vipinfo.pojo;
 
 import java.util.Date;
 
-import com.cjmei.module.system.login.pojo.SysUser;
+import com.marks.module.system.login.pojo.SysUser;
 
 public class VipInfo extends SysUser{
 

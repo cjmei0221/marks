@@ -1,6 +1,6 @@
-package com.cjmei.module.runModel;
+package com.marks.module.runModel;
 
-import com.cjmei.common.util.properties.PropsUtil;
+import com.marks.common.util.properties.PropsUtil;
 
 public class RunModel
 {

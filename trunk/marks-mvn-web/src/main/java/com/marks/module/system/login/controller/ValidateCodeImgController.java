@@ -1,4 +1,4 @@
-package com.cjmei.module.system.login.controller;
+package com.marks.module.system.login.controller;
 
 import java.io.IOException;
 
@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.util.validate.ValidateCode;
-import com.cjmei.common.util.validate.VcodeUtil;
+import com.marks.common.util.validate.ValidateCode;
+import com.marks.common.util.validate.VcodeUtil;
 
 @Controller
 public class ValidateCodeImgController {

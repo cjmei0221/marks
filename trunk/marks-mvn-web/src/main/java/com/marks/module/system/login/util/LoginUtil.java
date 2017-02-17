@@ -1,9 +1,9 @@
-package com.cjmei.module.system.login.util;
+package com.marks.module.system.login.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.cjmei.module.runModel.RunModel;
-import com.cjmei.module.system.login.pojo.SysUser;
+import com.marks.module.runModel.RunModel;
+import com.marks.module.system.login.pojo.SysUser;
 
 public class LoginUtil {
 	public static LoginUtil util=null;

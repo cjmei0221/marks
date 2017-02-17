@@ -1,4 +1,4 @@
-package com.cjmei.module.weixin.wfhao.config;
+package com.marks.module.weixin.wfhao.config;
 
 import java.io.IOException;
 import java.io.InputStream;
