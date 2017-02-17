@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
-	<display-name>wxbank-manage</display-name>
+	<display-name>marks-mvn-inner</display-name>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.cjmei.module.system.core.listener.InitServletContextListener</listener-class>
+		<listener-class>com.marks.module.system.core.listener.InitServletContextListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>net.bull.javamelody.SessionListener</listener-class>
@@ -51,7 +51,7 @@
 	<!-- 记录系统日志过滤器 -->
 	<filter>
 		<filter-name>SysLogFilter</filter-name>
-		<filter-class>com.cjmei.module.system.core.filter.SysLogFilter</filter-class>
+		<filter-class>com.marks.module.system.core.filter.SysLogFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>SysLogFilter</filter-name>
@@ -59,7 +59,7 @@
 	</filter-mapping>
 	<filter>
 		<filter-name>paramsFilter</filter-name>
-		<filter-class>com.cjmei.module.system.core.filter.ParamsFilter</filter-class>
+		<filter-class>com.marks.module.system.core.filter.ParamsFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>paramsFilter</filter-name>
