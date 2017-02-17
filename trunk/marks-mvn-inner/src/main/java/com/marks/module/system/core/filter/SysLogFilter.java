@@ -32,22 +32,21 @@ public class SysLogFilter implements Filter {
 		//获取访问url
 		String url=request.getRequestURI().replace(request.getContextPath(),"").replace(".do","");
 		String ip=RequestUtil.getIpAddr(request);
+		SysUser user=SysUserHelper.getCurrentUserInfo(request);
 		int success=0;
-		String msg="";
 		LOG.info("recordLogURI="+url);
 		try {
 			arg2.doFilter(arg0, arg1);
 		} catch (Exception e) {
+			LOG.error("Exception:",e);
 			success=1;
 			Result result=new Result();
 			result.setCode(4000);
 			result.setMessage("系统异常");
 			HttpServletResponse response=(HttpServletResponse)arg1;
 			JsonUtil.output(response, result);
-			LOG.error("Exception:",e);
-			msg=e.getMessage();
+			return;
 		}
-		SysUser user=SysUserHelper.getCurrentUserInfo(request);
 		SysLog log=new SysLog();
 		if(user!=null){
 			log.setUserid(user.getUserid());
