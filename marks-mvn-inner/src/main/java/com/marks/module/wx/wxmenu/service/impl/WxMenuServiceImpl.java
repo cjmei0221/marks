@@ -1,15 +1,15 @@
-package com.cjmei.module.wx.wxmenu.service.impl;
+package com.marks.module.wx.wxmenu.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.module.wx.wxmenu.dao.WxMenuDao;
-import com.cjmei.module.wx.wxmenu.pojo.WxMenu;
-import com.cjmei.module.wx.wxmenu.service.WxMenuService;
-import com.cjmei.module.wx.wxutil.WxFwUtil;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.module.wx.wxmenu.dao.WxMenuDao;
+import com.marks.module.wx.wxmenu.pojo.WxMenu;
+import com.marks.module.wx.wxmenu.service.WxMenuService;
+import com.marks.module.wx.wxutil.WxFwUtil;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

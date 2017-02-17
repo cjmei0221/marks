@@ -1,4 +1,4 @@
-package com.cjmei.module.system.sys.controller;
+package com.marks.module.system.sys.controller;
 
 import java.util.Date;
 
@@ -9,22 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.PaginationResult;
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.service.SysOperateService;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.common.domain.PaginationResult;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sys.service.SysOperateService;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 /**
  * 系统菜单控制层 File Name: com.grgbanking.inner.controller.SysMenuController.java
  * 
- * @author:cjmei0221@163.com
+ * @author:marks0221@163.com
  * @Date:2016年7月29日下午3:58:06
  * @see (optional)
- * @Copyright (c) 2016, cjmei All Rights Reserved.
+ * @Copyright (c) 2016, marks All Rights Reserved.
  */
 @Controller
 public class SysOperateController {
@@ -37,7 +37,7 @@ public class SysOperateController {
 	 * @param request
 	 * @param response
 	 * @throws Exception
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	@RequestMapping("/sysOperate/list")
@@ -61,7 +61,7 @@ public class SysOperateController {
 	 * @param request
 	 * @param response
 	 * @throws Exception
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	@RequestMapping("/sysOperate/save")
@@ -110,7 +110,7 @@ public class SysOperateController {
 	 * @param request
 	 * @param response
 	 * @throws Exception
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	@RequestMapping("/sysOperate/delete")

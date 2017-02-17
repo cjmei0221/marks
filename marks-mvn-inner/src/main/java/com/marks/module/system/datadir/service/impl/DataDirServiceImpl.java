@@ -1,13 +1,13 @@
-package com.cjmei.module.system.datadir.service.impl;
+package com.marks.module.system.datadir.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.system.datadir.dao.DataDirDao;
-import com.cjmei.module.system.datadir.pojo.DataDir;
-import com.cjmei.module.system.datadir.service.DataDirService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.system.datadir.dao.DataDirDao;
+import com.marks.module.system.datadir.pojo.DataDir;
+import com.marks.module.system.datadir.service.DataDirService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

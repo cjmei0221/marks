@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.newsitem.dao;
+package com.marks.module.wx.newsitem.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
-import com.cjmei.module.wx.newsitem.pojo.NewsItem;
+import com.marks.module.wx.newsitem.pojo.NewsItem;
 
 public interface NewsItemDao {
 

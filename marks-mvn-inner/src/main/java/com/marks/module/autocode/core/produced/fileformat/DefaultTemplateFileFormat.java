@@ -1,13 +1,13 @@
-package com.cjmei.module.autocode.core.produced.fileformat;
+package com.marks.module.autocode.core.produced.fileformat;
 
 import java.util.Iterator;
 import java.util.Set;
 
-import com.cjmei.module.autocode.core.produced.ModuleProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.pojo.OutFileContent;
-import com.cjmei.module.autocode.core.produced.util.ReflectUtil;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.ModuleProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.pojo.OutFileContent;
+import com.marks.module.autocode.core.produced.util.ReflectUtil;
+import com.marks.module.autocode.core.produced.util.StringUtil;
 
 /**
  * 文件内容格式化

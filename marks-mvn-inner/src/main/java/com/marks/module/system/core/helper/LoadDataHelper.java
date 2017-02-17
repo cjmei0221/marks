@@ -1,4 +1,4 @@
-package com.cjmei.module.system.core.helper;
+package com.marks.module.system.core.helper;
 
 import java.util.List;
 
@@ -7,16 +7,16 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.system.core.listener.DatabaseHelper;
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
-import com.cjmei.module.system.orginfo.service.OrgInfoService;
-import com.cjmei.module.system.sys.service.LoadDataService;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.system.core.listener.DatabaseHelper;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.orginfo.service.OrgInfoService;
+import com.marks.module.system.sys.service.LoadDataService;
 
 /**
  * 将基础数据加载到缓存中
  * 
- * @author cjmei
+ * @author marks
  *
  */
 public class LoadDataHelper  extends QuartzJobBean{

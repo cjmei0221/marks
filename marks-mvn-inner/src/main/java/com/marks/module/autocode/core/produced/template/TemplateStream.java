@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.produced.template;
+package com.marks.module.autocode.core.produced.template;
 
 public interface TemplateStream {
 

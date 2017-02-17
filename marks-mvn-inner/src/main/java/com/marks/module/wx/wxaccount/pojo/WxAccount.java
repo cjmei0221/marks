@@ -1,9 +1,9 @@
-package com.cjmei.module.wx.wxaccount.pojo;
+package com.marks.module.wx.wxaccount.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import com.cjmei.module.system.core.data.StaticData;
+import com.marks.module.system.core.data.StaticData;
 
 public class WxAccount implements Serializable{
 

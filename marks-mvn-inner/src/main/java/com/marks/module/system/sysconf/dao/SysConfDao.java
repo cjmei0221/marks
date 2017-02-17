@@ -1,4 +1,4 @@
-package com.cjmei.module.system.sysconf.dao;
+package com.marks.module.system.sysconf.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
-import com.cjmei.module.system.sysconf.pojo.SysConf;
+import com.marks.module.system.sysconf.pojo.SysConf;
 
 public interface SysConfDao {
 

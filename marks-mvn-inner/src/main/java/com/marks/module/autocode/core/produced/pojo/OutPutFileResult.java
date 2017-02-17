@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.produced.pojo;
+package com.marks.module.autocode.core.produced.pojo;
 
 import java.io.Serializable;
 

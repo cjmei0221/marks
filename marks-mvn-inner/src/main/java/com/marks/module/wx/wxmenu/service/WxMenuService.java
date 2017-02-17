@@ -1,13 +1,13 @@
-package com.cjmei.module.wx.wxmenu.service;
+package com.marks.module.wx.wxmenu.service;
 
 
-import com.cjmei.module.wx.wxmenu.pojo.WxMenu;
+import com.marks.module.wx.wxmenu.pojo.WxMenu;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
 
 public interface WxMenuService{
 

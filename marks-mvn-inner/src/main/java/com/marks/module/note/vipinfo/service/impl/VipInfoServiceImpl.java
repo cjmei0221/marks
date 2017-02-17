@@ -1,15 +1,15 @@
-package com.cjmei.module.note.vipinfo.service.impl;
+package com.marks.module.note.vipinfo.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.note.vipinfo.pojo.VipInfo;
-import com.cjmei.module.note.vipinfo.dao.VipInfoDao;
-import com.cjmei.module.note.vipinfo.service.VipInfoService;
+import com.marks.module.note.vipinfo.pojo.VipInfo;
+import com.marks.module.note.vipinfo.dao.VipInfoDao;
+import com.marks.module.note.vipinfo.service.VipInfoService;
 
 public class VipInfoServiceImpl implements VipInfoService{
    

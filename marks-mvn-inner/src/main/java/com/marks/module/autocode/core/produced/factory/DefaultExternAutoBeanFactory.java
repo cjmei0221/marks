@@ -1,13 +1,13 @@
-package com.cjmei.module.autocode.core.produced.factory;
+package com.marks.module.autocode.core.produced.factory;
 
-import com.cjmei.module.autocode.core.produced.extern.DefaultExternAutoCode;
-import com.cjmei.module.autocode.core.produced.extern.ExternAutoCode;
-import com.cjmei.module.autocode.core.produced.fileformat.DefaultTemplateFileFormat;
-import com.cjmei.module.autocode.core.produced.fileformat.TemplateFileFormat;
-import com.cjmei.module.autocode.core.produced.template.input.DefaultTemplateRead;
-import com.cjmei.module.autocode.core.produced.template.input.TemplateInput;
-import com.cjmei.module.autocode.core.produced.template.output.DefaultTemplateOutPut;
-import com.cjmei.module.autocode.core.produced.template.output.TemplateOutPut;
+import com.marks.module.autocode.core.produced.extern.DefaultExternAutoCode;
+import com.marks.module.autocode.core.produced.extern.ExternAutoCode;
+import com.marks.module.autocode.core.produced.fileformat.DefaultTemplateFileFormat;
+import com.marks.module.autocode.core.produced.fileformat.TemplateFileFormat;
+import com.marks.module.autocode.core.produced.template.input.DefaultTemplateRead;
+import com.marks.module.autocode.core.produced.template.input.TemplateInput;
+import com.marks.module.autocode.core.produced.template.output.DefaultTemplateOutPut;
+import com.marks.module.autocode.core.produced.template.output.TemplateOutPut;
 
 /**
  * 默认的生成方案

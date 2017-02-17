@@ -1,9 +1,9 @@
-package com.cjmei.module.system.orginfo.util;
+package com.marks.module.system.orginfo.util;
 
-import com.cjmei.common.enums.Enums;
-import com.cjmei.common.util.Constants;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
+import com.marks.common.enums.Enums;
+import com.marks.common.util.Constants;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
 
 public class OrgUtil {
 

@@ -1,4 +1,4 @@
-package com.cjmei.module.note.diary.pojo;
+package com.marks.module.note.diary.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

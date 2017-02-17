@@ -6,7 +6,7 @@
  * 修改记录：
  * 
  */
-package com.cjmei.module.wx.wxutil;
+package com.marks.module.wx.wxutil;
 
 import java.io.Serializable;
 

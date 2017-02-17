@@ -1,13 +1,13 @@
-package com.cjmei.module.autocode.core.produced.pojo;
+package com.marks.module.autocode.core.produced.pojo;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
-import com.cjmei.module.autocode.core.produced.backstagecode.CodeProduced;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
-import com.cjmei.module.autocode.core.produced.xml.XmlProduced;
+import com.marks.module.autocode.core.produced.backstagecode.CodeProduced;
+import com.marks.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.xml.XmlProduced;
 
 
 

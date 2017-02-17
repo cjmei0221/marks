@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.produced.util;
+package com.marks.module.autocode.core.produced.util;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -17,8 +17,8 @@ import java.util.jar.JarFile;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.autocode.core.produced.ModuleProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.ModuleProduced;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
 
 /**
  * 反射工具类

@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.modulemsg.dao;
+package com.marks.module.wx.modulemsg.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
-import com.cjmei.module.wx.modulemsg.pojo.ModuleMsg;
+import com.marks.module.wx.modulemsg.pojo.ModuleMsg;
 
 public interface ModuleMsgDao {
 

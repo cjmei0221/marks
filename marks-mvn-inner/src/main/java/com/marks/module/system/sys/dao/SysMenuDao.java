@@ -1,12 +1,12 @@
-package com.cjmei.module.system.sys.dao;
+package com.marks.module.system.sys.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.sys.pojo.SysFunc;
-import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sys.pojo.SysFunc;
+import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sys.pojo.SysOperate;
 
 public interface SysMenuDao {
 

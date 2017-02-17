@@ -1,12 +1,12 @@
-package com.cjmei.module.wx.wxtemplate.service;
+package com.marks.module.wx.wxtemplate.service;
 
 
-import com.cjmei.module.wx.wxtemplate.pojo.WxTemplate;
+import com.marks.module.wx.wxtemplate.pojo.WxTemplate;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface WxTemplateService{
 

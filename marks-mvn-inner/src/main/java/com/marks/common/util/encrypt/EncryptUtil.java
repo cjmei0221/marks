@@ -1,4 +1,4 @@
-package com.cjmei.common.util.encrypt;
+package com.marks.common.util.encrypt;
 
 /**
  * 加解密接口工具类型

@@ -1,8 +1,8 @@
-package com.cjmei.module.autocode.core.produced.template.input;
+package com.marks.module.autocode.core.produced.template.input;
 
 import java.io.File;
 
-import com.cjmei.module.autocode.core.produced.template.TemplateStream;
+import com.marks.module.autocode.core.produced.template.TemplateStream;
 
 /**
  * 文件读入

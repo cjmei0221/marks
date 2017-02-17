@@ -6,18 +6,18 @@
  * @see (optional) 
  * @Copyright (c) 2016, 广电运通信息科技有限公司  All Rights Reserved.
  */
-package com.cjmei.module.autocode.core.produced.backstagecode.controller;
+package com.marks.module.autocode.core.produced.backstagecode.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.backstagecode.AbstractCodeProduced;
-import com.cjmei.module.autocode.core.produced.backstagecode.CodeProduced;
-import com.cjmei.module.autocode.core.produced.backstagecode.service.ServiceImplProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AttrType;
-import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.backstagecode.AbstractCodeProduced;
+import com.marks.module.autocode.core.produced.backstagecode.CodeProduced;
+import com.marks.module.autocode.core.produced.backstagecode.service.ServiceImplProduced;
+import com.marks.module.autocode.core.produced.pojo.AttrType;
+import com.marks.module.autocode.core.produced.pojo.AutoAttr;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.util.StringUtil;
 
 /**
  * File Name: cluster.scheme.autocode.backstagecode.controller.ControllerProduced.java

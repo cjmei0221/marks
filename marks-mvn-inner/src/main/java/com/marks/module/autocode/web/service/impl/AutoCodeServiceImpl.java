@@ -1,15 +1,15 @@
-package com.cjmei.module.autocode.web.service.impl;
+package com.marks.module.autocode.web.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.autocode.web.dao.AutoCodeDao;
-import com.cjmei.module.autocode.web.pojo.AutoCode;
-import com.cjmei.module.autocode.web.pojo.AutoCodeAttr;
-import com.cjmei.module.autocode.web.service.AutoCodeService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.autocode.web.dao.AutoCodeDao;
+import com.marks.module.autocode.web.pojo.AutoCode;
+import com.marks.module.autocode.web.pojo.AutoCodeAttr;
+import com.marks.module.autocode.web.service.AutoCodeService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

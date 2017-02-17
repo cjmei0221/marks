@@ -1,4 +1,4 @@
-package com.cjmei.module.system.syslogparam.pojo;
+package com.marks.module.system.syslogparam.pojo;
 
 import java.io.Serializable;
 import java.util.Date;

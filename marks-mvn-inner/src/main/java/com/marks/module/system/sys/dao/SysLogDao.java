@@ -1,11 +1,11 @@
-package com.cjmei.module.system.sys.dao;
+package com.marks.module.system.sys.dao;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.sys.pojo.SysLog;
+import com.marks.module.system.sys.pojo.SysLog;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface SysLogDao {

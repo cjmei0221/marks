@@ -1,4 +1,4 @@
-package com.cjmei.common.domain;
+package com.marks.common.domain;
 
 public class TreeVo {
 	private String id;

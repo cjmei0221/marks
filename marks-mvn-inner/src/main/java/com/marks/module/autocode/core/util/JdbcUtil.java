@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.util;
+package com.marks.module.autocode.core.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.autocode.core.produced.config.AutoConfig;
+import com.marks.module.autocode.core.produced.config.AutoConfig;
 
 public class JdbcUtil {
 

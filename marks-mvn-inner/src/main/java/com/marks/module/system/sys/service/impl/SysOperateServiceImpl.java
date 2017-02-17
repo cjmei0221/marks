@@ -1,12 +1,12 @@
-package com.cjmei.module.system.sys.service.impl;
+package com.marks.module.system.sys.service.impl;
 
 import java.util.List;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.module.system.sys.dao.SysOperateDao;
-import com.cjmei.module.system.sys.pojo.SysOperate;
-import com.cjmei.module.system.sys.service.SysOperateService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.module.system.sys.dao.SysOperateDao;
+import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sys.service.SysOperateService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

@@ -1,10 +1,10 @@
-package com.cjmei.module.autocode.core.produced.util;
+package com.marks.module.autocode.core.produced.util;
 
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.cjmei.module.autocode.core.produced.fileformat.TemplateFileFormat;
+import com.marks.module.autocode.core.produced.fileformat.TemplateFileFormat;
 
 public class StringUtil {
 

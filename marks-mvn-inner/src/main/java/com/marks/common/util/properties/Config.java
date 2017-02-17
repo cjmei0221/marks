@@ -1,4 +1,4 @@
-package com.cjmei.common.util.properties;
+package com.marks.common.util.properties;
 
 public class Config {
 

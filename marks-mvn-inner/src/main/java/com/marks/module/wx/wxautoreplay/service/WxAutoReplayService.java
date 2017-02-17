@@ -1,12 +1,12 @@
-package com.cjmei.module.wx.wxautoreplay.service;
+package com.marks.module.wx.wxautoreplay.service;
 
 
-import com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay;
+import com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface WxAutoReplayService{
 

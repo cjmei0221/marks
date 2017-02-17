@@ -1,15 +1,15 @@
-package com.cjmei.module.wx.newsitem.service.impl;
+package com.marks.module.wx.newsitem.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.wx.newsitem.pojo.NewsItem;
-import com.cjmei.module.wx.newsitem.dao.NewsItemDao;
-import com.cjmei.module.wx.newsitem.service.NewsItemService;
+import com.marks.module.wx.newsitem.pojo.NewsItem;
+import com.marks.module.wx.newsitem.dao.NewsItemDao;
+import com.marks.module.wx.newsitem.service.NewsItemService;
 
 public class NewsItemServiceImpl implements NewsItemService{
    

@@ -1,6 +1,6 @@
-package com.cjmei.module.autocode.core.produced.factory;
+package com.marks.module.autocode.core.produced.factory;
 
-import com.cjmei.module.autocode.core.produced.extern.ExternAutoCode;
+import com.marks.module.autocode.core.produced.extern.ExternAutoCode;
 
 /**
  * 生成自动代码生产工厂类

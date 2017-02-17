@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.wxmenuurl.dao;
+package com.marks.module.wx.wxmenuurl.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
-import com.cjmei.module.wx.wxmenuurl.pojo.WxMenuUrl;
+import com.marks.module.wx.wxmenuurl.pojo.WxMenuUrl;
 
 public interface WxMenuUrlDao {
 

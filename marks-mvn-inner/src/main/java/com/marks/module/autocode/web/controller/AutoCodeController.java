@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.web.controller;
+package com.marks.module.autocode.web.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,21 +13,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.PaginationResult;
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.module.autocode.core.produced.SupportContorller;
-import com.cjmei.module.autocode.core.produced.introduction.introduction.IntroductionPageProduced;
-import com.cjmei.module.autocode.core.produced.pojo.AttrType;
-import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.util.AuthUtil;
-import com.cjmei.module.autocode.core.util.AutoCodeFactory;
-import com.cjmei.module.autocode.core.util.Code;
-import com.cjmei.module.autocode.web.pojo.AutoCode;
-import com.cjmei.module.autocode.web.pojo.AutoCodeAttr;
-import com.cjmei.module.autocode.web.service.AutoCodeService;
+import com.marks.common.domain.PaginationResult;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.autocode.core.produced.SupportContorller;
+import com.marks.module.autocode.core.produced.introduction.introduction.IntroductionPageProduced;
+import com.marks.module.autocode.core.produced.pojo.AttrType;
+import com.marks.module.autocode.core.produced.pojo.AutoAttr;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.util.AuthUtil;
+import com.marks.module.autocode.core.util.AutoCodeFactory;
+import com.marks.module.autocode.core.util.Code;
+import com.marks.module.autocode.web.pojo.AutoCode;
+import com.marks.module.autocode.web.pojo.AutoCodeAttr;
+import com.marks.module.autocode.web.service.AutoCodeService;
 
 @Controller
 public class AutoCodeController extends SupportContorller{

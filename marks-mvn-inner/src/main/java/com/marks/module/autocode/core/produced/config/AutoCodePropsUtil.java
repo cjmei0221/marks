@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.produced.config;
+package com.marks.module.autocode.core.produced.config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
-import com.cjmei.common.util.properties.PropsUtil;
+import com.marks.common.util.properties.PropsUtil;
 
 /**
  * config工具类

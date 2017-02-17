@@ -1,4 +1,4 @@
-package com.cjmei.module.system.sys.controller;
+package com.marks.module.system.sys.controller;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -12,28 +12,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.enums.Enums;
-import com.cjmei.common.util.Constants;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.encrypt.EncryptUtil;
-import com.cjmei.module.system.core.data.StaticData;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
-import com.cjmei.module.system.sys.pojo.SysMenu;
-import com.cjmei.module.system.sys.service.LoginService;
-import com.cjmei.module.system.sysrole.pojo.SysRole;
-import com.cjmei.module.system.sysrole.service.SysRoleService;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
-import com.cjmei.module.wx.wxaccount.service.WxAccountService;
+import com.marks.common.domain.Result;
+import com.marks.common.enums.Enums;
+import com.marks.common.util.Constants;
+import com.marks.common.util.JsonUtil;
+import com.marks.common.util.encrypt.EncryptUtil;
+import com.marks.module.system.core.data.StaticData;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sys.service.LoginService;
+import com.marks.module.system.sysrole.pojo.SysRole;
+import com.marks.module.system.sysrole.service.SysRoleService;
+import com.marks.module.system.sysuser.pojo.SysUser;
+import com.marks.module.wx.wxaccount.service.WxAccountService;
 
 /**
  * 用户登录 控制层 File Name: com.grgbanking.inner.controller.LoginController.java
  * 
- * @author:cjmei0221@163.com
+ * @author:marks0221@163.com
  * @Date:2016年7月27日下午1:59:34
  * @see (optional)
- * @Copyright (c) 2016, cjmei All Rights Reserved.
+ * @Copyright (c) 2016, marks All Rights Reserved.
  */
 @Controller
 public class LoginController {
@@ -50,7 +50,7 @@ public class LoginController {
 	 *
 	 * @param request
 	 * @param response
-	 * @author cjmei
+	 * @author marks
 	 * @throws Exception
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */

@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.produced.xml.mybatis;
+package com.marks.module.autocode.core.produced.xml.mybatis;
 
 /**
  * File Name: cluster.scheme.autocode.backstagecode.ampperxml.MapperXmlProduced.java
@@ -12,12 +12,12 @@ package com.cjmei.module.autocode.core.produced.xml.mybatis;
 import java.text.MessageFormat;
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.config.AutoConfig;
-import com.cjmei.module.autocode.core.produced.pojo.AttrType;
-import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
-import com.cjmei.module.autocode.core.produced.xml.AbstractXmlProduced;
+import com.marks.module.autocode.core.produced.config.AutoConfig;
+import com.marks.module.autocode.core.produced.pojo.AttrType;
+import com.marks.module.autocode.core.produced.pojo.AutoAttr;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.xml.AbstractXmlProduced;
 
 /**
  * File Name:

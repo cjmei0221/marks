@@ -1,4 +1,4 @@
-package com.cjmei.common.domain;
+package com.marks.common.domain;
 
 import java.util.List;
 

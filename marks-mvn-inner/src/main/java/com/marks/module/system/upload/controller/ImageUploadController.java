@@ -1,94 +1,116 @@
-package com.cjmei.module.system.upload.controller;
+package com.marks.module.system.upload.controller;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.properties.Config;
-import com.cjmei.module.system.upload.util.FTPUtil;
-import com.cjmei.module.system.upload.util.UploadUtil;
+import com.marks.common.domain.Result;
+import com.marks.common.util.IDUtil;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.system.upload.util.FTPUtil;
+import com.marks.module.system.upload.util.UploadUtil;
+
+import sun.misc.BASE64Decoder;
 
 /**
- * 上传图片
- * 
- * @author lhyan3 2015年3月1日下午4:14:14
+ * 上传图片。
  */
 @Controller
 public class ImageUploadController {
-
-	private static final int UPLOAD_SUCCSSS = 0; // "上传文件成功！",
-
 	private static final Logger LOG = Logger.getLogger(ImageUploadController.class);
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * TODO 上传图片 lhyan3 2015年3月1日下午3:27:07
-	 * 
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping("/upload/image")
-	public void upload(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/fileUpload/image")
+	public void upload(HttpServletRequest req, HttpServletResponse resp) {
 		Result result = new Result();
-
-		String commPath = UploadUtil.getUploadPath(request);
+		result.setCode(0);
 		try {
-			response.setContentType("text/html; charset=UTF-8");
+			String image = req.getParameter("image");
 
-			// 图片类型
-			String uploadType = request.getParameter("uploadType");
-			if (uploadType != null) {
-				uploadType = "";
+			// 只允许jpg
+
+			String header = "data:image/jpeg;base64,";
+			String header2 = "data:image/png;base64,";
+			
+			String fileType="";
+			
+			boolean isSupport=false;
+			
+			if(image.indexOf(header)>=0){
+				isSupport=true;
+				fileType=".jpg";
+				// 去掉头部
+				image = image.substring(header.length());
 			}
-			result.getData().put("uploadType", uploadType);
-
-			// 上传操作
-			FileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			upload.setHeaderEncoding("UTF-8");
-			List items = upload.parseRequest(request);
-			if (null != items) {
-				List<File> files = new ArrayList<File>();
-				for (int i = 0; i < items.size(); i++) {
-					FileItem item = (FileItem) items.get(i);
-					if (item.isFormField()) {
-						continue;
-					} else {
-						String hzname = item.getName().substring(item.getName().lastIndexOf("."),
-								item.getName().length());
-						String picName = IDUtil.getUUID() + hzname;
-						File saveFile = new File(commPath + picName);
-						files.add(saveFile);
-						item.write(saveFile);
-						result.getData().put("status", UPLOAD_SUCCSSS);
-
-						result.getData().put("name", item.getName());
-						result.getData().put("realname", picName);
-
-						result.getData().put("message", FTPUtil.ftp_url + picName);
-						FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
-								FTPUtil.ftpFileDirectory, picName, saveFile, "");
-						JsonUtil.output(response, result);
-					}
-				}
+			
+			if(image.indexOf(header2)>=0){
+				isSupport=true;
+				fileType=".png";
+				// 去掉头部
+				image = image.substring(header.length()-1);
 			}
+			
+			if (!isSupport) {
+
+				result.setCode(1);
+				result.setMessage("只支持jpg,png图片");
+				JsonUtil.output(resp, result);
+				return;
+
+			}
+
+			
+
+			
+
+			// 写入磁盘
+
+			boolean success = false;
+
+			BASE64Decoder decoder = new BASE64Decoder();
+
+			try {
+
+				byte[] decodedBytes = decoder.decodeBuffer(image);
+				String commPath = UploadUtil.getUploadPath(req);
+				String picName = IDUtil.getTimeID()+ fileType;
+				//String imgFilePath = "D://uploadimage";
+				File saveFile = new File(commPath + picName);
+				FileOutputStream out = new FileOutputStream(saveFile);
+
+				out.write(decodedBytes);
+
+				out.close();
+
+				success = true;
+				result.getData().put("fileUrl", FTPUtil.ftp_url + picName);
+				FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
+						FTPUtil.ftpFileDirectory, picName, saveFile, "");
+
+			} catch (Exception e) {
+
+				success = false;
+
+				LOG.error(e.getMessage(),e);
+				result.setCode(-1);
+				result.setMessage("系统错误");
+
+			}
+
 		} catch (Exception e) {
-			LOG.error(e.getMessage(), e);
-			;
+			LOG.error(e.getMessage(),e);
+			result.setCode(-1);
+			result.setMessage("系统错误");
 		}
+		
+		JsonUtil.output(resp, result);
 	}
 
 }

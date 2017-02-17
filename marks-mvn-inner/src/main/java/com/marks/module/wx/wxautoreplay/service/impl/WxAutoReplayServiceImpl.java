@@ -1,15 +1,15 @@
-package com.cjmei.module.wx.wxautoreplay.service.impl;
+package com.marks.module.wx.wxautoreplay.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay;
-import com.cjmei.module.wx.wxautoreplay.dao.WxAutoReplayDao;
-import com.cjmei.module.wx.wxautoreplay.service.WxAutoReplayService;
+import com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay;
+import com.marks.module.wx.wxautoreplay.dao.WxAutoReplayDao;
+import com.marks.module.wx.wxautoreplay.service.WxAutoReplayService;
 
 public class WxAutoReplayServiceImpl implements WxAutoReplayService{
    

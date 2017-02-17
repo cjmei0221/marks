@@ -1,13 +1,13 @@
-package com.cjmei.module.system.orginfo.service.impl;
+package com.marks.module.system.orginfo.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
-import com.cjmei.module.system.orginfo.dao.OrgInfoDao;
-import com.cjmei.module.system.orginfo.pojo.OrgInfo;
-import com.cjmei.module.system.orginfo.service.OrgInfoService;
+import com.marks.common.domain.PojoDomain;
+import com.marks.module.system.orginfo.dao.OrgInfoDao;
+import com.marks.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.orginfo.service.OrgInfoService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 

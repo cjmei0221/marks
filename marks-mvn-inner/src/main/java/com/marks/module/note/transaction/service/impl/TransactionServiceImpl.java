@@ -1,15 +1,15 @@
-package com.cjmei.module.note.transaction.service.impl;
+package com.marks.module.note.transaction.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import com.cjmei.module.note.transaction.pojo.Transaction;
-import com.cjmei.module.note.transaction.dao.TransactionDao;
-import com.cjmei.module.note.transaction.service.TransactionService;
+import com.marks.module.note.transaction.pojo.Transaction;
+import com.marks.module.note.transaction.dao.TransactionDao;
+import com.marks.module.note.transaction.service.TransactionService;
 
 public class TransactionServiceImpl implements TransactionService{
    

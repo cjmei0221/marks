@@ -1,4 +1,4 @@
-package com.cjmei.module.system.sysuser.dao;
+package com.marks.module.system.sysuser.dao;
 
 
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.system.sys.pojo.SysUserOrg;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.module.system.sys.pojo.SysUserOrg;
+import com.marks.module.system.sysuser.pojo.SysUser;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface SysUserDao {

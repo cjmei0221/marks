@@ -1,12 +1,12 @@
-package com.cjmei.module.system.sysconf.service;
+package com.marks.module.system.sysconf.service;
 
 
-import com.cjmei.module.system.sysconf.pojo.SysConf;
+import com.marks.module.system.sysconf.pojo.SysConf;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface SysConfService{
 

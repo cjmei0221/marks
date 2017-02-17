@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.wxautoreplay.dao;
+package com.marks.module.wx.wxautoreplay.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay;
+import com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface WxAutoReplayDao {

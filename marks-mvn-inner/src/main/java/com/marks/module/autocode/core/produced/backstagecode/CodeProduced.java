@@ -1,8 +1,8 @@
-package com.cjmei.module.autocode.core.produced.backstagecode;
+package com.marks.module.autocode.core.produced.backstagecode;
 
-import com.cjmei.module.autocode.core.produced.ModuleProduced;
-import com.cjmei.module.autocode.core.produced.config.AutoConfig;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.ModuleProduced;
+import com.marks.module.autocode.core.produced.config.AutoConfig;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
 
 /**
  * java文件代码生成接口

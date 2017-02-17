@@ -1,12 +1,12 @@
-package com.cjmei.module.system.datadir.service;
+package com.marks.module.system.datadir.service;
 
 
-import com.cjmei.module.system.datadir.pojo.DataDir;
+import com.marks.module.system.datadir.pojo.DataDir;
 
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface DataDirService{
 

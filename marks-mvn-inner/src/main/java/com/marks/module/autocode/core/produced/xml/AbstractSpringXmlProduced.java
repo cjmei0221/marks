@@ -1,9 +1,9 @@
-package com.cjmei.module.autocode.core.produced.xml;
+package com.marks.module.autocode.core.produced.xml;
 
-import com.cjmei.module.autocode.core.produced.AbstractProduced;
-import com.cjmei.module.autocode.core.produced.config.AutoConfig;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.AbstractProduced;
+import com.marks.module.autocode.core.produced.config.AutoConfig;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.util.StringUtil;
 
 public abstract class AbstractSpringXmlProduced extends AbstractProduced implements XmlProduced{
 

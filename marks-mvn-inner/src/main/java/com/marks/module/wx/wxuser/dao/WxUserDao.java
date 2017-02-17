@@ -1,4 +1,4 @@
-package com.cjmei.module.wx.wxuser.dao;
+package com.marks.module.wx.wxuser.dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.cjmei.module.wx.wxuser.pojo.WxUser;
+import com.marks.module.wx.wxuser.pojo.WxUser;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 public interface WxUserDao {

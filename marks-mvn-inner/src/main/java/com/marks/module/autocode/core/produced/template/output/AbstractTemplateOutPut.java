@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.produced.template.output;
+package com.marks.module.autocode.core.produced.template.output;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.autocode.core.produced.pojo.OutFileContent;
-import com.cjmei.module.autocode.core.produced.pojo.OutPutFileResult;
-import com.cjmei.module.autocode.core.produced.util.FileUtil;
-import com.cjmei.module.autocode.core.produced.util.StringUtil;
+import com.marks.module.autocode.core.produced.pojo.OutFileContent;
+import com.marks.module.autocode.core.produced.pojo.OutPutFileResult;
+import com.marks.module.autocode.core.produced.util.FileUtil;
+import com.marks.module.autocode.core.produced.util.StringUtil;
 
 /**
  * 输出文件抽象类

@@ -1,9 +1,9 @@
-package com.cjmei.module.autocode.core.produced.template.output;
+package com.marks.module.autocode.core.produced.template.output;
 
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.pojo.OutFileContent;
-import com.cjmei.module.autocode.core.produced.pojo.OutPutFileResult;
+import com.marks.module.autocode.core.produced.pojo.OutFileContent;
+import com.marks.module.autocode.core.produced.pojo.OutPutFileResult;
 
 /**
  * 输出文件

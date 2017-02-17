@@ -1,6 +1,6 @@
-package com.cjmei.module.autocode.core.produced;
+package com.marks.module.autocode.core.produced;
 
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
 
 /**
  * 生成数据库表

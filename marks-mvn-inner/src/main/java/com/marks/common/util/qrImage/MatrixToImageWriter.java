@@ -1,4 +1,4 @@
-package com.cjmei.common.util.qrImage;
+package com.marks.common.util.qrImage;
 
 import com.google.zxing.common.BitMatrix;
 import javax.imageio.ImageIO;

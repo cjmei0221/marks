@@ -1,10 +1,10 @@
-package com.cjmei.module.autocode.core.produced.util;
+package com.marks.module.autocode.core.produced.util;
 
 import java.io.File;
 import java.util.List;
 
-import com.cjmei.module.autocode.core.produced.config.AutoConfig;
-import com.cjmei.module.autocode.core.produced.pojo.OutFileContent;
+import com.marks.module.autocode.core.produced.config.AutoConfig;
+import com.marks.module.autocode.core.produced.pojo.OutFileContent;
 
 public class FileUtil {
 

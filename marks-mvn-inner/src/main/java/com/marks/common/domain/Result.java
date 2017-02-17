@@ -1,12 +1,12 @@
-package com.cjmei.common.domain;
+package com.marks.common.domain;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.cjmei.common.annotation.JsonObject;
-import com.cjmei.common.annotation.JsonObjectProperty;
-import com.cjmei.common.annotation.JsonProperty;
+import com.marks.common.annotation.JsonObject;
+import com.marks.common.annotation.JsonObjectProperty;
+import com.marks.common.annotation.JsonProperty;
 
 @JsonObject
 public class Result implements Serializable {

@@ -1,4 +1,4 @@
-package com.cjmei.module.autocode.core.util;
+package com.marks.module.autocode.core.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -8,18 +8,18 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.module.autocode.core.produced.DBProduced;
-import com.cjmei.module.autocode.core.produced.ModuleProduced;
-import com.cjmei.module.autocode.core.produced.annotation.TableField;
-import com.cjmei.module.autocode.core.produced.annotation.TableName;
-import com.cjmei.module.autocode.core.produced.extern.ExternAutoCode;
-import com.cjmei.module.autocode.core.produced.factory.DefaultExternAutoBeanFactory;
-import com.cjmei.module.autocode.core.produced.pojo.AutoAttr;
-import com.cjmei.module.autocode.core.produced.pojo.AutoBean;
-import com.cjmei.module.autocode.core.produced.table.OracleTableProduced;
-import com.cjmei.module.autocode.core.produced.util.StringUtils;
-import com.cjmei.module.autocode.core.test.TestCode;
-import com.cjmei.module.autocode.web.controller.AutoCodeController;
+import com.marks.module.autocode.core.produced.DBProduced;
+import com.marks.module.autocode.core.produced.ModuleProduced;
+import com.marks.module.autocode.core.produced.annotation.TableField;
+import com.marks.module.autocode.core.produced.annotation.TableName;
+import com.marks.module.autocode.core.produced.extern.ExternAutoCode;
+import com.marks.module.autocode.core.produced.factory.DefaultExternAutoBeanFactory;
+import com.marks.module.autocode.core.produced.pojo.AutoAttr;
+import com.marks.module.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.autocode.core.produced.table.OracleTableProduced;
+import com.marks.module.autocode.core.produced.util.StringUtils;
+import com.marks.module.autocode.core.test.TestCode;
+import com.marks.module.autocode.web.controller.AutoCodeController;
 
 public class AutoCodeFactory {
 	 private static Logger logger = Logger.getLogger( AutoCodeController.class);
@@ -161,7 +161,7 @@ public class AutoCodeFactory {
 	 * @param isAuth 是否授权
 	 * @param is_createtable 是否创建
 	 * @param class1
-	 * @author cjmei
+	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	public void autoCodeByEntity(boolean is_createtable, Class<?> class1) {

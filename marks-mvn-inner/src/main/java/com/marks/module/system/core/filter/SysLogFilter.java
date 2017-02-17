@@ -1,4 +1,4 @@
-package com.cjmei.module.system.core.filter;
+package com.marks.module.system.core.filter;
 
 import java.io.IOException;
 
@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.common.domain.Result;
-import com.cjmei.common.util.Constants;
-import com.cjmei.common.util.JsonUtil;
-import com.cjmei.common.util.RequestUtil;
-import com.cjmei.module.system.core.helper.SysUserHelper;
-import com.cjmei.module.system.sys.pojo.SysLog;
-import com.cjmei.module.system.syslog.thread.SysLogThreadPool;
-import com.cjmei.module.system.sysuser.pojo.SysUser;
+import com.marks.common.domain.Result;
+import com.marks.common.util.Constants;
+import com.marks.common.util.JsonUtil;
+import com.marks.common.util.RequestUtil;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.sys.pojo.SysLog;
+import com.marks.module.system.syslog.thread.SysLogThreadPool;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 public class SysLogFilter implements Filter {
 	private final static Logger LOG=Logger.getLogger(SysLogFilter.class);

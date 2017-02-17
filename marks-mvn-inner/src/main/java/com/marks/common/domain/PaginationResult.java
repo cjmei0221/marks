@@ -1,7 +1,7 @@
-package com.cjmei.common.domain;
+package com.marks.common.domain;
 
-import com.cjmei.common.annotation.JsonObject;
-import com.cjmei.common.annotation.JsonProperty;
+import com.marks.common.annotation.JsonObject;
+import com.marks.common.annotation.JsonProperty;
 
 /**
  * 分页结果输出类

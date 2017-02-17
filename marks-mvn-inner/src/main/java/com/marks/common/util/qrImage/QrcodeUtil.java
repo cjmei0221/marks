@@ -1,4 +1,4 @@
-package com.cjmei.common.util.qrImage;
+package com.marks.common.util.qrImage;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.cjmei.common.util.IDUtil;
-import com.cjmei.module.system.upload.util.FTPUtil;
-import com.cjmei.module.system.upload.util.UploadUtil;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
+import com.marks.common.util.IDUtil;
+import com.marks.module.system.upload.util.FTPUtil;
+import com.marks.module.system.upload.util.UploadUtil;
 
 /**
  * 
