@@ -59,7 +59,7 @@
 				<tr>
 					<th>用户类型</th>
 					<td><input
-						id="roleids" name="roleids" class="easyui-combobox"
+						id="roleid" name="roleid" class="easyui-combobox"
 						data-options="required:true,valueField:'roleid',textField:'rolename',url:'<%=request.getContextPath()%>/sysRole/combo.do'"
 						style="width: 175px"></td>
 				</tr>
