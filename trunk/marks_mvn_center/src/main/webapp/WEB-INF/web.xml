@@ -3,7 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-	<display-name>nfb_mvn_center</display-name>
+	<display-name>marks_mvn_center</display-name>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -16,7 +16,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.nfb.module.system.listener.InitServletContextListener</listener-class>
+		<listener-class>com.marks.module.system.core.listener.InitServletContextListener</listener-class>
 	</listener>
 	
 	<filter>
@@ -33,7 +33,7 @@
 	</filter-mapping>
 	<filter>
 		<filter-name>SysLogFilter</filter-name>
-		<filter-class>com.nfb.module.system.filter.SysLogFilter</filter-class>
+		<filter-class>com.marks.module.system.core.filter.SysLogFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>SysLogFilter</filter-name>
