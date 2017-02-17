@@ -31,20 +31,6 @@
 		<filter-name>monitoring</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<filter>
-		<filter-name>popedomFilter</filter-name>
-		<filter-class> com.cjmei.module.system.core.filter.PopedomFilter</filter-class>
-		<init-param>
-			<param-name>skipUnLoginRequestPattern</param-name>
-			<param-value>/sys/login.do,/sys/logout.do</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>popedomFilter</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
