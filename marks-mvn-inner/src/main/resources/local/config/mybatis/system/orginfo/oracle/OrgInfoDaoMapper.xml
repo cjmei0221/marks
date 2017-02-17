@@ -146,4 +146,12 @@
 		select * from tb_org_info t
 		where t.parentid=#{orgid}
 	</select>
+	
+	<update id="updateOrgChildNum">
+		update tb_org_info t
+   				set t.childnum = (select count(1)
+                       from tb_org_info t2
+                      where t2.parentid = t.orgid)
+ 			where t.orgid = #{orgid}
+	</update>
 </mapper>

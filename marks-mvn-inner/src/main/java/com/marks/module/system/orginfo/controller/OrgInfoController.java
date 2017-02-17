@@ -217,18 +217,36 @@ public class OrgInfoController extends SupportContorller {
 
 		List<String> plist = new ArrayList<String>();
 		String parentId = request.getParameter("parentId");
+		String companyId = request.getParameter("companyId");
+		List<OrgInfo> list = null;
+		
+		//根节点加载
 		if (parentId == null || "".equals(parentId)) {
-			List<OrgInfo> s = admin.getOrgInfoList();
-			for (OrgInfo sv : s) {
-				plist.add(sv.getParentId());
+			if (null == admin.getCompanyId()) {
+				List<OrgInfo> s = admin.getOrgInfoList();
+				plist.add(s.get(0).getParentId());
+				
+				if(null == companyId){
+					list = orgInfoService.listGrid(plist, admin.getCompanyId());
+				}else{
+					list = orgInfoService.listGrid(plist, companyId);
+				}
+				
+			} else {
+				list = admin.getOrgInfoList();
+				for (OrgInfo info : list) {
+					if (info.getChildnum() > 0) {
+						info.setState("closed");
+					}
+				}
 			}
-		} else {
+		} else {//非根节点
 			plist.add(parentId);
+			list = orgInfoService.listGrid(plist, admin.getCompanyId());
+			
 		}
-
-		List<OrgInfo> list = orgInfoService.listGrid(plist,admin.getCompanyId());
-
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+		return;
 	}
 
 	/**
@@ -237,12 +255,7 @@ public class OrgInfoController extends SupportContorller {
 	@RequestMapping("/orgInfo/tree")
 	public void tree(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
-		List<String> plist = new ArrayList<String>();
-		List<OrgInfo> s = admin.getOrgInfoList();
-		for (OrgInfo sv : s) {
-			plist.add(sv.getParentId());
-		}
-		List<OrgInfo> list = orgInfoService.list(plist,admin.getCompanyId());
+		List<OrgInfo> list = orgInfoService.list(admin);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 

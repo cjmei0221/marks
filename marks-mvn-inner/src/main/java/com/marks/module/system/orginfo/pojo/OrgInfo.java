@@ -48,9 +48,17 @@ public class OrgInfo implements Serializable{
     private int isMain;//0:非 1：主公司
     
     private List<OrgInfo> children=new ArrayList<OrgInfo>();
-  
+    private int childnum;
     
-    public int getOrgType() {
+    public int getChildnum() {
+		return childnum;
+	}
+
+	public void setChildnum(int childnum) {
+		this.childnum = childnum;
+	}
+
+	public int getOrgType() {
 		return orgType;
 	}
 
