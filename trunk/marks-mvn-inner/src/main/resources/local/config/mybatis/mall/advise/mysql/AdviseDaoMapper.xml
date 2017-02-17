@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.mall.advise.dao.AdviseDao">
+<mapper namespace="com.marks.module.mall.advise.dao.AdviseDao">
 
-    <select id="findById" resultType="com.cjmei.module.mall.advise.pojo.Advise">
+    <select id="findById" resultType="com.marks.module.mall.advise.pojo.Advise">
 		SELECT * FROM TB_MALL_ADVISE where ID = #{ID}
  	</select>
  	
- 	<insert id="save" parameterType="com.cjmei.module.mall.advise.pojo.Advise">
+ 	<insert id="save" parameterType="com.marks.module.mall.advise.pojo.Advise">
 		<selectKey keyProperty="ID" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
 
  		INSERT INTO TB_MALL_ADVISE (
@@ -33,7 +33,7 @@
 			)
  	</insert>
  	
- 	<update id="update" parameterType="com.cjmei.module.mall.advise.pojo.Advise">
+ 	<update id="update" parameterType="com.marks.module.mall.advise.pojo.Advise">
  		UPDATE TB_MALL_ADVISE 
 		SET 
                 CONTENT = #{content:VARCHAR},
@@ -51,7 +51,7 @@
  		DELETE FROM TB_MALL_ADVISE WHERE ID=#{ID}
  	</delete>
  	
- 	<select id="findAll" resultType="com.cjmei.module.mall.advise.pojo.Advise">
+ 	<select id="findAll" resultType="com.marks.module.mall.advise.pojo.Advise">
  		SELECT * FROM TB_MALL_ADVISE
  	</select>
  	
@@ -62,7 +62,7 @@
 		</foreach>
  	</delete>
  	
- 	<select id="list" resultType="com.cjmei.module.mall.advise.pojo.Advise" 
+ 	<select id="list" resultType="com.marks.module.mall.advise.pojo.Advise" 
  	parameterType="java.util.Map">
  		SELECT  *
 		  FROM   TB_MALL_ADVISE 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.note.gains.dao.GainsDao">
+<mapper namespace="com.marks.module.note.gains.dao.GainsDao">
 
-	<select id="findById" resultType="com.cjmei.module.note.gains.pojo.Gains">
+	<select id="findById" resultType="com.marks.module.note.gains.pojo.Gains">
 		SELECT * FROM TB_NOTE_GAINS
 		gains where gains.ID = #{id}
 	</select>
 
-	<select id="findByTitle" resultType="com.cjmei.module.note.gains.pojo.Gains">
+	<select id="findByTitle" resultType="com.marks.module.note.gains.pojo.Gains">
 		SELECT * FROM TB_NOTE_GAINS
 		gains where gains.TITLE = #{title}
 	</select>
 
-	<insert id="save" parameterType="com.cjmei.module.note.gains.pojo.Gains">
+	<insert id="save" parameterType="com.marks.module.note.gains.pojo.Gains">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
 			sys_guid() from dual
 		</selectKey>
@@ -46,7 +46,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.note.gains.pojo.Gains">
+	<update id="update" parameterType="com.marks.module.note.gains.pojo.Gains">
 		UPDATE TB_NOTE_GAINS gains
 		SET
 		gains.LVL = #{lvl:VARCHAR},
@@ -65,7 +65,7 @@
 		gains WHERE gains.ID=#{id}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.note.gains.pojo.Gains">
+	<select id="findAll" resultType="com.marks.module.note.gains.pojo.Gains">
 		SELECT * FROM TB_NOTE_GAINS
 	</select>
 
@@ -77,7 +77,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.note.gains.pojo.Gains"
+	<select id="list" resultType="com.marks.module.note.gains.pojo.Gains"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_NOTE_GAINS gains

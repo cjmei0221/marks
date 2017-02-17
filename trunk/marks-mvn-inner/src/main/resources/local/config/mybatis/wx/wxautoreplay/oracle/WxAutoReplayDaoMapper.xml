@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.wx.wxautoreplay.dao.WxAutoReplayDao">
+<mapper namespace="com.marks.module.wx.wxautoreplay.dao.WxAutoReplayDao">
 
-	<select id="findById" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+	<select id="findById" resultType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
 		wxautoreplay where wxautoreplay.CTYPE = #{ctype:VARCHAR}
 	</select>
 	
-	<select id="findByCkey" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+	<select id="findByCkey" resultType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
 		wxautoreplay where wxautoreplay.CKEY=#{ckey}
 	</select>
 
-	<insert id="save" parameterType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+	<insert id="save" parameterType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
 		<selectKey keyProperty="ctype" resultType="String"
 			order="BEFORE">select sys_guid() from dual</selectKey>
 
@@ -43,7 +43,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+	<update id="update" parameterType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
 		UPDATE TB_WX_AUTO_REPLAY wxautoreplay
 		SET
 		wxautoreplay.CKEY = #{ckey:VARCHAR},
@@ -61,7 +61,7 @@
 		wxautoreplay.CTYPE = #{ctype:VARCHAR}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay">
+	<select id="findAll" resultType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
 	</select>
 
@@ -73,7 +73,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.wx.wxautoreplay.pojo.WxAutoReplay"
+	<select id="list" resultType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_AUTO_REPLAY wxautoreplay

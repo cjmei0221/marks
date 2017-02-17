@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.system.sysuser.dao.SysUserDao">
+<mapper namespace="com.marks.module.system.sysuser.dao.SysUserDao">
 
-    <select id="findById" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
+    <select id="findById" resultType="com.marks.module.system.sysuser.pojo.SysUser">
 		SELECT * FROM TB_SYS_USER where USERID = #{userid}
  	</select>
  	
- 	<insert id="save" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
+ 	<insert id="save" parameterType="com.marks.module.system.sysuser.pojo.SysUser">
 		<selectKey keyProperty="userid" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
 
  		INSERT INTO TB_SYS_USER (
@@ -45,7 +45,7 @@
 			)
  	</insert>
  	
- 	<update id="update" parameterType="com.cjmei.module.system.sysuser.pojo.SysUser">
+ 	<update id="update" parameterType="com.marks.module.system.sysuser.pojo.SysUser">
  		UPDATE TB_SYS_USER 
 		SET 
                 USERNAME = #{username:VARCHAR},
@@ -69,7 +69,7 @@
  		DELETE FROM TB_SYS_USER WHERE USERID=#{userid}
  	</delete>
  	
- 	<select id="findAll" resultType="com.cjmei.module.system.sysuser.pojo.SysUser">
+ 	<select id="findAll" resultType="com.marks.module.system.sysuser.pojo.SysUser">
  		SELECT * FROM TB_SYS_USER
  	</select>
  	
@@ -80,7 +80,7 @@
 		</foreach>
  	</delete>
  	
- 	<select id="list" resultType="com.cjmei.module.system.sysuser.pojo.SysUser" 
+ 	<select id="list" resultType="com.marks.module.system.sysuser.pojo.SysUser" 
  	parameterType="java.util.Map">
  		SELECT  *
 		  FROM   TB_SYS_USER 

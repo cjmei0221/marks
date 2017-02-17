@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.wx.newsitem.dao.NewsItemDao">
+<mapper namespace="com.marks.module.wx.newsitem.dao.NewsItemDao">
 
-    <select id="findById" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
+    <select id="findById" resultType="com.marks.module.wx.newsitem.pojo.NewsItem">
 		SELECT * FROM TB_WX_AUTO_REPLAY_NEWSITEM where ID = #{id}
  	</select>
  	
- 	<insert id="save" parameterType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
+ 	<insert id="save" parameterType="com.marks.module.wx.newsitem.pojo.NewsItem">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
 
  		INSERT INTO TB_WX_AUTO_REPLAY_NEWSITEM (
@@ -37,7 +37,7 @@
 			)
  	</insert>
  	
- 	<update id="update" parameterType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
+ 	<update id="update" parameterType="com.marks.module.wx.newsitem.pojo.NewsItem">
  		UPDATE TB_WX_AUTO_REPLAY_NEWSITEM 
 		SET 
                 TITLE = #{title:VARCHAR},
@@ -57,7 +57,7 @@
  		DELETE FROM TB_WX_AUTO_REPLAY_NEWSITEM WHERE ID=#{id}
  	</delete>
  	
- 	<select id="findAll" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem">
+ 	<select id="findAll" resultType="com.marks.module.wx.newsitem.pojo.NewsItem">
  		SELECT * FROM TB_WX_AUTO_REPLAY_NEWSITEM
  	</select>
  	
@@ -68,7 +68,7 @@
 		</foreach>
  	</delete>
  	
- 	<select id="list" resultType="com.cjmei.module.wx.newsitem.pojo.NewsItem" 
+ 	<select id="list" resultType="com.marks.module.wx.newsitem.pojo.NewsItem" 
  	parameterType="java.util.Map">
  		SELECT  *
 		  FROM   TB_WX_AUTO_REPLAY_NEWSITEM 

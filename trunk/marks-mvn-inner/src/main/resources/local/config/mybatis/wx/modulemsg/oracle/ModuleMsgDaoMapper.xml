@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.wx.modulemsg.dao.ModuleMsgDao">
+<mapper namespace="com.marks.module.wx.modulemsg.dao.ModuleMsgDao">
 
-	<select id="findById" resultType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg">
+	<select id="findById" resultType="com.marks.module.wx.modulemsg.pojo.ModuleMsg">
 		SELECT * FROM TB_WX_MODULE_MSG
 		modulemsg where modulemsg.ID = #{id}
 	</select>
 
-	<insert id="save" parameterType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg">
+	<insert id="save" parameterType="com.marks.module.wx.modulemsg.pojo.ModuleMsg">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
 			sys_guid() from dual
 		</selectKey>
@@ -42,7 +42,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg">
+	<update id="update" parameterType="com.marks.module.wx.modulemsg.pojo.ModuleMsg">
 		UPDATE TB_WX_MODULE_MSG
 		modulemsg
 		SET
@@ -76,7 +76,7 @@
 		modulemsg WHERE modulemsg.ID=#{id}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg">
+	<select id="findAll" resultType="com.marks.module.wx.modulemsg.pojo.ModuleMsg">
 		SELECT * FROM TB_WX_MODULE_MSG
 	</select>
 
@@ -88,7 +88,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.wx.modulemsg.pojo.ModuleMsg"
+	<select id="list" resultType="com.marks.module.wx.modulemsg.pojo.ModuleMsg"
 		parameterType="java.util.Map">
 		SELECT modulemsg.*,twu.nickname
 		FROM TB_WX_MODULE_MSG modulemsg

@@ -26,12 +26,12 @@
 
 <!-- 系统日志管理 -->
 	<bean id="sysLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.system.sys.dao.SysLogDao"></property>
+		<property name="mapperInterface" value="com.marks.module.system.sys.dao.SysLogDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
 	<!--  -->
-	<bean id="sysLogService" class="com.cjmei.module.system.syslog.service.impl.SysLogServiceImpl">
+	<bean id="sysLogService" class="com.marks.module.system.syslog.service.impl.SysLogServiceImpl">
 		<property name="sysLogDao" ref="sysLogDao"></property>
 	</bean>
 	

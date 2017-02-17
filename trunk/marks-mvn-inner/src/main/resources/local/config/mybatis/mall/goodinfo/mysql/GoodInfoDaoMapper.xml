@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.mall.goodinfo.dao.GoodInfoDao">
+<mapper namespace="com.marks.module.mall.goodinfo.dao.GoodInfoDao">
 
-    <select id="findById" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+    <select id="findById" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
 		SELECT * FROM TB_MALL_GOOD_INFO where GOODID = #{goodId}
  	</select>
  	
- 	<insert id="save" parameterType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+ 	<insert id="save" parameterType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
 		<selectKey keyProperty="goodId" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
 
  		INSERT INTO TB_MALL_GOOD_INFO (
@@ -33,7 +33,7 @@
 			)
  	</insert>
  	
- 	<update id="update" parameterType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+ 	<update id="update" parameterType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
  		UPDATE TB_MALL_GOOD_INFO 
 		SET 
                 GOODNAME = #{goodName:VARCHAR},
@@ -51,7 +51,7 @@
  		DELETE FROM TB_MALL_GOOD_INFO WHERE GOODID=#{goodId}
  	</delete>
  	
- 	<select id="findAll" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+ 	<select id="findAll" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
  		SELECT * FROM TB_MALL_GOOD_INFO
  	</select>
  	
@@ -62,7 +62,7 @@
 		</foreach>
  	</delete>
  	
- 	<select id="list" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo" 
+ 	<select id="list" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo" 
  	parameterType="java.util.Map">
  		SELECT  *
 		  FROM   TB_MALL_GOOD_INFO 

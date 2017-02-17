@@ -26,11 +26,11 @@
 	
 	
 	<!-- 系统角色 -->
-	<bean id="autoCodeService" class="com.cjmei.module.autocode.web.service.impl.AutoCodeServiceImpl">
+	<bean id="autoCodeService" class="com.marks.module.autocode.web.service.impl.AutoCodeServiceImpl">
 		<property name="autoCodeDao" ref="autoCodeDao"></property>
 	</bean>
 	<bean id="autoCodeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.autocode.web.dao.AutoCodeDao"></property>
+		<property name="mapperInterface" value="com.marks.module.autocode.web.dao.AutoCodeDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

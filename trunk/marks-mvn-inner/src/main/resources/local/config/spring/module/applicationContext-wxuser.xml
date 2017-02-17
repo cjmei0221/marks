@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="wxUserService" class="com.cjmei.module.wx.wxuser.service.impl.WxUserServiceImpl">
+	<bean id="wxUserService" class="com.marks.module.wx.wxuser.service.impl.WxUserServiceImpl">
 		<property name="wxUserDao" ref="wxUserDao"></property>
 	</bean>
 	<bean id="wxUserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.wx.wxuser.dao.WxUserDao"></property>
+		<property name="mapperInterface" value="com.marks.module.wx.wxuser.dao.WxUserDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

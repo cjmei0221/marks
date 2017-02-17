@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="newsItemService" class="com.cjmei.module.wx.newsitem.service.impl.NewsItemServiceImpl">
+	<bean id="newsItemService" class="com.marks.module.wx.newsitem.service.impl.NewsItemServiceImpl">
 		<property name="newsItemDao" ref="newsItemDao"></property>
 	</bean>
 	<bean id="newsItemDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.wx.newsitem.dao.NewsItemDao"></property>
+		<property name="mapperInterface" value="com.marks.module.wx.newsitem.dao.NewsItemDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

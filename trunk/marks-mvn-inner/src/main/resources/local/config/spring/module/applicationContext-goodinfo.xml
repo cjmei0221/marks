@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="goodInfoService" class="com.cjmei.module.mall.goodinfo.service.impl.GoodInfoServiceImpl">
+	<bean id="goodInfoService" class="com.marks.module.mall.goodinfo.service.impl.GoodInfoServiceImpl">
 		<property name="goodInfoDao" ref="goodInfoDao"></property>
 	</bean>
 	<bean id="goodInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.mall.goodinfo.dao.GoodInfoDao"></property>
+		<property name="mapperInterface" value="com.marks.module.mall.goodinfo.dao.GoodInfoDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

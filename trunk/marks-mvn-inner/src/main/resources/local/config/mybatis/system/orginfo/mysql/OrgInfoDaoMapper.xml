@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.cell.orginfo.dao.OrgInfoDao">
+<mapper namespace="com.marks.module.cell.orginfo.dao.OrgInfoDao">
 
-    <select id="findById" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+    <select id="findById" resultType="com.marks.module.cell.orginfo.pojo.OrgInfo">
 		SELECT * FROM TB_ORG_INFO where ORGID = #{orgid}
  	</select>
  	
- 	<insert id="save" parameterType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+ 	<insert id="save" parameterType="com.marks.module.cell.orginfo.pojo.OrgInfo">
 		<selectKey keyProperty="orgid" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
 
  		INSERT INTO TB_ORG_INFO (
@@ -29,7 +29,7 @@
 			)
  	</insert>
  	
- 	<update id="update" parameterType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+ 	<update id="update" parameterType="com.marks.module.cell.orginfo.pojo.OrgInfo">
  		UPDATE TB_ORG_INFO 
 		SET 
                 CREATOR = #{creator:VARCHAR},
@@ -45,7 +45,7 @@
  		DELETE FROM TB_ORG_INFO WHERE ORGID=#{orgid}
  	</delete>
  	
- 	<select id="findAll" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo">
+ 	<select id="findAll" resultType="com.marks.module.cell.orginfo.pojo.OrgInfo">
  		SELECT * FROM TB_ORG_INFO
  	</select>
  	
@@ -56,7 +56,7 @@
 		</foreach>
  	</delete>
  	
- 	<select id="list" resultType="com.cjmei.module.cell.orginfo.pojo.OrgInfo" 
+ 	<select id="list" resultType="com.marks.module.cell.orginfo.pojo.OrgInfo" 
  	parameterType="java.util.Map">
  		SELECT  *
 		  FROM   TB_ORG_INFO 

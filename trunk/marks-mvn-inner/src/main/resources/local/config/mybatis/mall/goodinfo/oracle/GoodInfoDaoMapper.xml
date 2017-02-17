@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.mall.goodinfo.dao.GoodInfoDao">
+<mapper namespace="com.marks.module.mall.goodinfo.dao.GoodInfoDao">
 
-	<select id="findById" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+	<select id="findById" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
 		SELECT * FROM TB_MALL_GOOD_INFO
 		goodinfo where goodinfo.GOODID = #{goodId}
 	</select>
 
-	<select id="getGoodInfoBySkuNum" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+	<select id="getGoodInfoBySkuNum" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
 		SELECT * FROM
 		TB_MALL_GOOD_INFO
 		goodinfo where goodinfo.SKU_NUM = #{sku_num}
 	</select>
 
-	<insert id="save" parameterType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+	<insert id="save" parameterType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
 		INSERT INTO TB_MALL_GOOD_INFO
 		goodinfo (
 		goodinfo.GOODID,
@@ -54,7 +54,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+	<update id="update" parameterType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
 		UPDATE TB_MALL_GOOD_INFO
 		goodinfo
 		SET
@@ -91,7 +91,7 @@
 		goodinfo WHERE goodinfo.GOODID=#{goodId}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo">
+	<select id="findAll" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo">
 		SELECT * FROM TB_MALL_GOOD_INFO
 	</select>
 
@@ -103,7 +103,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodInfo"
+	<select id="list" resultType="com.marks.module.mall.goodinfo.pojo.GoodInfo"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_MALL_GOOD_INFO goodinfo
@@ -145,7 +145,7 @@
 			order by goodinfo.onsale_status,goodinfo.UPDATETIME desc
 	</select>
 
-	<insert id="saveGoodImg" parameterType="com.cjmei.module.mall.goodinfo.pojo.GoodImg">
+	<insert id="saveGoodImg" parameterType="com.marks.module.mall.goodinfo.pojo.GoodImg">
 		INSERT INTO
 		TB_MALL_GOOD_IMG  (
 		ID,
@@ -169,7 +169,7 @@
 	<delete id="deleteGoodImg">
 		delete from TB_MALL_GOOD_IMG where goodId=#{goodId}
 	</delete>
-	<select id="getGoodImgByGoodId" resultType="com.cjmei.module.mall.goodinfo.pojo.GoodImg">
+	<select id="getGoodImgByGoodId" resultType="com.marks.module.mall.goodinfo.pojo.GoodImg">
 		select * from TB_MALL_GOOD_IMG where goodId=#{goodId}
 	</select>
 

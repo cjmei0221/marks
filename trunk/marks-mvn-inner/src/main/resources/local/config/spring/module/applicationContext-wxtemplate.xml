@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="wxTemplateService" class="com.cjmei.module.wx.wxtemplate.service.impl.WxTemplateServiceImpl">
+	<bean id="wxTemplateService" class="com.marks.module.wx.wxtemplate.service.impl.WxTemplateServiceImpl">
 		<property name="wxTemplateDao" ref="wxTemplateDao"></property>
 	</bean>
 	<bean id="wxTemplateDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.cjmei.module.wx.wxtemplate.dao.WxTemplateDao"></property>
+		<property name="mapperInterface" value="com.marks.module.wx.wxtemplate.dao.WxTemplateDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	

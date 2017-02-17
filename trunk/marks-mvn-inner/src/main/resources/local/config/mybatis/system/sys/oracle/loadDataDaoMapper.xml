@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cjmei.module.system.sys.dao.LoadDataDao">
+<mapper namespace="com.marks.module.system.sys.dao.LoadDataDao">
 	<!-- 加载系统参数 -->
-	<select id="loadSysConf" resultType="com.cjmei.module.system.sysconf.pojo.SysConf">
+	<select id="loadSysConf" resultType="com.marks.module.system.sysconf.pojo.SysConf">
 		SELECT * FROM TB_SYS_CONF
 	</select>
 	<!-- 加载数据字典 -->
-	<select id="loadDataDir" resultType="com.cjmei.module.system.datadir.pojo.DataDir">
+	<select id="loadDataDir" resultType="com.marks.module.system.datadir.pojo.DataDir">
 		SELECT * FROM
 		TB_SYS_DATADIR_INFO t order by t."SORT"
 	</select>
 
 	<!-- 加载微信公众号信息 -->
-	<select id="loadWxAccount" resultType="com.cjmei.module.wx.wxaccount.pojo.WxAccount">
+	<select id="loadWxAccount" resultType="com.marks.module.wx.wxaccount.pojo.WxAccount">
 		SELECT * FROM
 		TB_WX_ACCOUNT
 	</select>

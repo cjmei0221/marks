@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.system.sysconf.dao.SysConfDao">
+<mapper namespace="com.marks.module.system.sysconf.dao.SysConfDao">
 
-	<select id="findById" resultType="com.cjmei.module.system.sysconf.pojo.SysConf">
+	<select id="findById" resultType="com.marks.module.system.sysconf.pojo.SysConf">
 		SELECT * FROM TB_SYS_CONF
 		sysconf where sysconf.CKEY = #{ckey}
 	</select>
 
-	<insert id="save" parameterType="com.cjmei.module.system.sysconf.pojo.SysConf">
+	<insert id="save" parameterType="com.marks.module.system.sysconf.pojo.SysConf">
 		INSERT INTO TB_SYS_CONF sysconf (
 		sysconf.CKEY,
 		sysconf.CVALUE,
@@ -30,7 +30,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.system.sysconf.pojo.SysConf">
+	<update id="update" parameterType="com.marks.module.system.sysconf.pojo.SysConf">
 		UPDATE TB_SYS_CONF sysconf
 		SET
 		sysconf.CVALUE = #{cvalue:VARCHAR},
@@ -47,7 +47,7 @@
 		sysconf WHERE sysconf.CKEY=#{ckey}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.system.sysconf.pojo.SysConf">
+	<select id="findAll" resultType="com.marks.module.system.sysconf.pojo.SysConf">
 		SELECT * FROM TB_SYS_CONF
 	</select>
 
@@ -59,7 +59,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.system.sysconf.pojo.SysConf"
+	<select id="list" resultType="com.marks.module.system.sysconf.pojo.SysConf"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_SYS_CONF sysconf
