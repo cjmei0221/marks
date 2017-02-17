@@ -12,7 +12,7 @@ var appInfo = {
 		page_size : 10,
 		keyword : "",
 		ssorgid : "",
-		s_role:null
+		s_role : null
 	},
 	formStatus : "new",
 	checkRole : []
@@ -21,7 +21,7 @@ var appInfo = {
 $(function() {
 	// 加载列表
 	loadList();
-	
+
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
@@ -37,7 +37,7 @@ $(function() {
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
 		appInfo.checkRole = [];
-		
+
 		$("#companyId").val('');
 		$("#inputRoleDiv").html('');
 		$("#bind_mobile").numberbox({
@@ -107,30 +107,39 @@ $(function() {
 		$("#editWin").window("close");
 	});
 
+	$("#roleid").combobox({
+		onChange : function(newValue, oldValue) {
+			if (newValue != oldValue) {
+				$.ajax({
+					url : appInfo.roleUrl,
+					type : "get",
+					data : {
+						"roleid" : newValue
+					},
+					dataType : "json",
+					success : function(data, status, xhr) {
+						if (data.retcode == 0) {
+							$("#companyId").val(data.sysRole.companyId);
+							appInfo.checkRole = [];
+							$("#inputRoleDiv").html('');
+							// 加载角色信息
+							loadRoleList(data.sysRole.companyId);
+						}
+					}
+				});
+			}
+		}
+	});
+
 	$("#chooseRole").on("click", function() {
-		var roleId=$("#roleid").combobox("getValue")
-		if(roleId==''){
+		var roleId = $("#roleid").combobox("getValue")
+		if (roleId == '') {
 			showMsg("请先选择用户类型");
 			return;
 		}
 		$("#roleWin").window({
-			title : "权限角色"
+			title : "组织"
 		}).window("open");
-		$.ajax({
-			url : appInfo.roleUrl,
-			type : "get",
-			data : {
-				"roleid":roleId
-			},
-			dataType : "json",
-			success : function(data, status, xhr) {
-				if (data.retcode == 0) {
-					$("#companyId").val(data.sysRole.companyId);
-					// 加载角色信息
-					loadRoleList(data.sysRole.companyId);
-				} 
-			}
-		});
 	});
 	$("#searchRoleBtn").on("click", function() {
 		app.myreload("#roleList");
@@ -202,8 +211,8 @@ function formSubmit() {
 		}
 	});
 }
-function notEdit(){
-	if(appInfo.formStatus != "new"){
+function notEdit() {
+	if (appInfo.formStatus != "new") {
 		$("#bind_mobile").numberbox({
 			disabled : true
 		});
@@ -340,7 +349,7 @@ function loadList() {
 }
 
 function loadRoleList(id) {
-	var roleUrl=top.window.urlBase + '/orgInfo/list.do?parentId='+id;
+	var roleUrl = top.window.urlBase + '/orgInfo/list.do?companyId=' + id;
 	$('#roleList').treegrid(
 			{
 				url : roleUrl,
@@ -384,12 +393,12 @@ function loadRoleList(id) {
 				} ] ],
 				onBeforeExpand : function(row) {
 					$("#roleList").treegrid("options").url = roleUrl
-							+ "?parentId=" + row.orgid + "&_timer="
+							+ "&parentId=" + row.orgid + "&_timer="
 							+ new Date().getTime();
 				},
 				onClickRow : function(rowData) {
 					var flag = true;
-					var conp = $("#companyId").val();
+				/*	var conp = $("#companyId").val();
 					if (conp == null || conp == '') {
 						$("#companyId").val(rowData.companyId);
 					} else {
@@ -398,11 +407,16 @@ function loadRoleList(id) {
 							showMsg("所属公司不一致");
 						}
 					}
-
+*/
 					if (flag) {
+						if(appInfo.checkRole.length>0){
+							showMsg("只能选择一个组织");
+							return;
+						}
 						if (addRole(rowData.orgid)) {
 							initRolePut(rowData.orgid, rowData.orgname);
 						}
+						return;
 
 					}
 				},
@@ -454,7 +468,7 @@ function initUser(user) {
 	appInfo.checkRole = user.orgidsStr.split(",");
 	var rolenames = user.orgidNamesStr.split(",");
 	for (var i = 0; i < appInfo.checkRole.length; i++) {
-		if(appInfo.checkRole[i] !=null && appInfo.checkRole[i] !=''){
+		if (appInfo.checkRole[i] != null && appInfo.checkRole[i] != '') {
 			initRolePut(appInfo.checkRole[i], rolenames[i]);
 		}
 	}

@@ -31,4 +31,6 @@ public interface OrgInfoDao {
 
 	List<OrgInfo> frameCombo(Map<String, Object> param);
 
+	void updateOrgChildNum(@Param("orgid") String orgid);
+
 }
