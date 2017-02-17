@@ -19,7 +19,7 @@ public class AccessTokenUtil {
 	private static Logger logger = Logger.getLogger(AccessTokenUtil.class);
 	private static Map<String, AccessTokenVo> accesstoken_map = new HashMap<String, AccessTokenVo>();
 	WxAccountService wxAccountService = (WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
-	private boolean updateflag = false;
+	private long updateflag = 0;
 	private static AccessTokenUtil util = null;
 
 	private AccessTokenUtil() {
@@ -34,7 +34,7 @@ public class AccessTokenUtil {
 
 	public String getAccessToken(String accountid) {
 		AccessTokenVo vo = null;
-		if (updateflag) {
+		if (WxfwConfig.access_token_db_flag_Y.equals(WxfwConfig.access_token_db_flag) && System.currentTimeMillis()-updateflag>3000) {
 			try {
 				if (null == wxAccountService) {
 					wxAccountService = (WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
@@ -72,7 +72,7 @@ public class AccessTokenUtil {
 	}
 
 	public void putAccessToken(AccessTokenVo vo) {
-		updateflag = false;
+		updateflag = System.currentTimeMillis();
 		accesstoken_map.put(vo.getAccountid(), vo);
 		try {
 			if (null == wxAccountService) {

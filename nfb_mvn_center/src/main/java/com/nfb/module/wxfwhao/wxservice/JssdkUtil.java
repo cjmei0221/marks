@@ -27,7 +27,7 @@ public class JssdkUtil {
 	WxAccountService wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
 	private static final String jssdk_pre="jssdk_";
 	private static JssdkUtil util=null;
-	private boolean updateflag=false;
+	private long updateflag=0;
 	private JssdkUtil(){};
 	
 	public static JssdkUtil getInstance(){
@@ -38,7 +38,7 @@ public class JssdkUtil {
 	}
 	public String getJsapi_ticket(String accountid){
 		AccessTokenVo vo=null;
-		if(updateflag){
+		if (WxfwConfig.access_token_db_flag_Y.equals(WxfwConfig.access_token_db_flag) && System.currentTimeMillis()-updateflag>3000) {
 			try {
 				if(null ==wxAccountService){
 					wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
@@ -73,7 +73,7 @@ public class JssdkUtil {
 	}
 	
 	private void putJsapi_ticket(AccessTokenVo vo){
-		updateflag=false;
+		updateflag=System.currentTimeMillis();
 		accesstoken_map.put(vo.getAccountid(), vo);
 		if(null ==wxAccountService){
 			wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
