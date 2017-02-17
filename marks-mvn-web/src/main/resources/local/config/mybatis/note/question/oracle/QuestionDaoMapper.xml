@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjmei.module.note.question.dao.QuestionDao">
+<mapper namespace="com.marks.module.note.question.dao.QuestionDao">
 
-	<select id="findById" resultType="com.cjmei.module.note.question.pojo.Question">
+	<select id="findById" resultType="com.marks.module.note.question.pojo.Question">
 		SELECT * FROM TB_NOTE_QUESTION
 		question where question.ID = #{id}
 	</select>
-	<select id="findByQuestion" resultType="com.cjmei.module.note.question.pojo.Question">
+	<select id="findByQuestion" resultType="com.marks.module.note.question.pojo.Question">
 		SELECT * FROM
 		TB_NOTE_QUESTION question where question.question = #{question}
 	</select>
 
 
-	<insert id="save" parameterType="com.cjmei.module.note.question.pojo.Question">
+	<insert id="save" parameterType="com.marks.module.note.question.pojo.Question">
 		INSERT INTO TB_NOTE_QUESTION
 		question (
 		question.ID,
@@ -43,7 +43,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.cjmei.module.note.question.pojo.Question">
+	<update id="update" parameterType="com.marks.module.note.question.pojo.Question">
 		UPDATE TB_NOTE_QUESTION
 		question
 		SET
@@ -66,7 +66,7 @@
 		question WHERE question.ID=#{id}
 	</delete>
 
-	<select id="findAll" resultType="com.cjmei.module.note.question.pojo.Question">
+	<select id="findAll" resultType="com.marks.module.note.question.pojo.Question">
 		SELECT * FROM TB_NOTE_QUESTION
 	</select>
 
@@ -78,7 +78,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.cjmei.module.note.question.pojo.Question"
+	<select id="list" resultType="com.marks.module.note.question.pojo.Question"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_NOTE_QUESTION question
