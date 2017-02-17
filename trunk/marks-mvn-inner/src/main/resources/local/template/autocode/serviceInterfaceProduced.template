@@ -6,7 +6,7 @@ import @{beanPackageUrl}.@{beanName};
 import java.util.List;
 import java.util.Map;
 
-import com.cjmei.common.domain.PojoDomain;
+import com.marks.common.domain.PojoDomain;
 
 public interface @{beanName}Service{
 
