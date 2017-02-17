@@ -54,7 +54,7 @@ public class LoginController {
 	 * @throws Exception
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	@RequestMapping("/sys/login")
+	@RequestMapping("/login")
 	public void queryDepartmentList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		String userid = request.getParameter("userid");
@@ -121,7 +121,7 @@ public class LoginController {
 		JsonUtil.output(response, result);
 	}
 
-	@RequestMapping("/sys/logout")
+	@RequestMapping("/logout")
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);

@@ -28,25 +28,24 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		Result result = new Result();
 		SysUser loginUser = SysUserHelper.getCurrentUserInfo(request);
-		if (null != loginUser) {
-			String url = RequestRegex.repace("/", request.getRequestURI());
-			int idx = url.indexOf(".");
-			url = url.substring(request.getContextPath().length(), idx);
-			log.info("----url: " + url);
-			List<String> list = StaticData.getUrlList();
-			if (list.contains(url) && loginUser.getUserUrlList().contains(url)) {
-				return true;
-			} else {
-				result.setCode(-1000);
-				result.setMessage("未登录用户不可以访问此地址[" + request.getRequestURI() + "]");
-				JsonUtil.output(response, result);
-				return false;
-			}
-		} else {
+		if (null == loginUser) {
 			result.setCode(-1000);
 			result.setMessage("未登录用户不可以访问此地址[" + request.getRequestURI() + "]");
 			JsonUtil.output(response, result);
 			return false;
 		}
+		String url = RequestRegex.repace("/", request.getRequestURI());
+		int idx = url.indexOf(".");
+		url = url.substring(request.getContextPath().length(), idx);
+		log.info("----url: " + url);
+		List<String> list = StaticData.getUrlList();
+		if (list.contains(url) && !loginUser.getUserUrlList().contains(url)) {
+			result.setCode(-1000);
+			result.setMessage("未登录用户不可以访问此地址[" + request.getRequestURI() + "]");
+			JsonUtil.output(response, result);
+			return false;
+		}
+		return true;
 	}
+
 }
