@@ -79,9 +79,10 @@
 		vip.email,
 		vip.signature
 		FROM tb_sys_user su
+		join TB_SYS_ROLE tsr on (su.roleid=tsr.roleid and su.COMPANYID=tsr.COMPANYID)
 		left join TB_VIP_INFO vip on su.userid
 		= vip.userid
-		where su.usertype = 'VIP'
+		where tsr.usertype = 'VIP'
 		
 		<if test="keyword!=null and keyword!=''">
 			and su.companyid=#{companyId}
