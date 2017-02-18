@@ -136,7 +136,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
 
 		// 未指定用户角色不可查看任何菜单
-		if (null != loginUserRoleId && loginUserRoleId.equals("")) {
+		if (null != loginUserRoleId && !loginUserRoleId.equals("")) {
 			getflag = true;
 		}
 		if("admin".equals(admin.getUserid())){
