@@ -25,6 +25,7 @@ public class WxUserInterceptor extends HandlerInterceptorAdapter {
 		Result result = new Result();
 		WxUser wxUser=WxUtil.getInstance().getCurrentWxbUser(request);
 		if (null != wxUser) {
+			log.info("wxUser > openid:"+wxUser.getOpenid()+" - nickname:"+wxUser.getNickname());
 			return true;
 		} else {
 			result.setCode(-101);

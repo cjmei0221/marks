@@ -22,6 +22,7 @@ import com.marks.common.annotation.JsonObject;
 import com.marks.common.annotation.JsonObjectProperty;
 import com.marks.common.annotation.JsonProperty;
 import com.marks.common.domain.Result;
+import com.marks.module.system.core.data.StaticData;
 
 /**
  * json工具类
@@ -181,7 +182,9 @@ public class JsonUtil {
 	public static void output(HttpServletResponse response,Result rtn){
 		try {
 			String json = object2json(rtn);
-			log.info("回应数据[" + json + "]");
+			if("Y".equals(StaticData.getSysConf("out_log_flag"))){
+				log.info("回应数据[" + json + "]");
+			}
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().write(json);
 			response.getWriter().close();
@@ -192,7 +195,9 @@ public class JsonUtil {
 	
 	public static void output(HttpServletResponse response,String json){
 		try {
-			log.info("回应数据[" + json + "]");
+			if("Y".equals(StaticData.getSysConf("out_log_flag"))){
+				log.info("回应数据[" + json + "]");
+			}
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().write(json);
 			response.getWriter().close();
