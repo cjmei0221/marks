@@ -54,6 +54,26 @@ public class PojoProduced extends AbstractCodeProduced {
 		return sBuffer.toString();
 	}
 	
+	/**
+	 * 生产打印日志
+	 * producedFieldStr:描述 <br/>
+	 *
+	 * @param autoBean
+	 * @return
+	 * @author cjmei
+	 * @修改记录:(日期,修改人,描述) (可选) <br/>
+	 */
+	public  String producedFieldStr(AutoBean autoBean){
+		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
+		StringBuffer sBuffer = new StringBuffer();
+		for(AutoAttr autoAttr:autoAttrs){
+			String attrName = autoAttr.getAttrName();
+			sBuffer.append("+\" - \" +String.valueOf("+String.valueOf(attrName)+")");
+		}
+		return sBuffer.toString().substring(1);
+	}
+	
+	
 	public String producedGetAttrDesc(String attrDesc){
 	    StringBuffer sBuffer = new StringBuffer();
 	    sBuffer.append(BANK_VALUE_4).append(DESC_1).append(ENTER_VALUE);
