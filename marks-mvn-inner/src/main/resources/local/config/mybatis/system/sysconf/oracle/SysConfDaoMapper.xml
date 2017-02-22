@@ -64,9 +64,9 @@
 		SELECT *
 		FROM TB_SYS_CONF sysconf
 		WHERE 1=1
-		<!-- <if test="companyId !=null and companyId !=''">
+		<if test="companyId !=null and companyId !=''">
 			and sysconf.COMPANYID=#{companyId}
-		</if> -->
+		</if>
 		<if test="keyword!=null and keyword!=''">
 			and ( sysconf.CKEY LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
