@@ -11,4 +11,7 @@ public class @{beanName} implements Serializable{
 
 @{getSetMethod}
 
+	public String toLog(){
+		return @{fieldStr};
+	}
 }

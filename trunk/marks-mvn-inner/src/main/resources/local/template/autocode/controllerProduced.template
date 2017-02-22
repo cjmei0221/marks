@@ -51,6 +51,9 @@ public class @{beanName}Controller extends SupportContorller{
         Result result = new Result();
 		try {
 		    @{beanName} @{BeanObject} = getModel(@{beanName}.class);
+		    
+		    logger.info("find@{beanName}ById > param>"+@{BeanObject}.get@{GetIdAttrName}());
+		    
 			@{beanName} request@{beanName} = @{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
 			result.getData().put("@{BeanObject}",request@{beanName});
 			result.setMessage("findById @{BeanObject} successs!");
@@ -74,6 +77,9 @@ public class @{beanName}Controller extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
 	 //     @{BeanObject}.set@{GetIdAttrName}(IDUtil.getTimeID());
+	 		
+	 		logger.info("save@{beanName} > param>"+@{BeanObject}.toLog());
+	 
 			 @{beanName} ori=null;
 	 		if(@{BeanObject}.get@{GetIdAttrName}() != null){
 	 			ori=@{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
@@ -105,6 +111,9 @@ public class @{beanName}Controller extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    @{beanName} @{BeanObject} = getModel(@{beanName}.class);
+		    
+		    logger.info(" update@{beanName}> param>"+@{BeanObject}.toLog());
+		    
 		    @{beanName} ori=@{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
@@ -131,6 +140,9 @@ public class @{beanName}Controller extends SupportContorller{
 		Result result = new Result();
 		try {
 		   	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
+		   	
+		   	logger.info("delete@{beanName}ById > param>"+@{BeanObject}.get@{GetIdAttrName}());
+		   	
 			@{BeanObject}Service.delete(@{BeanObject}.get@{GetIdAttrName}());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -171,6 +183,7 @@ public class @{beanName}Controller extends SupportContorller{
 		Result result = new Result();
 		try {
 			String id = request.getParameter("@{GetIdAttrValue}");
+			logger.info("delete batch> param>"+id);
 			String[] ids = id.split(",");
 			List<String> idList = new ArrayList<String>();
 			for(int i=0;i<ids.length;i++){
@@ -207,6 +220,7 @@ public class @{beanName}Controller extends SupportContorller{
 			if(keyword==null){
 				keyword="";
 			}
+			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
 			PojoDomain<@{beanName}> list = @{BeanObject}Service.list(page_number, page_size, param);
