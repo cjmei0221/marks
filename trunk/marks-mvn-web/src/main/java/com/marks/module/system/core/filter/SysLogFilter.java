@@ -32,7 +32,6 @@ public class SysLogFilter implements Filter {
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 		String ip = RequestUtil.getIpAddr(request);
 		int success = 0;
-		LOG.info("recordLogURI=" + url);
 
 		arg2.doFilter(arg0, arg1);
 		SysUser loginUser=LoginUtil.getInstance().getCurrentUser(request);
