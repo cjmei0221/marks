@@ -23,6 +23,7 @@ import com.marks.common.util.code.Code;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.note.diary.pojo.Diary;
 import com.marks.module.note.diary.service.DiaryService;
+import com.marks.module.runModel.RunModel;
 import com.marks.module.system.login.pojo.SysUser;
 import com.marks.module.system.login.service.SysUserService;
 import com.marks.module.system.login.util.LoginUtil;
@@ -248,7 +249,7 @@ public class DiaryController extends SupportContorller{
 		    		sysUser=new SysUser();
 		    		sysUser.setActiveFlag(Enums.SysUserUse.USE.getValue());
 		    		sysUser.setBind_mobile(mobile);
-		    		sysUser.setCompanyId(LoginUtil.getInstance().getCompanyId());
+		    		sysUser.setCompanyId(RunModel.getInstance().getCompanyId());
 		    		sysUser.setPassword(EncryptUtil.defaultPwd);
 		    		sysUser.setUsername(mobile);
 		    		sysUser.setRoleid(sysUser.getCompanyId()+"_"+Enums.SysUserType.VIP.getValue());
