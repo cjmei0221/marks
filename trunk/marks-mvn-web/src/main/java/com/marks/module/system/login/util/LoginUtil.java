@@ -14,9 +14,6 @@ public class LoginUtil {
 		}
 		return util;
 	}
-	public String getCompanyId() {
-		return "Marks";
-	}
 	public void setCurrentUser(HttpServletRequest request,SysUser user) {
 		user.setPassword("");
 		request.getSession().setAttribute("cSysUser", user);

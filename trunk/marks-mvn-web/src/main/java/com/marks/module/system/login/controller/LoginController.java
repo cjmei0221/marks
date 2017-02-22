@@ -14,6 +14,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.code.Code;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.common.util.validate.VcodeUtil;
+import com.marks.module.runModel.RunModel;
 import com.marks.module.system.login.pojo.SysUser;
 import com.marks.module.system.login.service.SysUserService;
 import com.marks.module.system.login.util.LoginUtil;
@@ -136,7 +137,7 @@ public class LoginController {
 			user.setActiveFlag(Enums.SysUserUse.USE.getValue());
 			user.setBind_mobile(mobile);
 			user.setBindFlag(Enums.SysUserBindFlag.USE.getValue());
-			user.setCompanyId(LoginUtil.getInstance().getCompanyId());
+			user.setCompanyId(RunModel.getInstance().getCompanyId());
 			user.setCreator(mobile);
 			user.setPassword(EncryptUtil.encrypt(password));
 			user.setUsername(mobile);

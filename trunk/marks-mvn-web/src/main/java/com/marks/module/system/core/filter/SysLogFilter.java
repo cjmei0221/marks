@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import com.marks.common.util.RequestUtil;
+import com.marks.module.runModel.RunModel;
 import com.marks.module.system.login.pojo.SysUser;
 import com.marks.module.system.login.util.LoginUtil;
 import com.marks.module.system.syslog.pojo.SysLog;
@@ -41,7 +42,7 @@ public class SysLogFilter implements Filter {
 			log.setUserid(loginUser.getUserid());
 			log.setUsername(loginUser.getUsername());
 		}else{
-			log.setRetain3(LoginUtil.getInstance().getCompanyId());
+			log.setRetain3(RunModel.getInstance().getCompanyId());
 		}
 		log.setIp(ip);
 		log.setRetain1(success + "");
