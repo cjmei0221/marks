@@ -1,6 +1,6 @@
 --------------------------------------------
 -- Export file for user NFB               --
--- Created by cjmei on 2017/1/11, 0:00:12 --
+-- Created by cjmei on 2017/2/23, 7:39:37 --
 --------------------------------------------
 
 spool NFB2.log
@@ -12,7 +12,7 @@ prompt
 create sequence NFB.SEQ_SYS_USER
 minvalue 1
 maxvalue 9999999999999999999999
-start with 1000020
+start with 1000024
 increment by 1
 nocache
 cycle;
@@ -24,7 +24,7 @@ prompt
 create sequence NFB.SEQ_WX_AUTO_REPLAY_NEWS
 minvalue 1
 maxvalue 9999999999999999999999
-start with 100000013
+start with 100000015
 increment by 1
 nocache
 cycle;
