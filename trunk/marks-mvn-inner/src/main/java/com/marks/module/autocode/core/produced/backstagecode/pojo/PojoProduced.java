@@ -68,7 +68,7 @@ public class PojoProduced extends AbstractCodeProduced {
 		StringBuffer sBuffer = new StringBuffer();
 		for(AutoAttr autoAttr:autoAttrs){
 			String attrName = autoAttr.getAttrName();
-			sBuffer.append("+\" - \" +String.valueOf("+String.valueOf(attrName)+")");
+			sBuffer.append("+\" - "+attrName+":\" +String.valueOf("+String.valueOf(attrName)+")");
 		}
 		return sBuffer.toString().substring(1);
 	}
