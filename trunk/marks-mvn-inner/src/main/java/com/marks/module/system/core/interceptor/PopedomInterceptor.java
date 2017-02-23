@@ -34,6 +34,7 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 			JsonUtil.output(response, result);
 			return false;
 		}
+		log.info("loginUser > userid:"+loginUser.getUserid()+" - mobile:"+loginUser.getBind_mobile());
 		String url = RequestRegex.repace("/", request.getRequestURI());
 		int idx = url.indexOf(".");
 		url = url.substring(request.getContextPath().length(), idx);
