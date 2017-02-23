@@ -2,7 +2,7 @@ CREATE TABLE TB_NOTE_reminder (
 	ID VARCHAR2 (50),
 	remind_TYPE NUMBER (2),
   calendar_type NUMBER (1),
-	remind_date VARCHAR2 (30),
+	remind_date VARCHAR2 (50),
   remind_TIME VARCHAR2 (30),
 	IS_REPEAT NUMBER (1),
 	remind_CONTENT NVARCHAR2 (200),
@@ -12,3 +12,7 @@ CREATE TABLE TB_NOTE_reminder (
 	UPDATETIME TIMESTAMP,
 	CREATOR NVARCHAR2 (100)
 );
+
+
+alter table TB_NOTE_reminder
+  add primary key (ID);
