@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl: top.window.urlBase + '/transaction/list.do',//获取事务提醒列表接口  Transaction
-	saveUrl: top.window.urlBase + '/transaction/save.do',//保存新增事务提醒接口
-	updateUrl: top.window.urlBase + '/transaction/update.do',//编辑事务提醒信息接口
-	deleteUrl: top.window.urlBase + '/transaction/delete.do',//删除事务提醒接口
+	listUrl: top.window.urlBase + '/reminder/list.do',//获取事务提醒列表接口  Reminder
+	saveUrl: top.window.urlBase + '/reminder/save.do',//保存新增事务提醒接口
+	updateUrl: top.window.urlBase + '/reminder/update.do',//编辑事务提醒信息接口
+	deleteUrl: top.window.urlBase + '/reminder/delete.do',//删除事务提醒接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam:{
@@ -47,7 +47,7 @@ $(function(){
 	//删除
 	$("#delete").on("click",function(){
 		if(isSelectedOne(appInfo.selectedId)){
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "id=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
@@ -125,16 +125,17 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [                 {title:'ID',field:'id',width:100,align:"center",hidden:true },
-                {title:'事务类型',field:'tranType',width:100,align:"center"},
-                {title:'特殊日期',field:'tranDate',width:100,align:"center"},
-                {title:'是否重复',field:'isRepeat',width:100,align:"center"},
-                {title:'提醒内容',field:'tranContent',width:100,align:"center"},
-                {title:'提前天数',field:'aheadDays',width:100,align:"center"},
-                {title:'提醒时间',field:'tranTime',width:100,align:"center"},
-                {title:'是否提前提醒',field:'isAhead',width:100,align:"center"},
+                {title:'事务类型',field:'remind_type',width:100,align:"center"},
+                {title:'特殊日期',field:'remind_date',width:100,align:"center"},
+                {title:'是否重复',field:'is_repeat',width:100,align:"center"},
+                {title:'提醒内容',field:'remind_content',width:100,align:"center"},
+                {title:'提前天数',field:'before_days',width:100,align:"center"},
+                {title:'提醒时间',field:'remind_time',width:100,align:"center"},
+                {title:'是否提前提醒',field:'is_before',width:100,align:"center"},
                 {title:'创建时间',field:'createtime',width:100,align:"center"},
                 {title:'更新时间',field:'updatetime',width:100,align:"center"},
-                {title:'创建者',field:'creator',width:100,align:"center"} ] ],
+                {title:'创建者',field:'creator',width:100,align:"center"},
+                {title:'日历类型',field:'calendar_type',width:100,align:"center"} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
 			loader(that, params, success, loadError);
