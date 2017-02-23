@@ -144,6 +144,6 @@ public class Reminder implements Serializable{
 
 
 	public String toLog(){
-		return " - " +String.valueOf(id)+" - " +String.valueOf(remind_type)+" - " +String.valueOf(remind_date)+" - " +String.valueOf(is_repeat)+" - " +String.valueOf(remind_content)+" - " +String.valueOf(before_days)+" - " +String.valueOf(remind_time)+" - " +String.valueOf(is_before)+" - " +String.valueOf(createtime)+" - " +String.valueOf(updatetime)+" - " +String.valueOf(creator)+" - " +String.valueOf(calendar_type);
+		return " - id:" +String.valueOf(id)+" - remind_type:" +String.valueOf(remind_type)+" - remind_date:" +String.valueOf(remind_date)+" - is_repeat:" +String.valueOf(is_repeat)+" - remind_content:" +String.valueOf(remind_content)+" - before_days:" +String.valueOf(before_days)+" - remind_time:" +String.valueOf(remind_time)+" - is_before:" +String.valueOf(is_before)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - creator:" +String.valueOf(creator)+" - calendar_type:" +String.valueOf(calendar_type);
 	}
 }
