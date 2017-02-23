@@ -25,11 +25,11 @@
 	default-autowire="byName">
 
 	<!--  -->
-	<bean id="transactionService" class="com.marks.module.note.transaction.service.impl.TransactionServiceImpl">
-		<property name="transactionDao" ref="transactionDao"></property>
+	<bean id="reminderService" class="com.marks.module.note.reminder.service.impl.ReminderServiceImpl">
+		<property name="reminderDao" ref="reminderDao"></property>
 	</bean>
-	<bean id="transactionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.marks.module.note.transaction.dao.TransactionDao"></property>
+	<bean id="reminderDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.marks.module.note.reminder.dao.ReminderDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
