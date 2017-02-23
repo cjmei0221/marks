@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.note.reminder.dao.ReminderDao">
+
+    <select id="findById" resultType="com.marks.module.note.reminder.pojo.Reminder">
+		SELECT * FROM TB_NOTE_REMINDER reminder where reminder.ID = #{id}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.note.reminder.pojo.Reminder">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+
+ 		INSERT INTO TB_NOTE_REMINDER reminder (
+            reminder.ID,
+            reminder.REMIND_TYPE,
+            reminder.REMIND_DATE,
+            reminder.IS_REPEAT,
+            reminder.REMIND_CONTENT,
+            reminder.BEFORE_DAYS,
+            reminder.REMIND_TIME,
+            reminder.IS_BEFORE,
+            reminder.CREATETIME,
+            reminder.UPDATETIME,
+            reminder.CREATOR,
+            reminder.CALENDAR_TYPE
+		)
+		VALUES(
+            #{id:VARCHAR},
+            #{remind_type:NUMERIC},
+            #{remind_date:VARCHAR},
+            #{is_repeat:NUMERIC},
+            #{remind_content:VARCHAR},
+            #{before_days:NUMERIC},
+            #{remind_time:VARCHAR},
+            #{is_before:NUMERIC},
+            sysdate,
+            sysdate,
+            #{creator:VARCHAR},
+            #{calendar_type:NUMERIC}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.note.reminder.pojo.Reminder">
+ 		UPDATE TB_NOTE_REMINDER reminder
+		SET 
+                reminder.REMIND_TYPE = #{remind_type:NUMERIC},
+                reminder.REMIND_DATE = #{remind_date:VARCHAR},
+                reminder.IS_REPEAT = #{is_repeat:NUMERIC},
+                reminder.REMIND_CONTENT = #{remind_content:VARCHAR},
+                reminder.BEFORE_DAYS = #{before_days:NUMERIC},
+                reminder.REMIND_TIME = #{remind_time:VARCHAR},
+                reminder.IS_BEFORE = #{is_before:NUMERIC},
+                reminder.UPDATETIME = sysdate,
+                reminder.CREATOR = #{creator:VARCHAR},
+                reminder.CALENDAR_TYPE = #{calendar_type:NUMERIC}
+		WHERE
+			reminder.ID = #{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_NOTE_REMINDER reminder WHERE reminder.ID=#{id}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.note.reminder.pojo.Reminder">
+ 		SELECT * FROM TB_NOTE_REMINDER
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_NOTE_REMINDER WHERE ID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.note.reminder.pojo.Reminder" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_NOTE_REMINDER reminder
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( reminder.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.REMIND_TYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.REMIND_DATE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.IS_REPEAT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.REMIND_CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.BEFORE_DAYS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.REMIND_TIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.IS_BEFORE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or to_char(reminder.CREATETIME,'yyyy-MM-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or to_char(reminder.UPDATETIME,'yyyy-MM-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.CALENDAR_TYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+					
+			    order by  reminder.UPDATETIME DESC				
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>
