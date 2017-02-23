@@ -36,7 +36,7 @@ public class SysLogFilter implements Filter {
 		arg2.doFilter(arg0, arg1);
 
 		SysLog log = new SysLog();
-		log.setRetain3(Constants.default_companyId);
+		log.setRetain3(null);
 		log.setIp(ip);
 		log.setRetain1(success + "");
 		log.setRetain2(url);
