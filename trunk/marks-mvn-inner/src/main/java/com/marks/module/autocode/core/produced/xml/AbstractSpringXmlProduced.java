@@ -13,7 +13,7 @@ public abstract class AbstractSpringXmlProduced extends AbstractProduced impleme
 	public String producedBeanName(AutoBean autoBean) {
 		setFileSrc(autoBean);
 		String beanName = StringUtil.getUpperCaseChar(autoBean.getFactBeanName());
-		outFileContent.setFileName(StringUtil.StringJoin(AutoConfig.SPRING_NAME+"-"+beanName.toLowerCase(),getFileNameAfter(),DOT_VALUE,DEFAULT_FILE_XML) );
+		outFileContent.setFileName(StringUtil.StringJoin(AutoConfig.SPRING_NAME+"-"+autoBean.getParentPackage()+"_"+beanName.toLowerCase(),getFileNameAfter(),DOT_VALUE,DEFAULT_FILE_XML) );
 		return beanName;
 	}
 	
