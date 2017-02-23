@@ -50,7 +50,7 @@ public class SysLogFilter implements Filter {
 		if(user!=null){
 			log.setUserid(user.getUserid());
 			log.setUsername(user.getUsername());
-			log.setRetain3(user.getCompanyId()==null?"0":user.getCompanyId());
+			log.setRetain3(user.getCompanyId());
 		}else{
 			log.setRetain3(Constants.default_companyId);
 		}
