@@ -102,6 +102,7 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 	@Override
 	public void delete(String tableName) {
 		autoCodeDao.delete(tableName);
+		autoCodeDao.deleteAttr(tableName);
 	}
 
 	/**
