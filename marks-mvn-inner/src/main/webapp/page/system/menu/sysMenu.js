@@ -24,12 +24,15 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
+		$("#btnOKAndTo").show();
+		appInfo.selectedId = -1;
 	});
 	// 编辑
 	$("#edit").on(
 			"click",
 			function() {
 				if (isSelectedOne(appInfo.selectedId)) {
+					$("#btnOKAndTo").hide();
 					appInfo.saveStatus=0;
 					$("#editWin").window({
 						title : "编辑"
@@ -105,8 +108,8 @@ $(function() {
 	});
 	// 新增菜单后添加功能
 	$("#btnOKAndTo").on("click", function() {
-		formSubmit()
-		if (appInfo.saveStatus=1 && isSelectedOne(appInfo.selectedId)) {
+		formSubmit();
+		if ($("#ff").form("validate") && appInfo.saveStatus==1 && isSelectedOne(appInfo.selectedId)) {
 			addFunc();
 		}
 	});
