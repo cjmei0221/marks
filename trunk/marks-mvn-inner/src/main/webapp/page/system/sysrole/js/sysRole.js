@@ -273,7 +273,7 @@ function funcList(roleId) {
 					{
 						url : appInfo.funcListUrl,
 						rownumbers : true,
-						animate : true,
+						animate : false,
 						collapsible : true,
 						fitColumns : true,
 						idField : 'menuid',
