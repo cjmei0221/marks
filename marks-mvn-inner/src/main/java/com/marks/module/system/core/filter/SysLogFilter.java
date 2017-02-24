@@ -58,7 +58,7 @@ public class SysLogFilter implements Filter {
 		
 		log.setUrl(url);
 		log.setSource(0);
-		SysLogThreadPool.saveSysLog(log);
+		SysLogThreadPool.saveSysLog(false,log);
 		
 	}
 

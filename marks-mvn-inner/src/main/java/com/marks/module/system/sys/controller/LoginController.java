@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
 import com.marks.common.enums.Enums;
-import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
+import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
-import com.marks.module.system.core.data.StaticData;
 import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.orginfo.pojo.OrgInfo;
+import com.marks.module.system.sys.pojo.SysLog;
 import com.marks.module.system.sys.pojo.SysMenu;
 import com.marks.module.system.sys.service.LoginService;
+import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.system.sysrole.pojo.SysRole;
 import com.marks.module.system.sysrole.service.SysRoleService;
 import com.marks.module.system.sysuser.pojo.SysUser;
@@ -41,7 +42,7 @@ public class LoginController {
 	private LoginService loginService;
 	@Autowired
 	private WxAccountService wxAccountService;
-	
+
 	@Autowired
 	private SysRoleService sysRoleService;
 
@@ -66,58 +67,84 @@ public class LoginController {
 		if (user == null) {
 			result.setCode(4001);
 			result.setMessage("用户不存在");
-		} else {
-			if (Enums.SysUserUse.NOUSE.getValue() == user.getActiveFlag()) {
-				result.setCode(4002);
-				result.setMessage("用户被禁用");
-			} else {
-				String password = EncryptUtil.encrypt(pwd);
-				if (password.equals(user.getPassword())) {
-					SysRole role = sysRoleService.findById(user.getRoleid());
-					if (role != null) {
-						result.setCode(0);
-						result.setMessage("success");
-						user.setLoginTime(new Date());
-						user.setPassword("");
-						user.setRole(role);
-						List<OrgInfo> orgInfo = loginService.getOrgInfoListByUserid(user.getUserid());
-						user.setOrgInfoList(orgInfo);
-						// 组织架构
-						boolean topflag = true;
-						for (OrgInfo sr : orgInfo) {
-							if (1 == sr.getIsMain()){
-								topflag = false;
-								break;
-							}
-						}
-						if (topflag) {
-							List<String> orgids = loginService.getOrgidBySysUser(orgInfo);
-							user.setOrgids(orgids);
-						} else {
-							user.setOrgids(null);
-							user.setCompanyId(null);
-						}
-						user.setAccountids(null);
-						if (null != user.getOrgids() && null != user.getCompanyId()) {
-							Map<String, Object> param = new HashMap<String, Object>();
-							param.put("conpanyId", user.getCompanyId());
-//							param.put("orgids", user.getOrgids());
-							param.put("orgids",null);
-							List<String> accountids = wxAccountService.getAccountIdsByLoginUser(param);
-							user.setAccountids(accountids);
-						}
-						SysUserHelper.setCurrentUserInfo(request, user);
-					} else {
-						result.setCode(4005);
-						result.setMessage("您没有权限登录");
-					}
+			JsonUtil.output(response, result);
+			return;
+		}
+		if (Enums.SysUserUse.NOUSE.getValue() == user.getActiveFlag()) {
+			result.setCode(4002);
+			result.setMessage("用户被禁用");
+			JsonUtil.output(response, result);
+			return;
+		}
+		String password = EncryptUtil.encrypt(pwd);
 
-				} else {
-					result.setCode(4003);
-					result.setMessage("密码错误");
-				}
+		if (!password.equals(user.getPassword())) {
+			result.setCode(4003);
+			result.setMessage("密码错误");
+			JsonUtil.output(response, result);
+			return;
+		}
+
+		SysRole role = sysRoleService.findById(user.getRoleid());
+		if (role == null) {
+			result.setCode(4005);
+			result.setMessage("您没有权限登录");
+			JsonUtil.output(response, result);
+			return;
+		}
+
+		result.setCode(0);
+		result.setMessage("success");
+		user.setLoginTime(new Date());
+		user.setPassword("");
+		user.setRole(role);
+
+		// 所属机构
+		List<OrgInfo> orgInfo = loginService.getOrgInfoListByUserid(user.getUserid());
+		user.setOrgInfoList(orgInfo);
+		// 组织架构
+		boolean topflag = true;
+		for (OrgInfo sr : orgInfo) {
+			if (1 == sr.getIsMain()) {
+				topflag = false;
+				break;
 			}
 		}
+		if (topflag) {
+			List<String> orgids = loginService.getOrgidBySysUser(orgInfo);
+			user.setOrgids(orgids);
+		} else {
+			user.setOrgids(null);
+			user.setCompanyId(null);
+		}
+
+		// 关联服务号
+		user.setAccountids(null);
+		if (null != user.getOrgids() && null != user.getCompanyId()) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("conpanyId", user.getCompanyId());
+			// param.put("orgids", user.getOrgids());
+			param.put("orgids", null);
+			List<String> accountids = wxAccountService.getAccountIdsByLoginUser(param);
+			user.setAccountids(accountids);
+		}
+		SysUserHelper.setCurrentUserInfo(request, user);
+
+		// 保存日志
+		SysLog log = new SysLog();
+		log.setUserid(user.getUserid());
+		log.setUsername(user.getUsername());
+		log.setRetain3(user.getCompanyId());
+		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
+		String ip = RequestUtil.getIpAddr(request);
+		log.setIp(ip);
+		log.setRetain1("0");
+		log.setRetain2(url);
+		log.setUrl(url);
+		log.setMenuname("登录管理");
+		log.setOpername("登录");
+		SysLogThreadPool.saveSysLog(true, log);
+
 		JsonUtil.output(response, result);
 	}
 
@@ -127,13 +154,27 @@ public class LoginController {
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);
 		if (user != null) {
 			SysUserHelper.setCurrentUserInfo(request, null);
+			// 保存日志
+			SysLog log = new SysLog();
+			log.setUserid(user.getUserid());
+			log.setUsername(user.getUsername());
+			log.setRetain3(user.getCompanyId());
+			String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
+			String ip = RequestUtil.getIpAddr(request);
+			log.setIp(ip);
+			log.setRetain1("0");
+			log.setRetain2(url);
+			log.setUrl(url);
+			log.setMenuname("登录管理");
+			log.setOpername("退出");
+			SysLogThreadPool.saveSysLog(true, log);
 		}
 		result.setCode(0);
 		result.setMessage("success");
 		JsonUtil.output(response, result);
 	}
 
-	@RequestMapping("/menu")
+	@RequestMapping("/sys/menu")
 	public void sysMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);

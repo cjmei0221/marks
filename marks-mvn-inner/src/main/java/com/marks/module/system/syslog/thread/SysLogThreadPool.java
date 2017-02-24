@@ -28,16 +28,18 @@ public class SysLogThreadPool {
 	public static void destroy() {
 		pool.shutdown();
 	}
-	public static void saveSysLog(SysLog log) {
-		pool.execute(new SysLogThread(log));
+	public static void saveSysLog(boolean isAlone,SysLog log) {
+		pool.execute(new SysLogThread(isAlone,log));
 	}
 }
 
 class SysLogThread implements Runnable{
 
 	private SysLog log;
+	private boolean isAlone;
 	private SysLogDao sysLogDao=null;
-	public SysLogThread(SysLog log){
+	public SysLogThread(boolean isAlone,SysLog log){
+		this.isAlone=isAlone;
 		this.log=log;
 	}
 	@Override
@@ -47,15 +49,17 @@ class SysLogThread implements Runnable{
 			if(sysLogDao==null){
 				sysLogDao=(SysLogDao) DatabaseHelper.getBean(SysLogDao.class);
 			}
-			if(log !=null){
+			if(log==null){
+				return;
+			}
+			log.setSource(0);
+			if(isAlone){
+				sysLogDao.saveSysLog(log);
+			}else{
 				List<SysLog> logc=sysLogDao.getSysLogParam(log.getUrl());
 				if(null != logc && logc.size()>0){
 					log.setMenuname(logc.get(0).getMenuname());
 					log.setOpername(logc.get(0).getOpername());
-					sysLogDao.saveSysLog(log);
-				}else if("/login".equals(log.getUrl())){
-					log.setMenuname("登录管理");
-					log.setOpername("登录");
 					sysLogDao.saveSysLog(log);
 				}
 			}
