@@ -124,8 +124,7 @@ function addFunc() {
 	$("#tab2TableMod").hide();
 	$("#addOneRule").show();
 	// 初始化已有功能
-	$
-			.ajax({
+	$.ajax({
 				url : appInfo.instFuncUrl,
 				type : "post",
 				data : {
@@ -195,8 +194,7 @@ function submitFuncForm() {
 	var url = appInfo.addFuncurl;
 	var parms = $("#funcff").serialize();
 	parms += "&menuid=" + appInfo.selectedId;
-	$
-			.post(
+	$.post(
 					url,
 					parms,
 					function(data) {
@@ -266,8 +264,7 @@ function loadList() {
 	$('#tbList').treegrid({
 		url : appInfo.listUrl,
 		rownumbers : true,
-		animate : true,
-		collapsible : true,
+		animate : false,
 		fitColumns : true,
 		idField : 'menuid',
 		treeField : 'menuitem',
