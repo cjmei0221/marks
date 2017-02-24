@@ -50,6 +50,7 @@ class SysLogThread implements Runnable {
 				sysLogDao = (SysLogDao) DatabaseHelper.getBean(SysLogDao.class);
 			}
 			if (log != null) {
+				log.setSource(1);
 				SysLogParam param=sysLogDao.getSysLogParam(log.getUrl(),1);
 				if(null !=param){
 					log.setMenuname(param.getMenuName());

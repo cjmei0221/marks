@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.marks.common.util.Constants;
 import com.marks.common.util.RequestUtil;
 import com.marks.module.system.syslog.entity.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
@@ -42,7 +41,6 @@ public class SysLogFilter implements Filter {
 		log.setRetain2(url);
 
 		log.setUrl(url);
-		log.setSource(1);
 		SysLogThreadPool.saveSysLog(log);
 
 	}
