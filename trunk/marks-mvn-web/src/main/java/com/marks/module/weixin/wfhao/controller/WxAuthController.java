@@ -37,18 +37,18 @@ public class WxAuthController {
 	 */
 	@RequestMapping("/toWxAuth")
 	public void toWxAuth(HttpServletRequest request, HttpServletResponse response) {
-		logger.info("调用微信授权接口去授权>>start");
+		logger.info("调用微信授权接口去授权1>>start");
 		Result result = new Result();
 		result.setCode(0);
 		try {
 			String accountid = request.getParameter("accountid");
 			String to_url = request.getParameter("to_url");
-			logger.info("调用微信授权接口去授权>>accountid=" + accountid + "&to_url=" + to_url);
+			logger.info("调用微信授权接口去授权2>>accountid=" + accountid + "&to_url=" + to_url);
 			if (accountid != null && !"".equals(accountid) && null != to_url && to_url.length() > 5) {
 				request.getSession().setAttribute(wxauth_after_url, to_url);
 				if (RunModel.getInstance().getWeixinMode().equals("N")) {
 					String return_url = URLDecoder.decode(to_url, "utf-8");
-					logger.info("调用微信授权接口去授权>>url>>" + return_url);
+					logger.info("调用微信授权接口去授权3>>url>>" + return_url);
 					response.sendRedirect(return_url);
 				} else {
 					// 组装授权URL
