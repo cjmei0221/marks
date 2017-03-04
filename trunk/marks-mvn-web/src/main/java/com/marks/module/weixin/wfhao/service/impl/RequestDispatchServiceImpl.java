@@ -32,11 +32,16 @@ public class RequestDispatchServiceImpl implements RequestDispatchService {
 	@Override
 	public WechatResponse dispatch(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
 
-		RequestService requestService = (RequestService) DatabaseHelper
-				.getBean(requestMessage.getMsgType().toLowerCase() + "RequestService");
-		if (requestService != null) {
-			WechatResponse responseMessage = requestService.handle(request, requestMessage);
-			return responseMessage;
+		try {
+			RequestService requestService = (RequestService) DatabaseHelper
+					.getBean(requestMessage.getMsgType().toLowerCase() + "RequestService");
+			if (requestService != null) {
+				WechatResponse responseMessage = requestService.handle(request, requestMessage);
+				return responseMessage;
+			}
+		} catch (Exception e) {
+			logger.info(requestMessage.getMsgType().toLowerCase() + "RequestService 的bean不存在");
+			logger.error("Exception", e);
 		}
 		return null;
 	}

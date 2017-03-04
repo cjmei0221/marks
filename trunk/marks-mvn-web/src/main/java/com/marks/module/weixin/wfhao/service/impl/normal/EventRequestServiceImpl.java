@@ -33,11 +33,16 @@ public class EventRequestServiceImpl implements RequestService {
 		
 		logger.info("EventRequestServiceImpl deal start event>"+requestMessage.getEvent().toLowerCase());
 		
-		RequestService requestService =  (RequestService) DatabaseHelper
-				.getBean(requestMessage.getEvent().toLowerCase() + "EventRequestService");
-		if (requestService != null) {
-			WechatResponse responseMessage = requestService.handle(request, requestMessage);
-			return responseMessage;
+		try {
+			RequestService requestService =  (RequestService) DatabaseHelper
+					.getBean(requestMessage.getEvent().toLowerCase() + "EventRequestService");
+			if (requestService != null) {
+				WechatResponse responseMessage = requestService.handle(request, requestMessage);
+				return responseMessage;
+			}
+		} catch (Exception e) {
+			logger.info(requestMessage.getEvent().toLowerCase() + "EventRequestService 的事件不支持");
+			logger.error("Exception", e);
 		}
 		WechatResponse textResponseMessage = new WechatResponse(requestMessage);
 		textResponseMessage.setContent("");
