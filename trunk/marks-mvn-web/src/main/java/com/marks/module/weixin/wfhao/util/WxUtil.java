@@ -36,7 +36,7 @@ public class WxUtil {
 		String reurnurl="";
 		url=acc.getAuthdomain()+url;
 		url=URLEncoder.encode(url,"UTF-8");
-		String wx_auth_url = PropsUtil.getProperty(WxFwConfig.weixin_connect_oauth2_authorize_base);
+		String wx_auth_url = WxFwConfig.weixin_connect_oauth2_authorize_base;
 		reurnurl=String.format(wx_auth_url, acc.getAppid(),url);
 		logger.info("返回>>"+reurnurl);
 		return reurnurl;
@@ -46,7 +46,7 @@ public class WxUtil {
 			WxAccount wx = StaticData.getWxAccount(accountid);
 			String appid = wx.getAppid();
 			String appSercet = wx.getAppsecret();
-			String url = String.format(PropsUtil.getProperty(WxFwConfig.weixin_connect_oauth2_access_token), appid,
+			String url = String.format(WxFwConfig.weixin_connect_oauth2_access_token, appid,
 					appSercet, code);
 			JsonResult result= HttpUtils.getInstance().doGet(url, null, null, HttpUtils.charSet);
 			JSONObject json = new JSONObject(result.getResult().toString());
@@ -60,7 +60,7 @@ public class WxUtil {
 	}
 	public String getCompleteUrl(String accountid,String url) throws UnsupportedEncodingException{
 		WxAccount acc=StaticData.getWxAccount(accountid);
-		url=acc.getAuthdomain()+url;
+//		url=acc.getAuthdomain()+url;
 		logger.info("返回>>"+url);
 		return url;
 	}

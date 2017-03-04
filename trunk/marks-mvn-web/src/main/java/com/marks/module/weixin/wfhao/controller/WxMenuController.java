@@ -15,7 +15,7 @@ import com.marks.module.weixin.wfhao.config.PageConfigUtil;
 @Controller
 public class WxMenuController {
 	private static Logger logger = Logger.getLogger(WxMenuController.class);
-	private String toAuth="/wxauth/toWxAuth";
+	private String toAuth="/toWxAuth.do";
 	/**
 	 * 
 	 * lhyan3 2015年6月1日下午4:43:10 TODO
@@ -28,7 +28,7 @@ public class WxMenuController {
 		String url = request.getContextPath()+PageConfigUtil.getProperty("unsubscribeurl");
 		try {
 			String to_url=request.getContextPath()+PageConfigUtil.getProperty(pageUrl);	
-			url=request.getContextPath()+toAuth+"?accountid="+accountId+"&to_url="+URLEncoder.encode(to_url, "UTF-8");
+			url=toAuth+"?accountid="+accountId+"&to_url="+URLEncoder.encode(to_url, "UTF-8");
 			logger.info("URL>>"+url);
 			request.getRequestDispatcher(url).forward(request, response);
 		} catch (Exception e) {

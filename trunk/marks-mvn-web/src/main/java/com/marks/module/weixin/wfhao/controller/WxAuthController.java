@@ -35,7 +35,7 @@ public class WxAuthController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/wxauth/toWxAuth")
+	@RequestMapping("/toWxAuth")
 	public void toWxAuth(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("调用微信授权接口去授权>>start");
 		Result result = new Result();
@@ -53,7 +53,7 @@ public class WxAuthController {
 				} else {
 					// 组装授权URL
 					String url = WxUtil.getInstance().getWeixinUrl(accountid,
-							request.getContextPath() + "/WECHAT/wxauth/callback.do?accountid=" + accountid);
+							request.getContextPath() + "/wxAuthCallback.do?accountid=" + accountid);
 					response.sendRedirect(url);
 				}
 			} else {
@@ -68,7 +68,7 @@ public class WxAuthController {
 		}
 	}
 
-	@RequestMapping("/wxauth/callback")
+	@RequestMapping("/wxAuthCallback")
 	public void callback(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("微信授权回调>>start");
 		Result result = new Result();
