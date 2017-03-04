@@ -33,10 +33,7 @@ public class SysLogFilter implements Filter {
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 		String ip = RequestUtil.getIpAddr(request);
 		int success = 0;
-
-		arg2.doFilter(arg0, arg1);
 		SysUser loginUser=LoginUtil.getInstance().getCurrentUser(request);
-		
 		SysLog log = new SysLog();
 		if(null !=loginUser){
 			log.setUserid(loginUser.getUserid());
@@ -48,6 +45,7 @@ public class SysLogFilter implements Filter {
 		log.setRetain1(success + "");
 		log.setRetain2(url);
 		log.setUrl(url);
+		arg2.doFilter(arg0, arg1);
 		SysLogThreadPool.saveSysLog(log);
 	}
 
