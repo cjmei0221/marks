@@ -30,7 +30,8 @@ public class WxMenuController {
 			String to_url=request.getContextPath()+PageConfigUtil.getProperty(pageUrl);	
 			url=toAuth+"?accountid="+accountId+"&to_url="+URLEncoder.encode(to_url, "UTF-8");
 			logger.info("URL>>"+url);
-			request.getRequestDispatcher(url).forward(request, response);
+			response.sendRedirect(url);
+//			request.getRequestDispatcher(url).forward(request, response);
 		} catch (Exception e) {
 			logger.info("Exception", e);
 			try {
