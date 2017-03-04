@@ -65,10 +65,10 @@
 	<bean id="locationEventRequestService"
 		class="com.marks.module.weixin.wfhao.service.impl.event.LocationEventRequestServiceImpl">
 	</bean>
-	<bean id="subscribeRequestService"
+	<bean id="subscribeEventRequestService"
 		class="com.marks.module.weixin.wfhao.service.impl.event.SubscribeEventRequestServiceImpl">
 	</bean>
-	<bean id="unsubscribeRequestService"
+	<bean id="unsubscribeEventRequestService"
 		class="com.marks.module.weixin.wfhao.service.impl.event.UnsubscribeEventRequestServiceImpl">
 	</bean>
 	<bean id="clickEventRequestService"
