@@ -93,7 +93,7 @@
 							style="width: 100px;" data-options="iconCls:'icon-save'">保存</a>
 							&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnCancel" name="btnCancel"
 							href="javascript:void(0)" class="easyui-linkbutton"
-							style="width: 100px;" data-options="iconCls:'icon-remove'">取消</a>
+							style="width: 100px;" data-options="iconCls:'icon-cancel'">取消</a>
 						</td>
 					</tr>
 				</table>
