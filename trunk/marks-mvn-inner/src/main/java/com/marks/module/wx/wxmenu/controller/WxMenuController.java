@@ -14,9 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.sysuser.pojo.SysUser;
 import com.marks.module.wx.wxmenu.pojo.WxMenu;
@@ -125,7 +125,7 @@ public class WxMenuController extends SupportContorller {
 			List<WxMenu> childList=wxMenuService.getChildWxMenuList(wxMenu.getId());
 			if(null != childList && childList.size()>0){
 				result.setMessage("含有子节点不能删除!");
-				result.setCode(4004);
+				result.setCode("4004");
 			}else{
 				wxMenuService.delete(wxMenu.getId());
 				result.setMessage("删除成功!");
@@ -209,7 +209,7 @@ public class WxMenuController extends SupportContorller {
 	@RequestMapping("/wxMenu/syncWx")
 	public void syncWx(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		try {
 			String accountid=request.getParameter("accountid");
