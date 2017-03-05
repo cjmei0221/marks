@@ -79,7 +79,7 @@ $(function() {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							app.myreload("#tbList");
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
@@ -115,7 +115,7 @@ $(function() {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
 					$.post(appInfo.autocodeIntroFileUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							showMsg("刷新后起效");
 						} else {
 							showMsg(data.retmsg);
@@ -136,7 +136,7 @@ $(function() {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
 					$.post(appInfo.autoCodeUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							showMsg("重新编译后起效");
 						} else {
 							showMsg(data.retmsg);
@@ -190,7 +190,7 @@ function formSubmit() {
 					return;
 				}
 			}
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				$("#editWin").window("close");
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
@@ -321,7 +321,7 @@ function loadList() {
 			dataType : "json",
 			success : function(data, status, xhr) {
 				checkLogin(data);
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({
@@ -459,7 +459,7 @@ function initAttrList() {
 			data : appInfo.attrReqParam,
 			dataType : "json",
 			success : function(data, status, xhr) {
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					var list = data.attrlist;
 					that.data().datagrid["cache"] = data;
 					success({

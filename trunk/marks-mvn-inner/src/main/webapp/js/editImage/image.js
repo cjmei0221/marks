@@ -34,7 +34,7 @@ function uploadImage(image, eInput) {
 				dataType : 'json',
 
 				success : function(data) {
-					if (data.retcode == 0) {
+					if (data.retcode == "0") {
 						var showDiv = $($(eInput).parent().next());
 						var imgDiv=showImage(data.fileUrl);
 						showDiv.append(imgDiv);

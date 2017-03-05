@@ -11,7 +11,7 @@ $(document).on('ajaxStart', function(){
     if(xhr.status == 200){
     	 var _data = $.parseJSON(xhr.responseText);
          //_data = xhr.response;
-        if (_data.retcode == -1000) {
+        if (_data.retcode == "-1000") {
 //    		alert("您未登录,请重新登录！")
     		top.location.replace(window.urlBase + "/login.html");
     		return false;
@@ -157,7 +157,7 @@ function fen2yuan(val) {
 }
 // 当返回为-1000时，提示去登陆
 function checkLogin(data) {
-	/*if (data.retcode == -1000) {
+	/*if (data.retcode == "-1000") {
 		alert("未登录,请重新登录！")
 		top.location.replace(window.urlBase + "/login.html");
 		return;
