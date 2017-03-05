@@ -27,8 +27,9 @@
 					</td>
 					<td>至<input type="text" id="enddate" name="enddate"
 						class="easyui-datebox" editable="false" style="width: 120px;" /></td>
-					<td><button type="button" id="doSearch" data-oper="query"
-							style="cursor: pointer;">查询</button>
+					<td><a id="doSearch" href="javascript:void(0)"
+						class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-search'">查询</a></td>
 				</tr>
 				<tr>
 					<td colspan="4"><wt:button /></td>
