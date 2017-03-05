@@ -2,7 +2,6 @@ package com.marks.module.system.upload.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.system.upload.util.FTPUtil;
@@ -30,7 +30,7 @@ public class ImageUploadController {
 	@RequestMapping("/fileUpload/image")
 	public void upload(HttpServletRequest req, HttpServletResponse resp) {
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		try {
 			String image = req.getParameter("image");
 
@@ -59,7 +59,7 @@ public class ImageUploadController {
 			
 			if (!isSupport) {
 
-				result.setCode(1);
+				result.setCode("1");
 				result.setMessage("只支持jpg,png图片");
 				JsonUtil.output(resp, result);
 				return;
@@ -99,14 +99,14 @@ public class ImageUploadController {
 				success = false;
 
 				LOG.error(e.getMessage(),e);
-				result.setCode(-1);
+				result.setCode(Code.CODE_FAIL);
 				result.setMessage("系统错误");
 
 			}
 
 		} catch (Exception e) {
 			LOG.error(e.getMessage(),e);
-			result.setCode(-1);
+			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统错误");
 		}
 		

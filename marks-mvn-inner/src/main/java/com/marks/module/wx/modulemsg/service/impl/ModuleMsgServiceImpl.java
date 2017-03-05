@@ -90,7 +90,7 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 					pustModuleMsg(mmsg, false);
 				}
 			} else {
-				result.setCode(4002);
+				result.setCode("4002");
 				result.setMessage("模板不存在");
 				logger.info("模板不存在");
 			}
@@ -105,7 +105,7 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 		if (b) {
 			Result result = WxFwUtil.getInstance().pushTemplateMsg(mmsg.getAccountid(), mmsg.getTouser(),
 					mmsg.getTemplate_id(), mmsg.getUrl(), mmsg.getData(), mmsg.getNote());
-			if (0 != result.getCode()) {
+			if (!"0".equals(result.getCode())) {
 				this.moduleMsgDao.save(mmsg);
 			}
 		} else {

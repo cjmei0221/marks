@@ -17,13 +17,11 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.Enums;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.system.core.helper.SysUserHelper;
-import com.marks.module.system.orginfo.pojo.OrgInfo;
-import com.marks.module.system.orginfo.service.OrgInfoService;
 import com.marks.module.system.sysuser.pojo.SysUser;
 import com.marks.module.system.sysuser.service.SysUserService;
 
@@ -277,7 +275,7 @@ public class SysUserController extends SupportContorller{
 				sysUserService.updatetPwd(admin);
 			}else{
 				result.setMessage("原密码错误");
-				result.setCode(2001);
+				result.setCode("2001");
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -306,12 +304,12 @@ public class SysUserController extends SupportContorller{
 					sysUserService.updateMobile(admin.getUserid(),newPhone);
 				}else{
 					result.setMessage("此手机号已注册");
-					result.setCode(4001);
+					result.setCode("4001");
 				}
 				
 			}else{
 				result.setMessage("密码错误");
-				result.setCode(2001);
+				result.setCode("2001");
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
