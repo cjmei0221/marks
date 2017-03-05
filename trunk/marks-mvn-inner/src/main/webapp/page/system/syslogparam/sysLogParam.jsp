@@ -21,6 +21,12 @@
 				<tr>
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="关键字" /></td>
+					<td>来源：<select id="query_source" name="query_source"
+						class="easyui-combobox" style="width: 200px;">
+							<option value="">全选</option>
+							<option value="1">消息中心</option>
+							<option value="2">前端</option>
+					</select></td>
 					<td><a id="doSearch" href="javascript:void(0)"
 						class="easyui-linkbutton menuBtnCls"
 						data-options="iconCls:'icon-search'">查询</a></td>
