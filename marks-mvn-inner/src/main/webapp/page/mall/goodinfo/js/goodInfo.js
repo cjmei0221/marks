@@ -62,7 +62,7 @@ $(function() {
 				if (r) {
 					var parms = "goodId=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							app.myreload("#tbList");
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
@@ -86,7 +86,7 @@ $(function() {
 				if (r) {
 					var parms = "goodId=" + appInfo.selectedId;
 					$.post(appInfo.onsaleUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							app.myreload("#tbList");
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
@@ -121,7 +121,7 @@ function loadImg(goodId){
 		},
 		dataType : "json",
 		success : function(data, status, xhr) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				img.deleteImageDiv("addMainImageDiv");
 				img.deleteImageDiv("addDetailImageDiv");
 				img.deleteImageDiv("detailMainImg");
@@ -195,7 +195,7 @@ function formSubmit() {
 					return;
 				}
 			}
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				$("#editWin").window("close");
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
@@ -329,7 +329,7 @@ function loadList() {
 			dataType : "json",
 			success : function(data, status, xhr) {
 				checkLogin(data);
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({
