@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
 import com.marks.module.autocode.core.produced.introduction.introduction.IntroductionPageProduced;
@@ -24,7 +25,6 @@ import com.marks.module.autocode.core.produced.pojo.AutoAttr;
 import com.marks.module.autocode.core.produced.pojo.AutoBean;
 import com.marks.module.autocode.core.util.AuthUtil;
 import com.marks.module.autocode.core.util.AutoCodeFactory;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.autocode.web.pojo.AutoCode;
 import com.marks.module.autocode.web.pojo.AutoCodeAttr;
 import com.marks.module.autocode.web.service.AutoCodeService;
@@ -245,7 +245,7 @@ public class AutoCodeController extends SupportContorller{
 			AutoCode info=autoCodeService.findDetailById(tableName);
 			if(info==null){
 				result.setMessage("该表记录不存在");
-				result.setCode(3);
+				result.setCode("3");
 			}else{
 				if(null !=info.getAttrList() && info.getAttrList().size()>0 ){
 					AutoBean autoBean=getAutoBean(info);
@@ -261,7 +261,7 @@ public class AutoCodeController extends SupportContorller{
 					}
 				}else{
 					result.setMessage("该表没有字段，请添加字段");
-					result.setCode(4);
+					result.setCode("4");
 				}
 			}
 		} catch (Exception e) {
@@ -284,14 +284,14 @@ public class AutoCodeController extends SupportContorller{
 			AutoCode info=autoCodeService.findDetailById(tableName);
 			if(info==null){
 				result.setMessage("该表记录不存在");
-				result.setCode(3);
+				result.setCode("3");
 			}else{
 				if(null !=info.getAttrList() && info.getAttrList().size()>0 ){
 					AutoBean autoBean=getAutoBean(info);
 					AutoCodeFactory.getInstance().autoCodeOneFile(autoBean, new IntroductionPageProduced());
 				}else{
 					result.setMessage("该表没有字段，请添加字段");
-					result.setCode(4);
+					result.setCode("4");
 				}
 			}
 		} catch (Exception e) {

@@ -13,7 +13,7 @@ public class Result implements Serializable {
 
 	private static final long serialVersionUID = -6963503022738848863L;
 
-	private int code=0;
+	private String code="0";
 	private String message;
 	
 	//其它数据项
@@ -23,15 +23,15 @@ public class Result implements Serializable {
 		
 	}
 	
-	public Result(int code){
+	public Result(String code){
 		this.code=code;
 	}
 	
 	@JsonProperty(name="retcode")
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 	
