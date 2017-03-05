@@ -55,7 +55,7 @@ public class SysLogFilter implements Filter {
 		} catch (Exception e) {
 			LOG.error("Exception:", e);
 			Result result = new Result();
-			result.setCode(4000);
+			result.setCode("4000");
 			result.setMessage("系统异常");
 			HttpServletResponse response = (HttpServletResponse) arg1;
 			JsonUtil.output(response, result);

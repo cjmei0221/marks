@@ -29,7 +29,7 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 		Result result = new Result();
 		SysUser loginUser = SysUserHelper.getCurrentUserInfo(request);
 		if (null == loginUser) {
-			result.setCode(-1000);
+			result.setCode("-1000");
 			result.setMessage("未登录用户不可以访问此地址[" + request.getRequestURI() + "]");
 			JsonUtil.output(response, result);
 			return false;
@@ -40,7 +40,7 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 		url = url.substring(request.getContextPath().length(), idx);
 		List<String> list = StaticData.getUrlList();
 		if (list.contains(url) && !loginUser.getUserUrlList().contains(url)) {
-			result.setCode(-1001);
+			result.setCode("-1001");
 			result.setMessage("您无此权限访问此地址[" + request.getRequestURI() + "]");
 			JsonUtil.output(response, result);
 			return false;

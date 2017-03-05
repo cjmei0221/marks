@@ -17,14 +17,13 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.Enums;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.system.core.data.StaticData;
 import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.orginfo.pojo.OrgInfo;
 import com.marks.module.system.orginfo.service.OrgInfoService;
-import com.marks.module.system.sysrole.pojo.SysRole;
 import com.marks.module.system.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -143,7 +142,7 @@ public class OrgInfoController extends SupportContorller {
 			List<OrgInfo> list = orgInfoService.getChildList(orgInfo.getOrgid());
 			if (list != null && list.size() > 0) {
 				result.setMessage("含子节点不能删除!");
-				result.setCode(2001);
+				result.setCode("2001");
 			} else {
 				orgInfoService.delete(orgInfo.getOrgid());
 				result.setMessage("删除成功!");
