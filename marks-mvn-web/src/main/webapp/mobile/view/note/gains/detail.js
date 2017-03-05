@@ -11,7 +11,7 @@ function getDetail(){
 			id:id
 		},
 		success : function(data) {
-			if(data.retcode==0){
+			if(data.retcode=="0"){
 				var vo=data.gains;
 				$("#t_title").html(vo.title);
 				$("#c_title").html(vo.title);

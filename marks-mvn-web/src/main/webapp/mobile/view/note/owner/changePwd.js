@@ -31,7 +31,7 @@ function summitForm() {
 			newPwd : Encrypt(c_newPwd)
 		},
 		success : function(data) {
-			if(data.retcode==0){
+			if(data.retcode=="0"){
 				location.href = '../login/login.html?ele=owner' + "&_t=" + new Date().getTime();
 			}else{
 				msg.info(data.retmsg);

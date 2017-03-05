@@ -27,7 +27,7 @@ function getlist(scroll) {
 			page_size : appInfo.pageSize
 		},
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				if (!scroll) {
 					$('#listDiv').html("");
 				}

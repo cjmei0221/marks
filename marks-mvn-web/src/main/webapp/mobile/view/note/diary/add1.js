@@ -16,7 +16,7 @@ function getID() {
 		url : tool.reqUrl.getUUID,
 		type : 'GET',
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				id = data.id;
 			}
 		},
@@ -45,7 +45,7 @@ function summitForm() {
 			mobile:$("#c_mobile").val()
 		},
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				/* location.href="./list.html"; */
 			} else {
 				msg.info("请求失败【" + data.retcode + "】");
