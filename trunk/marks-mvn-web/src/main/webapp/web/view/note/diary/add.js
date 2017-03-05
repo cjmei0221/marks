@@ -21,7 +21,7 @@ function getDetail(){
 			id:id
 		},
 		success : function(data) {
-			if(data.retcode==0){
+			if(data.retcode=="0"){
 				$("#c_title").val(data.diary.title);
 				$("#createtime").html(data.diary.createtime);
 				$("#c_content").val(data.diary.content.replace(/<br\/>/g, "\n"));
@@ -56,7 +56,7 @@ function submitForm(){
 			content:$("#c_content").val()
 		},
 		success : function(data) {
-			if(data.retcode==0){	
+			if(data.retcode=="0"){	
 				/*location.href="./list.html";*/
 			}else{
 				msg.info("加载失败【"+data.retcode+"】");
@@ -85,7 +85,7 @@ function getID(){
 		url : tool.reqUrl.getUUID,
 		type : 'GET',
 		success : function(data) {
-			if(data.retcode==0){
+			if(data.retcode=="0"){
 				id=data.id;
 			}
 		},

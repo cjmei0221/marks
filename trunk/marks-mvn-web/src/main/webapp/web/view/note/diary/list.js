@@ -42,7 +42,7 @@ function getDairylist() {
 			page_size : appInfo.pageSize
 		},
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				var dairyList = data.list;
 				var pageTotal = data.page_total;
 				appInfo.pageTotal=pageTotal;

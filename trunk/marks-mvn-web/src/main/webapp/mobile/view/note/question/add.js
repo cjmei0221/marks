@@ -22,7 +22,7 @@ function getDetail(){
 			id:id
 		},
 		success : function(data) {
-			if(data.retcode==0){
+			if(data.retcode=="0"){
 				var vo=data.question;
 				$("#c_title").val(vo.question);
 				$("#c_label").val(vo.labels);
@@ -44,7 +44,7 @@ function getID(){
 		url : tool.reqUrl.getUUID,
 		type : 'GET',
 		success : function(data) {
-			if(data.retcode==0){
+			if(data.retcode=="0"){
 				id=data.id;
 			}
 		},
@@ -78,7 +78,7 @@ function summitForm(){
 			labels:$("#c_label").val()
 		},
 		success : function(data) {
-			if(data.retcode==0){	
+			if(data.retcode=="0"){	
 				/*location.href="./list.html";*/
 			}else{
 				msg.info("请求失败【"+data.retcode+"】");

@@ -13,7 +13,7 @@ function loadInfo() {
 		url : tool.reqUrl.getVIPInfo,
 		type : 'POST',
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				var vo=data.vipInfo;
 				$("#stypeType").val(vo.skin);
 				$("#c_name").val(vo.realname);
@@ -36,7 +36,7 @@ function changeStyle() {
 			skin : styleType
 		},
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				location.reload(true);
 			} else {
 				msg.info(data.retmsg);
@@ -99,7 +99,7 @@ function editInfo(editFlag) {
 			signature:$("#c_signature").val()
 		},
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				
 			} else {
 				msg.info(data.retmsg);
