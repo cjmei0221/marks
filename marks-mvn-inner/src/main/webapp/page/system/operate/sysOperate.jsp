@@ -16,7 +16,9 @@
 		<table>
 				<tr>
 					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="按钮名称/按钮ID"/></td>
-					<td><button type="button" id="doSearch" data-oper="query" style="cursor: pointer;">查询</button>
+					<td><a id="doSearch" href="javascript:void(0)"
+						class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-search'">查询</a></td>
 				</tr>
 				 <tr>
 					<td colspan="7">
