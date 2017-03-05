@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
+import com.marks.common.util.code.Code;
 import com.marks.module.runModel.RunModel;
 import com.marks.module.weixin.wfhao.config.PageConfigUtil;
 import com.marks.module.weixin.wfhao.pojo.WxUser;
@@ -39,7 +40,7 @@ public class WxAuthController {
 	public void toWxAuth(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("调用微信授权接口去授权1>>start");
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		try {
 			String accountid = request.getParameter("accountid");
 			String to_url = request.getParameter("to_url");
@@ -63,7 +64,7 @@ public class WxAuthController {
 			}
 		} catch (Exception e) {
 			logger.error("Exception:", e);
-			result.setCode(-1);
+			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统繁忙");
 		}
 	}
@@ -72,7 +73,7 @@ public class WxAuthController {
 	public void callback(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("微信授权回调>>start");
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		String accountid = request.getParameter("accountid");
 		try {
 			String code = request.getParameter("code");
@@ -107,7 +108,7 @@ public class WxAuthController {
 			response.sendRedirect(return_url);
 		} catch (Exception e) {
 			logger.error("Exception:", e);
-			result.setCode(-1);
+			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统繁忙");
 			try {
 				response.sendRedirect(

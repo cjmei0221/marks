@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.Result;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
+import com.marks.common.util.code.Code;
 import com.marks.module.system.core.data.StaticData;
 import com.marks.module.weixin.mp.SHAUtil;
 import com.marks.module.weixin.util.WxFwUtil;
@@ -29,7 +30,7 @@ public class WeixinJSSDKController {
 	@RequestMapping("/jssdkConfig")
 	public void getJsConfig(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		try {
 			String accountId = WxUtil.getInstance().getCurrentAccountid(request);
 			String location = request.getParameter("location");
@@ -51,7 +52,7 @@ public class WeixinJSSDKController {
 			result.getData().put("signature", signature);
 		} catch (Exception e) {
 			logger.info("获取jsSDK权限签名失败:", e);
-			result.setCode(-1);
+			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统繁忙");
 		}
 		request.setAttribute("result_msg", result.getCode() + "|" + result.getMessage());
