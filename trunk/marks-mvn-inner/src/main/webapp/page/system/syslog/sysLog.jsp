@@ -21,7 +21,7 @@
 				<tr>
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="关键字" /></td>
-					<td>&nbsp;&nbsp;来源：<select id="source" name="source" class="easyui-combobox"
+					<td>来源：<select id="source" name="source" class="easyui-combobox"
 						style="width: 200px;">
 							<option value="">全选</option>
 							<option value="0">内管</option>
