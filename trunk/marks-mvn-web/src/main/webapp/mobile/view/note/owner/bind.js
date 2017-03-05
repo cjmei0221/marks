@@ -47,7 +47,7 @@ function summitForm() {
 			code:$("#c_check").val()
 		},
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				location.replace('./login.html?' + "_t="
 						+ new Date().getTime());
 			} else {

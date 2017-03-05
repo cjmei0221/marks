@@ -31,7 +31,7 @@ function summitForm() {
 			password : Encrypt(c_password)
 		},
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				location.replace('../login/login.html?ele=owner' + "&_t="
 						+ new Date().getTime());
 				return;
