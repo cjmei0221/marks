@@ -31,13 +31,13 @@ function summitForm() {
 			password : Encrypt(c_password)
 		},
 		success : function(data) {
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				if(ele=="owner" || ele == null || ele =='undefined'){
 					ele="diary";
 				}
 				location.href = '../' + ele + '/list.html?' + "_t="
 						+ new Date().getTime();
-			}else if(data.retcode==4003){
+			}else if(data.retcode=="4003"){
 				if(msg.confirm("您尚未绑定，去绑定吗？")){
 					location.replace("./bind.html");
 				}
