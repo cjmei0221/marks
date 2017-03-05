@@ -14,14 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.datadir.pojo.DataDir;
 import com.marks.module.system.datadir.service.DataDirService;
 import com.marks.module.system.sysuser.pojo.SysUser;
-import com.marks.module.wx.wxaccount.pojo.WxAccount;
 
 import net.sf.json.JSONArray;
 
@@ -127,7 +126,7 @@ public class DataDirController extends SupportContorller {
 			List<DataDir> list = dataDirService.findChildList(dataDir.getCkey());
 			if(null != list && list.size()>0){
 				result.setMessage("含有子节点，不能删除!");
-				result.setCode(4001);
+				result.setCode("4001");
 			}else{
 				dataDirService.delete(dataDir.getCkey(), dataDir.getParentkey());
 				result.setMessage("删除成功!");
