@@ -81,7 +81,7 @@ $(function() {
 				if (r) {
 					var parms = "id=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							loadList();
 							$("#tbList").treegrid('unselectAll');
 							appInfo.selectedData = {};
@@ -111,7 +111,7 @@ $(function() {
 					if (r) {
 						var parms = "accountid=" + appInfo.selectedId;
 						$.post(appInfo.syncWxUrl, parms, function(data) {
-							if (data.retcode == 0) {
+							if (data.retcode == "0") {
 								showMsg("同步成功，稍有延迟！");
 							} else {
 								showMsg(data.retmsg);
@@ -149,7 +149,7 @@ function formSubmit() {
 					return;
 				}
 			}
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				$("#editWin").window("close");
 				loadList();
 				$("#tbList").treegrid('unselectAll');

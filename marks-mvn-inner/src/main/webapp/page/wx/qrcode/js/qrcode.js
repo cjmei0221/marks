@@ -56,7 +56,7 @@ $(function() {
 				if (r) {
 					var parms = "id=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							app.myreload("#tbList");
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
@@ -151,7 +151,7 @@ function formSubmit() {
 					return;
 				}
 			}
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				$("#editWin").window("close");
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
@@ -289,7 +289,7 @@ function loadList() {
 			dataType : "json",
 			success : function(data, status, xhr) {
 				checkLogin(data);
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({
