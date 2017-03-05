@@ -28,8 +28,9 @@
 							<option value="1">消息中心</option>
 							<option value="2">前端</option>
 					</select></td>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="doSearch" data-oper="query"
-							style="cursor: pointer;">查询</button>
+					<td><a id="doSearch" href="javascript:void(0)"
+						class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-search'">查询</a></td>
 				</tr>
 				<tr>
 					<td colspan="7"><wt:button /></td>
