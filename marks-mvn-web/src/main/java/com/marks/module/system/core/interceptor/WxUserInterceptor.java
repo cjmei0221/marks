@@ -28,7 +28,7 @@ public class WxUserInterceptor extends HandlerInterceptorAdapter {
 			log.info("wxUser > openid:"+wxUser.getOpenid()+" - nickname:"+wxUser.getNickname());
 			return true;
 		} else {
-			result.setCode(-101);
+			result.setCode("-101");
 			JsonUtil.output(response, result);
 			return false;
 		}
