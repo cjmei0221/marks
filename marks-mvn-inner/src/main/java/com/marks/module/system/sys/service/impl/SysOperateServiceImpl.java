@@ -50,7 +50,7 @@ public class SysOperateServiceImpl implements SysOperateService{
 	public void delete(Result result, String id) {
 		int num=sysOperateDao.countfunc(id);
 		if(num>0){
-			result.setCode(4002);
+			result.setCode("4002");
 			result.setMessage("有菜单使用该功能按钮，不能删除");
 		}else{
 			sysOperateDao.delete(id);

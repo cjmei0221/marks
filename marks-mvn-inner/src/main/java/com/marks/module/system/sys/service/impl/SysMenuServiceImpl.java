@@ -56,7 +56,7 @@ public class SysMenuServiceImpl implements SysMenuService{
 	public void delete(String menuid,Result result) {
 		List<SysMenu> list=sysMenuDao.getChildListByParentid(menuid);
 		if(null !=list && list.size()>0){
-			result.setCode(4001);
+			result.setCode("4001");
 			result.setMessage("含子菜单，不能删除");
 		}else{
 			sysMenuDao.deleteRoleFunc(menuid);

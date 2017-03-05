@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.system.core.helper.SysUserHelper;
@@ -49,7 +50,7 @@ public class SysMenuController {
 	public void list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		List<SysMenu> list=sysMenuService.getSysMenuList();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		result.getData().put("menuList", list);
 		JsonUtil.output(response, result);
@@ -72,7 +73,7 @@ public class SysMenuController {
 		p.setMenuid("0");
 		p.setMenuitem("一级菜单选项");
 		returnlist.add(p);
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		result.getData().put("list", returnlist);
 		JsonUtil.output(response, result);
@@ -91,7 +92,7 @@ public class SysMenuController {
 	@RequestMapping("/sysMenu/save")
 	public void save(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("sucess");
 		String formStatus=request.getParameter("formStatus");
 		SysUser user=SysUserHelper.getCurrentUserInfo(request);
@@ -120,7 +121,7 @@ public class SysMenuController {
 				sysMenuService.update(sm);
 				result.getData().put("menu", sm);
 			}else{
-				result.setCode(4001);
+				result.setCode("4001");
 				result.setMessage("该菜单已删除");
 			}
 		}
@@ -139,7 +140,7 @@ public class SysMenuController {
 	@RequestMapping("/sysMenu/delete")
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		String menuid=request.getParameter("id");
 		sysMenuService.delete(menuid,result);
@@ -153,19 +154,19 @@ public class SysMenuController {
 			String menuid = request.getParameter("menuid");
 
 			if (null == menuid || "".equals(menuid)) {
-				result.setCode(1);
+				result.setCode("1");
 				result.setMessage("菜单ID為空");
 			} else {
 				List<SysOperate> list = sysMenuService.getSysOperateListByMenuid(menuid);
 
 				List<SysOperate> alllist = sysMenuService.getSysOperateList();
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 				result.getData().put("list", list);
 				result.getData().put("operatelist", alllist);
 			}
 		} catch (Exception e) {
 			log.error("Exception:", e);
-			result.setCode(-1);
+			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统错误");
 		}
 
@@ -184,15 +185,15 @@ public class SysMenuController {
 			String funcid = request.getParameter("funcid");
 
 			if (null == funcid || "".equals(funcid)) {
-				result.setCode(1);
+				result.setCode("1");
 				result.setMessage("功能ID为空");
 			} else {
 				sysMenuService.deleteFunc(funcid);
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			}
 		} catch (Exception e) {
 			log.error("Exception:", e);
-			result.setCode(-1);
+			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统错误");
 		}
 
@@ -207,7 +208,7 @@ public class SysMenuController {
 			String menuid = request.getParameter("menuid");
 			String url=request.getParameter("funcurl");
 			if (null == menuid || "".equals(menuid)) {
-				result.setCode(1);
+				result.setCode("1");
 				result.setMessage("菜单ID為空");
 			} else {
 				int idx=url.indexOf(".");
@@ -216,19 +217,19 @@ public class SysMenuController {
 				}
 				SysFunc sf = sysMenuService.getSysFuncByOperIdAndMenuid(menuid, operid);
 				if (sf != null) {
-					result.setCode(2);
+					result.setCode("2");
 					result.setMessage("此功能已存在");
 				} else {
 					SysUser user=SysUserHelper.getCurrentUserInfo(request);
 					SysOperate oper = sysMenuService.saveFunc(operid, menuid,url);
 					oper.setCreator(user.getUsername());
-					result.setCode(0);
+					result.setCode(Code.CODE_SUCCESS);
 					result.getData().put("operObj", oper);
 				}
 			}
 		} catch (Exception e) {
 			log.error("Exception:", e);
-			result.setCode(-1);
+			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统错误");
 		}
 		JsonUtil.output(response, result);

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.sys.pojo.SysLog;
 import com.marks.module.system.syslog.service.SysLogService;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
 import com.marks.common.enums.Enums;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
@@ -65,13 +66,13 @@ public class LoginController {
 		 */
 		SysUser user = loginService.getSysUserByUserid(userid);
 		if (user == null) {
-			result.setCode(4001);
+			result.setCode("4001");
 			result.setMessage("用户不存在");
 			JsonUtil.output(response, result);
 			return;
 		}
 		if (Enums.SysUserUse.NOUSE.getValue() == user.getActiveFlag()) {
-			result.setCode(4002);
+			result.setCode("4002");
 			result.setMessage("用户被禁用");
 			JsonUtil.output(response, result);
 			return;
@@ -79,7 +80,7 @@ public class LoginController {
 		String password = EncryptUtil.encrypt(pwd);
 
 		if (!password.equals(user.getPassword())) {
-			result.setCode(4003);
+			result.setCode("4003");
 			result.setMessage("密码错误");
 			JsonUtil.output(response, result);
 			return;
@@ -87,13 +88,13 @@ public class LoginController {
 
 		SysRole role = sysRoleService.findById(user.getRoleid());
 		if (role == null) {
-			result.setCode(4005);
+			result.setCode("4005");
 			result.setMessage("您没有权限登录");
 			JsonUtil.output(response, result);
 			return;
 		}
 
-		result.setCode(0);
+		result.setCode("0");
 		result.setMessage("success");
 		user.setLoginTime(new Date());
 		user.setPassword("");
@@ -169,7 +170,7 @@ public class LoginController {
 			log.setOpername("退出");
 			SysLogThreadPool.saveSysLog(true, log);
 		}
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		JsonUtil.output(response, result);
 	}
@@ -179,7 +180,7 @@ public class LoginController {
 		Result result = new Result();
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);
 		List<SysMenu> list = loginService.getSysMenuOfSysUser(user);
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		result.getData().put("menuList", list);
 		result.getData().put("loginUser", user);
