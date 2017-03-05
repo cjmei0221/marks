@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.marks.common.domain.Result;
+import com.marks.common.util.code.Code;
 import com.marks.module.system.core.data.StaticData;
 import com.marks.module.system.core.listener.DatabaseHelper;
 import com.marks.module.weixin.wfhao.pojo.UserGet;
@@ -107,9 +108,9 @@ public class WxFwUtil {
 		JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/sendCustomTextMsg.do", params, null,
 				CHARSET);
 		if (res.getSuccess()) {
-			result.setCode(0);
+			result.setCode(Code.CODE_SUCCESS);
 		} else {
-			result.setCode(Integer.parseInt(res.getErrorCode()));
+			result.setCode(res.getErrorCode());
 			result.setMessage(res.getErrorMsg());
 		}
 		return result;
@@ -190,14 +191,14 @@ public class WxFwUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/receive/sendTemplateMsg.do", params,
 					null, CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		} catch (Exception e) {
 			logger.info("pushMessage>>", e);
-			result.setCode(4000);
+			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统错误");
 		}
 		return result;
@@ -223,9 +224,9 @@ public class WxFwUtil {
 		JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/groups/members/update.do", params, null,
 				CHARSET);
 		if (res.getSuccess()) {
-			result.setCode(0);
+			result.setCode(Code.CODE_SUCCESS);
 		} else {
-			result.setCode(Integer.parseInt(res.getErrorCode()));
+			result.setCode(res.getErrorCode());
 			result.setMessage(res.getErrorMsg());
 		}
 		return result;
