@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.marks.common.domain.Result;
+import com.marks.common.util.code.Code;
 import com.marks.module.system.core.data.StaticData;
 import com.marks.module.weixin.qyhao.pojo.Department;
 import com.marks.module.weixin.qyhao.pojo.EnterpriseUser;
@@ -73,9 +74,9 @@ public class WxQyUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/qyhao/sendTextMsg.do", params, null,
 					CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
@@ -129,9 +130,9 @@ public class WxQyUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/createDepartment.do", params, null,
 					CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
@@ -156,9 +157,9 @@ public class WxQyUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/updateDepartment.do", params, null,
 					CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
@@ -180,9 +181,9 @@ public class WxQyUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/deleteDepartment.do", params, null,
 					CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
@@ -254,9 +255,9 @@ public class WxQyUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/createEnterpriseUser.do", params,
 					null, CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
@@ -309,9 +310,9 @@ public class WxQyUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/updateEnterpriseUser.do", params,
 					null, CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
@@ -333,9 +334,9 @@ public class WxQyUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/deleteEnterpriseUser.do", params,
 					null, CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
@@ -357,9 +358,9 @@ public class WxQyUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/deleteEnterpriseUserList.do", params,
 					null, CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
