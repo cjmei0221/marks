@@ -17,9 +17,9 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.domain.TreeVo;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.sys.pojo.SysMenu;
 import com.marks.module.system.sysrole.pojo.SysRole;
@@ -133,7 +133,7 @@ public class SysRoleController extends SupportContorller {
 				result.setCode(Code.CODE_SUCCESS);
 			} else {
 				result.setMessage("该角色下有用户不能删除!");
-				result.setCode(2);
+				result.setCode("2");
 			}
 
 		} catch (Exception e) {
