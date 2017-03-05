@@ -41,7 +41,7 @@ public class SysUserController {
 			if (password.equals(user.getPassword())) {
 				sysUserService.updateMobile(user.getUserid(), mobile);
 			} else {
-				result.setCode(4001);
+				result.setCode("4001");
 				result.setMessage("原密码错误");
 			}
 
@@ -69,7 +69,7 @@ public class SysUserController {
 			if (password.equals(user.getPassword())) {
 				sysUserService.updatePwd(user.getUserid(), EncryptUtil.encrypt(newPwd));
 			} else {
-				result.setCode(4001);
+				result.setCode("4001");
 				result.setMessage("原密码错误");
 			}
 

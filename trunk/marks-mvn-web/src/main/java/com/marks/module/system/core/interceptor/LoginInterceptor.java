@@ -28,7 +28,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			log.info("loginUser > userid: "+loginUser.getUserid()+" - mobile:"+loginUser.getBind_mobile());
 			return true;
 		} else {
-			result.setCode(-100);
+			result.setCode("-100");
 			JsonUtil.output(response, result);
 			return false;
 		}

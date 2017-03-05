@@ -259,7 +259,7 @@ public class DiaryController extends SupportContorller{
 		    	}else{
 		    		if(sysUser.getActiveFlag()==Enums.SysUserUse.NOUSE.getValue()){
 		    			result.setMessage("此手机号已禁用");
-						result.setCode(4001);
+						result.setCode("4001");
 						JsonUtil.output(response, result);
 						return;
 		    		}

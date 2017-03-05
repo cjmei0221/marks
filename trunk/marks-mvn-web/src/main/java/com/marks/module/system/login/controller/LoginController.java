@@ -40,20 +40,20 @@ public class LoginController {
 			//盘点用户是否为空
 			if (loginUser == null) {
 				result.setMessage("用户不存在");
-				result.setCode(4001);
+				result.setCode("4001");
 				JsonUtil.output(response, result);
 				return;
 			}
 			//校验是否被禁用
 			if (Enums.SysUserUse.NOUSE.getValue() == loginUser.getActiveFlag()) {
-				result.setCode(4002);
+				result.setCode("4002");
 				result.setMessage("用户被禁用");
 				JsonUtil.output(response, result);
 				return;
 			}
 			//校验是否未绑定
 			if (Enums.SysUserBindFlag.NOUSE.getValue()==loginUser.getBindFlag()) {
-				result.setCode(4003);
+				result.setCode("4003");
 				result.setMessage("未绑定");
 				JsonUtil.output(response, result);
 				return;
@@ -61,7 +61,7 @@ public class LoginController {
 			//校验密码
 			String password = EncryptUtil.encrypt(pwd);
 			if (!password.equals(loginUser.getPassword())) {
-				result.setCode(4004);
+				result.setCode("4004");
 				result.setMessage("密码错误");
 				JsonUtil.output(response, result);
 				return;
@@ -88,7 +88,7 @@ public class LoginController {
 			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			if(loginUser==null){
 				result.setMessage("用户未登录");
-				result.setCode(-102);
+				result.setCode("-102");
 				JsonUtil.output(response, result);
 				return;
 			}
@@ -111,7 +111,7 @@ public class LoginController {
 			String code=request.getParameter("code");
 			boolean checkVcode=VcodeUtil.getInstance().checkValidateCode(request,code);
 			if(!checkVcode){
-				result.setCode(4001);
+				result.setCode("4001");
 				result.setMessage("验证码错误");
 				JsonUtil.output(response, result);
 				return;
@@ -121,13 +121,13 @@ public class LoginController {
 			SysUser sysUser=sysUserService.getSysUserByUseridOrMobile(mobile);
 			if(sysUser !=null){
 				if(Enums.SysUserUse.NOUSE.getValue()==sysUser.getActiveFlag()){
-					result.setCode(4002);
+					result.setCode("4002");
 					result.setMessage("此手机号已被禁用");
 					JsonUtil.output(response, result);
 					return;
 				}
 				if(Enums.SysUserBindFlag.USE.getValue()==sysUser.getBindFlag()){
-					result.setCode(4003);
+					result.setCode("4003");
 					result.setMessage("此手机号已被绑定");
 					JsonUtil.output(response, result);
 					return;
