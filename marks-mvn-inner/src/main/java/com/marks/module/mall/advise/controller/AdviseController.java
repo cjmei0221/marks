@@ -16,15 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.common.util.IDUtil;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.autocode.core.produced.SupportContorller;
-import com.marks.module.system.core.helper.SysUserHelper;
-import com.marks.module.system.sysuser.pojo.SysUser;
-
 import com.marks.module.mall.advise.pojo.Advise;
 import com.marks.module.mall.advise.service.AdviseService;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.sysuser.pojo.SysUser;
 
 @Controller
 public class AdviseController extends SupportContorller{
