@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.sys.pojo.SysOperate;
@@ -67,7 +68,7 @@ public class SysOperateController {
 	@RequestMapping("/sysOperate/save")
 	public void save(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("sucess");
 		String formStatus = request.getParameter("formStatus");
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);
@@ -85,7 +86,7 @@ public class SysOperateController {
 				info.setUpdatetime(new Date());
 				sysOperateService.save(info);
 			}else{
-				result.setCode(4002);
+				result.setCode("4002");
 				result.setMessage("已存在");
 			}	
 		} else {// 修改
@@ -97,7 +98,7 @@ public class SysOperateController {
 				info.setUpdatetime(new Date());
 				sysOperateService.update(info);
 			} else {
-				result.setCode(4001);
+				result.setCode("4001");
 				result.setMessage("已删除");
 			}
 		}
@@ -116,7 +117,7 @@ public class SysOperateController {
 	@RequestMapping("/sysOperate/delete")
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		result.setCode(0);
+		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		String id = request.getParameter("id");
 		sysOperateService.delete(result, id);
