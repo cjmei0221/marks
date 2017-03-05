@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.module.system.core.data.StaticData;
 import com.marks.module.wx.wxmenu.pojo.WxMenu;
 import com.marks.module.wx.wxuser.pojo.UserGet;
@@ -62,9 +63,9 @@ public class WxFwUtil {
 		JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/sendCustomTextMsg.do", params, null,
 				CHARSET);
 		if (res.getSuccess()) {
-			result.setCode(0);
+			result.setCode(Code.CODE_SUCCESS);
 		} else {
-			result.setCode(Integer.parseInt(res.getErrorCode()));
+			result.setCode(res.getErrorCode());
 			result.setMessage(res.getErrorMsg());
 		}
 		return result;
@@ -102,7 +103,7 @@ public class WxFwUtil {
 	 */
 	public Result createWXMenu(String accountid, List<WxMenu> menu_list) throws Exception {
 		Result result = new Result();
-		result.setCode(-1);
+		result.setCode(Code.CODE_FAIL);
 		if (null != menu_list && menu_list.size() > 0) {
 			for (WxMenu wm : menu_list) {
 				wm.setName(URLEncoder.encode(wm.getName(), CHARSET));
@@ -124,9 +125,9 @@ public class WxFwUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/createWXMenu.do", params, null,
 					CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		}
@@ -156,14 +157,14 @@ public class WxFwUtil {
 			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/receive/sendTemplateMsg.do", params,
 					null, CHARSET);
 			if (res.getSuccess()) {
-				result.setCode(0);
+				result.setCode(Code.CODE_SUCCESS);
 			} else {
-				result.setCode(Integer.parseInt(res.getErrorCode()));
+				result.setCode(res.getErrorCode());
 				result.setMessage(res.getErrorMsg());
 			}
 		} catch (Exception e) {
 			logger.info("pushMessage>>", e);
-			result.setCode(4000);
+			result.setCode("4000");
 			result.setMessage("系统错误");
 		}
 		return result;
@@ -189,9 +190,9 @@ public class WxFwUtil {
 		JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/groups/members/update.do", params, null,
 				CHARSET);
 		if (res.getSuccess()) {
-			result.setCode(0);
+			result.setCode(Code.CODE_SUCCESS);
 		} else {
-			result.setCode(Integer.parseInt(res.getErrorCode()));
+			result.setCode(res.getErrorCode());
 			result.setMessage(res.getErrorMsg());
 		}
 		return result;
