@@ -53,7 +53,7 @@ $(function() {
 				if (r) {
 					var parms = "userid=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							app.myreload("#tbList");
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
@@ -74,7 +74,7 @@ $(function() {
 				if (r) {
 					var parms = "userid=" + appInfo.selectedId;
 					$.post(appInfo.resetPwdUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							showMsg("重置成功");
 						} else {
 							showMsg(data.retmsg);
@@ -91,7 +91,7 @@ $(function() {
 				if (r) {
 					var parms = "userid=" + appInfo.selectedId;
 					$.post(appInfo.activeUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							showMsg("操作成功");
 							app.myreload("#tbList");
 							appInfo.selectedData = {};
@@ -137,7 +137,7 @@ function formSubmit() {
 					return;
 				}
 			}
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				$("#editWin").window("close");
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
@@ -263,7 +263,7 @@ function loadList() {
 			data : appInfo.requestParam,
 			dataType : "json",
 			success : function(data, status, xhr) {
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({
