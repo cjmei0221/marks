@@ -21,7 +21,7 @@ function getDetail(){
 			id:id
 		},
 		success : function(data) {
-			if(data.retcode==0){
+			if(data.retcode=="0"){
 				var vo=data.gains;
 				$("#c_title").val(vo.title);
 				$("#c_label").val(vo.labels);
@@ -63,7 +63,7 @@ function submitForm(){
 			labels:$("#c_label").val()
 		},
 		success : function(data) {
-			if(data.retcode==0){	
+			if(data.retcode=="0"){	
 				/*location.href="./list.html";*/
 			}else{
 				msg.info("加载失败【"+data.retcode+"】");
@@ -92,7 +92,7 @@ function getID(){
 		url : tool.reqUrl.getUUID,
 		type : 'GET',
 		success : function(data) {
-			if(data.retcode==0){
+			if(data.retcode=="0"){
 				id=data.id;
 			}
 		},
