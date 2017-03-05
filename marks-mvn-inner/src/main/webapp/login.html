@@ -443,7 +443,7 @@ input:-webkit-autofill {
 					if (typeof data === "string") {
 						data = $.parseJSON(data);
 					}
-					if (data.retcode == 0) {
+					if (data.retcode == "0") {
 						location.replace("index.html");
 					} else {
 						$.messager.alert("系统提示", data.retmsg);
