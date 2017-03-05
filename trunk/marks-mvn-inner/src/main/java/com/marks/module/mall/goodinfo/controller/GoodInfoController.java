@@ -17,10 +17,10 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.Enums;
+import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
-import com.marks.module.autocode.core.util.Code;
 import com.marks.module.mall.goodinfo.pojo.GoodImg;
 import com.marks.module.mall.goodinfo.pojo.GoodInfo;
 import com.marks.module.mall.goodinfo.service.GoodInfoService;
@@ -89,7 +89,7 @@ public class GoodInfoController extends SupportContorller {
 			GoodInfo old=goodInfoService.getGoodInfoBySkuNum(goodInfo.getSku_num());
 			if(old !=null){
 				result.setMessage("此商品编码已存在");
-				result.setCode(4001);
+				result.setCode("4001");
 			}else{
 				goodInfo.setGoodId("P"+IDUtil.getTimeID());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
@@ -124,7 +124,7 @@ public class GoodInfoController extends SupportContorller {
 				GoodInfo sku = goodInfoService.getGoodInfoBySkuNum(goodInfo.getSku_num());
 				if(sku !=null && !sku.getGoodId().equals(goodInfo.getGoodId())){
 					result.setMessage("此商品编码已存在!");
-					result.setCode(2001);
+					result.setCode("2001");
 				}else{
 					goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
 					String addMainImagePut=request.getParameter("addMainImagePut");
