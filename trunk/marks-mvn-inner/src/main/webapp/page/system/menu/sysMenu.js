@@ -50,17 +50,17 @@ $(function() {
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "id=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							$('#tbList').treegrid('reload');
 							$("#tbList").treegrid('unselectAll');
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
 							showMsg("删除成功");
-						} else if (data.retcode == -1) {
+						} else {
 							showMsg(data.retmsg);
 						}
 					});
@@ -138,7 +138,7 @@ function addFunc() {
 					if (typeof data === "string") {
 						data = $.parseJSON(data);
 					}
-					if (data.retcode == 0) {
+					if (data.retcode == "0") {
 						var funclist = data.list;
 						if (funclist.length > 0) {
 							var obj = eval(data.list);
@@ -175,7 +175,7 @@ function delfunc(funcid) {
 		if (r) {
 			var parms = "funcid=" + funcid;
 			$.post(appInfo.deletefuncurl, parms, function(data) {
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					showMsg("删除成功！");
 					$("#" + funcid).remove();
 				} else {
@@ -201,7 +201,7 @@ function submitFuncForm() {
 					url,
 					parms,
 					function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							var str = "<table id='"
 									+ data.operObj.funcid
 									+ "' style='border-bottom:grey 1px solid;padding:5px;width:95%'><tr><td style='width:20%;'>"
@@ -244,7 +244,7 @@ function formSubmit() {
 				if (typeof data === "string") {
 					data = $.parseJSON(data);
 				}
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					$("#editWin").window("close");
 					$('#tbList').treegrid('reload');
 					$("#tbList").treegrid('unselectAll');
@@ -323,7 +323,7 @@ function loadList() {
 			type : "get",
 			success : function(data, status, xhr) {
 				checkLogin(data);
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					var list = data.menuList;
 					that.data().treegrid["cache"] = data;
 					success({
@@ -352,7 +352,7 @@ function initParentMenu() {
 			if (typeof data === "string") {
 				data = $.parseJSON(data);
 			}
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				$("#parentidPut").combobox({
 					data : data.list,
 					valueField : 'menuid',
