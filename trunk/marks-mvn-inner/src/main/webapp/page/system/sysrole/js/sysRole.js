@@ -58,7 +58,7 @@ $(function() {
 				if (r) {
 					var parms = "roleid=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == 0) {
+						if (data.retcode == "0") {
 							app.myreload("#tbList");
 							appInfo.selectedData = {};
 							appInfo.selectedId = -1;
@@ -114,7 +114,7 @@ function formSubmit() {
 					return;
 				}
 			}
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				$("#editWin").window("close");
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
@@ -220,7 +220,7 @@ function loadList() {
 			dataType : "json",
 			success : function(data, status, xhr) {
 				checkLogin(data);
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({
@@ -258,7 +258,7 @@ function saveFuncList(roleId) {
 					return;
 				}
 			}
-			if (data.retcode == 0) {
+			if (data.retcode == "0") {
 				$("#funcWin").window("close");
 				showMsg("保存成功");
 			} else {
@@ -340,7 +340,7 @@ function funcList(roleId) {
 			type : "get",
 			success : function(data, status, xhr) {
 				checkLogin(data);
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					var list = data.funcList;
 					that.data().treegrid["cache"] = data;
 					success({

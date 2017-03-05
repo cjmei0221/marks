@@ -83,7 +83,7 @@
 				"oldPwd" : Encrypt(oldPwd)
 			},//数据，这里使用的是Json格式进行传输  
 			success : function(data) {//返回数据根据结果进行相应的处理  
-				if (data.retcode == 0) {
+				if (data.retcode == "0") {
 					alert("修改成功,请重新登录");
 					top.location.replace(window.urlBase + "/login.html");
 					return;
