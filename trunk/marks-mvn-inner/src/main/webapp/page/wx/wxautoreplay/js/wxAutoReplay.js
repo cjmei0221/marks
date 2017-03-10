@@ -66,7 +66,7 @@ $(function() {
 				showMsg("此记录不可删除");
 				return;
 			}
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "ctype=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {

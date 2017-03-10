@@ -55,8 +55,7 @@
 						<th style="width: 100px; text-align: right;">业务类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td>
 							<input id="ywType" name="ywType"
-							class="easyui-combobox"
-							data-options="required:true,valueField:'ckey',textField:'cvalue',url:'<%=request.getContextPath()%>/dataDir/combox.do?parentId=wxtemplate_ywtype'"
+							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px;">
 							</td>
 					</tr>

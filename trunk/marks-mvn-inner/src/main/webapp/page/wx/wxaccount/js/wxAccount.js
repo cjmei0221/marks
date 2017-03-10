@@ -52,7 +52,7 @@ $(function() {
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "accountId=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
@@ -72,7 +72,7 @@ $(function() {
 	// 更新粉丝
 	$("#syncWxFans").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认同步更新粉丝吗?', function(r) {
+			$.messager.confirm('确认', '确认同步更新粉丝吗?', function(r) {
 				if (r) {
 					var parms = "accountId=" + appInfo.selectedId;
 					$.post(appInfo.syncWxFansUrl, parms, function(data) {
