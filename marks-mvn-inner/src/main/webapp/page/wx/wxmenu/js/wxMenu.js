@@ -77,7 +77,7 @@ $(function() {
 			return;
 		}
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "id=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
@@ -107,7 +107,7 @@ $(function() {
 	$("#syncWx").on("click",function(){
 		if (isSelectedOne(appInfo.selectedId)) {
 			if(appInfo.selectedData.lvl==0){
-				$.messager.confirm('Confirm', '确认要同步微信服务器吗?', function(r) {
+				$.messager.confirm('确认', '确认要同步微信服务器吗?', function(r) {
 					if (r) {
 						var parms = "accountid=" + appInfo.selectedId;
 						$.post(appInfo.syncWxUrl, parms, function(data) {
