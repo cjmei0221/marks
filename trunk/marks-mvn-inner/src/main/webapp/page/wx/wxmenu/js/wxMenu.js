@@ -223,7 +223,6 @@ function loadList() {
 			
 		},
 		onLoadSuccess : function(data) {
-			checkLogin(data);
 			$("#tbList").datagrid('unselectAll');
 			appInfo.selectedData = {};
 		}

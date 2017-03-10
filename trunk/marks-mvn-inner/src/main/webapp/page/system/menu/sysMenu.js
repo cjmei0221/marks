@@ -312,6 +312,7 @@ function loadList() {
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").treegrid('unselectAll');
+			$("#tbList").treegrid('collapseAll');
 			appInfo.selectedData = {};
 		}
 	});
