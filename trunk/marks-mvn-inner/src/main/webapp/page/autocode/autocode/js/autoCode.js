@@ -75,7 +75,7 @@ $(function() {
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
@@ -111,7 +111,7 @@ $(function() {
 	// 自动生成代码
 	$("#introBtn").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要说明文档吗?', function(r) {
+			$.messager.confirm('确认', '确认要说明文档吗?', function(r) {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
 					$.post(appInfo.autocodeIntroFileUrl, parms, function(data) {
@@ -132,7 +132,7 @@ $(function() {
 				showMsg("不能覆盖");
 				return;
 			}
-			$.messager.confirm('Confirm', '确认要生成记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要生成记录吗?', function(r) {
 				if (r) {
 					var parms = "tableName=" + appInfo.selectedId;
 					$.post(appInfo.autoCodeUrl, parms, function(data) {

@@ -58,7 +58,7 @@ $(function() {
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "goodId=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
@@ -82,7 +82,7 @@ $(function() {
 			if(appInfo.selectedData.onsale_status==1){
 				cmsg="确定要下架吗？";
 			}
-			$.messager.confirm('Confirm', cmsg, function(r) {
+			$.messager.confirm('确认', cmsg, function(r) {
 				if (r) {
 					var parms = "goodId=" + appInfo.selectedId;
 					$.post(appInfo.onsaleUrl, parms, function(data) {
