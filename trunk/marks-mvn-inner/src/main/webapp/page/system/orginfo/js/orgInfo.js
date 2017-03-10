@@ -63,7 +63,7 @@ $(function() {
 				showMsg("请在公司管理编辑");
 				return;
 			}
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "orgid=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {

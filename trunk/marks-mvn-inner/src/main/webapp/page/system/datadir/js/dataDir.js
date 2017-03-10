@@ -62,7 +62,7 @@ $(function() {
 				showMsg("不可删除一级父节点");
 				return;
 			}
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "ckey=" + appInfo.selectedId+"&parentkey="+appInfo.selectedData.parentkey;
 					$.post(appInfo.deleteUrl, parms, function(data) {
