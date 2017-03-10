@@ -1,39 +1,20 @@
 package com.marks.module.wx.modulemsg.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.module.wx.modulemsg.dao.ModuleMsgDao;
 import com.marks.module.wx.modulemsg.pojo.ModuleMsg;
-import com.marks.module.wx.modulemsg.pojo.WxMsg;
 import com.marks.module.wx.modulemsg.service.ModuleMsgService;
-import com.marks.module.wx.wxtemplate.dao.WxTemplateDao;
-import com.marks.module.wx.wxtemplate.pojo.WxTemplate;
-import com.marks.module.wx.wxuser.pojo.WxUser;
 import com.marks.module.wx.wxutil.WxFwUtil;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 public class ModuleMsgServiceImpl implements ModuleMsgService {
-	private static Logger logger = Logger.getLogger(ModuleMsgServiceImpl.class);
-	private WxTemplateDao wxTemplateDao;
 
 	private ModuleMsgDao moduleMsgDao;
-
-	public WxTemplateDao getWxTemplateDao() {
-		return wxTemplateDao;
-	}
-
-	public void setWxTemplateDao(WxTemplateDao wxTemplateDao) {
-		this.wxTemplateDao = wxTemplateDao;
-	}
 
 	public ModuleMsgDao getModuleMsgDao() {
 		return moduleMsgDao;
@@ -43,65 +24,10 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 		this.moduleMsgDao = moduleMsgDao;
 	}
 
-	@Override
-	public void pushDairyWxMsg(WxUser wxUser) {
-
-		List<String> openidList = new ArrayList<String>();
-		openidList.add(wxUser.getOpenid());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String note = sdf.format(new Date());
-		List<String> keywordList = new ArrayList<String>();
-		keywordList.add(wxUser.getNickname());
-		keywordList.add(sdf.format(new Date()));
-
-		pushModuleMsgByParams(wxUser.getAccountid(), "wxtemplate_dairy", openidList, keywordList, note);
-
-	}
-
-	public Result pushModuleMsgByParams(String accountid, String tempType, List<String> openidList,
-			List<String> keywordList, String note) {
-
-		Result result = new Result();
-		if (null != openidList && openidList.size() > 0) {
-
-			WxTemplate temp = wxTemplateDao.findById(tempType, accountid);
-			if (null != temp) {
-				for (String openid : openidList) {
-
-					String firstMsg = temp.getFirst_content();
-					String remarkMsg = temp.getRemark_content();
-					String detailUrl=temp.getDetailUrl();
-					WxMsg wxMsg = new WxMsg();
-					wxMsg.setFirst(firstMsg);
-					wxMsg.setRemark(remarkMsg);
-					wxMsg.setKeywordList(keywordList);
-
-					ModuleMsg mmsg = new ModuleMsg();
-					mmsg.setAccountid(accountid);
-					mmsg.setCreatetime(new Date());
-					mmsg.setData(wxMsg.toJsonString());
-					mmsg.setNeedFlag(1);
-					mmsg.setNote(note+" "+ temp.getTemplate_name());
-					mmsg.setSendFlag(0);
-					mmsg.setSendTimes(0);
-					mmsg.setTemplate_id(temp.getTemplate_id());
-					mmsg.setTouser(openid);
-					mmsg.setUrl(detailUrl);
-					pustModuleMsg(mmsg, false);
-				}
-			} else {
-				result.setCode("4002");
-				result.setMessage("模板不存在");
-				logger.info("模板不存在");
-			}
-		} else {
-			logger.info("openid 为空");
-		}
-
-		return result;
-	}
-
-	private void pustModuleMsg(ModuleMsg mmsg, boolean b) {
+	public void pustModuleMsg(ModuleMsg mmsg, boolean b) {
+		mmsg.setNeedFlag(1);
+		mmsg.setSendFlag(0);
+		mmsg.setSendTimes(0);
 		if (b) {
 			Result result = WxFwUtil.getInstance().pushTemplateMsg(mmsg.getAccountid(), mmsg.getTouser(),
 					mmsg.getTemplate_id(), mmsg.getUrl(), mmsg.getData(), mmsg.getNote());

@@ -3,8 +3,8 @@ package com.marks.module.note.diary.threadPool;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.marks.module.note.diary.service.DiaryService;
 import com.marks.module.system.core.listener.DatabaseHelper;
-import com.marks.module.wx.modulemsg.service.ModuleMsgService;
 import com.marks.module.wx.wxuser.pojo.WxUser;
 
 public class DairyThreadPool {
@@ -28,7 +28,7 @@ public class DairyThreadPool {
 class DairyWxMsgThread implements Runnable {
 
 	private WxUser wxUser;
-	ModuleMsgService moduleMsgService = (ModuleMsgService) DatabaseHelper.getBean(ModuleMsgService.class);
+	DiaryService diaryService = (DiaryService) DatabaseHelper.getBean(DiaryService.class);
 
 	public DairyWxMsgThread(WxUser wxUser) {
 		this.wxUser = wxUser;
@@ -37,7 +37,7 @@ class DairyWxMsgThread implements Runnable {
 	@Override
 	public void run() {
 		if (wxUser != null) {
-			moduleMsgService.pushDairyWxMsg(wxUser);
+			diaryService.pushDairyWxMsg(wxUser);
 		}
 	}
 
