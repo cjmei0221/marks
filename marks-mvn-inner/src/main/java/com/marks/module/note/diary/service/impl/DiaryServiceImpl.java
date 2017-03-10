@@ -27,7 +27,12 @@ public class DiaryServiceImpl implements DiaryService{
 	private WxTemplateDao wxTemplateDao;
     private DiaryDao diaryDao;
     private ModuleMsgService moduleMsgService;
-    public DiaryDao getDiaryDao(){
+    
+    
+    public void setModuleMsgService(ModuleMsgService moduleMsgService) {
+		this.moduleMsgService = moduleMsgService;
+	}
+	public DiaryDao getDiaryDao(){
         return diaryDao;
     }
     public void setDiaryDao(DiaryDao diaryDao){
