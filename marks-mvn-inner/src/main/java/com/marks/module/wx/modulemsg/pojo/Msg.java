@@ -6,9 +6,22 @@ public class Msg {
 
 	private String color="#000000";
 	private String value;
+	private String key;
 	public Msg(){
 		
 	}
+	
+	
+	public String getKey() {
+		return key;
+	}
+
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+
 	public Msg(String value){
 		this.value=value;
 	}
