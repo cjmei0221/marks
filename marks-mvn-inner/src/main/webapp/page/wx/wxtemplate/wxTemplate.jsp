@@ -52,12 +52,10 @@
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
-						<th style="width: 100px; text-align: right;">业务类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td>
-							<input id="ywType" name="ywType"
+						<th style="width: 100px; text-align: right;">主键ID&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="ywType" name="ywType"
 							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;">
-							</td>
+							style="width: 200px;"></td>
 					</tr>
 					<tr>
 						<th style="width: 80px; text-align: right;">微信模板ID&nbsp;&nbsp;:&nbsp;&nbsp;</th>
@@ -86,8 +84,7 @@
 					<tr>
 						<th style="width: 80px; text-align: right;">访问URL&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="detailUrl" name="detailUrl"
-							class="easyui-validatebox"
-							style="width: 200px;"></td>
+							class="easyui-validatebox" style="width: 200px;"></td>
 					</tr>
 					<tr>
 						<th style="width: 80px; text-align: right;">启用标识&nbsp;&nbsp;:&nbsp;&nbsp;</th>
