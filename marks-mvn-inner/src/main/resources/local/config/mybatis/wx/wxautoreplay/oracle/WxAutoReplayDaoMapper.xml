@@ -79,7 +79,7 @@
 		FROM TB_WX_AUTO_REPLAY wxautoreplay
 		WHERE 1=1
 		<if test="accountIds !=null">
-			and wxmenuurl.accountid in
+			and wxautoreplay.accountid in
 			<foreach collection="accountIds" item="oid" index="index" open="("
 				separator="," close=")">
 				#{oid}
