@@ -49,7 +49,7 @@ $(function() {
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "id=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {

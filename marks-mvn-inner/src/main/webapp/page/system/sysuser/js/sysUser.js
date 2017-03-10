@@ -63,7 +63,7 @@ $(function() {
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "userid=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
@@ -84,7 +84,7 @@ $(function() {
 	// 重置密码
 	$("#resetPwdBtn").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认重置密码吗?', function(r) {
+			$.messager.confirm('确认', '确认重置密码吗?', function(r) {
 				if (r) {
 					var parms = "userid=" + appInfo.selectedId;
 					$.post(appInfo.resetPwdUrl, parms, function(data) {
