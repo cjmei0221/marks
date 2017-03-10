@@ -21,61 +21,97 @@
 	padding: 10px;
 	background-color: #e6eef8;
 }
-#idx-header{
+
+#idx-header {
 	margin: 0px;
 	padding: 0px;
 }
-.SysTitleCls{
-	color: #c06020;
+
+.SysTitleCls {
+	color: blue;
 	margin: 0px;
-	padding: 0px;
 	font-size: 21px;
-	font-family:微软雅黑;
+	font-family: 微软雅黑;
+	padding-top: 10px;
+	padding-left: 20px;
+}
+
+.loginout a {
+	float: left;
+	background-color: #3A97F1;
+	position: absolute;
+	width: 53px;
+	margin-left: 92.5%;
+	height: 100%;
+	text-decoration: none;
+	top: 0px;
+}
+
+.loginout a div {
+	text-decoration: none;
+	color: white;
+	text-align: center;
+	height: 50px;
+	padding-top: 20px;
+	font-size: 13px;
+}
+
+.sysName {
+	position: relative;
+	left: 21px;
+	top: 9px;
+	font-size: 20px;
+	font-weight: 600;
+	font-family: "宋体";
+	color: #065AAB;
 }
 </style>
 </head>
 <body class="easyui-layout">
 
-		<div data-options="region:'north'" style="height: 50px">
-			<div id="idx-header">
-				<span class="SysTitleCls">管理平台</span><br/>登录用户：<span id="loginUser"></span> 登录时间：<span
-					id="loginTime"></span>&nbsp;&nbsp;<a id="logout" href="javascript:;">退出</a>
+	<div data-options="region:'north'" style="height: 50px">
+		<div id="idx-header">
+			<!-- <img src="images/logo.png"
+				style="width: 146px; position: relative; left: 30px; top: 7px" /> --> <span
+				class="sysName">管理平台</span>
+
+			<div class="loginout" id="logout">
+				<a href="#"><div>退出</div></a>
 			</div>
 		</div>
-		<div data-options="region:'south',split:true" style="height: 30px;">管理平台@cjmei</div>
-		<div
-			data-options="region:'west',split:true,hideCollapsedContent:false,collapsed:false"
-			title="功能菜单" style="width: 150px;">
+	</div>
+	<div data-options="region:'south',split:true" style="height: 30px;">管理平台@cjmei</div>
+	<div
+		data-options="region:'west',split:true,hideCollapsedContent:false,collapsed:false"
+		title="功能菜单" style="width: 150px;">
 
-			<div id="menuControl" class="easyui-accordion"
-				data-options="multiple:true" style="width: 100%;">
+		<div id="menuControl" class="easyui-accordion"
+			data-options="multiple:true" style="width: 100%;"></div>
 
-			</div>
-
-		</div>
-		<div data-options="region:'center'">
-			<div id="mainregion" class="easyui-tabs"
-				data-options="tabWidth:100,tools:'#tab-tools',fit:true"
-				style="width: 100%; height: 100%;">
-				<div title="欢迎" style="padding: 10px">
-					<div class="welcometop">
-						<img src="images/welcome.jpg" width="100%" height="490px;">
-					</div>
+	</div>
+	<div data-options="region:'center'">
+		<div id="mainregion" class="easyui-tabs"
+			data-options="tabWidth:100,tools:'#tab-tools',fit:true"
+			style="width: 100%; height: 100%;">
+			<div title="欢迎" style="padding: 10px">
+				<div class="welcometop">
+					<img src="images/welcome.jpg" width="100%" height="490px;">
 				</div>
 			</div>
-			<div id="tab-tools">
-				<!-- <a href="javascript:void(0)" class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-add'" onclick="addPanel()"></a> -->
-				<a href="javascript:void(0)" class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-remove'"
-					onclick="removePanel()"></a>
-			</div>
 		</div>
+		<div id="tab-tools">
+			<!-- <a href="javascript:void(0)" class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'icon-add'" onclick="addPanel()"></a> -->
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				data-options="plain:true,iconCls:'icon-remove'"
+				onclick="removePanel()"></a>
+		</div>
+	</div>
 </body>
 <script type="text/javascript">
 	var appInfo = {
-		menuUrl : top.window.urlBase + "/sys/menu.do"
-		,logoutUrl : top.window.urlBase + "/logout.do"
+		menuUrl : top.window.urlBase + "/sys/menu.do",
+		logoutUrl : top.window.urlBase + "/logout.do"
 	}
 	//添加面板
 	/* var index = 0;
@@ -96,7 +132,7 @@
 		}
 	}
 	//添加新菜单面板
-	function addAccordionPanel(checkItem,title, content) {
+	function addAccordionPanel(checkItem, title, content) {
 		$('#menuControl').accordion('add', {
 			title : title,
 			content : content,
@@ -111,7 +147,8 @@
 	}
 	//加载菜单
 	function loadMenu() {
-		$.ajax({
+		$
+				.ajax({
 					type : "GET",
 					url : appInfo.menuUrl,
 					success : function(data) {
@@ -124,48 +161,59 @@
 							$('#menuControl').empty(); //清空menuControl里面的所有内容
 							var mlist = data.menuList;
 							if (mlist.length > 0) {
-								var checkItem=false;
-								$.each(mlist,function(commentIndex, comment) {
-									if(commentIndex==0){
-										checkItem=true;
-									}else{
-										checkItem=false;
-									}
-									var childHtml = "";
-									$.each(comment.children,function(childIdx,childComment) {
-										childHtml += '<p id="'
-											+ childComment.menuid
-											+ '" class="menuCls" onclick="addPanel(\''
-											+ childComment.menuid
-											+ '\',\''
-											+ childComment.menuitem
-											+ '\',\''
-											+ childComment.url
-											+ '\')">'
-											+ childComment.menuitem
-											+ '</p>';
-									});								
-									addAccordionPanel(checkItem,comment.menuitem,childHtml);
-								});					
+								var checkItem = false;
+								$
+										.each(
+												mlist,
+												function(commentIndex, comment) {
+													if (commentIndex == 0) {
+														checkItem = true;
+													} else {
+														checkItem = false;
+													}
+													var childHtml = "";
+													$
+															.each(
+																	comment.children,
+																	function(
+																			childIdx,
+																			childComment) {
+																		childHtml += '<p id="'
+																				+ childComment.menuid
+																				+ '" class="menuCls" onclick="addPanel(\''
+																				+ childComment.menuid
+																				+ '\',\''
+																				+ childComment.menuitem
+																				+ '\',\''
+																				+ childComment.url
+																				+ '\')">'
+																				+ childComment.menuitem
+																				+ '</p>';
+																	});
+													addAccordionPanel(
+															checkItem,
+															comment.menuitem,
+															childHtml);
+												});
 							}
 						}
 					}
 				});
 	}
-	
+
 	//退出相应函数
 	function logoutFunc() {
 		$.ajax({
-					type : "GET",
-					url : appInfo.logoutUrl,
-					success : function(data) {
-						location.href="login.html";
-					}
-				});
+			type : "GET",
+			url : appInfo.logoutUrl,
+			success : function(data) {
+				location.href = "login.html";
+			}
+		});
 	}
 	$(function() {
 		loadMenu();
-		$("#logout").on("click",function(){
+		$("#logout").on("click", function() {
 			logoutFunc();
 		});
 		//$("#mainregion").tabs('resize', {width:$(window).width()-155});
