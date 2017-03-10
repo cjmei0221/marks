@@ -48,7 +48,7 @@ public class WxUtil {
 			String appSercet = wx.getAppsecret();
 			String url = String.format(WxFwConfig.weixin_connect_oauth2_access_token, appid,
 					appSercet, code);
-			JsonResult result= HttpUtils.getInstance().doGet(url, null, null, HttpUtils.charSet);
+			JsonResult result= HttpUtils.getInstance().doGetForOpenid(url, null, null, HttpUtils.charSet);
 			JSONObject json = new JSONObject(result.getResult().toString());
 			String openid = json.optString("openid", null);
 			return openid;
