@@ -79,57 +79,40 @@
 		FROM TB_WX_AUTO_REPLAY_NEWSITEM newsitem
 		WHERE 1=1
 		<if test="accountIds !=null">
-			and wxmenuurl.accountid in
+			and newsitem.accountid in
 			<foreach collection="accountIds" item="oid" index="index"
 				open="(" separator="," close=")">
 				#{oid}
 			</foreach>
 		</if>
-		and (
-		newsitem.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
+			and (
+			newsitem.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
 			or newsitem.TITLE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or newsitem.DESCRIPTION LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or newsitem.PICURL LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or newsitem.URL LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or newsitem.SORT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or newsitem.ACCOUNTID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or newsitem.CREATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or newsitem.UPDATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or newsitem.CREATOR LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
 		</if>
-		)
 		order by newsitem.UPDATETIME desc
 
 	</select>
 	<select id="getnewItems" resultType="com.marks.module.wx.newsitem.pojo.NewsItem"
 		parameterType="java.util.Map">
-		SELECT newsitem.id,newsitem.title||' ( '||to_char(newsitem.updatetime,'yyyy-MM-dd')||' )' text
+		SELECT newsitem.id,newsitem.title||' (
+		'||to_char(newsitem.updatetime,'yyyy-MM-dd')||' )' text
 		FROM
 		TB_WX_AUTO_REPLAY_NEWSITEM newsitem
 		WHERE 1=1
