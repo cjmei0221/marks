@@ -33,9 +33,7 @@ $(function() {
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
 		$('#status').combobox('setValue', '1');
-		$('#ywType').combobox({
-			readonly : false
-		});
+		$('#ywType').removeAttr("readonly");
 	});
 
 	// 编辑
@@ -45,9 +43,7 @@ $(function() {
 				title : "编辑"
 			}).window("open");
 			appInfo.formStatus = "edit";
-			$('#ywType').combobox({
-				readonly : true
-			});
+			$('#ywType').attr("readonly","readonly");
 			$('#ff').form('load', appInfo.selectedData);
 
 		}
@@ -133,7 +129,7 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		idField : 'ywType',
+		idField : 'id',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
