@@ -1,52 +1,53 @@
 var appInfo = {
-	listUrl: top.window.urlBase + '/wxMenuUrl/list.do',//获取微信菜单URL列表接口  WxMenuUrl
-	saveUrl: top.window.urlBase + '/wxMenuUrl/save.do',//保存新增微信菜单URL接口
-	updateUrl: top.window.urlBase + '/wxMenuUrl/update.do',//编辑微信菜单URL信息接口
-	deleteUrl: top.window.urlBase + '/wxMenuUrl/delete.do',//删除微信菜单URL接口
+	listUrl : top.window.urlBase + '/wxMenuUrl/list.do',// 获取微信菜单URL列表接口
+														// WxMenuUrl
+	saveUrl : top.window.urlBase + '/wxMenuUrl/save.do',// 保存新增微信菜单URL接口
+	updateUrl : top.window.urlBase + '/wxMenuUrl/update.do',// 编辑微信菜单URL信息接口
+	deleteUrl : top.window.urlBase + '/wxMenuUrl/delete.do',// 删除微信菜单URL接口
 	selectedId : -1,
 	selectedData : {},
-	requestParam:{
+	requestParam : {
 		page_number : 1,
 		page_size : 10,
 		keyword : ""
 	},
-	formStatus:"new"
- };
+	formStatus : "new"
+};
 
-$(function(){
-//加载列表
- 	loadList();
+$(function() {
+	// 加载列表
+	loadList();
 
-//搜索
+	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
 		appInfo.selectedData = {};
-		appInfo.selectedId=-1;
+		appInfo.selectedId = -1;
 	});
-	
-	//新增
-	$("#add").on("click",function(){
+
+	// 新增
+	$("#add").on("click", function() {
 		$("#editWin").window({
 			title : "新增"
 		}).window("open");
 		$('#ff').form('clear');
-		appInfo.formStatus="new";
+		appInfo.formStatus = "new";
 	});
-	
-	//编辑
-	$("#edit").on("click",function(){
-		if(isSelectedOne(appInfo.selectedId)){
+
+	// 编辑
+	$("#edit").on("click", function() {
+		if (isSelectedOne(appInfo.selectedId)) {
 			$("#editWin").window({
 				title : "编辑"
 			}).window("open");
-			appInfo.formStatus="edit";
-			$('#ff').form('load',appInfo.selectedData);
+			appInfo.formStatus = "edit";
+			$('#ff').form('load', appInfo.selectedData);
 		}
 	});
-	
-	//删除
-	$("#delete").on("click",function(){
-		if(isSelectedOne(appInfo.selectedId)){
+
+	// 删除
+	$("#delete").on("click", function() {
+		if (isSelectedOne(appInfo.selectedId)) {
 			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "id=" + appInfo.selectedId;
@@ -54,7 +55,7 @@ $(function(){
 						if (data.retcode == "0") {
 							app.myreload("#tbList");
 							appInfo.selectedData = {};
-							appInfo.selectedId=-1;
+							appInfo.selectedId = -1;
 							showMsg("删除成功");
 						} else {
 							showMsg(data.retmsg);
@@ -64,35 +65,36 @@ $(function(){
 			});
 		}
 	});
-	
-		//保存菜单
-	$("#btnOK").on("click",function(){
+
+	// 保存菜单
+	$("#btnOK").on("click", function() {
 		formSubmit();
 	});
-	$("#btnCancel").on("click",function(){
+	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
 });
 /**
  * 保存菜单
  */
-function formSubmit(){
-	var reqUrl=appInfo.formStatus=="new"?appInfo.saveUrl:appInfo.updateUrl;
-	$('#ff').form('submit',{
-	    url:reqUrl,
-	    onSubmit: function(param){
-	    	param.formStatus=appInfo.formStatus;
-	    },
-	    success:function(data){
-	   		if(typeof data === 'string'){
-				try{
+function formSubmit() {
+	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
+			: appInfo.updateUrl;
+	$('#ff').form('submit', {
+		url : reqUrl,
+		onSubmit : function(param) {
+			param.formStatus = appInfo.formStatus;
+		},
+		success : function(data) {
+			if (typeof data === 'string') {
+				try {
 					data = $.parseJSON(data);
-				}catch(e0){
+				} catch (e0) {
 					showMsg("json 格式 错误");
 					return;
-				}					
+				}
 			}
-	    	if (data.retcode == "0") {
+			if (data.retcode == "0") {
 				$("#editWin").window("close");
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
@@ -101,7 +103,7 @@ function formSubmit(){
 			} else {
 				showMsg(data.retmsg);
 			}
-	    }
+		}
 	});
 }
 
@@ -109,8 +111,8 @@ function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
 		toolbar : "#tb",
-		striped:true,
-		nowrap:true,
+		striped : true,
+		nowrap : true,
 		rownumbers : true,
 		animate : true,
 		collapsible : true,
@@ -121,15 +123,32 @@ function loadList() {
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
-		columns : [ [                 {title:'ID',field:'id',width:100,align:"center",hidden:true },
-                {title:'菜单名称',field:'menuName',width:100,align:"center"},
-                {title:'菜单URL',field:'menuUrl',width:100,align:"center"},
-                {title:'公众号ID',field:'accountid',width:100,align:"center"} ] ],
+		columns : [ [ {
+			title : 'ID',
+			field : 'id',
+			width : 100,
+			align : "center",
+			hidden : true
+		}, {
+			title : '菜单名称',
+			field : 'menuName',
+			width : 100,
+			align : "center"
+		}, {
+			title : '菜单URL',
+			field : 'menuUrl',
+			width : 300,
+		}, {
+			title : '公众号ID',
+			field : 'accountid',
+			width : 100,
+			align : "center"
+		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
 			loader(that, params, success, loadError);
 		},
-		onClickRow : function(rowIndex,rowData) {
+		onClickRow : function(rowIndex, rowData) {
 			appInfo.selectedId = rowData.id;
 			appInfo.selectedData = rowData;
 		},
@@ -143,7 +162,7 @@ function loadList() {
 		var opts = that.datagrid("options");
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
-		appInfo.requestParam.keyword=$("#keyword").val();
+		appInfo.requestParam.keyword = $("#keyword").val();
 		$.ajax({
 			url : opts.url,
 			type : "get",
@@ -173,5 +192,3 @@ function loadList() {
 		});
 	}
 }
-		
-
