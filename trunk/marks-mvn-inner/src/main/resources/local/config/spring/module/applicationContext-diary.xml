@@ -27,6 +27,8 @@
 	<!--  -->
 	<bean id="diaryService" class="com.marks.module.note.diary.service.impl.DiaryServiceImpl">
 		<property name="diaryDao" ref="diaryDao"></property>
+		<property name="wxTemplateDao" ref="wxTemplateDao"></property>
+		<property name="moduleMsgService" ref="moduleMsgService"></property>
 	</bean>
 	<bean id="diaryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.marks.module.note.diary.dao.DiaryDao"></property>

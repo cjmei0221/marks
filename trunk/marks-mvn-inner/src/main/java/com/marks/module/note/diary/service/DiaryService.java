@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.note.diary.pojo.Diary;
+import com.marks.module.wx.wxuser.pojo.WxUser;
 
 public interface DiaryService{
 
@@ -16,4 +17,6 @@ public interface DiaryService{
 	public List<Diary> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<Diary> list(int page_number, int page_size,Map<String,Object> param);
+	
+	public void pushDairyWxMsg(WxUser wxUser);
 }

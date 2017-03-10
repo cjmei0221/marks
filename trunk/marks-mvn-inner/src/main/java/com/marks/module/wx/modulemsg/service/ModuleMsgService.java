@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.wx.modulemsg.pojo.ModuleMsg;
-import com.marks.module.wx.wxuser.pojo.WxUser;
 
 public interface ModuleMsgService {
 
@@ -23,5 +22,5 @@ public interface ModuleMsgService {
 
 	public PojoDomain<ModuleMsg> list(int page_number, int page_size, Map<String, Object> param);
 	
-	public void pushDairyWxMsg(WxUser wxUser);
+	public void pustModuleMsg(ModuleMsg mmsg, boolean b);
 }
