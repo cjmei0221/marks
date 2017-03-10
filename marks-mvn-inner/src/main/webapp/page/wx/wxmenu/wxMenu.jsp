@@ -19,7 +19,7 @@
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
-					<td><span style="color:red;">可以新建多个菜单，但一级菜单排序最前3个菜单有效，二级菜单最前5个有效,新建二级菜单后一级菜单访问内容自动无效</span></td>
+					<td><span style="color:red;">一级菜单3个菜单有效，二级菜单5个有效,新建二级菜单后一级菜单访问内容自动无效</span></td>
 				</tr>
 				<tr>
 					<td><wt:button /></td>
