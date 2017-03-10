@@ -58,7 +58,7 @@ $(function() {
 			"click",
 			function() {
 				if (isSelectedOne(appInfo.selectedId)) {
-					$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+					$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 						if (r) {
 							var parms = "ywType=" + appInfo.selectedId
 									+ "&accountid="
@@ -133,22 +133,16 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		idField : 'id',
+		idField : 'ywType',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '业务类型ID',
+			title : '主键ID',
 			field : 'ywType',
 			width : 100,
 			align : "center",
-			hidden : true
-		}, {
-			title : '业务类型',
-			field : 'ywTypeName',
-			width : 100,
-			align : "center"
 		}, {
 			title : '公众号ID',
 			field : 'accountid',
@@ -177,7 +171,7 @@ function loadList() {
 		}, {
 			title : '访问URL',
 			field : 'detailUrl',
-			width : 300,
+			width : 100,
 			align : "left"
 		}, {
 			title : '启用标识',

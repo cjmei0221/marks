@@ -48,7 +48,7 @@ $(function() {
 	// 删除
 	$("#delete").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认要删除该记录吗?', function(r) {
+			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
 					var parms = "openid=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
@@ -69,7 +69,7 @@ $(function() {
 	// 是否推送日记提醒模板消息
 	$("#dairyBtn").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('Confirm', '确认切换吗?', function(r) {
+			$.messager.confirm('确认', '确认切换吗?', function(r) {
 				if (r) {
 					var parms = "openid=" + appInfo.selectedId;
 					$.post(appInfo.useDairyUrl, parms, function(data) {
