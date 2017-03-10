@@ -218,9 +218,10 @@ public class HttpUtils {
 
 	private static byte[] readUrlStream(BufferedInputStream bufferedInputStream) throws IOException {
 		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
-		byte[] buff = new byte[100]; // buff用于存放循环读取的临时数据
+		int byteNum=1024;
+		byte[] buff = new byte[byteNum]; // buff用于存放循环读取的临时数据
 		int rc = 0;
-		while ((rc = bufferedInputStream.read(buff, 0, 100)) > 0) {
+		while ((rc = bufferedInputStream.read(buff, 0, byteNum)) > 0) {
 			swapStream.write(buff, 0, rc);
 		}
 
