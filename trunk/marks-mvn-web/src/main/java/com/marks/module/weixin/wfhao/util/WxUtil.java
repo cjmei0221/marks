@@ -60,7 +60,7 @@ public class WxUtil {
 	}
 	public String getCompleteUrl(String accountid,String url) throws UnsupportedEncodingException{
 		WxAccount acc=StaticData.getWxAccount(accountid);
-//		url=acc.getAuthdomain()+url;
+		url=acc.getAuthdomain()+url;
 		logger.info("返回>>"+url);
 		return url;
 	}
