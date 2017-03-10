@@ -35,11 +35,13 @@ $(function() {
 			showMsg("只能建两级菜单！");
 			return;
 		}
-		if(appInfo.selectedData.lvl==0 && appInfo.selectedData.childnum>3){
+		if(appInfo.selectedData.lvl==0 && appInfo.selectedData.childnum>=3){
 			showMsg("一级菜单只能添加三个！");
+			return;
 		}
-		if(appInfo.selectedData.lvl==1 && appInfo.selectedData.childnum>5){
-			showMsg("一级菜单只能添加五个！");
+		if(appInfo.selectedData.lvl==1 && appInfo.selectedData.childnum>=5){
+			showMsg("二级菜单只能添加五个！");
+			return;
 		}
 		$("#editWin").window({
 			title : "新增"
