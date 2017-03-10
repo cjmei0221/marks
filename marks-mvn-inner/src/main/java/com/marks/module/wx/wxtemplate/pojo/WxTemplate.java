@@ -3,20 +3,15 @@ package com.marks.module.wx.wxtemplate.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.marks.module.system.core.data.StaticData;
-
 public class WxTemplate implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String id;
 
 	/**
 	 * 业务类型
 	 */
 	private String ywType;
 
-	private String ywTypeName;
 	/**
 	 * 公众号ID
 	 */
@@ -58,8 +53,6 @@ public class WxTemplate implements Serializable {
 	 */
 	private String creator;
 	
-	
-
 	public String getId() {
 		return accountid+"_"+ywType;
 	}
@@ -150,13 +143,6 @@ public class WxTemplate implements Serializable {
 
 	public void setCreator(String creator) {
 		this.creator = creator;
-	}
-
-	public String getYwTypeName() {
-		if (ywType != null) {
-			return StaticData.getDatadirValue("wxtemplate_ywtype", ywType);
-		}
-		return "";
 	}
 
 }

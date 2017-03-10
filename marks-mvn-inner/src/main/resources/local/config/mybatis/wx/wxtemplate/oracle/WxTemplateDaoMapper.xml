@@ -94,10 +94,6 @@
 			or wxtemplate.REMARK_CONTENT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or wxtemplate.STATUS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.CREATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.UPDATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or wxtemplate.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
