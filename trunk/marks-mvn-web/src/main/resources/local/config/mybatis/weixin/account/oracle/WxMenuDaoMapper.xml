@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.marks.module.weixin.wfhao.dao.WxMenuDao">
-	<!-- 加载系统参数 -->
-	<select id="queryMenuById" resultType="com.marks.module.weixin.wfhao.pojo.WxMenu">
-		select * from tb_wx_menu t where t.id=#{id}
-	</select>
-</mapper>
