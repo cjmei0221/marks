@@ -11,7 +11,7 @@ import com.marks.module.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.wx.wfhao.service.WeixinAccountService;
 import com.marks.module.wx.wfhao.service.impl.normal.AbstractRequestService;
-import com.marks.module.wx.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.marks.module.wx.wfhao.threadPool.WxhreadPool;
 
 
 
@@ -42,7 +42,7 @@ public class TemplatesendjobfinishEventRequestServiceImpl extends AbstractReques
 		String createtimeStr=requestMessage.getCreateTime();
 		Timestamp time=new Timestamp(Long.parseLong(createtimeStr)*1000);
 		weixinAccountService.updateResultForModuleMsg(requestMessage.getAccountId(),requestMessage.getMsgID(),time,requestMessage.getStatus());
-		UpdateWxUserhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
+		WxhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 		return null;
 	}
 	

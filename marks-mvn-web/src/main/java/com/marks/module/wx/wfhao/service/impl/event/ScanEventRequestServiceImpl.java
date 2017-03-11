@@ -8,7 +8,7 @@ import com.marks.common.util.Constants;
 import com.marks.module.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.wx.wfhao.service.impl.normal.AbstractRequestService;
-import com.marks.module.wx.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.marks.module.wx.wfhao.threadPool.WxhreadPool;
 
 /**
  * 扫一扫
@@ -22,7 +22,7 @@ public class ScanEventRequestServiceImpl extends AbstractRequestService {
 	@Override
 	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
 		logger.info("ScanEventRequestServiceImpl deal start");
-		UpdateWxUserhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
+		WxhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 
 		return handle(requestMessage, Constants.SubscribeReplay);
 	}

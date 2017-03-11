@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import com.marks.module.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.wx.wfhao.service.impl.normal.AbstractRequestService;
-import com.marks.module.wx.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.marks.module.wx.wfhao.threadPool.WxhreadPool;
 
 
 
@@ -34,7 +34,7 @@ public class ClickEventRequestServiceImpl extends AbstractRequestService {
 	@Override
 	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage) throws Exception {
 		logger.info("ClickEventRequestServiceImpl deal start eventkey > "+requestMessage.getEventKey());
-		UpdateWxUserhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
+		WxhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 		return handle(requestMessage,requestMessage.getEventKey());
 	}
 	
