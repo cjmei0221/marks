@@ -44,8 +44,7 @@ public class EventRequestServiceImpl implements RequestService {
 			logger.info(requestMessage.getEvent().toLowerCase() + "EventRequestService 的事件不支持");
 			logger.error("Exception", e);
 		}
-		WechatResponse textResponseMessage = new WechatResponse(requestMessage);
-		textResponseMessage.setContent("");
-		return textResponseMessage;
+		
+		return null;
 	}
 }
