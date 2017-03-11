@@ -70,11 +70,11 @@ public class HttpUtils {
 		connectionManager.getParams().setDefaultMaxConnectionsPerHost(defaultMaxConnPerHost);
 		connectionManager.getParams().setMaxTotalConnections(defaultMaxTotalConn);
 
-		IdleConnectionTimeoutThread ict = new IdleConnectionTimeoutThread();
+		/*IdleConnectionTimeoutThread ict = new IdleConnectionTimeoutThread();
 		ict.addConnectionManager(connectionManager);
 		ict.setConnectionTimeout(defaultIdleConnTimeout);
 
-		ict.start();
+		ict.start();*/
 	}
 	
 	public JsonResult doGetForOpenid(String url, Map<String, String> params, Map<String, String> header, String charSet)
