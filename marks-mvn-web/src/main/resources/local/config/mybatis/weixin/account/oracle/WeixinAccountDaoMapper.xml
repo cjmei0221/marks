@@ -5,4 +5,12 @@
 	<select id="queryWxUserByOpenID" resultType="com.marks.module.weixin.wfhao.pojo.WxUser">
 		select * from tb_wx_user t where t.accountid=#{accountid} and t.openid=#{openid}
 	</select>
+	<update id="updateResultForModuleMsg">
+		update tb_wx_module_msg t
+   			set t.resultcode = #{resultCode:VARCHAR}, 
+   			t.resultmsg = #{status:VARCHAR}, 
+   			t.resulttime = #{createtime:TIMESTAMP}
+ 		where t.accountid =#{accountid:VARCHAR}
+   			and t.msgid = #{msgId:VARCHAR}
+	</update>
 </mapper>

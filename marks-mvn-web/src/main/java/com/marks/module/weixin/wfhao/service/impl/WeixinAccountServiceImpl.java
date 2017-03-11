@@ -1,5 +1,7 @@
 package com.marks.module.weixin.wfhao.service.impl;
 
+import java.sql.Timestamp;
+
 import com.marks.module.weixin.wfhao.dao.WeixinAccountDao;
 import com.marks.module.weixin.wfhao.dao.WxUserDao;
 import com.marks.module.weixin.wfhao.pojo.WxUser;
@@ -38,5 +40,16 @@ public class WeixinAccountServiceImpl implements WeixinAccountService {
 	public void updateWxUser(WxUser wxUser) {
 		wxUserDao.update(wxUser);
 	}
+
+	@Override
+	public void updateResultForModuleMsg(String accountid,String msgId, Timestamp createtime, String status) {
+		String resultCode="0";
+		if(status.indexOf("success")>=0){
+			resultCode="1";
+		}
+		weixinAccountDao.updateResultForModuleMsg(accountid,msgId,createtime,resultCode,status);
+	}
+	
+	
 
 }
