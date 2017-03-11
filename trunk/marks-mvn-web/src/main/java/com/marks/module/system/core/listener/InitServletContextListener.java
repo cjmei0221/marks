@@ -8,7 +8,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.marks.module.system.core.helper.LoadDataHelper;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
-import com.marks.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.marks.module.wx.wfhao.threadPool.UpdateWxUserhreadPool;
 
 /**
  * 初始化上下文监听类

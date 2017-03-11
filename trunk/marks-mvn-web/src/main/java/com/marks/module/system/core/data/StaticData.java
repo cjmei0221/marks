@@ -8,7 +8,7 @@ import java.util.Map;
 import com.marks.common.util.Constants;
 import com.marks.module.system.sys.pojo.DataDir;
 import com.marks.module.system.sys.pojo.SysConf;
-import com.marks.module.weixin.wfhao.pojo.WxAccount;
+import com.marks.module.wx.wfhao.pojo.WxAccount;
 
 /**
  * 

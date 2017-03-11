@@ -8,8 +8,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.weixin.wfhao.pojo.WxUser;
-import com.marks.module.weixin.wfhao.util.WxUtil;
+import com.marks.module.wx.wfhao.pojo.WxUser;
+import com.marks.module.wx.wfhao.util.WxUtil;
 
 public class WxUserInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log= Logger.getLogger(WxUserInterceptor.class);
