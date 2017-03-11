@@ -150,12 +150,7 @@ function loadList() {
 				return value.replace(/},/g,"},<br/>");
 			}
 		}, {
-			title : '备注',
-			field : 'note',
-			width : 300,
-			align : "center"
-		}, {
-			title : '发送标识',
+			title : '推送结果',
 			field : 'sendFlag',
 			width : 100,
 			align : "center",
@@ -168,9 +163,32 @@ function loadList() {
 				return '发送成功';
 			}
 		}, {
-			title : '发送次数',
+			title : '推送次数',
 			field : 'sendTimes',
 			width : 100,
+			align : "center"
+		}, {
+			title : '最后推送时间',
+			field : 'sendtime',
+			width : 150,
+			align : "center"
+		}, {
+			title : '接受结果',
+			field : 'resultCode',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == '0') {
+					return '失败';
+				}else if(value == '1'){
+					return '成功';
+				}
+				return '';
+			}
+		}, {
+			title : '接受时间',
+			field : 'resultTime',
+			width : 150,
 			align : "center"
 		}, {
 			title : '创建时间',
@@ -178,8 +196,8 @@ function loadList() {
 			width : 150,
 			align : "center"
 		}, {
-			title : '发送时间',
-			field : 'sendtime',
+			title : '备注',
+			field : 'note',
 			width : 150,
 			align : "center"
 		} ] ],
