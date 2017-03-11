@@ -18,7 +18,7 @@ import com.marks.module.system.core.data.StaticData;
 import com.marks.module.system.core.listener.DatabaseHelper;
 import com.marks.module.wx.wfhao.pojo.UserGet;
 import com.marks.module.wx.wfhao.pojo.WxUser;
-import com.marks.module.wx.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.marks.module.wx.wfhao.threadPool.WxhreadPool;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -258,11 +258,11 @@ public class WxFwUtil {
 		String accountid="ctest";
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:config/spring/applicationContext.xml");
 		DatabaseHelper.init(context);
-		UpdateWxUserhreadPool.init();
+		WxhreadPool.init();
 		UserGet ug=WxFwUtil.getInstance().getWXUserOpenId(accountid, "");
 		if(ug !=null){
 			for(String openid:ug.getOpenid_list()){
-				UpdateWxUserhreadPool.updateWxUser(accountid, openid);
+				WxhreadPool.updateWxUser(accountid, openid);
 			}
 		}
 	}
