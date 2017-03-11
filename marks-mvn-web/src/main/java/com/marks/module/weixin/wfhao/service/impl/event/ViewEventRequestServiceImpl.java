@@ -8,6 +8,7 @@ import org.json.JSONException;
 import com.marks.module.weixin.wfhao.message.request.WechatRequest;
 import com.marks.module.weixin.wfhao.message.response.WechatResponse;
 import com.marks.module.weixin.wfhao.service.impl.normal.AbstractRequestService;
+import com.marks.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
 
 /**
  * 点击菜单跳转链接的事件请求服务
@@ -34,6 +35,7 @@ public class ViewEventRequestServiceImpl extends AbstractRequestService {
 		
 		logger.info("----------url:" + requestMessage.getEventKey());
 		// 返回的响应请求对象为null，为了让微信端直接跳转到URL
+		UpdateWxUserhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 		return null;
 	}
 

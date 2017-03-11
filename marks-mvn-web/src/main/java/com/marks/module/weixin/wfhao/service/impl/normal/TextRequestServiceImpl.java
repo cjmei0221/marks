@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.marks.module.weixin.wfhao.message.request.WechatRequest;
 import com.marks.module.weixin.wfhao.message.response.WechatResponse;
+import com.marks.module.weixin.wfhao.threadPool.UpdateWxUserhreadPool;
 
 /**
  * 文本消息对象服务
@@ -28,6 +29,8 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 	@Override
 	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
 		logger.info("TextRequestServiceImpl > "+requestMessage.getContent());
+		
+		UpdateWxUserhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 		return handle(requestMessage, requestMessage.getContent());
 	}
 }
