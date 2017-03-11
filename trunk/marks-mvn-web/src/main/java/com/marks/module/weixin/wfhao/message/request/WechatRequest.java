@@ -23,7 +23,7 @@ public class WechatRequest {
 	private String MsgType;
 	private String Event;	
 	private String EventKey;
-	private String MsgId;
+	private String MsgID;
 	private String Content;
 	private String Location_X;
 	private String Location_Y;
@@ -130,12 +130,12 @@ public class WechatRequest {
 	public void setLabel(String label) {
 		Label = label;
 	}
-	@XmlElement(name="MsgId")
-	public String getMsgId() {
-		return MsgId;
+	@XmlElement(name="MsgID")
+	public String getMsgID() {
+		return MsgID;
 	}
-	public void setMsgId(String msgId) {
-		MsgId = msgId;
+	public void setMsgID(String msgID) {
+		MsgID = msgID;
 	}
 	@XmlElement(name="ToUserName")
 	public String getToUserName() {

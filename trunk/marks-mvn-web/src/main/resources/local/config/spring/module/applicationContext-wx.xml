@@ -79,6 +79,9 @@
 	</bean>
 	<bean id="scanEventRequestService"
 		class="com.marks.module.weixin.wfhao.service.impl.event.ScanEventRequestServiceImpl"></bean>
+		
+	<bean id="templatesendjobfinishEventRequestService"
+		class="com.marks.module.weixin.wfhao.service.impl.event.TemplatesendjobfinishEventRequestServiceImpl"></bean>
 
 	<!-- 加载基础数据管理 -->
 	<bean id="weixinAccountService"
