@@ -196,8 +196,7 @@ function loadList() {
 		}, {
 			title : '回复内容',
 			field : 'creplay',
-			width : 200,
-			align : "center"
+			width : 200
 		}, {
 			title : '是否可删除',
 			field : 'delFlag',
