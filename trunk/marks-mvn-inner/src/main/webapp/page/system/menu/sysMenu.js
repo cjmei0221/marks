@@ -154,7 +154,7 @@ function addFunc() {
 														+ val.operid
 														+ "</td><td style='width:40%;'>"
 														+ val.url
-														+ "</td><td style='width:20%;'><a class='easyui-linkbutton delOnefunc' href='#'  onclick=\"javascript:delfunc(\'"
+														+ "</td><td style='width:20%;'><a class='easyui-linkbutton' href='#'  onclick=\"javascript:delfunc(\'"
 														+ val.funcid
 														+ "\')\">刪除功能</a>"
 														+ "</td></tr></table>";
@@ -210,7 +210,7 @@ function submitFuncForm() {
 									+ data.operObj.operid
 									+ "</td><td style='width:40%;'>"
 									+ data.operObj.url
-									+ "</td><td style='width:20%;'><a class='easyui-linkbutton delOnefunc' href='#'   onclick=\"javascript:delfunc(\'"
+									+ "</td><td style='width:20%;'><a class='easyui-linkbutton' href='#'   onclick=\"javascript:delfunc(\'"
 									+ data.operObj.funcid + "\')\">刪除功能</a>"
 									+ "</td></tr></table>";
 							$("#funcShow").append(str);
