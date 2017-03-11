@@ -9,7 +9,7 @@ import com.marks.module.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.wx.wfhao.pojo.WxUser;
 import com.marks.module.wx.wfhao.service.impl.normal.AbstractRequestService;
-import com.marks.module.wx.wfhao.threadPool.UpdateWxUserhreadPool;
+import com.marks.module.wx.wfhao.threadPool.WxhreadPool;
 
 /**
  * 关注事件请求服务
@@ -61,7 +61,7 @@ public class SubscribeEventRequestServiceImpl extends AbstractRequestService {
 		user.setQrNo(scene);
 		logger.info("保存关注者信息" + user.getNickname() + "-" + user.getOpenid() + "-" + scene);
 		
-		UpdateWxUserhreadPool.updateWxUser(user);
+		WxhreadPool.updateWxUser(user);
 		
 		return handle(requestMessage, Constants.SubscribeReplay);
 	}
