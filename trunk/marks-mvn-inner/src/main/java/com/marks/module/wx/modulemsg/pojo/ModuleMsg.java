@@ -73,6 +73,8 @@ public class ModuleMsg implements Serializable{
     *推送结果消息
     */
     private String resultMsg;
+    
+    private String resultTime;
     /**
     *备注
     */
@@ -80,7 +82,13 @@ public class ModuleMsg implements Serializable{
 
 
 
-    public String getId(){
+    public String getResultTime() {
+		return resultTime;
+	}
+	public void setResultTime(String resultTime) {
+		this.resultTime = resultTime;
+	}
+	public String getId(){
         return id;
     }
     public void setId(String id){
