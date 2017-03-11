@@ -27,14 +27,15 @@ public class WeixinAccountServiceImpl implements WeixinAccountService {
 
 	@Override
 	public void updateOrUpdateWxUser(WxUser wxUser) {
-		WxUser wx = weixinAccountDao.queryWxUserByOpenID(wxUser.getAccountid(), wxUser.getOpenid());
-		if (wx == null) {
+		WxUser old = weixinAccountDao.queryWxUserByOpenID(wxUser.getAccountid(), wxUser.getOpenid());
+		if (old == null) {
 			wxUser.setUseflag(1);
 			wxUserDao.save(wxUser);
 		} else {
 			wxUserDao.update(wxUser);
-			if(null == wxUser.getFanId() || "".equals(wxUser.getFanId())){
-				wxUserDao.updateFanIdForWxUser(wxUser.getAccountid(),wxUser.getOpenid());
+			if(null == old.getFanId() || "".equals(old.getFanId())){
+				String fanId=wxUserDao.getFanId();
+				wxUserDao.updateFanIdForWxUser(wxUser.getAccountid(),wxUser.getOpenid(),fanId);
 			}
 		}
 	}

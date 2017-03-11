@@ -72,14 +72,15 @@
 		wxuser.OPENID = #{openid} and wxuser.ACCOUNTID =
 		#{accountid:VARCHAR}
 	</update>
+	<select id="getFanId" resultType="String">
+		SELECT 'F'||SEQ_WX_USER.nextval FROM dual
+	</select>
 	<update id="updateFanIdForWxUser">
-		<selectKey keyProperty="fanId" resultType="String" order="BEFORE">SELECT
-			'F'||SEQ_WX_USER.nextval FROM dual
-		</selectKey>
 		UPDATE TB_WX_USER
 		SET
 		FANID = #{fanId:VARCHAR}
 		WHERE
-		OPENID = #{openid:VARCHAR} and ACCOUNTID = #{accountid:VARCHAR}
+		OPENID =
+		#{openid:VARCHAR} and ACCOUNTID = #{accountid:VARCHAR}
 	</update>
 </mapper>

@@ -12,6 +12,7 @@ public interface WxUserDao {
 
 	void update(WxUser wxUser);
 
-	void updateFanIdForWxUser(@Param("accountid")String accountid, @Param("openid")String openid);
-
+	void updateFanIdForWxUser(@Param("accountid")String accountid, @Param("openid")String openid,@Param("fanId") String fanId);
+	
+	String getFanId();
 }
