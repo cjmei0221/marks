@@ -95,8 +95,7 @@ public class WxAuthController {
 					} else {
 						WxUtil.getInstance().setCurrentWxbUser(request, user);
 					}
-					// 更新关注者信息
-					UpdateWxUserhreadPool.updateWxUser(accountid, openid);
+				
 				} else {
 					logger.info(" weixin openid is null ,openid=" + openid);
 					to_url = request.getContextPath() + PageConfigUtil.getProperty("unsubscribeurl");
