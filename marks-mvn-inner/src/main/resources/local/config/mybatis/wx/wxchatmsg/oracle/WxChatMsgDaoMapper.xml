@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.wx.wxchatmsg.dao.WxChatMsgDao">
+
+	<select id="findById" resultType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg">
+		SELECT * FROM TB_WX_CHAT_MSG
+		wxchatmsg where wxchatmsg.ID = #{id}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
+			sys_guid() from dual
+		</selectKey>
+
+		INSERT INTO TB_WX_CHAT_MSG wxchatmsg (
+		wxchatmsg.ID,
+		wxchatmsg.FANID,
+		wxchatmsg.C_TYPE,
+		wxchatmsg.USERID,
+		wxchatmsg.C_CONTENT,
+		wxchatmsg.CREATETIME,
+		wxchatmsg.C_REPLAYTYPE,
+		wxchatmsg.SESSION_ID,
+		wxchatmsg.OPENID,
+		wxchatmsg.ACCOUNTID
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{fanId:VARCHAR},
+		#{c_type:NUMERIC},
+		#{userid:VARCHAR},
+		#{c_content:VARCHAR},
+		#{createtime:TIMESTAMP},
+		#{c_replayType:VARCHAR},
+		#{session_id:VARCHAR},
+		#{openid:VARCHAR},
+		#{accountid:VARCHAR}
+
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg">
+		UPDATE TB_WX_CHAT_MSG
+		wxchatmsg
+		SET
+		wxchatmsg.FANID = #{fanId:VARCHAR},
+		wxchatmsg.C_TYPE =
+		#{c_type:NUMERIC},
+		wxchatmsg.USERID = #{userid:VARCHAR},
+		wxchatmsg.C_CONTENT = #{c_content:VARCHAR},
+		wxchatmsg.C_REPLAYTYPE =
+		#{c_replayType:VARCHAR},
+		wxchatmsg.SESSION_ID = #{session_id:VARCHAR},
+		wxchatmsg.OPENID = #{openid:VARCHAR},
+		wxchatmsg.ACCOUNTID =
+		#{accountid:VARCHAR}
+		WHERE
+		wxchatmsg.ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_CHAT_MSG
+		wxchatmsg WHERE wxchatmsg.ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg">
+		SELECT * FROM TB_WX_CHAT_MSG
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_CHAT_MSG WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_CHAT_MSG wxchatmsg
+		WHERE 1=1 and wxchatmsg.C_TYPE=0
+		<if test="keyword!=null and keyword!=''">
+			and (
+			or wxchatmsg.FANID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxchatmsg.C_CONTENT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			to_char(wxchatmsg.CREATETIME,'yyyy-MM-dd') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+
+		order by wxchatmsg.CREATETIME desc
+
+	</select>
+
+	<select id="getReplayList" resultType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_CHAT_MSG wxchatmsg
+		WHERE 1=1 and
+		wxchatmsg.C_TYPE=1
+		and wxchatmsg.SESSION_ID=#{session_id}
+		order by
+		wxchatmsg.CREATETIME desc
+
+	</select>
+
+</mapper>
