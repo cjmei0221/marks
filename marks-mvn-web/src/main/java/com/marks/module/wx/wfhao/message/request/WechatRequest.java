@@ -24,6 +24,7 @@ public class WechatRequest {
 	private String Event;	
 	private String EventKey;
 	private String MsgID;
+	private String MsgId;
 	private String Content;
 	private String Location_X;
 	private String Location_Y;
@@ -136,6 +137,13 @@ public class WechatRequest {
 	}
 	public void setMsgID(String msgID) {
 		MsgID = msgID;
+	}
+	@XmlElement(name="MsgId")
+	public String getMsgId() {
+		return MsgId;
+	}
+	public void setMsgId(String msgId) {
+		MsgId = msgId;
 	}
 	@XmlElement(name="ToUserName")
 	public String getToUserName() {
