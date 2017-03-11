@@ -33,6 +33,9 @@ public class WeixinAccountServiceImpl implements WeixinAccountService {
 			wxUserDao.save(wxUser);
 		} else {
 			wxUserDao.update(wxUser);
+			if(null == wxUser.getFanId() || "".equals(wxUser.getFanId())){
+				wxUserDao.updateFanIdForWxUser(wxUser.getAccountid(),wxUser.getOpenid());
+			}
 		}
 	}
 
