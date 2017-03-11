@@ -80,6 +80,8 @@ public class WxUser implements Serializable{
       * 关注方式
       */
      private int subscribetype;
+     
+     private String fanId;//粉丝ID
 
 
     public String getOpenid(){
@@ -204,6 +206,12 @@ public class WxUser implements Serializable{
 	}
 	public void setSubscribetype(int subscribetype) {
 		this.subscribetype = subscribetype;
+	}
+	public String getFanId() {
+		return fanId;
+	}
+	public void setFanId(String fanId) {
+		this.fanId = fanId;
 	}
 
 
