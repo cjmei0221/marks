@@ -8,6 +8,9 @@
  	</select>
  	
  	<insert id="save" parameterType="com.marks.module.weixin.wfhao.pojo.WxUser">
+ 		<selectKey keyProperty="fanId" resultType="String" order="BEFORE">SELECT
+			'F'||SEQ_WX_USER.nextval FROM dual
+		</selectKey>
  		INSERT INTO TB_WX_USER wxuser (
             wxuser.OPENID,
             wxuser.NICKNAME,
@@ -25,7 +28,8 @@
             wxuser.CREATETIME,
             wxuser.USEFLAG,
             wxuser.QRNO,
-            wxuser.REMARK
+            wxuser.REMARK,
+            wxuser.FANID
 		)
 		VALUES(
             #{openid:VARCHAR},
@@ -44,8 +48,8 @@
             sysdate,
             #{useflag:NUMERIC},
             #{qrNo:VARCHAR},
-            #{remark:VARCHAR}
-			
+            #{remark:VARCHAR},
+			#{fanId:VARCHAR}
 			)
  	</insert>
  	
