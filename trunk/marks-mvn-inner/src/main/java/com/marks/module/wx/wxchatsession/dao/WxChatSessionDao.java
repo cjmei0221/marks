@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-
+import com.marks.module.wx.wxchatsession.pojo.WxChatCount;
 import com.marks.module.wx.wxchatsession.pojo.WxChatSession;
 
 public interface WxChatSessionDao {
@@ -23,4 +23,6 @@ public interface WxChatSessionDao {
 	void deleteBatch(List<String> list);
 
 	List<WxChatSession> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<WxChatCount> getCountList(PageBounds pageBounds, Map<String, Object> param);
 }

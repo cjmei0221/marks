@@ -1,6 +1,7 @@
 package com.marks.module.wx.wxchatsession.service;
 
 
+import com.marks.module.wx.wxchatsession.pojo.WxChatCount;
 import com.marks.module.wx.wxchatsession.pojo.WxChatSession;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface WxChatSessionService{
 	public List<WxChatSession> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<WxChatSession> list(int page_number, int page_size,Map<String,Object> param);
+	public PojoDomain<WxChatCount> getCountList(int page_number, int page_size, Map<String, Object> param);
 }
