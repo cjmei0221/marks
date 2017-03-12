@@ -9,6 +9,7 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.module.wx.wxchatmsg.dao.WxChatMsgDao;
 import com.marks.module.wx.wxchatmsg.pojo.WxChatMsg;
 import com.marks.module.wx.wxchatsession.dao.WxChatSessionDao;
+import com.marks.module.wx.wxchatsession.pojo.WxChatCount;
 import com.marks.module.wx.wxchatsession.pojo.WxChatSession;
 import com.marks.module.wx.wxchatsession.service.WxChatSessionService;
 
@@ -97,6 +98,18 @@ public class WxChatSessionServiceImpl implements WxChatSessionService{
 			}
 		}
 		PageList<WxChatSession> pageList = (PageList<WxChatSession>)list; 
+		pojoDomain.setPojolist(list);
+		pojoDomain.setPage_number(page_number);
+		pojoDomain.setPage_size(page_size);
+		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
+		return pojoDomain;
+	}
+	@Override
+	public PojoDomain<WxChatCount> getCountList(int page_number, int page_size, Map<String, Object> param) {
+		PojoDomain<WxChatCount> pojoDomain = new PojoDomain<WxChatCount>();
+		PageBounds pageBounds = new PageBounds(page_number, page_size);
+		List<WxChatCount> list = wxChatSessionDao.getCountList(pageBounds,param);
+		PageList<WxChatCount> pageList = (PageList<WxChatCount>)list; 
 		pojoDomain.setPojolist(list);
 		pojoDomain.setPage_number(page_number);
 		pojoDomain.setPage_size(page_size);

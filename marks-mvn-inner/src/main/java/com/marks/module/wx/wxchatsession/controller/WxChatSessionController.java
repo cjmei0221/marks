@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.util.JsonUtil;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
+import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.SupportContorller;
 import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.sysuser.pojo.SysUser;
-
+import com.marks.module.wx.wxchatsession.pojo.WxChatCount;
 import com.marks.module.wx.wxchatsession.pojo.WxChatSession;
 import com.marks.module.wx.wxchatsession.service.WxChatSessionService;
 
@@ -223,7 +222,39 @@ public class WxChatSessionController extends SupportContorller{
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("accountIds", admin.getAccountids());
 			PojoDomain<WxChatSession> list = wxChatSessionService.list(page_number, page_size, param);
+			result.getData().put("list", list.getPojolist());
+			result.setPageNumber(list.getPage_number());
+			result.setPageSize(list.getPage_size());
+			result.setPageTotal(list.getPage_total());
+			result.setTotalCount(list.getTotal_count());
+			result.setMessage("find wxChatSession successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			result.setMessage("find wxChatSession fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+    }
+	
+	@RequestMapping("/wxChatSession/countList")
+    public void countList(HttpServletRequest request,HttpServletResponse response){
+       PaginationResult result = new PaginationResult();
+		try {
+			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			int page_number = Integer.parseInt(request.getParameter("page_number"));
+			int page_size = Integer.parseInt(request.getParameter("page_size"));
+			String keyword=request.getParameter("keyword");
+			if(keyword==null){
+				keyword="";
+			}
+			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
+			Map<String,Object> param=new HashMap<String,Object>();
+			param.put("keyword", keyword);
+			param.put("accountIds", admin.getAccountids());
+			PojoDomain<WxChatCount> list = wxChatSessionService.getCountList(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());

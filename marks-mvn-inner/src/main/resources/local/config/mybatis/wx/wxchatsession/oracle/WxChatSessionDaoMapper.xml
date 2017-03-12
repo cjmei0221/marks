@@ -80,26 +80,69 @@
 		resultType="com.marks.module.wx.wxchatsession.pojo.WxChatSession"
 		parameterType="java.util.Map">
 		SELECT wxuser.nickname username, wxchatsession.*
-		FROM TB_WX_CHAT_SESSION wxchatsession
-		join tb_wx_user wxuser on (wxchatsession.accountid = wxuser.accountid and
-		wxchatsession.openid = wxuser.openid)
+		FROM
+		TB_WX_CHAT_SESSION wxchatsession
+		join tb_wx_user wxuser on
+		(wxchatsession.accountid = wxuser.accountid and
+		wxchatsession.openid =
+		wxuser.openid)
 		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxchatsession.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
 		<if test="keyword!=null and keyword!=''">
 			and ( wxchatsession.SESSION_ID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or to_char(wxchatsession.CREATETIME,'yyyy-MM-dd') LIKE
+			or
+			to_char(wxchatsession.CREATETIME,'yyyy-MM-dd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or wxchatsession.C_CONTENT LIKE
+			or wxchatsession.C_CONTENT
+			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or wxchatsession.FANID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxchatsession.FANID
+			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 		order by wxchatsession.CREATETIME DESC
 	</select>
+	<select id="getCountList" resultType="com.marks.module.wx.wxchatsession.pojo.WxChatCount"
+		parameterType="java.util.Map">
+		SELECT wxchatsession.c_content, count(1) content_num
+		FROM (select *
+		from TB_WX_CHAT_SESSION wxsession
+		where  1=1
+		
+		<if test="accountIds !=null">
+			and wxsession.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		
+		) wxchatsession
+		
+		WHERE 1=1
+		
+		<if test="keyword!=null and keyword!=''">
+			and (
 
+			wxchatsession.C_CONTENT
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+        group by wxchatsession.c_content
+        order by wxchatsession.c_content
+	</select>
 
 
 </mapper>
