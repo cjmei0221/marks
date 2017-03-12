@@ -7,6 +7,7 @@ import java.util.Map;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 import com.marks.module.wx.wxchatmsg.pojo.WxChatMsg;
+import com.marks.module.wx.wxchatsession.pojo.WxChatSession;
 
 public interface WxChatMsgDao {
 
@@ -25,4 +26,6 @@ public interface WxChatMsgDao {
 	List<WxChatMsg> list(PageBounds pageBounds, Map<String,Object> param);
 
 	List<WxChatMsg> getReplayList(String session_id);
+
+	List<WxChatMsg> getReplayListBySessions(List<WxChatSession> list);
 }
