@@ -47,10 +47,8 @@ public class WxChatMsg implements Serializable{
     *公众号ID
     */
     private String accountid;
-
-
-
-    public String getId(){
+    
+	public String getId(){
         return id;
     }
     public void setId(String id){

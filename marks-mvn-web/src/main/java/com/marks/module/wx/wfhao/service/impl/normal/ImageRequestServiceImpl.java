@@ -27,8 +27,9 @@ public class ImageRequestServiceImpl extends AbstractRequestService  {
 	@Override
 	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage) throws JSONException {
 		logger.info("ImageRequestServiceImpl deal start");
-		
-		return null;
+		WechatResponse responseMessage = new WechatResponse(requestMessage);
+		responseMessage.setContent("暂不支持");
+		return responseMessage;
 	}
 
 }

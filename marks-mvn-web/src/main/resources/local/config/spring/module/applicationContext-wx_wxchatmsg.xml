@@ -27,11 +27,15 @@
 	<!--  -->
 	<bean id="wxChatMsgService" class="com.marks.module.wx.wxchatmsg.service.impl.WxChatMsgServiceImpl">
 		<property name="wxChatMsgDao" ref="wxChatMsgDao"></property>
+		<property name="wxChatSessionDao" ref="wxChatSessionDao"></property>
 	</bean>
 	<bean id="wxChatMsgDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.marks.module.wx.wxchatmsg.dao.WxChatMsgDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
-	
+	<bean id="wxChatSessionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.marks.module.wx.wxchatmsg.dao.WxChatSessionDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
 </beans>

@@ -3,13 +3,14 @@ package com.marks.module.wx.wfhao.threadPool;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.marks.common.util.IDUtil;
+import org.apache.log4j.Logger;
+
 import com.marks.module.system.core.listener.DatabaseHelper;
 import com.marks.module.wx.util.WxFwUtil;
 import com.marks.module.wx.wfhao.pojo.WxUser;
 import com.marks.module.wx.wfhao.service.WeixinAccountService;
-import com.marks.module.wx.wxchatmsg.dao.WxChatMsgDao;
-import com.marks.module.wx.wxchatmsg.pojo.WxChatMsg;
+import com.marks.module.wx.wxchatmsg.pojo.WxChatSession;
+import com.marks.module.wx.wxchatmsg.service.WxChatMsgService;
 
 public class WxhreadPool {
 	private static ExecutorService pool;
@@ -33,7 +34,7 @@ public class WxhreadPool {
 		pool.execute(new UpdateWxUserThread(1, user));
 	}
 
-	public static void saveWxChatMsg(WxChatMsg msg) {
+	public static void saveWxChatMsg(WxChatSession msg) {
 		pool.execute(new WxChatMsgThread(msg));
 	}
 
@@ -41,12 +42,13 @@ public class WxhreadPool {
 
 
 class WxChatMsgThread implements Runnable {
-	private WxChatMsg msg;
+	private static Logger logger = Logger.getLogger(WxChatMsgThread.class);
+	private WxChatSession msg;
 	WeixinAccountService weixinAccountService = (WeixinAccountService) DatabaseHelper
 			.getBean(WeixinAccountService.class);
-	WxChatMsgDao wxChatMsgDao = (WxChatMsgDao) DatabaseHelper
-			.getBean(WxChatMsgDao.class);
-	public WxChatMsgThread(WxChatMsg msg) {
+	WxChatMsgService wxChatMsgService = (WxChatMsgService) DatabaseHelper
+			.getBean(WxChatMsgService.class);
+	public WxChatMsgThread(WxChatSession msg) {
 		this.msg = msg;
 	}
 
@@ -54,16 +56,15 @@ class WxChatMsgThread implements Runnable {
 	public void run() {
 		try {
 			if (msg != null) {
-				msg.setC_type(0);
+				
 				WxUser wxUser=weixinAccountService.queryWxUserByOpenID(msg.getAccountid(), msg.getOpenid());
 				if(wxUser !=null){
 					msg.setFanId(wxUser.getFanId());
 				}
-//				msg.setSession_id("S"+IDUtil.getTimeID());
-				wxChatMsgDao.save(msg);
+				wxChatMsgService.save(msg);
 			}
 		} catch (Exception e) {
-
+			logger.error("WxChatMsgThread", e);
 		}
 	}
 
