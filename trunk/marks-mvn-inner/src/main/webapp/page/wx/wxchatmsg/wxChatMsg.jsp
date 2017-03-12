@@ -44,9 +44,10 @@
 		collapsible:false"
 		style="width: 600px; height: 450px; padding: 10px;">
 		<div align="center" style="width: 100%;">
+			<div id="msg" style="overflow: auto;text-align:left;height: 150px;"></div>
 			<form id="ff" name="ff" method="post">
 				<input type="hidden" id="id" name="id">
-				<table>
+				<table id="msgTable">
 					<tr style="display: none;">
 						<th>回复方式</th>
 						<td><select id="c_replayType" class="easyui-combobox"
@@ -54,11 +55,6 @@
 								<option value="TEXT">文字</option>
 								<!-- <option value="NEWS">图文</option> -->
 						</select></td>
-					</tr>
-					<tr>
-						<td align="left">
-							<div id="msg" style="overflow: auto; height:150px"></div>
-						</td>
 					</tr>
 					<tr>
 						<td align="left"><textarea
@@ -74,9 +70,9 @@
 							style="width: 100px; display: none;"
 							data-options="iconCls:'icon-cancel'">取消</a></td>
 					</tr>
-
 				</table>
 			</form>
+			
 		</div>
 	</div>
 

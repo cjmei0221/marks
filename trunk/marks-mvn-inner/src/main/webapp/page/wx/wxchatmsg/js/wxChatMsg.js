@@ -109,13 +109,13 @@ function formSubmit() {
 				}
 			}
 			if (data.retcode == '0') {
-				
+				$('#c_content').attr("disabled","disabled");
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
 				appInfo.selectedId = -1;
 				$("#msg").prepend("<p>"+data.info.createtime+"&nbsp;&nbsp;"+data.info.username+"&nbsp;&nbsp;"+data.info.c_content+"</p>");
 				$("#c_content").val("");
-				$("#btnOK").hide(data.info.session_id);
+				
 			} else {
 				showMsg(data.retmsg);
 			}
@@ -123,7 +123,7 @@ function formSubmit() {
 	});
 }
 function replayFunc(id,sId) {
-	$("#btnOK").show();
+	
 	$("#editWin").window({
 		title : "回复"
 	}).window("open");
@@ -132,6 +132,7 @@ function replayFunc(id,sId) {
 	$("#id").val(id);
 	$("#c_replayType").combobox("setValue", "TEXT");
 	loadReplayList(sId);
+	$('#c_content').removeAttr("disabled");
 }
 
 function loadReplayList(sId){
