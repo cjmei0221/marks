@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxChatMsg/list.do',// 获取询问管理列表接口 WxChatMsg
+	listUrl : top.window.urlBase + '/wxChatSession/list.do',// 获取询问管理列表接口 WxChatMsg
 	saveUrl : top.window.urlBase + '/wxChatMsg/save.do',// 保存新增询问管理接口
 	updateUrl : top.window.urlBase + '/wxChatMsg/update.do',// 编辑询问管理信息接口
 	deleteUrl : top.window.urlBase + '/wxChatMsg/delete.do',// 删除询问管理接口
-	listReplayUrl : top.window.urlBase + '/wxChatMsg/replayList.do',// 删除询问管理接口
+	replayListUrl:top.window.urlBase + '/wxChatMsg/replayList.do',// 删除询问管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -11,10 +11,13 @@ var appInfo = {
 		page_size : 10,
 		keyword : ""
 	},
-	formStatus : "new"
+	formStatus : "new",
+	session_id:"-1"
 };
+//定时器定时刷新页面
 
 $(function() {
+	
 	// 加载列表
 	loadList();
 
@@ -73,6 +76,9 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
+	
+	
+
 });
 /**
  * 保存菜单
@@ -107,22 +113,55 @@ function formSubmit() {
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
 				appInfo.selectedId = -1;
-				$("#addMsgDiv").append("<p>"+data.info.createtime+"&nbsp;&nbsp;"+data.info.c_content+"</p>");
+				$("#msg").prepend("<p>"+data.info.createtime+"&nbsp;&nbsp;"+data.info.username+"&nbsp;&nbsp;"+data.info.c_content+"</p>");
 				$("#c_content").val("");
+				$("#btnOK").hide(data.info.session_id);
 			} else {
 				showMsg(data.retmsg);
 			}
 		}
 	});
 }
-function replayFunc(sId) {
+function replayFunc(id,sId) {
+	$("#btnOK").show();
 	$("#editWin").window({
 		title : "回复"
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
-	$("#id").val(sId);
+	$("#id").val(id);
 	$("#c_replayType").combobox("setValue", "TEXT");
+	loadReplayList(sId);
+}
+
+function loadReplayList(sId){
+	$.ajax({
+		url : appInfo.replayListUrl,
+		type : "get",
+		data : {
+			"session_id":sId
+		},
+		dataType : "json",
+		success : function(data, status, xhr) {
+			if (data.retcode == '0') {
+				var list = data.repayList;
+				if(null != list && list.length>0){
+					$("#msg").html("");
+					for(var i=0;i<list.length;i++){
+						var sct=list[i].c_content;
+						if(list[i].c_content == '0'){
+							sct='请求人工服务';
+						}
+						$("#msg").append("<p>"+list[i].createtime+"&nbsp;&nbsp;"+list[i].username+"&nbsp;&nbsp;"+sct+"</p>");
+					}
+				}
+				return true;
+			} 
+		},
+		error : function(err) {
+			loadError.apply(this, arguments);
+		}
+	});
 }
 function loadList() {
 	$('#tbList')
@@ -142,11 +181,10 @@ function loadList() {
 						singleSelect : true,
 						columns : [ [
 								{
-									title : 'ID',
-									field : 'id',
-									width : 100,
-									align : "center",
-									hidden : true
+									title : '回话ID',
+									field : 'session_id',
+									width : 150,
+									align : "center"
 								},
 								{
 									title : '粉丝ID',
@@ -155,16 +193,18 @@ function loadList() {
 									align : "center"
 								},
 								{
+									title : '昵称',
+									field : 'username',
+									width : 100,
+									align : "center"
+								},
+								{
 									title : '内容',
 									field : 'c_content',
 									width : 400,
 									formatter : function(value, row, index) {
-										if (row.c_type == 0) {
-											return "<span style='color:blue;' onclick=\"javascript:replayFunc(\'"
-													+ row.id
-													+ "\')\">"
-													+ value
-													+ "</span>";
+										if (row.flag == 1) {
+											return "<span style='color:red;'>人工服务</span>";
 										} else {
 											return value;
 										}
@@ -173,7 +213,7 @@ function loadList() {
 								}, {
 									title : '询问时间',
 									field : 'createtime',
-									width : 100,
+									width : 150,
 									align : "center"
 								} ] ],
 						loader : function(params, success, loadError) {
@@ -190,20 +230,38 @@ function loadList() {
 						},
 						view : detailview,
 						detailFormatter : function(rowIndex, rowData) {
+							
 							var tableStr=[];
-							var len=rowData.replayList.length;
+							var len=rowData.wxChatMsgList.length;
+							var list=rowData.wxChatMsgList;
 							if(len>0){
-								tableStr.push('<table style="width:100%;"><tr><td>用戶ID</td><td>回复内容</td><td>回复时间</td></tr><tr>');
+								tableStr.push('<table style="width:100%;"><tr><td></td><td align="center">用戶</td><td>回复内容</td><td>回复时间</td></tr><tr>');
+								var str="";
+								var contentstr="";
 								for(var i=0;i<len;i++){
-									tableStr.push('<tr><td style="width:20%;">' + rowData.replayList[i].userid + '</td>' +
-									'<td style="width:60%;">' + rowData.replayList[i].c_content + '</td>' +
-									'<td style="width:20%;">' + rowData.replayList[i].createtime + '</td></tr>');
+									str="回复";
+									contentstr=list[i].c_content;
+									if(list[i].c_type==0){
+										str="询问";
+									}
+									if(list[i].c_type == 0 && list[i].is_replay == 0){
+										contentstr="<span style='color:blue;' onclick=\"javascript:replayFunc('"
+											+ list[i].id
+											+ "','"+list[i].session_id+"')\">"+list[i].c_content+"</span>";
+									}
+									tableStr.push("<tr>"
+									+"<td style='width:10%;' align='center'>" + str + "</td>" 
+									+"<td style='width:15%;' align='center'>" + list[i].username + "</td>"
+									+"<td style='width:60%;'>"+ contentstr+ "</td>" 
+									+"<td style='width:15%;'>" + list[i].createtime + "</td>"
+									+"</tr>");
 								}
 								tableStr.push('</tr></table>');
 							}
-							return tableStr.join('');;
+							return tableStr.join('');
 						}
 					});
+
 	// 请求加载数据
 	function loader(that, params, success, loadError) {
 		var opts = that.datagrid("options");
@@ -238,3 +296,8 @@ function loadList() {
 		});
 	}
 }
+
+window.setTimeout(function() {
+	console.log("myreload------------");
+	
+}, 100);

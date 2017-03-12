@@ -47,7 +47,7 @@
 			<form id="ff" name="ff" method="post">
 				<input type="hidden" id="id" name="id">
 				<table>
-					<tr style="display:none;">
+					<tr style="display: none;">
 						<th>回复方式</th>
 						<td><select id="c_replayType" class="easyui-combobox"
 							name="c_replayType" style="width: 200px;">
@@ -56,11 +56,14 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td align="left"><div id="addMsgDiv" style="height:150px;overflow: auto;"></div>
+						<td align="left">
+							<div id="msg" style="overflow: auto; height:150px"></div>
+						</td>
 					</tr>
 					<tr>
-						<td align="left"><textarea style="width: 550px;height:150px;"
-								id="c_content" name="c_content" data-options="required:true"  maxlength="1024"></textarea></td>
+						<td align="left"><textarea
+								style="width: 550px; height: 150px;" id="c_content"
+								name="c_content" data-options="required:true" maxlength="1024"></textarea></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: right;"><a id="btnOK"
@@ -71,7 +74,7 @@
 							style="width: 100px; display: none;"
 							data-options="iconCls:'icon-cancel'">取消</a></td>
 					</tr>
-				
+
 				</table>
 			</form>
 		</div>
