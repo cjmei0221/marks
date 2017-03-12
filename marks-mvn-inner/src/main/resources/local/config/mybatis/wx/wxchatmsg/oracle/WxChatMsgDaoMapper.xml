@@ -44,17 +44,8 @@
 		UPDATE TB_WX_CHAT_MSG
 		wxchatmsg
 		SET
-		wxchatmsg.FANID = #{fanId:VARCHAR},
-		wxchatmsg.C_TYPE =
-		#{c_type:NUMERIC},
-		wxchatmsg.USERID = #{userid:VARCHAR},
-		wxchatmsg.C_CONTENT = #{c_content:VARCHAR},
-		wxchatmsg.C_REPLAYTYPE =
-		#{c_replayType:VARCHAR},
-		wxchatmsg.SESSION_ID = #{session_id:VARCHAR},
-		wxchatmsg.OPENID = #{openid:VARCHAR},
-		wxchatmsg.ACCOUNTID =
-		#{accountid:VARCHAR}
+		wxchatmsg.IS_REPLAY =
+		#{is_replay:NUMERIC}
 		WHERE
 		wxchatmsg.ID = #{id}
 	</update>
@@ -78,9 +69,14 @@
 
 	<select id="list" resultType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg"
 		parameterType="java.util.Map">
-		SELECT *
-		FROM TB_WX_CHAT_MSG wxchatmsg
-		WHERE 1=1 and wxchatmsg.C_TYPE=0
+		SELECT wxchatmsg.*, wxuser.nickname username
+		FROM TB_WX_CHAT_MSG
+		wxchatmsg
+		left join tb_wx_user wxuser on (wxchatmsg.openid =
+		wxuser.openid and
+		wxchatmsg.accountid = wxuser.accountid)
+		WHERE 1=1 and
+		wxchatmsg.C_TYPE=0
 		<if test="keyword!=null and keyword!=''">
 			and (
 			or wxchatmsg.FANID LIKE
@@ -101,14 +97,34 @@
 
 	<select id="getReplayList" resultType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg"
 		parameterType="java.util.Map">
-		SELECT *
+		SELECT nvl(suser.username, wxuser.nickname) username, wxchatmsg.*
 		FROM TB_WX_CHAT_MSG wxchatmsg
-		WHERE 1=1 and
-		wxchatmsg.C_TYPE=1
-		and wxchatmsg.SESSION_ID=#{session_id}
+		left join tb_sys_user suser on wxchatmsg.userid = suser.userid
+		left join tb_wx_user wxuser on wxchatmsg.openid = wxuser.openid
+		WHERE 1=1
+		and
+		wxchatmsg.SESSION_ID=#{session_id}
 		order by
 		wxchatmsg.CREATETIME desc
 
+	</select>
+
+	<select id="getReplayListBySessions" resultType="com.marks.module.wx.wxchatmsg.pojo.WxChatMsg"
+		parameterType="java.util.List">
+		SELECT nvl(suser.username, wxuser.nickname) username, wxchatmsg.*
+		FROM TB_WX_CHAT_MSG wxchatmsg
+		left join tb_sys_user suser on wxchatmsg.userid = suser.userid
+		left join tb_wx_user wxuser on wxchatmsg.openid = wxuser.openid
+		WHERE 1=1
+		<if test="list !=null">
+			and wxchatmsg.session_id in
+			<foreach collection="list" item="oid" index="index" open="("
+				separator="," close=")">
+				#{oid.session_id}
+			</foreach>
+		</if>
+		order by
+		wxchatmsg.CREATETIME
 	</select>
 
 </mapper>

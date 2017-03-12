@@ -21,6 +21,7 @@ public class WxChatMsg implements Serializable{
     *类型
     */
     private int c_type;
+    private String username;
     /**
     *回复者ID
     */
@@ -49,9 +50,25 @@ public class WxChatMsg implements Serializable{
     *公众号ID
     */
     private String accountid;
+    
+    private int is_replay;
 
     private List<WxChatMsg> replayList=new ArrayList<WxChatMsg>();
-    public String getId(){
+    
+    
+    public int getIs_replay() {
+		return is_replay;
+	}
+	public void setIs_replay(int is_replay) {
+		this.is_replay = is_replay;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getId(){
         return id;
     }
     public void setId(String id){
