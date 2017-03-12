@@ -32,12 +32,8 @@ public class VoiceRequestServiceImpl extends AbstractRequestService{
 	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
 		
 		logger.info("VoiceRequestServiceImpl 语音解析结果：" + requestMessage.getRecognition());
-		WechatResponse responseMessage=null;
-		if (StringUtils.isEmpty(requestMessage.getRecognition())) {
-			
-		} else {
-			responseMessage = handle(requestMessage, requestMessage.getRecognition());
-		}
+		WechatResponse responseMessage = new WechatResponse(requestMessage);
+		responseMessage.setContent("暂不支持");
 		return responseMessage;
 	}
 
