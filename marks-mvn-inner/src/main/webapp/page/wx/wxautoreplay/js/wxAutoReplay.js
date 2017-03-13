@@ -180,14 +180,14 @@ function loadList() {
 			align : "center",
 			hidden : true
 		}, {
-			title : '名称',
+			title : '匹配词描述',
 			field : 'ctypeName',
-			width : 100,
+			width : 200,
 			align : "center"
 		}, {
-			title : '关键字',
+			title : '匹配词',
 			field : 'ckey',
-			width : 100,
+			width : 150,
 			align : "center"
 		}, {
 			title : '回复方式',
@@ -205,7 +205,7 @@ function loadList() {
 		}, {
 			title : '回复内容',
 			field : 'creplay',
-			width : 200
+			width : 500
 		}, {
 			title : '是否可删除',
 			field : 'delFlag',
@@ -220,21 +220,6 @@ function loadList() {
 		}, {
 			title : '公众号ID',
 			field : 'accountid',
-			width : 100,
-			align : "center"
-		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 100,
-			align : "center"
-		}, {
-			title : '更新时间',
-			field : 'updatetime',
-			width : 100,
-			align : "center"
-		}, {
-			title : '创建者',
-			field : 'creator',
 			width : 100,
 			align : "center"
 		} ] ],
