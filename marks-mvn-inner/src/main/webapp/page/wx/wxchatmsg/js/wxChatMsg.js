@@ -28,6 +28,13 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
+	// 搜索
+	$("#refreshTable").on("click", function(e) {
+		app.myreload("#tbList");
+		appInfo.selectedData = {};
+		appInfo.selectedId = -1;
+	});
+
 	// 新增
 	$("#add").on("click", function() {
 		$("#editWin").window({
