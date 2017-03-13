@@ -44,9 +44,14 @@
 		collapsible:false"
 		style="width: 600px; height: 450px; padding: 10px;">
 		<div align="center" style="width: 100%;">
-			<div id="msg" style="overflow: auto;text-align:left;height: 150px;"></div>
+			<div align="right" style="width: 100%;">
+				<a id="refreshBtn" name="refreshBtn" href="javascript:void(0)"
+					class="easyui-linkbutton" style="width: 50px;">刷新</a>&nbsp;&nbsp;
+			</div>
+			<div id="msg"
+				style="overflow: auto; text-align: left; height: 150px;"></div>
 			<form id="ff" name="ff" method="post">
-				<input type="hidden" id="id" name="id">
+				<input type="hidden" id="session_id" name="session_id">
 				<table id="msgTable">
 					<tr style="display: none;">
 						<th>回复方式</th>
@@ -64,15 +69,11 @@
 					<tr>
 						<td colspan="2" style="text-align: right;"><a id="btnOK"
 							name="btnOK" href="javascript:void(0)" class="easyui-linkbutton"
-							style="width: 100px;" data-options="">发送</a>
-							&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnCancel" name="btnCancel"
-							href="javascript:void(0)" class="easyui-linkbutton"
-							style="width: 100px; display: none;"
-							data-options="iconCls:'icon-cancel'">取消</a></td>
+							style="width: 100px;" data-options="">发送</a></td>
 					</tr>
 				</table>
 			</form>
-			
+
 		</div>
 	</div>
 

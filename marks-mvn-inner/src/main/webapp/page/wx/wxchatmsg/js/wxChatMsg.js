@@ -73,8 +73,8 @@ $(function() {
 	$("#btnOK").on("click", function() {
 		formSubmit();
 	});
-	$("#btnCancel").on("click", function() {
-		$("#editWin").window("close");
+	$("#refreshBtn").on("click", function() {
+		loadReplayList($("#session_id").val);
 	});
 	
 	
@@ -109,30 +109,28 @@ function formSubmit() {
 				}
 			}
 			if (data.retcode == '0') {
-				$('#c_content').attr("disabled","disabled");
 				app.myreload("#tbList");
 				appInfo.selectedData = {};
 				appInfo.selectedId = -1;
-				$("#msg").prepend("<p>"+data.info.createtime+"&nbsp;&nbsp;"+data.info.username+"&nbsp;&nbsp;"+data.info.c_content+"</p>");
+//				$("#msg").prepend("<p>"+data.info.createtime+"&nbsp;&nbsp;"+data.info.username+"&nbsp;&nbsp;"+data.info.c_content+"</p>");
 				$("#c_content").val("");
-				
+				loadReplayList(data.info.session_id);
 			} else {
 				showMsg(data.retmsg);
 			}
 		}
 	});
 }
-function replayFunc(id,sId) {
+function replayFunc(sId) {
 	
 	$("#editWin").window({
 		title : "回复"
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
-	$("#id").val(id);
+	$("#session_id").val(sId);
 	$("#c_replayType").combobox("setValue", "TEXT");
 	loadReplayList(sId);
-	$('#c_content').removeAttr("disabled");
 }
 
 function loadReplayList(sId){
@@ -153,7 +151,11 @@ function loadReplayList(sId){
 						if(list[i].c_content == '0'){
 							sct='请求人工服务';
 						}
-						$("#msg").append("<p>"+list[i].createtime+"&nbsp;&nbsp;"+list[i].username+"&nbsp;&nbsp;"+sct+"</p>");
+						var cssStr="black";
+						if(list[i].c_type==0){
+							cssStr="blue";
+						}
+						$("#msg").append("<p style='color:"+cssStr+";'>"+list[i].createtime+"&nbsp;&nbsp;"+list[i].username+"&nbsp;&nbsp;"+sct+"</p>");
 					}
 				}
 				return true;
@@ -205,7 +207,7 @@ function loadList() {
 									width : 400,
 									formatter : function(value, row, index) {
 										if (row.flag == 1) {
-											return "<span style='color:red;'>人工服务</span>";
+											return  "<span style='color:blue;' onclick=\"javascript:replayFunc('"+row.session_id+"')\">人工服务</span>"
 										} else {
 											return value;
 										}
@@ -245,11 +247,11 @@ function loadList() {
 									if(list[i].c_type==0){
 										str="询问";
 									}
-									if(list[i].c_type == 0 && list[i].is_replay == 0){
+									/*if(list[i].c_type == 0 && list[i].is_replay == 0){
 										contentstr="<span style='color:blue;' onclick=\"javascript:replayFunc('"
 											+ list[i].id
 											+ "','"+list[i].session_id+"')\">"+list[i].c_content+"</span>";
-									}
+									}*/
 									tableStr.push("<tr>"
 									+"<td style='width:10%;' align='center'>" + str + "</td>" 
 									+"<td style='width:15%;' align='center'>" + list[i].username + "</td>"
