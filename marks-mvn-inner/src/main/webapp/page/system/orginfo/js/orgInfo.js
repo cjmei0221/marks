@@ -40,15 +40,7 @@ $(function() {
 	// 编辑
 	$("#edit").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			if(appInfo.selectedData.orgType==1){
-				showMsg("根节点不可编辑");
-				return;
-			}
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			appInfo.formStatus = "edit";
-			$('#ff').form('load', appInfo.selectedData);
+			editData();
 		}
 	});
 
@@ -90,6 +82,18 @@ $(function() {
 		$("#editWin").window("close");
 	});
 });
+
+function editData(){
+	if(appInfo.selectedData.orgType==1){
+		showMsg("根节点不可编辑");
+		return;
+	}
+	$("#editWin").window({
+		title : "编辑"
+	}).window("open");
+	appInfo.formStatus = "edit";
+	$('#ff').form('load', appInfo.selectedData);
+}
 /**
  * 保存菜单
  */
@@ -188,6 +192,11 @@ function loadList() {
 				onClickRow : function(rowData) {
 					appInfo.selectedId = rowData.orgid;
 					appInfo.selectedData = rowData;
+				},
+				onDblClickRow : function(rowData) {
+					appInfo.selectedId = rowData.orgid;
+					appInfo.selectedData = rowData;
+					editData();
 				},
 				onLoadSuccess : function(row, data) {
 					$("#tbList").treegrid('unselectAll');

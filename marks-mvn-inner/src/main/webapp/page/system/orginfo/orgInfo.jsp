@@ -15,7 +15,7 @@
 <body>
 
 	<div id="mainPanel">
-		<p class="nav-header-cls">架构管理>>组织管理</p>
+		<p class="nav-header-cls">组织管理</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				

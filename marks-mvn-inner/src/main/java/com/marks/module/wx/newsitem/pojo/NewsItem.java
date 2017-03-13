@@ -2,6 +2,7 @@ package com.marks.module.wx.newsitem.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class NewsItem implements Serializable{
 
@@ -121,7 +122,8 @@ public class NewsItem implements Serializable{
         this.creator = creator;
     }
 	public String getText() {
-		return text;
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		return this.getTitle()+"("+sdf.format(this.getUpdatetime())+")";
 	}
 	public void setText(String text) {
 		this.text = text;
