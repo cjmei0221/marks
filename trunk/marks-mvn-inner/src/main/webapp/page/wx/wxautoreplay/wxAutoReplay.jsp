@@ -69,7 +69,7 @@
 				<tr id="newsListTr" style="display: none;">
 					<th style="width: 120px; text-align: right;">图文&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="newsList" class="easyui-combobox"
-						data-options="editable:false,required:true,multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/newsItem/combox.do'"
+						data-options="editable:false,multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/newsItem/combox.do'"
 						name="newsList" style="width: 300px;"></td>
 				</tr>
 				<tr>
