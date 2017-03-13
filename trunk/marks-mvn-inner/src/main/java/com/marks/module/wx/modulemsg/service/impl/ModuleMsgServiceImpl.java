@@ -28,6 +28,7 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 		mmsg.setNeedFlag(1);
 		mmsg.setSendFlag(0);
 		mmsg.setSendTimes(0);
+		mmsg.setCreate_stamp(System.currentTimeMillis()/1000);
 		if (b) {
 			Result result = WxFwUtil.getInstance().pushTemplateMsg(mmsg.getAccountid(), mmsg.getTouser(),
 					mmsg.getTemplate_id(), mmsg.getUrl(), mmsg.getData(), mmsg.getNote());

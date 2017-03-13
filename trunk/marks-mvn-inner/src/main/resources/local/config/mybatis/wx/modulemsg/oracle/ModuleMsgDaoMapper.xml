@@ -24,7 +24,8 @@
 		modulemsg.SENDFLAG,
 		modulemsg.SENDTIMES,
 		modulemsg.CREATETIME,
-		modulemsg.NOTE
+		modulemsg.NOTE,
+		modulemsg.CREATE_STAMP
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -37,8 +38,8 @@
 		#{sendFlag:NUMERIC},
 		#{sendTimes:NUMERIC},
 		sysdate,
-		#{note:VARCHAR}
-
+		#{note:VARCHAR},
+		#{create_stamp:NUMERIC}
 		)
 	</insert>
 
