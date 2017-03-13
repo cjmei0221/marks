@@ -27,7 +27,8 @@
             wxbmodulemsg.PUSH_MSG,
             wxbmodulemsg.RESULTCODE,
             wxbmodulemsg.RESULTMSG,
-            wxbmodulemsg.NOTE
+            wxbmodulemsg.NOTE,
+		    wxbmodulemsg.CREATE_STAMP
 		)
 		VALUES(
             #{id:VARCHAR},
@@ -39,14 +40,15 @@
             #{needflag:NUMERIC},
             #{sendflag:NUMERIC},
             #{sendtimes:NUMERIC},
-            #{createtime:TIMESTAMP},
-            #{sendtime:TIMESTAMP},
+            sysdate,
+            sysdate,
             #{msgid:VARCHAR},
             #{push_code:VARCHAR},
             #{push_msg:VARCHAR},
             #{resultcode:VARCHAR},
             #{resultMsg:VARCHAR},
-            #{note:VARCHAR}
+            #{note:VARCHAR},
+			#{create_stamp:NUMERIC}
 			)
  	</insert>
  	
@@ -55,7 +57,7 @@
 		SET 
                 wxbmodulemsg.SENDFLAG = #{sendflag:NUMERIC},
                 wxbmodulemsg.SENDTIMES = #{sendtimes:NUMERIC},
-                wxbmodulemsg.SENDTIME = #{sendtime:TIMESTAMP},
+                wxbmodulemsg.SENDTIME = sysdate,
                 wxbmodulemsg.MSGID = #{msgid:VARCHAR},
                 wxbmodulemsg.PUSH_CODE = #{push_code:VARCHAR},
                 wxbmodulemsg.PUSH_MSG = #{push_msg:VARCHAR},
@@ -73,7 +75,7 @@
  		SELECT * FROM TB_WX_MODULE_MSG
  	</select>
  	<select id="getNeedPustMsg" resultType="com.marks.module.wxfwhao.wxmodulemsg.entity.WxbModuleMsg">
- 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=1 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; 3 and ROWNUM &lt; #{limitnum}
+ 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=1 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; #{pushlimitnum} and (#{nowtime}-t.create_stamp) &lt;= #{timelimit} and ROWNUM &lt;= #{limitnum}
  	</select>
  	<delete id="deleteBatch" parameterType="java.util.List">
  		DELETE FROM TB_WX_MODULE_MSG WHERE ID in 

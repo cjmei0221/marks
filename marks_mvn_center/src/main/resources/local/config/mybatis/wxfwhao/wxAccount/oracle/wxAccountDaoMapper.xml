@@ -29,4 +29,10 @@
 		(#{vo.accountid:VARCHAR}, #{vo.accesstoken:VARCHAR},
 		#{vo.puttime:VARCHAR}, #{vo.expires_in:VARCHAR},sysdate)
 	</insert>
+	
+	<select id="getWxConf" resultType="com.marks.module.system.core.entity.SysConf">
+		select t.ckey, t.cvalue
+  			from tb_sys_conf t
+ 			where t.ckey like 'wx_modulemsg%'
+	</select>
 </mapper>
