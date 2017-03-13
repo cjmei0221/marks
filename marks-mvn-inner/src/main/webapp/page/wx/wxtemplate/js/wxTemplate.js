@@ -124,7 +124,7 @@ function loadList() {
 		url : appInfo.listUrl,
 		toolbar : "#tb",
 		striped : true,
-		nowrap : false,
+		nowrap : true,
 		rownumbers : true,
 		animate : true,
 		collapsible : true,
