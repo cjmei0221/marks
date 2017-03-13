@@ -167,7 +167,7 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		pagination : true,
+		autoRowHeight:true,
 		idField : 'ctype',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
