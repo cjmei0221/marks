@@ -9,6 +9,7 @@ public class WeChatAccountHelper {
 	
 	private static Map<String, WxAccount> account_map=new HashMap<String, WxAccount>();
 
+	private static Map<String, String> conf_map=new HashMap<String, String>();
 	
 	public static WxAccount getWeChatAccount(String accountId) throws Exception{
 		WxAccount weChatAccount=account_map.get(accountId);
@@ -23,5 +24,14 @@ public class WeChatAccountHelper {
 			account_map.remove(weChatAccount.getAccountId());
 			account_map.put(weChatAccount.getAccountId(), weChatAccount);
 		}
+	}
+	
+	public static String getWxConf(String key){	
+		return conf_map.get(key);
+	}
+	
+	
+	public static void put(String key,String value){
+		conf_map.put(key, value);
 	}
 }

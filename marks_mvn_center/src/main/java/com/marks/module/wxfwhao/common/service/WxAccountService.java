@@ -7,4 +7,5 @@ public interface WxAccountService {
 	public void loadData();
 	public void saveOrUpdateAccessTokenVo(AccessTokenVo vo);
 	public AccessTokenVo getAccessTokenVoByAccountid(String accountid);
+	public void loadWxConf();
 }
