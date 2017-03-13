@@ -135,13 +135,11 @@ function loadList() {
 		}, {
 			title : '主键值',
 			field : 'cvalue',
-			width : 100,
-			align : "center"
+			width : 100
 		}, {
 			title : '主键描述',
 			field : 'ckeyName',
-			width : 100,
-			align : "center"
+			width : 200
 		}, {
 			title : '创建时间',
 			field : 'createtime',
