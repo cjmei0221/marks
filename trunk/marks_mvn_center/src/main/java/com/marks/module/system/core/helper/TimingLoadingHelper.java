@@ -19,5 +19,6 @@ private static final Logger log = Logger.getLogger(TimingLoadingHelper.class);
 		WxAccountService wxAccountService=(WxAccountService) DatabaseHelper.getBean(WxAccountService.class);
 		log.info("开始加载微信服务号信息");
 		wxAccountService.loadData();
+		wxAccountService.loadWxConf();
 	}
 }
