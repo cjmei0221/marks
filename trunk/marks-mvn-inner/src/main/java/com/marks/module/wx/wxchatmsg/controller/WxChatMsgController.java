@@ -24,6 +24,9 @@ import com.marks.module.system.core.helper.SysUserHelper;
 import com.marks.module.system.sysuser.pojo.SysUser;
 import com.marks.module.wx.wxchatmsg.pojo.WxChatMsg;
 import com.marks.module.wx.wxchatmsg.service.WxChatMsgService;
+import com.marks.module.wx.wxchatsession.pojo.WxChatSession;
+import com.marks.module.wx.wxchatsession.service.WxChatSessionService;
+import com.marks.module.wx.wxutil.WxFwUtil;
 
 /**
  * 询问管理: 记录粉丝询问和回复
@@ -34,7 +37,8 @@ public class WxChatMsgController extends SupportContorller {
 
 	@Autowired
 	private WxChatMsgService wxChatMsgService;
-
+	@Autowired
+	private WxChatSessionService  wxChatSessionService;
 	@Override
 	public Logger getLogger() {
 		return logger;
@@ -75,8 +79,8 @@ public class WxChatMsgController extends SupportContorller {
 			// wxChatMsg.setId(IDUtil.getTimeID());
 
 			logger.info("saveWxChatMsg > param>" + wxChatMsg.toLog());
-			WxChatMsg old = wxChatMsgService.findById(wxChatMsg.getId());
-//			WxChatSession old = wxChatSessionService.findById(wxChatMsg.getSession_id());
+			//WxChatMsg old = wxChatMsgService.findById(wxChatMsg.getId());
+			WxChatSession old = wxChatSessionService.findById(wxChatMsg.getSession_id());
 			wxChatMsg.setAccountid(old.getAccountid());
 			wxChatMsg.setC_type(1);
 			wxChatMsg.setFanId(old.getFanId());
@@ -85,12 +89,10 @@ public class WxChatMsgController extends SupportContorller {
 			wxChatMsg.setUserid(admin.getUserid());
 			wxChatMsg.setCreatetime(new Date());
 			wxChatMsg.setUsername(admin.getUsername());
-			/*result=WxFwUtil.getInstance().sendCustomTextMsg(wxChatMsg.
-			getAccountid(), wxChatMsg.getOpenid(), wxChatMsg.getC_content());*/
+			result=WxFwUtil.getInstance().sendCustomTextMsg(wxChatMsg.
+			getAccountid(), wxChatMsg.getOpenid(), wxChatMsg.getC_content());
 			 
 			if (Code.CODE_SUCCESS.equals(result.getCode())) {
-				old.setIs_replay(1);
-				wxChatMsgService.update(old);
 				wxChatMsgService.save(wxChatMsg);
 				result.getData().put("info", wxChatMsg);
 			}
