@@ -25,7 +25,9 @@
 						style="width: 260px;" placeholder="关键字" /></td>
 					<td><a id="doSearch" href="javascript:void(0)"
 						class="easyui-linkbutton menuBtnCls"
-						data-options="iconCls:'icon-search'">查询</a></td>
+						data-options="iconCls:'icon-search'">查询</a><a id="refreshTable"
+						href="javascript:void(0)" class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-reload'">刷新</a></td>
 				</tr>
 			</table>
 			<div>
@@ -45,8 +47,7 @@
 		style="width: 600px; height: 450px; padding: 10px;">
 		<div align="center" style="width: 100%;">
 			<div align="right" style="width: 100%;">
-				<a id="refreshBtn" name="refreshBtn" href="javascript:void(0)"
-					class="easyui-linkbutton" style="width: 50px;">刷新</a>&nbsp;&nbsp;
+			   <img id="refreshBtn" alt="" src="../../../css/easyui/themes/icons/reload.png">&nbsp;&nbsp;
 			</div>
 			<div id="msg"
 				style="overflow: auto; text-align: left; height: 150px;"></div>
