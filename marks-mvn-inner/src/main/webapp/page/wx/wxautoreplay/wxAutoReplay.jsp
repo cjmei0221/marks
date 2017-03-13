@@ -40,55 +40,56 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 400px; padding: 10px;">
+		style="width: 550px; height: 550px; padding: 10px;">
+		<div align="center" style="width:100%;"></div>
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="ctype" name="ctype">
 			<table class="out-win-cls">
 
 				<tr>
-					<th>名称</th>
+					<th style="width: 120px; text-align: right;">匹配词描述&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="ctypeName" name="ctypeName"
 						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
+						style="width: 300px;"></td>
 				</tr>
 				<tr>
-					<th>关键字</th>
+					<th style="width: 120px; text-align: right;">匹配词&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="ckey" name="ckey" class="easyui-validatebox"
-						data-options="required:true" style="width: 200px;"></td>
+						data-options="required:true" style="width: 300px;"></td>
 				</tr>
 				<tr>
-					<th>回复方式</th>
+					<th style="width: 120px; text-align: right;">回复方式&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><select id="replayType" class="easyui-combobox"
-						name="replayType" style="width: 200px;">
+						name="replayType" style="width: 200px;" data-options="required:true">
 							<option value="TEXT">文字</option>
 							<option value="NEWS">图文</option>
 							<option value="MODULE">指令</option>
 					</select></td>
 				</tr>
 				<tr id="newsListTr" style="display: none;">
-					<th>图文</th>
+					<th style="width: 120px; text-align: right;">图文&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="newsList" class="easyui-combobox"
-						data-options="multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/newsItem/combox.do'"
-						name="newsList" style="width: 200px;"></td>
+						data-options="editable:false,required:true,multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/newsItem/combox.do'"
+						name="newsList" style="width: 300px;"></td>
 				</tr>
 				<tr>
-					<th>回复内容</th>
-					<td><textarea rows="5" cols="30" style="width: 200px;"
+					<th style="width: 120px; text-align: right;">回复内容&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><textarea rows="5" cols="30" style="width: 300px;height:300px;"
 							id="creplay" name="creplay"></textarea></td>
 				</tr>
 
 
 				<tr id="accountidTr">
-					<th>公众号</th>
+					<th style="width: 120px; text-align: right;">公众号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="accountid" name="accountid"
 						class="easyui-combobox"
-						data-options="required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/wxAccount/combox.do'"
+						data-options="editable:false,required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/wxAccount/combox.do'"
 						style="width: 200px;"></td>
 				</tr>
 				<tr id="delFlagTr">
-					<th>是否可删除</th>
+					<th style="width: 120px; text-align: right;">是否可删除&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><select id="delFlag" class="easyui-combobox"
-						name="delFlag" style="width: 200px;">
+						name="delFlag" style="width: 200px;" data-options="editable:false,required:true">
 							<option value="1">是</option>
 							<option value="0">否</option>
 

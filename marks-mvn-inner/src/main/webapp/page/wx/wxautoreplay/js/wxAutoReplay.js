@@ -34,28 +34,15 @@ $(function() {
 		appInfo.formStatus = "new";
 		$("#ckey").removeAttr('readonly');
 		$("#delFlagTr").show();
+		$('#replayType').combobox("setValue","TEXT");
+		$("#newsListTr").hide();
+		$("#delFlag").combobox("setValues", '1');
 	});
 
 	// 编辑
 	$("#edit").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			appInfo.formStatus = "edit";
-			$('#ff').form('load', appInfo.selectedData);
-			if (appInfo.selectedData.delFlag == 0) {
-				$("#ckey").attr('readonly', 'readonly');
-				$("#delFlagTr").hide();
-			} else {
-				$("#ckey").removeAttr('readonly');
-				$("#delFlagTr").show();
-			}
-			if(appInfo.selectedData.replayType=='NEWS'){
-				$("#newsList").combobox("setValues", appInfo.selectedData.creplay.split(","));
-			}else{
-				$("#newsList").combobox("setValues", '');
-			}
+			editData();
 		}
 	});
 
@@ -95,10 +82,13 @@ $(function() {
 		onChange : function(newValue, oldValue) {
 			if (newValue == 'NEWS') {
 				$("#newsListTr").show();
+				$("#creplay").attr("readonly","readonly");
 			} else {
 				$("#newsListTr").hide();
 				$("#newsList").combobox("setValues", '');
+				$("#creplay").removeAttr("readonly");
 			}
+			$("#creplay").val("");
 		}
 	});
 	$('#newsList').combobox({
@@ -106,11 +96,30 @@ $(function() {
 			var vals = $("#newsList").combobox("getValues");
 			console.log(vals);
 			if (vals != null && vals != undefined) {
-				$("#creplay").val(vals);
+				$("#creplay").val(vals.join(',').substr(1));
 			}
 		}
 	})
 });
+function editData(){
+	$("#editWin").window({
+		title : "编辑"
+	}).window("open");
+	appInfo.formStatus = "edit";
+	$('#ff').form('load', appInfo.selectedData);
+	if (appInfo.selectedData.delFlag == 0) {
+		$("#ckey").attr('readonly', 'readonly');
+		$("#delFlagTr").hide();
+	} else {
+		$("#ckey").removeAttr('readonly');
+		$("#delFlagTr").show();
+	}
+	if(appInfo.selectedData.replayType=='NEWS'){
+		$("#newsList").combobox("setValues", appInfo.selectedData.creplay.split(","));
+	}else{
+		$("#newsList").combobox("setValues", '');
+	}
+}
 /**
  * 保存菜单
  */
@@ -236,6 +245,11 @@ function loadList() {
 		onClickRow : function(rowIndex, rowData) {
 			appInfo.selectedId = rowData.cparentType;
 			appInfo.selectedData = rowData;
+		},
+		onDblClickRow : function(rowIndex, rowData) {
+			appInfo.selectedId = rowData.cparentType;
+			appInfo.selectedData = rowData;
+			editData();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');
