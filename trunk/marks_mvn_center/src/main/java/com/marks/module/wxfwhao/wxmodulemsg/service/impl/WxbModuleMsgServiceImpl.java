@@ -1,11 +1,12 @@
 package com.marks.module.wxfwhao.wxmodulemsg.service.impl;
 
-import java.sql.Timestamp;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import com.marks.common.util.JsonResult;
 import com.marks.common.util.SysCode;
-import com.marks.module.wxfwhao.common.utils.WxfwUtil;
+import com.marks.module.system.core.data.WeChatAccountHelper;
 import com.marks.module.wxfwhao.common.wxservice.SendMsgUtils;
 import com.marks.module.wxfwhao.wxmodulemsg.dao.WxbModuleMsgDao;
 import com.marks.module.wxfwhao.wxmodulemsg.entity.WxbModuleMsg;
@@ -14,7 +15,7 @@ import com.marks.module.wxfwhao.wxmodulemsg.thread.pool.WxModuleMsgThreadPool;
 
 public class WxbModuleMsgServiceImpl implements WxbModuleMsgService{
    
-
+	private static final Logger logger = Logger.getLogger(WxbModuleMsgServiceImpl.class);
     private WxbModuleMsgDao wxbModuleMsgDao;
 
     public WxbModuleMsgDao getWxbModuleMsgDao(){
@@ -86,11 +87,9 @@ public class WxbModuleMsgServiceImpl implements WxbModuleMsgService{
          }
          msg.setSendflag(isSend);
          msg.setMsgid(msgid);
-         msg.setSendtime(new Timestamp(System.currentTimeMillis()));
          msg.setPush_code(result.getErrorCode());
          msg.setPush_msg(result.getErrorMsg());
-         msg.setSendtimes(((msg.getSendtimes()==null?0:msg.getSendtimes())+1));
-         msg.setCreatetime(new Timestamp(System.currentTimeMillis()));
+         msg.setSendtimes(1);
          
          msg.setAccountid(accountid);
          msg.setData(data);
@@ -99,6 +98,7 @@ public class WxbModuleMsgServiceImpl implements WxbModuleMsgService{
          msg.setTouser(toUser);
          msg.setUrl(url);
          msg.setNote(note);
+         msg.setCreate_stamp(System.currentTimeMillis()/1000);
          wxbModuleMsgDao.save(msg);
          result.setErrorCode(SysCode.SUCCESS);
          result.setErrorMsg("已推送，若未推送成功，将启动定时器，进行推送，共推送3次");
@@ -106,12 +106,24 @@ public class WxbModuleMsgServiceImpl implements WxbModuleMsgService{
 	}
 	@Override
 	public void pustWxbModuleMsg() {
-		int limitnum=1000;
-		String wxb_module_msg_push_times=WxfwUtil.getProperty("every_time_push_limitnum");
-		if(null != wxb_module_msg_push_times && !"".equals(wxb_module_msg_push_times)){
-			limitnum=Integer.parseInt(wxb_module_msg_push_times);
+		int limitnum=1000;//一次扫描的记录条数
+		String limitStr=WeChatAccountHelper.getWxConf("wx_modulemsg_scan_limitnum");
+		if(null !=limitStr && !"".equals(limitStr)){
+			limitnum=Integer.parseInt(limitStr);
 		}
-		List<WxbModuleMsg> list=wxbModuleMsgDao.getNeedPustMsg(limitnum);
+		int pushlimitnum=3;//一条记录推送次数
+		String pushlimitnumStr=WeChatAccountHelper.getWxConf("wx_modulemsg_push_limitnum");
+		if(null !=pushlimitnumStr && !"".equals(pushlimitnumStr)){
+			pushlimitnum=Integer.parseInt(pushlimitnumStr);
+		}
+		int timelimit=60;//时间限制 默认60分钟
+		String timelimitStr=WeChatAccountHelper.getWxConf("wx_modulemsg_time_limit");
+		if(null !=timelimitStr && !"".equals(timelimitStr)){
+			timelimit=Integer.parseInt(timelimitStr);
+		}
+		long nowtime=System.currentTimeMillis()/1000;
+//		logger.info("pustWxbModuleMsg params> limitnum:"+limitnum +" - pushlimitnum:"+pushlimitnum+" - timelimit:"+timelimit+"- nowtime:"+nowtime);
+		List<WxbModuleMsg> list=wxbModuleMsgDao.getNeedPustMsg(limitnum,pushlimitnum,timelimit*60,nowtime);
 		if(null !=list && list.size()>0){
 			for(WxbModuleMsg msg:list){
 				WxModuleMsgThreadPool.pushModuleMsg(msg);

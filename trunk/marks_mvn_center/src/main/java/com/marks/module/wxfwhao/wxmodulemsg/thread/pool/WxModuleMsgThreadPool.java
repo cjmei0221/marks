@@ -13,7 +13,6 @@ import com.marks.module.wxfwhao.common.wxservice.SendMsgUtils;
 import com.marks.module.wxfwhao.wxmodulemsg.entity.WxbModuleMsg;
 import com.marks.module.wxfwhao.wxmodulemsg.service.WxbModuleMsgService;
 
-
 /**
  * 消息推送线程池类
  * 
@@ -27,7 +26,7 @@ public class WxModuleMsgThreadPool {
 	private static ExecutorService pool;
 
 	public static void init() {
-		pool = Executors.newFixedThreadPool(150);// 开10个线程
+		pool = Executors.newFixedThreadPool(200);// 开10个线程
 	}
 
 	public static void destroy() {
@@ -45,8 +44,37 @@ public class WxModuleMsgThreadPool {
 		pool.execute(new PushModuleMsgThread(msg));
 	}
 
-	
+	public static void scanModuleMsgThread() {
+		pool.execute(new ScanModuleMsgThread());
+	}
+
 }
+
+class ScanModuleMsgThread implements Runnable {
+
+	private Logger logger = Logger.getLogger(ScanModuleMsgThread.class);
+
+	private WxbModuleMsgService wxbModuleMsgService = null;
+
+	public ScanModuleMsgThread() {
+	}
+
+	@Override
+	public void run() {
+		try {
+
+			if (wxbModuleMsgService == null) {
+				wxbModuleMsgService = (WxbModuleMsgService) DatabaseHelper
+						.getBean(WxbModuleMsgService.class);
+			}
+			wxbModuleMsgService.pustWxbModuleMsg();
+
+		} catch (Exception e) {
+			logger.error("Exception:", e);
+		}
+	}
+}
+
 /**
  * 模板信息推送线程
  * 
@@ -98,4 +126,3 @@ class PushModuleMsgThread implements Runnable {
 		}
 	}
 }
-

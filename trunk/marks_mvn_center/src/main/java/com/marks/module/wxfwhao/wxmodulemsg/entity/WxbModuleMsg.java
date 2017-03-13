@@ -73,6 +73,15 @@ public class WxbModuleMsg implements Serializable{
     private String resultMsg;
 
     private String note;
+    
+    private long create_stamp;
+    
+    public long getCreate_stamp() {
+  		return create_stamp;
+  	}
+  	public void setCreate_stamp(long create_stamp) {
+  		this.create_stamp = create_stamp;
+  	}
 
     public String getId(){
         return id;
