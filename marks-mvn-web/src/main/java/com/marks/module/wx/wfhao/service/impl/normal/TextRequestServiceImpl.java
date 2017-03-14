@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.marks.common.util.Constants;
 import com.marks.module.system.core.data.StaticData;
 import com.marks.module.system.core.listener.DatabaseHelper;
 import com.marks.module.wx.enums.WXEnums;
@@ -76,6 +77,11 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 		}
 		msg.setSessionFlag(WXEnums.SessionType.AUTO.getValue());
 		WxhreadPool.saveWxChatMsg(msg);
-		return handle(requestMessage, requestMessage.getContent());
+		WechatResponse resp=handle(requestMessage, requestMessage.getContent());
+		if(null != resp){
+			return resp;
+		}
+		return handle(requestMessage, Constants.defaultReplay);
+		
 	}
 }
