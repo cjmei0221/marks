@@ -114,11 +114,11 @@
 	</select>
 	<select id="getCountList" resultType="com.marks.module.wx.wxchatsession.pojo.WxChatCount"
 		parameterType="java.util.Map">
-		SELECT wxchatsession.c_content, count(1) content_num
-		FROM (select *
-		from TB_WX_CHAT_SESSION wxsession
-		where  1=1
-		
+		select wxsession.c_content, wxreplay.ctypename dpt, count(1) content_num
+  		from TB_WX_CHAT_SESSION wxsession
+  		left join tb_wx_auto_replay wxreplay on wxsession.c_content =
+                                          wxreplay.ckey
+		WHERE 1=1
 		<if test="accountIds !=null">
 			and wxsession.accountid in
 			<foreach collection="accountIds" item="oid" index="index"
@@ -126,22 +126,18 @@
 				#{oid}
 			</foreach>
 		</if>
-		
-		) wxchatsession
-		
-		WHERE 1=1
-		
 		<if test="keyword!=null and keyword!=''">
 			and (
-
-			wxchatsession.C_CONTENT
+			wxsession.C_CONTENT
 			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
+			or wxreplay.ctypename
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-        group by wxchatsession.c_content
-        order by wxchatsession.c_content
+         group by wxsession.c_content, wxreplay.ctypename,wxsession.accountid
+ 		 order by content_num desc
 	</select>
 
 
