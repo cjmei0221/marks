@@ -1,5 +1,7 @@
 package com.marks.module.wx.wfhao.service.impl.normal;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.marks.common.util.Constants;
@@ -35,8 +37,9 @@ public abstract class AbstractRequestService implements RequestService {
 	public WechatResponse handle(WechatRequest requestMessage, String key) throws Exception {
 		WechatResponse responseMessage =null;
 		WxAutoReplayDao wxAutoReplayDao = (WxAutoReplayDao) DatabaseHelper.getBean(WxAutoReplayDao.class);
-		WxAutoReplay reply = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(), requestMessage.getAccountId());
-		if (null != reply) {
+		List<WxAutoReplay> replyList = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(), requestMessage.getAccountId());
+		if(null != replyList && replyList.size()==1){
+			WxAutoReplay reply=replyList.get(0);
 			responseMessage = new WechatResponse(requestMessage);
 			String content = reply.getCreplay();
 			if (Constants.weixin_replay_type_news.equals(reply.getReplayType())) {
@@ -47,7 +50,18 @@ public abstract class AbstractRequestService implements RequestService {
 			} else {
 				responseMessage.setContent(content);
 			}
+			return responseMessage;
+		}else if(null != replyList && replyList.size()>1){
+			responseMessage = new WechatResponse(requestMessage);
+			StringBuffer sb=new StringBuffer();
+			sb.append("亲，您可以换种方式试试，输入以下关键词：\r\n");
+			for(WxAutoReplay vo:replyList){
+				sb.append(" ["+vo.getCkey()+"] ");
+			}
+			responseMessage.setContent(sb.toString());
+			return responseMessage;
 		}
+		
 		return responseMessage;
 	}
 

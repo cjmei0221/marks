@@ -4,7 +4,7 @@
 	<!-- 加载系统参数 -->
 	<select id="getWxAutoReplayByKey" resultType="com.marks.module.wx.wfhao.pojo.WxAutoReplay">
 		select * from
-		tb_wx_auto_replay t where t.accountid=#{accountId} and t.ckey=#{ckey}
+		tb_wx_auto_replay t where t.accountid=#{accountId} and instr(#{ckey},t.CKEY) &gt; 0 
 	</select>
 
 	<select id="getNewsItemByIds" resultType="com.marks.module.wx.wfhao.pojo.NewsItem">
