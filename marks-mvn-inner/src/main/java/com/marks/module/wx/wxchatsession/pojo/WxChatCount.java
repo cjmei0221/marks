@@ -4,6 +4,17 @@ public class WxChatCount {
 	private String c_content;
 
 	private int content_num;
+	
+	private String dpt;
+	
+
+	public String getDpt() {
+		return dpt;
+	}
+
+	public void setDpt(String dpt) {
+		this.dpt = dpt;
+	}
 
 	public String getC_content() {
 		return c_content;
