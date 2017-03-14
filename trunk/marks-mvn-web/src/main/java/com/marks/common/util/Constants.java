@@ -10,4 +10,6 @@ public class Constants {
 	
 	public static final String SubscribeReplay="SubscribeReplay";
 	
+	public static final String defaultReplay="defaultReplay";
+	
 }
