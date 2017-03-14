@@ -72,11 +72,11 @@ img.editImage=function editImage(eInput,fileUrl) {
 
 img.getImageVal=function getImageVal(eInput){
 	var showDiv = $("#"+eInput);
-	var objArr=$("#"+eInput+" > span > img");
+	var objArr=$("#"+eInput+" > span > .imageUrlInput");
 	var inputArr=[];
 	if(objArr.length >0){
 		for(var i=0;i<objArr.length;i++){
-			inputArr.push($(objArr[i]).attr("src"));
+			inputArr.push($(objArr[i]).val());
 		}
 	
 	}
@@ -86,7 +86,7 @@ img.getImageVal=function getImageVal(eInput){
 
 function showImage(imgUrl){
 	var str = '<span width="200px" style="float:left; display:inline;">'
-		+ '<input name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;" readonly="readonly"><br/>'
+		+ '<input class="imageUrlInput" name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;" readonly="readonly"><br/>'
 		+ '<img class="imageUrl" src="'+imgUrl+'" style="width: 160px; height: 100px;" /> <br/>'
 		+ '<input type="button" onclick="deleteImage(this);" value="删除"/>'
 		+ '</span>';
