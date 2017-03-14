@@ -10,7 +10,7 @@
 	
 	<select id="findByCkey" resultType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
-		wxautoreplay where wxautoreplay.CKEY=#{ckey}
+		wxautoreplay where instr(#{ckey},wxautoreplay.CKEY)>0
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
