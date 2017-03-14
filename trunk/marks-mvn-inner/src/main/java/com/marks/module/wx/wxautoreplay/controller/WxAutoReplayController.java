@@ -66,19 +66,19 @@ public class WxAutoReplayController extends SupportContorller {
 			WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
 			// wxAutoReplay.setCparentType(IDUtil.getTimeID());
 			wxAutoReplay.setCkey(wxAutoReplay.getCkey().toLowerCase());
-			WxAutoReplay ori = null;
+			List<WxAutoReplay> ori = null;
 			if (wxAutoReplay.getCkey() != null) {
 				ori = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey().toLowerCase());
 			}
 
-			if (ori == null) {
+			if (ori != null && ori.size()>0) {
+				result.setMessage("匹配词不能重复！");
+				result.setCode(Code.CODE_FAIL);
+			} else {
 				wxAutoReplay.setCreator(admin.getUserid());
 				wxAutoReplayService.save(wxAutoReplay);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
-			} else {
-				result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -107,14 +107,14 @@ public class WxAutoReplayController extends SupportContorller {
 					result.setMessage("更新成功!");
 					result.setCode(Code.CODE_SUCCESS);
 				} else {
-					ori = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey());
-					if (ori == null) {
+					List<WxAutoReplay> oriList = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey());
+					if (oriList != null && oriList.size()>0) {
+						result.setMessage("此匹配词不能重复!");
+						result.setCode("4002");
+					} else {
 						wxAutoReplayService.update(wxAutoReplay);
 						result.setMessage("更新成功!");
 						result.setCode(Code.CODE_SUCCESS);
-					} else {
-						result.setMessage("此关键字已存在!");
-						result.setCode("4002");
 					}
 				}
 			}
