@@ -68,7 +68,7 @@ public class WxAutoReplayController extends SupportContorller {
 			wxAutoReplay.setCkey(wxAutoReplay.getCkey().toLowerCase());
 			List<WxAutoReplay> ori = null;
 			if (wxAutoReplay.getCkey() != null) {
-				ori = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey().toLowerCase());
+				ori = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey().toLowerCase(),wxAutoReplay.getAccountid());
 			}
 
 			if (ori != null && ori.size()>0) {
@@ -107,7 +107,7 @@ public class WxAutoReplayController extends SupportContorller {
 					result.setMessage("更新成功!");
 					result.setCode(Code.CODE_SUCCESS);
 				} else {
-					List<WxAutoReplay> oriList = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey());
+					List<WxAutoReplay> oriList = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey(),wxAutoReplay.getAccountid());
 					if (oriList != null && oriList.size()>0) {
 						result.setMessage("此匹配词不能重复!");
 						result.setCode("4002");
