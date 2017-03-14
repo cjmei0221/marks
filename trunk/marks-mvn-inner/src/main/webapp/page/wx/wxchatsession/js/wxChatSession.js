@@ -128,11 +128,15 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '回话ID',
+			title : '询问内容',
 			field : 'c_content',
-			width : 400
+			width : 200
 		}, {
-			title : '询问数量',
+			title : '相关描述',
+			field : 'dpt',
+			width : 200
+		}, {
+			title : '次数',
 			field : 'content_num',
 			width : 100,
 			align : "center"

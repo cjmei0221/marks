@@ -37,6 +37,8 @@ $(function() {
 		$('#replayType').combobox("setValue","TEXT");
 		$("#newsListTr").hide();
 		$("#delFlag").combobox("setValues", '1');
+		$('#replayType').combobox("setValue","TEXT");
+		$('#newsList').combobox('reload');
 	});
 
 	// 编辑
@@ -106,6 +108,7 @@ function editData(){
 		title : "编辑"
 	}).window("open");
 	appInfo.formStatus = "edit";
+	$('#newsList').combobox('reload');
 	$('#ff').form('load', appInfo.selectedData);
 	if (appInfo.selectedData.delFlag == 0) {
 		$("#ckey").attr('readonly', 'readonly');
@@ -119,6 +122,7 @@ function editData(){
 	}else{
 		$("#newsList").combobox("setValues", '');
 	}
+	
 }
 /**
  * 保存菜单
