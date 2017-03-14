@@ -15,12 +15,9 @@
 <body>
 
 	<div id="mainPanel">
-		<p class="nav-header-cls">微信菜单管理>>微信菜单管理</p>
+		<p class="nav-header-cls">微信菜单管理(<span style="color:red;">一级菜单3个菜单有效，二级菜单5个有效,新建二级菜单后一级菜单访问内容自动无效,另双击可编辑</span>)</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
-				<tr>
-					<td><span style="color:red;">一级菜单3个菜单有效，二级菜单5个有效,新建二级菜单后一级菜单访问内容自动无效</span></td>
-				</tr>
 				<tr>
 					<td><wt:button /></td>
 				</tr>
