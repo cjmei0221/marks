@@ -84,7 +84,7 @@ public class WxAutoReplayServiceImpl implements WxAutoReplayService{
 		return pojoDomain;
 	}
 	@Override
-	public WxAutoReplay findByCkey(String ckey) {
+	public List<WxAutoReplay> findByCkey(String ckey) {
 		  return wxAutoReplayDao.findByCkey(ckey);
 	}
 	
