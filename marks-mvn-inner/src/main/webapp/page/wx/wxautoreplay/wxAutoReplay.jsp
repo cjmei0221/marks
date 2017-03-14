@@ -15,7 +15,7 @@
 <body>
 
 	<div id="mainPanel">
-		<p class="nav-header-cls">微信回复管理>>微信回复管理</p>
+		<p class="nav-header-cls">微信回复管理(<span style="color:red;">双击可编辑</span>)</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
