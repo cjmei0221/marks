@@ -8,7 +8,9 @@ var appInfo = {
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		s_resultCode:"",
+		s_sendFlag:""
 	},
 	formStatus : "new"
 };
@@ -220,6 +222,8 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
+		appInfo.requestParam.s_sendFlag=$("#s_sendFlag").combobox("getValue");
+		appInfo.requestParam.s_resultCode=$("#s_resultCode").combobox("getValue");
 		$.ajax({
 			url : opts.url,
 			type : "get",

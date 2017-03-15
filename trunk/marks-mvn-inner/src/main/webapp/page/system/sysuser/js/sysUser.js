@@ -37,7 +37,7 @@ $(function() {
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
 		appInfo.checkRole = [];
-
+		$("#roleid").combobox("reload");
 		$("#companyId").val('');
 		$("#inputRoleDiv").html('');
 		$("#bind_mobile").numberbox({
@@ -52,6 +52,7 @@ $(function() {
 				title : "编辑"
 			}).window("open");
 			appInfo.formStatus = "edit";
+			$("#roleid").combobox("reload");
 			$('#ff').form('load', appInfo.selectedData);
 			appInfo.checkRole = [];
 			$("#inputRoleDiv").html('');

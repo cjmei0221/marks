@@ -96,47 +96,34 @@
 		left join tb_wx_user twu on modulemsg.touser = twu.openid
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
-			and ( modulemsg.ID LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.ACCOUNTID LIKE
+			and ( 
+			modulemsg.ACCOUNTID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or modulemsg.TEMPLATE_ID
 			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.TOUSER
-			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.URL LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			
 			or modulemsg.DATA LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.NEEDFLAG LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.SENDFLAG LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.SENDTIMES LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.CREATETIME
+			
+			or to_char(modulemsg.CREATETIME,'yyyy-MM-dd')
 			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.SENDTIME
-			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			
 			or modulemsg.MSGID
 			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.PUSH_CODE
-			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.PUSH_MSG
-			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or
-			modulemsg.RESULTCODE LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or modulemsg.RESULTMSG LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		
 			or modulemsg.NOTE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or twu.nickname LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-
+		<if test="s_resultCode!=null and s_resultCode!=''">
+			and modulemsg.RESULTCODE=#{s_resultCode}
+		</if>
+		<if test="s_sendFlag!=null and s_sendFlag!=''">
+			and modulemsg.SENDFLAG=#{s_sendFlag}
+		</if>
 		order by modulemsg.CREATETIME desc
 
 	</select>
