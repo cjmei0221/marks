@@ -16,7 +16,16 @@ public class AutoCodeAttr implements Serializable{
 	private int sort;
 	private String note;
 	
+	private String isQuery="YES";//1:是查询字段 0：否 不是查询字段
 	
+	
+	
+	public String getIsQuery() {
+		return isQuery;
+	}
+	public void setIsQuery(String isQuery) {
+		this.isQuery = isQuery;
+	}
 	public String getNote() {
 		return note;
 	}

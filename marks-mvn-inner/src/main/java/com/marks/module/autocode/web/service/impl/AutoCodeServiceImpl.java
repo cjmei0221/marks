@@ -75,6 +75,7 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 						if(infos.length>4){
 							info.setNote(infos[4]);
 						}
+						info.setIsQuery(infos[5]);
 						list.add(info);
 						
 					}

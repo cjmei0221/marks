@@ -47,6 +47,8 @@ public class AutoAttr implements Serializable {
     
     private String note;
     
+    private String isQuery;
+    
     public void initAttrDefault(){
     	this.setAttrDesc("");
     	this.setAttrName("");
@@ -55,7 +57,21 @@ public class AutoAttr implements Serializable {
     	this.setPK(false);
     	this.setSeq("");
     }
+    
+    
 	
+	public String getIsQuery() {
+		return isQuery;
+	}
+
+
+
+	public void setIsQuery(String isQuery) {
+		this.isQuery = isQuery;
+	}
+
+
+
 	public String getNote() {
 		return note;
 	}
