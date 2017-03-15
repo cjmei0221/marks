@@ -323,6 +323,7 @@ public class AutoCodeController extends SupportContorller{
 				attr.setPK(vo.getIsPK()==1?true:false);
 				attr.setSeq("");
 				attr.setNote(vo.getNote());
+				attr.setIsQuery(vo.getIsQuery());
 				autoAttrs.add(attr);
 			}
 		}

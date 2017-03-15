@@ -311,17 +311,18 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		sBuffer.append(producedSpace());
 		sBuffer.append(producedSpace());
 		sBuffer.append(producedTypeIfStatement());
-		sBuffer.append(" and (");
+		sBuffer.append(" and ( 2=1 ");
 		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
 		for (int i = 0; i < autoAttrs.size(); i++) {
+			String isQuery=autoAttrs.get(i).getIsQuery();
 			String attrName = autoAttrs.get(i).getAttrName();
 			String type = autoAttrs.get(i).getAttrType().getMybatisType();
-			if (i > 0) {
+			if ("YES".equals(isQuery)) {
 				sBuffer.append(producedSpace());
 				sBuffer.append(producedSpace());
 				sBuffer.append(BANK_VALUE_4).append(DEFAULT_OR);
+				sBuffer.append(producedMiddleStatement(attrName, type, autoBean));
 			}
-			sBuffer.append(producedMiddleStatement(attrName, type, autoBean));
 		}
 		sBuffer.append(" )");
 		sBuffer.append(producedSpace());

@@ -56,6 +56,20 @@ public class HtmlPageProduced extends AbstractHtmlProduced {
 
 		return sBuffer.toString();
 	}
+	
+	/**
+	 * 描述字段
+	 */
+	public String producedDescAttrs(AutoBean autoBean) {
+		StringBuffer sBuffer = new StringBuffer();
+		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
+		for (int i = 0; i < autoAttrs.size(); i++) {
+			if("YES".equals(autoAttrs.get(i).getIsQuery())){
+				sBuffer.append("/"+autoAttrs.get(i).getAttrDesc());
+			}
+		}
+		return sBuffer.toString().substring(1);
+	}
 
 	/**
 	 * 获取js路径

@@ -26,6 +26,13 @@ var appInfo = {
 		"id" : "Date",
 		"text" : "Date"
 	} ],
+	attrIsQuerydata : [ {
+		"id" : "YES",
+		"text" : "YES"
+	}, {
+		"id" : "NO",
+		"text" : "NO"
+	} ],
 	attrReqParam : {
 		tableName : ""
 	}
@@ -164,7 +171,7 @@ function formSubmit() {
 		if (row[i].attrName != "") {
 			var items = row[i].attrName + "#" + row[i].attrType + "#"
 					+ row[i].attrSize + "#" + row[i].attrDesc + "#"
-					+ row[i].note;
+					+ row[i].note+"#"+ row[i].isQuery;
 			attrList.push(items);
 		}
 
@@ -419,6 +426,19 @@ function initAttrList() {
 			title : '大小',
 			width : 50,
 			editor : "validatebox"
+		}, {
+			field : 'isQuery',
+			title : '查询字段',
+			width : 150,
+
+			editor : {
+				type : 'combobox',
+				options : {
+					data : appInfo.attrIsQuerydata,
+					valueField : "id",
+					textField : "text"
+				}
+			}
 		}, {
 			field : 'note',
 			title : '备注',

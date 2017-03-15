@@ -119,7 +119,8 @@
 		ATTRDESC,
 		TABLENAME,
 		SORT,
-		NOTE
+		NOTE,
+		ISQUERY
 		)
 		values
 		(
@@ -131,7 +132,8 @@
 		#{attrDesc:VARCHAR},
 		#{tableName:VARCHAR},
 		#{sort:INTEGER},
-		#{note:VARCHAR}
+		#{note:VARCHAR},
+		#{isQuery:INTEGER}
 		)
 	</insert>
 </mapper>
