@@ -56,9 +56,16 @@ public class Reminder implements Serializable{
     */
     private int calendar_type;
 
+    private String noli_date;//农历日期
+    
 
-
-    public String getId(){
+    public String getNoli_date() {
+		return noli_date;
+	}
+	public void setNoli_date(String noli_date) {
+		this.noli_date = noli_date;
+	}
+	public String getId(){
         return id;
     }
     public void setId(String id){
