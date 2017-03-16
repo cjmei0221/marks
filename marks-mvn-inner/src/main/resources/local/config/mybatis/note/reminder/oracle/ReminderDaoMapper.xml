@@ -22,7 +22,8 @@
             reminder.CREATETIME,
             reminder.UPDATETIME,
             reminder.CREATOR,
-            reminder.CALENDAR_TYPE
+            reminder.CALENDAR_TYPE,
+            reminder.noli_date
 		)
 		VALUES(
             #{id:VARCHAR},
@@ -36,8 +37,8 @@
             sysdate,
             sysdate,
             #{creator:VARCHAR},
-            #{calendar_type:NUMERIC}
-			
+            #{calendar_type:NUMERIC},
+			#{noli_date:VARCHAR}
 			)
  	</insert>
  	
@@ -53,7 +54,8 @@
                 reminder.IS_BEFORE = #{is_before:NUMERIC},
                 reminder.UPDATETIME = sysdate,
                 reminder.CREATOR = #{creator:VARCHAR},
-                reminder.CALENDAR_TYPE = #{calendar_type:NUMERIC}
+                reminder.CALENDAR_TYPE = #{calendar_type:NUMERIC},
+                reminder.noli_date=#{noli_date:VARCHAR}
 		WHERE
 			reminder.ID = #{id}
  	</update>

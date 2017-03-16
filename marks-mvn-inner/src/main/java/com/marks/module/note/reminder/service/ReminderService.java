@@ -11,8 +11,8 @@ import com.marks.common.domain.PojoDomain;
 public interface ReminderService{
 
 	public Reminder findById(String id);
-	public void save(Reminder reminder);
-	public void update(Reminder reminder);
+	public void save(Reminder reminder)throws Exception;
+	public void update(Reminder reminder)throws Exception;
 	public void delete(String id);
 	public List<Reminder> findAll();
 	public void deleteBatch(List<String> ids);
