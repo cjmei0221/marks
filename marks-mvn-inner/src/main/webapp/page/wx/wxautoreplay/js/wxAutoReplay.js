@@ -184,14 +184,18 @@ function loadList() {
 			align : "center",
 			hidden : true
 		}, {
-			title : '匹配词描述',
+			title : '分类',
 			field : 'ctypeName',
-			width : 200,
-			align : "center"
+			width : 200
 		}, {
 			title : '匹配词',
 			field : 'ckey',
 			width : 150,
+			align : "center"
+		}, {
+			title : '匹配词描述',
+			field : 'ckeyName',
+			width : 200,
 			align : "center"
 		}, {
 			title : '回复方式',

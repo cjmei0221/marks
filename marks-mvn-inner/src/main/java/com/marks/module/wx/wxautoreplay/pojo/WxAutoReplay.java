@@ -10,6 +10,8 @@ public class WxAutoReplay implements Serializable{
     *关键字
     */
     private String ckey;
+    /*描述*/
+    private String ckeyName;
     /**
     *回复内容
     */
@@ -114,4 +116,11 @@ public class WxAutoReplay implements Serializable{
 	public void setDelFlag(int delFlag) {
 		this.delFlag = delFlag;
 	}
+	public String getCkeyName() {
+		return ckeyName;
+	}
+	public void setCkeyName(String ckeyName) {
+		this.ckeyName = ckeyName;
+	}
+	
 }
