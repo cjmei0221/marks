@@ -7,15 +7,18 @@
 		SELECT * FROM TB_WX_AUTO_REPLAY
 		wxautoreplay where wxautoreplay.CTYPE = #{ctype:VARCHAR}
 	</select>
-	
+
 	<select id="findByCkey" resultType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
-		SELECT * FROM TB_WX_AUTO_REPLAY
-		wxautoreplay where wxautoreplay.ACCOUNTID=#{accountid} and instr(#{ckey},wxautoreplay.CKEY) &gt; 0 
+		SELECT * FROM
+		TB_WX_AUTO_REPLAY
+		wxautoreplay where
+		wxautoreplay.ACCOUNTID=#{accountid} and
+		instr(#{ckey},wxautoreplay.CKEY) &gt; 0
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
-		<selectKey keyProperty="ctype" resultType="String"
-			order="BEFORE">select sys_guid() from dual</selectKey>
+		<selectKey keyProperty="ctype" resultType="String" order="BEFORE">select
+			sys_guid() from dual</selectKey>
 
 		INSERT INTO TB_WX_AUTO_REPLAY wxautoreplay (
 		wxautoreplay.CKEY,
@@ -27,7 +30,8 @@
 		wxautoreplay.CREATETIME,
 		wxautoreplay.UPDATETIME,
 		wxautoreplay.CREATOR,
-		wxautoreplay.DELFLAG
+		wxautoreplay.DELFLAG,
+		wxautoreplay.CKEYNAME
 		)
 		VALUES(
 		#{ckey:VARCHAR},
@@ -39,25 +43,31 @@
 		sysdate,
 		sysdate,
 		#{creator:VARCHAR},
-		#{delFlag:NUMERIC}
+		#{delFlag:NUMERIC},
+		#{ckeyName:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
-		UPDATE TB_WX_AUTO_REPLAY wxautoreplay
+		UPDATE TB_WX_AUTO_REPLAY
+		wxautoreplay
 		SET
 		wxautoreplay.CKEY = #{ckey:VARCHAR},
 		wxautoreplay.CREPLAY = #{creplay:VARCHAR},
-		wxautoreplay.CTYPENAME = #{ctypeName:VARCHAR},
+		wxautoreplay.CTYPENAME =
+		#{ctypeName:VARCHAR},
 		wxautoreplay.REPLAYTYPE = #{replayType:VARCHAR},
 		wxautoreplay.UPDATETIME = sysdate,
-		wxautoreplay.DELFLAG=#{delFlag:NUMERIC}
+		wxautoreplay.DELFLAG=#{delFlag:NUMERIC},
+		wxautoreplay.CKEYNAME=#{ckeyName:VARCHAR}
 		WHERE
-		wxautoreplay.CTYPE = #{ctype:VARCHAR}
+		wxautoreplay.CTYPE =
+		#{ctype:VARCHAR}
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_WX_AUTO_REPLAY wxautoreplay WHERE
+		DELETE FROM TB_WX_AUTO_REPLAY
+		wxautoreplay WHERE
 		wxautoreplay.CTYPE = #{ctype:VARCHAR}
 	</delete>
 
@@ -80,43 +90,30 @@
 		WHERE 1=1
 		<if test="accountIds !=null">
 			and wxautoreplay.accountid in
-			<foreach collection="accountIds" item="oid" index="index" open="("
-				separator="," close=")">
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
 				#{oid}
 			</foreach>
 		</if>
-		and ( wxautoreplay.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
-			or wxautoreplay.CREPLAY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or wxautoreplay.CTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+			and ( wxautoreplay.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxautoreplay.CREPLAY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
 			or wxautoreplay.CTYPENAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or wxautoreplay.ACCOUNTID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or wxautoreplay.REPLAYTYPE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or wxautoreplay.CREATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or wxautoreplay.UPDATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
-			or wxautoreplay.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		)
 
+			or wxautoreplay.CKEYNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
 
 	</select>
 
