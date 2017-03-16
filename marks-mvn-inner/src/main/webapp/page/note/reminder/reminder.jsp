@@ -59,7 +59,7 @@
 					</tr>
 
 					<tr>
-						<th style="width: 120px; text-align: right;">日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 120px; text-align: right;">发生日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="remind_date" name="remind_date"
 							class="easyui-datebox" data-options="required:true"
 							style="width: 200px;" maxlength="50"></td>
