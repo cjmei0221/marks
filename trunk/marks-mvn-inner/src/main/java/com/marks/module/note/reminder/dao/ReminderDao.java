@@ -4,8 +4,9 @@ package com.marks.module.note.reminder.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.apache.ibatis.annotations.Param;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.note.reminder.pojo.Reminder;
 
 public interface ReminderDao {
@@ -23,4 +24,6 @@ public interface ReminderDao {
 	void deleteBatch(List<String> list);
 
 	List<Reminder> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<Reminder> findNeedReminderList(@Param("noliMMDD")String noliMMDD,@Param("yangliMMDD")String yangliMMDD);
 }

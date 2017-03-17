@@ -84,6 +84,7 @@ public class ReminderController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
+	 			reminder.setCreator(admin.getUserid());
 	 			reminderService.save(reminder);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
