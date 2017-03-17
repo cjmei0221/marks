@@ -31,6 +31,7 @@ $(function() {
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
+		$('#remind_time').timespinner('setValue', '08:30');
 	});
 
 	// 编辑
