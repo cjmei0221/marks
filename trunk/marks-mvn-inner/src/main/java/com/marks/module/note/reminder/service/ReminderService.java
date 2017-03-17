@@ -17,4 +17,5 @@ public interface ReminderService{
 	public List<Reminder> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<Reminder> list(int page_number, int page_size,Map<String,Object> param);
+	public void pushReminderWxMsg(Reminder reminder)throws Exception;
 }

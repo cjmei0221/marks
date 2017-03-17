@@ -55,15 +55,48 @@ public class Reminder implements Serializable{
     *日历类型
     */
     private int calendar_type;
-
-    private String noli_date;//农历日期
+    
+    private String openid;
+    
+    private String nickname;
+    
+    private String accountid;
+    
+    private int holiday_type;
+    
+    private int needFlag=1;
+    
     
 
-    public String getNoli_date() {
-		return noli_date;
+	public int getNeedFlag() {
+		return needFlag;
 	}
-	public void setNoli_date(String noli_date) {
-		this.noli_date = noli_date;
+	public void setNeedFlag(int needFlag) {
+		this.needFlag = needFlag;
+	}
+	public int getHoliday_type() {
+		return holiday_type;
+	}
+	public void setHoliday_type(int holiday_type) {
+		this.holiday_type = holiday_type;
+	}
+	public String getAccountid() {
+		return accountid;
+	}
+	public void setAccountid(String accountid) {
+		this.accountid = accountid;
+	}
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getId(){
         return id;
