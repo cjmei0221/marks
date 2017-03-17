@@ -176,14 +176,20 @@ public class Lunar {
     public String toString() {  
         return year + "-" + month + "-" + day;  
     }  
+    public String toMMDD() {  
+    	if(month<10){
+    		 return  "0"+month + "-" + day;  
+    	}
+        return  month + "-" + day;  
+    }  
     public String toYString() {    
         return year + "年" + (leap ? "闰" : "") + chineseNumber[month - 1] + "月" + getChinaDayString(day);    
     }    
     public static void main(String[] args) throws ParseException {  
         Calendar today = Calendar.getInstance();  
-        today.setTime(chineseDateFormat.parse("2017-7-25"));  
+//        today.setTime(chineseDateFormat.parse("2017-7-25"));  
         Lunar lunar = new Lunar(today);  
   
-        System.out.println("北京时间：" + chineseDateFormat.format(today.getTime()) + "　农历" + lunar);  
+        System.out.println("北京时间：" + chineseDateFormat.format(today.getTime()) + "　农历" + lunar.toMMDD());  
     }  
 } 
