@@ -46,7 +46,7 @@ public class PojoProduced extends AbstractCodeProduced {
 			String attrName = autoAttr.getAttrName();
 			AttrType type = autoAttr.getAttrType();
 			String attrDesc = autoAttr.getAttrDesc();
-			sBuffer.append(producedGetAttrDesc(attrDesc));
+			sBuffer.append(producedGetAttrDesc(attrDesc,autoAttr.getNote()));
 			sBuffer.append(BANK_VALUE_4).append(DEFAULT_PRIVATE).append(BANK_VALUE_1).append(type.getJavaType())
 			.append(BANK_VALUE_1).append(attrName).append(SEMI_VALUE);
 			sBuffer.append(ENTER_VALUE);
@@ -74,10 +74,11 @@ public class PojoProduced extends AbstractCodeProduced {
 	}
 	
 	
-	public String producedGetAttrDesc(String attrDesc){
+	public String producedGetAttrDesc(String attrDesc,String note){
 	    StringBuffer sBuffer = new StringBuffer();
 	    sBuffer.append(BANK_VALUE_4).append(DESC_1).append(ENTER_VALUE);
 	    sBuffer.append(BANK_VALUE_4).append(DESC_2).append(attrDesc).append(ENTER_VALUE);
+	    sBuffer.append(BANK_VALUE_4).append(DESC_2).append(note==null?"":note).append(ENTER_VALUE);
 	    sBuffer.append(BANK_VALUE_4).append(DESC_3).append(ENTER_VALUE);
 	    return sBuffer.toString();
 	}
