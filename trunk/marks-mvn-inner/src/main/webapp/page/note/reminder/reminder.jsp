@@ -57,26 +57,24 @@
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px;" maxlength="250"></td>
 					</tr>
-
+					<tr>
+						<th style="width: 120px; text-align: right;">是否为农历&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input type="radio" name="calendar_type" value="0"
+							checked="checked" /> 否<input type="radio" name="calendar_type"
+							value="1" /> 是</td>
+					</tr>
 					<tr>
 						<th style="width: 120px; text-align: right;">发生日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="remind_date" name="remind_date"
 							class="easyui-datebox" data-options="required:true"
 							style="width: 200px;" maxlength="50"></td>
 					</tr>
-					<tr>
+					<tr style="display:none;">
 						<th style="width: 120px; text-align: right;">提醒时间&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="remind_time" name="remind_time"
 							class="easyui-timespinner"
 							data-options="min:'08:30',showSeconds:true,required:true"
 							style="width: 200px;" maxlength="20"></td>
-					</tr>
-
-					<tr>
-						<th style="width: 120px; text-align: right;">是否转为农历&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input type="radio" name="calendar_type" value="0"
-							checked="checked" /> 否<input type="radio" name="calendar_type"
-							value="1" /> 是</td>
 					</tr>
 					<tr>
 						<th style="width: 120px; text-align: right;">是否重复&nbsp;&nbsp;:&nbsp;&nbsp;</th>
