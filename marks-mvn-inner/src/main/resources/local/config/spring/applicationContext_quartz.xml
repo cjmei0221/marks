@@ -7,6 +7,7 @@
 			<list>
 				<ref bean="loadDataTrigger" />
 				<ref bean="dairyTrigger" />
+				<ref bean="reminderTrigger" />
 			</list>
 		</property>
 	</bean>
@@ -14,7 +15,7 @@
 	<bean id="dairyDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.system.core.helper.DairyHelper</value>
+			<value>com.marks.module.note.diary.job.DairyHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -22,6 +23,21 @@
 	<bean id="dairyTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="dairyDetail" />
+		<!-- 每22分钟触发 -->
+		<property name="cronExpression" value="0 0 22 * * ?" />
+	</bean>
+	
+	<bean id="reminderDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass">
+			<value>com.marks.module.note.reminder.job.ReminderHelper</value>
+		</property>
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="true" />
+	</bean>
+	<bean id="reminderTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="reminderDetail" />
 		<!-- 每22分钟触发 -->
 		<property name="cronExpression" value="0 0 22 * * ?" />
 	</bean>
