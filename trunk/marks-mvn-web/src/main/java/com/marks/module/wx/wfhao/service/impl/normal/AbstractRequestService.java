@@ -48,7 +48,7 @@ public abstract class AbstractRequestService implements RequestService {
 			} else if (Constants.weixin_replay_type_module.equals(reply.getReplayType())) {
 				responseMessage = moduleProcess(requestMessage, content);
 			} else {
-				responseMessage.setContent(content);
+				responseMessage.setContent(toFormat(content));
 			}
 			return responseMessage;
 		}else if(null != replyList && replyList.size()>1){
@@ -56,13 +56,16 @@ public abstract class AbstractRequestService implements RequestService {
 			StringBuffer sb=new StringBuffer();
 			sb.append("亲，您可以换种方式试试，输入以下关键词：\r\n");
 			for(WxAutoReplay vo:replyList){
-				sb.append(" ["+vo.getCkey()+"] ");
+				sb.append(" ["+vo.getCkey()+"] "+vo.getCkeyName()+"\r");
 			}
 			responseMessage.setContent(sb.toString());
 			return responseMessage;
 		}
 		
 		return responseMessage;
+	}
+	private String toFormat(String content){
+		return content.replaceAll("\r\n", "<br/>");
 	}
 
 	/**
