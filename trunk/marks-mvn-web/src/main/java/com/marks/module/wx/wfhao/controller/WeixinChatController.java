@@ -1,10 +1,7 @@
 package com.marks.module.wx.wfhao.controller;
 
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.marks.module.system.core.data.StaticData;
 import com.marks.module.wx.mp.DataDicUtil;
 import com.marks.module.wx.util.StreamUtils;
+import com.marks.module.wx.util.encrypt.CheckSign;
+import com.marks.module.wx.util.encrypt.MsgEncriptUtil;
 import com.marks.module.wx.wfhao.message.MessageConverter;
 import com.marks.module.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.wx.wfhao.message.response.WechatResponse;
@@ -77,7 +76,7 @@ public class WeixinChatController {
 
 			if (echostr != null) {
 				try {
-					if (this.checkSignature(request, token) && DataDicUtil.doField(echostr)) {
+					if (CheckSign.checkSignature(request, token) && DataDicUtil.doField(echostr)) {
 						response.getWriter().print(echostr + "");
 					}
 				} catch (NoSuchAlgorithmException e) {
@@ -96,6 +95,7 @@ public class WeixinChatController {
 	@RequestMapping(value = "/Wechat", method = RequestMethod.POST)
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("----------------------------doPost:");
+
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/xml");
 		String accountId = request.getParameter("accountid");
@@ -112,11 +112,12 @@ public class WeixinChatController {
 			logger.info("----------check wxb_wechat_account table has data accountid=" + accountId);
 
 		}
+		// 安全模式 // 消息体签名验证
+		if (1 == account.getIsSafe() && !CheckSign.checkSha(request, account.getToken())) {
+			return;
+		}
 
-		// if(!checkSha(request,account.getToken())){
-		// return;
-		// }
-		//解析输入流
+		// 解析输入流
 		String xml = "";
 		try {
 			xml = StreamUtils.streamToString(request.getInputStream());
@@ -126,9 +127,17 @@ public class WeixinChatController {
 		if (xml == null || "".equals(xml)) {
 			return;
 		}
+		// 安全模式 消息体解密
+		if (1 == account.getIsSafe()) {
+			try {
+				MsgEncriptUtil.descriptXML(request, xml, account);
+			} catch (Exception e) {
+				logger.error("descriptXML failed!", e);
+			}
+		}
 		// 请求封装
 		WechatRequest requestMessage = MessageConverter.convertRequest(accountId, xml);
-		
+
 		WxUtil.getInstance().setCurrentOpenid(request, requestMessage.getFromUserName());
 		WxUtil.getInstance().setCurrentAccountid(request, accountId);
 
@@ -138,14 +147,24 @@ public class WeixinChatController {
 		} catch (Exception e) {
 			logger.info("Exception:", e);
 		}
+		
 
 		String responseXml = MessageConverter.convertResponse(wechatResponse);
-		
+
 		// 最终判断
 		if (responseXml == null || "".equals(responseXml) || "null".equals(responseXml)) {
 			responseXml = "success";
+		}else{
+			// 安全模式 消息体加密
+			if (1 == account.getIsSafe() && responseXml.length()>10) {
+				try {
+					MsgEncriptUtil.encryptXML(request, responseXml, account);
+				} catch (Exception e) {
+					logger.error("encryptXML failed!", e);
+				}
+			}
 		}
-		
+
 		logger.info("-------------raw result data:" + responseXml);
 		try {
 			response.getWriter().print(responseXml);
@@ -154,84 +173,4 @@ public class WeixinChatController {
 			logger.info("返回微信报文失败:", e);
 		}
 	}
-
-	/**
-	 * 校验Sha
-	 * 
-	 * @param request
-	 * @param token
-	 * @return
-	 */
-	public boolean checkSha(HttpServletRequest request, String token) {
-		try {
-			return this.checkSignature(request, token);
-		} catch (NoSuchAlgorithmException e) {
-			logger.info("NoSuchAlgorithmException:", e);
-			return false;
-		}
-	}
-
-	/**
-	 * 验证签名
-	 * 
-	 * @param request
-	 * @param token
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 */
-	private boolean checkSignature(HttpServletRequest request, String token) throws NoSuchAlgorithmException {
-		logger.info("--------------------checkSignature,token:" + token);
-		String signature = request.getParameter("signature");
-		String timestamp = request.getParameter("timestamp");
-		String nonce = request.getParameter("nonce");
-
-		logger.info("--------------signature=" + signature + ",timestamp=" + timestamp + ",nonce=" + nonce);
-
-		long timefromdb = 999 * 1000;
-		long systimes = (new Date()).getTime();
-		long revtimes = Long.parseLong(timestamp) * 1000;
-		long starttimes = systimes - timefromdb;
-		long endtimes = systimes + timefromdb;
-
-		String[] tempArr = new String[] { token, timestamp, nonce };
-		Arrays.sort(tempArr);
-		String tempStr = tempArr[0] + tempArr[1] + tempArr[2];
-		MessageDigest md = MessageDigest.getInstance("SHA-1");
-		md.update(tempStr.getBytes());
-		tempStr = this.byteArrayToHex(md.digest());
-		logger.info("----------sha1 String:" + tempStr);
-
-		if (tempStr.equalsIgnoreCase(signature)) {
-			logger.info("--------------checkSignature:true");
-			return true;
-		} else {
-			logger.info("--------------checkSignature:false");
-			return false;
-		}
-	}
-
-	/**
-	 * 用于将字节数组换成成16进制的字符串
-	 * 
-	 * @param byteArray
-	 * @return
-	 */
-	public String byteArrayToHex(byte[] byteArray) {
-		// 首先初始化一个字符数组，用来存放每个16进制字符
-		char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-
-		// new一个字符数组，这个就是用来组成结果字符串的（解释一下：一个byte是八位二进制，也就是2位十六进制字符（2的8次方等于16的2次方））
-		char[] resultCharArray = new char[byteArray.length * 2];
-
-		// 遍历字节数组，通过位运算（位运算效率高），转换成字符放到字符数组中去
-		int index = 0;
-		for (byte b : byteArray) {
-			resultCharArray[index++] = hexDigits[b >>> 4 & 0xf];
-			resultCharArray[index++] = hexDigits[b & 0xf];
-		}
-
-		// 字符数组组合成字符串返回
-		return new String(resultCharArray);
-	}
-
 }
