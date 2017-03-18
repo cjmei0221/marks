@@ -4,8 +4,9 @@ package com.marks.module.wx.modulemsg.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.apache.ibatis.annotations.Param;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.wx.modulemsg.pojo.ModuleMsg;
 
 public interface ModuleMsgDao {
@@ -23,4 +24,6 @@ public interface ModuleMsgDao {
 	void deleteBatch(List<String> list);
 
 	List<ModuleMsg> list(PageBounds pageBounds, Map<String,Object> param);
+
+	void deleteData(@Param("clearDate") String clearDate);
 }

@@ -1,5 +1,7 @@
 package com.marks.module.wx.modulemsg.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.module.system.core.data.StaticData;
 import com.marks.module.wx.modulemsg.dao.ModuleMsgDao;
 import com.marks.module.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.wx.modulemsg.service.ModuleMsgService;
@@ -100,4 +103,16 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 		return pojoDomain;
 	}
 
+	@Override
+	public void clearData() {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		String clear_modulemsg_data_str=StaticData.getSysConf("clear_modulemsg_data");
+		int clearNum=30;
+		if(null !=clear_modulemsg_data_str && !"".equals(clear_modulemsg_data_str)){
+			clearNum=Integer.parseInt(clear_modulemsg_data_str);
+		}
+		Calendar today = Calendar.getInstance();
+		today.add(Calendar.DAY_OF_MONTH, -clearNum);
+		moduleMsgDao.deleteData(sdf.format(today.getTime()));
+	}
 }

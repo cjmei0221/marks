@@ -74,7 +74,8 @@
 			and syslog.source=#{source}
 		</if>
 		order by syslog.CREATETIME desc
-
-
 	</select>
+	<delete id="deleteData" flushCache="true">
+		delete from tb_sys_log where to_char(createtime,'yyyy-MM-dd') &lt; #{clearDate}
+	</delete>
 </mapper>

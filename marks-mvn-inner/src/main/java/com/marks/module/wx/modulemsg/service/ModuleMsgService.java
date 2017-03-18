@@ -23,4 +23,6 @@ public interface ModuleMsgService {
 	public PojoDomain<ModuleMsg> list(int page_number, int page_size, Map<String, Object> param);
 	
 	public void pustModuleMsg(ModuleMsg mmsg, boolean b);
+
+	public void clearData();
 }
