@@ -15,4 +15,6 @@ public interface SysLogDao {
 	void saveSysLog(@Param("log")SysLog log);
 
 	List<SysLog> list(PageBounds pageBounds, Map<String,Object> param);
+
+	void deleteData(@Param("clearDate") String clearDate);
 }

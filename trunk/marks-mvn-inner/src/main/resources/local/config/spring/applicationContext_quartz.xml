@@ -8,10 +8,26 @@
 				<ref bean="loadDataTrigger" />
 				<ref bean="dairyTrigger" />
 				<ref bean="reminderTrigger" />
+				<ref bean="clearTrigger" />
 			</list>
 		</property>
 	</bean>
-	
+	<!-- 清理数据 -->
+	<bean id="clearDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass">
+			<value>com.marks.module.system.core.helper.ClearHelper</value>
+		</property>
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="true" />
+	</bean>
+	<bean id="clearTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="clearDetail" />
+		<!-- 每22分钟触发 -->
+		<property name="cronExpression" value="0 0 1 * * ?" />
+	</bean>
+	<!-- 日记提醒 -->
 	<bean id="dairyDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
@@ -27,6 +43,7 @@
 		<property name="cronExpression" value="0 0 22 * * ?" />
 	</bean>
 	
+	<!-- 事务提醒 -->
 	<bean id="reminderDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
