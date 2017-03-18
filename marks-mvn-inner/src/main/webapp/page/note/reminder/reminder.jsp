@@ -67,18 +67,18 @@
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px;" maxlength="250"></td>
 					</tr>
-					<tr id="calendar_type_tr">
-						<th style="width: 120px; text-align: right;">是否为农历&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input type="radio" name="calendar_type" value="0"
-							checked="checked" /> 否<input type="radio" name="calendar_type"
-							value="1" /> 是</td>
-					</tr>
 					<tr>
 						<th style="width: 120px; text-align: right;">日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="remind_date" name="remind_date"
 							class="easyui-datebox" data-options="required:true"
 							style="width: 200px;" maxlength="50"></td>
 					</tr>
+					<tr id="calendar_type_tr">
+						<th style="width: 120px; text-align: right;">是否为农历&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input type="checkbox" name="calendar_type" value="1" />
+							是</td>
+					</tr>
+					
 					<tr style="display: none;">
 						<th style="width: 120px; text-align: right;">提醒时间&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="remind_time" name="remind_time"
@@ -88,21 +88,16 @@
 					</tr>
 					<tr id="is_repeat_tr">
 						<th style="width: 120px; text-align: right;">是否重复&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input type="radio" name="is_repeat" value="0"
-							checked="checked" />否 <input type="radio" name="is_repeat"
-							value="1" /> 是</td>
+						<td><input type="checkbox" name="is_repeat" value="1" /> 是</td>
 					</tr>
 					<tr id="is_before_tr">
 						<th style="width: 120px; text-align: right;">是否提前提醒&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input type="radio" name="is_before" value="0"
-							checked="checked" />否 <input type="radio" name="is_before"
-							value="1" /> 是</td>
+						<td><input type="checkbox" name="is_before" value="1" /> 是</td>
 					</tr>
 					<tr id="before_days_tr">
 						<th style="width: 120px; text-align: right;">提前天数&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="before_days" name="before_days"
-							class="easyui-numberbox"
-							style="width: 200px;"></td>
+							class="easyui-numberbox" style="width: 200px;"></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center"><a id="btnOK"
