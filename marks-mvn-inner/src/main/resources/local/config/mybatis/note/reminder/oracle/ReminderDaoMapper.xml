@@ -118,8 +118,8 @@
 		(t.remind_type = 1 and (substr(t.remind_date, 6) = #{yangliMMDD:VARCHAR} or
 		substr(t.remind_date, 6) = #{noliMMDD:VARCHAR})) or
 		(t.is_before = 1 and
-		(to_char(to_date('2017' || substr(t.remind_date, 5), 'yyyy-MM-dd') - 7,'MM-dd')=#{yangliMMDD:VARCHAR} or
-		to_char(to_date('2017' || substr(t.remind_date, 5), 'yyyy-MM-dd') - 7,'MM-dd') =#{noliMMDD:VARCHAR})))
+		(to_char(to_date('${yearStr}'|| substr(t.remind_date, 5), 'yyyy-MM-dd') - t.before_days,'MM-dd')=#{yangliMMDD:VARCHAR} or
+		to_char(to_date('${yearStr}'|| substr(t.remind_date, 5), 'yyyy-MM-dd') - t.before_days,'MM-dd') =#{noliMMDD:VARCHAR})))
 	</select>
 
 
