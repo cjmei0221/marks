@@ -35,8 +35,17 @@ public class WxAutoReplay implements Serializable{
     *回复方式
     */
     private String replayType;
+    
+    /*描述*/
+    private String ckeyName;
 
-    public String getCkey(){
+    public String getCkeyName() {
+		return ckeyName;
+	}
+	public void setCkeyName(String ckeyName) {
+		this.ckeyName = ckeyName;
+	}
+	public String getCkey(){
         return ckey;
     }
     public void setCkey(String ckey){
