@@ -112,8 +112,13 @@ public class WeixinChatController {
 			logger.info("----------check wxb_wechat_account table has data accountid=" + accountId);
 
 		}
+		int isSafe=0;//是否为安全模式 1：是
+		if("aes".equals(request.getParameter("encrypt_type"))){
+			isSafe=1;
+		}
+		
 		// 安全模式 // 消息体签名验证
-		if (1 == account.getIsSafe() && !CheckSign.checkSha(request, account.getToken())) {
+		if (1 == isSafe && !CheckSign.checkSha(request, account.getToken())) {
 			return;
 		}
 
@@ -128,7 +133,7 @@ public class WeixinChatController {
 			return;
 		}
 		// 安全模式 消息体解密
-		if (1 == account.getIsSafe()) {
+		if (1 == isSafe) {
 			try {
 				MsgEncriptUtil.descriptXML(request, xml, account);
 			} catch (Exception e) {
@@ -156,7 +161,7 @@ public class WeixinChatController {
 			responseXml = "success";
 		}else{
 			// 安全模式 消息体加密
-			if (1 == account.getIsSafe() && responseXml.length()>10) {
+			if (1 == isSafe && responseXml.length()>10) {
 				try {
 					MsgEncriptUtil.encryptXML(request, responseXml, account);
 				} catch (Exception e) {
