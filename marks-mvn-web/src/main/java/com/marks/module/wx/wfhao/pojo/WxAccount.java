@@ -33,16 +33,6 @@ public class WxAccount implements Serializable {
 	private String server_context;
 	private int accttype;//是否是企业号  0：服务号 1:企业号 2:订阅号
 
-	private int isSafe;//是否为安全模式  1：是
-	
-	public int getIsSafe() {
-		return isSafe;
-	}
-
-	public void setIsSafe(int isSafe) {
-		this.isSafe = isSafe;
-	}
-
 	/**
 	 * 设置属性：唯一标识
 	 * @param id
