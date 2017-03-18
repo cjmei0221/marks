@@ -155,22 +155,6 @@ function loadList() {
 			align : "center",
 			hidden : true
 		}, {
-			title : '日历类型',
-			field : 'calendar_type',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if (value == 1) {
-					return "农历";
-				}
-				return "公历";
-			}
-		}, {
-			title : '提醒内容',
-			field : 'remind_content',
-			width : 100,
-			align : "center"
-		}, {
 			title : '事务类型',
 			field : 'remind_type',
 			width : 100,
@@ -180,6 +164,35 @@ function loadList() {
 					return "节日";
 				}
 				return "普通";
+			}
+		
+		}, {
+			title : '节日类型',
+			field : 'holiday_type',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "生日";
+				}else if(value == 2){
+					return "其他节日";
+				}
+				return "";
+			}
+		}, {
+			title : '提醒内容',
+			field : 'remind_content',
+			width : 300,
+		}, {
+			title : '日历类型',
+			field : 'calendar_type',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "农历";
+				}
+				return "公历";
 			}
 		}, {
 			title : '提醒日期',
@@ -221,12 +234,7 @@ function loadList() {
 		}, {
 			title : '创建时间',
 			field : 'createtime',
-			width : 100,
-			align : "center"
-		}, {
-			title : '更新时间',
-			field : 'updatetime',
-			width : 100,
+			width : 180,
 			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
