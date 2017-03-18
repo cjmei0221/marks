@@ -39,7 +39,6 @@ public class AccountController {
 			result=AccountUtil.getInstance().createQrcode(accountid,Integer.parseInt(action_type),Integer.parseInt(expire_seconds),Integer.parseInt(scene_id));
 		} catch (Exception e) {
 			logger.error("系统异常，请稍后再试", e);
-			e.printStackTrace();
 			result.setSuccess(Boolean.FALSE);
 			result.setErrorMsg("系统异常，请稍后再试");
 			result.setErrorCode("9999");

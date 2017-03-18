@@ -2,6 +2,8 @@ package com.marks.common.util;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
@@ -108,7 +110,7 @@ public class HttpUtils {
 			}
 
 		}
-		jsonObject=requestHttp(method,charSet);
+		jsonObject = requestHttp(method, charSet);
 		return jsonObject;
 	}
 
@@ -130,7 +132,7 @@ public class HttpUtils {
 				i++;
 			}
 			((PostMethod) method).addParameters(data);
-            method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; text/html; charset=" + charSet);
+			method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; text/html; charset=" + charSet);
 		}
 
 		if (header != null && header.size() > 0) {
@@ -143,14 +145,14 @@ public class HttpUtils {
 			}
 
 		}
-		jsonObject=requestHttp(method,charSet);
-		
+		jsonObject = requestHttp(method, charSet);
+
 		return jsonObject;
 	}
 
 	public JsonResult doPostJson(String url, JSONObject jsonObj, Map<String, String> header, String charSet)
 			throws IOException {
-		JsonResult jsonObject =null;
+		JsonResult jsonObject = null;
 		HttpMethod method = new PostMethod(url);
 
 		if (jsonObj != null) {
@@ -167,12 +169,12 @@ public class HttpUtils {
 			}
 
 		}
-		jsonObject=requestHttp(method,charSet);
-		
+		jsonObject = requestHttp(method, charSet);
+
 		return jsonObject;
 	}
 
-	private JsonResult requestHttp(HttpMethod method,String charSet) {
+	private JsonResult requestHttp(HttpMethod method, String charSet) {
 		JsonResult jsonObject = new JsonResult();
 		HttpClient httpClient = new HttpClient(connectionManager);
 		// 链接超时
@@ -205,7 +207,7 @@ public class HttpUtils {
 			jsonObject.setSuccess(Boolean.FALSE);
 			jsonObject.setErrorCode("4000");
 			jsonObject.setErrorMsg("系统异常·");
-		}finally{
+		} finally {
 			method.releaseConnection();
 		}
 		return jsonObject;
@@ -214,7 +216,7 @@ public class HttpUtils {
 
 	private static byte[] readUrlStream(BufferedInputStream bufferedInputStream) throws IOException {
 		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
-		int byteNum=1024;
+		int byteNum = 1024;
 		byte[] buff = new byte[byteNum]; // buff用于存放循环读取的临时数据
 		int rc = 0;
 		while ((rc = bufferedInputStream.read(buff, 0, byteNum)) > 0) {
@@ -355,6 +357,65 @@ public class HttpUtils {
 
 	private static char toHex(int nibble) {
 		return hexDigit[(nibble & 0xF)];
+	}
+
+	public JsonResult download(String url, String fileName) {
+		JsonResult jsonObject = new JsonResult();
+		GetMethod method = null;
+		FileOutputStream output = null;
+		File saveFile =null;
+		try {
+
+			method = new GetMethod(url);
+			HttpClient httpClient = new HttpClient(connectionManager);
+			// 链接超时
+			httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(connectiontimeout);
+			httpClient.getHttpConnectionManager().getParams().setSoTimeout(sotimeout);
+			// 设置等待ConnectionManager释放connection的时间
+			httpClient.getParams().setConnectionManagerTimeout(defaultHttpConnectionManagerTimeout);
+			/* method.releaseConnection(); */
+			// 设置Http Header中的User-Agent属性
+			method.addRequestHeader("User-Agent", "Mozilla/4.0");
+
+			statusCode = httpClient.executeMethod(method);
+			jsonObject.setErrorCode(statusCode + "");
+			if (statusCode != HttpStatus.SC_OK) {
+				jsonObject.setSuccess(Boolean.FALSE);
+				jsonObject.setErrorMsg("服务器繁忙，请稍等···");
+			} else {
+				jsonObject.setSuccess(Boolean.TRUE);
+				jsonObject.setErrorCode(SysCode.SUCCESS);
+				BufferedInputStream ins = new BufferedInputStream(method.getResponseBodyAsStream());
+				saveFile = new File(fileName);
+				output = new FileOutputStream(saveFile, true);
+				/*int size = 0;
+				byte[] buf = new byte[1024 * 1024 * 10];
+				while ((size = ins.read(buf)) != -1) {
+					output.write(buf, 0, size);
+					output.flush();
+				}*/
+				byte resultBytes[] = readUrlStream(ins);
+				output.write(resultBytes);
+				output.flush();
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			jsonObject.setSuccess(Boolean.FALSE);
+			jsonObject.setErrorCode("4000");
+			jsonObject.setErrorMsg("系统异常·");
+		} finally {
+			try {
+				if (output != null) {
+					output.close();
+				}
+			} catch (IOException e) {
+				logger.error(e.getMessage(), e);
+			}
+			method.releaseConnection();
+		}
+
+		return jsonObject;
+
 	}
 
 }

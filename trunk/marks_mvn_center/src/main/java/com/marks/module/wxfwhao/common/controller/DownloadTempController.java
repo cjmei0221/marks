@@ -6,32 +6,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.util.JsonResult;
-import com.marks.module.wxfwhao.common.wxservice.GroupUtil;
+import com.marks.module.wxfwhao.common.wxservice.DownloadTempUtil;
 
 import net.sf.json.JSONObject;
 
-@Controller
-public class GroupController {
-	private static Logger logger = Logger.getLogger(GroupController.class);
+public class DownloadTempController {
+	private static Logger logger = Logger.getLogger(DownloadTempController.class);
 	/**
 	 * 移动用户分组
 	 * @param request
 	 * @param response
 	 * @throws Exception
 	 */
-		@RequestMapping(value = "/groups/members/update")
+		@RequestMapping(value = "/download/temp")
 		public void getWXUserOpenId(HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			JsonResult result = new JsonResult();
 			try {
 				String accountid = request.getParameter("accountid");
-				String openid = request.getParameter("openid");
-				String to_groupid=request.getParameter("to_groupid");
-				result=GroupUtil.getInstance().toGroup(accountid,openid,to_groupid);
+				String media_id = request.getParameter("media_id");
+				String type = request.getParameter("type");
+				String fileName = request.getParameter("fileName");
+				result=DownloadTempUtil.getInstance().download(accountid,type,fileName,media_id);
 			} catch (Exception e) {
 				logger.error("系统异常，请稍后再试", e);
 				result.setSuccess(Boolean.FALSE);
