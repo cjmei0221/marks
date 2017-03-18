@@ -32,6 +32,8 @@ $(function() {
 		$('#ff').form('clear');
 		appInfo.formStatus = "new";
 		$('#remind_time').timespinner('setValue', '08:30');
+		clickRemindType("0");
+		$('#remind_type').combobox("setValue","0");
 	});
 
 	// 编辑
@@ -73,7 +75,27 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
+	$('#remind_type').combobox({
+		onChange : function(newValue, oldValue) {
+			clickRemindType(newValue);
+		}
+	});
 });
+function clickRemindType(rtype){
+	if("1" == rtype){
+		$("#holiday_type_tr").show();
+		$("#calendar_type_tr").show();
+		$("#is_repeat_tr").show();
+		$("#is_before_tr").show();
+		$("#before_days_tr").show();
+	}else{
+		$("#holiday_type_tr").hide();
+		$("#calendar_type_tr").hide();
+		$("#is_repeat_tr").hide();
+		$("#is_before_tr").hide();
+		$("#before_days_tr").hide();
+	}
+}
 /**
  * 保存菜单
  */

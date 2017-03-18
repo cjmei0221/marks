@@ -25,5 +25,5 @@ public interface ReminderDao {
 
 	List<Reminder> list(PageBounds pageBounds, Map<String,Object> param);
 
-	List<Reminder> findNeedReminderList(@Param("noliMMDD")String noliMMDD,@Param("yangliMMDD")String yangliMMDD);
+	List<Reminder> findNeedReminderList(@Param("noliMMDD")String noliMMDD,@Param("yangliMMDD")String yangliMMDD,@Param("yearStr")String yearStr);
 }

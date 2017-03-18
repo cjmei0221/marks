@@ -47,9 +47,19 @@
 				<table>
 					<tr>
 						<th style="width: 120px; text-align: right;">事务类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input type="radio" name="remind_type" value="0"
-							checked="checked" /> 普通<input type="radio" name="remind_type"
-							value="1" /> 节日</td>
+						<td><select id="remind_type" class="easyui-combobox"
+							name="remind_type" style="width: 200px;"
+							data-options="required:true">
+								<option value="0">普通</option>
+								<option value="1">节日</option>
+						</select></td>
+					</tr>
+					<tr id="holiday_type_tr">
+						<th style="width: 120px; text-align: right;">节日&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="holiday_type" name="holiday_type"
+							class="easyui-combobox"
+							data-options="valueField:'ckey',textField:'cvalue',url:'<%=request.getContextPath()%>/dataDir/combox.do?parentId=holiday_type'"
+							style="width: 200px;"></td>
 					</tr>
 					<tr>
 						<th style="width: 120px; text-align: right;">提醒内容&nbsp;&nbsp;:&nbsp;&nbsp;</th>
@@ -57,41 +67,41 @@
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px;" maxlength="250"></td>
 					</tr>
-					<tr>
+					<tr id="calendar_type_tr">
 						<th style="width: 120px; text-align: right;">是否为农历&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input type="radio" name="calendar_type" value="0"
 							checked="checked" /> 否<input type="radio" name="calendar_type"
 							value="1" /> 是</td>
 					</tr>
 					<tr>
-						<th style="width: 120px; text-align: right;">发生日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 120px; text-align: right;">日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="remind_date" name="remind_date"
 							class="easyui-datebox" data-options="required:true"
 							style="width: 200px;" maxlength="50"></td>
 					</tr>
-					<tr style="display:none;">
+					<tr style="display: none;">
 						<th style="width: 120px; text-align: right;">提醒时间&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="remind_time" name="remind_time"
 							class="easyui-timespinner"
 							data-options="min:'08:30',showSeconds:true,required:true"
 							style="width: 200px;" maxlength="20"></td>
 					</tr>
-					<tr>
+					<tr id="is_repeat_tr">
 						<th style="width: 120px; text-align: right;">是否重复&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input type="radio" name="is_repeat" value="0"
 							checked="checked" />否 <input type="radio" name="is_repeat"
 							value="1" /> 是</td>
 					</tr>
-					<tr>
+					<tr id="is_before_tr">
 						<th style="width: 120px; text-align: right;">是否提前提醒&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input type="radio" name="is_before" value="0"
 							checked="checked" />否 <input type="radio" name="is_before"
 							value="1" /> 是</td>
 					</tr>
-					<tr>
+					<tr id="before_days_tr">
 						<th style="width: 120px; text-align: right;">提前天数&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="before_days" name="before_days"
-							class="easyui-numberbox" data-options="required:true"
+							class="easyui-numberbox"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
