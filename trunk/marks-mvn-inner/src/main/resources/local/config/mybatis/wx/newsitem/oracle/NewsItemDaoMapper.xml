@@ -125,6 +125,8 @@
 		order by newsitem.UPDATETIME desc
 
 	</select>
-
+	<select id="countNews" resultType="int">
+		select count(1) from tb_wx_auto_replay t where t.creplay like '%${newsId}%'
+	</select>
 
 </mapper>
