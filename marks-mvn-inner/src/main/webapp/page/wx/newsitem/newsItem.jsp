@@ -101,6 +101,9 @@
 		draggable:true,
 		collapsible:false"
 		style="width: 650px; height: 450px; padding: 10px;">
+		<a class="uploadImage" href="#"> <input type="file"
+				onchange="selectImage(this);" />上传图片
+		</a>
 		<div id="pgNation" class="easyui-pagination" style="border: 1px solid #ccc;"
 			data-options="
     		onSelectPage: function(pageNumber, pageSize){
@@ -108,10 +111,7 @@
     	}">
 		</div>
 
-		<div id="content" class="easyui-panel" style="padding: 10px;">
-			<a class="uploadImage" href="#"> <input type="file"
-				onchange="selectImage(this);" />上传图片
-			</a>
+		<div id="content" class="easyui-panel" style="padding: 10px;">		
 			<div id="ImgList"></div>
 		</div>
 
