@@ -1,27 +1,39 @@
 var img={
 	idDiv:"addMainImg",
-	imgNum:1
+	imgNum:1,
+	pageNum:1,
+	pageSize:12
 };
+
+
 function selectUploadImage(eleName,imgNum){
 	$("#imageListWin").window({
 		title : "请选择图片"
 	}).window("open");
 	img.idDiv=eleName;
 	img.imgNum=imgNum;
-	loadImageList();
+	loadImageList(1,img.pageSize);
 }
 
-function loadImageList(){
+function loadImageList(pageNum,pageSize){
+	img.pageSize=pageSize;
 	$.ajax({
 
 		type : 'POST',
 
 		url : top.window.urlBase + "/myImage/list.do",
-
+		data:{
+			page_number:pageNum,
+			page_size:img.pageSize
+		},
 		dataType : 'json',
 
 		success : function(data) {
 			if (data.retcode == "0") {
+				$("#pgNation").pagination({
+					total:data.total_count,
+					pageList: [12,24]
+					});
 				var list=data.list;
 				var showDiv = $("#ImgList");
 				showDiv.html("");
@@ -89,9 +101,10 @@ function uploadImage(image, eInput) {
 
 				success : function(data) {
 					if (data.retcode == "0") {
-						var showDiv = $($(eInput).parent().next());
+						/*var showDiv = $($(eInput).parent().next());
 						var imgDiv=showListImage(data.fileUrl);
-						showDiv.prepend(imgDiv);
+						showDiv.prepend(imgDiv);*/
+						loadImageList(1);
 						showMsg('上传成功');
 					} else {
 						showMsg('上传失败');

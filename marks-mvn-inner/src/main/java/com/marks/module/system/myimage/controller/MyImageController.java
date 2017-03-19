@@ -214,10 +214,8 @@ public class MyImageController extends SupportContorller{
        PaginationResult result = new PaginationResult();
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
-		/*	int page_number = Integer.parseInt(request.getParameter("page_number"));
-			int page_size = Integer.parseInt(request.getParameter("page_size"));*/
-			int page_number = 1;
-			int page_size = 200;
+			int page_number = Integer.parseInt(request.getParameter("page_number"));
+			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");
 			if(keyword==null){
 				keyword="";

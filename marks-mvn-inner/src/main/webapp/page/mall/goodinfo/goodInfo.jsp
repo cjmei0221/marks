@@ -126,8 +126,8 @@
 		draggable:true,
 		collapsible:false"
 		style="width: 800px; height: 500px; padding: 10px;">
-		<table>
-		<tr><td>
+		<table style="width: 100%;">
+		<tr><td style="width: 100%;">
 		<div style="width: 100%; height: 200px;">
 			<h3>主图片</h3>
 			<a class="uploadImage" href="javascript:void(0)"
@@ -135,7 +135,7 @@
 			<div id="addMainImageDiv"></div>
 		</div>
 		</td></tr>
-		<tr><td>
+		<tr><td style="width: 100%;">
 		<h3>详情图片</h3>
 		<div style="width: 100%; height: 200px;">
 			<a class="uploadImage" href="javascript:void(0)"
@@ -143,8 +143,8 @@
 			<div id="addDetailImageDiv"></div>
 		</div>
 		</td></tr>
-		<tr><td>
-		<div style="width: 100%;" align="center">
+		<tr><td  align="center" style="width: 100%;">
+		<div style="width: 100%;">
 			<input type="button" id="imgBtnOk" value="确定 " />
 		</div>
 		</td></tr>
@@ -223,10 +223,19 @@
 		draggable:true,
 		collapsible:false"
 		style="width: 650px; height: 450px; padding: 10px;">
-		<a class="uploadImage" href="#"> <input type="file"
-			onchange="selectImage(this);" />上传图片
-		</a>
-		<div id="ImgList"></div>
+		<div id="pgNation" class="easyui-pagination" style="border: 1px solid #ccc;"
+			data-options="
+    		onSelectPage: function(pageNumber, pageSize){
+    			loadImageList(pageNumber,pageSize);
+    	}">
+		</div>
+
+		<div id="content" class="easyui-panel" style="padding: 10px;">
+			<a class="uploadImage" href="#"> <input type="file"
+				onchange="selectImage(this);" />上传图片
+			</a>
+			<div id="ImgList"></div>
+		</div>
 	</div>
 
 

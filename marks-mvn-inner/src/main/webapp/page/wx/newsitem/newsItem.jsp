@@ -62,8 +62,8 @@
 				<tr>
 					<th style="width: 80px; height: 160px; text-align: right;">图片路径</th>
 					<td colspan="3" valign="top" height="150px"><a
-						class="uploadImage" href="javascript:void(0)" onclick="selectUploadImage('addMainImg',1);">选择图片
-					</a>
+						class="uploadImage" href="javascript:void(0)"
+						onclick="selectUploadImage('addMainImg',1);">选择图片 </a>
 						<div id="addMainImg"></div></td>
 				</tr>
 				<tr>
@@ -101,10 +101,20 @@
 		draggable:true,
 		collapsible:false"
 		style="width: 650px; height: 450px; padding: 10px;">
-		<a class="uploadImage" href="#"> <input type="file"
-			onchange="selectImage(this);" />上传图片
-		</a>
-		<div id="ImgList"></div>
+		<div id="pgNation" class="easyui-pagination" style="border: 1px solid #ccc;"
+			data-options="
+    		onSelectPage: function(pageNumber, pageSize){
+    			loadImageList(pageNumber,pageSize);
+    	}">
+		</div>
+
+		<div id="content" class="easyui-panel" style="padding: 10px;">
+			<a class="uploadImage" href="#"> <input type="file"
+				onchange="selectImage(this);" />上传图片
+			</a>
+			<div id="ImgList"></div>
+		</div>
+
 	</div>
 
 </body>
