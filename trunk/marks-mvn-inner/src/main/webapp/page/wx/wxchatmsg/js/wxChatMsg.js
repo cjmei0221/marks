@@ -174,8 +174,7 @@ function loadReplayList(sId){
 	});
 }
 function loadList() {
-	$('#tbList')
-			.datagrid(
+	$('#tbList').datagrid(
 					{
 						url : appInfo.listUrl,
 						toolbar : "#tb",
