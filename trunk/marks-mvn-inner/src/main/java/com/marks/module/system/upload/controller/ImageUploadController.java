@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,6 +15,10 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
+import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.myimage.pojo.MyImage;
+import com.marks.module.system.myimage.service.MyImageService;
+import com.marks.module.system.sysuser.pojo.SysUser;
 import com.marks.module.system.upload.util.FTPUtil;
 import com.marks.module.system.upload.util.UploadUtil;
 
@@ -26,7 +31,9 @@ import sun.misc.BASE64Decoder;
 public class ImageUploadController {
 	private static final Logger LOG = Logger.getLogger(ImageUploadController.class);
 	private static final long serialVersionUID = 1L;
-
+	@Autowired
+    private MyImageService  myImageService;
+   
 	@RequestMapping("/fileUpload/image")
 	public void upload(HttpServletRequest req, HttpServletResponse resp) {
 		Result result = new Result();
@@ -80,7 +87,8 @@ public class ImageUploadController {
 
 				byte[] decodedBytes = decoder.decodeBuffer(image);
 				String commPath = UploadUtil.getUploadPath(req);
-				String picName = IDUtil.getTimeID()+ fileType;
+				String id="U"+IDUtil.getTimeID();
+				String picName = id+ fileType;
 				//String imgFilePath = "D://uploadimage";
 				File saveFile = new File(commPath + picName);
 				FileOutputStream out = new FileOutputStream(saveFile);
@@ -90,10 +98,17 @@ public class ImageUploadController {
 				out.close();
 
 				success = true;
+				result.getData().put("imgId", id);
 				result.getData().put("fileUrl", FTPUtil.ftp_url + picName);
 				FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
 						FTPUtil.ftpFileDirectory, picName, saveFile, "");
-
+				SysUser admin = SysUserHelper.getCurrentUserInfo(req);
+				MyImage img=new MyImage();
+				img.setPicId(id);
+				img.setCreator(admin.getUserid());
+				img.setPicName(picName);
+				img.setPicUrl(FTPUtil.ftp_url + picName);
+				myImageService.save(img);
 			} catch (Exception e) {
 
 				success = false;
