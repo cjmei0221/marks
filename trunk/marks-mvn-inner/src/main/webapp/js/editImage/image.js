@@ -3,7 +3,7 @@ var img={
 	imgNum:1
 };
 function selectUploadImage(eleName,imgNum){
-	$("#imageWin").window({
+	$("#imageListWin").window({
 		title : "请选择图片"
 	}).window("open");
 	img.idDiv=eleName;
@@ -118,9 +118,13 @@ img.deleteImageDiv=function deleteImageDiv(eInput) {
 	$("#" + eInput).html("");
 }
 
-img.editImage=function editImage(eInput,fileUrl) {
+img.editImage=function editImage(eInput,fileUrl,flag) {
+	
 	var showDiv = $("#"+eInput);
 	var imgDiv=showImage(fileUrl);
+	if(flag ==1){
+		imgDiv=showImageOnlyRead(fileUrl);
+	}
 	showDiv.append(imgDiv);
 }
 
@@ -136,6 +140,14 @@ img.getImageVal=function getImageVal(eInput){
 	}
 	var str=inputArr.join(",");
 	return str
+}
+
+function showImageOnlyRead(imgUrl){
+	var str = '<span width="200px" style="float:left; display:inline;">'
+		+ '<input class="imageUrlInput" name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;display:none;" readonly="readonly"><br/>'
+		+ '<img class="imageUrl" src="'+imgUrl+'" style="width: 160px; height: 100px;" /> <br/>'
+		+ '</span>';
+	return str;
 }
 
 function showImage(imgUrl){
