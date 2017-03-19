@@ -78,7 +78,7 @@
 					<td><input id="material" name="material"
 						class="easyui-validatebox" data-options="required:true"
 						style="width: 200px;"></td>
-						<th>重量</th>
+					<th>重量</th>
 					<td><input id="weight" name="weight" class="easyui-numberbox"
 						data-options="required:true" style="width: 145px;">&nbsp;<input
 						id="weight_unit" name="weight_unit" class="easyui-validatebox"
@@ -90,8 +90,8 @@
 						class="easyui-validatebox" data-options="required:true"
 						style="width: 460px;"></td>
 				</tr>
-				
-				
+
+
 				<tr>
 					<th>备注</th>
 					<td colspan="3"><input id="remark" name="remark"
@@ -100,16 +100,15 @@
 				</tr>
 				<tr>
 					<th>列表图片</th>
-					<td colspan="3" valign="top" height="150px"><a class="uploadImage"
-						href="#"> <input type="file" onchange="selectImage(this,1);" />添加图片
-					</a>
-						<div id="addMainImg"></div>
-					</td>
+					<td colspan="3" valign="top" height="150px"><a
+						class="uploadImage" href="javascript:void(0)"
+						onclick="selectUploadImage('addMainImg',1);">选择图片 </a>
+						<div id="addMainImg"></div></td>
 				</tr>
 				<tr>
 					<th>详情页图片</th>
-					<td colspan="3"><a href="javascript:void(0)" onclick="addImage()">添加图片</a>
-					</td>
+					<td colspan="3"><a href="javascript:void(0)"
+						onclick="addImage()">添加图片</a></td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input
@@ -127,23 +126,29 @@
 		draggable:true,
 		collapsible:false"
 		style="width: 800px; height: 500px; padding: 10px;">
+		<table>
+		<tr><td>
 		<div style="width: 100%; height: 200px;">
 			<h3>主图片</h3>
-			<a class="uploadImage" href="#"> <input type="file"
-				onchange="selectImage(this,6);" />添加图片
-			</a>
+			<a class="uploadImage" href="javascript:void(0)"
+				onclick="selectUploadImage('addMainImageDiv',6);">选择图片 </a>
 			<div id="addMainImageDiv"></div>
 		</div>
+		</td></tr>
+		<tr><td>
 		<h3>详情图片</h3>
 		<div style="width: 100%; height: 200px;">
-			<a class="uploadImage" href="#"> <input type="file"
-				onchange="selectImage(this,10);" />添加图片
-			</a>
+			<a class="uploadImage" href="javascript:void(0)"
+				onclick="selectUploadImage('addDetailImageDiv',10);">选择图片 </a>
 			<div id="addDetailImageDiv"></div>
 		</div>
+		</td></tr>
+		<tr><td>
 		<div style="width: 100%;" align="center">
 			<input type="button" id="imgBtnOk" value="确定 " />
 		</div>
+		</td></tr>
+		</table>
 	</div>
 
 	<div id="detailWin" class="easyui-window"
@@ -155,9 +160,9 @@
 		style="width: 600px; height: 500px; padding: 10px;">
 		<table>
 			<tr>
-				<td align="right"><label>商品编码</label>：</td>
+				<td align="right" style="width:120px;"><label>商品编码</label>：</td>
 				<td><span id="sku_num_detail"></span></td>
-				<td align="right"><label>商品名称</label>：</td>
+				<td align="right" style="width:120px;"><label>商品名称</label>：</td>
 				<td><span id="goodName_detail"></span></td>
 			</tr>
 			<tr>
@@ -195,15 +200,36 @@
 				<td colspan="3"><div id="detailListImg"></div></td>
 			</tr>
 			<tr>
-				<td align="right"><label>主图片</label>：</td>
-				<td colspan="3"><div id="detailMainImg"></div></td>
+				<td colspan="1" align="right"><label>主图片</label>：</td>
+				<td colspan="3"></td>
 			</tr>
 			<tr>
-				<td align="right"><label>详情图片</label>：</td>
-				<td colspan="3"><div id="detailDetailImg"></div></td>
+				<td colspan="4"><div id="detailMainImg"></div></td>
+			</tr>
+			<tr>
+				<td colspan="1" align="right"><label>详情图片</label>：</td>
+				<td colspan="3"></td>
+			</tr>
+			<tr>
+				<td colspan="4"><div id="detailDetailImg"></div></td>
 			</tr>
 		</table>
 	</div>
+
+	<div id="imageListWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 650px; height: 450px; padding: 10px;">
+		<a class="uploadImage" href="#"> <input type="file"
+			onchange="selectImage(this);" />上传图片
+		</a>
+		<div id="ImgList"></div>
+	</div>
+
+
 </body>
 <script type="text/html" id="imageDiv">
 <span>
