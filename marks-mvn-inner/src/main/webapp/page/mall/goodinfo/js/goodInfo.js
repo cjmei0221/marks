@@ -112,7 +112,7 @@ $(function() {
 	});
 });
 
-function loadImg(goodId){
+function loadImg(goodId,flag){
 	$.ajax({
 		url : appInfo.goodImgListUrl,
 		type : "post",
@@ -130,11 +130,11 @@ function loadImg(goodId){
 				if(list.length>0){
 					for(var i=0;i<list.length;i++){
 						if(list[i].imgType==1){
-							img.editImage("addMainImageDiv", list[i].imgUrl);
-							img.editImage("detailMainImg", list[i].imgUrl);
+							img.editImage("addMainImageDiv", list[i].imgUrl,flag);
+							img.editImage("detailMainImg", list[i].imgUrl,flag);
 						}else if(list[i].imgType==2){
-							img.editImage("addDetailImageDiv", list[i].imgUrl);
-							img.editImage("detailDetailImg", list[i].imgUrl);
+							img.editImage("addDetailImageDiv", list[i].imgUrl,flag);
+							img.editImage("detailDetailImg", list[i].imgUrl,flag);
 						}
 					}
 				}
@@ -225,8 +225,8 @@ function showDetail(){
 	$("#remark_detail").html(info.remark);
 	$("#weight_detail").html(info.weight+" "+info.weight_unit);
 	$("#detailListImg").html("");
-	img.editImage("detailListImg", info.imageUrl);
-	loadImg(info.goodId);
+	img.editImage("detailListImg", info.imageUrl,1);
+	loadImg(info.goodId,1);
 }
 function loadList() {
 	$('#tbList').datagrid({
