@@ -12,8 +12,7 @@
 		SELECT * FROM
 		TB_WX_AUTO_REPLAY
 		wxautoreplay where
-		wxautoreplay.ACCOUNTID=#{accountid} and
-		instr(#{ckey},wxautoreplay.CKEY) &gt; 0
+		wxautoreplay.ACCOUNTID=#{accountid} and wxautoreplay.CKEY=#{ckey}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.wx.wxautoreplay.pojo.WxAutoReplay">
