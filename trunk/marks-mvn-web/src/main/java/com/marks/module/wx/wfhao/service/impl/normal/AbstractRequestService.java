@@ -35,11 +35,34 @@ public abstract class AbstractRequestService implements RequestService {
 	 * @throws Exception
 	 */
 	public WechatResponse handle(WechatRequest requestMessage, String key) throws Exception {
-		WechatResponse responseMessage =null;
+		WechatResponse responseMessage = null;
 		WxAutoReplayDao wxAutoReplayDao = (WxAutoReplayDao) DatabaseHelper.getBean(WxAutoReplayDao.class);
-		List<WxAutoReplay> replyList = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(), requestMessage.getAccountId());
-		if(null != replyList && replyList.size()==1){
-			WxAutoReplay reply=replyList.get(0);
+		List<WxAutoReplay> replyList = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(),requestMessage.getAccountId());
+		boolean isEquels = false;
+		WxAutoReplay reply = null;
+		StringBuffer sb = null;
+		if (null != replyList && replyList.size() == 1) {
+			isEquels = true;
+			reply = replyList.get(0);
+		} else if (null != replyList && replyList.size() > 1) {
+			sb = new StringBuffer();
+			sb.append("亲，您可以换种方式试试，输入以下关键词：\r\n");
+			for (WxAutoReplay vo : replyList) {
+				sb.append(" [" + vo.getCkey() + "] " + vo.getCkeyName() + "\r");
+				if (vo.getCkey().equals(key.toLowerCase())) {
+					isEquels = true;
+					reply = vo;
+				}
+			}
+			//不能识别单一回复
+			if (!isEquels) {
+				responseMessage = new WechatResponse(requestMessage);
+				responseMessage.setContent(sb.toString());
+				return responseMessage;
+			}
+		}
+
+		if (isEquels) {
 			responseMessage = new WechatResponse(requestMessage);
 			String content = reply.getCreplay();
 			if (Constants.weixin_replay_type_news.equals(reply.getReplayType())) {
@@ -51,20 +74,12 @@ public abstract class AbstractRequestService implements RequestService {
 				responseMessage.setContent(toFormat(content));
 			}
 			return responseMessage;
-		}else if(null != replyList && replyList.size()>1){
-			responseMessage = new WechatResponse(requestMessage);
-			StringBuffer sb=new StringBuffer();
-			sb.append("亲，您可以换种方式试试，输入以下关键词：\r\n");
-			for(WxAutoReplay vo:replyList){
-				sb.append(" ["+vo.getCkey()+"] "+vo.getCkeyName()+"\r");
-			}
-			responseMessage.setContent(sb.toString());
-			return responseMessage;
 		}
-		
+
 		return responseMessage;
 	}
-	private String toFormat(String content){
+
+	private String toFormat(String content) {
 		return content.replaceAll("\r\n", "<br/>");
 	}
 
