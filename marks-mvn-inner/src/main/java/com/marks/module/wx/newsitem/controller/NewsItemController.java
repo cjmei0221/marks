@@ -129,9 +129,16 @@ public class NewsItemController extends SupportContorller{
 		Result result = new Result();
 		try {
 		   	NewsItem newsItem = getModel(NewsItem.class);
-			newsItemService.delete(newsItem.getId());
-			result.setMessage("删除成功!");
-			result.setCode(Code.CODE_SUCCESS);
+		   	int count=newsItemService.countNews(newsItem.getId());
+		   	if(count>0){
+		   		result.setMessage("已被使用，不能删除!");
+				result.setCode(Code.CODE_FAIL);
+		   	}else{
+		   		newsItemService.delete(newsItem.getId());
+				result.setMessage("删除成功!");
+				result.setCode(Code.CODE_SUCCESS);
+		   	}
+		   	
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			result.setMessage("删除失败，请联系管理员！");

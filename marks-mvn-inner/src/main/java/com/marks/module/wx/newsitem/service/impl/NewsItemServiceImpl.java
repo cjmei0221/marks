@@ -87,4 +87,8 @@ public class NewsItemServiceImpl implements NewsItemService{
 	public List<NewsItem> getnewItems(Map<String, Object> param) {
 		return newsItemDao.getnewItems(param);
 	}
+	@Override
+	public int countNews(String id) {
+		return newsItemDao.countNews(id);
+	}
 }

@@ -18,4 +18,5 @@ public interface NewsItemService{
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<NewsItem> list(int page_number, int page_size,Map<String,Object> param);
 	public List<NewsItem> getnewItems(Map<String, Object> param);
+	public int countNews(String id);
 }
