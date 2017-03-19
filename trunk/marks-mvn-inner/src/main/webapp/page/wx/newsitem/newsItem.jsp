@@ -94,7 +94,7 @@
 	</div>
 
 
-	<div id="imageWin" class="easyui-window"
+	<div id="imageListWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
 		maximizable:false,
