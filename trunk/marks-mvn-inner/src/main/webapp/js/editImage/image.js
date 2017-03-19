@@ -104,7 +104,7 @@ function uploadImage(image, eInput) {
 						/*var showDiv = $($(eInput).parent().next());
 						var imgDiv=showListImage(data.fileUrl);
 						showDiv.prepend(imgDiv);*/
-						loadImageList(1);
+						loadImageList(1,img.pageSize);
 						showMsg('上传成功');
 					} else {
 						showMsg('上传失败');
