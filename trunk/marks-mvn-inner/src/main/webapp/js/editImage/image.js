@@ -1,4 +1,58 @@
-var img={};
+var img={
+	idDiv:"addMainImg",
+	imgNum:1
+};
+function selectUploadImage(eleName,imgNum){
+	$("#imageWin").window({
+		title : "图片"
+	}).window("open");
+	img.idDiv=eleName;
+	img.imgNum=imgNum;
+	loadImageList();
+}
+
+function loadImageList(){
+	$.ajax({
+
+		type : 'POST',
+
+		url : top.window.urlBase + "/myImage/list.do",
+
+		dataType : 'json',
+
+		success : function(data) {
+			if (data.retcode == "0") {
+				var list=data.list;
+				var showDiv = $("#ImgList");
+				showDiv.html("");
+				var imgPicArr=img.getImageVal(img.idDiv);
+				var imgArr=imgPicArr.split(",");// 在每个逗号(,)处进行分解。
+				if(list.length>0){
+					for(var i=0;i<list.length;i++){
+						var imgDiv=showListImage(list[i].picUrl,list[i].picId);
+						showDiv.append(imgDiv);
+						for(var j=0;j<imgArr.length;j++){
+							if(list[i].picUrl == imgArr[j]){
+								initImage(list[i].picId,1);
+							}
+						}
+					}
+				}
+			} else {
+				showMsg('加载失败');
+
+			}
+
+		},
+
+		error : function(err) {
+			alert('网络故障');
+
+		}
+
+	});
+}
+
 function selectImage(file,snum) {
 	var showDiv = $($(file).parent().next());
 	var num=showDiv.children('span').length;
@@ -36,8 +90,8 @@ function uploadImage(image, eInput) {
 				success : function(data) {
 					if (data.retcode == "0") {
 						var showDiv = $($(eInput).parent().next());
-						var imgDiv=showImage(data.fileUrl);
-						showDiv.append(imgDiv);
+						var imgDiv=showListImage(data.fileUrl);
+						showDiv.prepend(imgDiv);
 						showMsg('上传成功');
 					} else {
 						showMsg('上传失败');
@@ -86,9 +140,56 @@ img.getImageVal=function getImageVal(eInput){
 
 function showImage(imgUrl){
 	var str = '<span width="200px" style="float:left; display:inline;">'
-		+ '<input class="imageUrlInput" name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;" readonly="readonly"><br/>'
+		+ '<input class="imageUrlInput" name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;display:none;" readonly="readonly"><br/>'
 		+ '<img class="imageUrl" src="'+imgUrl+'" style="width: 160px; height: 100px;" /> <br/>'
 		+ '<input type="button" onclick="deleteImage(this);" value="删除"/>'
+		+ '</span>';
+	return str;
+}
+function checkImage(eInput){
+	var showDiv = $($(eInput).parent());
+	var flag=showDiv.children('.flagVal').val();
+	var picUrl=showDiv.children('.imageUrlInput').val();
+	var idDiv = $("#"+img.idDiv);
+	if(flag == 1){
+		var num=idDiv.children('span').length;
+		if(num>=img.imgNum){
+			alert("只能上传"+img.imgNum+"张图片");
+			return;
+		}
+		$(eInput).attr("src",top.window.urlBase+"/images/checked.jpg");
+		showDiv.children('.flagVal').val("0");
+		img.editImage(img.idDiv, picUrl);
+	}else{
+		$(eInput).attr("src",picUrl);
+		showDiv.children('.flagVal').val("1");
+		var spanArr=idDiv.children('span');
+		for(var j=0;j<spanArr.length;j++){
+			var objSpan=$(spanArr[j]);
+			var orgUrl=objSpan.children('.imageUrlInput').val();
+			if(picUrl == orgUrl){
+				objSpan.remove();
+			}
+		}
+	}
+}
+
+function initImage(picId,flag){
+	var showDiv = $("#"+picId);
+	var flag=showDiv.children('.flagVal').val();
+	var picUrl=showDiv.children('.imageUrlInput').val();
+	var imgInput=showDiv.children('.imageUrl');
+	if(flag == 1){
+		imgInput.attr("src",top.window.urlBase+"/images/checked.jpg");
+		showDiv.children('.flagVal').val("0");
+//		img.editImage(img.idDiv, picUrl);
+	}
+}
+function showListImage(imgUrl,picId){
+	var str = '<span id="'+picId+'" width="200px" style="float:left; display:inline;">'
+		+ '<input class="imageUrlInput" name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;display:none;" readonly="readonly"><br/>'	
+		+ '<img class="imageUrl" src="'+imgUrl+'" style="width: 160px; height: 100px;" onclick="checkImage(this);"/> <br/>'
+		+ '<input class="flagVal" value="1" style="width: 155px;display:none;" readonly="readonly"><br/>'	
 		+ '</span>';
 	return str;
 }
