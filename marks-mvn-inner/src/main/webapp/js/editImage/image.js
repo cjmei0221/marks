@@ -4,7 +4,7 @@ var img={
 };
 function selectUploadImage(eleName,imgNum){
 	$("#imageWin").window({
-		title : "图片"
+		title : "请选择图片"
 	}).window("open");
 	img.idDiv=eleName;
 	img.imgNum=imgNum;
