@@ -3,12 +3,14 @@ package com.marks.module.wx.wxutil;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpConnectionManager;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
@@ -29,7 +31,7 @@ public class HttpUtils {
 	private static Logger logger = Logger.getLogger(HttpUtils.class);
 	private static Integer statusCode = 0;
 	private static int connectiontimeout = 5000;// 链接超时
-	private static int sotimeout = 15000;// 读取超时
+	private static int sotimeout = 30000;// 读取超时
 	private static final char[] hexDigit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
 
 			'B', 'C', 'D', 'E', 'F' };
@@ -108,7 +110,7 @@ public class HttpUtils {
 			}
 
 		}
-		jsonObject=requestHttp(method,charSet);
+		jsonObject = requestHttp(method, charSet);
 		return jsonObject;
 	}
 
@@ -130,7 +132,7 @@ public class HttpUtils {
 				i++;
 			}
 			((PostMethod) method).addParameters(data);
-            method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; text/html; charset=" + charSet);
+			method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; text/html; charset=" + charSet);
 		}
 
 		if (header != null && header.size() > 0) {
@@ -143,14 +145,14 @@ public class HttpUtils {
 			}
 
 		}
-		jsonObject=requestHttp(method,charSet);
-		
+		jsonObject = requestHttp(method, charSet);
+
 		return jsonObject;
 	}
 
 	public JsonResult doPostJson(String url, JSONObject jsonObj, Map<String, String> header, String charSet)
 			throws IOException {
-		JsonResult jsonObject =null;
+		JsonResult jsonObject = null;
 		HttpMethod method = new PostMethod(url);
 
 		if (jsonObj != null) {
@@ -167,12 +169,12 @@ public class HttpUtils {
 			}
 
 		}
-		jsonObject=requestHttp(method,charSet);
-		
+		jsonObject = requestHttp(method, charSet);
+
 		return jsonObject;
 	}
 
-	private JsonResult requestHttp(HttpMethod method,String charSet) {
+	private JsonResult requestHttp(HttpMethod method, String charSet) {
 		JsonResult jsonObject = new JsonResult();
 		HttpClient httpClient = new HttpClient(connectionManager);
 		// 链接超时
@@ -182,7 +184,8 @@ public class HttpUtils {
 		httpClient.getParams().setConnectionManagerTimeout(defaultHttpConnectionManagerTimeout);
 		/* method.releaseConnection(); */
 		// 设置Http Header中的User-Agent属性
-		method.addRequestHeader("User-Agent", "Mozilla/4.0");
+//		method.addRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2");
+
 		try {
 			statusCode = httpClient.executeMethod(method);
 			jsonObject.setErrorCode(statusCode + "");
@@ -202,23 +205,29 @@ public class HttpUtils {
 				jsonObject.setErrorCode(obj.optString("errorCode"));
 				jsonObject.setErrorMsg(obj.optString("errorMsg"));
 				jsonObject.setResult(obj.get("result"));
-				logger.info("返回报文>>" +searchResult);
+				logger.info("返回报文>>" + searchResult);
 			}
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+			jsonObject.setSuccess(Boolean.FALSE);
+			jsonObject.setErrorCode("4001");
+			jsonObject.setErrorMsg("系统异常·");
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			jsonObject.setSuccess(Boolean.FALSE);
 			jsonObject.setErrorCode("4000");
 			jsonObject.setErrorMsg("系统异常·");
-		}finally{
+		}finally {
 			method.releaseConnection();
 		}
+
 		return jsonObject;
 
 	}
 
 	private static byte[] readUrlStream(BufferedInputStream bufferedInputStream) throws IOException {
 		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
-		int byteNum=1024;
+		int byteNum = 1024;
 		byte[] buff = new byte[byteNum]; // buff用于存放循环读取的临时数据
 		int rc = 0;
 		while ((rc = bufferedInputStream.read(buff, 0, byteNum)) > 0) {
