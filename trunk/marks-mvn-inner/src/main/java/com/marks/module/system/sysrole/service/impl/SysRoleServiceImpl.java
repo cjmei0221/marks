@@ -139,7 +139,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 		if (null != loginUserRoleId && !loginUserRoleId.equals("")) {
 			getflag = true;
 		}
-		if("admin".equals(admin.getUserid())){
+		if("system".equals(admin.getUserid())){
 			getflag = true;
 			loginUserRoleId=null;
 		}

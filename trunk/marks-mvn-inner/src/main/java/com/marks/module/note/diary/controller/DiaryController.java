@@ -188,9 +188,6 @@ public class DiaryController extends SupportContorller{
 			String statedate=request.getParameter("statedate");
 			String enddate=request.getParameter("enddate");
 			String userid=admin.getUserid();
-			if("admin".equals(admin.getUserid())){
-				userid=null;
-			}
 			param.put("userid", userid);
 			param.put("keyword", keyword);
 			param.put("statedate", statedate);
