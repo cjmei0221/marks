@@ -15,7 +15,7 @@
 <body>
 
 	<div id="mainPanel">
-		<p class="nav-header-cls">工作>>问题记录</p>
+		<p class="nav-header-cls">问题记录</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>

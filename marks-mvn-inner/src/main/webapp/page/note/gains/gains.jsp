@@ -20,7 +20,7 @@
 			<table>
 				<tr>
 					<td><input type="text" id="keyword" name="keyword"
-						style="width: 260px;" placeholder="关键字" /></td>
+						style="width: 260px;" placeholder="级别名称/标题/内容/标签/日期(YYYYMMDD)" /></td>
 					<td><a id="doSearch" href="javascript:void(0)"
 						class="easyui-linkbutton menuBtnCls"
 						data-options="iconCls:'icon-search'">查询</a></td>

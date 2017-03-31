@@ -19,7 +19,7 @@
 		<div id="tb" style="padding: 5px 0;">
 		<table>
 				<tr>
-					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="关键字"/></td>
+					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="描述/标签/手机号码/用户ID"/></td>
 					<td><a id="doSearch" href="javascript:void(0)"
 						class="easyui-linkbutton menuBtnCls"
 						data-options="iconCls:'icon-search'">查询</a></td>

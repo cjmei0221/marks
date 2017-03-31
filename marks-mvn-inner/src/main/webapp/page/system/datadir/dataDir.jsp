@@ -18,7 +18,7 @@
 		<p class="nav-header-cls">数据字典>>数据字典</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
-				<tr>
+				<tr style="display:none;">
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="关键字" /></td>
 					<td><a id="doSearch" href="javascript:void(0)"

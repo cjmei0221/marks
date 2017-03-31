@@ -15,12 +15,12 @@
 <body>
 
 	<div id="mainPanel">
-		<p class="nav-header-cls">菜单管理>>生产代码</p>
+		<p class="nav-header-cls">生产代码</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
 					<td><input type="text" id="keyword" name="keyword"
-						style="width: 260px;" placeholder="关键字" /></td>
+						style="width: 260px;" placeholder="表名称/实体类名称/描述" /></td>
 					<td><a id="doSearch" href="javascript:void(0)"
 						class="easyui-linkbutton menuBtnCls"
 						data-options="iconCls:'icon-search'">查询</a></td>
