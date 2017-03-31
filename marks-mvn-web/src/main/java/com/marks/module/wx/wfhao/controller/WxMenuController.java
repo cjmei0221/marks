@@ -24,7 +24,7 @@ public class WxMenuController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/wxMenu/{accountId}/{pageUrl}")
+	@RequestMapping("/wx/wxMenu/{accountId}/{pageUrl}")
 	public void wxMenu(@PathVariable String accountId, @PathVariable String pageUrl, HttpServletRequest request,
 			HttpServletResponse response) {
 		String url = request.getContextPath() + PageConfigUtil.getProperty("unsubscribeurl");
