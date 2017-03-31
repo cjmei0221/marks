@@ -332,7 +332,7 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 		if (attrType.equals(AttrType.Date.getMybatisType())) {
 			sBuffer.append("to_char(");
 			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE).append(attrName.toUpperCase());
-			sBuffer.append(",'yyyy-MM-dd')");
+			sBuffer.append(",'yyyyMMdd')");
 		} else {
 			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE).append(attrName.toUpperCase());
 		}
