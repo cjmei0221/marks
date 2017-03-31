@@ -69,10 +69,10 @@ public class SysRoleController extends SupportContorller {
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			SysRole sysRole = getModel(SysRole.class);
-			sysRole.setCreator(admin.getUserid());	
+			sysRole.setCreator(admin.getUserid());
 			SysRole ori = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
 			if (ori == null) {
-				sysRole.setRoleid(sysRole.getCompanyId()+"_"+sysRole.getUserType());
+				sysRole.setRoleid(sysRole.getCompanyId() + "_" + sysRole.getUserType());
 				sysRoleService.save(sysRole);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -96,20 +96,27 @@ public class SysRoleController extends SupportContorller {
 		Result result = new Result();
 		try {
 			SysRole sysRole = getModel(SysRole.class);
+			if ("system".equals(sysRole.getRoleid())) {
+				result.setMessage("此记录不可编辑!");
+				result.setCode(Code.CODE_FAIL);
+				JsonUtil.output(response, result);
+				return;
+			}
 			SysRole ori = sysRoleService.findById(sysRole.getRoleid());
 			if (ori == null) {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
+				JsonUtil.output(response, result);
+				return;
+			}
+			SysRole ori2 = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
+			if (ori2 != null && !ori2.getRoleid().equals(sysRole.getRoleid())) {
+				result.setMessage("此记录已存在!");
+				result.setCode(Code.CODE_FAIL);
 			} else {
-				SysRole ori2 = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
-				if (ori2 != null && !ori2.getRoleid().equals(sysRole.getRoleid())) {
-					result.setMessage("此记录已存在!");
-					result.setCode(Code.CODE_FAIL);
-				} else {
-					sysRoleService.update(sysRole);
-					result.setMessage("更新成功!");
-					result.setCode(Code.CODE_SUCCESS);
-				}
+				sysRoleService.update(sysRole);
+				result.setMessage("更新成功!");
+				result.setCode(Code.CODE_SUCCESS);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -277,7 +284,7 @@ public class SysRoleController extends SupportContorller {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		int lvl = admin.getRole().getLvl();
 		List<TreeVo> list = new ArrayList<TreeVo>();
-		TreeVo vo =null;
+		TreeVo vo = null;
 		for (int i = lvl; i < 10; i++) {
 			vo = new TreeVo();
 			vo.setId(i + "");
@@ -286,6 +293,7 @@ public class SysRoleController extends SupportContorller {
 		}
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
+
 	@RequestMapping("/sysRole/combo")
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
