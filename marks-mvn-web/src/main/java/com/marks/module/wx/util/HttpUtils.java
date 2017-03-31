@@ -30,7 +30,7 @@ public class HttpUtils {
 	public static String charSet="UTF-8";
 	private static Integer statusCode = 0;
 	private static int connectiontimeout = 5000;// 链接超时
-	private static int sotimeout = 15000;// 读取超时
+	private static int sotimeout = 30000;// 读取超时
 	private static final char[] hexDigit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
 
 			'B', 'C', 'D', 'E', 'F' };
