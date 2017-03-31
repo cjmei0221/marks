@@ -118,7 +118,7 @@ public class HttpUtils {
 		httpClient.getParams().setConnectionManagerTimeout(defaultHttpConnectionManagerTimeout);
 		/* method.releaseConnection(); */
 		// 设置Http Header中的User-Agent属性
-		method.addRequestHeader("User-Agent", "Mozilla/4.0");
+//		method.addRequestHeader("User-Agent", "Mozilla/4.0");
 		try {
 			statusCode = httpClient.executeMethod(method);
 			jsonObject.setErrorCode(statusCode + "");
@@ -253,7 +253,7 @@ public class HttpUtils {
 		httpClient.getParams().setConnectionManagerTimeout(defaultHttpConnectionManagerTimeout);
 		/* method.releaseConnection(); */
 		// 设置Http Header中的User-Agent属性
-		method.addRequestHeader("User-Agent", "Mozilla/4.0");
+//		method.addRequestHeader("User-Agent", "Mozilla/4.0");
 		try {
 			statusCode = httpClient.executeMethod(method);
 			jsonObject.setErrorCode(statusCode + "");
