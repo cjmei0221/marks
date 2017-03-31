@@ -18,7 +18,6 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.autocode.core.produced.SupportContorller;
 import com.marks.module.autocode.core.produced.introduction.introduction.IntroductionPageProduced;
 import com.marks.module.autocode.core.produced.pojo.AttrType;
 import com.marks.module.autocode.core.produced.pojo.AutoAttr;
@@ -28,6 +27,7 @@ import com.marks.module.autocode.core.util.AutoCodeFactory;
 import com.marks.module.autocode.web.pojo.AutoCode;
 import com.marks.module.autocode.web.pojo.AutoCodeAttr;
 import com.marks.module.autocode.web.service.AutoCodeService;
+import com.marks.module.system.sys.controller.SupportContorller;
 
 @Controller
 public class AutoCodeController extends SupportContorller{

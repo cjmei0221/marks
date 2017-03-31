@@ -20,11 +20,11 @@ import com.marks.common.enums.Enums;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.autocode.core.produced.SupportContorller;
 import com.marks.module.mall.goodinfo.pojo.GoodImg;
 import com.marks.module.mall.goodinfo.pojo.GoodInfo;
 import com.marks.module.mall.goodinfo.service.GoodInfoService;
 import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.sys.controller.SupportContorller;
 import com.marks.module.system.sysuser.pojo.SysUser;
 
 @Controller
