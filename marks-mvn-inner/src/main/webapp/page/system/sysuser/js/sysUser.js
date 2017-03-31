@@ -239,8 +239,7 @@ function loadList() {
 			title : '用户ID',
 			field : 'userid',
 			width : 100,
-			align : "center",
-			hidden : true
+			align : "center"
 		}, {
 			title : '绑定手机',
 			field : 'bind_mobile',
