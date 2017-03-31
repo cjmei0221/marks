@@ -35,7 +35,7 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 		if (b) {
 			Result result = WxFwUtil.getInstance().pushTemplateMsg(mmsg.getAccountid(), mmsg.getTouser(),
 					mmsg.getTemplate_id(), mmsg.getUrl(), mmsg.getData(), mmsg.getNote());
-			if (!"0".equals(result.getCode())) {
+			if ("4000".equals(result.getCode())) {
 				this.moduleMsgDao.save(mmsg);
 			}
 		} else {
