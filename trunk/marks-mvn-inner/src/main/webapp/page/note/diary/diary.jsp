@@ -20,7 +20,7 @@
 			<table>
 				<tr>
 					<td><input type="text" id="keyword" name="keyword"
-						style="width: 260px;" placeholder="关键字" /></td>
+						style="width: 260px;" placeholder="标题/内容/日期(YYYYMMDD)" /></td>
 					<td><input id="statedate"
 						name="statedate" type="text" editable="false"
 						class="easyui-datebox" style="width: 120px;">
