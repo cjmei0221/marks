@@ -185,9 +185,9 @@ public class AutoCodeController extends SupportContorller{
 		try {
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			AutoCode autoCode = getModel(AutoCode.class);
+			String keyword=request.getParameter("keyword");
 			Map<String,Object> param=new HashMap<String,Object>();
-			param.put("autoCode", autoCode);
+			param.put("keyword", keyword);
 			PojoDomain<AutoCode> list = autoCodeService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
