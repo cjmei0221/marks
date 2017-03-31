@@ -196,7 +196,7 @@ $.extend($.fn.textbox.methods, {
 // 选择一条记录判断方法
 function isSelectedOne(idx) {
 	if (idx == -1) {
-		$.messager.alert("系统提示", window.msgs.selected_before);
+		showMsg(window.msgs.selected_before);
 		return false;
 	}
 	return true;
