@@ -42,7 +42,7 @@ $(function() {
 	$("#edit").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
 			if("system" == appInfo.selectedId){
-				showMsg("system不可编辑");
+				showMsg("此记录不可编辑");
 				return;
 			}
 			$("#editWin").window({
