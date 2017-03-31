@@ -41,6 +41,10 @@ $(function() {
 	// 编辑
 	$("#edit").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
+			if("system" == appInfo.selectedId){
+				showMsg("system不可编辑");
+				return;
+			}
 			$("#editWin").window({
 				title : "编辑"
 			}).window("open");
