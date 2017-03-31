@@ -67,7 +67,7 @@
 			and (
 			diary.CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			to_char(diary.CREATETIME,'yyyy-MM-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			to_char(diary.CREATETIME,'yyyyMMdd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
 			diary.TITLE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)

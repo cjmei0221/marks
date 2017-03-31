@@ -119,10 +119,10 @@
 			goodinfo.GOODPRICE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			goodinfo.CREATETIME LIKE
+			to_char(goodinfo.CREATETIME,'yyyyMMdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or goodinfo.UPDATETIME LIKE
+			or to_char(goodinfo.UPDATETIME,'yyyyMMdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
 			or goodinfo.CREATOR LIKE

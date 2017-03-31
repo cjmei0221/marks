@@ -87,9 +87,7 @@
 		FROM TB_NOTE_QUESTION question
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
-			and ( question.LVL LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or question.LVLNAME LIKE
+			and ( question.LVLNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or question.QUESTION LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -97,11 +95,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or question.LABELS LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or to_char(question.CREATETIME,'yyyy-MM-dd') LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or question.CREATOR LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or question.UPDATER LIKE
+			or to_char(question.CREATETIME,'yyyyMMdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>

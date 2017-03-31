@@ -83,9 +83,7 @@
 		FROM TB_NOTE_GAINS gains
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
-			and (gains.LVL LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or gains.LVLNAME LIKE
+			and (gains.LVLNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or gains.TITLE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -93,12 +91,9 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or gains.LABELS LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or to_char(gains.CREATETIME,'yyyy-MM-dd') LIKE
+			or to_char(gains.CREATETIME,'yyyyMMdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or gains.CREATOR LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or gains.UPDATER LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			
 			)
 		</if>
 		<if test="userid!=null and userid!=''">
