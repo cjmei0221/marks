@@ -18,10 +18,10 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.autocode.core.produced.SupportContorller;
 import com.marks.module.note.diary.pojo.Diary;
 import com.marks.module.note.diary.service.DiaryService;
 import com.marks.module.system.core.helper.SysUserHelper;
+import com.marks.module.system.sys.controller.SupportContorller;
 import com.marks.module.system.sysuser.pojo.SysUser;
 
 @Controller
