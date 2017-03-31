@@ -96,15 +96,8 @@
 			or orginfo.ORGNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or to_char(orginfo.CREATETIME,'yyyy-MM-dd') LIKE
+			or to_char(orginfo.CREATETIME,'yyyyMMdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or orginfo.UPDATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or orginfo.USEFLAG LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
 			)
 		</if>
 		and (orginfo.ORGTYPE=1)

@@ -102,10 +102,10 @@
 			or vipinfo.SIGNATURE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			to_char(su.CREATETIME,'yyyy-mm-dd') LIKE
+			to_char(su.CREATETIME,'yyyymmdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			to_char(su.bind_mobile,'yyyy-mm-dd') LIKE
+			to_char(su.bind_mobile,'yyyymmdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
