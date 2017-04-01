@@ -4,20 +4,35 @@ window.nfb = {};
 window.urlBase = "";
 app = {};
 
-$(document).on('ajaxStart', function(){
-
-
-}).on('ajaxComplete', function(event, xhr, status){
-    if(xhr.status == 200){
-    	 var _data = $.parseJSON(xhr.responseText);
-         //_data = xhr.response;
-        if (_data.retcode == "-1000") {
-//    		alert("您未登录,请重新登录！")
-    		top.location.replace(window.urlBase + "/login.html");
+function setupAjax(){
+	$.ajaxSetup({cache:false
+		,timeout:30000
+		,beforeSend:function(xhr,opts){
+			if(opts.url.indexOf("_=")>=0){
+				return;
+			}
+			opts.url +="?_t="+(+(new Date()));				
+		}
+		,complete:function(xhr){				
+			if(xhr.statusText!=undefined && xhr.status==0 && xhr.statusText=="timeout"){
+				$.messager.alert("超时","操作超时！请返回重试！","info",function(){xhr.abort();});
+			}		
+		}			
+	});	
+}
+setupAjax();
+$(document).ajaxComplete(function(event, xhr, settings) {	
+  	var data;	  	
+  	if (settings.dataType=="script" || settings.dataType=="html"){
+  		return;
+  	}
+  	if(   xhr.responseText){
+  		data = $.parseJSON(xhr.responseText);
+  		if(data && data.retcode=="-1000"){
+  			top.location.replace(window.urlBase + "/login.html");
     		return false;
-    	}
-    }
-
+  		}
+  	}
 });
 /**
  * 为grid添加自己重新加载方法,解决带条件查询的时候分页栏不能回到首页问题
