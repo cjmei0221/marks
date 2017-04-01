@@ -20,7 +20,7 @@
 <script type="text/javascript" src="js/encrypt/aes.js"></script>
 <script type="text/javascript" src="js/encrypt/mode-ecb.js"></script>
 <script type="text/javascript" src="js/encrypt/aes_u.js"></script>
-</head>
+
 <style type="text/css">
 #ff1 * {
 	font-size: 12pt;
@@ -330,6 +330,7 @@ input:-webkit-autofill {
 	color: red;
 }
 </style>
+</head>
 <body class="easyui-layout" style="min-width: 800px;">
 	<div data-options="region:'north'" class="topHeadr">管理平台</div>
 	<!-- 中间部分 -->
@@ -382,8 +383,8 @@ input:-webkit-autofill {
 	<div data-options="region:'south'" class="southDiv">
 		管理平台
 	</div>
-</body>
-<script>
+
+<script type="text/javascript">
 	var appLogin = {
 		urlLogin : top.window.urlBase + "/login.do"
 	};
@@ -464,4 +465,5 @@ input:-webkit-autofill {
 
 	});
 </script>
+</body>
 </html>
