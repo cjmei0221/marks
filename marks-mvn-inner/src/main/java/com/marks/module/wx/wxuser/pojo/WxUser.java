@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 public class WxUser implements Serializable{
 
     private static final long serialVersionUID = 1L;
+    
+    private String fanId;
 
     /**
     *OPENID
@@ -79,10 +81,14 @@ public class WxUser implements Serializable{
     private String remark;
 
     private int dairyFlag;//日记推送标识 0不推送 1 推送
-    
-    
 
-    public int getDairyFlag() {
+    public String getFanId() {
+		return fanId;
+	}
+	public void setFanId(String fanId) {
+		this.fanId = fanId;
+	}
+	public int getDairyFlag() {
 		return dairyFlag;
 	}
 	public void setDairyFlag(int dairyFlag) {
