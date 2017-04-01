@@ -9,7 +9,9 @@ var appInfo = {
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		s_issubscribe:"",
+		s_sex:""
 	},
 	formStatus : "new"
 };
@@ -263,6 +265,8 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
+		appInfo.requestParam.s_sex = $("#s_sex").combobox("getValue");
+		appInfo.requestParam.s_issubscribe = $("#s_issubscribe").combobox("getValue");
 		$.ajax({
 			url : opts.url,
 			type : "get",
