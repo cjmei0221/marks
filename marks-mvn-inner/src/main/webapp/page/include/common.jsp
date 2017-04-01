@@ -1,11 +1,11 @@
 <link rel="stylesheet" type="text/css"
-	href="../../../css/easyui/themes/default/easyui.css">
+	href="../../../easyui/css/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
-	href="../../../css/easyui/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="../../../css/easyui/demo.css">
-<script type="text/javascript" src="../../../js/jquery-1.8.0.min.js"></script>
+	href="../../../easyui/css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="../../../css/base.css">
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript"
-	src="../../../js/easyUI/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="../../../js/easyUI/locale/easyui-lang-zh_CN.js"></script>
+	src="../../../easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../../../easyui/js/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="../../../js/base-config.js"></script>
 <script type="text/javascript" src="../../../js/sysmsg.js"></script>
