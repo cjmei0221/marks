@@ -181,11 +181,11 @@ function loadList() {
 			align : "center",
 			formatter : function(value, row, index) {
 				if (value == 1) {
-					return "男（1）";
+					return "男";
 				} else if(value == 2){
-					return "女（2）";
+					return "女";
 				}
-				return "未知（0）";
+				return "未知";
 			}
 		}, {
 			title : '头像路径',

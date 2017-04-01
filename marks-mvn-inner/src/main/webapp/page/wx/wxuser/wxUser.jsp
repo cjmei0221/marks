@@ -19,11 +19,18 @@
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
-					<td>来源：<select id="s_issubscribe" name="s_issubscribe" class="easyui-combobox"
-						style="width: 200px;">
+					<td>是否关注：<select id="s_issubscribe" name="s_issubscribe" class="easyui-combobox"
+						style="width: 100px;" data-options="panelHeight:'auto'">
 							<option value="">全选</option>
 							<option value="0">未关注</option>
-							<option value="1">已关注心</option>
+							<option value="1">已关注</option>
+					</select></td>
+					<td>性别：<select id="s_sex" name="s_sex" class="easyui-combobox"
+						style="width: 100px;" data-options="panelHeight:'auto'">
+							<option value="">全选</option>
+							<option value="1">男</option>
+							<option value="2">女</option>
+							<option value="0">未知</option>
 					</select></td>
 					<td><input type="text" id="keyword" name="keyword"
 						style="width: 260px;" placeholder="昵称/来源/省/市" /></td>
