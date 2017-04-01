@@ -2,23 +2,23 @@
 var myConfig = {
 	styleType : 0
 }
-$(document).ajaxComplete(function(event, xhr, settings) {	
-  	var data;	  	
-  	if (settings.dataType=="script" || settings.dataType=="html"){
-  		return;
-  	}
-  	if(xhr.responseText){
-  		data = $.parseJSON(xhr.responseText);
-  		if(data && data.retcode=="-101"){
-  			alert("访问已失效，请关闭重新进入！");
-    		return;
-  			top.location.replace(window.urlBase + "/login.html");
-  		}else if(data && data.retcode=="-100"){
-  			alert("用户已失效，请重新登录！");
-  			location.replace(tool.baseUrl+ "/mobile/view/note/login/login.html?ele="+tool.getCurEle());
-  		}
-  	}
-});
+$(document).on('ajaxStart', function() {
+
+}).on(
+		'ajaxComplete',
+		function(event, xhr, status) {
+			if (xhr.status == 200) {
+				 var _data =$.parseJSON(xhr.responseText);
+				if (_data.retcode == "-101") {
+					alert("访问已失效，请关闭重新进入！");
+					return;
+				} else if (_data.retcode == "-100") {
+					location.replace(tool.baseUrl
+							+ "/mobile/view/note/login/login.html?ele="+tool.getCurEle());
+					return;
+				}
+			}
+		});
 
 function addStyle(stylePath) {
 	var container = document.getElementsByTagName("head")[0];
