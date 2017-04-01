@@ -60,15 +60,7 @@ $(function() {
 	// 编辑
 	$("#edit").on("click", function() {
 		if (isSelectedOne(appInfo.selectedId)) {
-			if(appInfo.selectedData.lvl==0){
-				showMsg("此记录不可编辑！");
-				return;
-			}
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			appInfo.formStatus = "edit";
-			$('#ff').form('load', appInfo.selectedData);
+			editDate();
 		}
 	});
 
@@ -127,6 +119,17 @@ $(function() {
 		}
 	});
 });
+function editDate(){
+	if(appInfo.selectedData.lvl==0){
+		showMsg("此记录不可编辑！");
+		return;
+	}
+	$("#editWin").window({
+		title : "编辑"
+	}).window("open");
+	appInfo.formStatus = "edit";
+	$('#ff').form('load', appInfo.selectedData);
+}
 /**
  * 保存菜单
  */
@@ -141,6 +144,7 @@ function formSubmit() {
 		url : reqUrl,
 		onSubmit : function(param) {
 			param.formStatus = appInfo.formStatus;
+			param.type=$("input[name='type']").val();
 		},
 		success : function(data) {
 			if (typeof data === 'string') {
@@ -223,6 +227,11 @@ function loadList() {
 			appInfo.selectedId = rowData.id;
 			appInfo.selectedData = rowData;
 			
+		},
+		onDblClickRow : function(rowData) {
+			appInfo.selectedId = rowData.id;
+			appInfo.selectedData = rowData;
+			editDate();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');
