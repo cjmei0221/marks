@@ -148,6 +148,12 @@
 
 			)
 		</if>
+		<if test="s_issubscribe!=null and s_issubscribe!=''">
+		    and wxuser.ISSUBSCRIBE=#{s_issubscribe}
+		</if>
+		<if test="s_sex!=null and s_sex!=''">
+		    and wxuser.SEX=#{s_sex}
+		</if>
 		order by wxuser.SUBSCRIBETIME desc
 
 	</select>
