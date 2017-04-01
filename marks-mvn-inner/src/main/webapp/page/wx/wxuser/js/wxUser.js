@@ -138,7 +138,6 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		pagination : true,
 		idField : 'openid',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
@@ -150,6 +149,11 @@ function loadList() {
 			width : 100,
 			align : "center",
 			hidden : true
+		}, {
+			title : '粉丝ID',
+			field : 'fanId',
+			width : 120,
+			align : "center"
 		}, {
 			title : '昵称',
 			field : 'nickname',
