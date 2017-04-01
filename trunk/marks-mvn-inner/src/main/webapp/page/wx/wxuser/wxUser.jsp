@@ -19,8 +19,14 @@
 		<div id="tb" style="padding: 5px 0;">
 			<table>
 				<tr>
+					<td>来源：<select id="s_issubscribe" name="s_issubscribe" class="easyui-combobox"
+						style="width: 200px;">
+							<option value="">全选</option>
+							<option value="0">未关注</option>
+							<option value="1">已关注心</option>
+					</select></td>
 					<td><input type="text" id="keyword" name="keyword"
-						style="width: 260px;" placeholder="关键字" /></td>
+						style="width: 260px;" placeholder="昵称/来源/省/市" /></td>
 					<td><a id="doSearch" href="javascript:void(0)"
 						class="easyui-linkbutton menuBtnCls"
 						data-options="iconCls:'icon-search'">查询</a></td>
