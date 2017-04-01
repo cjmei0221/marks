@@ -147,9 +147,7 @@
 	}
 	//加载菜单
 	function loadMenu() {
-		$
-				.ajax({
-					type : "GET",
+		$.ajax({type : "GET",
 					url : appInfo.menuUrl,
 					success : function(data) {
 						checkLogin(data);
@@ -162,21 +160,14 @@
 							var mlist = data.menuList;
 							if (mlist.length > 0) {
 								var checkItem = false;
-								$
-										.each(
-												mlist,
-												function(commentIndex, comment) {
+								$.each(mlist,function(commentIndex, comment) {
 													if (commentIndex == 0) {
 														checkItem = true;
 													} else {
 														checkItem = false;
 													}
 													var childHtml = "";
-													$.each(
-																	comment.children,
-																	function(
-																			childIdx,
-																			childComment) {
+													$.each(comment.children,function(childIdx,childComment) {
 																		childHtml += '<p id="'
 																				+ childComment.menuid
 																				+ '" class="menuCls" onclick="addPanel(\''
