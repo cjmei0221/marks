@@ -32,19 +32,7 @@ $(function() {
 			"click",
 			function() {
 				if (isSelectedOne(appInfo.selectedId)) {
-					$("#btnOKAndTo").hide();
-					appInfo.saveStatus=0;
-					$("#editWin").window({
-						title : "编辑"
-					}).window("open");
-					appInfo.formStatus = "edit";
-					$("#menuitemPut").val(appInfo.selectedData.menuitem);
-					$("#parentidPut").combobox("setValue",
-							appInfo.selectedData.parentid);
-					$("#urlPut").val(appInfo.selectedData.url);
-					$('#sortPut').numberbox('setValue',
-							appInfo.selectedData.sort);
-					$("#menuid").val(appInfo.selectedData.menuid);
+					editDate();
 				}
 			});
 	// 删除
@@ -114,6 +102,21 @@ $(function() {
 		}
 	});
 })
+function editDate(){
+	$("#btnOKAndTo").hide();
+	appInfo.saveStatus=0;
+	$("#editWin").window({
+		title : "编辑"
+	}).window("open");
+	appInfo.formStatus = "edit";
+	$("#menuitemPut").val(appInfo.selectedData.menuitem);
+	$("#parentidPut").combobox("setValue",
+			appInfo.selectedData.parentid);
+	$("#urlPut").val(appInfo.selectedData.url);
+	$('#sortPut').numberbox('setValue',
+			appInfo.selectedData.sort);
+	$("#menuid").val(appInfo.selectedData.menuid);
+}
 function addFunc() {
 
 	if (appInfo.selectedData.parentid == "0") {
@@ -309,6 +312,11 @@ function loadList() {
 		onClickRow : function(rowData) {
 			appInfo.selectedId = rowData.menuid;
 			appInfo.selectedData = rowData;
+		},
+		onDblClickRow : function(rowData) {
+			appInfo.selectedId = rowData.menuid;
+			appInfo.selectedData = rowData;
+			editDate();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").treegrid('unselectAll');
