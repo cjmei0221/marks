@@ -119,7 +119,7 @@
 		</if>
 		<if test="keyword!=null and keyword!=''">
 			and (
-			or wxuser.NICKNAME LIKE
+			 wxuser.NICKNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
 			or wq.qrname LIKE
