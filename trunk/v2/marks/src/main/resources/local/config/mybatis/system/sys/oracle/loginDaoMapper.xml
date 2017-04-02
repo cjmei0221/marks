@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.marks.module.system.sys.dao.LoginDao">
+	<!-- 通过userid获取系统用户 -->
+	<select id="getSysUserByUserid" resultType="com.marks.module.system.sysuser.pojo.SysUser">
+		SELECT
+		TSU.*
+		FROM
+		TB_SYS_USER tsu
+		WHERE
+		tsu.USERID = #{userid} or
+		tsu.bind_mobile=#{userid}
+	</select>
+	<!-- 加载父级菜单 -->
+	<select id="getParentSysMenu" resultType="com.marks.module.system.sys.pojo.SysMenu">
+		SELECT DISTINCT
+		VSRM.MENUID,
+		VSRM.MENUITEM,
+		VSRM.PARENTID,
+		VSRM.URL,
+		vsrm.nsort
+		FROM
+		VIEW_SYS_ROLE_MENU vsrm
+		WHERE
+		vsrm.PARENTID = '0' order by vsrm.nsort
+	</select>
+
+	<select id="getChildMenu" resultType="com.marks.module.system.sys.pojo.SysMenu">
+		SELECT DISTINCT
+		VSRM.MENUID,
+		VSRM.MENUITEM,
+		VSRM.PARENTID,
+		VSRM.URL,
+		vsrm.nsort
+		FROM
+		VIEW_SYS_ROLE_MENU vsrm
+		WHERE 1=1
+		<if test="roleId != null and roleId !=''">
+			AND VSRM.ROLEID =#{roleId}
+		</if>
+		and vsrm.PARENTID != '0' order by vsrm.nsort
+	</select>
+	<select id="getSysOperate" resultType="com.marks.module.system.sys.pojo.SysOperate">
+		SELECT distinct
+		VSRF.OPERID,
+		VSRF.OPERNAME,
+		VSRF.PICICON,
+		vsrf.sort
+		FROM
+		VIEW_SYS_ROLE_FUNC vsrf where 1=1
+		<if test="roleId != null and roleId !=''">
+			AND vsrf.ROLEID =#{roleId}
+		</if>
+		AND VSRF.MENUID =
+		#{menuid}
+		order by vsrf.sort
+	</select>
+
+	<select id="getUrlByUserid" resultType="String">
+		SELECT DISTINCT
+		sf.url
+		FROM
+		tb_sys_user sur
+		JOIN tb_sys_role_func srf ON SUR.ROLEID =
+		SRF.ROLEID
+		JOIN tb_sys_func sf ON sf.funcid = srf.funcid
+		where
+		SUR.USERID=#{userid}
+	</select>
+
+	<select id="getOrgidBySysUser" resultType="String">
+		SELECT T.Orgid
+		FROM tb_org_info T
+		CONNECT BY parentid = PRIOR orgid
+		START WITH orgid
+		in
+		<foreach collection="orglist" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids.orgid}
+		</foreach>
+	</select>
+	<select id="getOrgInfoListByUserid" resultType="com.marks.module.system.orginfo.pojo.OrgInfo">
+		SELECT toi.*
+		FROM tb_sys_user_org T join tb_org_info toi on t.orgid=toi.orgid
+		where t.userid=#{userid}
+	</select>
+</mapper>
