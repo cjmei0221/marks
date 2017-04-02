@@ -1,0 +1,20 @@
+package com.marks.module.system.myimage.service;
+
+
+import com.marks.module.system.myimage.pojo.MyImage;
+
+import java.util.List;
+import java.util.Map;
+
+import com.marks.common.domain.PojoDomain;
+
+public interface MyImageService{
+
+	public MyImage findById(String picId);
+	public void save(MyImage myImage);
+	public void update(MyImage myImage);
+	public void delete(String picId);
+	public List<MyImage> findAll();
+	public void deleteBatch(List<String> ids);
+	public PojoDomain<MyImage> list(int page_number, int page_size,Map<String,Object> param);
+}

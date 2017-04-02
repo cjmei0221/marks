@@ -1,0 +1,80 @@
+package @{packageUrl};
+
+import java.util.List;
+import java.util.Map;
+
+import com.marks.common.domain.PojoDomain;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+
+import @{beanPackageUrl}.@{beanName};
+import @{daoInterfacePackageUrl}.@{beanName}Dao;
+import @{serviceInterfacePackageUrl}.@{beanName}Service;
+
+public class @{beanName}ServiceImpl implements @{beanName}Service{
+   
+
+@{DaoObject}
+@{GetSetMethod}
+    
+    /**
+    *根据ID查找@{ModuleDesc}
+    */
+    @Override
+    public @{beanName} findById(@{GetIdAttrType} @{GetIdAttrValue}){
+        return @{GetBeanObject}Dao.findById(@{GetIdAttrValue});
+    }
+    
+    /**
+    *保存@{ModuleDesc}
+    */
+    @Override
+    public void save(@{beanName} @{GetBeanObject}){
+        @{GetBeanObject}Dao.save(@{GetBeanObject});
+    }
+    
+    /**
+    *更新@{ModuleDesc}
+    */
+    @Override
+    public void update(@{beanName} @{GetBeanObject}){
+        @{GetBeanObject}Dao.update(@{GetBeanObject});
+    }
+    
+    /**
+    *删除@{ModuleDesc}
+    */
+    @Override
+    public void delete(@{GetIdAttrType} @{GetIdAttrValue}){
+        @{GetBeanObject}Dao.delete(@{GetIdAttrValue});       
+    }
+    
+    /**
+    *查找所有@{ModuleDesc}
+    */
+    @Override
+    public List<@{beanName}> findAll(){
+        return @{GetBeanObject}Dao.findAll();   
+    }
+    
+    /**
+    *删除多个@{ModuleDesc}
+    */
+    @Override
+   public void deleteBatch(List<String> ids) {
+		@{GetBeanObject}Dao.deleteBatch(ids);
+	}
+	
+	public PojoDomain<@{beanName}> list(int page_number, int page_size, Map<String,Object> param) {
+		PojoDomain<@{beanName}> pojoDomain = new PojoDomain<@{beanName}>();
+		PageBounds pageBounds = new PageBounds(page_number, page_size);
+		List<@{beanName}> list = @{GetBeanObject}Dao.list(pageBounds,param);
+		PageList<@{beanName}> pageList = (PageList<@{beanName}>)list; 
+		pojoDomain.setPojolist(list);
+		pojoDomain.setPage_number(page_number);
+		pojoDomain.setPage_size(page_size);
+		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
+		return pojoDomain;
+	}
+	
+}
