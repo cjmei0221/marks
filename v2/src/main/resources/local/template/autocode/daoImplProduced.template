@@ -1,9 +1,0 @@
-package @{packageUrl};
-
-import @{beanPackageUrl}.@{beanName};
-import @{daoInterfacePackageUrl}.@{beanName}Dao;
-
-public class @{beanName}DaoImpl 
-       implements @{beanName}Dao{
-       
-	}
