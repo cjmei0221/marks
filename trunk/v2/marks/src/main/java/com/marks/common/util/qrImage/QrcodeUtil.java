@@ -20,8 +20,8 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.marks.common.util.IDUtil;
-import com.marks.module.system.upload.util.FTPUtil;
-import com.marks.module.system.upload.util.UploadUtil;
+import com.marks.module.inner.system.upload.util.FTPUtil;
+import com.marks.module.inner.system.upload.util.UploadUtil;
 
 /**
  * 

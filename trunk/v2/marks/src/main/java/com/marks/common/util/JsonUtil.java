@@ -22,7 +22,7 @@ import com.marks.common.annotation.JsonObject;
 import com.marks.common.annotation.JsonObjectProperty;
 import com.marks.common.annotation.JsonProperty;
 import com.marks.common.domain.Result;
-import com.marks.module.system.core.data.StaticData;
+import com.marks.module.sys.system.core.data.StaticData;
 
 /**
  * json工具类
