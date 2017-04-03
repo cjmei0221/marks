@@ -10,11 +10,11 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.log4j.Logger;
 
-import com.marks.module.system.core.helper.SysUserHelper;
-import com.marks.module.system.core.listener.DatabaseHelper;
-import com.marks.module.system.sys.pojo.SysOperate;
-import com.marks.module.system.sys.service.LoginService;
-import com.marks.module.system.sysuser.pojo.SysUser;
+import com.marks.module.inner.system.sys.pojo.SysOperate;
+import com.marks.module.inner.system.sys.service.LoginService;
+import com.marks.module.inner.system.sysuser.pojo.SysUser;
+import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.sys.system.core.listener.DatabaseHelper;
 
 public class ButtonTag extends TagSupport{
 	private static Logger logger = Logger.getLogger(ButtonTag.class);
