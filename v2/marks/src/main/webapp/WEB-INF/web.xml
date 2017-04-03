@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
-	<display-name>marks-mvn-inner</display-name>
+	<display-name>marks-mvn</display-name>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.marks.module.system.core.listener.InitServletContextListener</listener-class>
+		<listener-class>com.marks.module.sys.system.core.listener.InitServletContextListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>net.bull.javamelody.SessionListener</listener-class>
@@ -51,15 +51,15 @@
 	<!-- 记录系统日志过滤器 -->
 	<filter>
 		<filter-name>SysLogFilter</filter-name>
-		<filter-class>com.marks.module.system.core.filter.SysLogFilter</filter-class>
+		<filter-class>com.marks.module.sys.system.core.filter.SysLogFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>SysLogFilter</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter>
 		<filter-name>paramsFilter</filter-name>
-		<filter-class>com.marks.module.system.core.filter.ParamsFilter</filter-class>
+		<filter-class>com.marks.module.sys.system.core.filter.ParamsFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>paramsFilter</filter-name>
