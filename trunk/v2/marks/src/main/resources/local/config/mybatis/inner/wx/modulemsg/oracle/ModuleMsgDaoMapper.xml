@@ -131,5 +131,9 @@
 	<delete id="deleteData" flushCache="true">
 		delete from tb_wx_module_msg where to_char(createtime,'yyyy-MM-dd') &lt; #{clearDate} 
 	</delete>
+	
+	<select id="getNeedPustMsg" resultType="com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg">
+ 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=1 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; #{pushlimitnum} and (#{nowtime}-t.create_stamp) &lt;= #{timelimit} and ROWNUM &lt;= #{limitnum}
+ 	</select>
 
 </mapper>
