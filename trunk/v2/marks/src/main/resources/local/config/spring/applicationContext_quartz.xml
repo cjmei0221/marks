@@ -16,7 +16,7 @@
 	<bean id="clearDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.system.core.helper.ClearHelper</value>
+			<value>com.marks.module.sys.system.core.helper.ClearHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -31,7 +31,7 @@
 	<bean id="dairyDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.note.diary.job.DairyHelper</value>
+			<value>com.marks.module.inner.note.diary.job.DairyHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -47,7 +47,7 @@
 	<bean id="reminderDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.note.reminder.job.ReminderHelper</value>
+			<value>com.marks.module.inner.note.reminder.job.ReminderHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -62,7 +62,7 @@
 	<bean id="loadDataDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.system.core.helper.LoadDataHelper</value>
+			<value>com.marks.module.sys.system.core.helper.LoadDataHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />

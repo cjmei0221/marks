@@ -23,16 +23,15 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd    
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
 	default-autowire="byName">
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:jdbc.properties" />
-	</bean>
 
-	
-		<import resource="applicationContext-datasource.xml"/>	
-	 	<import resource="applicationContext-mybatis.xml"/>	
-	 	<import resource="applicationContext-aop-tx.xml"/>	
-	 	<import resource="module/inner/applicationContext-*.xml"/>	
+	<!--  -->
+	<bean id="wxChatMsgService" class="com.marks.module.inner.wx.wxchatmsg.service.impl.WxChatMsgServiceImpl">
+		<property name="wxChatMsgDao" ref="wxChatMsgDao"></property>
+	</bean>
+	<bean id="wxChatMsgDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.marks.module.inner.wx.wxchatmsg.dao.WxChatMsgDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
 	
 	
 </beans>
