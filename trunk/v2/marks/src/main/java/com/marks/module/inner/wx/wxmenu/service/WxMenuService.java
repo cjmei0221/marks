@@ -1,13 +1,12 @@
 package com.marks.module.inner.wx.wxmenu.service;
 
 
-import com.marks.module.inner.wx.wxmenu.pojo.WxMenu;
-
 import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.module.center.wxfwhao.common.entity.WxMenu;
 
 public interface WxMenuService{
 
