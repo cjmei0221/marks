@@ -9,7 +9,7 @@
 	<!-- 根据url获取菜单名称和操作名称 -->
 	<select id="getSysLogParam" resultType="com.marks.module.inner.system.syslog.pojo.SysLog">
 		SELECT
-		SM.MENUITEMz
+		SM.MENUITEM
 		menuname,
 		soper.OPERNAME
 		FROM

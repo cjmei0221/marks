@@ -45,7 +45,7 @@ public class @{beanName}Controller extends SupportContorller{
     /**
 	 * 查询@{GetModuleDesc}
 	 */
-    @RequestMapping("/@{BeanObject}/find@{beanName}ById")
+    @RequestMapping("/inner/@{BeanObject}/find@{beanName}ById")
     public void find@{beanName}ById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
@@ -69,7 +69,7 @@ public class @{beanName}Controller extends SupportContorller{
     /**
 	 * 保存@{GetModuleDesc}
 	 */
-    @RequestMapping("/@{BeanObject}/save")
+    @RequestMapping("/inner/@{BeanObject}/save")
     public void save@{beanName}(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -104,7 +104,7 @@ public class @{beanName}Controller extends SupportContorller{
 	/**
 	 * 更改@{GetModuleDesc}
 	 */
-    @RequestMapping("/@{BeanObject}/update")
+    @RequestMapping("/inner/@{BeanObject}/update")
     public void update@{beanName}(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -134,7 +134,7 @@ public class @{beanName}Controller extends SupportContorller{
 	/**
 	 * 删除@{GetModuleDesc}
 	 */
-    @RequestMapping("/@{BeanObject}/delete")
+    @RequestMapping("/inner/@{BeanObject}/delete")
     public void delete@{beanName}ById(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -157,7 +157,7 @@ public class @{beanName}Controller extends SupportContorller{
 	/**
 	 * 查询全部@{GetModuleDesc}
 	 */
-    @RequestMapping("/@{BeanObject}/findAll@{beanName}")
+    @RequestMapping("/inner/@{BeanObject}/findAll@{beanName}")
     public void findAll@{beanName}(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -177,7 +177,7 @@ public class @{beanName}Controller extends SupportContorller{
 	/**
 	 * 删除多个@{GetModuleDesc}
 	 */
-	@RequestMapping("/@{BeanObject}/deleteIds")
+	@RequestMapping("/inner/@{BeanObject}/deleteIds")
 	public void delete@{beanName}(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
@@ -209,7 +209,7 @@ public class @{beanName}Controller extends SupportContorller{
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/@{BeanObject}/list")
+	@RequestMapping("/inner/@{BeanObject}/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
