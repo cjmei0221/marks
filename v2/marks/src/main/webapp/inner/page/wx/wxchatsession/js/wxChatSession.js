@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxChatSession/countList.do',// 获取回话管理列表接口
+	listUrl : top.window.urlBase + '/inner/wxChatSession/countList.do',// 获取回话管理列表接口
 																	// WxChatSession
-	saveUrl : top.window.urlBase + '/wxChatSession/save.do',// 保存新增回话管理接口
-	updateUrl : top.window.urlBase + '/wxChatSession/update.do',// 编辑回话管理信息接口
-	deleteUrl : top.window.urlBase + '/wxChatSession/delete.do',// 删除回话管理接口
+	saveUrl : top.window.urlBase + '/inner/wxChatSession/save.do',// 保存新增回话管理接口
+	updateUrl : top.window.urlBase + '/inner/wxChatSession/update.do',// 编辑回话管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/wxChatSession/delete.do',// 删除回话管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

@@ -66,7 +66,7 @@
 			return;
 		}
 		var newPwd = $("#pwd").val();
-		var reqUrl = top.window.urlBase + '/sysUser/updateMobile.do';
+		var reqUrl = top.window.urlBase + '/inner/sysUser/updateMobile.do';
 		$.ajax({
 			type : "POST", //提交方式  
 			url : reqUrl,//路径  

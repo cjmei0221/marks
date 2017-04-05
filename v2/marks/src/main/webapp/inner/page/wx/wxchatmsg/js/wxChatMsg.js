@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxChatSession/list.do',// 获取询问管理列表接口 WxChatMsg
-	saveUrl : top.window.urlBase + '/wxChatMsg/save.do',// 保存新增询问管理接口
-	updateUrl : top.window.urlBase + '/wxChatMsg/update.do',// 编辑询问管理信息接口
-	deleteUrl : top.window.urlBase + '/wxChatMsg/delete.do',// 删除询问管理接口
-	replayListUrl:top.window.urlBase + '/wxChatMsg/replayList.do',// 删除询问管理接口
+	listUrl : top.window.urlBase + '/inner/wxChatSession/list.do',// 获取询问管理列表接口 WxChatMsg
+	saveUrl : top.window.urlBase + '/inner/wxChatMsg/save.do',// 保存新增询问管理接口
+	updateUrl : top.window.urlBase + '/inner/wxChatMsg/update.do',// 编辑询问管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/wxChatMsg/delete.do',// 删除询问管理接口
+	replayListUrl:top.window.urlBase + '/inner/wxChatMsg/replayList.do',// 删除询问管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

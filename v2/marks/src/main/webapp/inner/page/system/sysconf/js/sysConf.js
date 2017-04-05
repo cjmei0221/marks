@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/sysConf/list.do',// 获取系统参数列表接口 SysConf
-	saveUrl : top.window.urlBase + '/sysConf/save.do',// 保存新增系统参数接口
-	updateUrl : top.window.urlBase + '/sysConf/update.do',// 编辑系统参数信息接口
-	deleteUrl : top.window.urlBase + '/sysConf/delete.do',// 删除系统参数接口
+	listUrl : top.window.urlBase + '/inner/sysConf/list.do',// 获取系统参数列表接口 SysConf
+	saveUrl : top.window.urlBase + '/inner/sysConf/save.do',// 保存新增系统参数接口
+	updateUrl : top.window.urlBase + '/inner/sysConf/update.do',// 编辑系统参数信息接口
+	deleteUrl : top.window.urlBase + '/inner/sysConf/delete.do',// 删除系统参数接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

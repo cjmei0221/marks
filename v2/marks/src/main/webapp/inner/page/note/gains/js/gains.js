@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/gains/list.do',// 获取心得记录列表接口 Gains
-	saveUrl : top.window.urlBase + '/gains/save.do',// 保存新增心得记录接口
-	updateUrl : top.window.urlBase + '/gains/update.do',// 编辑心得记录信息接口
-	deleteUrl : top.window.urlBase + '/gains/delete.do',// 删除心得记录接口
+	listUrl : top.window.urlBase + '/inner/gains/list.do',// 获取心得记录列表接口 Gains
+	saveUrl : top.window.urlBase + '/inner/gains/save.do',// 保存新增心得记录接口
+	updateUrl : top.window.urlBase + '/inner/gains/update.do',// 编辑心得记录信息接口
+	deleteUrl : top.window.urlBase + '/inner/gains/delete.do',// 删除心得记录接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxMenuUrl/list.do',// 获取微信菜单URL列表接口
+	listUrl : top.window.urlBase + '/inner/wxMenuUrl/list.do',// 获取微信菜单URL列表接口
 														// WxMenuUrl
-	saveUrl : top.window.urlBase + '/wxMenuUrl/save.do',// 保存新增微信菜单URL接口
-	updateUrl : top.window.urlBase + '/wxMenuUrl/update.do',// 编辑微信菜单URL信息接口
-	deleteUrl : top.window.urlBase + '/wxMenuUrl/delete.do',// 删除微信菜单URL接口
+	saveUrl : top.window.urlBase + '/inner/wxMenuUrl/save.do',// 保存新增微信菜单URL接口
+	updateUrl : top.window.urlBase + '/inner/wxMenuUrl/update.do',// 编辑微信菜单URL信息接口
+	deleteUrl : top.window.urlBase + '/inner/wxMenuUrl/delete.do',// 删除微信菜单URL接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

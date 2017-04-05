@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/reminder/list.do',// 获取事务提醒列表接口 Reminder
-	saveUrl : top.window.urlBase + '/reminder/save.do',// 保存新增事务提醒接口
-	updateUrl : top.window.urlBase + '/reminder/update.do',// 编辑事务提醒信息接口
-	deleteUrl : top.window.urlBase + '/reminder/delete.do',// 删除事务提醒接口
+	listUrl : top.window.urlBase + '/inner/reminder/list.do',// 获取事务提醒列表接口 Reminder
+	saveUrl : top.window.urlBase + '/inner/reminder/save.do',// 保存新增事务提醒接口
+	updateUrl : top.window.urlBase + '/inner/reminder/update.do',// 编辑事务提醒信息接口
+	deleteUrl : top.window.urlBase + '/inner/reminder/delete.do',// 删除事务提醒接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

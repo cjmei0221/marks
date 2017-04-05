@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/advise/list.do',// 获取客户专制列表接口 Advise
-	saveUrl : top.window.urlBase + '/advise/save.do',// 保存新增客户专制接口
-	updateUrl : top.window.urlBase + '/advise/update.do',// 编辑客户专制信息接口
-	deleteUrl : top.window.urlBase + '/advise/delete.do',// 删除客户专制接口
+	listUrl : top.window.urlBase + '/inner/advise/list.do',// 获取客户专制列表接口 Advise
+	saveUrl : top.window.urlBase + '/inner/advise/save.do',// 保存新增客户专制接口
+	updateUrl : top.window.urlBase + '/inner/advise/update.do',// 编辑客户专制信息接口
+	deleteUrl : top.window.urlBase + '/inner/advise/delete.do',// 删除客户专制接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

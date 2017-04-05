@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxAccount/list.do',// 获取公众号管理列表接口 WxAccount
-	saveUrl : top.window.urlBase + '/wxAccount/save.do',// 保存新增公众号管理接口
-	updateUrl : top.window.urlBase + '/wxAccount/update.do',// 编辑公众号管理信息接口
-	deleteUrl : top.window.urlBase + '/wxAccount/delete.do',// 删除公众号管理接口
-	syncWxFansUrl : top.window.urlBase + '/wxUser/sync.do',//更新粉丝
+	listUrl : top.window.urlBase + '/inner/wxAccount/list.do',// 获取公众号管理列表接口 WxAccount
+	saveUrl : top.window.urlBase + '/inner/wxAccount/save.do',// 保存新增公众号管理接口
+	updateUrl : top.window.urlBase + '/inner/wxAccount/update.do',// 编辑公众号管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/wxAccount/delete.do',// 删除公众号管理接口
+	syncWxFansUrl : top.window.urlBase + '/inner/wxUser/sync.do',//更新粉丝
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

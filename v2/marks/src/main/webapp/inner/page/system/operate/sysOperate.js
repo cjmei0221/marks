@@ -1,7 +1,7 @@
 var appInfo = {
-	listUrl : top.window.urlBase + "/sysOperate/list.do",
-	saveUrl : top.window.urlBase + "/sysOperate/save.do",
-	deleteUrl : top.window.urlBase + "/sysOperate/delete.do",
+	listUrl : top.window.urlBase + "/inner/sysOperate/list.do",
+	saveUrl : top.window.urlBase + "/inner/sysOperate/save.do",
+	deleteUrl : top.window.urlBase + "/inner/sysOperate/delete.do",
 	selectedId : -1,
 	selectedData : {},
 	requestParam:{

@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/sysLog/list.do',// 获取内管日志列表接口 SysLog
-	saveUrl : top.window.urlBase + '/sysLog/save.do',// 保存新增内管日志接口
-	updateUrl : top.window.urlBase + '/sysLog/update.do',// 编辑内管日志信息接口
-	deleteUrl : top.window.urlBase + '/sysLog/delete.do',// 删除内管日志接口
+	listUrl : top.window.urlBase + '/inner/sysLog/list.do',// 获取内管日志列表接口 SysLog
+	saveUrl : top.window.urlBase + '/inner/sysLog/save.do',// 保存新增内管日志接口
+	updateUrl : top.window.urlBase + '/inner/sysLog/update.do',// 编辑内管日志信息接口
+	deleteUrl : top.window.urlBase + '/inner/sysLog/delete.do',// 删除内管日志接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

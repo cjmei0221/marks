@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxAutoReplay/list.do',// 获取微信回复管理列表接口
+	listUrl : top.window.urlBase + '/inner/wxAutoReplay/list.do',// 获取微信回复管理列表接口
 	// WxAutoReplay
-	saveUrl : top.window.urlBase + '/wxAutoReplay/save.do',// 保存新增微信回复管理接口
-	updateUrl : top.window.urlBase + '/wxAutoReplay/update.do',// 编辑微信回复管理信息接口
-	deleteUrl : top.window.urlBase + '/wxAutoReplay/delete.do',// 删除微信回复管理接口
+	saveUrl : top.window.urlBase + '/inner/wxAutoReplay/save.do',// 保存新增微信回复管理接口
+	updateUrl : top.window.urlBase + '/inner/wxAutoReplay/update.do',// 编辑微信回复管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/wxAutoReplay/delete.do',// 删除微信回复管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

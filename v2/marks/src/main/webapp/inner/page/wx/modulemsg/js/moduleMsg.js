@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/moduleMsg/list.do',// 获取模板消息列表接口 ModuleMsg
-	saveUrl : top.window.urlBase + '/moduleMsg/save.do',// 保存新增模板消息接口
-	updateUrl : top.window.urlBase + '/moduleMsg/update.do',// 编辑模板消息信息接口
-	deleteUrl : top.window.urlBase + '/moduleMsg/delete.do',// 删除模板消息接口
+	listUrl : top.window.urlBase + '/inner/moduleMsg/list.do',// 获取模板消息列表接口 ModuleMsg
+	saveUrl : top.window.urlBase + '/inner/moduleMsg/save.do',// 保存新增模板消息接口
+	updateUrl : top.window.urlBase + '/inner/moduleMsg/update.do',// 编辑模板消息信息接口
+	deleteUrl : top.window.urlBase + '/inner/moduleMsg/delete.do',// 删除模板消息接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

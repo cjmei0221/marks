@@ -74,7 +74,7 @@
 			showMsg("确认密码与新密码不一致");
 			return;
 		}
-		var reqUrl = top.window.urlBase + '/sysUser/updatePwd.do';
+		var reqUrl = top.window.urlBase + '/inner/sysUser/updatePwd.do';
 		$.ajax({
 			type : "POST", //提交方式  
 			url : reqUrl,//路径  

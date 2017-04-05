@@ -1,10 +1,10 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/goodInfo/list.do',// 获取商品管理列表接口 GoodInfo
-	saveUrl : top.window.urlBase + '/goodInfo/save.do',// 保存新增商品管理接口
-	updateUrl : top.window.urlBase + '/goodInfo/update.do',// 编辑商品管理信息接口
-	deleteUrl : top.window.urlBase + '/goodInfo/delete.do',// 删除商品管理接口
-	goodImgListUrl : top.window.urlBase + '/goodInfo/findGoodImgByGoodId.do',// 删除商品管理接口
-	onsaleUrl: top.window.urlBase + '/goodSale/onsale.do',
+	listUrl : top.window.urlBase + '/inner/goodInfo/list.do',// 获取商品管理列表接口 GoodInfo
+	saveUrl : top.window.urlBase + '/inner/goodInfo/save.do',// 保存新增商品管理接口
+	updateUrl : top.window.urlBase + '/inner/goodInfo/update.do',// 编辑商品管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/goodInfo/delete.do',// 删除商品管理接口
+	goodImgListUrl : top.window.urlBase + '/inner/goodInfo/findGoodImgByGoodId.do',// 删除商品管理接口
+	onsaleUrl: top.window.urlBase + '/inner/goodSale/onsale.do',
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
