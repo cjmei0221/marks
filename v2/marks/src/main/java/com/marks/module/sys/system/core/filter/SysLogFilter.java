@@ -1,7 +1,6 @@
 package com.marks.module.sys.system.core.filter;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -56,8 +55,14 @@ public class SysLogFilter implements Filter {
 				log.setRetain2(url);
 
 				log.setUrl(url);
-				log.setSource(0);
-				SysLogThreadPool.saveSysLog(false, log);
+				int source=2;
+				if(url.indexOf("/inner")>=0){
+					source=0;
+				}else if(url.indexOf("/web")>=0){
+					source=2;
+				}
+				log.setSource(source);
+				SysLogThreadPool.saveSysLog(false,log);
 			}
 		} catch (Exception e) {
 			LOG.error("Exception:", e);
