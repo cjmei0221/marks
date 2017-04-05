@@ -21,9 +21,9 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
-public class WxMenuController {
+public class CWxMenuController {
 
-	private static Logger logger = Logger.getLogger(WxMenuController.class);
+	private static Logger logger = Logger.getLogger(CWxMenuController.class);
 	
 	@RequestMapping(value = "/center/wxmenu/createWXMenu")
 	public void createWXMenu(HttpServletRequest request,
