@@ -39,7 +39,7 @@ public class SysConfController extends SupportContorller {
 	/**
 	 * 查询系统参数
 	 */
-	@RequestMapping("/sysConf/findSysConfById")
+	@RequestMapping("/inner/sysConf/findSysConfById")
 	public void findSysConfById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -59,7 +59,7 @@ public class SysConfController extends SupportContorller {
 	/**
 	 * 保存系统参数
 	 */
-	@RequestMapping("/sysConf/save")
+	@RequestMapping("/inner/sysConf/save")
 	public void saveSysConf(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -92,7 +92,7 @@ public class SysConfController extends SupportContorller {
 	/**
 	 * 更改系统参数
 	 */
-	@RequestMapping("/sysConf/update")
+	@RequestMapping("/inner/sysConf/update")
 	public void updateSysConf(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -117,7 +117,7 @@ public class SysConfController extends SupportContorller {
 	/**
 	 * 删除系统参数
 	 */
-	@RequestMapping("/sysConf/delete")
+	@RequestMapping("/inner/sysConf/delete")
 	public void deleteSysConfById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -136,7 +136,7 @@ public class SysConfController extends SupportContorller {
 	/**
 	 * 查询全部系统参数
 	 */
-	@RequestMapping("/sysConf/findAllSysConf")
+	@RequestMapping("/inner/sysConf/findAllSysConf")
 	public void findAllSysConf(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -155,7 +155,7 @@ public class SysConfController extends SupportContorller {
 	/**
 	 * 删除多个系统参数
 	 */
-	@RequestMapping("/sysConf/deleteIds")
+	@RequestMapping("/inner/sysConf/deleteIds")
 	public void deleteSysConf(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -185,7 +185,7 @@ public class SysConfController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/sysConf/list")
+	@RequestMapping("/inner/sysConf/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {

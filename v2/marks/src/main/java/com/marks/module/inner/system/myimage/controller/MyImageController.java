@@ -43,7 +43,7 @@ public class MyImageController extends SupportContorller{
     /**
 	 * 查询图片
 	 */
-    @RequestMapping("/myImage/findMyImageById")
+    @RequestMapping("/inner/myImage/findMyImageById")
     public void findMyImageById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
@@ -67,7 +67,7 @@ public class MyImageController extends SupportContorller{
     /**
 	 * 保存图片
 	 */
-    @RequestMapping("/myImage/save")
+    @RequestMapping("/inner/myImage/save")
     public void saveMyImage(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -102,7 +102,7 @@ public class MyImageController extends SupportContorller{
 	/**
 	 * 更改图片
 	 */
-    @RequestMapping("/myImage/update")
+    @RequestMapping("/inner/myImage/update")
     public void updateMyImage(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -132,7 +132,7 @@ public class MyImageController extends SupportContorller{
 	/**
 	 * 删除图片
 	 */
-    @RequestMapping("/myImage/delete")
+    @RequestMapping("/inner/myImage/delete")
     public void deleteMyImageById(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -155,7 +155,7 @@ public class MyImageController extends SupportContorller{
 	/**
 	 * 查询全部图片
 	 */
-    @RequestMapping("/myImage/findAllMyImage")
+    @RequestMapping("/inner/myImage/findAllMyImage")
     public void findAllMyImage(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -175,7 +175,7 @@ public class MyImageController extends SupportContorller{
 	/**
 	 * 删除多个图片
 	 */
-	@RequestMapping("/myImage/deleteIds")
+	@RequestMapping("/inner/myImage/deleteIds")
 	public void deleteMyImage(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
@@ -207,7 +207,7 @@ public class MyImageController extends SupportContorller{
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/myImage/list")
+	@RequestMapping("/inner/myImage/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {

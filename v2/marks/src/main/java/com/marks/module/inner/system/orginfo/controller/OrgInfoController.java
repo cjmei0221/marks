@@ -43,7 +43,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * 查询机构管理
 	 */
-	@RequestMapping("/orgInfo/findOrgInfoById")
+	@RequestMapping("/inner/orgInfo/findOrgInfoById")
 	public void findOrgInfoById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -63,7 +63,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * 保存机构管理
 	 */
-	@RequestMapping("/orgInfo/save")
+	@RequestMapping("/inner/orgInfo/save")
 	public void saveOrgInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -101,7 +101,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * 更改机构管理
 	 */
-	@RequestMapping("/orgInfo/update")
+	@RequestMapping("/inner/orgInfo/update")
 	public void updateOrgInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -134,7 +134,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * 删除机构管理
 	 */
-	@RequestMapping("/orgInfo/delete")
+	@RequestMapping("/inner/orgInfo/delete")
 	public void deleteOrgInfoById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -160,7 +160,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * 查询全部机构管理
 	 */
-	@RequestMapping("/orgInfo/findAllOrgInfo")
+	@RequestMapping("/inner/orgInfo/findAllOrgInfo")
 	public void findAllOrgInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -179,7 +179,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * 删除多个机构管理
 	 */
-	@RequestMapping("/orgInfo/deleteIds")
+	@RequestMapping("/inner/orgInfo/deleteIds")
 	public void deleteOrgInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -209,7 +209,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/orgInfo/list")
+	@RequestMapping("/inner/orgInfo/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
@@ -251,7 +251,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/orgInfo/tree")
+	@RequestMapping("/inner/orgInfo/tree")
 	public void tree(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		List<OrgInfo> list = orgInfoService.list(admin);
@@ -261,7 +261,7 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/orgInfo/framelist")
+	@RequestMapping("/inner/orgInfo/framelist")
 	public void framelist(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
@@ -291,7 +291,7 @@ public class OrgInfoController extends SupportContorller {
 		JsonUtil.output(response, result);
 	}
 
-	@RequestMapping("/orgInfo/combo")
+	@RequestMapping("/inner/orgInfo/combo")
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();

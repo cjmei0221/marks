@@ -41,7 +41,7 @@ public class SysUserController extends SupportContorller{
     /**
 	 * 查询用户管理
 	 */
-    @RequestMapping("/sysUser/findSysUserById")
+    @RequestMapping("/inner/sysUser/findSysUserById")
     public void findSysUserById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
@@ -62,7 +62,7 @@ public class SysUserController extends SupportContorller{
     /**
 	 * 保存用户管理
 	 */
-    @RequestMapping("/sysUser/save")
+    @RequestMapping("/inner/sysUser/save")
     public void saveSysUser(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -94,7 +94,7 @@ public class SysUserController extends SupportContorller{
 	/**
 	 * 更改用户管理
 	 */
-    @RequestMapping("/sysUser/update")
+    @RequestMapping("/inner/sysUser/update")
     public void updateSysUser(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -121,7 +121,7 @@ public class SysUserController extends SupportContorller{
 	/**
 	 * 删除用户管理
 	 */
-    @RequestMapping("/sysUser/delete")
+    @RequestMapping("/inner/sysUser/delete")
     public void deleteSysUserById(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -141,7 +141,7 @@ public class SysUserController extends SupportContorller{
 	/**
 	 * 查询全部用户管理
 	 */
-    @RequestMapping("/sysUser/findAllSysUser")
+    @RequestMapping("/inner/sysUser/findAllSysUser")
     public void findAllSysUser(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -161,7 +161,7 @@ public class SysUserController extends SupportContorller{
 	/**
 	 * 删除多个用户管理
 	 */
-	@RequestMapping("/sysUser/deleteIds")
+	@RequestMapping("/inner/sysUser/deleteIds")
 	public void deleteSysUser(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
@@ -192,7 +192,7 @@ public class SysUserController extends SupportContorller{
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/sysUser/list")
+	@RequestMapping("/inner/sysUser/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
@@ -231,7 +231,7 @@ public class SysUserController extends SupportContorller{
 	/**
 	 * 重置密码
 	 */
-    @RequestMapping("/sysUser/resetPwd")
+    @RequestMapping("/inner/sysUser/resetPwd")
     public void resetPwd(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -261,7 +261,7 @@ public class SysUserController extends SupportContorller{
      * @param request
      * @param response
      */
-    @RequestMapping("/sysUser/updatePwd")
+    @RequestMapping("/inner/sysUser/updatePwd")
     public void updatePwd(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -289,7 +289,7 @@ public class SysUserController extends SupportContorller{
      * @param request
      * @param response
      */
-    @RequestMapping("/sysUser/updateMobile")
+    @RequestMapping("/inner/sysUser/updateMobile")
     public void updateMobile(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -323,7 +323,7 @@ public class SysUserController extends SupportContorller{
      * @param request
      * @param response
      */
-    @RequestMapping("/sysUser/updateActiveFlag")
+    @RequestMapping("/inner/sysUser/updateActiveFlag")
     public void updateActiveFlag(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();

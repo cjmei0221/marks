@@ -46,7 +46,7 @@ public class SysMenuController {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	@RequestMapping("/sysMenu/list")
+	@RequestMapping("/inner/sysMenu/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		List<SysMenu> list=sysMenuService.getSysMenuList();
@@ -65,7 +65,7 @@ public class SysMenuController {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	@RequestMapping("/sysMenu/parentMenu")
+	@RequestMapping("/inner/sysMenu/parentMenu")
 	public void parentMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		List<SysMenu> returnlist=sysMenuService.getParentSysMenuList();
@@ -89,7 +89,7 @@ public class SysMenuController {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	@RequestMapping("/sysMenu/save")
+	@RequestMapping("/inner/sysMenu/save")
 	public void save(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		result.setCode(Code.CODE_SUCCESS);
@@ -137,7 +137,7 @@ public class SysMenuController {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	@RequestMapping("/sysMenu/delete")
+	@RequestMapping("/inner/sysMenu/delete")
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		result.setCode(Code.CODE_SUCCESS);
@@ -147,7 +147,7 @@ public class SysMenuController {
 		JsonUtil.output(response, result);
 	}
 	
-	@RequestMapping("/sysMenu/initFunc")
+	@RequestMapping("/inner/sysMenu/initFunc")
 	public void initFunc(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		try {
@@ -178,7 +178,7 @@ public class SysMenuController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/sysMenu/deleteFunc")
+	@RequestMapping("/inner/sysMenu/deleteFunc")
 	public void deleteFunc(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -200,7 +200,7 @@ public class SysMenuController {
 		JsonUtil.output(response, result);
 	}
 
-	@RequestMapping("/sysMenu/addFunc")
+	@RequestMapping("/inner/sysMenu/addFunc")
 	public void addFunc(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {

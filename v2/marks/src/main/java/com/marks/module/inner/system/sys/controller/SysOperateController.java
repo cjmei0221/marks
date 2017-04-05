@@ -41,7 +41,7 @@ public class SysOperateController {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	@RequestMapping("/sysOperate/list")
+	@RequestMapping("/inner/sysOperate/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		PaginationResult result = new PaginationResult();
 		String keyword = request.getParameter("keyword");
@@ -65,7 +65,7 @@ public class SysOperateController {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	@RequestMapping("/sysOperate/save")
+	@RequestMapping("/inner/sysOperate/save")
 	public void save(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		result.setCode(Code.CODE_SUCCESS);
@@ -114,7 +114,7 @@ public class SysOperateController {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	@RequestMapping("/sysOperate/delete")
+	@RequestMapping("/inner/sysOperate/delete")
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		result.setCode(Code.CODE_SUCCESS);
