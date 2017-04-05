@@ -11,17 +11,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.JsonResult;
+import com.marks.module.center.wxfwhao.redPack.pojo.RedPackReq;
 import com.marks.module.center.wxfwhao.redPack.wxservice.RedPackSendUtil;
+import com.marks.module.inner.system.sys.controller.SupportContorller;
 
 import net.sf.json.JSONObject;
 
 @Controller
-public class RedPackController {
+public class RedPackController extends SupportContorller{
 	private static Logger logger = Logger.getLogger(RedPackController.class);
 	/**
 	 * 现金红包发送
 	 * */ 
-	@RequestMapping(value = "/center/red/redPackSend")
+	@RequestMapping(value = "/center/redPack/redPackSend")
 	public void redPackSend(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -48,12 +50,40 @@ public class RedPackController {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	 * 现金红包发送
+	 * */ 
+	@RequestMapping(value = "/center/redPack/commonRedPack")
+	public void commonRedPack(HttpServletRequest request,
+			HttpServletResponse response) {
+		JsonResult result = new JsonResult();
+		try {
+			String accountid=request.getParameter("accountid");
+			RedPackReq vo = getModel(RedPackReq.class);
+		} catch (Exception e) {
+			logger.error("系统异常，请稍后再试", e);
+			e.printStackTrace();
+			result.setSuccess(Boolean.FALSE);
+			result.setErrorMsg("系统异常，请稍后再试");
+			result.setErrorCode("9999");
+		}
+		try {
+			JSONObject array = JSONObject.fromObject(result);
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().write(array.toString());
+			response.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
+	@Override
+	public Logger getLogger() {
+		// TODO Auto-generated method stub
+		return logger;
 	}
 
 }
