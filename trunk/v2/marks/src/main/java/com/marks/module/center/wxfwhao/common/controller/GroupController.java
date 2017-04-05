@@ -23,7 +23,7 @@ public class GroupController {
 	 * @param response
 	 * @throws Exception
 	 */
-		@RequestMapping(value = "/groups/members/update")
+		@RequestMapping(value = "/center/members/update")
 		public void getWXUserOpenId(HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			JsonResult result = new JsonResult();

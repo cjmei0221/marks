@@ -25,7 +25,7 @@ public class UserController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/wechat/getUserInfo")
+	@RequestMapping(value = "/center/user/getUserInfo")
 	public void getUserInfo(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		JsonResult result = new JsonResult();
@@ -55,7 +55,7 @@ public class UserController {
  * @param response
  * @throws Exception
  */
-	@RequestMapping(value = "/wechat/getWXUserOpenId")
+	@RequestMapping(value = "/center/user/getWXUserOpenId")
 	public void getWXUserOpenId(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		JsonResult result = new JsonResult();

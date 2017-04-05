@@ -26,7 +26,7 @@ public class JssdkController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/jssdk/getJssdkTicket")
+	@RequestMapping(value = "/center/jssdk/getJssdkTicket")
 	public void getUserInfo(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		JsonResult result = new JsonResult();
