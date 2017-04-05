@@ -106,7 +106,29 @@ function formSubmit() {
 	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-	$('#ff').form('submit', {
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	$.post(reqUrl,parms,function(data){
+		if(typeof data === 'string'){
+			try{
+				data = $.parseJSON(data);
+			}catch(e0){
+				showMsg("json 格式 错误");
+				return;
+			}					
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
+		}
+	});
+	
+	/*$('#ff').form('submit', {
 		url : reqUrl,
 		onSubmit : function(param) {
 			param.formStatus = appInfo.formStatus;
@@ -130,7 +152,7 @@ function formSubmit() {
 				showMsg(data.retmsg);
 			}
 		}
-	});
+	});*/
 }
 
 function loadList() {
