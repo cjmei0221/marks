@@ -46,8 +46,8 @@
 	<mvc:interceptors>    
    		 <mvc:interceptor>    
         	<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->  
-        	<mvc:mapping path="/*/*" />  
-        	<bean class="com.marks.module.system.core.interceptor.PopedomInterceptor"></bean>    
+        	<mvc:mapping path="/inner/*/*" />  
+        	<bean class="com.marks.module.sys.system.core.interceptor.PopedomInterceptor"></bean>    
     	</mvc:interceptor>  
 	</mvc:interceptors>  
 </beans>
