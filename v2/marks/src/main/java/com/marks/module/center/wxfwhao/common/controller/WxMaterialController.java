@@ -23,7 +23,7 @@ public class WxMaterialController {
 	private Logger logger = Logger.getLogger(WxMaterialController.class);
 	
 	//素材数量
-	@RequestMapping("/weixinmaterial/getcount")
+	@RequestMapping("/center/weixinmaterial/getcount")
 	public void getCount(HttpServletRequest request,HttpServletResponse response){
 		try {
 			JsonResult result = new JsonResult();
@@ -55,7 +55,7 @@ public class WxMaterialController {
 		
 	}
 	//素材列表
-	@RequestMapping("/weixinmaterial/getmateriallist")
+	@RequestMapping("/center/weixinmaterial/getmateriallist")
 	public void getMaterialList(HttpServletRequest request,HttpServletResponse response){
 		try {
 			JsonResult result = new JsonResult();

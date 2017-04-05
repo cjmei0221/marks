@@ -21,7 +21,7 @@ public class DownloadTempController {
 	 * @param response
 	 * @throws Exception
 	 */
-		@RequestMapping(value = "/download/temp")
+		@RequestMapping(value = "/center/download/temp")
 		public void getWXUserOpenId(HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			JsonResult result = new JsonResult();

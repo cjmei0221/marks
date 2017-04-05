@@ -25,7 +25,7 @@ public class WxMenuController {
 
 	private static Logger logger = Logger.getLogger(WxMenuController.class);
 	
-	@RequestMapping(value = "/wechat/createWXMenu")
+	@RequestMapping(value = "/center/wxmenu/createWXMenu")
 	public void createWXMenu(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		JsonResult result = new JsonResult();

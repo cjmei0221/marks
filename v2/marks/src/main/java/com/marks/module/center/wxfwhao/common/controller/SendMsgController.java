@@ -26,7 +26,7 @@ public class SendMsgController {
 	  * @param response
 	  * @throws Exception
 	  */
-	 @RequestMapping(value = "/wechat/sendCustomTextMsg")
+	 @RequestMapping(value = "/center/msg/sendCustomTextMsg")
 	  public void sendCustomTextMsg(HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			JsonResult result = new JsonResult();

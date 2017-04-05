@@ -29,7 +29,7 @@ public class ModuleMsgController {
 	@Autowired
 	private ModuleMsgService moduleMsgService;
 
-	@RequestMapping(value = "/wechat/receive/sendTemplateMsg")
+	@RequestMapping(value = "/center/modulemsg/sendTemplateMsg")
 	public void sendTemplateMsg(HttpServletRequest request, HttpServletResponse response) {
 		JsonResult result = new JsonResult();
 		try {
