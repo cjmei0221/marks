@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 
 import com.marks.module.inner.system.syslog.dao.SysLogDao;
 import com.marks.module.inner.system.syslog.pojo.SysLog;
+import com.marks.module.inner.system.syslogparam.pojo.SysLogParam;
 import com.marks.module.sys.system.core.listener.DatabaseHelper;
 
 /**
@@ -52,17 +53,26 @@ class SysLogThread implements Runnable{
 			if(log==null){
 				return;
 			}
-			log.setSource(0);
-			if(isAlone){
+			if(log.getSource()==0 && isAlone){
 				sysLogDao.saveSysLog(log);
-			}else{
+				return;
+			}
+			if(log.getSource()==0 && !isAlone){
 				List<SysLog> logc=sysLogDao.getSysLogParam(log.getUrl());
 				if(null != logc && logc.size()>0){
 					log.setMenuname(logc.get(0).getMenuname());
 					log.setOpername(logc.get(0).getOpername());
 					sysLogDao.saveSysLog(log);
 				}
+				return;
 			}
+			SysLogParam param=sysLogDao.getSysLogParamNoForInner(log.getUrl(),log.getSource());
+			if(null !=param){
+				log.setMenuname(param.getMenuName());
+				log.setOpername(param.getOperName());
+			}
+			sysLogDao.saveSysLog(log);
+			
 		} catch (InterruptedException e) {
 		
 		}
