@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
-import com.marks.common.domain.Result;
-import com.marks.module.inner.wx.wxmenu.dao.WxMenuDao;
-import com.marks.module.inner.wx.wxmenu.pojo.WxMenu;
-import com.marks.module.inner.wx.wxmenu.service.WxMenuService;
-import com.marks.module.inner.wx.wxutil.WxFwUtil;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.module.center.wxfwhao.common.entity.WxMenu;
+import com.marks.module.inner.wx.wxmenu.dao.WxMenuDao;
+import com.marks.module.inner.wx.wxmenu.service.WxMenuService;
+import com.marks.module.inner.wx.wxutil.WxFwUtil;
 
 public class WxMenuServiceImpl implements WxMenuService {
 
