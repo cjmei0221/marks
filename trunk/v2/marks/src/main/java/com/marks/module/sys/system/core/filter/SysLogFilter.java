@@ -1,6 +1,7 @@
 package com.marks.module.sys.system.core.filter;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -31,26 +32,45 @@ public class SysLogFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		LOG.info("accessURI=" + request.getRequestURI());
+		// 渗透处理
+		String contentType = request.getContentType() == null ? null
+				: request.getContentType().toLowerCase(Locale.ENGLISH);
+		if (null != contentType && contentType.contains("multipart/form-data")
+				&& !contentType.startsWith("multipart/form-data")) {
+			LOG.info("此url的contentType异常");
+			HttpServletResponse response = (HttpServletResponse) arg1;
+			response.getWriter().write("Illegal Request,Reject!!!");
+			response.getWriter().close();
+			return;
+		}
+
 		// 获取访问url
-		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
+		String url = request.getRequestURI();
 		String ip = RequestUtil.getIpAddr(request);
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);
 		int success = 0;
 		try {
 			arg2.doFilter(arg0, arg1);
-			SysLog log = new SysLog();
-			if (user != null) {
-				log.setUserid(user.getUserid());
-				log.setUsername(user.getUsername());
-				log.setRetain3(user.getCompanyId());
+			boolean isLog=true;
+			if (url.indexOf(".css") > 0 || url.indexOf(".js") >= 0 || url.indexOf(".png") >= 0
+					|| url.indexOf(".jpg") >= 0 || url.indexOf(".json") >= 0 || url.indexOf(".ico") >= 0) {
+				isLog=false;
 			}
-			log.setIp(ip);
-			log.setRetain1(success + "");
-			log.setRetain2(url);
+			if(isLog){
+				SysLog log = new SysLog();
+				if (user != null) {
+					log.setUserid(user.getUserid());
+					log.setUsername(user.getUsername());
+					log.setRetain3(user.getCompanyId());
+				}
+				log.setIp(ip);
+				log.setRetain1(success + "");
+				log.setRetain2(url);
 
-			log.setUrl(url);
-			log.setSource(0);
-			SysLogThreadPool.saveSysLog(false, log);
+				log.setUrl(url);
+				log.setSource(0);
+				SysLogThreadPool.saveSysLog(false, log);
+			}
 		} catch (Exception e) {
 			LOG.error("Exception:", e);
 			Result result = new Result();
