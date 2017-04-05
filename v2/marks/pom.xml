@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>marks</groupId>
-	<artifactId>marks-mvn-inner</artifactId>
+	<artifactId>marks-mvn</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>marks-mvn-inner Maven Webapp</name>
+	<name>marks-mvn Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<profiles>
@@ -352,7 +352,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>marks-mvn-inner</finalName>
+		<finalName>marks-mvn</finalName>
 		<resources>
 			<resource>
 				<directory>
