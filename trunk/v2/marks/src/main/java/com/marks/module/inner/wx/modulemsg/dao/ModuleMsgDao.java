@@ -26,4 +26,6 @@ public interface ModuleMsgDao {
 	List<ModuleMsg> list(PageBounds pageBounds, Map<String,Object> param);
 
 	void deleteData(@Param("clearDate") String clearDate);
+
+	List<ModuleMsg> getNeedPustMsg(@Param("limitnum")int limitnum, @Param("pushlimitnum")int pushlimitnum, @Param("timelimit") int timelimit, @Param("nowtime")long nowtime);
 }

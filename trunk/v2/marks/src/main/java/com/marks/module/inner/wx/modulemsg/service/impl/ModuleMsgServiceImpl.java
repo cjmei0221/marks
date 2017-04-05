@@ -10,9 +10,13 @@ import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
+import com.marks.common.util.center.SysCode;
+import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
 import com.marks.module.inner.wx.modulemsg.dao.ModuleMsgDao;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
+import com.marks.module.inner.wx.modulemsg.thread.pool.WxModuleMsgThreadPool;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
 import com.marks.module.sys.system.core.data.StaticData;
 
@@ -34,11 +38,7 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 		mmsg.setSendTimes(0);
 		mmsg.setCreate_stamp(System.currentTimeMillis()/1000);
 		if (b) {
-			Result result = WxFwUtil.getInstance().pushTemplateMsg(mmsg.getAccountid(), mmsg.getTouser(),
-					mmsg.getTemplate_id(), mmsg.getUrl(), mmsg.getData(), mmsg.getNote());
-			if ("4000".equals(result.getCode())) {
-				this.moduleMsgDao.save(mmsg);
-			}
+			this.sendTemplateMsg(mmsg.getAccountid(), mmsg.getTouser(), mmsg.getTemplate_id(), mmsg.getUrl(), mmsg.getData(), mmsg.getNote());
 		} else {
 			this.moduleMsgDao.save(mmsg);
 		}
@@ -119,15 +119,62 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 
 	@Override
 	public void pustWxbModuleMsg() {
-		// TODO Auto-generated method stub
-		
+		int limitnum=1000;//一次扫描的记录条数
+		String limitStr=StaticData.getSysConf("wx_modulemsg_scan_limitnum");
+		if(null !=limitStr && !"".equals(limitStr)){
+			limitnum=Integer.parseInt(limitStr);
+		}
+		int pushlimitnum=3;//一条记录推送次数
+		String pushlimitnumStr=StaticData.getSysConf("wx_modulemsg_push_limitnum");
+		if(null !=pushlimitnumStr && !"".equals(pushlimitnumStr)){
+			pushlimitnum=Integer.parseInt(pushlimitnumStr);
+		}
+		int timelimit=60;//时间限制 默认60分钟
+		String timelimitStr=StaticData.getSysConf("wx_modulemsg_time_limit");
+		if(null !=timelimitStr && !"".equals(timelimitStr)){
+			timelimit=Integer.parseInt(timelimitStr);
+		}
+		long nowtime=System.currentTimeMillis()/1000;
+//		logger.info("pustWxbModuleMsg params> limitnum:"+limitnum +" - pushlimitnum:"+pushlimitnum+" - timelimit:"+timelimit+"- nowtime:"+nowtime);
+		List<ModuleMsg> list=moduleMsgDao.getNeedPustMsg(limitnum,pushlimitnum,timelimit*60,nowtime);
+		if(null !=list && list.size()>0){
+			for(ModuleMsg msg:list){
+				WxModuleMsgThreadPool.pushModuleMsg(msg);
+			}
+		}
 	}
 
 	@Override
 	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data,
 			String note) {
-		// TODO Auto-generated method stub
-		return null;
+		JsonResult result=SendMsgUtils.getInstance().sendTemplateMsg(accountid, toUser, templateCode, url, data);
+		ModuleMsg msg=new ModuleMsg();
+		int isSend = 0;//未发送
+        String msgid="";
+         if(SysCode.SUCCESS.equals(result.getErrorCode())){
+         	msgid=String.valueOf(result.getResult());
+         	isSend=1;//发送成功
+         }else{
+        	isSend=2;//发送失败 
+         }
+         msg.setSendFlag(isSend);
+         msg.setMsgId(msgid);
+         msg.setPush_code(result.getErrorCode());
+         msg.setPush_msg(result.getErrorMsg());
+         msg.setSendTimes(1);
+         
+         msg.setAccountid(accountid);
+         msg.setData(data);
+         msg.setNeedFlag(1);
+         msg.setTemplate_id(templateCode);
+         msg.setTouser(toUser);
+         msg.setUrl(url);
+         msg.setNote(note);
+         msg.setCreate_stamp(System.currentTimeMillis()/1000);
+         moduleMsgDao.save(msg);
+         result.setErrorCode(SysCode.SUCCESS);
+         result.setErrorMsg("已推送，若未推送成功，将启动定时器，进行推送，共推送3次");
+		return result;
 	}
 	
 	
