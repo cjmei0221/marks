@@ -6,8 +6,8 @@ import java.util.Map;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.wx.wxuser.dao.WxUserDao;
-import com.marks.module.inner.wx.wxuser.pojo.WxUser;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
 
 public class WxUserServiceImpl implements WxUserService{

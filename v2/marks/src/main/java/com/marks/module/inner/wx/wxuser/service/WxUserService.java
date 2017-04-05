@@ -1,12 +1,11 @@
 package com.marks.module.inner.wx.wxuser.service;
 
 
-import com.marks.module.inner.wx.wxuser.pojo.WxUser;
-
 import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
+import com.marks.module.center.wxfwhao.common.entity.WxUser;
 
 public interface WxUserService{
 
