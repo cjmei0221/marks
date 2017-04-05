@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.marks.module.inner.wx.wxuser.pojo.WxUser;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.marks.module.center.wxfwhao.common.entity.WxUser;
 
 public interface WxUserDao {
 
