@@ -20,7 +20,7 @@ import net.sf.json.JSONObject;
 public class DepartmentController {
 	private static Logger logger = Logger.getLogger(DepartmentController.class);
 	
-	@RequestMapping(value = "/wechat/createDepartment")
+	@RequestMapping(value = "/center/department/createDepartment")
 	public void createDepartment(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -55,7 +55,7 @@ public class DepartmentController {
 
 	}
 	
-	@RequestMapping(value = "/wechat/updateDepartment")
+	@RequestMapping(value = "/center/department/updateDepartment")
 	public void updateDepartment(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -88,7 +88,7 @@ public class DepartmentController {
 		}
 
 	}
-	@RequestMapping(value = "/wechat/deleteDepartment")
+	@RequestMapping(value = "/center/department/deleteDepartment")
 	public void deleteDepartment(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -114,7 +114,7 @@ public class DepartmentController {
 		}
 
 	}
-	@RequestMapping(value = "/wechat/listDepartment")
+	@RequestMapping(value = "/center/department/listDepartment")
 	public void listDepartment(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();

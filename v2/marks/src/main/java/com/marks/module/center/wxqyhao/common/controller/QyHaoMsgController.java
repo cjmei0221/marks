@@ -21,7 +21,7 @@ import net.sf.json.JSONObject;
 public class QyHaoMsgController {
 	private Logger logger = Logger.getLogger(QyHaoMsgController.class);
 
-	@RequestMapping("/qyhao/sendTextMsg")
+	@RequestMapping("/center/qyhao/sendTextMsg")
 	public void noticeXdManager(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
