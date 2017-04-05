@@ -11,11 +11,15 @@ function setupAjax(){
 			if(opts.url.indexOf("_=")>=0){
 				return;
 			}
-			opts.url +="?_t="+(+(new Date()));				
+			if(opts.url.indexOf("?")>=0){
+				opts.url +="&_t="+(+(new Date()));
+			}else{
+				opts.url +="?_t="+(+(new Date()));
+			}				
 		}
 		,complete:function(xhr){				
 			if(xhr.statusText!=undefined && xhr.status==0 && xhr.statusText=="timeout"){
-				$.messager.alert("超时","操作超时！请返回重试！","info",function(){xhr.abort();});
+				showMsg("操作超时！请重试！");
 			}		
 		}			
 	});	
@@ -26,7 +30,7 @@ $(document).ajaxComplete(function(event, xhr, settings) {
   	if (settings.dataType=="script" || settings.dataType=="html"){
   		return;
   	}
-  	if(   xhr.responseText){
+  	if(xhr.responseText){
   		data = $.parseJSON(xhr.responseText);
   		if(data && data.retcode=="-1000"){
   			top.location.replace(window.urlBase + "/login.html");
