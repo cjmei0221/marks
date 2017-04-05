@@ -29,7 +29,7 @@
 		<property name="accessTokenDao" ref="accessTokenDao"></property>
 	</bean>
 	<bean id="accessTokenDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.marks.module.center.wxfwhao.common.entity.AccessTokenVo"></property>
+		<property name="mapperInterface" value="com.marks.module.center.wxfwhao.common.dao.AccessTokenDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
