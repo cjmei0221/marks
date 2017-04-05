@@ -8,15 +8,15 @@ import org.apache.log4j.Logger;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.module.center.wxfwhao.common.entity.UserGet;
+import com.marks.module.center.wxfwhao.common.entity.WxMenu;
+import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.center.wxfwhao.common.wxservice.AccountUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.GroupUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.JssdkUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
 import com.marks.module.center.wxfwhao.common.wxservice.UserUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.WxMenuUtil;
-import com.marks.module.inner.wx.wxmenu.pojo.WxMenu;
-import com.marks.module.inner.wx.wxuser.pojo.UserGet;
-import com.marks.module.inner.wx.wxuser.pojo.WxUser;
 import com.marks.module.sys.system.core.data.StaticData;
 
 /**
