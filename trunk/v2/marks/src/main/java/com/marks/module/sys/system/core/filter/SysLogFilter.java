@@ -32,30 +32,18 @@ public class SysLogFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		LOG.info("accessURI=" + request.getRequestURI());
-		// 渗透处理
-		String contentType = request.getContentType() == null ? null
-				: request.getContentType().toLowerCase(Locale.ENGLISH);
-		if (null != contentType && contentType.contains("multipart/form-data")
-				&& !contentType.startsWith("multipart/form-data")) {
-			LOG.info("此url的contentType异常");
-			HttpServletResponse response = (HttpServletResponse) arg1;
-			response.getWriter().write("Illegal Request,Reject!!!");
-			response.getWriter().close();
-			return;
-		}
-
 		// 获取访问url
-		String url = request.getRequestURI();
+		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 		String ip = RequestUtil.getIpAddr(request);
 		SysUser user = SysUserHelper.getCurrentUserInfo(request);
 		int success = 0;
 		try {
 			arg2.doFilter(arg0, arg1);
 			boolean isLog=true;
-			if (url.indexOf(".css") > 0 || url.indexOf(".js") >= 0 || url.indexOf(".png") >= 0
+			/*if (url.indexOf(".css") > 0 || url.indexOf(".js") >= 0 || url.indexOf(".png") >= 0
 					|| url.indexOf(".jpg") >= 0 || url.indexOf(".json") >= 0 || url.indexOf(".ico") >= 0) {
 				isLog=false;
-			}
+			}*/
 			if(isLog){
 				SysLog log = new SysLog();
 				if (user != null) {
