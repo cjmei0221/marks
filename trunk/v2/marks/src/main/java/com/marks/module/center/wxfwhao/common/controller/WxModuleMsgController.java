@@ -23,9 +23,9 @@ import net.sf.json.JSONObject;
  *
  */
 @Controller
-public class ModuleMsgController {
+public class WxModuleMsgController {
 
-	private static Logger logger = Logger.getLogger(ModuleMsgController.class);
+	private static Logger logger = Logger.getLogger(WxModuleMsgController.class);
 	@Autowired
 	private ModuleMsgService moduleMsgService;
 
