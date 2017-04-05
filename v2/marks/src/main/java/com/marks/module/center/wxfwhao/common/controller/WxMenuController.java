@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
+import com.marks.module.center.wxfwhao.common.entity.WxMenu;
 import com.marks.module.center.wxfwhao.common.wxservice.WxMenuUtil;
-import com.marks.module.inner.wx.wxmenu.pojo.WxMenu;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

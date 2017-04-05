@@ -9,10 +9,10 @@ import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
+import com.marks.module.center.wxfwhao.common.entity.WxMenu;
 import com.marks.module.center.wxfwhao.common.utils.AccessTokenUtil;
 import com.marks.module.center.wxfwhao.common.utils.WxHttpUtils;
 import com.marks.module.center.wxfwhao.common.utils.WxfwConfig;
-import com.marks.module.inner.wx.wxmenu.pojo.WxMenu;
 
 public class WxMenuUtil {
 	private static Logger logger = Logger.getLogger(WxMenuUtil.class);
