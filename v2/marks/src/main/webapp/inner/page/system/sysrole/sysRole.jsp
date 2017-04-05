@@ -21,7 +21,7 @@
 				<tr>
 					<td>用户级别： <input id="s_lvl" name="s_lvl"
 						class="easyui-combobox"
-						data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/sysRole/lvl.do'"
+						data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/inner/sysRole/lvl.do'"
 						style="width: 200px" />
 					</td>
 					<td><input type="text" id="keyword" name="keyword"
@@ -65,7 +65,7 @@
 					<tr>
 						<th align="right" style="width: 100px">级别</th>
 						<td><input id="lvl" name="lvl" class="easyui-combobox"
-							data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/sysRole/lvl.do',required:true"
+							data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/inner/sysRole/lvl.do',required:true"
 							style="width: 200px" data-options="required:true"></td>
 					</tr>
 					<tr>
@@ -79,7 +79,7 @@
 					<tr id="companyIdTr">
 						<th align="right" style="width: 100px">公司</th>
 						<td><input id="companyId" name="companyId" class="easyui-combobox"
-							data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/orgInfo/combo.do',required:true"
+							data-options="valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/inner/orgInfo/combo.do',required:true"
 							style="width: 200px"></td>
 					</tr>
 					<tr>

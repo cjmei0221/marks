@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/newsItem/list.do',// 获取回复图文管理列表接口 NewsItem
-	saveUrl : top.window.urlBase + '/newsItem/save.do',// 保存新增回复图文管理接口
-	updateUrl : top.window.urlBase + '/newsItem/update.do',// 编辑回复图文管理信息接口
-	deleteUrl : top.window.urlBase + '/newsItem/delete.do',// 删除回复图文管理接口
+	listUrl : top.window.urlBase + '/inner/newsItem/list.do',// 获取回复图文管理列表接口 NewsItem
+	saveUrl : top.window.urlBase + '/inner/newsItem/save.do',// 保存新增回复图文管理接口
+	updateUrl : top.window.urlBase + '/inner/newsItem/update.do',// 编辑回复图文管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/newsItem/delete.do',// 删除回复图文管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

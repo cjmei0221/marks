@@ -1,7 +1,7 @@
 
 //base-config.js
 window.nfb = {};
-window.urlBase = "/inner";
+window.urlBase = "";
 app = {};
 
 function setupAjax(){

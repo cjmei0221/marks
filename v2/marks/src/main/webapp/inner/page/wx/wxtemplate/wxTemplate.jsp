@@ -48,7 +48,7 @@
 						<th style="width: 100px; text-align: right;">服务号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="accountid" name="accountid"
 							class="easyui-combobox"
-							data-options="required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/wxAccount/combox.do'"
+							data-options="required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/inner/wxAccount/combox.do'"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>

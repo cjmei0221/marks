@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxUser/list.do',// 获取粉丝管理列表接口 WxUser
-	saveUrl : top.window.urlBase + '/wxUser/save.do',// 保存新增粉丝管理接口
-	updateUrl : top.window.urlBase + '/wxUser/update.do',// 编辑粉丝管理信息接口
-	deleteUrl : top.window.urlBase + '/wxUser/delete.do',// 删除粉丝管理接口
-	useDairyUrl : top.window.urlBase + '/wxUser/dairy.do',// 删除粉丝管理接口
+	listUrl : top.window.urlBase + '/inner/wxUser/list.do',// 获取粉丝管理列表接口 WxUser
+	saveUrl : top.window.urlBase + '/inner/wxUser/save.do',// 保存新增粉丝管理接口
+	updateUrl : top.window.urlBase + '/inner/wxUser/update.do',// 编辑粉丝管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/wxUser/delete.do',// 删除粉丝管理接口
+	useDairyUrl : top.window.urlBase + '/inner/wxUser/dairy.do',// 删除粉丝管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
