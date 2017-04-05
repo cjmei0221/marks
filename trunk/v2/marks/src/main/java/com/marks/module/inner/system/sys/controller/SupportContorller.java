@@ -172,7 +172,7 @@ public abstract class SupportContorller {
 
 	// 第一个字母大写
 	public static String toUpperFirst(String str) {
-		if (str != null && str != "") {
+		if (str != null && !"".equals(str)) {
 			str = str.substring(0, 1).toUpperCase() + str.substring(1);
 		}
 		return str;
