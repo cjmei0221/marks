@@ -1,27 +1,23 @@
 package com.marks.module.inner.wx.wxutil;
 
-import java.io.IOException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.common.util.http.HttpUtils;
+import com.marks.module.center.wxfwhao.common.wxservice.AccountUtil;
+import com.marks.module.center.wxfwhao.common.wxservice.GroupUtil;
+import com.marks.module.center.wxfwhao.common.wxservice.JssdkUtil;
+import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
+import com.marks.module.center.wxfwhao.common.wxservice.UserUtil;
+import com.marks.module.center.wxfwhao.common.wxservice.WxMenuUtil;
 import com.marks.module.inner.wx.wxmenu.pojo.WxMenu;
 import com.marks.module.inner.wx.wxuser.pojo.UserGet;
 import com.marks.module.inner.wx.wxuser.pojo.WxUser;
 import com.marks.module.sys.system.core.data.StaticData;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * 调用微信接口服务工具类
@@ -33,7 +29,7 @@ import net.sf.json.JSONObject;
  */
 public class WxFwUtil {
 	private static String CHARSET = "UTF-8";
-//	private static String wx_host_url = "http://127.0.0.1:6080";
+	// private static String wx_host_url = "http://127.0.0.1:6080";
 	private static String wx_host_url = StaticData.getSysConf("wx_host_url");
 	private static Logger logger = Logger.getLogger(WxFwUtil.class);
 	private static WxFwUtil util = null;
@@ -58,12 +54,7 @@ public class WxFwUtil {
 	 */
 	public Result sendCustomTextMsg(String accountId, String openid, String content) throws Exception {
 		Result result = new Result();
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("accountid", accountId);
-		params.put("openid", openid);
-		params.put("content", URLEncoder.encode(content, CHARSET));
-		JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/sendCustomTextMsg.do", params, null,
-				CHARSET);
+		JsonResult res = SendMsgUtils.getInstance().sendCustomTextMsg(accountId, openid, content);
 		if (res.getSuccess()) {
 			result.setCode(Code.CODE_SUCCESS);
 		} else {
@@ -82,13 +73,7 @@ public class WxFwUtil {
 	 * @throws Exception
 	 */
 	public String createQrcode(String accountId, int action_type, int expire_seconds, int scene_id) throws Exception {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("accountid", accountId);
-		params.put("action_type", action_type + "");
-		params.put("expire_seconds", expire_seconds + "");
-		params.put("scene_id", scene_id + "");
-		JsonResult result = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/createQrcode.do", params, null,
-				CHARSET);
+		JsonResult result = AccountUtil.getInstance().createQrcode(accountId, action_type, expire_seconds, scene_id);
 		if (result.getSuccess()) {
 			return result.getResult().toString();
 		}
@@ -107,25 +92,7 @@ public class WxFwUtil {
 		Result result = new Result();
 		result.setCode(Code.CODE_FAIL);
 		if (null != menu_list && menu_list.size() > 0) {
-			for (WxMenu wm : menu_list) {
-				wm.setName(URLEncoder.encode(wm.getName(), CHARSET));
-				if (null != wm.getContent() && !"".equals(wm.getContent())) {
-					wm.setContent(URLEncoder.encode(wm.getContent(), CHARSET));
-				}
-				if (wm.getChildren().size() > 0) {
-					for (WxMenu sub : wm.getChildren()) {
-						sub.setName(URLEncoder.encode(sub.getName(), CHARSET));
-						if (null != sub.getContent() && !"".equals(sub.getContent())) {
-							sub.setContent(URLEncoder.encode(sub.getContent(), CHARSET));
-						}
-					}
-				}
-			}
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("accountid", accountid);
-			params.put("menu_list", JSONArray.fromObject(menu_list).toString());
-			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/createWXMenu.do", params, null,
-					CHARSET);
+			JsonResult res = WxMenuUtil.getInstance().createWXMenu(accountid, menu_list);
 			if (res.getSuccess()) {
 				result.setCode(Code.CODE_SUCCESS);
 			} else {
@@ -141,23 +108,11 @@ public class WxFwUtil {
 	 * 
 	 * @param msg
 	 */
-	public Result pushTemplateMsg(String accountid, String toUser, String templateid, String toUrl, String data,String note) {
+	public Result pushTemplateMsg(String accountid, String toUser, String templateid, String toUrl, String data,
+			String note) {
 		Result result = new Result();
 		try {
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("accountid", accountid);
-			params.put("toUser", toUser);
-			params.put("templateCode", templateid);
-			if (null != toUrl && toUrl.length() > 5) {
-				params.put("toUrl", URLEncoder.encode(toUrl, CHARSET));
-			} else {
-				params.put("toUrl", "");
-			}
-			params.put("data", URLEncoder.encode(data, CHARSET));
-			params.put("note", URLEncoder.encode(note, CHARSET));
-			logger.info("pushMessage>>url>>" + wx_host_url + "/wechat/receive/sendTemplateMsg.do");
-			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/receive/sendTemplateMsg.do", params,
-					null, CHARSET);
+			JsonResult res = SendMsgUtils.getInstance().sendTemplateMsg(accountid, toUser, templateid, toUrl, data);
 			if (res.getSuccess()) {
 				result.setCode(Code.CODE_SUCCESS);
 			} else {
@@ -184,13 +139,8 @@ public class WxFwUtil {
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	public Result moveOpenidtoGroup(String accountid, String openid, String to_groupid) throws Exception {
-		Map<String, String> params = new HashMap<String, String>();
 		Result result = new Result();
-		params.put("accountid", accountid);
-		params.put("openid", openid);
-		params.put("to_groupid", to_groupid);
-		JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/groups/members/update.do", params, null,
-				CHARSET);
+		JsonResult res = GroupUtil.getInstance().toGroup(accountid, openid, to_groupid);
 		if (res.getSuccess()) {
 			result.setCode(Code.CODE_SUCCESS);
 		} else {
@@ -208,21 +158,10 @@ public class WxFwUtil {
 	 * @return Result 返回内容 jsapi_ticket
 	 */
 	public String getJsSDKTicket(String accountId) {
-		String str = null;
-		try {
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("accountid", accountId);
-			JsonResult res = HttpUtils.getInstance().doPost(wx_host_url + "/jssdk/getJssdkTicket.do", params, null, CHARSET);
-			if (res.getSuccess()) {
-				str = res.getResult().toString();
-			}
-		} catch (IOException e) {
-			logger.info("IOException error");
-		}
-
+		String str = JssdkUtil.getInstance().getJsapi_ticket(accountId);
 		return str;
 	}
-	
+
 	/**
 	 * 获取粉丝列表
 	 * 
@@ -232,27 +171,16 @@ public class WxFwUtil {
 	 * @throws Exception
 	 */
 	public UserGet getWXUserOpenId(String accountid, String next_openid) throws Exception {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("accountid", accountid);
-		params.put("next_openid", next_openid);
-		JsonResult result = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/getWXUserOpenId.do", params, null,
-				CHARSET);
+		JsonResult result = UserUtil.getInstance().getWXUserList(accountid, next_openid);
 		if (result.getSuccess()) {
-			JSONObject userobj = JSONObject.fromObject(result.getResult());
-			UserGet ug = new UserGet();
-			ug.setNext_openid(userobj.getString("next_openid"));
-			JSONArray arrobj = JSONArray.fromObject(userobj.get("openid_list"));
-			List<String> openid_list = new ArrayList<String>();
-			if (null != arrobj && arrobj.size() > 0) {
-				for (Object openid : arrobj) {
-					openid_list.add(String.valueOf(openid));
-				}
-			}
-			ug.setOpenid_list(openid_list);
+			
+			UserGet ug = (UserGet) result.getResult();
+			
 			return ug;
 		}
 		return null;
 	}
+
 	/**
 	 * 获取用户基本信息
 	 * 
@@ -262,35 +190,18 @@ public class WxFwUtil {
 	 * @throws Exception
 	 */
 	public WxUser getUserInfo(String accountId, String openid) throws Exception {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("accountid", accountId);
-		params.put("openid", openid);
 		WxUser user = null;
-		JsonResult result = HttpUtils.getInstance().doPost(wx_host_url + "/wechat/getUserInfo.do", params, null,
-				CHARSET);
+		JsonResult result = UserUtil.getInstance().getWXUserInfo(accountId, openid);
 		if (result.getSuccess()) {
-			JSONObject userobj = JSONObject.fromObject(result.getResult());
-			if (null != userobj) {
-				user = new WxUser();
-				user.setAccountid(accountId);
-				user.setCity(userobj.getString("city"));
-				user.setCountry(userobj.getString("country"));
-				user.setGroupid(userobj.getInt("group_id"));
-				user.setImageUrl(userobj.getString("image_url"));
-				user.setIssubscribe(userobj.getInt("is_subscribe"));
-				user.setLanguage(userobj.getString("language"));
-				String username = userobj.getString("nickname");
+			user= (WxUser) result.getResult();
+			if (null != user) {
+				String username = user.getNickname();
 				try {
 					username = URLDecoder.decode(username, "utf-8");
 				} catch (Exception e) {
 					username = user.getNickname();
 				}
 				user.setNickname(username);
-				user.setOpenid(openid);
-				user.setSex(userobj.getInt("sex"));
-				user.setProvince(userobj.getString("province"));
-				user.setSubscribetime(new Timestamp(userobj.getLong("subscribe_time")));
-				user.setRemark(userobj.getString("remark"));
 			}
 		}
 		return user;

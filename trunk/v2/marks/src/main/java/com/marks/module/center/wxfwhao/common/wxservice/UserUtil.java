@@ -1,6 +1,7 @@
 package com.marks.module.center.wxfwhao.common.wxservice;
 
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -8,11 +9,11 @@ import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
-import com.marks.module.center.wxfwhao.common.entity.User;
 import com.marks.module.center.wxfwhao.common.entity.UserGet;
 import com.marks.module.center.wxfwhao.common.utils.AccessTokenUtil;
 import com.marks.module.center.wxfwhao.common.utils.WxHttpUtils;
 import com.marks.module.center.wxfwhao.common.utils.WxfwConfig;
+import com.marks.module.inner.wx.wxuser.pojo.WxUser;
 /**
  * 用户管理
  * @author cjmei
@@ -42,8 +43,8 @@ public class UserUtil {
              JSONObject jsonObj = new JSONObject(returnJson.getResult().toString());
              if(SysCode.SUCCESS.equals(returnJson.getErrorCode())){
                  if(jsonObj.optInt("subscribe")==1){
-         			User user=new User();
-         			user.setIs_subscribe(jsonObj.optInt("subscribe"));
+                	 WxUser user=new WxUser();
+         			user.setIssubscribe(jsonObj.optInt("subscribe"));
          			user.setOpenid(jsonObj.optString("openid"));
          			user.setNickname(URLEncoder.encode(jsonObj.optString("nickname"), "UTF-8"));
          			user.setSex(jsonObj.optInt("sex"));
@@ -51,9 +52,9 @@ public class UserUtil {
          			user.setCity(jsonObj.optString("city"));
          			user.setProvince(jsonObj.optString("province"));
          			user.setCountry(jsonObj.optString("country"));
-         			user.setImage_url(jsonObj.optString("headimgurl"));
-         			user.setSubscribe_time(jsonObj.optLong("subscribe_time")*1000);
-         			user.setGroup_id(jsonObj.optInt("groupid"));
+         			user.setImageUrl(jsonObj.optString("headimgurl"));
+         			user.setSubscribetime(new Timestamp(jsonObj.optLong("subscribe_time")*1000));
+         			user.setGroupid(jsonObj.optInt("groupid"));
          			user.setRemark(jsonObj.optString("remark"));
          			user.setUnionid(jsonObj.optString("unionid"));
          			user.setTagid_list(jsonObj.getJSONArray("tagid_list").toString());
