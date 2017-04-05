@@ -78,7 +78,7 @@
 				<tr id="newsListTr" style="display: none;">
 					<th style="width: 120px; text-align: right;">图文&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="newsList" class="easyui-combobox"
-						data-options="editable:false,multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/newsItem/combox.do'"
+						data-options="editable:false,multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/inner/newsItem/combox.do'"
 						name="newsList" style="width: 300px;"></td>
 				</tr>
 				<tr>
@@ -92,7 +92,7 @@
 					<th style="width: 120px; text-align: right;">公众号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="accountid" name="accountid"
 						class="easyui-combobox"
-						data-options="editable:false,required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/wxAccount/combox.do'"
+						data-options="editable:false,required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/inner/wxAccount/combox.do'"
 						style="width: 200px;"></td>
 				</tr>
 				<tr id="delFlagTr">

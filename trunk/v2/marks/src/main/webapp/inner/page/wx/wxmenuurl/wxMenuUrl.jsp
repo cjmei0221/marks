@@ -57,7 +57,7 @@
 				<tr>
 					<th>公众号ID</th>
 					<td><input  id="accountid" name="accountid" class="easyui-combobox" 
-						data-options="required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/wxAccount/combox.do'">
+						data-options="required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/inner/wxAccount/combox.do'">
 						</td>
 				</tr>
 				<tr>

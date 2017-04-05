@@ -58,7 +58,7 @@
 						<th style="width: 120px; text-align: right;">节日&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="holiday_type" name="holiday_type"
 							class="easyui-combobox"
-							data-options="valueField:'ckey',textField:'cvalue',url:'<%=request.getContextPath()%>/dataDir/combox.do?parentId=holiday_type'"
+							data-options="valueField:'ckey',textField:'cvalue',url:'<%=request.getContextPath()%>/inner/dataDir/combox.do?parentId=holiday_type'"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
