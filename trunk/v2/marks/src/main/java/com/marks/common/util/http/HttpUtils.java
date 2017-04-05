@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
-import com.marks.module.center.common.util.SysCode;
+import com.marks.common.util.center.SysCode;
 
 /**
  * Created with IntelliJ IDEA. User: sunshine Date: 13-7-24 Time: 上午11:11 To

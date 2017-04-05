@@ -3,6 +3,7 @@ package com.marks.module.inner.wx.modulemsg.service;
 import java.util.List;
 import java.util.Map;
 
+import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 
@@ -25,4 +26,9 @@ public interface ModuleMsgService {
 	public void pustModuleMsg(ModuleMsg mmsg, boolean b);
 
 	public void clearData();
+
+	public void pustWxbModuleMsg();
+
+	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data,
+			String note);
 }
