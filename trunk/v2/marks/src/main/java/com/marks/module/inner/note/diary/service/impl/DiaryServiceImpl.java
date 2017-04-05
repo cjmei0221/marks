@@ -12,6 +12,7 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.note.diary.dao.DiaryDao;
 import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.diary.service.DiaryService;
@@ -20,7 +21,6 @@ import com.marks.module.inner.wx.modulemsg.pojo.WxMsg;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
 import com.marks.module.inner.wx.wxtemplate.dao.WxTemplateDao;
 import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
-import com.marks.module.inner.wx.wxuser.pojo.WxUser;
 
 public class DiaryServiceImpl implements DiaryService{
 	private static Logger logger = Logger.getLogger(DiaryServiceImpl.class);
