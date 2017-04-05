@@ -11,8 +11,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.http.HttpUtils;
 import com.marks.module.inner.wx.wxmenu.pojo.WxMenu;
 import com.marks.module.inner.wx.wxuser.pojo.UserGet;
 import com.marks.module.inner.wx.wxuser.pojo.WxUser;

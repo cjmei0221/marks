@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.module.inner.wx.modulemsg.dao.ModuleMsgDao;
@@ -115,4 +116,19 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 		today.add(Calendar.DAY_OF_MONTH, -clearNum);
 		moduleMsgDao.deleteData(sdf.format(today.getTime()));
 	}
+
+	@Override
+	public void pustWxbModuleMsg() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data,
+			String note) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }
