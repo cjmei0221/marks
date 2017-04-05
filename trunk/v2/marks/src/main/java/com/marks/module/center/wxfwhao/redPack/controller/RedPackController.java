@@ -21,7 +21,7 @@ public class RedPackController {
 	/**
 	 * 现金红包发送
 	 * */ 
-	@RequestMapping(value = "/wechat/redPackSend")
+	@RequestMapping(value = "/center/red/redPackSend")
 	public void redPackSend(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
