@@ -3,18 +3,18 @@
 
 <mapper namespace="com.marks.module.inner.wx.wxuser.dao.WxUserDao">
 
-	<select id="findById" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+	<select id="findById" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser">
 		SELECT * FROM TB_WX_USER wxuser
 		where wxuser.OPENID = #{openid}
 	</select>
 
-	<select id="findWxUserListForDairy" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+	<select id="findWxUserListForDairy" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser">
 		SELECT * FROM
 		TB_WX_USER wxuser
 		where wxuser.DAIRYFLAG = 1
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+	<insert id="save" parameterType="com.marks.module.center.wxfwhao.common.entity.WxUser">
 		<selectKey keyProperty="fanId" resultType="String" order="BEFORE">SELECT
 			'F'||SEQ_WX_USER.nextval FROM dual
 		</selectKey>
@@ -60,7 +60,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+	<update id="update" parameterType="com.marks.module.center.wxfwhao.common.entity.WxUser">
 		UPDATE TB_WX_USER wxuser
 		SET
 		wxuser.NICKNAME = #{nickname:VARCHAR},
@@ -95,7 +95,7 @@
 		WHERE wxuser.OPENID=#{openid}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+	<select id="findAll" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser">
 		SELECT * FROM TB_WX_USER
 	</select>
 
@@ -107,7 +107,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser"
+	<select id="list" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser"
 		parameterType="java.util.Map">
 		SELECT wxuser.*, wq.qrname
 		FROM TB_WX_USER wxuser

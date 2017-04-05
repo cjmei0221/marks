@@ -3,12 +3,12 @@
 
 <mapper namespace="com.marks.module.inner.wx.wxmenu.dao.WxMenuDao">
 
-	<select id="findById" resultType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu">
+	<select id="findById" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
 		SELECT * FROM TB_WX_MENU wxmenu
 		where wxmenu.ID = #{id}
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu">
+	<insert id="save" parameterType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
 			sys_guid() from dual
 		</selectKey>
@@ -35,7 +35,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu">
+	<update id="update" parameterType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
 		UPDATE TB_WX_MENU wxmenu
 		SET
 		wxmenu.PARENT_ID = #{parent_id:VARCHAR},
@@ -53,7 +53,7 @@
 		WHERE wxmenu.ID=#{id}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu">
+	<select id="findAll" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
 		SELECT * FROM TB_WX_MENU
 	</select>
 
@@ -65,7 +65,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu"
+	<select id="list" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_MENU wxmenu
@@ -100,7 +100,7 @@
 
 
 	</select>
-	<select id="getParentMenu" resultType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu">
+	<select id="getParentMenu" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
 		SELECT wxaccount.accountid id, wxaccount.accountname name
 		FROM
 		TB_WX_ACCOUNT wxaccount
@@ -116,15 +116,15 @@
 		order by wxaccount.ACCOUNTNAME
 	</select>
 
-	<select id="getWxMenuList" resultType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu">
+	<select id="getWxMenuList" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
 		select * from tb_wx_menu t
 		order by t.sort
 	</select>
-	<select id="getWxMenuListByAccountId" resultType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu">
+	<select id="getWxMenuListByAccountId" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
 		select * from tb_wx_menu t where t.accountid=#{accountid}
 		order by t.sort
 	</select>
-	<select id="getChildWxMenuList" resultType="com.marks.module.inner.wx.wxmenu.pojo.WxMenu">
+	<select id="getChildWxMenuList" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
 		select * from tb_wx_menu t where t.PARENT_ID=#{parent_id}
 	</select>
 </mapper>
