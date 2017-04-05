@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.marks.module.system.sys.dao.SysLogDao">
+	<select id="getSysLogParamNoForInner" resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
+		SELECT * FROM
+		TB_SYS_LOG_PARAM syslogparam where syslogparam.url = #{reqUrl} and
+		syslogparam.SOURCE=#{source}
+	</select>
 	<!-- 根据url获取菜单名称和操作名称 -->
-	<select id="getSysLogParam" resultType="com.marks.module.system.sys.pojo.SysLog">
+	<select id="getSysLogParam" resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
 		SELECT
 		SM.MENUITEM
 		menuname,
@@ -58,7 +63,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or syslog.USERNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or to_char(syslog.CREATETIME,'yyyy-mm-dd') LIKE
+			or to_char(syslog.CREATETIME,'yyyymmdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or syslog.IP LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
