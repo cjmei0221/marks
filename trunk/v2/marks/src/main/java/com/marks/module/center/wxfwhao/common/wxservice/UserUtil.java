@@ -10,10 +10,10 @@ import org.json.JSONObject;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
 import com.marks.module.center.wxfwhao.common.entity.UserGet;
+import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.center.wxfwhao.common.utils.AccessTokenUtil;
 import com.marks.module.center.wxfwhao.common.utils.WxHttpUtils;
 import com.marks.module.center.wxfwhao.common.utils.WxfwConfig;
-import com.marks.module.inner.wx.wxuser.pojo.WxUser;
 /**
  * 用户管理
  * @author cjmei
