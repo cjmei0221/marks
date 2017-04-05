@@ -43,7 +43,7 @@ public class SysRoleController extends SupportContorller {
 	/**
 	 * 查询角色管理
 	 */
-	@RequestMapping("/sysRole/findSysRoleById")
+	@RequestMapping("/inner/sysRole/findSysRoleById")
 	public void findSysRoleById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -63,7 +63,7 @@ public class SysRoleController extends SupportContorller {
 	/**
 	 * 保存角色管理
 	 */
-	@RequestMapping("/sysRole/save")
+	@RequestMapping("/inner/sysRole/save")
 	public void saveSysRole(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -91,7 +91,7 @@ public class SysRoleController extends SupportContorller {
 	/**
 	 * 更改角色管理
 	 */
-	@RequestMapping("/sysRole/update")
+	@RequestMapping("/inner/sysRole/update")
 	public void updateSysRole(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -129,7 +129,7 @@ public class SysRoleController extends SupportContorller {
 	/**
 	 * 删除角色管理
 	 */
-	@RequestMapping("/sysRole/delete")
+	@RequestMapping("/inner/sysRole/delete")
 	public void deleteSysRoleById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -154,7 +154,7 @@ public class SysRoleController extends SupportContorller {
 	/**
 	 * 查询全部角色管理
 	 */
-	@RequestMapping("/sysRole/findAllSysRole")
+	@RequestMapping("/inner/sysRole/findAllSysRole")
 	public void findAllSysRole(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -173,7 +173,7 @@ public class SysRoleController extends SupportContorller {
 	/**
 	 * 删除多个角色管理
 	 */
-	@RequestMapping("/sysRole/deleteIds")
+	@RequestMapping("/inner/sysRole/deleteIds")
 	public void deleteSysRole(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -203,7 +203,7 @@ public class SysRoleController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/sysRole/list")
+	@RequestMapping("/inner/sysRole/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
@@ -236,7 +236,7 @@ public class SysRoleController extends SupportContorller {
 		JsonUtil.output(response, result);
 	}
 
-	@RequestMapping("/sysRole/funclist")
+	@RequestMapping("/inner/sysRole/funclist")
 	public void funclist(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -254,7 +254,7 @@ public class SysRoleController extends SupportContorller {
 		JsonUtil.output(response, result);
 	}
 
-	@RequestMapping("/sysRole/funcSave")
+	@RequestMapping("/inner/sysRole/funcSave")
 	public void funcSave(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -279,7 +279,7 @@ public class SysRoleController extends SupportContorller {
 		JsonUtil.output(response, result);
 	}
 
-	@RequestMapping("/sysRole/lvl")
+	@RequestMapping("/inner/sysRole/lvl")
 	public void combox(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		int lvl = admin.getRole().getLvl();
@@ -294,7 +294,7 @@ public class SysRoleController extends SupportContorller {
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 
-	@RequestMapping("/sysRole/combo")
+	@RequestMapping("/inner/sysRole/combo")
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();

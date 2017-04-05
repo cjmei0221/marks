@@ -34,7 +34,7 @@ public class ImageUploadController {
 	@Autowired
     private MyImageService  myImageService;
    
-	@RequestMapping("/fileUpload/image")
+	@RequestMapping("/inner/fileUpload/image")
 	public void upload(HttpServletRequest req, HttpServletResponse resp) {
 		Result result = new Result();
 		result.setCode(Code.CODE_SUCCESS);

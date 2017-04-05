@@ -39,7 +39,7 @@ public class SysLogParamController extends SupportContorller {
 	/**
 	 * 查询日志参数
 	 */
-	@RequestMapping("/sysLogParam/findSysLogParamById")
+	@RequestMapping("/inner/sysLogParam/findSysLogParamById")
 	public void findSysLogParamById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -59,7 +59,7 @@ public class SysLogParamController extends SupportContorller {
 	/**
 	 * 保存日志参数
 	 */
-	@RequestMapping("/sysLogParam/save")
+	@RequestMapping("/inner/sysLogParam/save")
 	public void saveSysLogParam(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -89,7 +89,7 @@ public class SysLogParamController extends SupportContorller {
 	/**
 	 * 更改日志参数
 	 */
-	@RequestMapping("/sysLogParam/update")
+	@RequestMapping("/inner/sysLogParam/update")
 	public void updateSysLogParam(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -122,7 +122,7 @@ public class SysLogParamController extends SupportContorller {
 	/**
 	 * 删除日志参数
 	 */
-	@RequestMapping("/sysLogParam/delete")
+	@RequestMapping("/inner/sysLogParam/delete")
 	public void deleteSysLogParamById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -141,7 +141,7 @@ public class SysLogParamController extends SupportContorller {
 	/**
 	 * 查询全部日志参数
 	 */
-	@RequestMapping("/sysLogParam/findAllSysLogParam")
+	@RequestMapping("/inner/sysLogParam/findAllSysLogParam")
 	public void findAllSysLogParam(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -160,7 +160,7 @@ public class SysLogParamController extends SupportContorller {
 	/**
 	 * 删除多个日志参数
 	 */
-	@RequestMapping("/sysLogParam/deleteIds")
+	@RequestMapping("/inner/sysLogParam/deleteIds")
 	public void deleteSysLogParam(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -190,7 +190,7 @@ public class SysLogParamController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/sysLogParam/list")
+	@RequestMapping("/inner/sysLogParam/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {

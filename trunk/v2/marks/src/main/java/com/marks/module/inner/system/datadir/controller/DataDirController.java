@@ -39,7 +39,7 @@ public class DataDirController extends SupportContorller {
 	/**
 	 * 查询数据字典
 	 */
-	@RequestMapping("/dataDir/findDataDirById")
+	@RequestMapping("/inner/dataDir/findDataDirById")
 	public void findDataDirById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -59,7 +59,7 @@ public class DataDirController extends SupportContorller {
 	/**
 	 * 保存数据字典
 	 */
-	@RequestMapping("/dataDir/save")
+	@RequestMapping("/inner/dataDir/save")
 	public void saveDataDir(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -92,7 +92,7 @@ public class DataDirController extends SupportContorller {
 	/**
 	 * 更改数据字典
 	 */
-	@RequestMapping("/dataDir/update")
+	@RequestMapping("/inner/dataDir/update")
 	public void updateDataDir(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -118,7 +118,7 @@ public class DataDirController extends SupportContorller {
 	/**
 	 * 删除数据字典
 	 */
-	@RequestMapping("/dataDir/delete")
+	@RequestMapping("/inner/dataDir/delete")
 	public void deleteDataDirById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -144,7 +144,7 @@ public class DataDirController extends SupportContorller {
 	/**
 	 * 查询全部数据字典
 	 */
-	@RequestMapping("/dataDir/findAllDataDir")
+	@RequestMapping("/inner/dataDir/findAllDataDir")
 	public void findAllDataDir(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -163,7 +163,7 @@ public class DataDirController extends SupportContorller {
 	/**
 	 * 删除多个数据字典
 	 */
-	@RequestMapping("/dataDir/deleteIds")
+	@RequestMapping("/inner/dataDir/deleteIds")
 	public void deleteDataDir(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -193,7 +193,7 @@ public class DataDirController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/dataDir/list")
+	@RequestMapping("/inner/dataDir/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 
@@ -203,7 +203,7 @@ public class DataDirController extends SupportContorller {
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 	
-	@RequestMapping("/dataDir/combox")
+	@RequestMapping("/inner/dataDir/combox")
 	public void combox(HttpServletRequest request, HttpServletResponse response) {
 
 		String parentId=request.getParameter("parentId");
