@@ -49,6 +49,7 @@ public class WxUser implements Serializable{
     *关注
     */
     private int issubscribe;
+    private String unionid;
     /**
     *关注时间
     */
@@ -81,8 +82,22 @@ public class WxUser implements Serializable{
     private String remark;
 
     private int dairyFlag;//日记推送标识 0不推送 1 推送
+    
+    private String tagid_list;//标签列表
 
-    public String getFanId() {
+    public String getTagid_list() {
+		return tagid_list;
+	}
+	public void setTagid_list(String tagid_list) {
+		this.tagid_list = tagid_list;
+	}
+	public String getUnionid() {
+		return unionid;
+	}
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
+	}
+	public String getFanId() {
 		return fanId;
 	}
 	public void setFanId(String fanId) {
