@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/qrcode/list.do',// 获取二维码管理列表接口 Qrcode
-	saveUrl : top.window.urlBase + '/qrcode/save.do',// 保存新增二维码管理接口
-	updateUrl : top.window.urlBase + '/qrcode/update.do',// 编辑二维码管理信息接口
-	deleteUrl : top.window.urlBase + '/qrcode/delete.do',// 删除二维码管理接口
+	listUrl : top.window.urlBase + '/inner/qrcode/list.do',// 获取二维码管理列表接口 Qrcode
+	saveUrl : top.window.urlBase + '/inner/qrcode/save.do',// 保存新增二维码管理接口
+	updateUrl : top.window.urlBase + '/inner/qrcode/update.do',// 编辑二维码管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/qrcode/delete.do',// 删除二维码管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

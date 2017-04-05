@@ -1,10 +1,10 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/vipInfo/list.do',// 获取会员信息列表接口 VipInfo
-	saveUrl : top.window.urlBase + '/vipInfo/save.do',// 保存新增会员信息接口
-	updateUrl : top.window.urlBase + '/vipInfo/update.do',// 编辑会员信息信息接口
-	deleteUrl : top.window.urlBase + '/vipInfo/delete.do',// 删除会员信息接口
-	resetPwdUrl : top.window.urlBase + '/sysUser/resetPwd.do',// 删除用户管理接口
-	activeUrl : top.window.urlBase + '/sysUser/updateActiveFlag.do',// 删除用户管理接口
+	listUrl : top.window.urlBase + '/inner/vipInfo/list.do',// 获取会员信息列表接口 VipInfo
+	saveUrl : top.window.urlBase + '/inner/vipInfo/save.do',// 保存新增会员信息接口
+	updateUrl : top.window.urlBase + '/inner/vipInfo/update.do',// 编辑会员信息信息接口
+	deleteUrl : top.window.urlBase + '/inner/vipInfo/delete.do',// 删除会员信息接口
+	resetPwdUrl : top.window.urlBase + '/inner/sysUser/resetPwd.do',// 删除用户管理接口
+	activeUrl : top.window.urlBase + '/inner/sysUser/updateActiveFlag.do',// 删除用户管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

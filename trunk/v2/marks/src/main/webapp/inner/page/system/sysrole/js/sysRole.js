@@ -1,10 +1,10 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/sysRole/list.do',// 获取角色管理列表接口 SysRole
-	saveUrl : top.window.urlBase + '/sysRole/save.do',// 保存新增角色管理接口
-	updateUrl : top.window.urlBase + '/sysRole/update.do',// 编辑角色管理信息接口
-	deleteUrl : top.window.urlBase + '/sysRole/delete.do',// 删除角色管理接口
-	funcListUrl : top.window.urlBase + '/sysRole/funclist.do',// 删除角色管理接口
-	funcSaveUrl : top.window.urlBase + '/sysRole/funcSave.do',// 删除角色管理接口
+	listUrl : top.window.urlBase + '/inner/sysRole/list.do',// 获取角色管理列表接口 SysRole
+	saveUrl : top.window.urlBase + '/inner/sysRole/save.do',// 保存新增角色管理接口
+	updateUrl : top.window.urlBase + '/inner/sysRole/update.do',// 编辑角色管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/sysRole/delete.do',// 删除角色管理接口
+	funcListUrl : top.window.urlBase + '/inner/sysRole/funclist.do',// 删除角色管理接口
+	funcSaveUrl : top.window.urlBase + '/inner/sysRole/funcSave.do',// 删除角色管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

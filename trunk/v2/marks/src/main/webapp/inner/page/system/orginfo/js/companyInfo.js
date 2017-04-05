@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/orgInfo/framelist.do',// 获取机构管理列表接口 OrgInfo
-	saveUrl : top.window.urlBase + '/orgInfo/save.do',// 保存新增机构管理接口
-	updateUrl : top.window.urlBase + '/orgInfo/update.do',// 编辑机构管理信息接口
-	deleteUrl : top.window.urlBase + '/orgInfo/delete.do',// 删除机构管理接口
+	listUrl : top.window.urlBase + '/inner/orgInfo/framelist.do',// 获取机构管理列表接口 OrgInfo
+	saveUrl : top.window.urlBase + '/inner/orgInfo/save.do',// 保存新增机构管理接口
+	updateUrl : top.window.urlBase + '/inner/orgInfo/update.do',// 编辑机构管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/orgInfo/delete.do',// 删除机构管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

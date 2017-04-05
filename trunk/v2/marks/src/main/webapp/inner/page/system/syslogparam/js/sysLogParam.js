@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/sysLogParam/list.do',// 获取日志参数列表接口
+	listUrl : top.window.urlBase + '/inner/sysLogParam/list.do',// 获取日志参数列表接口
 															// SysLogParam
-	saveUrl : top.window.urlBase + '/sysLogParam/save.do',// 保存新增日志参数接口
-	updateUrl : top.window.urlBase + '/sysLogParam/update.do',// 编辑日志参数信息接口
-	deleteUrl : top.window.urlBase + '/sysLogParam/delete.do',// 删除日志参数接口
+	saveUrl : top.window.urlBase + '/inner/sysLogParam/save.do',// 保存新增日志参数接口
+	updateUrl : top.window.urlBase + '/inner/sysLogParam/update.do',// 编辑日志参数信息接口
+	deleteUrl : top.window.urlBase + '/inner/sysLogParam/delete.do',// 删除日志参数接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

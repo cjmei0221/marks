@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/dataDir/list.do',// 获取数据字典列表接口 DataDir
-	saveUrl : top.window.urlBase + '/dataDir/save.do',// 保存新增数据字典接口
-	updateUrl : top.window.urlBase + '/dataDir/update.do',// 编辑数据字典信息接口
-	deleteUrl : top.window.urlBase + '/dataDir/delete.do',// 删除数据字典接口
+	listUrl : top.window.urlBase + '/inner/dataDir/list.do',// 获取数据字典列表接口 DataDir
+	saveUrl : top.window.urlBase + '/inner/dataDir/save.do',// 保存新增数据字典接口
+	updateUrl : top.window.urlBase + '/inner/dataDir/update.do',// 编辑数据字典信息接口
+	deleteUrl : top.window.urlBase + '/inner/dataDir/delete.do',// 删除数据字典接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

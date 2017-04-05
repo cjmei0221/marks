@@ -11,7 +11,7 @@
 
 <%@include file="../../include/common.jsp"%>
 <script type="text/javascript"
-	src="../../../js/easyUI/extend/datagrid-detailview.js"></script>
+	src="../../../js/easyui/extend/datagrid-detailview.js"></script>
 </head>
 
 <body>

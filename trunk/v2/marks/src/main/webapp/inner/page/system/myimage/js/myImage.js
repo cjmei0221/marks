@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl: top.window.urlBase + '/myImage/list.do',//获取图片列表接口  MyImage
-	saveUrl: top.window.urlBase + '/myImage/save.do',//保存新增图片接口
-	updateUrl: top.window.urlBase + '/myImage/update.do',//编辑图片信息接口
-	deleteUrl: top.window.urlBase + '/myImage/delete.do',//删除图片接口
+	listUrl: top.window.urlBase + '/inner/myImage/list.do',//获取图片列表接口  MyImage
+	saveUrl: top.window.urlBase + '/inner/myImage/save.do',//保存新增图片接口
+	updateUrl: top.window.urlBase + '/inner/myImage/update.do',//编辑图片信息接口
+	deleteUrl: top.window.urlBase + '/inner/myImage/delete.do',//删除图片接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam:{

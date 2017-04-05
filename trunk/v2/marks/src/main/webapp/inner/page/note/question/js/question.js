@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/question/list.do',// 获取工作问题记录列表接口 Question
-	saveUrl : top.window.urlBase + '/question/save.do',// 保存新增工作问题记录接口
-	updateUrl : top.window.urlBase + '/question/update.do',// 编辑工作问题记录信息接口
-	deleteUrl : top.window.urlBase + '/question/delete.do',// 删除工作问题记录接口
+	listUrl : top.window.urlBase + '/inner/question/list.do',// 获取工作问题记录列表接口 Question
+	saveUrl : top.window.urlBase + '/inner/question/save.do',// 保存新增工作问题记录接口
+	updateUrl : top.window.urlBase + '/inner/question/update.do',// 编辑工作问题记录信息接口
+	deleteUrl : top.window.urlBase + '/inner/question/delete.do',// 删除工作问题记录接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

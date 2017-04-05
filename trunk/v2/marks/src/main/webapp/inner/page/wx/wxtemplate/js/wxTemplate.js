@@ -1,9 +1,9 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/wxTemplate/list.do',// 获取微信模板列表接口
+	listUrl : top.window.urlBase + '/inner/wxTemplate/list.do',// 获取微信模板列表接口
 	// WxTemplate
-	saveUrl : top.window.urlBase + '/wxTemplate/save.do',// 保存新增微信模板接口
-	updateUrl : top.window.urlBase + '/wxTemplate/update.do',// 编辑微信模板信息接口
-	deleteUrl : top.window.urlBase + '/wxTemplate/delete.do',// 删除微信模板接口
+	saveUrl : top.window.urlBase + '/inner/wxTemplate/save.do',// 保存新增微信模板接口
+	updateUrl : top.window.urlBase + '/inner/wxTemplate/update.do',// 编辑微信模板信息接口
+	deleteUrl : top.window.urlBase + '/inner/wxTemplate/delete.do',// 删除微信模板接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

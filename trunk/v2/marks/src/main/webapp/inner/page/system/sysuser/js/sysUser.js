@@ -1,10 +1,10 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/sysUser/list.do',// 获取用户管理列表接口 SysUser
-	saveUrl : top.window.urlBase + '/sysUser/save.do',// 保存新增用户管理接口
-	updateUrl : top.window.urlBase + '/sysUser/update.do',// 编辑用户管理信息接口
-	deleteUrl : top.window.urlBase + '/sysUser/delete.do',// 删除用户管理接口
-	resetPwdUrl : top.window.urlBase + '/sysUser/resetPwd.do',// 删除用户管理接口
-	roleUrl : top.window.urlBase + '/sysRole/findSysRoleById.do',// 删除用户管理接口
+	listUrl : top.window.urlBase + '/inner/sysUser/list.do',// 获取用户管理列表接口 SysUser
+	saveUrl : top.window.urlBase + '/inner/sysUser/save.do',// 保存新增用户管理接口
+	updateUrl : top.window.urlBase + '/inner/sysUser/update.do',// 编辑用户管理信息接口
+	deleteUrl : top.window.urlBase + '/inner/sysUser/delete.do',// 删除用户管理接口
+	resetPwdUrl : top.window.urlBase + '/inner/sysUser/resetPwd.do',// 删除用户管理接口
+	roleUrl : top.window.urlBase + '/inner/sysRole/findSysRoleById.do',// 删除用户管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -349,7 +349,7 @@ function loadList() {
 }
 
 function loadRoleList(id) {
-	var roleUrl = top.window.urlBase + '/orgInfo/list.do?companyId=' + id;
+	var roleUrl = top.window.urlBase + '/inner/orgInfo/list.do?companyId=' + id;
 	$('#roleList').treegrid(
 			{
 				url : roleUrl,

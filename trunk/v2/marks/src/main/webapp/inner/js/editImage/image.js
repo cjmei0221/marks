@@ -21,7 +21,7 @@ function loadImageList(pageNum,pageSize){
 
 		type : 'POST',
 
-		url : top.window.urlBase + "/myImage/list.do",
+		url : top.window.urlBase + "/inner/myImage/list.do",
 		data:{
 			page_number:pageNum,
 			page_size:img.pageSize
@@ -89,7 +89,7 @@ function uploadImage(image, eInput) {
 
 				type : 'POST',
 
-				url : top.window.urlBase + "/fileUpload/image.do",
+				url : top.window.urlBase + "/inner/fileUpload/image.do",
 
 				data : {
 					image : image

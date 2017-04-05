@@ -1,13 +1,13 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/autoCode/list.do',// 获取自动生成代码记录列表接口
+	listUrl : top.window.urlBase + '/inner/autoCode/list.do',// 获取自动生成代码记录列表接口
 	// AutoCode
-	saveUrl : top.window.urlBase + '/autoCode/save.do',// 保存新增自动生成代码记录接口
-	updateUrl : top.window.urlBase + '/autoCode/update.do',// 编辑自动生成代码记录信息接口
-	deleteUrl : top.window.urlBase + '/autoCode/delete.do',// 删除自动生成代码记录接口
-	attrListUrl : top.window.urlBase + '/autoCode/attrList.do',// 删除自动生成代码记录接口
-	autoCodeUrl : top.window.urlBase + '/autoCode/autocode.do',// 删除自动生成代码记录接口
+	saveUrl : top.window.urlBase + '/inner/autoCode/save.do',// 保存新增自动生成代码记录接口
+	updateUrl : top.window.urlBase + '/inner/autoCode/update.do',// 编辑自动生成代码记录信息接口
+	deleteUrl : top.window.urlBase + '/inner/autoCode/delete.do',// 删除自动生成代码记录接口
+	attrListUrl : top.window.urlBase + '/inner/autoCode/attrList.do',// 删除自动生成代码记录接口
+	autoCodeUrl : top.window.urlBase + '/inner/autoCode/autocode.do',// 删除自动生成代码记录接口
 	autocodeIntroFileUrl : top.window.urlBase
-			+ '/autoCode/autocodeIntroFile.do',// 删除自动生成代码记录接口
+			+ '/inner/autoCode/autocodeIntroFile.do',// 删除自动生成代码记录接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {

@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/diary/list.do',// 获取我的日记列表接口 Diary
-	saveUrl : top.window.urlBase + '/diary/save.do',// 保存新增我的日记接口
-	updateUrl : top.window.urlBase + '/diary/update.do',// 编辑我的日记信息接口
-	deleteUrl : top.window.urlBase + '/diary/delete.do',// 删除我的日记接口
+	listUrl : top.window.urlBase + '/inner/diary/list.do',// 获取我的日记列表接口 Diary
+	saveUrl : top.window.urlBase + '/inner/diary/save.do',// 保存新增我的日记接口
+	updateUrl : top.window.urlBase + '/inner/diary/update.do',// 编辑我的日记信息接口
+	deleteUrl : top.window.urlBase + '/inner/diary/delete.do',// 删除我的日记接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
