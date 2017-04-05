@@ -22,7 +22,7 @@ import net.sf.json.JSONObject;
 @Controller
 public class EnterpriseUserController {
 	private static Logger logger = Logger.getLogger(EnterpriseUserController.class);
-	@RequestMapping(value = "/wechat/createEnterpriseUser")
+	@RequestMapping(value = "/center/user/createEnterpriseUser")
 	public void createEnterpriseUser(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -74,7 +74,7 @@ public class EnterpriseUserController {
 
 	}
 	//修改企业成员
-	@RequestMapping(value = "/wechat/updateEnterpriseUser")
+	@RequestMapping(value = "/center/user/updateEnterpriseUser")
 	public void updateEnterpriseUser(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -132,7 +132,7 @@ public class EnterpriseUserController {
 	}
 
 	// 删除企业成员
-	@RequestMapping(value = "/wechat/deleteEnterpriseUser")
+	@RequestMapping(value = "/center/user/deleteEnterpriseUser")
 	public void deleteEnterpriseUser(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -160,7 +160,7 @@ public class EnterpriseUserController {
 	}
 
 	// 批量删除企业成员
-	@RequestMapping(value = "/wechat/deleteEnterpriseUserList")
+	@RequestMapping(value = "/center/user/deleteEnterpriseUserList")
 	public void deleteEnterpriseUserList(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -196,7 +196,7 @@ public class EnterpriseUserController {
 	}
 
 	// 获取成员
-	@RequestMapping(value = "/wechat/getEnterpriseUser")
+	@RequestMapping(value = "/center/user/getEnterpriseUser")
 	public void getEnterpriseUser(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -223,7 +223,7 @@ public class EnterpriseUserController {
 	}
 
 	// 获取部门成员
-	@RequestMapping(value = "/wechat/getDepartmentMember")
+	@RequestMapping(value = "/center/user/getDepartmentMember")
 	public void getDepartmentMember(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -252,7 +252,7 @@ public class EnterpriseUserController {
 	}
 
 	// 获取部门成员详情
-	@RequestMapping(value = "/wechat/getDepartmentMember")
+	@RequestMapping(value = "/center/user/getDepartmentMember")
 	public void getDepartmentMemberDetail(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -281,7 +281,7 @@ public class EnterpriseUserController {
 	}
 
 	// 邀请成员关注
-	@RequestMapping(value = "/wechat/sendInvite")
+	@RequestMapping(value = "/center/user/sendInvite")
 	public void sendInvite(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();

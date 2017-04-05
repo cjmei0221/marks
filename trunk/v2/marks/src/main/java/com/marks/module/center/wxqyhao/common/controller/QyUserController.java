@@ -17,7 +17,7 @@ import net.sf.json.JSONObject;
 @Controller
 public class QyUserController {
 	private static Logger logger = Logger.getLogger(QyUserController.class);
-	@RequestMapping(value = "/qyAuth/getUserid")
+	@RequestMapping(value = "/center/qyAuth/getUserid")
 	public void createDepartment(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
@@ -44,7 +44,7 @@ public class QyUserController {
 
 	}
 	
-	@RequestMapping(value = "/wechat/changeUidToOpid")
+	@RequestMapping(value = "/center/user/changeUidToOpid")
 	public void changeUidToOpid(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonResult result = new JsonResult();
