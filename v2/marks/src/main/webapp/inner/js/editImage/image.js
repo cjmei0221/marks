@@ -182,7 +182,7 @@ function checkImage(eInput){
 			alert("只能上传"+img.imgNum+"张图片");
 			return;
 		}
-		$(eInput).attr("src",top.window.urlBase+"/images/checked.jpg");
+		$(eInput).attr("src",top.window.urlBase+"/inner/images/checked.jpg");
 		showDiv.children('.flagVal').val("0");
 		img.editImage(img.idDiv, picUrl);
 	}else{
