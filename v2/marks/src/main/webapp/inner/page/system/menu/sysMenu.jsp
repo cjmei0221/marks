@@ -38,7 +38,7 @@
 				<tr>
 					<th>父菜单</th>
 					<td><input id="parentidPut" name="parentidPut"
-						class="easyui-combobox" data-options="required:true"></td>
+						class="easyui-combobox" data-options="required:true,valueField:'menuid',textField:'menuitem',url:'<%=request.getContextPath()%>/inner/sysMenu/parentMenu.do'"></td>
 				</tr>
 				<tr>
 					<th>链接URL</th>

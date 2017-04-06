@@ -1,6 +1,5 @@
 var appInfo = {
 	listUrl : top.window.urlBase + "/inner/sysMenu/list.do",
-	parentMenuUrl : top.window.urlBase + "/inner/sysMenu/parentMenu.do",
 	saveUrl : top.window.urlBase + "/inner/sysMenu/save.do",
 	deleteUrl : top.window.urlBase + "/inner/sysMenu/delete.do",
 	instFuncUrl : top.window.urlBase + "/inner/sysMenu/initFunc.do",
@@ -22,12 +21,14 @@ function add() {
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
 	appInfo.selectedId = -1;
+	$("#parentidPut").combobox("reload");
 }
 // 编辑
 
 function edit() {
 	if (isSelectedOne(appInfo.selectedId)) {
 		appInfo.saveStatus = 0;
+		$("#parentidPut").combobox("reload");
 		$("#editWin").window({
 			title : "编辑"
 		}).window("open");
@@ -120,7 +121,6 @@ function addFunc() {
 $(function() {
 	// 加载列表
 	loadList();
-	initParentMenu();
 
 	// 保存菜单
 	$("#btnOK").on("click", function() {
@@ -333,28 +333,4 @@ function loadList() {
 			}
 		});
 	}
-}
-
-// 加载父级菜单
-function initParentMenu() {
-	$.ajax({
-		url : appInfo.parentMenuUrl,
-		type : "get",
-		success : function(data, status, xhr) {
-			checkLogin(data);
-			if (typeof data === "string") {
-				data = $.parseJSON(data);
-			}
-			if (data.retcode == "0") {
-				$("#parentidPut").combobox({
-					data : data.list,
-					valueField : 'menuid',
-					textField : 'menuitem'
-				});
-			}
-		},
-		error : function(err) {
-			loadError.apply(this, arguments);
-		}
-	});
 }
