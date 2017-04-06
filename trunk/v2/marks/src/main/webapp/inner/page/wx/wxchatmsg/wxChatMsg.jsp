@@ -47,7 +47,7 @@
 		style="width: 600px; height: 450px; padding: 10px;">
 		<div align="center" style="width: 100%;">
 			<div align="right" style="width: 100%;">
-			   <img id="refreshBtn" alt="" src="../../../css/easyui/themes/icons/reload.png">&nbsp;&nbsp;
+			   <img id="refreshBtn" alt="" src="../../../easyui/css/themes/icons/reload.png">&nbsp;&nbsp;
 			</div>
 			<div id="msg"
 				style="overflow: auto; text-align: left; height: 150px;"></div>
