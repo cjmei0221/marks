@@ -22,6 +22,8 @@ import com.marks.module.inner.system.sys.service.SysMenuService;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.sys.system.core.helper.SysUserHelper;
 
+import net.sf.json.JSONArray;
+
 /**
  * 系统菜单控制层 File Name: com.grgbanking.inner.controller.SysMenuController.java
  * 
@@ -73,10 +75,7 @@ public class SysMenuController {
 		p.setMenuid("0");
 		p.setMenuitem("一级菜单选项");
 		returnlist.add(p);
-		result.setCode(Code.CODE_SUCCESS);
-		result.setMessage("success");
-		result.getData().put("list", returnlist);
-		JsonUtil.output(response, result);
+		JsonUtil.output(response, JSONArray.fromObject(returnlist).toString());
 	}
 	
 	/**
