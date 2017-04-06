@@ -21,7 +21,7 @@ public class PropsPaywxUtil {
 	private static Properties props = new Properties();
 	static{
 		try {
-			props.load(new InputStreamReader(PropsPaywxUtil.class.getClassLoader().getResourceAsStream("props/center/payWx.properties"), "UTF-8"));  ;
+			props.load(new InputStreamReader(PropsPaywxUtil.class.getClassLoader().getResourceAsStream("props/center/payWx_common.properties"), "UTF-8"));  ;
 		} catch (IOException e) {
 			logger.error("IOException:",e);
 		}
