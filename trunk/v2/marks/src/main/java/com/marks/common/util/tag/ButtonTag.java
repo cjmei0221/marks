@@ -48,7 +48,7 @@ public class ButtonTag extends TagSupport{
 						if(null !=so.getPicicon()){
 							icon=so.getPicicon();	
 						}
-						html.append("<a id=\""+so.getOperid()+"\" href=\"javascript:void(0)\" class=\"easyui-linkbutton menuBtnCls\" data-options=\"iconCls:'"+icon+"'\">"+so.getOpername()+"</a>");
+						html.append("<a id=\""+so.getOperid()+"\" href=\"javascript:void(0)\" onclick=\""+mod+"();\" class=\"easyui-linkbutton menuBtnCls\" data-options=\"iconCls:'"+icon+"'\">"+so.getOpername()+"</a>");
 					}
 					out.print(html.toString());
 				}
