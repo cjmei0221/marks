@@ -8,10 +8,14 @@ function setupAjax(){
 	$.ajaxSetup({cache:false
 		,timeout:30000
 		,beforeSend:function(xhr,opts){
-			if(opts.url.indexOf("_=")>=0){
+			if(opts.url.indexOf("_t=")>=0){
 				return;
 			}
-			opts.url +="?_t="+(+(new Date()));				
+			if(opts.url.indexOf("?")>=0){
+				opts.url +="&_t="+(+(new Date()));		
+			}else{
+				opts.url +="?_t="+(+(new Date()));		
+			}	
 		}
 		,complete:function(xhr){				
 			if(xhr.statusText!=undefined && xhr.status==0 && xhr.statusText=="timeout"){
