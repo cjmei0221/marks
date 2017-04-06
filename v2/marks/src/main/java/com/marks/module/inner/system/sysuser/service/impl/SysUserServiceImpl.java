@@ -88,8 +88,8 @@ public class SysUserServiceImpl implements SysUserService{
     }
     
     @Override
-	public void updatetPwd(SysUser su) {
-    	 sysUserDao.updatetPwd(su);
+	public void updatePwd(String userid,String pwd) {
+    	 sysUserDao.updatePwd(userid,pwd);
 	}
     
 	@Override

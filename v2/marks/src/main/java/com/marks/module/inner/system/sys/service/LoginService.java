@@ -29,4 +29,6 @@ public interface LoginService {
 
 	List<OrgInfo> getOrgInfoListByUserid(String userid);
 
+	SysUser getSysUserByUseridOrMobile(String userid);
+
 }

@@ -84,8 +84,15 @@ public class WxUser implements Serializable{
     private int dairyFlag;//日记推送标识 0不推送 1 推送
     
     private String tagid_list;//标签列表
+    private int subscribetype;
 
-    public String getTagid_list() {
+    public int getSubscribetype() {
+		return subscribetype;
+	}
+	public void setSubscribetype(int subscribetype) {
+		this.subscribetype = subscribetype;
+	}
+	public String getTagid_list() {
 		return tagid_list;
 	}
 	public void setTagid_list(String tagid_list) {

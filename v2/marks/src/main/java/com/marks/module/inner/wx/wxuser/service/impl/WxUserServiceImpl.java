@@ -27,8 +27,8 @@ public class WxUserServiceImpl implements WxUserService{
     *根据ID查找粉丝管理
     */
     @Override
-    public WxUser findById(String openid){
-        return wxUserDao.findById(openid);
+    public WxUser findById(String accountid,String openid){
+        return wxUserDao.findById(accountid,openid);
     }
     
     /**
@@ -88,7 +88,7 @@ public class WxUserServiceImpl implements WxUserService{
 	}
 	@Override
 	public void saveOrUpdateWxUser(WxUser user) {
-		WxUser old=wxUserDao.findById(user.getOpenid());
+		WxUser old=wxUserDao.findById(user.getAccountid(),user.getOpenid());
 		if(old !=null){
 			wxUserDao.update(user);
 		}else{

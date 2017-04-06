@@ -25,4 +25,6 @@ public interface WxChatSessionDao {
 	List<WxChatSession> list(PageBounds pageBounds, Map<String,Object> param);
 
 	List<WxChatCount> getCountList(PageBounds pageBounds, Map<String, Object> param);
+
+	WxChatSession findByAccountidAndOpenid(String accountid, String openid, long timeLong, int i, int flag);
 }

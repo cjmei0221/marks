@@ -27,6 +27,13 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return user;
 	}
+	
+	
+
+	@Override
+	public SysUser getSysUserByUseridOrMobile(String userid) {
+		return loginDao.getSysUserByUserid(userid);
+	}
 
 	@Override
 	public List<SysMenu> getSysMenuOfSysUser(SysUser user) {

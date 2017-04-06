@@ -1,5 +1,6 @@
 package com.marks.module.inner.wx.modulemsg.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -31,4 +32,6 @@ public interface ModuleMsgService {
 
 	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data,
 			String note);
+
+	public void updateResultForModuleMsg(String accountId, String msgID, Timestamp time, String status);
 }
