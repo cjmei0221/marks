@@ -23,7 +23,7 @@ public class AutoConfig {
 	public static String jdbc_password=AutoCodePropsUtil.getValue("jdbc.properties").getProperty("jdbc.password");
 	/**
 	 * 模板路径*/
-	public static String template_path="template/autocode";
+	public static String template_path="props/inner/template/autocode";
 	/**
 	 * 模板后缀名
 	 */
