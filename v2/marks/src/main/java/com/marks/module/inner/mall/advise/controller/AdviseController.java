@@ -25,180 +25,169 @@ import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.sys.system.core.helper.SysUserHelper;
 
 @Controller
-public class AdviseController extends SupportContorller{
-    private static Logger logger = Logger.getLogger( AdviseController.class);
-    
-    @Autowired
-    private AdviseService  adviseService;
-   
+public class AdviseController extends SupportContorller {
+	private static Logger logger = Logger.getLogger(AdviseController.class);
 
-    @Override
+	@Autowired
+	private AdviseService adviseService;
+
+	@Override
 	public Logger getLogger() {
 		return logger;
 	}
 
-    /**
+	/**
 	 * 查询客户专制
 	 */
-    @RequestMapping("/inner/advise/findAdviseById")
-    public void findAdviseById(HttpServletRequest request,
-    HttpServletResponse response){
-        Result result = new Result();
+	@RequestMapping("/inner/advise/findAdviseById")
+	public void findAdviseById(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
 		try {
-		    Advise advise = getModel(Advise.class);
+			Advise advise = getModel(Advise.class);
 			Advise requestAdvise = adviseService.findById(advise.getID());
-			result.getData().put("advise",requestAdvise);
+			result.getData().put("advise", requestAdvise);
 			result.setMessage("findById advise successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("查询失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-    }
-    
-    /**
+	}
+
+	/**
 	 * 保存客户专制
 	 */
-    @RequestMapping("/inner/advise/save")
-    public void saveAdvise(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/inner/advise/save")
+	public void saveAdvise(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
-	    	Advise advise = getModel(Advise.class);
-	 //     advise.setID(IDUtil.getTimeID());
-	 		Advise ori=adviseService.findById(advise.getID());
-	 		if(ori==null){
-	 			advise.setUserid(admin.getUserid());
-	 			adviseService.save(advise);
-	 			result.setMessage("保存成功");
-				result.setCode(Code.CODE_SUCCESS);
-	 		}else{
-	    		result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
-	    	}
+			Advise advise = getModel(Advise.class);
+			// advise.setID(IDUtil.getTimeID());
+
+			advise.setUserid(admin.getUserid());
+			adviseService.save(advise);
+			result.setMessage("保存成功");
+			result.setCode(Code.CODE_SUCCESS);
+
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("保存失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 更改客户专制
 	 */
-    @RequestMapping("/inner/advise/update")
-    public void updateAdvise(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/inner/advise/update")
+	public void updateAdvise(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-		    Advise advise = getModel(Advise.class);
-		    Advise ori=adviseService.findById(advise.getID());
-		    if(ori == null){
-		    	result.setMessage("此记录已删除!");
+			Advise advise = getModel(Advise.class);
+			Advise ori = adviseService.findById(advise.getID());
+			if (ori == null) {
+				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
-		    }else{
-		    	adviseService.update(advise);
+			} else {
+				adviseService.update(advise);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
-		    }
+			}
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 删除客户专制
 	 */
-    @RequestMapping("/inner/advise/delete")
-    public void deleteAdviseById(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/inner/advise/delete")
+	public void deleteAdviseById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-		   	Advise advise = getModel(Advise.class);
+			Advise advise = getModel(Advise.class);
 			adviseService.delete(advise.getID());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("删除失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 查询全部客户专制
 	 */
-    @RequestMapping("/inner/advise/findAllAdvise")
-    public void findAllAdvise(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/inner/advise/findAllAdvise")
+	public void findAllAdvise(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			List<Advise> adviseList = adviseService.findAll();
-			result.getData().put("adviseList",adviseList);
+			result.getData().put("adviseList", adviseList);
 			result.setMessage("findAll advise successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("findAll advise fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 删除多个客户专制
 	 */
 	@RequestMapping("/inner/advise/deleteIds")
-	public void deleteAdvise(HttpServletRequest request,
-			HttpServletResponse response){
+	public void deleteAdvise(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			String id = request.getParameter("ID");
 			String[] ids = id.split(",");
 			List<String> idList = new ArrayList<String>();
-			for(int i=0;i<ids.length;i++){
+			for (int i = 0; i < ids.length; i++) {
 				idList.add(ids[i]);
 			}
-			if(idList.size()>0){
+			if (idList.size() > 0) {
 				adviseService.deleteBatch(idList);
 				result.setMessage("删除成功!");
 				result.setCode(Code.CODE_SUCCESS);
-			}else{
+			} else {
 				result.setMessage("删除失败，请联系管理员!");
 				result.setCode(Code.CODE_FAIL);
 			}
-			
+
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("delete advise fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * jqGrid多种条件查询
 	 */
 	@RequestMapping("/inner/advise/list")
-    public void list(HttpServletRequest request,HttpServletResponse response){
-       PaginationResult result = new PaginationResult();
+	public void list(HttpServletRequest request, HttpServletResponse response) {
+		PaginationResult result = new PaginationResult();
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
+			String keyword = request.getParameter("keyword");
+			if (keyword == null) {
+				keyword = "";
 			}
-			Map<String,Object> param=new HashMap<String,Object>();
+			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			PojoDomain<Advise> list = adviseService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
@@ -209,11 +198,11 @@ public class AdviseController extends SupportContorller{
 			result.setMessage("find advise successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("find advise fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-    }
-	
+	}
+
 }
