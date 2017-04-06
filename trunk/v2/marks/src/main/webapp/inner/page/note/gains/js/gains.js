@@ -174,6 +174,11 @@ function loadList() {
 			appInfo.selectedId = rowData.id;
 			appInfo.selectedData = rowData;
 		},
+		onDblClickRow : function(rowIndex, rowData) {
+			appInfo.selectedId = rowData.id;
+			appInfo.selectedData = rowData;
+			edit();
+		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');
 			appInfo.selectedData = {};
