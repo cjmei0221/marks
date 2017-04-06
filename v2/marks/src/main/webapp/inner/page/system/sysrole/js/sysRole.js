@@ -16,6 +16,64 @@ var appInfo = {
 	formStatus : "new"
 };
 
+//新增
+function add() {
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	$('#userTypeTr').show();
+	$('#companyIdTr').show();
+}
+
+// 编辑
+function edit() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		if("system" == appInfo.selectedId){
+			showMsg("此记录不可编辑");
+			return;
+		}
+		$("#editWin").window({
+			title : "编辑"
+		}).window("open");
+		appInfo.formStatus = "edit";
+		$('#ff').form('load', appInfo.selectedData);
+		$('#userTypeTr').hide();
+		$('#companyIdTr').hide();
+	}
+}
+
+// 删除
+function del() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+			if (r) {
+				var parms = "roleid=" + appInfo.selectedId;
+				$.post(appInfo.deleteUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						app.myreload("#tbList");
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg("删除成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
+function addFunc() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		funcList(appInfo.selectedId);
+		$("#funcWin").window({
+			title : "功能管理"
+		}).window("open");
+	}
+}
+
 $(function() {
 	// 加载列表
 	loadList();
@@ -27,70 +85,13 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
-	// 新增
-	$("#add").on("click", function() {
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-		$('#userTypeTr').show();
-		$('#companyIdTr').show();
-	});
-
-	// 编辑
-	$("#edit").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			if("system" == appInfo.selectedId){
-				showMsg("此记录不可编辑");
-				return;
-			}
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			appInfo.formStatus = "edit";
-			$('#ff').form('load', appInfo.selectedData);
-			$('#userTypeTr').hide();
-			$('#companyIdTr').hide();
-		}
-	});
-
-	// 删除
-	$("#delete").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-				if (r) {
-					var parms = "roleid=" + appInfo.selectedId;
-					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							app.myreload("#tbList");
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg("删除成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-
+	
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
 	});
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
-	});
-
-	$("#addFunc").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			funcList(appInfo.selectedId);
-			$("#funcWin").window({
-				title : "功能管理"
-			}).window("open");
-		}
 	});
 });
 /**
@@ -103,30 +104,25 @@ function formSubmit() {
 	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-
-	$('#ff').form('submit', {
-		url : reqUrl,
-		onSubmit : function(param) {
-			param.formStatus = appInfo.formStatus;
-		},
-		success : function(data) {
-			if (typeof data === 'string') {
-				try {
-					data = $.parseJSON(data);
-				} catch (e0) {
-					showMsg("json 格式 错误");
-					return;
-				}
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				showMsg("json格式错误");
+				return;
 			}
-			if (data.retcode == "0") {
-				$("#editWin").window("close");
-				app.myreload("#tbList");
-				appInfo.selectedData = {};
-				appInfo.selectedId = -1;
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
 		}
 	});
 }
@@ -248,26 +244,22 @@ function loadList() {
 }
 function saveFuncList(roleId) {
 	var reqUrl = appInfo.funcSaveUrl;
-	$('#funcff').form('submit', {
-		url : reqUrl,
-		onSubmit : function(param) {
-			param.roleId = roleId;
-		},
-		success : function(data) {
-			if (typeof data === 'string') {
-				try {
-					data = $.parseJSON(data);
-				} catch (e0) {
-					showMsg("json 格式 错误");
-					return;
-				}
+	var parms = $("#funcff").serialize();
+	parms += "&roleId=" + roleId;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				showMsg("json格式错误");
+				return;
 			}
-			if (data.retcode == "0") {
-				$("#funcWin").window("close");
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-			}
+		}
+		if (data.retcode == "0") {
+			$("#funcWin").window("close");
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
 		}
 	});
 }

@@ -18,6 +18,78 @@ var appInfo = {
 	checkRole : []
 };
 
+//新增
+function add() {
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	appInfo.checkRole = [];
+	$("#roleid").combobox("reload");
+	$("#companyId").val('');
+	$("#inputRoleDiv").html('');
+	$("#bind_mobile").numberbox({
+		disabled : false
+	});
+}
+
+// 编辑
+function edit() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$("#editWin").window({
+			title : "编辑"
+		}).window("open");
+		appInfo.formStatus = "edit";
+		$("#roleid").combobox("reload");
+		$('#ff').form('load', appInfo.selectedData);
+		appInfo.checkRole = [];
+		$("#inputRoleDiv").html('');
+		initUser(appInfo.selectedData);
+		notEdit();
+	}
+}
+
+// 删除
+function del() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+			if (r) {
+				var parms = "userid=" + appInfo.selectedId;
+				$.post(appInfo.deleteUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						app.myreload("#tbList");
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg("删除成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
+// 重置密码
+function resetPwdBtn() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认重置密码吗?', function(r) {
+			if (r) {
+				var parms = "userid=" + appInfo.selectedId;
+				$.post(appInfo.resetPwdUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						showMsg("重置成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
+
 $(function() {
 	// 加载列表
 	loadList();
@@ -29,77 +101,7 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
-	// 新增
-	$("#add").on("click", function() {
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-		appInfo.checkRole = [];
-		$("#roleid").combobox("reload");
-		$("#companyId").val('');
-		$("#inputRoleDiv").html('');
-		$("#bind_mobile").numberbox({
-			disabled : false
-		});
-	});
-
-	// 编辑
-	$("#edit").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			appInfo.formStatus = "edit";
-			$("#roleid").combobox("reload");
-			$('#ff').form('load', appInfo.selectedData);
-			appInfo.checkRole = [];
-			$("#inputRoleDiv").html('');
-			initUser(appInfo.selectedData);
-			notEdit();
-		}
-	});
-
-	// 删除
-	$("#delete").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-				if (r) {
-					var parms = "userid=" + appInfo.selectedId;
-					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							app.myreload("#tbList");
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg("删除成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-
-	// 重置密码
-	$("#resetPwdBtn").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认重置密码吗?', function(r) {
-				if (r) {
-					var parms = "userid=" + appInfo.selectedId;
-					$.post(appInfo.resetPwdUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							showMsg("重置成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-
+	
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -184,31 +186,27 @@ function formSubmit() {
 	$("#bind_mobile").numberbox({
 		disabled : false
 	});
-	$('#ff').form('submit', {
-		url : reqUrl,
-		onSubmit : function(param) {
-			param.formStatus = appInfo.formStatus;
-			param.orgIdsPut = appInfo.checkRole.join(",");
-			param.companyId = $("#companyId").val();
-		},
-		success : function(data) {
-			notEdit();
-			if (typeof data == 'string') {
-				try {
-					data = $.parseJSON(data);
-				} catch (e0) {
-					return;
-				}
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	parms += "&orgIdsPut=" + appInfo.checkRole.join(",");
+	parms += "&companyId=" + $("#companyId").val();
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				showMsg("json格式错误");
+				return;
 			}
-			if (data.retcode == "0") {
-				$("#editWin").window("close");
-				app.myreload("#tbList");
-				appInfo.selectedData = {};
-				appInfo.selectedId = -1;
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
 		}
 	});
 }

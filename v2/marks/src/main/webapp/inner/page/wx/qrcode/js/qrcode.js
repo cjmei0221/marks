@@ -13,6 +13,53 @@ var appInfo = {
 	formStatus : "new"
 };
 
+//新增
+function add() {
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	$(".hideCls").hide();
+	$("#qrTypeTr").show();
+	$("#btnOK").removeAttr("disabled");
+}
+
+// 编辑
+function edit() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$("#editWin").window({
+			title : "编辑"
+		}).window("open");
+		appInfo.formStatus = "edit";
+		$('#ff').form('load', appInfo.selectedData);
+		$(".hideCls").hide();
+		$("#btnOK").removeAttr("disabled");
+	}
+}
+
+// 删除
+function del() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+			if (r) {
+				var parms = "id=" + appInfo.selectedId;
+				$.post(appInfo.deleteUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						app.myreload("#tbList");
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg("删除成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
+
 $(function() {
 	// 加载列表
 	loadList();
@@ -23,53 +70,6 @@ $(function() {
 		appInfo.selectedData = {};
 		appInfo.selectedId = -1;
 	});
-
-	// 新增
-	$("#add").on("click", function() {
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-		$(".hideCls").hide();
-		$("#qrTypeTr").show();
-		$("#btnOK").removeAttr("disabled");
-	});
-
-	// 编辑
-	$("#edit").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			appInfo.formStatus = "edit";
-			$('#ff').form('load', appInfo.selectedData);
-			$(".hideCls").hide();
-			$("#btnOK").removeAttr("disabled");
-		}
-	});
-
-	// 删除
-	$("#delete").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-				if (r) {
-					var parms = "id=" + appInfo.selectedId;
-					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							app.myreload("#tbList");
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg("删除成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -136,31 +136,27 @@ function formSubmit() {
 	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-	$('#ff').form('submit', {
-		url : reqUrl,
-		onSubmit : function(param) {
-			param.formStatus = appInfo.formStatus;
-			$("#btnOK").attr("disabled","disabled");
-		},
-		success : function(data) {
-			if (typeof data === 'string') {
-				try {
-					data = $.parseJSON(data);
-				} catch (e0) {
-					showMsg("json 格式 错误");
-					return;
-				}
+	$("#btnOK").attr("disabled","disabled");
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				showMsg("json格式错误");
+				return;
 			}
-			if (data.retcode == "0") {
-				$("#editWin").window("close");
-				app.myreload("#tbList");
-				appInfo.selectedData = {};
-				appInfo.selectedId = -1;
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-				$("#btnOK").removeAttr("disabled");
-			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
+			$("#btnOK").removeAttr("disabled");
 		}
 	});
 }

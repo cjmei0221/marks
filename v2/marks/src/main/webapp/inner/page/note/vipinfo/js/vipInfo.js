@@ -130,7 +130,7 @@ function formSubmit() {
 			try {
 				data = $.parseJSON(data);
 			} catch (e0) {
-				top.G.alert(window.msgs.return_json_error);
+				showMsg("json格式错误");
 				return;
 			}
 		}
