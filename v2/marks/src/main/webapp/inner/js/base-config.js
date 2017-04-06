@@ -186,7 +186,7 @@ function checkLogin(data) {
 // 选择一条记录判断方法
 function isSelectedOne(idx) {
 	if (idx == -1) {
-		showMsg(window.msgs.selected_before);
+		showMsg("请选择一条记录");
 		return false;
 	}
 	return true;
