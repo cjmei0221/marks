@@ -9,53 +9,121 @@ var appInfo = {
 	selectedId : -1,
 	selectedData : {},
 	formStatus : "new",
-	saveStatus:0
-	
+	saveStatus : 0
+
 }
+
+// 新增
+function add() {
+	appInfo.saveStatus = 0;
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	$("#btnOKAndTo").show();
+	appInfo.selectedId = -1;
+}
+// 编辑
+
+function edit() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$("#btnOKAndTo").hide();
+		appInfo.saveStatus = 0;
+		$("#editWin").window({
+			title : "编辑"
+		}).window("open");
+		appInfo.formStatus = "edit";
+		$("#menuitemPut").val(appInfo.selectedData.menuitem);
+		$("#parentidPut").combobox("setValue", appInfo.selectedData.parentid);
+		$("#urlPut").val(appInfo.selectedData.url);
+		$('#sortPut').numberbox('setValue', appInfo.selectedData.sort);
+		$("#menuid").val(appInfo.selectedData.menuid);
+	}
+}
+// 删除
+function del() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+			if (r) {
+				var parms = "id=" + appInfo.selectedId;
+				$.post(appInfo.deleteUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						$('#tbList').treegrid('reload');
+						$("#tbList").treegrid('unselectAll');
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg("删除成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
+//添加功能
+function addFunc() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		if (appInfo.selectedData.parentid == "0") {
+			showMsg("一级菜单不能设置功能");
+			return;
+		}
+		$("#funcShow").html("");
+		$("#addFuncWin").window({
+			title : "功能管理"
+		}).window("open");
+		$("#tab2TableMod").hide();
+		$("#addOneRule").show();
+		// 初始化已有功能
+		$.ajax({
+					url : appInfo.instFuncUrl,
+					type : "post",
+					data : {
+						"menuid" : appInfo.selectedId
+					},
+					dataType : "json",
+					success : function(data, status, xhr) {
+						if (typeof data === "string") {
+							data = $.parseJSON(data);
+						}
+						if (data.retcode == "0") {
+							var funclist = data.list;
+							if (funclist.length > 0) {
+								var obj = eval(data.list);
+								$(obj).each(function(index) {
+													var val = obj[index];
+													var str = "<table id='"
+															+ val.funcid
+															+ "' style='border-bottom:grey 1px solid;padding:5px;width:95%'><tr><td style='width:20%;'>"
+															+ val.opername
+															+ "</td><td style='width:20%;'>"
+															+ val.operid
+															+ "</td><td style='width:40%;'>"
+															+ val.url
+															+ "</td><td style='width:20%;'><a class='easyui-linkbutton' href='#'  onclick=\"javascript:delfunc(\'"
+															+ val.funcid
+															+ "\')\">刪除功能</a>"
+															+ "</td></tr></table>";
+													$("#funcShow").append(str);
+												});
+							}
+							appInfo.operatelist = data.operatelist;
+						}
+					},
+					error : function(err) {
+						loadError.apply(this, arguments);
+					}
+				});
+	}
+}
+
 $(function() {
 	// 加载列表
 	loadList();
 	initParentMenu();
-	// 新增
-	$("#add").on("click", function() {
-		appInfo.saveStatus=0;
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-		$("#btnOKAndTo").show();
-		appInfo.selectedId = -1;
-	});
-	// 编辑
-	$("#edit").on(
-			"click",
-			function() {
-				if (isSelectedOne(appInfo.selectedId)) {
-					editDate();
-				}
-			});
-	// 删除
-	$("#delete").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-				if (r) {
-					var parms = "id=" + appInfo.selectedId;
-					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							$('#tbList').treegrid('reload');
-							$("#tbList").treegrid('unselectAll');
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg("删除成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
+
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -66,12 +134,6 @@ $(function() {
 		$("#tbList").treegrid('unselectAll');
 		appInfo.selectedData = {};
 		appInfo.selectedId = -1;
-	});
-	// 添加功能
-	$("#addFunc").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			addFunc();
-		}
 	});
 	// 添加一个功能
 	$("#addOneRule").on("click", function(e) {
@@ -95,83 +157,14 @@ $(function() {
 		$("#addOneRule").show();
 	});
 	// 新增菜单后添加功能
-	$("#btnOKAndTo").on("click", function() {
-		formSubmit();
-		if ($("#ff").form("validate") && appInfo.saveStatus==1 && isSelectedOne(appInfo.selectedId)) {
-			addFunc();
-		}
-	});
-})
-function editDate(){
-	$("#btnOKAndTo").hide();
-	appInfo.saveStatus=0;
-	$("#editWin").window({
-		title : "编辑"
-	}).window("open");
-	appInfo.formStatus = "edit";
-	$("#menuitemPut").val(appInfo.selectedData.menuitem);
-	$("#parentidPut").combobox("setValue",
-			appInfo.selectedData.parentid);
-	$("#urlPut").val(appInfo.selectedData.url);
-	$('#sortPut').numberbox('setValue',
-			appInfo.selectedData.sort);
-	$("#menuid").val(appInfo.selectedData.menuid);
-}
-function addFunc() {
-
-	if (appInfo.selectedData.parentid == "0") {
-		showMsg("一级菜单不能设置功能");
-		return;
-	}
-	$("#funcShow").html("");
-	$("#addFuncWin").window({
-		title : "功能管理"
-	}).window("open");
-	$("#tab2TableMod").hide();
-	$("#addOneRule").show();
-	// 初始化已有功能
-	$.ajax({
-				url : appInfo.instFuncUrl,
-				type : "post",
-				data : {
-					"menuid" : appInfo.selectedId
-				},
-				dataType : "json",
-				success : function(data, status, xhr) {
-					if (typeof data === "string") {
-						data = $.parseJSON(data);
-					}
-					if (data.retcode == "0") {
-						var funclist = data.list;
-						if (funclist.length > 0) {
-							var obj = eval(data.list);
-							$(obj)
-									.each(
-											function(index) {
-												var val = obj[index];
-												var str = "<table id='"
-														+ val.funcid
-														+ "' style='border-bottom:grey 1px solid;padding:5px;width:95%'><tr><td style='width:20%;'>"
-														+ val.opername
-														+ "</td><td style='width:20%;'>"
-														+ val.operid
-														+ "</td><td style='width:40%;'>"
-														+ val.url
-														+ "</td><td style='width:20%;'><a class='easyui-linkbutton' href='#'  onclick=\"javascript:delfunc(\'"
-														+ val.funcid
-														+ "\')\">刪除功能</a>"
-														+ "</td></tr></table>";
-												$("#funcShow").append(str);
-											});
-						}
-						appInfo.operatelist = data.operatelist;
-					}
-				},
-				error : function(err) {
-					loadError.apply(this, arguments);
+	$("#btnOKAndTo").on("click",
+			function() {
+				formSubmit();
+				if ($("#ff").form("validate") && appInfo.saveStatus == 1) {
+					addFunc();
 				}
 			});
-}
+})
 // 删除功能
 function delfunc(funcid) {
 	$.messager.confirm("确认", "请确认是否删除此功能!", function(r) {
@@ -237,31 +230,35 @@ function clearFuncForm() {
  * 保存菜单
  */
 function formSubmit() {
-	if ($("#ff").form("validate")) {
-		$('#ff').form('submit', {
-			url : appInfo.saveUrl,
-			onSubmit : function(param) {
-				param.formStatus = appInfo.formStatus;
-			},
-			success : function(data) {
-				if (typeof data === "string") {
-					data = $.parseJSON(data);
-				}
-				if (data.retcode == "0") {
-					$("#editWin").window("close");
-					$('#tbList').treegrid('reload');
-					$("#tbList").treegrid('unselectAll');
-					appInfo.selectedData = data.menu;
-					appInfo.selectedId = data.menu.menuid;
-					appInfo.saveStatus=1;
-				} else {
-					showMsg(data.retmsg);
-					appInfo.saveStatus=0;
-				
-				}
-			}
-		});
+	if (!$('#ff').form('validate')) {
+		showMsg("表单校验不通过");
+		return;
 	}
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	appInfo.saveStatus = 0;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				top.G.alert(window.msgs.return_json_error);
+				return;
+			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			$('#tbList').treegrid('reload');
+			$("#tbList").treegrid('unselectAll');
+			appInfo.selectedData = data.menu;
+			appInfo.selectedId = data.menu.menuid;
+			appInfo.saveStatus = 1;
+		} else {
+			showMsg(data.retmsg);
+			appInfo.saveStatus = 0;
+
+		}
+	});
 }
 /**
  * 加载列表
@@ -316,7 +313,7 @@ function loadList() {
 		onDblClickRow : function(rowData) {
 			appInfo.selectedId = rowData.menuid;
 			appInfo.selectedData = rowData;
-			editDate();
+			edit();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").treegrid('unselectAll');
