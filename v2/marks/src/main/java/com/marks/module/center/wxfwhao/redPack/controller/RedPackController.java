@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.JsonResult;
 import com.marks.module.center.wxfwhao.redPack.pojo.RedPackReq;
 import com.marks.module.center.wxfwhao.redPack.wxservice.RedPackSendUtil;
+import com.marks.module.center.wxfwhao.redPack.wxservice.RedPackService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 
 import net.sf.json.JSONObject;
@@ -61,6 +62,7 @@ public class RedPackController extends SupportContorller{
 		try {
 			String accountid=request.getParameter("accountid");
 			RedPackReq vo = getModel(RedPackReq.class);
+			result=RedPackService.getInstance().sendCommonRad(accountid,vo);
 		} catch (Exception e) {
 			logger.error("系统异常，请稍后再试", e);
 			e.printStackTrace();
