@@ -229,11 +229,11 @@ function loadList() {
 			loader(that, params, success, loadError);
 		},
 		onClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.cparentType;
+			appInfo.selectedId = rowData.ctype;
 			appInfo.selectedData = rowData;
 		},
 		onDblClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.cparentType;
+			appInfo.selectedId = rowData.ctype;
 			appInfo.selectedData = rowData;
 			edit();
 		},
