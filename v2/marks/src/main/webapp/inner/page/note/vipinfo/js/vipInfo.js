@@ -15,6 +15,85 @@ var appInfo = {
 	formStatus : "new"
 };
 
+//新增
+function add() {
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+}
+
+// 编辑
+function edit() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$("#editWin").window({
+			title : "编辑"
+		}).window("open");
+		appInfo.formStatus = "edit";
+		$('#ff').form('load', appInfo.selectedData);
+	}
+}
+
+// 删除
+function del() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+			if (r) {
+				var parms = "userid=" + appInfo.selectedId;
+				$.post(appInfo.deleteUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						app.myreload("#tbList");
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg("删除成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
+// 重置密码
+function resetPwdBtn() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认重置密码吗?', function(r) {
+			if (r) {
+				var parms = "userid=" + appInfo.selectedId;
+				$.post(appInfo.resetPwdUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						showMsg("重置成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+// 启禁用
+function activeBtn() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认执行此操作吗?', function(r) {
+			if (r) {
+				var parms = "userid=" + appInfo.selectedId;
+				$.post(appInfo.activeUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						showMsg("操作成功");
+						app.myreload("#tbList");
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
 $(function() {
 	// 加载列表
 	loadList();
@@ -24,85 +103,6 @@ $(function() {
 		app.myreload("#tbList");
 		appInfo.selectedData = {};
 		appInfo.selectedId = -1;
-	});
-
-	// 新增
-	$("#add").on("click", function() {
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-	});
-
-	// 编辑
-	$("#edit").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			appInfo.formStatus = "edit";
-			$('#ff').form('load', appInfo.selectedData);
-		}
-	});
-
-	// 删除
-	$("#delete").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-				if (r) {
-					var parms = "userid=" + appInfo.selectedId;
-					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							app.myreload("#tbList");
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg("删除成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-	
-	// 重置密码
-	$("#resetPwdBtn").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认重置密码吗?', function(r) {
-				if (r) {
-					var parms = "userid=" + appInfo.selectedId;
-					$.post(appInfo.resetPwdUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							showMsg("重置成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-	// 启禁用
-	$("#activeBtn").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认执行此操作吗?', function(r) {
-				if (r) {
-					var parms = "userid=" + appInfo.selectedId;
-					$.post(appInfo.activeUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							showMsg("操作成功");
-							app.myreload("#tbList");
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
 	});
 
 	// 保存菜单
