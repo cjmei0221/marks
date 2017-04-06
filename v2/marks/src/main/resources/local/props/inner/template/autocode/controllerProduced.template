@@ -19,9 +19,9 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
-import com.marks.module.system.sys.controller.SupportContorller;
-import com.marks.module.system.core.helper.SysUserHelper;
-import com.marks.module.system.sysuser.pojo.SysUser;
+import com.marks.module.inner.system.sys.controller.SupportContorller;
+import com.marks.module.inner.system.sysuser.pojo.SysUser;
+import com.marks.module.sys.system.core.helper.SysUserHelper;
 
 import @{beanPackageUrl}.@{beanName};
 import @{ServicePackageUrl}.@{beanName}Service;

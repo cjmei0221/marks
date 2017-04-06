@@ -12,36 +12,29 @@ var appInfo = {
 	},
 	formStatus:"new"
  };
-
-$(function(){
-//加载列表
- 	loadList();
-
-//搜索
-	$("#doSearch").on("click", function(e) {
-		app.myreload("#tbList");
-		appInfo.selectedData = {};
-		appInfo.selectedId=-1;
-	});
-	
+ //-----------------权限控制功能 start---------------
 	//新增
-	$("#add").on("click",function(){
+	function add(){
 		$("#editWin").window({
 			title : "新增"
 		}).window("open");
 		$('#ff').form('clear');
 		appInfo.formStatus="new";
-	});
+	}
+	
 	
 	//编辑
-	$("#edit").on("click",function(){
+	function edit(){
 		if(isSelectedOne(appInfo.selectedId)){
-			editData();
+			$("#editWin").window({
+				title : "编辑"
+			}).window("open");
+			appInfo.formStatus="edit";
+			$('#ff').form('load',appInfo.selectedData);
 		}
-	});
-	
-	//删除
-	$("#delete").on("click",function(){
+	}
+		//删除
+	function del(){
 		if(isSelectedOne(appInfo.selectedId)){
 			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
@@ -59,6 +52,17 @@ $(function(){
 				}
 			});
 		}
+	}
+ //-----------------权限控制功能 end---------------
+$(function(){
+//加载列表
+ 	loadList();
+
+//搜索
+	$("#doSearch").on("click", function(e) {
+		app.myreload("#tbList");
+		appInfo.selectedData = {};
+		appInfo.selectedId=-1;
 	});
 	
 		//保存菜单
@@ -69,13 +73,6 @@ $(function(){
 		$("#editWin").window("close");
 	});
 });
-function editData(){
-		$("#editWin").window({
-				title : "编辑"
-		}).window("open");
-		appInfo.formStatus="edit";
-		$('#ff').form('load',appInfo.selectedData);
-}
 /**
  * 保存菜单
  */
@@ -85,30 +82,26 @@ function formSubmit(){
 		return;
 	}
 	var reqUrl=appInfo.formStatus=="new"?appInfo.saveUrl:appInfo.updateUrl;
-	$('#ff').form('submit',{
-	    url:reqUrl,
-	    onSubmit: function(param){
-	    	param.formStatus=appInfo.formStatus;
-	    },
-	    success:function(data){
-	   		if(typeof data === 'string'){
-				try{
-					data = $.parseJSON(data);
-				}catch(e0){
-					showMsg("json 格式 错误");
-					return;
-				}					
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				showMsg("json格式错误");
+				return;
 			}
-	    	if (data.retcode == '0') {
-				$("#editWin").window("close");
-				app.myreload("#tbList");
-				appInfo.selectedData = {};
-				appInfo.selectedId = -1;
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-			}
-	    }
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
+		}
 	});
 }
 
@@ -140,7 +133,7 @@ function loadList() {
 		onDblClickRow : function(rowIndex, rowData) {
 			appInfo.selectedId = rowData.id;
 			appInfo.selectedData = rowData;
-			editData();
+			edit();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');
