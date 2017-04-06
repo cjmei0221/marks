@@ -123,29 +123,25 @@ function formSubmit() {
 	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-	$('#ff').form('submit', {
-		url : reqUrl,
-		onSubmit : function(param) {
-			param.formStatus = appInfo.formStatus;
-		},
-		success : function(data) {
-			if (typeof data === 'string') {
-				try {
-					data = $.parseJSON(data);
-				} catch (e0) {
-					showMsg("json 格式 错误");
-					return;
-				}
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				top.G.alert(window.msgs.return_json_error);
+				return;
 			}
-			if (data.retcode == "0") {
-				$("#editWin").window("close");
-				app.myreload("#tbList");
-				appInfo.selectedData = {};
-				appInfo.selectedId = -1;
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
 		}
 	});
 }
