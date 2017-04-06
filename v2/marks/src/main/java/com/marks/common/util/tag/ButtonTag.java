@@ -36,9 +36,14 @@ public class ButtonTag extends TagSupport{
 				if(null !=list && list.size()>0){
 					StringBuffer html=new StringBuffer();
 					String icon="icon-edit";
+					String mod="";
 					for(SysOperate so:list){
 						if("query".equals(so.getOperid())){
 							continue;
+						}
+						mod=so.getOperid();
+						if("delete".equals(so.getOperid())){
+							mod="del";
 						}
 						if(null !=so.getPicicon()){
 							icon=so.getPicicon();	
