@@ -20,6 +20,7 @@ import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.inner.system.orginfo.pojo.OrgInfo;
 import com.marks.module.inner.system.sys.pojo.SysMenu;
+import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.LoginService;
 import com.marks.module.inner.system.syslog.pojo.SysLog;
 import com.marks.module.inner.system.syslog.thread.SysLogThreadPool;
@@ -184,6 +185,17 @@ public class LoginController {
 		result.setMessage("success");
 		result.getData().put("menuList", list);
 		result.getData().put("loginUser", user);
+		JsonUtil.output(response, result);
+	}
+	@RequestMapping("/inner/sys/menuOperate")
+	public void menuOperate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Result result = new Result();
+		SysUser user = SysUserHelper.getCurrentUserInfo(request);
+		String menuid=request.getParameter("menuid");
+		List<SysOperate> list=loginService.getSysOperate(menuid,user);
+		result.setCode(Code.CODE_SUCCESS);
+		result.setMessage("success");
+		result.getData().put("operList", list);
 		JsonUtil.output(response, result);
 	}
 }
