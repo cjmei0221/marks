@@ -37,7 +37,89 @@ var appInfo = {
 		tableName : ""
 	}
 };
+function add(){
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	$('#tableName').removeAttr("readonly");
+	$('#isAutoTr').hide();
+	$('#isAuto').combobox("setValue",1);
+	initAttrList();
+}
 
+function edit(){
+	if (isSelectedOne(appInfo.selectedId)) {
+		$("#editWin").window({
+			title : "编辑"
+		}).window("open");
+		$('#isAutoTr').show();
+		appInfo.formStatus = "edit";
+		$('#ff').form('load', appInfo.selectedData);
+		$('#tableName').attr("readonly", "readonly");
+		if(appInfo.selectedData.isAuto==0){
+			$('#isAutoTr').hide();
+		}
+		initAttrList();
+	}
+}
+
+function del(){
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+			if (r) {
+				var parms = "tableName=" + appInfo.selectedId;
+				$.post(appInfo.deleteUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						app.myreload("#tbList");
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg("删除成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+function introBtn(){
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要说明文档吗?', function(r) {
+			if (r) {
+				var parms = "tableName=" + appInfo.selectedId;
+				$.post(appInfo.autocodeIntroFileUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						showMsg("刷新后起效");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+function autoCodeBtn(){
+	if (isSelectedOne(appInfo.selectedId)) {
+		if(appInfo.selectedData.isAuto==0){
+			showMsg("不能覆盖");
+			return;
+		}
+		$.messager.confirm('确认', '确认要生成记录吗?', function(r) {
+			if (r) {
+				var parms = "tableName=" + appInfo.selectedId;
+				$.post(appInfo.autoCodeUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						showMsg("重新编译后起效");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
 $(function() {
 	// 加载列表
 	loadList();
@@ -47,57 +129,6 @@ $(function() {
 		app.myreload("#tbList");
 		appInfo.selectedData = {};
 		appInfo.selectedId = -1;
-	});
-
-	// 新增
-	$("#add").on("click", function() {
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-		$('#tableName').removeAttr("readonly");
-		$('#isAutoTr').hide();
-		$('#isAuto').combobox("setValue",1);
-		initAttrList();
-	});
-
-	// 编辑
-	$("#edit").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			$('#isAutoTr').show();
-			appInfo.formStatus = "edit";
-			$('#ff').form('load', appInfo.selectedData);
-			$('#tableName').attr("readonly", "readonly");
-			if(appInfo.selectedData.isAuto==0){
-				$('#isAutoTr').hide();
-			}
-			initAttrList();
-		}
-	});
-
-	// 删除
-	$("#delete").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-				if (r) {
-					var parms = "tableName=" + appInfo.selectedId;
-					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							app.myreload("#tbList");
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg("删除成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
 	});
 
 	// 保存菜单
@@ -114,44 +145,6 @@ $(function() {
 		$("#attrWin").window({
 			title : "字段编辑"
 		}).window("open");
-	});
-	// 自动生成代码
-	$("#introBtn").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要说明文档吗?', function(r) {
-				if (r) {
-					var parms = "tableName=" + appInfo.selectedId;
-					$.post(appInfo.autocodeIntroFileUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							showMsg("刷新后起效");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-	// 自动生成代码
-	$("#autoCodeBtn").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			if(appInfo.selectedData.isAuto==0){
-				showMsg("不能覆盖");
-				return;
-			}
-			$.messager.confirm('确认', '确认要生成记录吗?', function(r) {
-				if (r) {
-					var parms = "tableName=" + appInfo.selectedId;
-					$.post(appInfo.autoCodeUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							showMsg("重新编译后起效");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
 	});
 });
 function showIntroInfo(page, filename) {
@@ -182,30 +175,25 @@ function formSubmit() {
 	}
 	attrList = attrList.join(',');
 
-	$('#ff').form('submit', {
-		url : reqUrl,
-		onSubmit : function(param) {
-			param.formStatus = appInfo.formStatus;
-			param.attrListPut = attrList;
-		},
-		success : function(data) {
-			if (typeof data === 'string') {
-				try {
-					data = $.parseJSON(data);
-				} catch (e0) {
-					top.G.alert(window.msgs.return_json_error);
-					return;
-				}
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus+"&attrListPut="+attrList;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				top.G.alert(window.msgs.return_json_error);
+				return;
 			}
-			if (data.retcode == "0") {
-				$("#editWin").window("close");
-				app.myreload("#tbList");
-				appInfo.selectedData = {};
-				appInfo.selectedId = -1;
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
 		}
 	});
 }
@@ -348,17 +336,6 @@ function loadList() {
 				loadError.apply(this, arguments);
 			}
 		});
-	}
-}
-function unitformatter(value, rowData, rowIndex) {
-	if (value == 0) {
-		return;
-	}
-
-	for (var i = 0; i < appInfo.attrtypedata.length; i++) {
-		if (appJP.salegoodtypelist[i].id == value) {
-			return appInfo.attrtypedata[i].text;
-		}
 	}
 }
 function endEdit() {
