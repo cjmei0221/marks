@@ -71,7 +71,7 @@ public class GainsController extends SupportContorller{
 	    	Gains gains = getModel(Gains.class);
 	 //     gains.setId(IDUtil.getTimeID());
 			 Gains ori=null;
-	 		if(gains.getId() != null){
+	 		if(gains.getTitle() != null){
 	 			ori=gainsService.findByTitle(gains.getTitle());
 	 		}
 	 		
@@ -105,7 +105,7 @@ public class GainsController extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    Gains gains = getModel(Gains.class);
-		    Gains ori=gainsService.findById(gains.getTitle());
+		    Gains ori=gainsService.findById(gains.getId());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
