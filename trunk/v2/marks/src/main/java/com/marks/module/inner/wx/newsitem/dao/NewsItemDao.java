@@ -28,4 +28,6 @@ public interface NewsItemDao {
 	List<NewsItem> getnewItems(Map<String, Object> param);
 
 	int countNews(@Param("newsId")String newsId);
+
+	List<NewsItem> getNewsItemByIds(@Param("newsItemIds")String[] newsItemIds);
 }

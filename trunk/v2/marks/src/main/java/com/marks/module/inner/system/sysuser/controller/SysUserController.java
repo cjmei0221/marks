@@ -28,8 +28,6 @@ import com.marks.module.sys.system.core.helper.SysUserHelper;
 @Controller
 public class SysUserController extends SupportContorller{
     private static Logger logger = Logger.getLogger( SysUserController.class);
-    
-    private String defaultPwd="B15A268148D9C5A9363E915581CE1819";
     @Autowired
     private SysUserService  sysUserService;
    
@@ -74,7 +72,7 @@ public class SysUserController extends SupportContorller{
 	 		if(ori==null){
 	 			//密码处理
 	 			String orgIdsPut=request.getParameter("orgIdsPut");
-	 			sysUser.setPassword(defaultPwd);
+	 			sysUser.setPassword(EncryptUtil.defaultPwd);
 	 			sysUser.setCreator(admin.getUserid());
 	 			sysUserService.save(sysUser,orgIdsPut);
 	 			result.setMessage("保存成功");
@@ -239,8 +237,7 @@ public class SysUserController extends SupportContorller{
 			String userid=request.getParameter("userid");
 			SysUser su=sysUserService.findById(userid);
 			if(su !=null){
-				su.setPassword(defaultPwd);
-				sysUserService.updatetPwd(su);
+				sysUserService.updatePwd(userid,EncryptUtil.defaultPwd);
 				result.setMessage("resetPwd sysUser successs!");
 				result.setCode(Code.CODE_SUCCESS);
 			}else{
@@ -272,7 +269,7 @@ public class SysUserController extends SupportContorller{
 			SysUser su=sysUserService.findById(admin.getUserid());
 			if(su.getPassword().equals(EncryptUtil.encrypt(oldPwd))){
 				admin.setPassword(EncryptUtil.encrypt(newPwd));
-				sysUserService.updatetPwd(admin);
+				sysUserService.updatePwd(admin.getUserid(),admin.getPassword());
 			}else{
 				result.setMessage("原密码错误");
 				result.setCode("2001");

@@ -49,7 +49,7 @@ public class WxUserController extends SupportContorller{
         Result result = new Result();
 		try {
 		    WxUser wxUser = getModel(WxUser.class);
-			WxUser requestWxUser = wxUserService.findById(wxUser.getOpenid());
+			WxUser requestWxUser = wxUserService.findById(wxUser.getAccountid(),wxUser.getOpenid());
 			result.getData().put("wxUser",requestWxUser);
 			result.setMessage("findById wxUser successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -74,7 +74,7 @@ public class WxUserController extends SupportContorller{
 	 //     wxUser.setOpenid(IDUtil.getTimeID());
 			 WxUser ori=null;
 	 		if(wxUser.getOpenid() != null){
-	 			ori=wxUserService.findById(wxUser.getOpenid());
+	 			ori=wxUserService.findById(wxUser.getAccountid(),wxUser.getOpenid());
 	 		}
 	 		
 	 		if(ori==null){
@@ -103,7 +103,7 @@ public class WxUserController extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 		    WxUser wxUser = getModel(WxUser.class);
-		    WxUser ori=wxUserService.findById(wxUser.getOpenid());
+		    WxUser ori=wxUserService.findById(wxUser.getAccountid(),wxUser.getOpenid());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
@@ -237,7 +237,8 @@ public class WxUserController extends SupportContorller{
 		Result result = new Result();
 		try {
 			String openid=request.getParameter("openid");
-			WxUser wxUser=wxUserService.findById(openid);
+			String accountid=request.getParameter("accountid");
+			WxUser wxUser=wxUserService.findById(accountid,openid);
 			int dairyFlag=Enums.DairyUse.NOUSE.getValue();
 			if(Enums.DairyUse.NOUSE.getValue()==wxUser.getDairyFlag()){
 				dairyFlag=Enums.DairyUse.USE.getValue();

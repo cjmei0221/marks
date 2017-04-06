@@ -11,7 +11,7 @@ import com.marks.module.center.wxfwhao.common.entity.WxUser;
 
 public interface WxUserDao {
 
-	WxUser findById(String openid);
+	WxUser findById(String accountid,String openid);
 
 	void save(WxUser wxUser);
 
@@ -28,4 +28,5 @@ public interface WxUserDao {
 	List<WxUser> findWxUserListForDairy();
 
 	void udateDairyFlag( @Param("openid")String openid, @Param("dairyFlag")int dairyFlag);
+
 }

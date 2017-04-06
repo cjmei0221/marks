@@ -17,4 +17,5 @@ public interface VipInfoService{
 	public List<VipInfo> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<VipInfo> list(int page_number, int page_size,Map<String,Object> param);
+	public VipInfo findVipDetailInfoById(String userid);
 }

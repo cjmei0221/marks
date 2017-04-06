@@ -9,7 +9,7 @@ import com.marks.module.center.wxfwhao.common.entity.WxUser;
 
 public interface WxUserService{
 
-	public WxUser findById(String openid);
+	public WxUser findById(String accountid,String openid);
 	public void save(WxUser wxUser);
 	public void update(WxUser wxUser);
 	public void delete(String openid);

@@ -19,8 +19,9 @@ public interface SysUserService{
 	public PojoDomain<SysUser> list(int page_number, int page_size,Map<String,Object> param);
 	public SysUser findByMobile(String bind_mobile);
 	public SysUser findById(String userid);
-	public void updatetPwd(SysUser su);
+	public void updatePwd(String userid,String pwd);
 	public void updateMobile(String userid, String newPhone);
 	public void updateActiveFlag(String userid, int flag);
+	public void updateSkin(String userid, int parseInt);
 
 }

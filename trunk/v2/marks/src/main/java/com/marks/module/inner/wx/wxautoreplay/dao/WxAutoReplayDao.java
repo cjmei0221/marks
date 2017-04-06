@@ -26,4 +26,6 @@ public interface WxAutoReplayDao {
 	List<WxAutoReplay> list(PageBounds pageBounds, Map<String,Object> param);
 
 	List<WxAutoReplay> findByCkey(@Param("ckey")String ckey,@Param("accountid")String accountid);
+
+	List<WxAutoReplay> getWxAutoReplayByKey(@Param("ckey")String ckey, @Param("accountId")String accountId);
 }

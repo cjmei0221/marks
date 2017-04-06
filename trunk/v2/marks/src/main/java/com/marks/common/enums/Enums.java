@@ -8,6 +8,28 @@ package com.marks.common.enums;
 public class Enums {
 	/**
 	 * 系统用户启禁用
+	 * @author marks
+	 *
+	 */
+	public enum SysUserBindFlag{
+		USE(1),//绑定
+		NOUSE(0);//未绑定
+
+		private int status;
+		
+		private SysUserBindFlag(int status){
+			this.status = status;
+		}
+		
+		public String toString(){
+			return String.valueOf(status);
+		}
+		public int getValue(){
+			return status;
+		}
+	}
+	/**
+	 * 系统用户启禁用
 	 * @author cjmei
 	 *
 	 */
@@ -34,6 +56,7 @@ public class Enums {
 	 * @author cjmei
 	 *
 	 */
+	
 	public enum SysUserUse{
 		USE(1),//系统用户
 		NOUSE(0);//会员

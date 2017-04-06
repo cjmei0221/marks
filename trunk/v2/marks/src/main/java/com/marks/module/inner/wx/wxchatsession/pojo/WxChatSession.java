@@ -52,8 +52,16 @@ public class WxChatSession implements Serializable{
     
     private int flag;
     
+    private int sessionFlag;
+    
     private List<WxChatMsg> wxChatMsgList=new ArrayList<WxChatMsg>();
     
+	public int getSessionFlag() {
+		return sessionFlag;
+	}
+	public void setSessionFlag(int sessionFlag) {
+		this.sessionFlag = sessionFlag;
+	}
 	public int getFlag() {
 		return flag;
 	}
