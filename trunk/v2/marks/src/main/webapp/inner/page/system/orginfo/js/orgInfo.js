@@ -22,6 +22,7 @@ function add() {
 		appInfo.formStatus = "new";
 		$("#parentName").val(appInfo.selectedData.orgname);
 		$("#parentId").val(appInfo.selectedId);
+		$("#orgid").removeAttr("readonly");
 	}
 }
 
@@ -37,6 +38,7 @@ function edit() {
 		}).window("open");
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
+		$("#orgid").attr("readonly","readonly");
 	}
 }
 
