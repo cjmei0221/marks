@@ -15,6 +15,80 @@ var appInfo = {
 	formStatus : "new"
 };
 
+//新增
+function add() {
+	$("#remove").html("");
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	$("#weight_unit").val("Kg");
+	appInfo.formStatus = "new";
+	img.deleteImageDiv("addMainImg");
+	img.deleteImageDiv("addMainImageDiv");
+	img.deleteImageDiv("addDetailImageDiv");
+}
+
+// 编辑
+function edit() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$("#remove").html("");
+		$("#editWin").window({
+			title : "编辑"
+		}).window("open");
+		appInfo.formStatus = "edit";
+		$('#ff').form('load', appInfo.selectedData);
+		img.deleteImageDiv("addMainImg");
+		img.editImage("addMainImg",appInfo.selectedData.imageUrl);
+		loadImg(appInfo.selectedId);
+	}
+}
+
+// 删除
+function del() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+			if (r) {
+				var parms = "goodId=" + appInfo.selectedId;
+				$.post(appInfo.deleteUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						app.myreload("#tbList");
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg("删除成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+//上下架
+function onsaleBtn() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		var cmsg="确定要上架吗？";
+		if(appInfo.selectedData.onsale_status==1){
+			cmsg="确定要下架吗？";
+		}
+		$.messager.confirm('确认', cmsg, function(r) {
+			if (r) {
+				var parms = "goodId=" + appInfo.selectedId;
+				$.post(appInfo.onsaleUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						app.myreload("#tbList");
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg(data.retmsg);
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
 $(function() {
 	// 加载列表
 	loadList();
@@ -24,80 +98,6 @@ $(function() {
 		app.myreload("#tbList");
 		appInfo.selectedData = {};
 		appInfo.selectedId = -1;
-	});
-
-	// 新增
-	$("#add").on("click", function() {
-		$("#remove").html("");
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		$("#weight_unit").val("Kg");
-		appInfo.formStatus = "new";
-		img.deleteImageDiv("addMainImg");
-		img.deleteImageDiv("addMainImageDiv");
-		img.deleteImageDiv("addDetailImageDiv");
-	});
-
-	// 编辑
-	$("#edit").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$("#remove").html("");
-			$("#editWin").window({
-				title : "编辑"
-			}).window("open");
-			appInfo.formStatus = "edit";
-			$('#ff').form('load', appInfo.selectedData);
-			img.deleteImageDiv("addMainImg");
-			img.editImage("addMainImg",appInfo.selectedData.imageUrl);
-			loadImg(appInfo.selectedId);
-		}
-	});
-
-	// 删除
-	$("#delete").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-				if (r) {
-					var parms = "goodId=" + appInfo.selectedId;
-					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							app.myreload("#tbList");
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg("删除成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-	//上下架
-	$("#onsaleBtn").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			var cmsg="确定要上架吗？";
-			if(appInfo.selectedData.onsale_status==1){
-				cmsg="确定要下架吗？";
-			}
-			$.messager.confirm('确认', cmsg, function(r) {
-				if (r) {
-					var parms = "goodId=" + appInfo.selectedId;
-					$.post(appInfo.onsaleUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							app.myreload("#tbList");
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg(data.retmsg);
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
 	});
 	
 	// 保存菜单
@@ -178,32 +178,29 @@ function formSubmit() {
 	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-	$('#ff').form('submit', {
-		url : reqUrl,
-		onSubmit : function(param) {
-			param.formStatus = appInfo.formStatus;
-			param.imageUrlPut=imageUrlPut;
-			param.addMainImagePut=addMainImagePut;
-			param.addDetailImagePut=addDetailImagePut;
-		},
-		success : function(data) {
-			if (typeof data === 'string') {
-				try {
-					data = $.parseJSON(data);
-				} catch (e0) {
-					showMsg("json 格式 错误");
-					return;
-				}
+	
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	parms += "&imageUrlPut=" + imageUrlPut;
+	parms += "&addMainImagePut=" + addMainImagePut;
+	parms += "&addDetailImagePut=" + appInfo.addDetailImagePut;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				top.G.alert(window.msgs.return_json_error);
+				return;
 			}
-			if (data.retcode == "0") {
-				$("#editWin").window("close");
-				app.myreload("#tbList");
-				appInfo.selectedData = {};
-				appInfo.selectedId = -1;
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
 		}
 	});
 }
