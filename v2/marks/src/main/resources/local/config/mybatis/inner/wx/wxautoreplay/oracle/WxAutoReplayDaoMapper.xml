@@ -116,6 +116,10 @@
 
 	</select>
 
-
+	<!-- 加载系统参数 -->
+	<select id="getWxAutoReplayByKey" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+		select * from
+		tb_wx_auto_replay t where t.accountid=#{accountId} and instr(#{ckey},t.CKEY) &gt; 0 
+	</select>
 
 </mapper>

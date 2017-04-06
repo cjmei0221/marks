@@ -128,5 +128,12 @@
 	<select id="countNews" resultType="int">
 		select count(1) from tb_wx_auto_replay t where t.creplay like '%${newsId}%'
 	</select>
-
+	<select id="getNewsItemByIds" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
+		select * from tb_wx_auto_replay_newsitem t where t.id in
+		<foreach collection="newsItemIds" item="id" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+		order by t.sort desc
+	</select>
 </mapper>
