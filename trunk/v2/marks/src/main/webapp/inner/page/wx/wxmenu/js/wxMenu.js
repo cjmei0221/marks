@@ -14,6 +14,101 @@ var appInfo = {
 	formStatus : "new"
 };
 
+
+//新增
+function add() {
+	if (appInfo.selectedId == -1) {
+		showMsg("请选择父节点，若没有父节点请先确定是否有添加服务号！");
+		return;
+	}
+	if (appInfo.selectedData.lvl >1) {
+		showMsg("只能建两级菜单！");
+		return;
+	}
+	if(appInfo.selectedData.lvl==0 && appInfo.selectedData.childnum>=3){
+		showMsg("一级菜单只能添加三个！");
+		return;
+	}
+	if(appInfo.selectedData.lvl==1 && appInfo.selectedData.childnum>=5){
+		showMsg("二级菜单只能添加五个！");
+		return;
+	}
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	$("#parent_id").val(appInfo.selectedId);
+	$("#lvl").val(appInfo.selectedData.lvl+1);
+	if(appInfo.selectedData.lvl==0){
+		$("#accountid").val(appInfo.selectedId);
+	}else{
+		$("#accountid").val(appInfo.selectedData.accountid);
+	}
+}
+
+// 编辑
+function edit() {
+	if (isSelectedOne(appInfo.selectedId)) {
+		if(appInfo.selectedData.lvl==0){
+			showMsg("此记录不可编辑！");
+			return;
+		}
+		$("#editWin").window({
+			title : "编辑"
+		}).window("open");
+		appInfo.formStatus = "edit";
+		$('#ff').form('load', appInfo.selectedData);
+	}
+}
+
+// 删除
+function del() {
+	if(appInfo.selectedData.lvl==0){
+		showMsg("此记录不可编辑！");
+		return;
+	}
+	if (isSelectedOne(appInfo.selectedId)) {
+		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+			if (r) {
+				var parms = "id=" + appInfo.selectedId;
+				$.post(appInfo.deleteUrl, parms, function(data) {
+					if (data.retcode == "0") {
+						loadList();
+						$("#tbList").treegrid('unselectAll');
+						appInfo.selectedData = {};
+						appInfo.selectedId = -1;
+						showMsg("删除成功");
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	}
+}
+
+function syncWx(){
+	if (isSelectedOne(appInfo.selectedId)) {
+		if(appInfo.selectedData.lvl==0){
+			$.messager.confirm('确认', '确认要同步微信服务器吗?', function(r) {
+				if (r) {
+					var parms = "accountid=" + appInfo.selectedId;
+					$.post(appInfo.syncWxUrl, parms, function(data) {
+						if (data.retcode == "0") {
+							showMsg("同步成功，稍有延迟！");
+						} else {
+							showMsg(data.retmsg);
+						}
+					});
+				}
+			});
+		}else{
+			showMsg("请选择公众号");
+		}
+	}
+}
+
 $(function() {
 	// 加载列表
 	loadList();
@@ -25,71 +120,7 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
-	// 新增
-	$("#add").on("click", function() {
-		if (appInfo.selectedId == -1) {
-			showMsg("请选择父节点，若没有父节点请先确定是否有添加服务号！");
-			return;
-		}
-		if (appInfo.selectedData.lvl >1) {
-			showMsg("只能建两级菜单！");
-			return;
-		}
-		if(appInfo.selectedData.lvl==0 && appInfo.selectedData.childnum>=3){
-			showMsg("一级菜单只能添加三个！");
-			return;
-		}
-		if(appInfo.selectedData.lvl==1 && appInfo.selectedData.childnum>=5){
-			showMsg("二级菜单只能添加五个！");
-			return;
-		}
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-		$("#parent_id").val(appInfo.selectedId);
-		$("#lvl").val(appInfo.selectedData.lvl+1);
-		if(appInfo.selectedData.lvl==0){
-			$("#accountid").val(appInfo.selectedId);
-		}else{
-			$("#accountid").val(appInfo.selectedData.accountid);
-		}
-	});
-
-	// 编辑
-	$("#edit").on("click", function() {
-		if (isSelectedOne(appInfo.selectedId)) {
-			editDate();
-		}
-	});
-
-	// 删除
-	$("#delete").on("click", function() {
-		if(appInfo.selectedData.lvl==0){
-			showMsg("此记录不可编辑！");
-			return;
-		}
-		if (isSelectedOne(appInfo.selectedId)) {
-			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-				if (r) {
-					var parms = "id=" + appInfo.selectedId;
-					$.post(appInfo.deleteUrl, parms, function(data) {
-						if (data.retcode == "0") {
-							loadList();
-							$("#tbList").treegrid('unselectAll');
-							appInfo.selectedData = {};
-							appInfo.selectedId = -1;
-							showMsg("删除成功");
-						} else {
-							showMsg(data.retmsg);
-						}
-					});
-				}
-			});
-		}
-	});
-
+	
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -97,39 +128,7 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-	
-	$("#syncWx").on("click",function(){
-		if (isSelectedOne(appInfo.selectedId)) {
-			if(appInfo.selectedData.lvl==0){
-				$.messager.confirm('确认', '确认要同步微信服务器吗?', function(r) {
-					if (r) {
-						var parms = "accountid=" + appInfo.selectedId;
-						$.post(appInfo.syncWxUrl, parms, function(data) {
-							if (data.retcode == "0") {
-								showMsg("同步成功，稍有延迟！");
-							} else {
-								showMsg(data.retmsg);
-							}
-						});
-					}
-				});
-			}else{
-				showMsg("请选择公众号");
-			}
-		}
-	});
 });
-function editDate(){
-	if(appInfo.selectedData.lvl==0){
-		showMsg("此记录不可编辑！");
-		return;
-	}
-	$("#editWin").window({
-		title : "编辑"
-	}).window("open");
-	appInfo.formStatus = "edit";
-	$('#ff').form('load', appInfo.selectedData);
-}
 /**
  * 保存菜单
  */
@@ -140,31 +139,27 @@ function formSubmit() {
 	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-	$('#ff').form('submit', {
-		url : reqUrl,
-		onSubmit : function(param) {
-			param.formStatus = appInfo.formStatus;
-			param.type=$("input[name='type']").val();
-		},
-		success : function(data) {
-			if (typeof data === 'string') {
-				try {
-					data = $.parseJSON(data);
-				} catch (e0) {
-					showMsg("json 格式 错误");
-					return;
-				}
+	
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	parms += "&type=" + $("input[name='type']").val();
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				showMsg("json格式错误");
+				return;
 			}
-			if (data.retcode == "0") {
-				$("#editWin").window("close");
-				loadList();
-				$("#tbList").treegrid('unselectAll');
-				appInfo.selectedData = {};
-				appInfo.selectedId = -1;
-				showMsg("保存成功");
-			} else {
-				showMsg(data.retmsg);
-			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
+			app.myreload("#tbList");
+			appInfo.selectedData = {};
+			appInfo.selectedId = -1;
+			showMsg("保存成功");
+		} else {
+			showMsg(data.retmsg);
 		}
 	});
 }
@@ -231,7 +226,7 @@ function loadList() {
 		onDblClickRow : function(rowData) {
 			appInfo.selectedId = rowData.id;
 			appInfo.selectedData = rowData;
-			editDate();
+			edit();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');

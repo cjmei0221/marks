@@ -170,7 +170,7 @@ function formSubmit() {
 
 	}
 	if (attrList.length < 2) {
-		top.G.alert("至少添加两个字段！");
+		showMsg("至少添加两个字段！");
 		return;
 	}
 	attrList = attrList.join(',');
@@ -182,7 +182,7 @@ function formSubmit() {
 			try {
 				data = $.parseJSON(data);
 			} catch (e0) {
-				top.G.alert(window.msgs.return_json_error);
+				showMsg("json格式错误");
 				return;
 			}
 		}

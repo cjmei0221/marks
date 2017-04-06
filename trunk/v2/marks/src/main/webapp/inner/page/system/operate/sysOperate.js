@@ -77,17 +77,29 @@ $(function() {
  * 保存菜单
  */
 function formSubmit(){
-	$('#ff').form('submit',{
-	    url:appInfo.saveUrl,
-	    onSubmit: function(param){
-	    	param.formStatus=appInfo.formStatus;
-	    },
-	    success:function(data){
-	    	$("#editWin").window("close");
+	if (!$('#ff').form('validate')) {
+		showMsg("表单校验不通过");
+		return;
+	}
+	var parms = $("#ff").serialize();
+	parms += "&formStatus=" + appInfo.formStatus;
+	$.post(appInfo.saveUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				showMsg("json格式错误");
+				return;
+			}
+		}
+		if (data.retcode == "0") {
+			$("#editWin").window("close");
 			app.myreload("#tbList");
 			appInfo.selectedData = {};
 			appInfo.selectedId=-1;
-	    }
+		} else {
+			showMsg(data.retmsg);
+		}
 	});
 }
 /**
