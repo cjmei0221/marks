@@ -14,7 +14,7 @@ import com.marks.common.util.IDUtil;
 import com.marks.common.util.date.DateUtil;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 
-public class RedPackReq {
+public class RedPackReqGroup {
 	private String nonce_str;// 随机字符串
 	private String mch_billno;// 商户订单号
 	private String mch_id;// 商户号
@@ -24,7 +24,6 @@ public class RedPackReq {
 	private int total_amount;// 付款金额
 	private int total_num;// 红包发放总人数
 	private String wishing;// 红包祝福语
-	private String client_ip;// IP地址
 	private String act_name;// 活动名称
 	private String remark;// 备注
 	/**
@@ -35,6 +34,12 @@ public class RedPackReq {
 	private String scene_id;// 可为空
 	private String risk_info;// 可为空
 	private String consume_mch_id;// 可为空
+	
+	private String amt_type;
+	
+	public String getAmt_type() {
+		return "ALL_RAND";
+	}
 
 	public String getNonce_str() {
 		return IDUtil.getUUID();
@@ -101,16 +106,6 @@ public class RedPackReq {
 
 	public void setWishing(String wishing) {
 		this.wishing = wishing;
-	}
-
-	public String getClient_ip() {
-		String ip="";
-		try {
-			ip = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			
-		}
-		return ip;
 	}
 
 	public String getAct_name() {
@@ -180,7 +175,7 @@ public class RedPackReq {
 	}
 
 	public static void main(String[] args) throws Exception {
-		RedPackReq vo = new RedPackReq();
+		RedPackReqGroup vo = new RedPackReqGroup();
 		vo.setAct_name("234");
 		
 		SortedMap<String, String> map = vo.getSortedMap();
