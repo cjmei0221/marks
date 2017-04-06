@@ -21,14 +21,12 @@ function add() {
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
-	$("#btnOKAndTo").show();
 	appInfo.selectedId = -1;
 }
 // 编辑
 
 function edit() {
 	if (isSelectedOne(appInfo.selectedId)) {
-		$("#btnOKAndTo").hide();
 		appInfo.saveStatus = 0;
 		$("#editWin").window({
 			title : "编辑"
@@ -156,14 +154,6 @@ $(function() {
 		$("#tab2TableMod").hide();
 		$("#addOneRule").show();
 	});
-	// 新增菜单后添加功能
-	$("#btnOKAndTo").on("click",
-			function() {
-				formSubmit();
-				if ($("#ff").form("validate") && appInfo.saveStatus == 1) {
-					addFunc();
-				}
-			});
 })
 // 删除功能
 function delfunc(funcid) {
@@ -193,10 +183,7 @@ function submitFuncForm() {
 	var url = appInfo.addFuncurl;
 	var parms = $("#funcff").serialize();
 	parms += "&menuid=" + appInfo.selectedId;
-	$.post(
-					url,
-					parms,
-					function(data) {
+	$.post(url,parms,function(data) {
 						if (data.retcode == "0") {
 							var str = "<table id='"
 									+ data.operObj.funcid
@@ -237,7 +224,7 @@ function formSubmit() {
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	appInfo.saveStatus = 0;
-	$.post(reqUrl, parms, function(data) {
+	$.post(appInfo.saveUrl, parms, function(data) {
 		if (typeof data === 'string') {
 			try {
 				data = $.parseJSON(data);

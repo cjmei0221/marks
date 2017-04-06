@@ -56,9 +56,7 @@
 					<td colspan="2" style="text-align: center"><input
 						type="button" id="btnOK" name="btnOK" value=" 保 存 " />
 						&nbsp;&nbsp;&nbsp; <input type="button" id="btnCancel"
-						name="btnCancel" value=" 取 消 " />&nbsp;&nbsp;&nbsp; <input
-						type="button" id="btnOKAndTo" name="btnOKAndTo"
-						value=" 保 存并添加菜单功能 " /></td>
+						name="btnCancel" value=" 取 消 " /></td>
 				</tr>
 			</table>
 		</form>
