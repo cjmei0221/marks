@@ -67,21 +67,6 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
-	// 新增
-	$("#add").on("click", function() {
-		add();
-	});
-
-	// 编辑
-	$("#edit").on("click", function() {
-		edit();
-	});
-
-	// 删除
-	$("#delete").on("click", function() {
-		del();
-	});
-
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -106,7 +91,6 @@ function initTime() {
 function formSubmit() {
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-	
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	$.post(reqUrl, parms, function(data) {
