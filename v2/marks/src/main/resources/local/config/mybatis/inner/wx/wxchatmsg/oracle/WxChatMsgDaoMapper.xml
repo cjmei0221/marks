@@ -31,7 +31,7 @@
 		#{c_type:NUMERIC},
 		#{userid:VARCHAR},
 		#{c_content:VARCHAR},
-		#{createtime:TIMESTAMP},
+		sysdate,
 		#{c_replayType:VARCHAR},
 		#{session_id:VARCHAR},
 		#{openid:VARCHAR},
