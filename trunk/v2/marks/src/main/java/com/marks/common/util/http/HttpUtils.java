@@ -130,6 +130,7 @@ public class HttpUtils {
 				jsonObject.setSuccess(Boolean.FALSE);
 				jsonObject.setErrorMsg("服务器繁忙，请稍等···");
 			} else {
+				jsonObject.setErrorCode(SysCode.SUCCESS);
 				String searchResult = "";
 				jsonObject.setSuccess(Boolean.TRUE);
 				BufferedInputStream ins = new BufferedInputStream(method.getResponseBodyAsStream());
@@ -265,6 +266,7 @@ public class HttpUtils {
 				jsonObject.setSuccess(Boolean.FALSE);
 				jsonObject.setErrorMsg("服务器繁忙，请稍等···");
 			} else {
+				jsonObject.setErrorCode(SysCode.SUCCESS);
 				String searchResult = "";
 				jsonObject.setSuccess(Boolean.TRUE);
 				BufferedInputStream ins = new BufferedInputStream(method.getResponseBodyAsStream());
