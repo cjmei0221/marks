@@ -33,4 +33,5 @@ public interface SysUserDao {
 	void saveSysUserOrg(SysUserOrg su);
 	void updateActiveFlag(@Param("userid") String userid,@Param("flag") int flag);
 	void updateSkin(@Param("userid")String userid,@Param("skin") int skin);
+	String getUserIdForUser();
 }
