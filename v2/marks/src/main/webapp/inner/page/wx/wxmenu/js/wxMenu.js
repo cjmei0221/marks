@@ -154,7 +154,8 @@ function formSubmit() {
 		}
 		if (data.retcode == "0") {
 			$("#editWin").window("close");
-			app.myreload("#tbList");
+			$('#tbList').treegrid('reload');
+			$("#tbList").treegrid('unselectAll');
 			appInfo.selectedData = {};
 			appInfo.selectedId = -1;
 			showMsg("保存成功");
@@ -229,7 +230,8 @@ function loadList() {
 			edit();
 		},
 		onLoadSuccess : function(data) {
-			$("#tbList").datagrid('unselectAll');
+			$("#tbList").treegrid('unselectAll');
+//			$("#tbList").treegrid('collapseAll');
 			appInfo.selectedData = {};
 		}
 	});
