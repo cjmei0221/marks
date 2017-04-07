@@ -52,6 +52,8 @@ public class SysUser implements Serializable {
 	 * 口令
 	 */
 	private String token;
+	
+	private int skin;
 
 	/**
 	 * 上次登录时间
@@ -82,6 +84,14 @@ public class SysUser implements Serializable {
 	 * 用户所属机构集合
 	 */
 	private List<OrgInfo> orgInfoList;
+	
+	public int getSkin() {
+		return skin;
+	}
+
+	public void setSkin(int skin) {
+		this.skin = skin;
+	}
 
 	public String getOrgidNamesStr() {
 		return orgidNamesStr;
