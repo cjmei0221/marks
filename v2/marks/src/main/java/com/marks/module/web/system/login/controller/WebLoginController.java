@@ -145,13 +145,13 @@ public class WebLoginController {
 			user.setUsername(mobile);
 			user.setRoleid(user.getCompanyId()+"_"+Enums.UserType.VIP.getValue());
 			if(sysUser==null){
-				sysUserService.save(sysUser, RunModel.getInstance().getCompanyId());
+				sysUserService.save(user, RunModel.getInstance().getCompanyId());
 			}else{
 				sysUserService.update(user,RunModel.getInstance().getCompanyId());
 			}
 		} catch (Exception e) {
-			logger.error("getInfo", e);
-			result.setMessage("查询失败，请联系管理员！");
+			logger.error("bind", e);
+			result.setMessage("系统错误");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
