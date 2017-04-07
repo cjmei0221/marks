@@ -36,7 +36,8 @@
 		sysuser.CREATOR,
 		sysuser.COMPANYID,
 		sysuser.TOKEN,
-		sysuser.ROLEID
+		sysuser.ROLEID,
+		sysuser.FANID
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -49,8 +50,8 @@
 		#{creator:VARCHAR},
 		#{companyId:VARCHAR},
 		#{token:VARCHAR},
-		#{roleid:VARCHAR}
-
+		#{roleid:VARCHAR},
+		#{fanId:VARCHAR}
 		)
 	</insert>
 
@@ -64,12 +65,21 @@
 		sysuser.COMPANYID =
 		#{companyId:VARCHAR},
 		sysuser.TOKEN = #{token:VARCHAR},
+		sysuser.FANID = #{fanId:VARCHAR},
 		sysuser.ROLEID=#{roleid:VARCHAR}
 		WHERE
 		sysuser.USERID
 		= #{userid}
 	</update>
-
+	<update id="updateFanId" parameterType="String">
+		UPDATE TB_SYS_USER sysuser
+		SET
+		sysuser.FANID = #{fanId:VARCHAR},
+		sysuser.UPDATETIME = sysdate
+		WHERE
+		sysuser.USERID
+		= #{userid}
+	</update>
 	<update id="updatetPwd" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
 		UPDATE TB_SYS_USER sysuser
 		SET

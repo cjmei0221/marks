@@ -61,8 +61,8 @@ public class SysUserServiceImpl implements SysUserService{
     */
     @Override
     public void save(SysUser sysUser,String orgIdsPut){
-    	/*String userid=sysUserDao.getUserIdForUser();
-    	sysUser.setUserid(userid);*/
+    	String userid=sysUserDao.getUserIdForUser();
+    	sysUser.setUserid(userid);
         sysUserDao.save(sysUser);
         saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
     }
@@ -144,6 +144,10 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	public void updateSkin(String userid, int skin) {
 		sysUserDao.updateSkin(userid, skin);
+	}
+	@Override
+	public void updateFanId(String userid, String fanId) {
+		sysUserDao.updateFanId(userid, fanId);
 	}
 	
 	

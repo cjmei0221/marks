@@ -53,6 +53,8 @@ public class SysUser implements Serializable {
 	 */
 	private String token;
 	
+	private String fanId;
+	
 	private int skin;
 
 	/**
@@ -85,6 +87,16 @@ public class SysUser implements Serializable {
 	 */
 	private List<OrgInfo> orgInfoList;
 	
+	
+	
+	public String getFanId() {
+		return fanId;
+	}
+
+	public void setFanId(String fanId) {
+		this.fanId = fanId;
+	}
+
 	public int getSkin() {
 		return skin;
 	}
