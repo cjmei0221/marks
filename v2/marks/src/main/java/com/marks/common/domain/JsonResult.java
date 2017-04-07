@@ -47,6 +47,8 @@ public class JsonResult implements Serializable{
     public Boolean getSuccess() {
     	if(success && "0000".equals(errorCode)){
     		return true;
+    	}else if(success && "200".equals(errorCode)){
+    		return true;
     	}else{
     		 return false;
     	}
