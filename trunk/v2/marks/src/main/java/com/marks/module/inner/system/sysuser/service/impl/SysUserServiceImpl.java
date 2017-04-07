@@ -61,6 +61,8 @@ public class SysUserServiceImpl implements SysUserService{
     */
     @Override
     public void save(SysUser sysUser,String orgIdsPut){
+    	/*String userid=sysUserDao.getUserIdForUser();
+    	sysUser.setUserid(userid);*/
         sysUserDao.save(sysUser);
         saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
     }
