@@ -14,11 +14,13 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.common.util.validate.VcodeUtil;
+import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.system.sys.service.LoginService;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.inner.system.sysuser.service.SysUserService;
 import com.marks.module.web.runModel.RunModel;
 import com.marks.module.web.system.login.util.LoginUtil;
+import com.marks.module.web.wx.wfhao.util.WxUtil;
 
 @Controller
 public class WebLoginController {
@@ -69,6 +71,14 @@ public class WebLoginController {
 				return;
 			} 
 			
+			if(loginUser.getFanId()==null|| "".equals(loginUser.getFanId())){
+				String fanId="";
+				WxUser wxUser=WxUtil.getInstance().getCurrentWxbUser(request);
+				if(wxUser !=null){
+					fanId=wxUser.getFanId();
+				}
+				sysUserService.updateFanId(loginUser.getUserid(), fanId);
+			}
 			LoginUtil.getInstance().setCurrentUser(request, loginUser);
 		} catch (Exception e) {
 			logger.error("findDiaryById", e);
@@ -121,6 +131,12 @@ public class WebLoginController {
 			String mobile=request.getParameter("mobile");
 			String password=request.getParameter("password");
 			SysUser sysUser=loginService.getSysUserByUseridOrMobile(mobile);
+			String fanId="";
+			WxUser wxUser=WxUtil.getInstance().getCurrentWxbUser(request);
+			if(wxUser !=null){
+				fanId=wxUser.getFanId();
+			}
+			
 			if(sysUser !=null){
 				if(Enums.SysUserUse.NOUSE.getValue()==sysUser.getActiveFlag()){
 					result.setCode("4002");
@@ -144,6 +160,7 @@ public class WebLoginController {
 			user.setPassword(EncryptUtil.encrypt(password));
 			user.setUsername(mobile);
 			user.setRoleid(user.getCompanyId()+"_"+Enums.UserType.VIP.getValue());
+			user.setFanId(fanId);
 			if(sysUser==null){
 				sysUserService.save(user, RunModel.getInstance().getCompanyId());
 			}else{
