@@ -1,4 +1,4 @@
-package com.marks.module.web.note.question.controller;
+package com.marks.module.web.note.vipinfo.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,19 +18,18 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.inner.note.question.pojo.Question;
-import com.marks.module.inner.note.question.service.QuestionService;
+import com.marks.module.inner.note.vipinfo.pojo.VipInfo;
+import com.marks.module.inner.note.vipinfo.service.VipInfoService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.data.StaticData;
 import com.marks.module.web.system.login.util.LoginUtil;
 
 @Controller
-public class QuestionController extends SupportContorller {
-	private static Logger logger = Logger.getLogger(QuestionController.class);
+public class WebVipInfoController extends SupportContorller {
+	private static Logger logger = Logger.getLogger(WebVipInfoController.class);
 
 	@Autowired
-	private QuestionService questionService;
+	private VipInfoService vipInfoService;
 
 	@Override
 	public Logger getLogger() {
@@ -38,16 +37,16 @@ public class QuestionController extends SupportContorller {
 	}
 
 	/**
-	 * 查询工作问题记录
+	 * 查询会员信息
 	 */
-	@RequestMapping("/question/findQuestionById")
-	public void findQuestionById(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/vipInfo/findVipInfoById")
+	public void findVipInfoById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			Question question = getModel(Question.class);
-			Question requestQuestion = questionService.findById(question.getId());
-			result.getData().put("question", requestQuestion);
-			result.setMessage("findById question successs!");
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
+			VipInfo requestVipInfo = vipInfoService.findVipDetailInfoById(loginUser.getUserid());
+			result.getData().put("vipInfo", requestVipInfo);
+			result.setMessage("findById vipInfo successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -58,26 +57,21 @@ public class QuestionController extends SupportContorller {
 	}
 
 	/**
-	 * 保存工作问题记录
+	 * 保存会员信息
 	 */
-	@RequestMapping("/question/save")
-	public void saveQuestion(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/vipInfo/save")
+	public void saveVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			String userid = admin == null ? "" : admin.getUserid();
-			Question question = getModel(Question.class);
-			// question.setId(IDUtil.getTimeID());
-
-			question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
-			question.setCreator(userid);
-			question.setUpdater(userid);
-			question.setMobile(admin.getBind_mobile());
-			Question old = questionService.findById(question.getId());
-			if (old == null) {
-				questionService.save(question);
+			VipInfo vipInfo = getModel(VipInfo.class);
+			vipInfo.setUserid(admin.getUserid());
+			VipInfo ori = null;
+			ori = vipInfoService.findById(vipInfo.getUserid());
+			if (ori == null ) {
+				vipInfoService.save(vipInfo);
 			} else {
-				questionService.update(question);
+				vipInfoService.update(vipInfo);
 			}
 			result.setMessage("保存成功");
 			result.setCode(Code.CODE_SUCCESS);
@@ -90,23 +84,20 @@ public class QuestionController extends SupportContorller {
 	}
 
 	/**
-	 * 更改工作问题记录
+	 * 更改会员信息
 	 */
-	@RequestMapping("/question/update")
-	public void updateQuestion(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/vipInfo/update")
+	public void updateVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			String userid = admin == null ? "" : admin.getUserid();
-			Question question = getModel(Question.class);
-			Question ori = questionService.findById(question.getId());
+			VipInfo vipInfo = getModel(VipInfo.class);
+			VipInfo ori = vipInfoService.findById(vipInfo.getUserid());
 			if (ori == null) {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				question.setUpdater(userid);
-				question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
-				questionService.update(question);
+				vipInfoService.update(vipInfo);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			}
@@ -119,14 +110,14 @@ public class QuestionController extends SupportContorller {
 	}
 
 	/**
-	 * 删除工作问题记录
+	 * 删除会员信息
 	 */
-	@RequestMapping("/question/delete")
-	public void deleteQuestionById(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/vipInfo/delete")
+	public void deleteVipInfoById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			Question question = getModel(Question.class);
-			questionService.delete(question.getId());
+			VipInfo vipInfo = getModel(VipInfo.class);
+			vipInfoService.delete(vipInfo.getUserid());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -138,39 +129,39 @@ public class QuestionController extends SupportContorller {
 	}
 
 	/**
-	 * 查询全部工作问题记录
+	 * 查询全部会员信息
 	 */
-	@RequestMapping("/question/findAllQuestion")
-	public void findAllQuestion(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/vipInfo/findAllVipInfo")
+	public void findAllVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			List<Question> questionList = questionService.findAll();
-			result.getData().put("questionList", questionList);
-			result.setMessage("findAll question successs!");
+			List<VipInfo> vipInfoList = vipInfoService.findAll();
+			result.getData().put("vipInfoList", vipInfoList);
+			result.setMessage("findAll vipInfo successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setMessage("findAll question fail!");
+			result.setMessage("findAll vipInfo fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
 
 	/**
-	 * 删除多个工作问题记录
+	 * 删除多个会员信息
 	 */
-	@RequestMapping("/question/deleteIds")
-	public void deleteQuestion(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/vipInfo/deleteIds")
+	public void deleteVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			String id = request.getParameter("id");
+			String id = request.getParameter("userid");
 			String[] ids = id.split(",");
 			List<String> idList = new ArrayList<String>();
 			for (int i = 0; i < ids.length; i++) {
 				idList.add(ids[i]);
 			}
 			if (idList.size() > 0) {
-				questionService.deleteBatch(idList);
+				vipInfoService.deleteBatch(idList);
 				result.setMessage("删除成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			} else {
@@ -180,7 +171,7 @@ public class QuestionController extends SupportContorller {
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setMessage("delete question fail!");
+			result.setMessage("delete vipInfo fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
@@ -189,12 +180,11 @@ public class QuestionController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/question/list")
+	@RequestMapping("/vipInfo/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			String userid = admin == null ? "" : admin.getUserid();
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");
@@ -203,18 +193,17 @@ public class QuestionController extends SupportContorller {
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
-			param.put("userid", userid);
-			PojoDomain<Question> list = questionService.list(page_number, page_size, param);
+			PojoDomain<VipInfo> list = vipInfoService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());
 			result.setPageTotal(list.getPage_total());
 			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find question successs!");
+			result.setMessage("find vipInfo successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setMessage("find question fail!");
+			result.setMessage("find vipInfo fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);

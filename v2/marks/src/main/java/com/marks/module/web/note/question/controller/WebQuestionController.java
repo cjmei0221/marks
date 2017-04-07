@@ -1,4 +1,4 @@
-package com.marks.module.web.note.gains.controller;
+package com.marks.module.web.note.question.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,19 +18,19 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.inner.note.gains.pojo.Gains;
-import com.marks.module.inner.note.gains.service.GainsService;
+import com.marks.module.inner.note.question.pojo.Question;
+import com.marks.module.inner.note.question.service.QuestionService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.sys.system.core.data.StaticData;
 import com.marks.module.web.system.login.util.LoginUtil;
 
 @Controller
-public class GainsController extends SupportContorller {
-	private static Logger logger = Logger.getLogger(GainsController.class);
+public class WebQuestionController extends SupportContorller {
+	private static Logger logger = Logger.getLogger(WebQuestionController.class);
 
 	@Autowired
-	private GainsService gainsService;
+	private QuestionService questionService;
 
 	@Override
 	public Logger getLogger() {
@@ -38,16 +38,16 @@ public class GainsController extends SupportContorller {
 	}
 
 	/**
-	 * 查询心得记录
+	 * 查询工作问题记录
 	 */
-	@RequestMapping("/gains/findGainsById")
-	public void findGainsById(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/question/findQuestionById")
+	public void findQuestionById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			Gains gains = getModel(Gains.class);
-			Gains requestGains = gainsService.findById(gains.getId());
-			result.getData().put("gains", requestGains);
-			result.setMessage("findById gains successs!");
+			Question question = getModel(Question.class);
+			Question requestQuestion = questionService.findById(question.getId());
+			result.getData().put("question", requestQuestion);
+			result.setMessage("findById question successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -58,30 +58,29 @@ public class GainsController extends SupportContorller {
 	}
 
 	/**
-	 * 保存心得记录
+	 * 保存工作问题记录
 	 */
-	@RequestMapping("/gains/save")
-	public void saveGains(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/question/save")
+	public void saveQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String userid = admin == null ? "" : admin.getUserid();
-			Gains gains = getModel(Gains.class);
-			// gains.setId(IDUtil.getTimeID());
+			Question question = getModel(Question.class);
+			// question.setId(IDUtil.getTimeID());
 
-			gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
-			gains.setCreator(userid);
-			gains.setUpdater(userid);
-			gains.setMobile(admin.getBind_mobile());
-			Gains old = gainsService.findById(gains.getId());
+			question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
+			question.setCreator(userid);
+			question.setUpdater(userid);
+			question.setMobile(admin.getBind_mobile());
+			Question old = questionService.findById(question.getId());
 			if (old == null) {
-				gainsService.save(gains);
+				questionService.save(question);
 			} else {
-				gainsService.update(gains);
+				questionService.update(question);
 			}
 			result.setMessage("保存成功");
 			result.setCode(Code.CODE_SUCCESS);
-
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("保存失败，请联系管理员！");
@@ -91,22 +90,26 @@ public class GainsController extends SupportContorller {
 	}
 
 	/**
-	 * 更改心得记录
+	 * 更改工作问题记录
 	 */
-	@RequestMapping("/gains/update")
-	public void updateGains(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/question/update")
+	public void updateQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String userid = admin == null ? "" : admin.getUserid();
-			Gains gains = getModel(Gains.class);
-
-			gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
-			gains.setUpdater(userid);
-			gainsService.update(gains);
-			result.setMessage("更新成功!");
-			result.setCode(Code.CODE_SUCCESS);
-
+			Question question = getModel(Question.class);
+			Question ori = questionService.findById(question.getId());
+			if (ori == null) {
+				result.setMessage("此记录已删除!");
+				result.setCode(Code.CODE_FAIL);
+			} else {
+				question.setUpdater(userid);
+				question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
+				questionService.update(question);
+				result.setMessage("更新成功!");
+				result.setCode(Code.CODE_SUCCESS);
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");
@@ -116,14 +119,14 @@ public class GainsController extends SupportContorller {
 	}
 
 	/**
-	 * 删除心得记录
+	 * 删除工作问题记录
 	 */
-	@RequestMapping("/gains/delete")
-	public void deleteGainsById(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/question/delete")
+	public void deleteQuestionById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			Gains gains = getModel(Gains.class);
-			gainsService.delete(gains.getId());
+			Question question = getModel(Question.class);
+			questionService.delete(question.getId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -135,29 +138,29 @@ public class GainsController extends SupportContorller {
 	}
 
 	/**
-	 * 查询全部心得记录
+	 * 查询全部工作问题记录
 	 */
-	@RequestMapping("/gains/findAllGains")
-	public void findAllGains(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/question/findAllQuestion")
+	public void findAllQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			List<Gains> gainsList = gainsService.findAll();
-			result.getData().put("gainsList", gainsList);
-			result.setMessage("findAll gains successs!");
+			List<Question> questionList = questionService.findAll();
+			result.getData().put("questionList", questionList);
+			result.setMessage("findAll question successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setMessage("findAll gains fail!");
+			result.setMessage("findAll question fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
 
 	/**
-	 * 删除多个心得记录
+	 * 删除多个工作问题记录
 	 */
-	@RequestMapping("/gains/deleteIds")
-	public void deleteGains(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/question/deleteIds")
+	public void deleteQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			String id = request.getParameter("id");
@@ -167,7 +170,7 @@ public class GainsController extends SupportContorller {
 				idList.add(ids[i]);
 			}
 			if (idList.size() > 0) {
-				gainsService.deleteBatch(idList);
+				questionService.deleteBatch(idList);
 				result.setMessage("删除成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			} else {
@@ -177,7 +180,7 @@ public class GainsController extends SupportContorller {
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setMessage("delete gains fail!");
+			result.setMessage("delete question fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
@@ -186,7 +189,7 @@ public class GainsController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/gains/list")
+	@RequestMapping("/question/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
@@ -201,17 +204,17 @@ public class GainsController extends SupportContorller {
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("userid", userid);
-			PojoDomain<Gains> list = gainsService.list(page_number, page_size, param);
+			PojoDomain<Question> list = questionService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());
 			result.setPageTotal(list.getPage_total());
 			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find gains successs!");
+			result.setMessage("find question successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setMessage("find gains fail!");
+			result.setMessage("find question fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);

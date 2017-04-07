@@ -31,8 +31,8 @@ import com.marks.module.web.runModel.RunModel;
 import com.marks.module.web.system.login.util.LoginUtil;
 
 @Controller
-public class DiaryController extends SupportContorller{
-    private static Logger logger = Logger.getLogger( DiaryController.class);
+public class WebDiaryController extends SupportContorller{
+    private static Logger logger = Logger.getLogger( WebDiaryController.class);
     
     @Autowired
     private DiaryService  diaryService;
