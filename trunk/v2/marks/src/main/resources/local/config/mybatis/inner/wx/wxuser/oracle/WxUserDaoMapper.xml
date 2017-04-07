@@ -5,7 +5,7 @@
 
 	<select id="findById" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser">
 		SELECT * FROM TB_WX_USER wxuser
-		where wxuser.OPENID = #{openid}
+		where wxuser.OPENID = #{openid} and wxuser.ACCOUNTID=#{accountid}
 	</select>
 
 	<select id="findWxUserListForDairy" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser">
