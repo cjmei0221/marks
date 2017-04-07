@@ -3,11 +3,16 @@ package com.marks.module.inner.wx.wxchatsession.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.util.IDUtil;
+import com.marks.module.inner.wx.enums.WXEnums;
 import com.marks.module.inner.wx.wxchatmsg.dao.WxChatMsgDao;
 import com.marks.module.inner.wx.wxchatmsg.pojo.WxChatMsg;
+import com.marks.module.inner.wx.wxchatmsg.service.impl.WxChatMsgServiceImpl;
 import com.marks.module.inner.wx.wxchatsession.dao.WxChatSessionDao;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatCount;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession;
@@ -15,7 +20,7 @@ import com.marks.module.inner.wx.wxchatsession.service.WxChatSessionService;
 
 public class WxChatSessionServiceImpl implements WxChatSessionService{
    
-
+	private static Logger logger = Logger.getLogger(WxChatMsgServiceImpl.class);
     private WxChatSessionDao wxChatSessionDao;
     private WxChatMsgDao wxChatMsgDao;
 
@@ -45,8 +50,26 @@ public class WxChatSessionServiceImpl implements WxChatSessionService{
     *保存回话管理
     */
     @Override
-    public void save(WxChatSession wxChatSession){
-        wxChatSessionDao.save(wxChatSession);
+    public void save(WxChatSession sessionVo){
+    	long timeLong = System.currentTimeMillis() / 1000;
+		String sessionId = "SID" + IDUtil.getTimeID();
+		logger.info("getSessionFlag:"+sessionVo.getSessionFlag());
+		if (WXEnums.SessionType.AUTO.getValue() == sessionVo.getSessionFlag()) {
+			sessionVo.setCreateLong(timeLong);
+			sessionVo.setSession_id(sessionId);
+			wxChatSessionDao.save(sessionVo);
+		} else {
+			// wxChatSessionDao.update(wxSession);
+			WxChatMsg info = new WxChatMsg();
+			info.setAccountid(sessionVo.getAccountid());
+			info.setC_content(sessionVo.getC_content());
+			info.setFanId(sessionVo.getFanId());
+			info.setOpenid(sessionVo.getOpenid());
+			info.setSession_id(sessionId);
+			info.setSession_id(sessionVo.getSession_id());
+			info.setC_type(WXEnums.ReqType.ask.getValue());
+			wxChatMsgDao.save(info);
+		}
     }
     
     /**
