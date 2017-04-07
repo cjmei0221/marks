@@ -4,19 +4,20 @@ package @{packageUrl};
 import java.util.List;
 import java.util.Map;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.apache.ibatis.annotations.Param;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import @{beanPackageUrl}.@{beanName};
 
 public interface @{beanName}Dao {
 
-	@{beanName} findById(String @{GetPkAttrName});
+	@{beanName} findById(@Param("@{GetPkAttrName}") String @{GetPkAttrName});
 
 	void save(@{beanName} @{BeanObject});
 
 	void update(@{beanName} @{BeanObject});
 
-	void delete(String @{GetPkAttrName});
+	void delete(@Param("@{GetPkAttrName}") String @{GetPkAttrName});
 
 	List<@{beanName}> findAll();
 
