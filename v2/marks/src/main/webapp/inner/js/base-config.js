@@ -178,7 +178,7 @@ function fen2yuan(val) {
 function checkLogin(data) {
 	/*if (data.retcode == "-1000") {
 		alert("未登录,请重新登录！")
-		top.location.replace(window.urlBase + "/login.html");
+		top.location.replace(window.urlBase + "/inner/login.html");
 		return;
 	}*/
 }
