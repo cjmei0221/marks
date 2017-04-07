@@ -20,11 +20,10 @@
 		select * from tb_sys_user t
 		where t.bind_mobile=#{mobile}
 	</select>
-
+	<select id="getUserIdForUser" resultType="String">
+		SELECT 'U'||SEQ_SYS_USER.nextval FROM dual
+	</select>
 	<insert id="save" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
-		<selectKey keyProperty="userid" resultType="String" order="BEFORE">SELECT
-			'U'||SEQ_SYS_USER.nextval FROM dual
-		</selectKey>
 		INSERT INTO TB_SYS_USER sysuser
 		(
 		sysuser.USERID,
