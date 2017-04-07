@@ -58,7 +58,6 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 			if (sessionStr != null) {
 				sessionTimes = Integer.parseInt(sessionStr);
 			}
-			logger.info("回话时间: "+sessionTimes+" 分钟");
 			int flag=WXEnums.SessionType.PEOPLE.getValue();
 			//查询是否为人工服务 不为空则为人工服务
 			WxChatSession sessionVo = wxChatSessionDao.findByAccountidAndOpenid(msg.getAccountid(), msg.getOpenid(), timeLong,
@@ -66,6 +65,7 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 			msg.setFlag(WXEnums.SessionType.AUTO.getValue());
 			if("0".equals(requestMessage.getContent())){
 				msg.setFlag(WXEnums.SessionType.PEOPLE.getValue());
+				logger.info("回话时间: "+sessionTimes+" 分钟");
 			}
 			
 			if(sessionVo != null){
