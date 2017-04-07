@@ -76,7 +76,7 @@ public class @{beanName}Controller extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
-	 //     @{BeanObject}.set@{GetIdAttrName}(IDUtil.getTimeID());
+	 //     @{BeanObject}.set@{GetIdAttrName}(IDUtil.getUUID());
 	 		
 	 		logger.info("save@{beanName} > param>"+@{BeanObject}.toLog());
 	 
