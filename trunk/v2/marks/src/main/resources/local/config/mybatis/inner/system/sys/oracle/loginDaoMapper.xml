@@ -9,7 +9,7 @@
 		TB_SYS_USER tsu
 		WHERE
 		tsu.USERID = #{userid} or
-		tsu.bind_mobile=#{userid}
+		tsu.bind_mobile=#{userid} or tsu.FANID=#{userid}
 	</select>
 	<!-- 加载父级菜单 -->
 	<select id="getParentSysMenu" resultType="com.marks.module.inner.system.sys.pojo.SysMenu">

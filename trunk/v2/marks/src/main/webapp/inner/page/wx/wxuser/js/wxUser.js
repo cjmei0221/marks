@@ -18,7 +18,7 @@ function dairyBtn() {
 	if (isSelectedOne(appInfo.selectedId)) {
 		$.messager.confirm('确认', '确认切换吗?', function(r) {
 			if (r) {
-				var parms = "openid=" + appInfo.selectedId;
+				var parms = "openid=" + appInfo.selectedId+"&accountid="+appInfo.selectedData.accountid;
 				$.post(appInfo.useDairyUrl, parms, function(data) {
 					if (data.retcode == "0") {
 						app.myreload("#tbList");

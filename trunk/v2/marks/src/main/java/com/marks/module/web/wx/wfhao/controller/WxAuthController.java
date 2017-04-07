@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.module.center.wxfwhao.common.entity.WxUser;
+import com.marks.module.inner.system.sys.service.LoginService;
+import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
 import com.marks.module.web.runModel.RunModel;
+import com.marks.module.web.system.login.util.LoginUtil;
 import com.marks.module.web.wx.wfhao.config.PageConfigUtil;
 import com.marks.module.web.wx.wfhao.util.WxUtil;
 
@@ -28,6 +31,8 @@ public class WxAuthController {
 
 	@Autowired
 	private WxUserService wxUserService;
+	@Autowired
+	private LoginService loginService;
 
 	/**
 	 * 调用微信授权接口去授权
@@ -92,6 +97,9 @@ public class WxAuthController {
 						logger.info("未关注服务号>>openid>>" + openid);
 						to_url =request.getContextPath() + PageConfigUtil.getProperty("unsubscribeurl");
 					} else {
+						SysUser loginUser=loginService.getSysUserByUseridOrMobile(user.getFanId());
+						loginUser.setUsername(user.getNickname());
+						LoginUtil.getInstance().setCurrentUser(request, loginUser);
 						WxUtil.getInstance().setCurrentWxbUser(request, user);
 					}
 				
