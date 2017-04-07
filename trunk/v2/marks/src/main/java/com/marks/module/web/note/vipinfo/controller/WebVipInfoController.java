@@ -39,7 +39,7 @@ public class WebVipInfoController extends SupportContorller {
 	/**
 	 * 查询会员信息
 	 */
-	@RequestMapping("/vipInfo/findVipInfoById")
+	@RequestMapping("/web/vipInfo/findVipInfoById")
 	public void findVipInfoById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -59,7 +59,7 @@ public class WebVipInfoController extends SupportContorller {
 	/**
 	 * 保存会员信息
 	 */
-	@RequestMapping("/vipInfo/save")
+	@RequestMapping("/web/vipInfo/save")
 	public void saveVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -86,7 +86,7 @@ public class WebVipInfoController extends SupportContorller {
 	/**
 	 * 更改会员信息
 	 */
-	@RequestMapping("/vipInfo/update")
+	@RequestMapping("/web/vipInfo/update")
 	public void updateVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -112,7 +112,7 @@ public class WebVipInfoController extends SupportContorller {
 	/**
 	 * 删除会员信息
 	 */
-	@RequestMapping("/vipInfo/delete")
+	@RequestMapping("/web/vipInfo/delete")
 	public void deleteVipInfoById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -131,7 +131,7 @@ public class WebVipInfoController extends SupportContorller {
 	/**
 	 * 查询全部会员信息
 	 */
-	@RequestMapping("/vipInfo/findAllVipInfo")
+	@RequestMapping("/web/vipInfo/findAllVipInfo")
 	public void findAllVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -150,7 +150,7 @@ public class WebVipInfoController extends SupportContorller {
 	/**
 	 * 删除多个会员信息
 	 */
-	@RequestMapping("/vipInfo/deleteIds")
+	@RequestMapping("/web/vipInfo/deleteIds")
 	public void deleteVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -180,7 +180,7 @@ public class WebVipInfoController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/vipInfo/list")
+	@RequestMapping("/web/vipInfo/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {

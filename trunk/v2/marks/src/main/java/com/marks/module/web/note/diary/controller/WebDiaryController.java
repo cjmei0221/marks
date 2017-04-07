@@ -49,7 +49,7 @@ public class WebDiaryController extends SupportContorller{
     /**
 	 * 查询我的日记
 	 */
-    @RequestMapping("/diary/findDiaryById")
+    @RequestMapping("/web/diary/findDiaryById")
     public void findDiaryById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
@@ -69,7 +69,7 @@ public class WebDiaryController extends SupportContorller{
     /**
 	 * 保存我的日记
 	 */
-    @RequestMapping("/getUUID")
+    @RequestMapping("/web/getUUID")
     public void getID(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -89,7 +89,7 @@ public class WebDiaryController extends SupportContorller{
     /**
 	 * 保存我的日记
 	 */
-    @RequestMapping("/diary/save")
+    @RequestMapping("/web/diary/save")
     public void saveDiary(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -118,7 +118,7 @@ public class WebDiaryController extends SupportContorller{
 	/**
 	 * 更改我的日记
 	 */
-    @RequestMapping("/diary/update")
+    @RequestMapping("/web/diary/update")
     public void updateDiary(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -138,7 +138,7 @@ public class WebDiaryController extends SupportContorller{
 	/**
 	 * 删除我的日记
 	 */
-    @RequestMapping("/diary/delete")
+    @RequestMapping("/web/diary/delete")
     public void deleteDiaryById(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -158,7 +158,7 @@ public class WebDiaryController extends SupportContorller{
 	/**
 	 * 查询全部我的日记
 	 */
-    @RequestMapping("/diary/findAllDiary")
+    @RequestMapping("/web/diary/findAllDiary")
     public void findAllDiary(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -178,7 +178,7 @@ public class WebDiaryController extends SupportContorller{
 	/**
 	 * 删除多个我的日记
 	 */
-	@RequestMapping("/diary/deleteIds")
+	@RequestMapping("/web/diary/deleteIds")
 	public void deleteDiary(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
@@ -209,7 +209,7 @@ public class WebDiaryController extends SupportContorller{
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/diary/list")
+	@RequestMapping("/web/diary/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
@@ -239,7 +239,7 @@ public class WebDiaryController extends SupportContorller{
 	 /**
 		 * 保存我的日记
 		 */
-	    @RequestMapping("/saveForDiary")
+	    @RequestMapping("/web/saveForDiary")
 	    public void saveForDiary(HttpServletRequest request,
 	    HttpServletResponse response){
 			Result result = new Result();

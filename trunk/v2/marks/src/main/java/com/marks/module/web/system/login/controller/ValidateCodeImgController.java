@@ -19,7 +19,7 @@ public class ValidateCodeImgController {
 	/**
 	 * 查询我的日记
 	 */
-	@RequestMapping("/getValidateCode")
+	@RequestMapping("/web/getValidateCode")
 	public void getValidateCode(HttpServletRequest request, HttpServletResponse response) {
 		// 设置响应的类型格式为图片格式  
 	    try {

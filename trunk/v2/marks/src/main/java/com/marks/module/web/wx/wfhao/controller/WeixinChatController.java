@@ -49,7 +49,7 @@ public class WeixinChatController {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/Wechat", method = RequestMethod.GET)
+	@RequestMapping(value = "/web/wechat", method = RequestMethod.GET)
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("----------------------------doGet:");
 		request.setAttribute("result_note", "check_service");
@@ -92,7 +92,7 @@ public class WeixinChatController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping(value = "/Wechat", method = RequestMethod.POST)
+	@RequestMapping(value = "/web/wechat", method = RequestMethod.POST)
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("----------------------------doPost:");
 

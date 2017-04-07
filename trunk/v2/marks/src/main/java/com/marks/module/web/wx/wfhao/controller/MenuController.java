@@ -15,7 +15,7 @@ import com.marks.module.web.wx.wfhao.config.PageConfigUtil;
 @Controller
 public class MenuController {
 	private static Logger logger = Logger.getLogger(MenuController.class);
-	private String toAuth = "/toWxAuth.do";
+	private String toAuth = "/web/toWxAuth.do";
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class MenuController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/web/wxMenu/{accountId}/{pageUrl}")
+	@RequestMapping("/web/wx/wxMenu/{accountId}/{pageUrl}")
 	public void wxMenu(@PathVariable String accountId, @PathVariable String pageUrl, HttpServletRequest request,
 			HttpServletResponse response) {
 		String url = request.getContextPath() + PageConfigUtil.getProperty("unsubscribeurl");
@@ -54,7 +54,7 @@ public class MenuController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/authMenu")
+	@RequestMapping("/web/authMenu")
 	public void authMenu(HttpServletRequest request, HttpServletResponse response) {
 		String url = request.getContextPath() + PageConfigUtil.getProperty("unsubscribeurl");
 
