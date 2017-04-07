@@ -17,6 +17,7 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.note.reminder.pojo.Reminder;
 import com.marks.module.inner.note.reminder.service.ReminderService;
@@ -74,7 +75,7 @@ public class ReminderController extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	Reminder reminder = getModel(Reminder.class);
-	 //     reminder.setId(IDUtil.getTimeID());
+	    	reminder.setId(IDUtil.getTimeID());
 	 		
 	 		logger.info("saveReminder > param>"+reminder.toLog());
 	 

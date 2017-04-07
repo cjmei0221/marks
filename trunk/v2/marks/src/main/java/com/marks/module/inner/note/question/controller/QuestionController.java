@@ -17,6 +17,7 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.note.question.pojo.Question;
 import com.marks.module.inner.note.question.service.QuestionService;
@@ -69,7 +70,7 @@ public class QuestionController extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	Question question = getModel(Question.class);
-	 //     question.setId(IDUtil.getTimeID());
+	    	question.setId(IDUtil.getTimeID());
 			 Question ori=null;
 	 		if(question.getId() != null){
 	 			ori=questionService.findByQuestion(question.getQuestion());
