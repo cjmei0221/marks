@@ -48,7 +48,7 @@
 		collapsible:false"
 		style="width: 920px; height: 500px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
-			<input type="hidden" id="ID" name="ID">
+			<input type="hidden" id="id" name="id">
 			<table class="out-win-cls">
 				
 				<tr>

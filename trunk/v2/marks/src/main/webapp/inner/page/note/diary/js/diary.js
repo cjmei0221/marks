@@ -41,7 +41,7 @@ function del(){
 	if (isSelectedOne(appInfo.selectedId)) {
 		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 			if (r) {
-				var parms = "ID=" + appInfo.selectedId;
+				var parms = "id=" + appInfo.selectedId;
 				$.post(appInfo.deleteUrl, parms, function(data) {
 					if (data.retcode == "0") {
 						app.myreload("#tbList");
@@ -125,7 +125,7 @@ function loadList() {
 		collapsible : true,
 		fitColumns : true,
 		pagination : true,
-		idField : 'ID',
+		idField : 'id',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
@@ -161,7 +161,7 @@ function loadList() {
 			loader(that, params, success, loadError);
 		},
 		onClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.ID;
+			appInfo.selectedId = rowData.id;
 			appInfo.selectedData = rowData;
 		},
 		onLoadSuccess : function(data) {
