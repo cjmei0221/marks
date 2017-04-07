@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.module.web.wx.wfhao.config.PageConfigUtil;
 
 @Controller
-public class WxMenuController {
-	private static Logger logger = Logger.getLogger(WxMenuController.class);
+public class MenuController {
+	private static Logger logger = Logger.getLogger(MenuController.class);
 	private String toAuth = "/toWxAuth.do";
 
 	/**
