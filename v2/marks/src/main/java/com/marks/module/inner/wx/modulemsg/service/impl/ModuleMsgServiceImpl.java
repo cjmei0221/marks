@@ -1,5 +1,6 @@
 package com.marks.module.inner.wx.modulemsg.service.impl;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -175,6 +176,15 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
          result.setErrorCode(SysCode.SUCCESS);
          result.setErrorMsg("已推送，若未推送成功，将启动定时器，进行推送，共推送3次");
 		return result;
+	}
+
+	@Override
+	public void updateResultForModuleMsg(String accountId, String msgID, Timestamp time, String status) {
+		String resultCode="0";
+		if(status.indexOf("success")>=0){
+			resultCode="1";
+		}
+		moduleMsgDao.updateResultForModuleMsg(accountId,msgID,time,resultCode,status);
 	}
 	
 	

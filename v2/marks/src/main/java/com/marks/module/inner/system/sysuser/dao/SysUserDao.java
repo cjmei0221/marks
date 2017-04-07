@@ -27,9 +27,10 @@ public interface SysUserDao {
 
 	List<SysUser> list(PageBounds pageBounds, Map<String,Object> param);
 	SysUser findById(@Param("userid")String userid);
-	void updatetPwd(SysUser sysUser);
+	void updatePwd(@Param("userid")String userid, @Param("password")String password);
 	void updateMobile(@Param("userid")String userid, @Param("newPhone")String newPhone);
 	void deleteSysUserOrg(@Param("userid") String userid);
 	void saveSysUserOrg(SysUserOrg su);
 	void updateActiveFlag(@Param("userid") String userid,@Param("flag") int flag);
+	void updateSkin(@Param("userid")String userid,@Param("skin") int skin);
 }

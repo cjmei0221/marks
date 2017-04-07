@@ -23,4 +23,5 @@ public interface VipInfoDao {
 	void deleteBatch(List<String> list);
 
 	List<VipInfo> list(PageBounds pageBounds, Map<String,Object> param);
+	VipInfo findVipDetailInfoById(String userid);
 }

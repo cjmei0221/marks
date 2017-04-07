@@ -3,6 +3,8 @@ package com.marks.module.inner.system.sysuser.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.system.sys.pojo.SysUserOrg;
 import com.marks.module.inner.system.sysrole.dao.SysRoleDao;
@@ -136,6 +138,10 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	public void updateMobile(String userid, String newPhone) {
 		 sysUserDao.updateMobile(userid,newPhone);
+	}
+	@Override
+	public void updateSkin(String userid, int skin) {
+		sysUserDao.updateSkin(userid, skin);
 	}
 	
 	
