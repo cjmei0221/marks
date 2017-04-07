@@ -81,7 +81,7 @@
 						data-options="editable:false,multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/inner/newsItem/combox.do'"
 						name="newsList" style="width: 300px;"></td>
 				</tr>
-				<tr>
+				<tr id="creplayTr">
 					<th style="width: 120px; text-align: right;">回复内容&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><textarea rows="5" cols="30"
 							style="width: 300px; height: 300px;" id="creplay" name="creplay"></textarea></td>
