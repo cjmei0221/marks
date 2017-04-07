@@ -55,7 +55,7 @@ public class SysLogFilter implements Filter {
 				log.setRetain2(url);
 
 				log.setUrl(url);
-				int source=2;
+				int source=1;
 				if(url.indexOf("/inner")>=0){
 					source=0;
 				}else if(url.indexOf("/web")>=0){
