@@ -35,10 +35,10 @@ function loadStyle() {
 				myConfig.styleType = data.loginUser.skin;
 			}
 			if (myConfig.styleType != null || "" != myConfig.styleType) {
-				addStyle(tool.baseUrl + "/mobile/assets/css/marks" + myConfig.styleType
+				addStyle(tool.baseUrl + "/web/mobile/assets/css/marks" + myConfig.styleType
 						+ ".css");
 			} else {
-				addStyle(tool.baseUrl + "/mobile/assets/css/marks0.css");
+				addStyle(tool.baseUrl + "/web/mobile/assets/css/marks0.css");
 			}
 		},
 		complete : function() {
@@ -54,4 +54,8 @@ function isWeiXin(){
       if(ua.match(/MicroMessenger/i) == 'micromessenger'){ 
       return true; }else{ return false; };
 };
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    WeixinJSBridge.call('hideOptionMenu');
+    WeixinJSBridge.call('hideToolbar');
+});
 
