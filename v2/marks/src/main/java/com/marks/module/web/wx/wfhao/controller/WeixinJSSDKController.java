@@ -27,7 +27,7 @@ public class WeixinJSSDKController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/jssdkConfig")
+	@RequestMapping("/web/jssdkConfig")
 	public void getJsConfig(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		result.setCode(Code.CODE_SUCCESS);

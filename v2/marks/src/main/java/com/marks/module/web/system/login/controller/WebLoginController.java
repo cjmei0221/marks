@@ -30,7 +30,7 @@ public class WebLoginController {
 	/**
 	 * 查询我的日记
 	 */
-	@RequestMapping("/login")
+	@RequestMapping("/web/login")
 	public void findDiaryById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -81,7 +81,7 @@ public class WebLoginController {
 	/**
 	 * 获取登录用户信息
 	 */
-	@RequestMapping("/getInfo")
+	@RequestMapping("/web/getInfo")
 	public void getInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -104,7 +104,7 @@ public class WebLoginController {
 		JsonUtil.output(response, result);
 	}
 	
-	@RequestMapping("/bind")
+	@RequestMapping("/web/bind")
 	public void bind(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {

@@ -40,7 +40,7 @@ public class WebGainsController extends SupportContorller {
 	/**
 	 * 查询心得记录
 	 */
-	@RequestMapping("/gains/findGainsById")
+	@RequestMapping("/web/gains/findGainsById")
 	public void findGainsById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -60,7 +60,7 @@ public class WebGainsController extends SupportContorller {
 	/**
 	 * 保存心得记录
 	 */
-	@RequestMapping("/gains/save")
+	@RequestMapping("/web/gains/save")
 	public void saveGains(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -93,7 +93,7 @@ public class WebGainsController extends SupportContorller {
 	/**
 	 * 更改心得记录
 	 */
-	@RequestMapping("/gains/update")
+	@RequestMapping("/web/gains/update")
 	public void updateGains(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -118,7 +118,7 @@ public class WebGainsController extends SupportContorller {
 	/**
 	 * 删除心得记录
 	 */
-	@RequestMapping("/gains/delete")
+	@RequestMapping("/web/gains/delete")
 	public void deleteGainsById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -137,7 +137,7 @@ public class WebGainsController extends SupportContorller {
 	/**
 	 * 查询全部心得记录
 	 */
-	@RequestMapping("/gains/findAllGains")
+	@RequestMapping("/web/gains/findAllGains")
 	public void findAllGains(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -156,7 +156,7 @@ public class WebGainsController extends SupportContorller {
 	/**
 	 * 删除多个心得记录
 	 */
-	@RequestMapping("/gains/deleteIds")
+	@RequestMapping("/web/gains/deleteIds")
 	public void deleteGains(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -186,7 +186,7 @@ public class WebGainsController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/gains/list")
+	@RequestMapping("/web/gains/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {

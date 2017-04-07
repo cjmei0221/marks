@@ -40,7 +40,7 @@ public class WebQuestionController extends SupportContorller {
 	/**
 	 * 查询工作问题记录
 	 */
-	@RequestMapping("/question/findQuestionById")
+	@RequestMapping("/web/question/findQuestionById")
 	public void findQuestionById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -60,7 +60,7 @@ public class WebQuestionController extends SupportContorller {
 	/**
 	 * 保存工作问题记录
 	 */
-	@RequestMapping("/question/save")
+	@RequestMapping("/web/question/save")
 	public void saveQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -92,7 +92,7 @@ public class WebQuestionController extends SupportContorller {
 	/**
 	 * 更改工作问题记录
 	 */
-	@RequestMapping("/question/update")
+	@RequestMapping("/web/question/update")
 	public void updateQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -121,7 +121,7 @@ public class WebQuestionController extends SupportContorller {
 	/**
 	 * 删除工作问题记录
 	 */
-	@RequestMapping("/question/delete")
+	@RequestMapping("/web/question/delete")
 	public void deleteQuestionById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -140,7 +140,7 @@ public class WebQuestionController extends SupportContorller {
 	/**
 	 * 查询全部工作问题记录
 	 */
-	@RequestMapping("/question/findAllQuestion")
+	@RequestMapping("/web/question/findAllQuestion")
 	public void findAllQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -159,7 +159,7 @@ public class WebQuestionController extends SupportContorller {
 	/**
 	 * 删除多个工作问题记录
 	 */
-	@RequestMapping("/question/deleteIds")
+	@RequestMapping("/web/question/deleteIds")
 	public void deleteQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -189,7 +189,7 @@ public class WebQuestionController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/question/list")
+	@RequestMapping("/web/question/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
