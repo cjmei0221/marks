@@ -17,6 +17,7 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.note.gains.pojo.Gains;
 import com.marks.module.inner.note.gains.service.GainsService;
@@ -69,7 +70,7 @@ public class GainsController extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	Gains gains = getModel(Gains.class);
-	 //     gains.setId(IDUtil.getTimeID());
+	    	gains.setId(IDUtil.getTimeID());
 			 Gains ori=null;
 	 		if(gains.getTitle() != null){
 	 			ori=gainsService.findByTitle(gains.getTitle());

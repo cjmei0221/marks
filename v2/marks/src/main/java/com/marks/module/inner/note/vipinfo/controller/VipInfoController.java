@@ -17,6 +17,7 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.note.vipinfo.pojo.VipInfo;
 import com.marks.module.inner.note.vipinfo.service.VipInfoService;
@@ -68,7 +69,7 @@ public class VipInfoController extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	VipInfo vipInfo = getModel(VipInfo.class);
-	 //     vipInfo.setUserid(IDUtil.getTimeID());
+	    	vipInfo.setUserid(IDUtil.getTimeID());
 			 VipInfo ori=null;
 	 		if(vipInfo.getUserid() != null){
 	 			ori=vipInfoService.findById(vipInfo.getUserid());

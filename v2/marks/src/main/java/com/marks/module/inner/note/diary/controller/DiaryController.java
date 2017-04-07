@@ -17,6 +17,7 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.diary.service.DiaryService;
@@ -68,7 +69,7 @@ public class DiaryController extends SupportContorller{
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 	    	Diary diary = getModel(Diary.class);
-	 //     diary.setID(IDUtil.getTimeID());
+	    	diary.setId(IDUtil.getUUID());
 	    	diary.setCreator(admin.getUserid());
 	    	diary.setMobile(admin.getBind_mobile());
 			diaryService.save(diary);
