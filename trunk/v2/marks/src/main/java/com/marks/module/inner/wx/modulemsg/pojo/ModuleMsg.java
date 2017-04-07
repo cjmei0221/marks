@@ -74,7 +74,7 @@ public class ModuleMsg implements Serializable {
 	 */
 	private String resultMsg;
 
-	private String resultTime;
+	private Date resultTime;
 	/**
 	 * 备注
 	 */
@@ -90,11 +90,11 @@ public class ModuleMsg implements Serializable {
 		this.create_stamp = create_stamp;
 	}
 
-	public String getResultTime() {
+	public Date getResultTime() {
 		return resultTime;
 	}
 
-	public void setResultTime(String resultTime) {
+	public void setResultTime(Date resultTime) {
 		this.resultTime = resultTime;
 	}
 

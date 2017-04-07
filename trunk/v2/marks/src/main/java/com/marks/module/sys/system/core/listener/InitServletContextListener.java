@@ -8,6 +8,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.marks.module.inner.note.diary.threadPool.DairyThreadPool;
 import com.marks.module.inner.system.syslog.thread.SysLogThreadPool;
+import com.marks.module.inner.wx.modulemsg.thread.pool.WxModuleMsgThreadPool;
 import com.marks.module.sys.system.core.helper.LoadDataHelper;
 import com.marks.module.web.wx.wfhao.threadPool.WxhreadPool;
 
@@ -41,5 +42,9 @@ public class InitServletContextListener implements ServletContextListener {
 		 * 更新粉丝信息
 		 */
 		WxhreadPool.init();
+		/**
+		 * 模板消息推送
+		 */
+		WxModuleMsgThreadPool.init();
 	}
 }
