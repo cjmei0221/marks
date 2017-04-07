@@ -9,9 +9,6 @@
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.inner.note.diary.pojo.Diary">
-		<selectKey keyProperty="ID" resultType="String" order="BEFORE">select
-			sys_guid() from dual</selectKey>
-
 		INSERT INTO TB_NOTE_DIARY diary (
 		diary.ID,
 		diary.UPDATETIME,
@@ -22,7 +19,7 @@
 		diary.MOBILE
 		)
 		VALUES(
-		#{ID:VARCHAR},
+		#{id:VARCHAR},
 		sysdate,
 		#{content:VARCHAR},
 		#{creator:VARCHAR},
@@ -39,7 +36,7 @@
 		diary.CONTENT = #{content:VARCHAR},
 		diary.TITLE = #{title:VARCHAR}
 		WHERE
-		diary.ID = #{ID}
+		diary.ID = #{id}
 	</update>
 
 	<delete id="delete" parameterType="String">

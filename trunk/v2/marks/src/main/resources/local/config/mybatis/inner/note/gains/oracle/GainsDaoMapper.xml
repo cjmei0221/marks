@@ -14,10 +14,6 @@
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.inner.note.gains.pojo.Gains">
-		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
-			sys_guid() from dual
-		</selectKey>
-
 		INSERT INTO TB_NOTE_GAINS gains (
 		gains.ID,
 		gains.LVL,
