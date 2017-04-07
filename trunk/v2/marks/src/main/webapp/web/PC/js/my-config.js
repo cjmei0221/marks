@@ -10,7 +10,7 @@ $(document).on('ajaxStart', function(){
     		return;
     	}else if (_data.retcode == "-100") {
 //    		alert("用户已失效，请重新登录！");
-    		location.replace(tool.baseUrl+"/web/view/note/owner/login.html?ele="+tool.getCurEle());
+    		location.replace(tool.baseUrl+"/web/PC/view/note/login/login.html?ele="+tool.getCurEle());
     	}
     }
 
