@@ -40,7 +40,7 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 300px; padding: 10px;">
+		style="width: 520px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="id" name="id">
 			<table class="out-win-cls">
@@ -52,10 +52,10 @@
 				<tr>
 					<th>菜单URL</th>
 					<td><input id="menuUrl" name="menuUrl"
-						class="easyui-validatebox" data-options="required:true"></td>
+						class="easyui-validatebox" data-options="required:true" style="width:400px;"></td>
 				</tr>
 				<tr>
-					<th>公众号ID</th>
+					<th style="width:100px;">公众号ID</th>
 					<td><input  id="accountid" name="accountid" class="easyui-combobox" 
 						data-options="required:true,valueField:'accountId',textField:'accountname',url:'<%=request.getContextPath()%>/inner/wxAccount/combox.do'">
 						</td>
