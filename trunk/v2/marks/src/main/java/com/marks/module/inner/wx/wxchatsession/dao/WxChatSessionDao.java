@@ -4,6 +4,8 @@ package com.marks.module.inner.wx.wxchatsession.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatCount;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession;
@@ -26,5 +28,5 @@ public interface WxChatSessionDao {
 
 	List<WxChatCount> getCountList(PageBounds pageBounds, Map<String, Object> param);
 
-	WxChatSession findByAccountidAndOpenid(String accountid, String openid, long timeLong, int i, int flag);
+	WxChatSession findByAccountidAndOpenid(@Param("accountid")String accountid,@Param("openid") String openid, @Param("timeLong")long timeLong, @Param("sessionTimes")int sessionTimes,@Param("flag")int flag);
 }
