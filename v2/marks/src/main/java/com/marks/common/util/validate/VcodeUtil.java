@@ -16,6 +16,7 @@ public class VcodeUtil {
 	public boolean checkValidateCode(HttpServletRequest request,String code) {
 		boolean flag=false;
 		String has=request.getSession().getAttribute("vCode").toString();
+		request.getSession().removeAttribute("vCode");
 		if(code.equalsIgnoreCase(has)){
 			flag=true;
 		}
