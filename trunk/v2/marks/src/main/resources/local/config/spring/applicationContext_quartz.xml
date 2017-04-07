@@ -9,8 +9,25 @@
 				<ref bean="dairyTrigger" />
 				<ref bean="reminderTrigger" />
 				<ref bean="clearTrigger" />
+				<ref bean="wxbModuleMsgTrigger" />
 			</list>
 		</property>
+	</bean>
+	<!-- 定时扫描数据库推送微信模板消息-->
+	<!-- 清理数据 -->
+	<bean id="wxbModuleMsgDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass">
+			<value>com.marks.module.inner.wx.modulemsg.job.WxbModuleMsgHelper</value>
+		</property>
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="true" />
+	</bean>
+	<bean id="wxbModuleMsgTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="wxbModuleMsgDetail" />
+		<!-- 每15秒触发 -->
+		<property name="cronExpression" value="14/15 * * * * ?" />
 	</bean>
 	<!-- 清理数据 -->
 	<bean id="clearDetail"
@@ -40,7 +57,7 @@
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="dairyDetail" />
 		<!-- 每22分钟触发 -->
-		<property name="cronExpression" value="0 0 22 * * ?" />
+		<property name="cronExpression" value="0 33 21 * * ?" />
 	</bean>
 	
 	<!-- 事务提醒 -->

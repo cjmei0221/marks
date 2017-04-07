@@ -3,17 +3,20 @@
 
 <mapper namespace="com.marks.module.inner.wx.wxchatsession.dao.WxChatSessionDao">
 
+	<select id="findByAccountidAndOpenid" resultType="com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession">
+		SELECT *
+		FROM TB_WX_CHAT_SESSION wxchatsession
+		where wxchatsession.FLAG=#{flag} and wxchatsession.accountid = #{accountid}
+		and wxchatsession.openid = #{openid}
+		and (#{timeLong} - wxchatsession.createlong ) &lt;= #{sessionTimes}
+	</select>
 	<select id="findById"
 		resultType="com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession">
 		SELECT * FROM TB_WX_CHAT_SESSION wxchatsession where
 		wxchatsession.SESSION_ID = #{session_id}
 	</select>
 
-	<insert id="save"
-		parameterType="com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession">
-		<selectKey keyProperty="session_id" resultType="String"
-			order="BEFORE">select sys_guid() from dual</selectKey>
-
+	<insert id="save" parameterType="com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession">
 		INSERT INTO TB_WX_CHAT_SESSION wxchatsession (
 		wxchatsession.SESSION_ID,
 		wxchatsession.ACCOUNTID,
@@ -22,8 +25,8 @@
 		wxchatsession.CREATELONG,
 		wxchatsession.UPDATETIME,
 		wxchatsession.C_CONTENT,
-		wxchatsession.ENDTIME,
-		wxchatsession.FANID
+		wxchatsession.FANID,
+		wxchatsession.FLAG
 		)
 		VALUES(
 		#{session_id:VARCHAR},
@@ -33,9 +36,8 @@
 		#{createLong:NUMERIC},
 		sysdate,
 		#{c_content:VARCHAR},
-		#{endtime:TIMESTAMP},
-		#{fanId:VARCHAR}
-
+		#{fanId:VARCHAR},
+		#{flag:NUMERIC}
 		)
 	</insert>
 
