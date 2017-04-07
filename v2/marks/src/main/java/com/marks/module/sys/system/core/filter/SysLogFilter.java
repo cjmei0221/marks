@@ -20,6 +20,7 @@ import com.marks.module.inner.system.syslog.pojo.SysLog;
 import com.marks.module.inner.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.web.system.login.util.LoginUtil;
 
 public class SysLogFilter implements Filter {
 	private final static Logger LOG = Logger.getLogger(SysLogFilter.class);
@@ -33,8 +34,17 @@ public class SysLogFilter implements Filter {
 		LOG.info("accessURI=" + request.getRequestURI());
 		// 获取访问url
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
+		SysUser user = null;
+		int source=1;
+		if(url.indexOf("/inner")>=0){
+			user = SysUserHelper.getCurrentUserInfo(request);
+			source=0;
+		}else if(url.indexOf("/web")>=0){
+			user=LoginUtil.getInstance().getCurrentUser(request);
+			source=2;
+		}
 		String ip = RequestUtil.getIpAddr(request);
-		SysUser user = SysUserHelper.getCurrentUserInfo(request);
+		
 		int success = 0;
 		try {
 			arg2.doFilter(arg0, arg1);
@@ -55,12 +65,7 @@ public class SysLogFilter implements Filter {
 				log.setRetain2(url);
 
 				log.setUrl(url);
-				int source=1;
-				if(url.indexOf("/inner")>=0){
-					source=0;
-				}else if(url.indexOf("/web")>=0){
-					source=2;
-				}
+				
 				log.setSource(source);
 				SysLogThreadPool.saveSysLog(false,log);
 			}
