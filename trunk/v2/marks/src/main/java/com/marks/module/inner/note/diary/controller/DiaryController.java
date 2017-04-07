@@ -46,7 +46,7 @@ public class DiaryController extends SupportContorller{
         Result result = new Result();
 		try {
 		    Diary diary = getModel(Diary.class);
-			Diary requestDiary = diaryService.findById(diary.getID());
+			Diary requestDiary = diaryService.findById(diary.getId());
 			result.getData().put("diary",requestDiary);
 			result.setMessage("findById diary successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -111,7 +111,7 @@ public class DiaryController extends SupportContorller{
 		Result result = new Result();
 		try {
 		   	Diary diary = getModel(Diary.class);
-			diaryService.delete(diary.getID());
+			diaryService.delete(diary.getId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {

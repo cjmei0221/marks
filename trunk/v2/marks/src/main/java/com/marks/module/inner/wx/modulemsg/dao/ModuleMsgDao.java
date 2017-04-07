@@ -1,6 +1,7 @@
 package com.marks.module.inner.wx.modulemsg.dao;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -28,4 +29,7 @@ public interface ModuleMsgDao {
 	void deleteData(@Param("clearDate") String clearDate);
 
 	List<ModuleMsg> getNeedPustMsg(@Param("limitnum")int limitnum, @Param("pushlimitnum")int pushlimitnum, @Param("timelimit") int timelimit, @Param("nowtime")long nowtime);
+
+	void updateResultForModuleMsg(@Param("accountid") String accountid, @Param("msgId") String msgId,@Param("createtime") Timestamp createtime,@Param("resultCode") String resultCode,
+			@Param("status")String status);
 }

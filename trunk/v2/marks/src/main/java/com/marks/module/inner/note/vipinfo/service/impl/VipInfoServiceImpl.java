@@ -83,5 +83,9 @@ public class VipInfoServiceImpl implements VipInfoService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+	@Override
+	public VipInfo findVipDetailInfoById(String userid) {
+		return vipInfoDao.findVipDetailInfoById(userid);
+	}
 	
 }
