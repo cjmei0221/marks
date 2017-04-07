@@ -40,7 +40,7 @@ $(function() {
 		formSubmit();
 	});
 	$("#refreshBtn").on("click", function() {
-		loadReplayList($("#session_id").val);
+		loadReplayList($("#session_id").val());
 	});
 	
 	
@@ -116,7 +116,7 @@ function loadReplayList(sId){
 						}
 						var cssStr="black";
 						if(list[i].c_type==0){
-							cssStr="blue";
+							cssStr="green";
 						}
 						$("#msg").append("<p style='color:"+cssStr+";'>"+list[i].createtime+"&nbsp;&nbsp;"+list[i].username+"&nbsp;&nbsp;"+sct+"</p>");
 					}
@@ -171,7 +171,8 @@ function loadList() {
 										if (row.flag == 1) {
 											return  "<span style='color:blue;' onclick=\"javascript:replayFunc('"+row.session_id+"')\">人工服务</span>"
 										} else {
-											return value;
+											return  "<span style='color:green;' onclick=\"javascript:replayFunc('"+row.session_id+"')\">"+value+"</span>"
+//											return value;
 										}
 
 									}
