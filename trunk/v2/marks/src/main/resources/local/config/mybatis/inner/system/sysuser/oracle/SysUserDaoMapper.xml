@@ -213,5 +213,8 @@
 		#{creator:VARCHAR}
 		)
 	</insert>
-
+	<update id="updateSkin" flushCache="true">
+		update tb_sys_user set
+		skin=#{skin},UPDATETIME=sysdate where userid=#{userid}
+	</update>
 </mapper>

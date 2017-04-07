@@ -113,6 +113,11 @@
 
 	</select>
 
-
+	<select id="findVipDetailInfoById" resultType="com.marks.module.inner.note.vipinfo.pojo.VipInfo">
+		SELECT
+		vipinfo.*,su.skin FROM
+		tb_sys_user su left join TB_VIP_INFO vipinfo on
+		vipinfo.userid=su.userid where su.USERID = #{userid}
+	</select>
 
 </mapper>
