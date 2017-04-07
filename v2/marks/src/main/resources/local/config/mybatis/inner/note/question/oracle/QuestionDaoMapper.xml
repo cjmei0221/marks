@@ -14,10 +14,6 @@
 
 
 	<insert id="save" parameterType="com.marks.module.inner.note.question.pojo.Question">
-		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
-			sys_guid() from dual
-		</selectKey>
-
 		INSERT INTO TB_NOTE_QUESTION question (
 		question.ID,
 		question.LVL,

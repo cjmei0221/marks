@@ -9,10 +9,6 @@
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.inner.note.vipinfo.pojo.VipInfo">
-		<selectKey keyProperty="userid" resultType="String" order="BEFORE">select
-			sys_guid() from dual
-		</selectKey>
-
 		INSERT INTO TB_VIP_INFO vipinfo (
 		vipinfo.USERID,
 		vipinfo.REALNAME,

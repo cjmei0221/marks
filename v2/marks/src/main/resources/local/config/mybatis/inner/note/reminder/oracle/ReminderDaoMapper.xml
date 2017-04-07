@@ -9,9 +9,6 @@
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.inner.note.reminder.pojo.Reminder">
-		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
-			sys_guid() from dual</selectKey>
-
 		INSERT INTO TB_NOTE_REMINDER reminder (
 		reminder.ID,
 		reminder.REMIND_TYPE,
