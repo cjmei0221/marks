@@ -195,6 +195,7 @@ public class WxFwUtil {
 		if (result.getSuccess()) {
 			user= (WxUser) result.getResult();
 			if (null != user) {
+				user.setAccountid(accountId);
 				String username = user.getNickname();
 				try {
 					username = URLDecoder.decode(username, "utf-8");

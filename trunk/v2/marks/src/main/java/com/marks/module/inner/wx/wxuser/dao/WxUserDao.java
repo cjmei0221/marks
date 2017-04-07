@@ -11,7 +11,7 @@ import com.marks.module.center.wxfwhao.common.entity.WxUser;
 
 public interface WxUserDao {
 
-	WxUser findById(String accountid,String openid);
+	WxUser findById(@Param("accountid") String accountid,@Param("openid") String openid);
 
 	void save(WxUser wxUser);
 
