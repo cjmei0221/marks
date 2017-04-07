@@ -53,6 +53,7 @@ function summitForm() {
 				location.replace('./login.html?' + "_t="
 						+ new Date().getTime());
 			} else {
+				changeImg();
 				msg.info(data.retmsg);
 			}
 		},
