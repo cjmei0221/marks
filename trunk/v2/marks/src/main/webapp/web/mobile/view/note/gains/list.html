@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>痕迹</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<!-- <link rel="stylesheet" href="../../../assets/css/marks.css"> -->
+<style type="text/css">
+.cm-loading {
+	font-size: 8px;
+	color: tan;
+}
+</style>
+</head>
+<body>
+
+	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+	<div id="app">
+		<!-- 单个page ,第一个.page默认被展示-->
+		<div>
+			<!-- 标题栏 -->
+			<header class="bar bar-nav cm-head">
+				<a class="icon icon-edit pull-right" href="./add.html"></a>
+				<h1 class="title" id="t_title">备忘</h1>
+			</header>
+			<div class="bar bar-header-secondary cm-search">
+				<div class="searchbar">
+					<div class="search-input">
+						<label class="icon icon-search" for="search"></label> <input
+							type="search" id='search' placeholder='输入关键字...'
+							onblur="mysearch()" />
+					</div>
+				</div>
+			</div>
+			<!-- 这里是页面内容区 -->
+			<div id="content" class="content infinite-scroll cm-content-2"
+				data-distance="100">
+				<div id="tooltips" class="tooltips"></div>
+				<div id="listDiv"></div>
+				<!-- 加载提示符 -->
+				<div id="isLoading" class="infinite-scroll-preloader" onclick="loadMore();">
+					<div class="cm-loading">点击加载更多</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type='text/javascript'
+	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../../../js/my-config.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../../common/tool.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../js/msg.js' charset='utf-8'></script>
+<script type='text/javascript' src='./list.js' charset='utf-8'></script>
+<script type="text/html" id="listTrTmp">
+  <div class="list-block media-list cm-contnet-img">
+	<ul style="background: rgba(255, 255, 255, 0);">
+		<li><a href="./detail.html?id={id}" class="item-link item-content">
+			<div class="item-inner">
+				<div class="item-title-row">
+					<div class="item-title">{idx} - {title}</div>
+				</div>
+				<div class="item-subtitle" style="font-size: .60rem; margin-bottom: 10px;">{createtime} - {lvlName} - {labels}</div>
+				<div class="item-text cm-text" style="word-wrap: break-word;">{content}</div>
+			</div>
+		</a></li>
+	</ul>
+ </div>
+</script>
+</html>
