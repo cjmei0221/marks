@@ -65,6 +65,9 @@ public abstract class AbstractRequestService implements RequestService {
 
 		if (isEquels) {
 			responseMessage = new WechatResponse(requestMessage);
+			if(null ==reply.getCreplay() || "".equals(reply.getCreplay())){
+				return null;
+			}
 			String content = reply.getCreplay();
 			if (WxConstants.weixin_replay_type_news.equals(reply.getReplayType())) {
 				content = WxConstants.weixin_replay_type_news + ":" + reply.getCreplay();
@@ -72,16 +75,12 @@ public abstract class AbstractRequestService implements RequestService {
 			} else if (WxConstants.weixin_replay_type_module.equals(reply.getReplayType())) {
 				responseMessage = moduleProcess(requestMessage, content);
 			} else {
-				responseMessage.setContent(toFormat(content));
+				responseMessage.setContent(content);
 			}
 			return responseMessage;
 		}
 
 		return responseMessage;
-	}
-
-	private String toFormat(String content) {
-		return content.replaceAll("\r\n", "<br/>");
 	}
 
 	/**
