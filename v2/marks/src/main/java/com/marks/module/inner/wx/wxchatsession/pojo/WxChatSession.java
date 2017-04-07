@@ -30,7 +30,7 @@ public class WxChatSession implements Serializable{
     /**
     *创建时间戳
     */
-    private int createLong;
+    private long createLong;
     /**
     *更新时间
     */
@@ -55,7 +55,7 @@ public class WxChatSession implements Serializable{
     private int sessionFlag;
     
     private List<WxChatMsg> wxChatMsgList=new ArrayList<WxChatMsg>();
-    
+     
 	public int getSessionFlag() {
 		return sessionFlag;
 	}
@@ -112,10 +112,10 @@ public class WxChatSession implements Serializable{
         this.createtime = createtime;
     }
 
-    public int getCreateLong(){
+    public long getCreateLong(){
         return createLong;
     }
-    public void setCreateLong(int createLong){
+    public void setCreateLong(long createLong){
         this.createLong = createLong;
     }
 
