@@ -186,7 +186,7 @@ public class HttpUtils {
 		httpClient.getParams().setConnectionManagerTimeout(defaultHttpConnectionManagerTimeout);
 		/* method.releaseConnection(); */
 		// 设置Http Header中的User-Agent属性
-		method.addRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+		method.addRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko");
 		try {
 			statusCode = httpClient.executeMethod(method);
 			jsonObject.setErrorCode(statusCode + "");
