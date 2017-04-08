@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.marks.module.inner.system.upload.util.FTPUtil;
 import com.marks.module.inner.wx.newsitem.dao.NewsItemDao;
 import com.marks.module.inner.wx.newsitem.pojo.NewsItem;
 import com.marks.module.sys.system.core.listener.DatabaseHelper;
@@ -31,7 +32,7 @@ public class NewsHelper {
 					for (NewsItem item : newsItems) {
 						vo=new ArticleResponse();
 						vo.setDescription(item.getDescription());
-						vo.setPicUrl(item.getPicUrl());
+						vo.setPicUrl(FTPUtil.ftp_url+item.getPicUrl());
 						vo.setTitle(item.getTitle());
 						vo.setUrl(item.getUrl());
 						items.add(vo);
