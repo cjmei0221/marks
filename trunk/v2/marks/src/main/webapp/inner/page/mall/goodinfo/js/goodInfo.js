@@ -183,7 +183,7 @@ function formSubmit() {
 	parms += "&formStatus=" + appInfo.formStatus;
 	parms += "&imageUrlPut=" + imageUrlPut;
 	parms += "&addMainImagePut=" + addMainImagePut;
-	parms += "&addDetailImagePut=" + appInfo.addDetailImagePut;
+	parms += "&addDetailImagePut=" + addDetailImagePut;
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
 			try {
@@ -272,7 +272,7 @@ function loadList() {
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-				return ' <img class="picUrl" src="'+value+'" style="width: 100px; height: 80px;" />';
+				return ' <img class="picUrl" src="'+window.urlImgBase+value+'" style="width: 100px; height: 80px;" />';
 			}
 		}, {
 			title : '上架状态',

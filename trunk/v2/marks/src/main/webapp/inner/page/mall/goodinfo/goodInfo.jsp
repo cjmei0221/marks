@@ -204,14 +204,16 @@
 				<td colspan="3"></td>
 			</tr>
 			<tr>
-				<td colspan="4"><div id="detailMainImg"></div></td>
+				<td colspan="1" align="right"></td>
+				<td colspan="3"><div id="detailMainImg"></div></td>
 			</tr>
 			<tr>
 				<td colspan="1" align="right"><label>详情图片</label>：</td>
 				<td colspan="3"></td>
 			</tr>
 			<tr>
-				<td colspan="4"><div id="detailDetailImg"></div></td>
+				<td colspan="1" align="right"></td>
+				<td colspan="3"><div id="detailDetailImg"></div></td>
 			</tr>
 		</table>
 	</div>

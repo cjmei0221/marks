@@ -154,7 +154,7 @@ function loadList() {
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-				return ' <img class="picUrl" src="'+value+'" style="width: 100px; height: 80px;" />';
+				return ' <img class="picUrl" src="'+window.urlImgBase+value+'" style="width: 100px; height: 80px;" />';
 			}
 		}, {
 			title : '链接',
