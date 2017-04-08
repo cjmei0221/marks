@@ -98,15 +98,17 @@
 	<select id="getReplayList" resultType="com.marks.module.inner.wx.wxchatmsg.pojo.WxChatMsg"
 		parameterType="java.util.Map">
 		SELECT nvl(suser.username, wxuser.nickname) username, wxchatmsg.*
-		FROM TB_WX_CHAT_MSG wxchatmsg
-		left join tb_sys_user suser on wxchatmsg.userid = suser.userid
-		left join tb_wx_user wxuser on wxchatmsg.openid = wxuser.openid
-		WHERE 1=1
-		and
-		wxchatmsg.SESSION_ID=#{session_id}
-		order by
-		wxchatmsg.CREATETIME desc
-
+    		FROM (select * from (
+           		select wxcmsg.c_content,wxcmsg.createtime,wxcmsg.openid,wxcmsg.session_id,wxcmsg.userid from tb_wx_chat_msg wxcmsg union 
+          		select wcsession.c_content,wcsession.createtime,wcsession.openid,wcsession.session_id,wcsession.openid userid from tb_wx_chat_session wcsession
+   				 ) t2 ) wxchatmsg
+    		left join tb_sys_user suser on wxchatmsg.userid = suser.userid
+    		left join tb_wx_user wxuser on wxchatmsg.openid = wxuser.openid
+    		WHERE 1=1
+			and
+			wxchatmsg.SESSION_ID=#{session_id}
+			order by
+			wxchatmsg.CREATETIME desc
 	</select>
 
 	<select id="getReplayListBySessions" resultType="com.marks.module.inner.wx.wxchatmsg.pojo.WxChatMsg"
