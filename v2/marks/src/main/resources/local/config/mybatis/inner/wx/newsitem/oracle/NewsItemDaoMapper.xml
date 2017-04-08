@@ -134,6 +134,6 @@
 			separator="," close=")">
 			#{id}
 		</foreach>
-		order by t.sort desc
+		order by t.sort
 	</select>
 </mapper>
