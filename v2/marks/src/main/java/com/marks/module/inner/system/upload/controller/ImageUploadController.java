@@ -99,7 +99,7 @@ public class ImageUploadController {
 
 				success = true;
 				result.getData().put("imgId", id);
-				result.getData().put("fileUrl", FTPUtil.ftp_url + picName);
+				result.getData().put("fileUrl", picName);
 				FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
 						FTPUtil.ftpFileDirectory, picName, saveFile, "");
 				SysUser admin = SysUserHelper.getCurrentUserInfo(req);
