@@ -73,7 +73,7 @@ public class QrcodeUtil {
 	public static String encodeToFile(HttpServletRequest request, String url) {
 		int width = 4000;
 		int height = 4000;
-		String name = IDUtil.getTimeID()+ ".png";
+		String name = "QR"+IDUtil.getTimeID()+ ".png";
 		Map<EncodeHintType, String> hints = new HashMap<EncodeHintType, String>();
 		hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 		BitMatrix matrix = null;
@@ -85,7 +85,7 @@ public class QrcodeUtil {
 			if (FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password, FTPUtil.ftpFileDirectory,
 					name, qrcodeFile, "")) {
 				// 上传成功
-				path = FTPUtil.ftp_url + qrcodeFile.getName();
+				path = qrcodeFile.getName();
 			}
 			qrcodeFile.deleteOnExit();
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class QrcodeUtil {
 	}
 
 	public static String createFwQrcode(HttpServletRequest request, String ticket) {
-		String filename = IDUtil.getTimeID()+ ".jpeg";
+		String filename = "WQR"+IDUtil.getTimeID()+ ".jpg";
 		try {
 			OutputStream out = null;
 			InputStream is = null;
@@ -126,7 +126,7 @@ public class QrcodeUtil {
 			connection.disconnect();
 			FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password, FTPUtil.ftpFileDirectory,
 					filename, saveFile, "");
-			return FTPUtil.ftp_url + filename;
+			return filename;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

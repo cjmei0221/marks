@@ -81,6 +81,7 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 	@Override
 	public void delete(String goodId) {
 		goodInfoDao.delete(goodId);
+		goodInfoDao.deleteGoodImg(goodId);
 	}
 
 	/**
