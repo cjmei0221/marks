@@ -111,14 +111,19 @@ function loadReplayList(sId){
 					$("#msg").html("");
 					for(var i=0;i<list.length;i++){
 						var sct=list[i].c_content;
+						var uname=list[i].username;
 						if(list[i].c_content == '0'){
 							sct='请求人工服务';
+						}
+						if(list[i].c_type==2 && list[i].c_content == '0'){
+							uname="系统";
+							sct='您好！有什么可以帮助您的吗？';
 						}
 						var cssStr="black";
 						if(list[i].c_type==0){
 							cssStr="green";
 						}
-						$("#msg").append("<p style='color:"+cssStr+";'>"+list[i].createtime+"&nbsp;&nbsp;"+list[i].username+"&nbsp;&nbsp;"+sct+"</p>");
+						$("#msg").append("<p style='color:"+cssStr+";'>"+list[i].createtime+"&nbsp;&nbsp;"+uname+"&nbsp;&nbsp;"+sct+"</p>");
 					}
 				}
 				return true;
