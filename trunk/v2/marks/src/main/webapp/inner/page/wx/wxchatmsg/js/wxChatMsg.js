@@ -154,7 +154,8 @@ function loadList() {
 									title : '回话ID',
 									field : 'session_id',
 									width : 150,
-									align : "center"
+									align : "center",
+									hidden:true
 								},
 								{
 									title : '粉丝ID',
@@ -167,11 +168,16 @@ function loadList() {
 									field : 'username',
 									width : 100,
 									align : "center"
+								}, {
+									title : '询问时间',
+									field : 'createtime',
+									width : 150,
+									align : "center"
 								},
 								{
 									title : '内容',
 									field : 'c_content',
-									width : 400,
+									width : 500,
 									formatter : function(value, row, index) {
 										if (row.flag == 1) {
 											return  "<span style='color:blue;' onclick=\"javascript:replayFunc('"+row.session_id+"')\">人工服务</span>"
@@ -181,11 +187,6 @@ function loadList() {
 										}
 
 									}
-								}, {
-									title : '询问时间',
-									field : 'createtime',
-									width : 150,
-									align : "center"
 								} ] ],
 						loader : function(params, success, loadError) {
 							var that = $(this);
