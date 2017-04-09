@@ -61,3 +61,14 @@ tool.checkPhone=function checkPhone(val) {
 	}
 	return true;
 }
+
+function splitStrToP(str){
+	var retStr="";
+	var strs= new Array(); //定义一数组 
+	strs=str.split("\n"); //字符分割 
+	for (i=0;i<strs.length ;i++ ) 
+	{ 
+		retStr +="<p>"+strs[i]+"<p>" //分割后的字符输出 
+	} 
+	return retStr;
+}
