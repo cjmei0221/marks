@@ -23,6 +23,11 @@ public class WxUserInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Result result = new Result();
+		String device=request.getParameter("device");
+		log.info("wxUser > device:"+device);
+		if(null !=device && "PC".equals(device)){
+			return true;
+		}
 		WxUser wxUser=WxUtil.getInstance().getCurrentWxbUser(request);
 		if (null != wxUser) {
 			log.info("wxUser > openid:"+wxUser.getOpenid()+" - nickname:"+wxUser.getNickname());
