@@ -30,7 +30,7 @@ public class WxAuthController {
 	public static final String wxauth_after_url = "wxauth_after_url";
 
 	@Autowired
-	private WeixinAccountService WeixinAccountService;
+	private WeixinAccountService weixinAccountService;
 	@Autowired
 	private SysUserService sysUserService;
 
@@ -132,7 +132,7 @@ public class WxAuthController {
 		if(flag){
 			WxUtil.getInstance().setCurrentOpenid(request, newOpenid);
 			WxUtil.getInstance().setCurrentAccountid(request, accountid);
-			WxUser user = WeixinAccountService.queryWxUserByOpenID(accountid, newOpenid);
+			WxUser user = weixinAccountService.queryWxUserByOpenID(accountid, newOpenid);
 			SysUser loginUser=sysUserService.getSysUserByUseridOrMobile(user.getFanId());
 			loginUser.setUsername(user.getNickname());
 			LoginUtil.getInstance().setCurrentUser(request, loginUser);
@@ -144,7 +144,7 @@ public class WxAuthController {
 			if(openid !=null && openid.length()>5){
 				WxUser user=WxUtil.getInstance().getCurrentWxbUser(request);
 				if(user ==null){
-					user = WeixinAccountService.queryWxUserByOpenID(accountid, newOpenid);
+					user = weixinAccountService.queryWxUserByOpenID(accountid, newOpenid);
 					SysUser loginUser=sysUserService.getSysUserByUseridOrMobile(user.getFanId());
 					loginUser.setUsername(user.getNickname());
 					LoginUtil.getInstance().setCurrentUser(request, loginUser);
