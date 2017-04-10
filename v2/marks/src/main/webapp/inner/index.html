@@ -160,31 +160,32 @@
 							var mlist = data.menuList;
 							if (mlist.length > 0) {
 								var checkItem = false;
-								$.each(mlist,function(commentIndex, comment) {
-													if (commentIndex == 0) {
-														checkItem = true;
-													} else {
-														checkItem = false;
-													}
-													var childHtml = "";
-													$.each(comment.children,function(childIdx,childComment) {
-																		childHtml += '<p id="'
-																				+ childComment.menuid
-																				+ '" class="menuCls" onclick="addPanel(\''
-																				+ childComment.menuid
-																				+ '\',\''
-																				+ childComment.menuitem
-																				+ '\',\''
-																				+ childComment.url
-																				+ '\')">'
-																				+ childComment.menuitem
-																				+ '</p>';
-																	});
-													addAccordionPanel(
-															checkItem,
-															comment.menuitem,
-															childHtml);
-												});
+								for(var i=0;i<mlist.length;i++){
+									if (i == 0) {
+										checkItem = true;
+									} else {
+										checkItem = false;
+									}
+									var childHtml = "";
+									var childList=mlist[i].children;
+									for(var j=0;j<childList.length;j++){
+										childHtml += '<p id="'
+											+ childList[j].menuid
+											+ '" class="menuCls" onclick="addPanel(\''
+											+ childList[j].menuid
+											+ '\',\''
+											+ childList[j].menuitem
+											+ '\',\''
+											+ childList[j].url
+											+ '\')">'
+											+ childList[j].menuitem
+											+ '</p>';
+									}
+									addAccordionPanel(
+											checkItem,
+											mlist[i].menuitem,
+											childHtml);
+								}
 							}
 						}
 					}
