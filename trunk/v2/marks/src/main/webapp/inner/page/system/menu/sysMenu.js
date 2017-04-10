@@ -91,22 +91,22 @@ function addFunc() {
 							var funclist = data.list;
 							if (funclist.length > 0) {
 								var obj = eval(data.list);
-								$(obj).each(function(index) {
-													var val = obj[index];
-													var str = "<table id='"
-															+ val.funcid
-															+ "' style='border-bottom:grey 1px solid;padding:5px;width:95%'><tr><td style='width:20%;'>"
-															+ val.opername
-															+ "</td><td style='width:20%;'>"
-															+ val.operid
-															+ "</td><td style='width:40%;'>"
-															+ val.url
-															+ "</td><td style='width:20%;'><a class='easyui-linkbutton' href='#'  onclick=\"javascript:delfunc(\'"
-															+ val.funcid
-															+ "\')\">刪除功能</a>"
-															+ "</td></tr></table>";
-													$("#funcShow").append(str);
-												});
+								for(var i=0;i<obj.length;i++){
+									var val = obj[i];
+									var str = "<table id='"
+											+ val.funcid
+											+ "' style='border-bottom:grey 1px solid;padding:5px;width:95%'><tr><td style='width:20%;'>"
+											+ val.opername
+											+ "</td><td style='width:20%;'>"
+											+ val.operid
+											+ "</td><td style='width:40%;'>"
+											+ val.url
+											+ "</td><td style='width:20%;'><a class='easyui-linkbutton' href='#'  onclick=\"javascript:delfunc(\'"
+											+ val.funcid
+											+ "\')\">刪除功能</a>"
+											+ "</td></tr></table>";
+									$("#funcShow").append(str);
+								}
 							}
 							appInfo.operatelist = data.operatelist;
 						}
