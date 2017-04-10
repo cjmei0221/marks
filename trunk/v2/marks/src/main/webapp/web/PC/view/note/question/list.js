@@ -49,12 +49,13 @@ function getlist() {
 				$("#pageShow").html(appInfo.pageNum + "/" + pageTotal);
 				var arr = [];
 				var index=1;
-				$.each(dairyList, function(i, o) {
+				for(var i=0;i<dairyList.length;i++){
+					var o=dairyList[i];
 					// 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法.
 					o.idx=index;
 					arr.push(tool.fillTemplate($("#trDivTmp").html(), o));
 					index++;
-				});
+				}
 				$('#trDiv').html(arr.join(''));
 			} else {
 				msg.error(data.retmsg);
