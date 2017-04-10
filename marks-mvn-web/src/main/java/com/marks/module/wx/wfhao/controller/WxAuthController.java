@@ -53,7 +53,7 @@ public class WxAuthController {
 				//如果session中有openid,则不去获取openid
 				boolean flag=checkSession(request,false,null,accountid);
 				if(flag){
-					String to_url2 = URLDecoder.decode(to_url, "utf-8");
+					to_url = URLDecoder.decode(to_url, "utf-8");
 					String return_url = WxUtil.getInstance().getCompleteUrl(accountid, to_url);
 					response.sendRedirect(return_url);
 					return;
