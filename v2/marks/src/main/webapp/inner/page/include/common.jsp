@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css"
-	href="../../../easyui/css/themes/default/easyui.css">
+	href="../../../easyui/css/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="../../../easyui/css/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="../../../css/base.css">
