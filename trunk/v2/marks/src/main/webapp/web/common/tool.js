@@ -53,6 +53,7 @@ tool.reqUrl={
 		changeMobile:tool.baseUrl+"/web/sysUser/changeMobile.do",
 		vipInfo_save:tool.baseUrl+"/web/vipInfo/save.do",
 		getWxSign: '/web/jssdkConfig.do', //获取微信签名
+		mall_orderDetail:'/web/orderDetail.do',
 		
 }
 
