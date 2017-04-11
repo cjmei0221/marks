@@ -15,7 +15,7 @@ $(document).on('ajaxStart', function() {
 });
 
 $(function() {
-	if(isWeiXin()){
+	if(!isWeiXin()){
 		alert("请在微信客户端打开！");
 	}
 });
