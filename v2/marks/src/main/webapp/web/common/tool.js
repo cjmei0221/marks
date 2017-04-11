@@ -52,7 +52,7 @@ tool.reqUrl={
 		getVIPInfo:tool.baseUrl+"/web/vipInfo/findVipInfoById.do",
 		changeMobile:tool.baseUrl+"/web/sysUser/changeMobile.do",
 		vipInfo_save:tool.baseUrl+"/web/vipInfo/save.do",
-		getWxSign: '/web/js/config.do', //获取微信签名
+		getWxSign: '/web/jssdkConfig.do', //获取微信签名
 		
 }
 
