@@ -32,7 +32,12 @@
 			<div class="content cm-contnet-img">
 				<div id="tooltips" class="tooltips"></div>
 				<div class="content-padded">
-					<button onclick="scanQR();">扫一扫</button>
+					<div><button onclick="scanQR();">扫一扫</button></div>
+					<div><button onclick="wxPay();">微信支付</button></div>
+					<div><button onclick="unionPay();">微信支付</button></div>
+					<div><button onclick="aliPay();">微信支付</button></div>
+					<div id="unionBox"></div>
+                    <div id="aliBox"></div>
 				</div>
 			</div>
 
@@ -47,6 +52,8 @@
 <script type='text/javascript' src='../../../../common/tool.js'
 	charset='utf-8'></script>
 <script type='text/javascript' src='../../../../common/wx/wxsdk.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../../common/wx/wxPay.js'
 	charset='utf-8'></script>
 <script type='text/javascript' src='../../js/msg.js' charset='utf-8'></script>
 <script type='text/javascript' src='./orderDetail.js' charset='utf-8'></script>
