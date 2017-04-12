@@ -46,7 +46,7 @@ public class UnionPayController {
 
 	
 
-	@RequestMapping("/unionpay/pay")
+	@RequestMapping("/web/unionpay/pay")
 	public void pay(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("在线支付方式:银联支付");
 		Result result = new Result();
@@ -70,7 +70,7 @@ public class UnionPayController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/unionpay/notice/back")
+	@RequestMapping("/web/unionpay/notice/back")
 	public void notice_back(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		logger.info("--------银联交易后台通知开始--------");
@@ -150,7 +150,7 @@ public class UnionPayController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/unionpay/notice/front")
+	@RequestMapping("/web/unionpay/notice/front")
 	public void notice_front(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		logger.info("--------交易前台通知开始--------");

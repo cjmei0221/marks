@@ -100,7 +100,7 @@ public class WXPayController extends SupportContorller{
 			requestParams.put("sign", sign);
 
 			String requestData = wxPayUtil.parseMapToXML(requestParams);
-			String url =WxConfig.unifiedorder;
+			String url =WxConfig.getInstance().unifiedorder;
 			//调用微信统一支付接口
 			logger.info("-------------wxpay unifiedorder url:" + url);
 			SSLNetProvider provider = new SSLNetProvider();	
@@ -123,7 +123,7 @@ public class WXPayController extends SupportContorller{
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/WXPay/preorder")
+	@RequestMapping("/web/WXPay/preorder")
 	public void preorder(HttpServletRequest request,
 			HttpServletResponse response) {
 		String orderId=request.getParameter("orderId");
@@ -133,8 +133,8 @@ public class WXPayController extends SupportContorller{
 		Result result = new Result();
 		JSONObject json = new JSONObject();		
 		String appid =wa.getAppid();
-		String mch_id = WxConfig.getValueByAccountid(accountId, WxConfig.mch_id);
-		String key = WxConfig.getValueByAccountid(accountId, WxConfig.key);
+		String mch_id = WxConfig.getInstance().getValueByAccountid(accountId, WxConfig.mch_id);
+		String key = WxConfig.getInstance().getValueByAccountid(accountId, WxConfig.key);
 		String nonce_str = IDUtil.getUUID();	
 		String openid =WxUtil.getInstance().getCurrentOpenid(request);	
 		String trade_type = request.getParameter("trade_type");//取值如下：JSAPI，NATIVE，APP	
@@ -241,7 +241,7 @@ public class WXPayController extends SupportContorller{
 	 * @param response
 	 */
 	@SuppressWarnings("static-access")
-	@RequestMapping("/WXPay/notify")
+	@RequestMapping("/web/WXPay/notify")
 	public void wxNotify(HttpServletRequest request,
 			HttpServletResponse response) {
 		WXPayUtil wxPayUtil = new WXPayUtil();
@@ -306,7 +306,7 @@ public class WXPayController extends SupportContorller{
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/WXPay/native_notify")
+	@RequestMapping("/web/WXPay/native_notify")
 	public void wxNativeNotify(HttpServletRequest request,
 			HttpServletResponse response) {
 		String accountid=request.getParameter("accountid");
@@ -340,7 +340,7 @@ public class WXPayController extends SupportContorller{
 			//String sign = requestMap.get("sign");
 			
 			String trade_type ="NATIVE";
-			String key = WxConfig.getValueByAccountid(accountid, WxConfig.key);
+			String key = WxConfig.getInstance().getValueByAccountid(accountid, WxConfig.key);
 			
 			String body = "静态Native商品链接";// 商品描述
 			
@@ -418,7 +418,7 @@ public class WXPayController extends SupportContorller{
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/WXPay/wxpay_record")
+	@RequestMapping("/web/WXPay/wxpay_record")
 	public void wxpay_record(HttpServletRequest request,HttpServletResponse response){
 		try {
 			WXPayRecord record =  getModel(WXPayRecord.class);
