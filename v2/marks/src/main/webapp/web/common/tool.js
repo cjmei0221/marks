@@ -67,6 +67,13 @@ tool.checkPhone=function checkPhone(val) {
 	return true;
 }
 
+tool.checkNum=function checkNum(val) {
+	if (isNaN(val)) { 
+		return false;
+	}
+	return true;
+}
+
 function splitStrToP(str){
 	var retStr="";
 	var strs= new Array(); //定义一数组 
