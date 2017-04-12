@@ -40,11 +40,11 @@ public class AlipaySubmit {
      * @param sPara 要签名的数组
      * @return 签名结果字符串
      */
-	public static String buildRequestMysign(Map<String, String> sPara) {
+	public static String buildRequestMysign(Map<String, String> sPara,String accountId) {
     	String prestr = AlipayCore.createLinkString(sPara); //把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
         String mysign = "";
-        if(AlipayConfig.sign_type.equals("RSA") ){
-        	mysign = RSA.sign(prestr, AlipayConfig.private_key, AlipayConfig.input_charset);
+        if(AlipayConfig.getInstance().getSign_type(accountId).equals("RSA") ){
+        	mysign = RSA.sign(prestr, AlipayConfig.getInstance().getPrivate_key(accountId), AlipayConfig.getInstance().getInput_charset(accountId));
         }
         return mysign;
     }
@@ -54,15 +54,15 @@ public class AlipaySubmit {
      * @param sParaTemp 请求前的参数数组
      * @return 要请求的参数数组
      */
-    private static Map<String, String> buildRequestPara(Map<String, String> sParaTemp) {
+    private static Map<String, String> buildRequestPara(Map<String, String> sParaTemp,String accountId) {
         //除去数组中的空值和签名参数
         Map<String, String> sPara = AlipayCore.paraFilter(sParaTemp);
         //生成签名结果
-        String mysign = buildRequestMysign(sPara);
+        String mysign = buildRequestMysign(sPara,accountId);
 
         //签名结果与签名方式加入请求提交参数组中
         sPara.put("sign", mysign);
-        sPara.put("sign_type", AlipayConfig.sign_type);
+        sPara.put("sign_type", AlipayConfig.getInstance().getSign_type(accountId));
 
         return sPara;
     }
@@ -74,15 +74,15 @@ public class AlipaySubmit {
      * @param strButtonName 确认按钮显示文字
      * @return 提交表单HTML文本
      */
-    public static String buildRequest(Map<String, String> sParaTemp, String strMethod, String strButtonName) {
+    public static String buildRequest(Map<String, String> sParaTemp, String strMethod, String strButtonName,String accountId) {
         //待请求参数数组
-        Map<String, String> sPara = buildRequestPara(sParaTemp);
+        Map<String, String> sPara = buildRequestPara(sParaTemp,accountId);
         List<String> keys = new ArrayList<String>(sPara.keySet());
 
         StringBuffer sbHtml = new StringBuffer();
 
         sbHtml.append("<form id=\"alipaysubmit\" name=\"alipaysubmit\" action=\"" + ALIPAY_GATEWAY_NEW
-                      + "_input_charset=" + AlipayConfig.input_charset + "\" method=\"" + strMethod
+                      + "_input_charset=" + AlipayConfig.getInstance().getInput_charset(accountId)+ "\" method=\"" + strMethod
                       + "\">");
 
         for (int i = 0; i < keys.size(); i++) {
@@ -107,16 +107,16 @@ public class AlipaySubmit {
      * @return 提交表单HTML文本
      * @throws UnsupportedEncodingException 
      */
-    public static String buildUrl(Map<String, String> sParaTemp, String strMethod, String strButtonName) throws UnsupportedEncodingException {
+    public static String buildUrl(Map<String, String> sParaTemp, String strMethod, String strButtonName,String accountId) throws UnsupportedEncodingException {
         //待请求参数数组
-        Map<String, String> sPara = buildRequestPara(sParaTemp);
+        Map<String, String> sPara = buildRequestPara(sParaTemp,accountId);
         List<String> keys = new ArrayList<String>(sPara.keySet());
 
         StringBuffer sbUrl = new StringBuffer();
         for (int i = 0; i < keys.size(); i++) {
             String name = (String) keys.get(i);
             String value = (String) sPara.get(name);
-            sbUrl.append("&"+name+"="+URLEncoder.encode(value, AlipayConfig.input_charset));
+            sbUrl.append("&"+name+"="+URLEncoder.encode(value, AlipayConfig.getInstance().getInput_charset(accountId)));
         }
         String url=sbUrl.toString().substring(1);
         return ALIPAY_GATEWAY_NEW+url;
@@ -131,11 +131,11 @@ public class AlipaySubmit {
      * @throws DocumentException
      * @throws MalformedURLException
      */
-	public static String query_timestamp() throws MalformedURLException,
+	public static String query_timestamp(String accountId) throws MalformedURLException,
                                                         DocumentException, IOException {
 
         //构造访问query_timestamp接口的URL串
-        String strUrl = ALIPAY_GATEWAY_NEW + "service=query_timestamp&partner=" + AlipayConfig.partner + "&_input_charset" +AlipayConfig.input_charset;
+        String strUrl = ALIPAY_GATEWAY_NEW + "service=query_timestamp&partner=" + AlipayConfig.getInstance().getPartner(accountId) + "&_input_charset" +AlipayConfig.getInstance().getInput_charset(accountId);
         StringBuffer result = new StringBuffer();
 
         SAXReader reader = new SAXReader();
