@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>商品</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet" href="../../../assets/css/marks1.css">
+<link rel="stylesheet" href="./css/upGood.css">
+<script type='text/javascript'
+	src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js' charset='utf-8'></script>
+</head>
+<body>
+	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+	<div id="app">
+		<!-- 单个page ,第一个.page默认被展示-->
+		<div>
+			<!-- 标题栏 -->
+			<header class="bar bar-nav cm-head">
+				<h1 class="title">
+					<span id="t_title">录入商品</span>
+				</h1>
+			</header>
+			<!-- 这里是页面内容区 -->
+			<div class="content cm-contnet-img">
+				<div id="tooltips" class="tooltips"></div>
+				<div class="content-block my-list-block">
+					<div class="row">
+						<div>
+							<a href="javascript:void(0)" onclick="scanGood();"
+								class="button button-big button-fill button-danger">扫一扫</a>
+						</div>
+					</div>
+				</div>
+				<div class="list-block my-list-block">
+					<ul>
+						<li>
+							<div class="item-content cm-item-content">
+								<div class="item-media">
+									<i class="icon icon-form-name"></i>
+								</div>
+								<div class="item-inner cm-item-inner">
+									<div class="item-input">
+										<input type="text" id="c_qrCode" name="c_qrCode"
+											placeholder="商品条形码" readonly="readonly">
+										<input type="text" id="c_imgUrl" name="c_imgUrl"
+											placeholder="图片路径" >
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content cm-item-content">
+								<div class="item-media">
+									<i class="icon icon-form-name"></i>
+								</div>
+								<div class="item-inner cm-item-inner">
+									<div class="item-input">
+										<input type="text" id="c_title" name="c_title"
+											placeholder="商品名称" >
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content cm-item-content">
+								<div class="item-media">
+									<i class="icon icon-form-name"></i>
+								</div>
+								<div class="item-inner cm-item-inner">
+									<div class="item-input">
+										<input type="text" id="c_price" name="c_price"
+											placeholder="商品价格" >
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="list-block media-list my-list-block">
+					<ul>
+						<li class="item-content">
+							<div class="item-media">
+								<img src="../../../assets/image/Chrysanthemum.jpg"
+									style="width: 90px; height: 90px;" onclick="uploadImg();">
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="content-block my-list-block">
+					<div class="row">
+						<div>
+							<a href="javascript:void(0)" onclick="submitGood();"
+								class="button button-big button-fill button-success">保存</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+</body>
+
+<script type='text/javascript'
+	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../../../js/my-config.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../../../common/tool.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../../../common/wx/wxsdk.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../../../common/wx/wxPay.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../js/msg.js' charset='utf-8'></script>
+<script type='text/javascript' src='./upGood.js' charset='utf-8'></script>
+</html>

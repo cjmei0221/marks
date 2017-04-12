@@ -56,7 +56,7 @@
 
         var defaults = {
             trade_type: 'JSAPI',
-            body: '蒙牛订单',
+            body: '订单',
         };
 
         var opt = $.extend({}, defaults, options);
