@@ -37,7 +37,7 @@ public class AlipayController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/alipay/payHtml")
+	@RequestMapping("/web/alipay/payHtml")
 	public void pay(HttpServletRequest request,HttpServletResponse response) {
 		String orderId = request.getParameter("orderId");
 		Result result = new Result();
@@ -68,7 +68,7 @@ public class AlipayController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/alipay/payUrl")
+	@RequestMapping("/web/alipay/payUrl")
 	public void pay2(HttpServletRequest request,HttpServletResponse response) {
 		String orderId = request.getParameter("orderId");
 		Result result = new Result();
@@ -97,7 +97,7 @@ public class AlipayController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/alipay/frontNotice")
+	@RequestMapping("/web/alipay/frontNotice")
 	public void frontNotice(HttpServletRequest request,HttpServletResponse response) {
 		try {
 			Map<String,String> paramMap = new HashMap<String,String>();
@@ -157,7 +157,7 @@ public class AlipayController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/alipay/backNotice")
+	@RequestMapping("/web/alipay/backNotice")
 	public void backNotice(HttpServletRequest request,HttpServletResponse response) {
 		try {
 			String sign_type=request.getParameter("sign_type");
