@@ -36,7 +36,7 @@ public class AlipayNotify {
      * @param params 通知返回来的参数数组
      * @return 验证结果
      */
-    public static boolean verify(Map<String, String> params) {
+    public static boolean verify(Map<String, String> params,String accountId) {
 
         //判断responsetTxt是否为true，isSign是否为true
         //responsetTxt的结果不是true，与服务器设置问题、合作身份者ID、notify_id一分钟失效有关
@@ -44,12 +44,12 @@ public class AlipayNotify {
     	String responseTxt = "false";
 		if(params.get("notify_id") != null) {
 			String notify_id = params.get("notify_id");
-			responseTxt = verifyResponse(notify_id);
+			responseTxt = verifyResponse(notify_id,accountId);
 		}
 	    String sign = "";
 	    if(params.get("sign") != null) {sign = params.get("sign");}
 	    boolean isSign =true;
-	    isSign = getSignVeryfy(params, sign);
+	    isSign = getSignVeryfy(params, sign,accountId);
 	    logger.info("isSign="+isSign);
         //写日志记录（若要调试，请取消下面两行注释）
         //String sWord = "responseTxt=" + responseTxt + "\n isSign=" + isSign + "\n 返回回来的参数：" + AlipayCore.createLinkString(params);
@@ -68,15 +68,15 @@ public class AlipayNotify {
      * @param sign 比对的签名结果
      * @return 生成的签名结果
      */
-	private static boolean getSignVeryfy(Map<String, String> Params, String sign) {
+	private static boolean getSignVeryfy(Map<String, String> Params, String sign,String accountId) {
     	//过滤空值、sign与sign_type参数
     	Map<String, String> sParaNew = AlipayCore.paraFilter(Params);
         //获取待签名字符串
         String preSignStr = AlipayCore.createLinkString(sParaNew);
         //获得签名验证结果
         boolean isSign = false;
-        if(AlipayConfig.sign_type.equals("RSA")){
-        	isSign = RSA.verify(preSignStr, sign, AlipayConfig.alipay_public_key, AlipayConfig.input_charset);
+        if(AlipayConfig.getInstance().getSign_type(accountId).equals("RSA")){
+        	isSign = RSA.verify(preSignStr, sign, AlipayConfig.getInstance().getAlipay_public_key(accountId), AlipayConfig.getInstance().getInput_charset(accountId));
         }
         return isSign;
     }
@@ -90,10 +90,10 @@ public class AlipayNotify {
     * true 返回正确信息
     * false 请检查防火墙或者是服务器阻止端口问题以及验证时间是否超过一分钟
     */
-    private static String verifyResponse(String notify_id) {
+    private static String verifyResponse(String notify_id,String accountId) {
         //获取远程服务器ATN结果，验证是否是支付宝服务器发来的请求
 
-        String partner = AlipayConfig.partner;
+        String partner = AlipayConfig.getInstance().getPartner(accountId);
         String veryfy_url = HTTPS_VERIFY_URL + "partner=" + partner + "&notify_id=" + notify_id;
 
         return checkUrl(veryfy_url);

@@ -56,12 +56,12 @@ public class HttpResponse {
         this.byteResult = byteResult;
     }
 
-    public String getStringResult() throws UnsupportedEncodingException {
+    public String getStringResult(String accountId) throws UnsupportedEncodingException {
         if (stringResult != null) {
             return stringResult;
         }
         if (byteResult != null) {
-            return new String(byteResult, AlipayConfig.input_charset);
+            return new String(byteResult, AlipayConfig.getInstance().getInput_charset(accountId));
         }
         return null;
     }
