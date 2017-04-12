@@ -54,6 +54,9 @@ tool.reqUrl={
 		vipInfo_save:tool.baseUrl+"/web/vipInfo/save.do",
 		getWxSign: '/web/jssdkConfig.do', //获取微信签名
 		mall_orderDetail:'/web/orderDetail.do',
+		unionPay: '/web/unionpay/pay.do', //银联支付接口
+	    aliPay: '/web/alipay/payHtml.do', //支付宝支付接口
+	    wxPay: '/web/WXPay/preorder.do', //微信支付接口
 		
 }
 
