@@ -1,4 +1,4 @@
-package com.marks.module.web.mall.order.controller;
+package com.marks.module.web.supermarket.order.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
