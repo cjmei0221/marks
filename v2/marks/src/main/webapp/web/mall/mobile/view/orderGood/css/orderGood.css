@@ -4,7 +4,7 @@
 
 .my-item-title {
 	font-size: 12px;
-	white-space: normal;
+	white-space: normal !important;
 }
 .my-money{
 	color:red;
