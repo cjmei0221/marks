@@ -144,7 +144,7 @@ public class WxAuthController {
 			if(openid !=null && openid.length()>5){
 				WxUser user=WxUtil.getInstance().getCurrentWxbUser(request);
 				if(user ==null){
-					user = wxUserService.findById(accountid, newOpenid);
+					user = wxUserService.findById(accountid, openid);
 					SysUser loginUser=loginService.getSysUserByUseridOrMobile(user.getFanId());
 					loginUser.setUsername(user.getNickname());
 					LoginUtil.getInstance().setCurrentUser(request, loginUser);
