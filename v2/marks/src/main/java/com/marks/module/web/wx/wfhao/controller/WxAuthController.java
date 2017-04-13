@@ -50,14 +50,14 @@ public class WxAuthController {
 			String to_url = request.getParameter("to_url");
 			logger.info("调用微信授权接口去授权2>>accountid=" + accountid + "&to_url=" + to_url);
 			if (accountid != null && !"".equals(accountid) && null != to_url && to_url.length() > 5) {
-				//如果session中有openid,则不去获取openid
-				boolean flag=checkSession(request,false,null,accountid);
-				if(flag){
+				// 如果session中有openid,则不去获取openid
+				boolean flag = checkSession(request, false, null, accountid);
+				if (flag) {
 					String return_url = URLDecoder.decode(to_url, "utf-8");
 					return_url = WxUtil.getInstance().getCompleteUrl(accountid, return_url);
 					response.sendRedirect(return_url);
 					return;
-				}else{
+				} else {
 					request.getSession().setAttribute(wxauth_after_url, to_url);
 					if (RunModel.getInstance().getWeixinMode().equals("N")) {
 						String return_url = URLDecoder.decode(to_url, "utf-8");
@@ -72,8 +72,8 @@ public class WxAuthController {
 				}
 			} else {
 				logger.info("调用微信授权接口去授权>>6");
-				response.sendRedirect(
-						WxUtil.getInstance().getCompleteUrl(accountid,request.getContextPath() + PageConfigUtil.getProperty("errorUrl")));
+				response.sendRedirect(WxUtil.getInstance().getCompleteUrl(accountid,
+						request.getContextPath() + PageConfigUtil.getProperty("errorUrl")));
 			}
 		} catch (Exception e) {
 			logger.error("Exception:", e);
@@ -98,7 +98,7 @@ public class WxAuthController {
 				logger.info("通过code获取openid>>end");
 				if (null != openid && openid.length() > 5) {
 					logger.info(" weixin openid >> " + openid);
-					checkSession(request,true,openid,accountid);
+					checkSession(request, true, openid, accountid);
 				} else {
 					logger.info(" weixin openid is null ,openid=" + openid);
 					to_url = request.getContextPath() + PageConfigUtil.getProperty("errorUrl");
@@ -113,47 +113,61 @@ public class WxAuthController {
 			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统繁忙");
 			try {
-				response.sendRedirect(
-						WxUtil.getInstance().getCompleteUrl(accountid, request.getContextPath() +PageConfigUtil.getProperty("errorUrl")));
+				response.sendRedirect(WxUtil.getInstance().getCompleteUrl(accountid,
+						request.getContextPath() + PageConfigUtil.getProperty("errorUrl")));
 			} catch (IOException e1) {
 
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param request
-	 * @param flag 是否重新获取openid
+	 * @param flag
+	 *            是否重新获取openid
 	 * @param newOpenid
 	 * @return
 	 */
-	private boolean checkSession(HttpServletRequest request,boolean flag,String newOpenid,String accountid){
-		if(flag){
+	private boolean checkSession(HttpServletRequest request, boolean flag, String newOpenid, String accountid) {
+		if (flag) {
 			WxUtil.getInstance().setCurrentOpenid(request, newOpenid);
 			WxUtil.getInstance().setCurrentAccountid(request, accountid);
 			WxUser user = wxUserService.findById(accountid, newOpenid);
-			SysUser loginUser=loginService.getSysUserByUseridOrMobile(user.getFanId());
+			if (user == null) {
+				return false;
+			}
+			WxUtil.getInstance().setCurrentWxbUser(request, user);
+			SysUser loginUser = loginService.getSysUserByUseridOrMobile(user.getFanId());
+			if (null == loginUser) {
+				return false;
+			}
 			loginUser.setUsername(user.getNickname());
 			LoginUtil.getInstance().setCurrentUser(request, loginUser);
-			WxUtil.getInstance().setCurrentWxbUser(request, user);
 			return false;
-		}else{
-			String openid=WxUtil.getInstance().getCurrentOpenid(request);
+		} else {
+			String openid = WxUtil.getInstance().getCurrentOpenid(request);
 			logger.info("session>>openid>>" + openid);
-			if(openid !=null && openid.length()>5){
-				WxUser user=WxUtil.getInstance().getCurrentWxbUser(request);
-				if(user ==null){
-					user = wxUserService.findById(accountid, openid);
-					SysUser loginUser=loginService.getSysUserByUseridOrMobile(user.getFanId());
+			if (openid != null && openid.length() > 5) {
+				WxUser user = WxUtil.getInstance().getCurrentWxbUser(request);
+				if (user != null) {
+					return true;
+				}
+				user = wxUserService.findById(accountid, openid);
+				if(user==null){
+					return true;
+				}
+				WxUtil.getInstance().setCurrentWxbUser(request, user);
+				
+				SysUser loginUser = loginService.getSysUserByUseridOrMobile(user.getFanId());
+				if (null != loginUser) {
 					loginUser.setUsername(user.getNickname());
 					LoginUtil.getInstance().setCurrentUser(request, loginUser);
-					WxUtil.getInstance().setCurrentWxbUser(request, user);
 				}
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 }
