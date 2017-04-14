@@ -9,61 +9,47 @@ public class SmGoodInfo implements Serializable{
 
     /**
     *商品ID
-    *
     */
     private String goodId;
     /**
-    *条形码
-    *
-    */
-    private String barCode;
-    /**
     *商品名称
-    *
     */
     private String goodName;
     /**
-    *商品价格
-    *
+    *商品单价
     */
-    private String goodPrice;
+    private int goodPrice;
     /**
-    *图片路径
-    *
+    *商品单位
     */
-    private String imgUrl;
+    private String unit;
     /**
-    *上架状态
-    *0：未上架，1：上架，2，下架
+    *商品主图
     */
-    private int onsale;
+    private String imageUrl;
     /**
     *创建时间
-    *
     */
     private Date createtime;
     /**
     *更新时间
-    *
     */
     private Date updatetime;
     /**
     *创建者
-    *
     */
     private String creator;
-    /**
-    *最后更新者
-    *
-    */
+    
+    private String remark;//备注
+    
+    private String sku_num;//sku编码
+    
+    private int onsale_status=1;//上架状态  1：上架  2：未上架  3：下架
+   
+    
+    private String orgid;
+
     private String updator;
-    /**
-    *超市ID
-    *
-    */
-    private String smId;
-
-
 
     public String getGoodId(){
         return goodId;
@@ -72,78 +58,79 @@ public class SmGoodInfo implements Serializable{
         this.goodId = goodId;
     }
 
-    public String getBarCode(){
-        return barCode;
-    }
-    public void setBarCode(String barCode){
-        this.barCode = barCode;
-    }
-
-    public String getGoodName(){
-        return goodName;
-    }
-    public void setGoodName(String goodName){
-        this.goodName = goodName;
-    }
-
-    public String getGoodPrice(){
-        return goodPrice;
-    }
-    public void setGoodPrice(String goodPrice){
-        this.goodPrice = goodPrice;
-    }
-
-    public String getImgUrl(){
-        return imgUrl;
-    }
-    public void setImgUrl(String imgUrl){
-        this.imgUrl = imgUrl;
-    }
-
-    public int getOnsale(){
-        return onsale;
-    }
-    public void setOnsale(int onsale){
-        this.onsale = onsale;
-    }
-
-    public Date getCreatetime(){
-        return createtime;
-    }
-    public void setCreatetime(Date createtime){
-        this.createtime = createtime;
-    }
-
-    public Date getUpdatetime(){
-        return updatetime;
-    }
-    public void setUpdatetime(Date updatetime){
-        this.updatetime = updatetime;
-    }
-
-    public String getCreator(){
-        return creator;
-    }
-    public void setCreator(String creator){
-        this.creator = creator;
-    }
-
-    public String getUpdator(){
-        return updator;
-    }
-    public void setUpdator(String updator){
-        this.updator = updator;
-    }
-
-    public String getSmId(){
-        return smId;
-    }
-    public void setSmId(String smId){
-        this.smId = smId;
-    }
-
-
+	public String getGoodName() {
+		return goodName;
+	}
+	public void setGoodName(String goodName) {
+		this.goodName = goodName;
+	}
+	public int getGoodPrice() {
+		return goodPrice;
+	}
+	public void setGoodPrice(int goodPrice) {
+		this.goodPrice = goodPrice;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	public Date getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getSku_num() {
+		return sku_num;
+	}
+	public void setSku_num(String sku_num) {
+		this.sku_num = sku_num;
+	}
+	public int getOnsale_status() {
+		return onsale_status;
+	}
+	public void setOnsale_status(int onsale_status) {
+		this.onsale_status = onsale_status;
+	}
+	public String getOrgid() {
+		return orgid;
+	}
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
+	}
+	public String getUpdator() {
+		return updator;
+	}
+	public void setUpdator(String updator) {
+		this.updator = updator;
+	}
 	public String toLog(){
-		return " - goodId:" +String.valueOf(goodId)+" - barCode:" +String.valueOf(barCode)+" - goodName:" +String.valueOf(goodName)+" - goodPrice:" +String.valueOf(goodPrice)+" - imgUrl:" +String.valueOf(imgUrl)+" - onsale:" +String.valueOf(onsale)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - creator:" +String.valueOf(creator)+" - updator:" +String.valueOf(updator)+" - smId:" +String.valueOf(smId);
+		return " - goodId:" +String.valueOf(goodId)+" - barCode:" +String.valueOf(sku_num)+" - goodName:" +String.valueOf(goodName)+" - goodPrice:" +String.valueOf(goodPrice)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - creator:" +String.valueOf(creator)+" - updator:" +String.valueOf(updator)+" - smId:" +String.valueOf(orgid);
 	}
 }

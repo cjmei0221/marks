@@ -83,5 +83,9 @@ public class SmGoodInfoServiceImpl implements SmGoodInfoService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+	@Override
+	public SmGoodInfo findByskuAndOrgId(String companyId, String barCode) {
+		return smGoodInfoDao.findByskuAndOrgId(companyId,barCode);
+	}
 	
 }
