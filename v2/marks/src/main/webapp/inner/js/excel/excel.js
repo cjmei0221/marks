@@ -8,7 +8,7 @@ excel.init=function(uploadReqUrl){
 		},
 		'swf'      : top.window.urlBase +'/inner/js/uploadify/uploadify.swf',
 		'cancelImg'      : top.window.urlBase+ '/inner/js/uploadify/uploadify-cancel.png',
-		'auto'           : false, //选定文件后是否自动上传，默认false
+		'auto'           : true, //选定文件后是否自动上传，默认false
 		'multi': false,
 		'preventCaching' : true,  //清楚缓存
 		'buttonText'     :"上传文件",
@@ -22,6 +22,7 @@ excel.init=function(uploadReqUrl){
 		 'onSelect' : function(file) {
         	 $("#file_upload").clearQueue();
         	 $("#excelfileName").val("");
+        	 $("#uploadInfo").html("");
           },
           'onUploadSuccess' : function(file, data, response) {
         	  var dataJson = JSON.parse(data);
