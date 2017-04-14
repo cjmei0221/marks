@@ -92,6 +92,7 @@ public class GoodInfoController extends SupportContorller {
 				result.setCode("4001");
 			}else{
 				goodInfo.setGoodId("P"+IDUtil.getTimeID());
+				goodInfo.setOrgid(admin.getCompanyId());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
 				String addMainImagePut=request.getParameter("addMainImagePut");
 				String addDetailImagePut=request.getParameter("addDetailImagePut");

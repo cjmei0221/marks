@@ -60,7 +60,17 @@ public class GoodInfo implements Serializable{
     private String weight;
     private String weight_unit="Kg";
     
-    public String getSku_num() {
+    private String orgid;
+    
+    
+    
+    public String getOrgid() {
+		return orgid;
+	}
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
+	}
+	public String getSku_num() {
 		return sku_num;
 	}
 	public void setSku_num(String sku_num) {
