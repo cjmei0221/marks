@@ -1,4 +1,4 @@
-var orderId="";
+var orderId="20170806125346";
 
 $(function(){
 	wxsdk.wx_init(["chooseWXPay"]);//注册扫一扫事件
