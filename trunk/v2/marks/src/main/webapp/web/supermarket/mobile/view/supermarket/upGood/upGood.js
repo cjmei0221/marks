@@ -10,9 +10,12 @@ function scanGood() {
 }
 // 上传图片
 function uploadImg() {
-	wxsdk.wx_chooseImg(function(imageUrl) {
-		$("#c_imgUrl").val(imageUrl);
-	});
+	 wxsdk.wx_chooseImg(function(imageUrl){
+		 $("#showImg").attr("src",tool.reqUrl.image_baseUrl+imageUrl);
+		 $("#showImg").show();
+		 $("#uploadImg").hide();
+		 $("#c_imgUrl").val(imageUrl);
+	 });
 }
 
 function submitGood() {
@@ -22,7 +25,7 @@ function submitGood() {
 		return;
 	}
 
-	if ($.trim($("#c_price").val()) != '' && tool.checkNum($.trim($("#c_price").val()))) {
+	if ($.trim($("#c_price").val()) != '' && !tool.checkNum($.trim($("#c_price").val()))) {
 		msg.info("价格只能是数字");
 		return;
 	}
