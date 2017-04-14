@@ -61,6 +61,7 @@ function importExcel() {
 	$("#excelWin").window({
 		title : "导入Excel"
 	}).window("open");
+	 $("#uploadInfo").html("");
 }
 // -----------------权限控制功能 end---------------
 $(function() {
@@ -81,22 +82,8 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-	
-	// 保存菜单
-	$("#btnOKExcel").on("click", function() {
-		formSubmitforExcel();
-	});
 });
 
-function formSubmitforExcel(){
-	excel.upload();
-	var fileName=$("#excelfileName").val();
-	if(fileName !=""){
-		alert(fileName);
-	}else{
-		 $("#uploadInfo").html("还未上传文件");
-	}
-}
 /**
  * 保存菜单
  */
@@ -159,6 +146,18 @@ function loadList() {
 			align : "center",
 			hidden : true
 		}, {
+			title : '图片',
+			field : 'imageUrl',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value==null || value.length<5){
+					return "";
+				}
+				return ' <img class="picUrl" src="'+window.urlImgBase+value+'" style="width: 100px; height: 80px;" />';
+			}
+		
+		}, {
 			title : '条形码',
 			field : 'sku_num',
 			width : 100,
@@ -179,18 +178,7 @@ function loadList() {
 				return value;
 			}
 		}, {
-			title : '图片路径',
-			field : 'imageUrl',
-			width : 150,
-			align : "center",
-			formatter : function(value, row, index) {
-				if(value==null || value.length<5){
-					return "";
-				}
-				return ' <img class="picUrl" src="'+window.urlImgBase+value+'" style="width: 100px; height: 80px;" />';
-			}
-		
-		}, {
+			
 			title : '更新时间',
 			field : 'updatetime',
 			width : 100,
