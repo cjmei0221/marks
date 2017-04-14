@@ -144,14 +144,8 @@
 						<td colspan="2"><label id="fileName" /><input
 							id="excelfileName" name="excelfileName"></td>
 					</tr>
-
 					<tr>
-						<td colspan="2">&nbsp;&nbsp;<a id="btnOKExcel"
-							name="btnOKExcel" href="javascript:void(0)"
-							class="easyui-linkbutton" style="width: 100px;">上传</a></td>
-					</tr>
-					<tr>
-						<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;<span id="uploadInfo"></span></td>
+						<td colspan="2"><span id="uploadInfo"></span></td>
 					</tr>
 				</table>
 			</form>
