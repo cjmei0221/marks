@@ -41,31 +41,6 @@ public class SmGoodInfoController extends SupportContorller{
 	public Logger getLogger() {
 		return logger;
 	}
-
-    /**
-	 * 查询超市商品
-	 */
-    @RequestMapping("/inner/smGoodInfo/findSmGoodInfoById")
-    public void findSmGoodInfoById(HttpServletRequest request,
-    HttpServletResponse response){
-        Result result = new Result();
-		try {
-		    SmGoodInfo smGoodInfo = getModel(SmGoodInfo.class);
-		    
-		    logger.info("findSmGoodInfoById > param>"+smGoodInfo.getGoodId());
-		    
-			SmGoodInfo requestSmGoodInfo = smGoodInfoService.findById(smGoodInfo.getGoodId());
-			result.getData().put("smGoodInfo",requestSmGoodInfo);
-			result.setMessage("findById smGoodInfo successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("查询失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-    }
-    
     /**
 	 * 保存超市商品
 	 */
@@ -81,11 +56,15 @@ public class SmGoodInfoController extends SupportContorller{
 	 		logger.info("saveSmGoodInfo > param>"+smGoodInfo.toLog());
 	 
 			 SmGoodInfo ori=null;
-	 		if(smGoodInfo.getGoodId() != null){
-	 			ori=smGoodInfoService.findById(smGoodInfo.getGoodId());
+	 		if(smGoodInfo.getSku_num() != null){
+	 			ori=smGoodInfoService.findByskuAndOrgId(admin.getCompanyId(),smGoodInfo.getSku_num());
 	 		}
 	 		
 	 		if(ori==null){
+	 			smGoodInfo.setGoodId("S"+IDUtil.getTimeID());
+	 			smGoodInfo.setOrgid(admin.getCompanyId());
+	 			smGoodInfo.setCreator(admin.getUsername());
+	 			smGoodInfo.setUpdator(admin.getUsername());
 	 			smGoodInfoService.save(smGoodInfo);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -119,6 +98,14 @@ public class SmGoodInfoController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
+		    	 SmGoodInfo info=smGoodInfoService.findByskuAndOrgId(admin.getCompanyId(), smGoodInfo.getSku_num());
+		    	if(info!=null && !info.getGoodId().equals(smGoodInfo.getGoodId())){
+		    		result.setMessage("此条形码已存在!");
+					result.setCode(Code.CODE_FAIL);
+					JsonUtil.output(response, result);
+					return;
+		    	}
+		    	smGoodInfo.setUpdator(admin.getUsername());
 		    	smGoodInfoService.update(smGoodInfo);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
@@ -223,6 +210,7 @@ public class SmGoodInfoController extends SupportContorller{
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("orgid", admin.getCompanyId());
 			PojoDomain<SmGoodInfo> list = smGoodInfoService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

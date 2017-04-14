@@ -24,4 +24,6 @@ public interface SmGoodInfoDao {
 	void deleteBatch(List<String> list);
 
 	List<SmGoodInfo> list(PageBounds pageBounds, Map<String,Object> param);
+
+	SmGoodInfo findByskuAndOrgId(String companyId, String barCode);
 }

@@ -17,4 +17,5 @@ public interface SmGoodInfoService{
 	public List<SmGoodInfo> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<SmGoodInfo> list(int page_number, int page_size,Map<String,Object> param);
+	public SmGoodInfo findByskuAndOrgId(String companyId, String barCode);
 }

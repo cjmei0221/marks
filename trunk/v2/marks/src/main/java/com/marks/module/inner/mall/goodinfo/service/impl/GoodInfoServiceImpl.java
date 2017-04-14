@@ -71,8 +71,8 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 	}
 
 	@Override
-	public GoodInfo getGoodInfoBySkuNum(String sku_num) {
-		return goodInfoDao.getGoodInfoBySkuNum(sku_num);
+	public GoodInfo getGoodInfoBySkuNum(String orgid,String sku_num) {
+		return goodInfoDao.getGoodInfoBySkuNum(orgid,sku_num);
 	}
 
 	/**

@@ -26,7 +26,7 @@ public interface GoodInfoDao {
 
 	List<GoodInfo> list(PageBounds pageBounds, Map<String,Object> param);
 
-	GoodInfo getGoodInfoBySkuNum(@Param("sku_num")String sku_num);
+	GoodInfo getGoodInfoBySkuNum(@Param("orgid") String orgid,@Param("sku_num")String sku_num);
 
 	void saveGoodImg(GoodImg img);
 

@@ -18,7 +18,7 @@ public interface GoodInfoService{
 	public List<GoodInfo> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<GoodInfo> list(int page_number, int page_size,Map<String,Object> param);
-	public GoodInfo getGoodInfoBySkuNum(String sku_num);
+	public GoodInfo getGoodInfoBySkuNum(String orgid,String sku_num);
 	public List<GoodImg> findGoodImgByGoodId(String goodId);
 	public void onsale(String goodId, int value);
 }
