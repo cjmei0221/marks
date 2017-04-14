@@ -52,7 +52,7 @@
 		#{remark:VARCHAR},
 		#{sku_num:VARCHAR},
 		#{orgid:VARCHAR},
-		#{onsale_status:NUMERIC}
+		#{onsale_status:NUMERIC},
 		sysdate
 		)
 	</insert>
@@ -74,6 +74,22 @@
 		goodinfo.UPDATOR=#{updator:VARCHAR}
 		WHERE
 		goodinfo.GOODID = #{goodId}
+	</update>
+	
+	<update id="updateByExcel"
+		parameterType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
+		UPDATE TB_MALL_GOOD_INFO
+		goodinfo
+		SET
+		goodinfo.GOODNAME = #{goodName:VARCHAR},
+		goodinfo.GOODPRICE
+		= #{goodPrice:NUMERIC},
+		goodinfo.UNIT =#{unit:VARCHAR},
+		goodinfo.UPDATETIME = sysdate,
+		goodinfo.REMARK=#{remark:VARCHAR},
+		goodinfo.UPDATOR=#{updator:VARCHAR}
+		WHERE
+		goodinfo.SKU_NUM = #{sku_num:VARCHAR} and goodinfo.ORGID=#{orgid:VARCHAR}
 	</update>
 
 	<delete id="delete" parameterType="String">

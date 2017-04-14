@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +17,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.httpclient.util.DateUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,6 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
-import com.marks.common.util.excel.ExcelUtil;
 import com.marks.module.inner.system.upload.util.UploadUtil;
 
 @Controller
@@ -97,6 +97,9 @@ public class ExcelFileUploadController {
 		try {
 			String fileName = request.getParameter("fileName");
 			String path = UploadUtil.getTemplatePath(request) + fileName;
+			int idx=fileName.indexOf(".");
+			String end_fix=fileName.substring(idx, fileName.length());
+			fileName=fileName.substring(0, idx)+DateUtil.formatDate(new Date(), "yyyyMMdd")+end_fix;
 			downLoadFile(path, response, fileName, "xls");
 			return;
 		} catch (Exception e) {
