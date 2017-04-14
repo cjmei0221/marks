@@ -32,7 +32,8 @@
 		goodinfo.REMARK,
 		goodinfo.SKU_NUM,
 		goodinfo.WEIGHT,
-		goodinfo.WEIGHT_UNIT
+		goodinfo.WEIGHT_UNIT,
+		goodinfo.ORGID
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -50,7 +51,8 @@
 		#{remark:VARCHAR},
 		#{sku_num:VARCHAR},
 		#{weight:VARCHAR},
-		#{weight_unit:VARCHAR}
+		#{weight_unit:VARCHAR},
+		#{orgid:VARCHAR}
 		)
 	</insert>
 
