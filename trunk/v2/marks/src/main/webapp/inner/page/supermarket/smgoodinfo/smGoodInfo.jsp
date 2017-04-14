@@ -8,8 +8,13 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/smGoodInfo.css" />
-
 <%@include file="../../include/common.jsp"%>
+<script type="text/javascript" src="../../../js/editImage/image.js"></script>
+<script src="../../../js/uploadify/jquery.uploadify.min.js"
+	type="text/javascript"></script>
+<link rel="stylesheet" type="text/css"
+	href="../../../js/uploadify/uploadify.css">
+<script type="text/javascript" src="../../../js/excel/excel.js"></script>
 </head>
 
 <body>
@@ -49,7 +54,7 @@
 				<table>
 					<tr>
 						<th style="width: 120px; text-align: right;">条形码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="barCode" name="barCode"
+						<td><input id="sku_num" name="sku_num"
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px;" maxlength="50"></td>
 					</tr>
@@ -60,38 +65,22 @@
 							style="width: 200px;" maxlength="512"></td>
 					</tr>
 					<tr>
-						<th style="width: 120px; text-align: right;">商品价格&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<th style="width: 120px; text-align: right;">商品价格(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="goodPrice" name="goodPrice"
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px;" maxlength="50"></td>
 					</tr>
 					<tr>
-						<th style="width: 120px; text-align: right;">图片路径&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="imgUrl" name="imgUrl"
-							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;" maxlength="512"></td>
-					</tr>
-					<tr>
-						<th style="width: 120px; text-align: right;">上架状态&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="onsale" name="onsale" class="easyui-numberbox"
-							data-options="required:true" style="width: 200px;"></td>
-					</tr>
-					<tr>
-						<th style="width: 120px; text-align: right;">创建者&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="creator" name="creator"
-							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;" maxlength="250"></td>
-					</tr>
-					<tr>
-						<th style="width: 120px; text-align: right;">最后更新者&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="updator" name="updator"
-							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;" maxlength="250"></td>
-					</tr>
-					<tr>
-						<th style="width: 120px; text-align: right;">超市ID&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="smId" name="smId" class="easyui-validatebox"
+						<th style="width: 120px; text-align: right;">商品单位&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="unit" name="unit" class="easyui-validatebox"
 							data-options="required:true" style="width: 200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px;height: 160px; text-align: right;">图片路径&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td valign="top" height="150px"><a
+						class="uploadImage" href="javascript:void(0)"
+						onclick="selectUploadImage('addMainImg',1);">选择图片 </a>
+						<div id="addMainImg"></div></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center"><a id="btnOK"
@@ -107,47 +96,67 @@
 		</div>
 	</div>
 
+	
+	<!-- 图片选择窗口 -->
+	<div id="imageListWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 650px; height: 450px; padding: 10px;">
+		<a class="uploadImage" href="#"> <input type="file"
+			onchange="selectImage(this);" />上传图片
+		</a>
+		<div id="pgNation" class="easyui-pagination"
+			style="border: 1px solid #ccc;"
+			data-options="
+    		onSelectPage: function(pageNumber, pageSize){
+    			loadImageList(pageNumber,pageSize);
+    	}">
+		</div>
+
+		<div id="content" class="easyui-panel" style="padding: 10px;">
+			<div id="ImgList"></div>
+		</div>
+
+	</div>
+
 	<div id="excelWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 600px; height: 450px; padding: 10px;">
+		style="width: 400px; height: 350px; padding: 10px;">
 		<div align="center" style="width: 100%;">
-			<a id="downloadExcel"
-							name="downloadExcel" href="javascript:void(0)" class="easyui-linkbutton"
-							style="width: 100px;">下载模板</a>
-							<div style="height:10px;"></div>
-			<form id="upload" name="upload" method="post"
-				enctype="multipart/form-data">
-				<input type="hidden" id="goodId" name="goodId">
-				<table>
+			<a id="downloadExcel" name="downloadExcel"
+				href="/inner/fileUpload/excelTemplate.do?fileName=supermarket_good_info.xls"
+				class="easyui-linkbutton" style="width: 100px;">下载模板</a>
+			<div style="height: 10px;"></div>
+			<form id="importFileForm" method="post" enctype="multipart/form-data">
+				<table style="margin: 5px; height: 70px;">
 					<tr>
-						<th style="width: 120px; text-align: right;">文件&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input name="fileBuildInfo" id="fileBuildInfo" class="big"  type="file" /></td>
+						<td colspan="2"><input id="file_upload" name="file_upload"
+							type="file" multiple="false"></td>
+					</tr>
+					<tr id="excelfileNameTr" style="display: none;">
+						<td colspan="2"><label id="fileName" /><input
+							id="excelfileName" name="excelfileName"></td>
+					</tr>
+
+					<tr>
+						<td colspan="2">&nbsp;&nbsp;<a id="btnOKExcel"
+							name="btnOKExcel" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;">上传</a></td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: center">
-						
-						<div style="height:5px;"></div>
-							
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="text-align: center">
-						
-						<a id="btnOKExcel"
-							name="btnOK" href="javascript:void(0)" class="easyui-linkbutton"
-							style="width: 100px;" data-options="iconCls:'icon-save'">上传</a>
-							
-						</td>
+						<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;<span id="uploadInfo"></span></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
-
 </body>
 <script src="js/smGoodInfo.js"></script>
 </html>

@@ -1,5 +1,5 @@
 var excel={};
-excel.init=function(){
+excel.init=function(uploadReqUrl){
 	$('#file_upload').uploadify({
 		'uploader'       : top.window.urlBase + '/inner/fileUpload/excel.do',//servlet的路径或者.jsp 这是访问servlet 'scripts/uploadif' 
 		'formData'     : {
@@ -28,6 +28,30 @@ excel.init=function(){
 	        	 if(dataJson.retcode == '0'){
 	        		 $("#uploadInfo").html("上传成功");
 	        		 $("#excelfileName").val(dataJson.fileName);
+	        		 $.ajax({
+	        				url : uploadReqUrl,
+	        				type : "get",
+	        				data : {
+	        					"excelfileName":dataJson.fileName
+	        				},
+	        				dataType : "json",
+	        				success : function(data, status, xhr) {
+	        					if (data.retcode == '0') {
+	        						$("#uploadInfo").html("上传成功");
+	        						app.myreload("#tbList");
+	        						appInfo.selectedData = {};
+	        						appInfo.selectedId = -1;
+	        						return true;
+	        					} else if(data.retcode == '2001'){
+	        						$("#uploadInfo").html(data.retmsg);
+	        					} else {
+	        						$("#uploadInfo").html(data.retmsg);
+	        					}
+	        				},
+	        				error : function(err) {
+	        					loadError.apply(this, arguments);
+	        				}
+	        			});
 	        	 }else{
 	        		 $("#uploadInfo").html("上传失败");
 	        		 $("#excelfileName").val("");
