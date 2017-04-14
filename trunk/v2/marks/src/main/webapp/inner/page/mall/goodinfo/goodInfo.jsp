@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="css/goodInfo.css" />
 <%@include file="../../include/common.jsp"%>
 <script type="text/javascript" src="../../../js/editImage/image.js"></script>
+<script src="../../../js/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="../../../js/uploadify/uploadify.css">
+<script type="text/javascript" src="../../../js/excel/excel.js"></script>
 </head>
 
 <body>
@@ -127,27 +130,33 @@
 		collapsible:false"
 		style="width: 800px; height: 500px; padding: 10px;">
 		<table style="width: 100%;">
-		<tr><td style="width: 100%;">
-		<div style="width: 100%; height: 200px;">
-			<h3>主图片</h3>
-			<a class="uploadImage" href="javascript:void(0)"
-				onclick="selectUploadImage('addMainImageDiv',6);">选择图片 </a>
-			<div id="addMainImageDiv"></div>
-		</div>
-		</td></tr>
-		<tr><td style="width: 100%;">
-		<h3>详情图片</h3>
-		<div style="width: 100%; height: 200px;">
-			<a class="uploadImage" href="javascript:void(0)"
-				onclick="selectUploadImage('addDetailImageDiv',10);">选择图片 </a>
-			<div id="addDetailImageDiv"></div>
-		</div>
-		</td></tr>
-		<tr><td  align="center" style="width: 100%;">
-		<div style="width: 100%;">
-			<input type="button" id="imgBtnOk" value="确定 " />
-		</div>
-		</td></tr>
+			<tr>
+				<td style="width: 100%;">
+					<div style="width: 100%; height: 200px;">
+						<h3>主图片</h3>
+						<a class="uploadImage" href="javascript:void(0)"
+							onclick="selectUploadImage('addMainImageDiv',6);">选择图片 </a>
+						<div id="addMainImageDiv"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 100%;">
+					<h3>详情图片</h3>
+					<div style="width: 100%; height: 200px;">
+						<a class="uploadImage" href="javascript:void(0)"
+							onclick="selectUploadImage('addDetailImageDiv',10);">选择图片 </a>
+						<div id="addDetailImageDiv"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" style="width: 100%;">
+					<div style="width: 100%;">
+						<input type="button" id="imgBtnOk" value="确定 " />
+					</div>
+				</td>
+			</tr>
 		</table>
 	</div>
 
@@ -160,9 +169,9 @@
 		style="width: 600px; height: 500px; padding: 10px;">
 		<table>
 			<tr>
-				<td align="right" style="width:120px;"><label>商品编码</label>：</td>
+				<td align="right" style="width: 120px;"><label>商品编码</label>：</td>
 				<td><span id="sku_num_detail"></span></td>
-				<td align="right" style="width:120px;"><label>商品名称</label>：</td>
+				<td align="right" style="width: 120px;"><label>商品名称</label>：</td>
 				<td><span id="goodName_detail"></span></td>
 			</tr>
 			<tr>
@@ -226,9 +235,10 @@
 		collapsible:false"
 		style="width: 650px; height: 450px; padding: 10px;">
 		<a class="uploadImage" href="#"> <input type="file"
-				onchange="selectImage(this);" />上传图片
+			onchange="selectImage(this);" />上传图片
 		</a>
-		<div id="pgNation" class="easyui-pagination" style="border: 1px solid #ccc;"
+		<div id="pgNation" class="easyui-pagination"
+			style="border: 1px solid #ccc;"
 			data-options="
     		onSelectPage: function(pageNumber, pageSize){
     			loadImageList(pageNumber,pageSize);
@@ -240,6 +250,38 @@
 		</div>
 	</div>
 
+	<div id="excelWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 400px; height: 350px; padding: 10px;">
+		<div align="center" style="width: 100%;">
+			<a id="downloadExcel" name="downloadExcel" href="/inner/fileUpload/excelTemplate.do?fileName=supermarket_good_info.xls"
+				class="easyui-linkbutton" style="width: 100px;">下载模板</a>
+			<div style="height: 10px;"></div>
+			<form id="importFileForm" method="post" enctype="multipart/form-data">
+				<table style="margin: 5px; height: 70px;">
+					<tr>
+						<td colspan="2"><input id="file_upload" name="file_upload" type="file" multiple="false"></td>
+					</tr>
+					<tr id="excelfileNameTr" style="display:none;">
+						<td colspan="2"><label id="fileName" /><input id="excelfileName" name="excelfileName"></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2">&nbsp;&nbsp;<a id="btnOKExcel"
+							name="btnOKExcel" href="javascript:void(0)" class="easyui-linkbutton"
+							style="width: 100px;">上传</a></td>
+					</tr>
+					<tr>
+						<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;<span id="uploadInfo" ></span></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 
 </body>
 <script type="text/html" id="imageDiv">
