@@ -1,92 +1,133 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.inner.supermarket.smgoodinfo.dao.SmGoodInfoDao">
+<mapper
+	namespace="com.marks.module.inner.supermarket.smgoodinfo.dao.SmGoodInfoDao">
 
-    <select id="findById" resultType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
-		SELECT * FROM TB_SUPERMARKET_GOODINFO smgoodinfo where smgoodinfo.GOODID = #{goodId}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
-		<selectKey keyProperty="goodId" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
+	<select id="findById"
+		resultType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
+		SELECT * FROM TB_MALL_GOOD_INFO
+		goodinfo where
+		goodinfo.GOODID = #{goodId}
+	</select>
+	<select id="findByskuAndOrgId"
+		resultType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
+		SELECT * FROM TB_MALL_GOOD_INFO
+		goodinfo where goodinfo.SKU_NUM =
+		#{barCode}
+		<if test="companyId!=null and companyId!=''">
+			and goodinfo.ORGID=#{companyId}
+		</if>
+	</select>
 
- 		INSERT INTO TB_SUPERMARKET_GOODINFO smgoodinfo (
-            smgoodinfo.GOODID,
-            smgoodinfo.BARCODE,
-            smgoodinfo.GOODNAME,
-            smgoodinfo.GOODPRICE,
-            smgoodinfo.IMGURL,
-            smgoodinfo.ONSALE,
-            smgoodinfo.CREATETIME,
-            smgoodinfo.UPDATETIME,
-            smgoodinfo.CREATOR,
-            smgoodinfo.UPDATOR,
-            smgoodinfo.SMID
+	<insert id="save"
+		parameterType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
+		INSERT INTO TB_MALL_GOOD_INFO
+		goodinfo (
+		goodinfo.GOODID,
+		goodinfo.GOODNAME,
+		goodinfo.GOODPRICE,
+		goodinfo.UNIT,
+		goodinfo.IMAGEURL,
+		goodinfo.CREATETIME,
+		goodinfo.UPDATETIME,
+		goodinfo.CREATOR,
+		goodinfo.UPDATOR,
+		goodinfo.REMARK,
+		goodinfo.SKU_NUM,
+		goodinfo.ORGID,
+		goodinfo.ONSALE_STATUS,
+		goodinfo.ONSALE_TIME
 		)
 		VALUES(
-            #{goodId:VARCHAR},
-            #{barCode:VARCHAR},
-            #{goodName:VARCHAR},
-            #{goodPrice:VARCHAR},
-            #{imgUrl:VARCHAR},
-            #{onsale:NUMERIC},
-            sysdate,
-            sysdate,
-            #{creator:VARCHAR},
-            #{updator:VARCHAR},
-            #{smId:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
- 		UPDATE TB_SUPERMARKET_GOODINFO smgoodinfo
-		SET 
-                smgoodinfo.BARCODE = #{barCode:VARCHAR},
-                smgoodinfo.GOODNAME = #{goodName:VARCHAR},
-                smgoodinfo.GOODPRICE = #{goodPrice:VARCHAR},
-                smgoodinfo.IMGURL = #{imgUrl:VARCHAR},
-                smgoodinfo.ONSALE = #{onsale:NUMERIC},
-                smgoodinfo.UPDATETIME = sysdate,
-                smgoodinfo.CREATOR = #{creator:VARCHAR},
-                smgoodinfo.UPDATOR = #{updator:VARCHAR},
-                smgoodinfo.SMID = #{smId:VARCHAR}
-		WHERE
-			smgoodinfo.GOODID = #{goodId}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_SUPERMARKET_GOODINFO smgoodinfo WHERE smgoodinfo.GOODID=#{goodId}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
- 		SELECT * FROM TB_SUPERMARKET_GOODINFO
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_SUPERMARKET_GOODINFO WHERE GOODID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_SUPERMARKET_GOODINFO smgoodinfo
-						WHERE 1=1
-                        <if test="keyword!=null and keyword!=''">
- and ( 2=1                             or smgoodinfo.BARCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or smgoodinfo.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or to_char(smgoodinfo.UPDATETIME,'yyyyMMdd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or smgoodinfo.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or smgoodinfo.UPDATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
- )                        </if>
+		#{goodId:VARCHAR},
+		#{goodName:VARCHAR},
+		#{goodPrice:NUMERIC},
+		#{unit:VARCHAR},
+		#{imageUrl:VARCHAR},
+		sysdate,
+		sysdate,
+		#{creator:VARCHAR},
+		#{updator:VARCHAR},
+		#{remark:VARCHAR},
+		#{sku_num:VARCHAR},
+		#{orgid:VARCHAR},
+		#{onsale_status:NUMERIC}
+		sysdate
+		)
+	</insert>
 
-					
-			    order by  smgoodinfo.UPDATETIME DESC				
- 	</select>
- 	
- 	
- 	
+	<update id="update"
+		parameterType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
+		UPDATE TB_MALL_GOOD_INFO
+		goodinfo
+		SET
+		goodinfo.GOODNAME = #{goodName:VARCHAR},
+		goodinfo.GOODPRICE
+		= #{goodPrice:NUMERIC},
+		goodinfo.UNIT =
+		#{unit:VARCHAR},
+		goodinfo.IMAGEURL = #{imageUrl:VARCHAR},
+		goodinfo.UPDATETIME = sysdate,
+		goodinfo.REMARK=#{remark:VARCHAR},
+		goodinfo.SKU_NUM=#{sku_num:VARCHAR},
+		goodinfo.UPDATOR=#{updator:VARCHAR}
+		WHERE
+		goodinfo.GOODID = #{goodId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_MALL_GOOD_INFO
+		goodinfo WHERE goodinfo.GOODID=#{goodId}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo">
+		SELECT * FROM TB_MALL_GOOD_INFO
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_GOOD_INFO WHERE GOODID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_GOOD_INFO goodinfo
+		WHERE 1=1
+		<if test="orgid!=null and orgid!=''">
+			and goodinfo.ORGID=#{orgid}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( 
+			 goodinfo.GOODNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			
+			or
+			to_char(goodinfo.CREATETIME,'yyyyMMdd') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or
+			to_char(goodinfo.UPDATETIME,'yyyyMMdd') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or goodinfo.UPDATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			
+			or goodinfo.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+				
+				
+			or goodinfo.SKU_NUM LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		order by goodinfo.UPDATETIME desc
+	</select>
 </mapper>
