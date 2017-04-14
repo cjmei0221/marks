@@ -12,6 +12,9 @@
 		SELECT * FROM
 		TB_MALL_GOOD_INFO
 		goodinfo where goodinfo.SKU_NUM = #{sku_num}
+		<if test="orgid!=null and orgid!=''">
+			and goodinfo.ORGID=#{orgid}
+		</if>
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.inner.mall.goodinfo.pojo.GoodInfo">
@@ -110,6 +113,9 @@
 		SELECT *
 		FROM TB_MALL_GOOD_INFO goodinfo
 		WHERE 1=1
+		<if test="orgid!=null and orgid!=''">
+			and goodinfo.ORGID=#{orgid}
+		</if>
 		<if test="keyword!=null and keyword!=''">
 			and ( goodinfo.GOODID
 			LIKE
