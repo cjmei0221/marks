@@ -89,17 +89,25 @@ function onsaleBtn() {
 	}
 }
 
+function importExcel(){
+	$("#excelWin").window({
+		title : "导入Excel"
+	}).window("open");
+}
 $(function() {
 	// 加载列表
 	loadList();
-
+	excel.init();
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
 		appInfo.selectedData = {};
 		appInfo.selectedId = -1;
 	});
-	
+	// 保存菜单
+	$("#btnOKExcel").on("click", function() {
+		formSubmitforExcel();
+	});
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -112,6 +120,15 @@ $(function() {
 	});
 });
 
+function formSubmitforExcel(){
+	excel.upload();
+	var fileName=$("#excelfileName").val();
+	if(fileName !=""){
+		
+	}else{
+		 $("#uploadInfo").html("还未上传文件");
+	}
+}
 function loadImg(goodId,flag){
 	$.ajax({
 		url : appInfo.goodImgListUrl,
