@@ -67,7 +67,7 @@
 					<tr>
 						<th style="width: 120px; text-align: right;">商品价格(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="goodPrice" name="goodPrice"
-							class="easyui-validatebox" data-options="required:true"
+							class="easyui-numberbox" data-options="required:true"
 							style="width: 200px;" maxlength="50"></td>
 					</tr>
 					<tr>
