@@ -1,5 +1,8 @@
 package com.marks.module.web.wx.wfhao.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +14,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
+import com.marks.module.inner.system.myimage.pojo.MyImage;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
 import com.marks.module.sys.system.core.data.StaticData;
 import com.marks.module.web.wx.mp.SHAUtil;
@@ -59,6 +63,38 @@ public class WeixinJSSDKController {
 		JsonUtil.output(response, result);
 	}
 
+	@RequestMapping("/web/js/media")
+	public void getMediaId(HttpServletRequest request,
+			HttpServletResponse response) {
+		Result result = new Result();
+		String accountId = WxUtil.getInstance().getCurrentAccountid(request);
+		try {
+			String[] mediaIds = request.getParameterValues("mediaIds");
+			logger.info("mediaIds:" + mediaIds);
+			List<MyImage> list = new ArrayList<MyImage>();
+			MyImage image =null;
+			
+			if(mediaIds!=null && mediaIds.length>0){
+				for(String mediaId:mediaIds){
+					logger.info("mediaId:" + mediaId);
+					String fileName="Wx"+IDUtil.getUUID()+".jpg";
+					result=WxFwUtil.getInstance().download(accountId,"image",fileName,mediaId);
+					if(Code.CODE_SUCCESS.equals(result.getCode())){
+						image = new MyImage();
+						image.setPicUrl(fileName);
+						list.add(image);
+					}
+				}
+			}
+			result.getData().put("path", list);
+		} catch (Exception e) {
+			logger.info("下载图片异常:"+e+",accountId="+accountId);
+		}
+		JsonUtil.output(response, result);
+	}
+	
+
+	
 	public static void main(String[] args) throws Exception {
 		String newTicket = WxFwUtil.getInstance().getJsSDKTicket("wxbank");
 		String url = "https://wxcs.hebbank.com/wechat/test/jssdkTest.html";

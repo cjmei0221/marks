@@ -12,6 +12,7 @@ import com.marks.module.center.wxfwhao.common.entity.UserGet;
 import com.marks.module.center.wxfwhao.common.entity.WxMenu;
 import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.center.wxfwhao.common.wxservice.AccountUtil;
+import com.marks.module.center.wxfwhao.common.wxservice.DownloadTempUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.GroupUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.JssdkUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
@@ -206,5 +207,17 @@ public class WxFwUtil {
 			}
 		}
 		return user;
+	}
+
+	public Result download(String accountId, String type, String filename, String mediaId) {
+		Result result=new Result();
+		JsonResult res=DownloadTempUtil.getInstance().download(accountId, type, filename, mediaId);
+		if (res.getSuccess()) {
+			result.setCode(Code.CODE_SUCCESS);
+		} else {
+			result.setCode(res.getErrorCode());
+			result.setMessage(res.getErrorMsg());
+		}
+		return result;
 	}
 }
