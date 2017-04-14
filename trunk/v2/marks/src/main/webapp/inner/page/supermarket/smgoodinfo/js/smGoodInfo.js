@@ -141,7 +141,7 @@ function loadList() {
 		url : appInfo.listUrl,
 		toolbar : "#tb",
 		striped : true,
-		nowrap : true,
+		nowrap : false,
 		rownumbers : true,
 		animate : true,
 		collapsible : true,
@@ -166,12 +166,11 @@ function loadList() {
 		}, {
 			title : '商品名称',
 			field : 'goodName',
-			width : 100,
-			align : "center"
+			width : 250,
 		}, {
 			title : '商品价格(分)',
 			field : 'goodPrice',
-			width : 100,
+			width : 80,
 			align : "center",
 			formatter : function(value, row, index) {
 				if(value==null || value.length<5){

@@ -27,7 +27,7 @@
 			<table>
 				<tr>
 					<td><input type="text" id="keyword" name="keyword"
-						style="width: 260px;" placeholder="条形码/商品名称/更新时间/创建者/最后更新者" /></td>
+						style="width: 260px;" placeholder="条形码/商品名称/更新时间/最后更新者" /></td>
 					<td><a id="doSearch" href="javascript:void(0)"
 						class="easyui-linkbutton menuBtnCls"
 						data-options="iconCls:'icon-search'">查询</a></td>
