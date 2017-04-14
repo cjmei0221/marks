@@ -4,6 +4,7 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/inner/smGoodInfo/save.do',// 保存新增超市商品接口
 	updateUrl : top.window.urlBase + '/inner/smGoodInfo/update.do',// 编辑超市商品信息接口
 	deleteUrl : top.window.urlBase + '/inner/smGoodInfo/delete.do',// 删除超市商品接口
+	uploadExcelUrl : top.window.urlBase + '/inner/smGoodInfo/uploadExcel.do',// 删除超市商品接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -21,6 +22,7 @@ function add() {
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
+	img.deleteImageDiv("addMainImg");
 }
 
 // 编辑
@@ -31,6 +33,8 @@ function edit() {
 		}).window("open");
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
+		img.deleteImageDiv("addMainImg");
+		img.editImage("addMainImg", appInfo.selectedData.imageUrl);
 	}
 }
 // 删除
@@ -62,7 +66,7 @@ function importExcel() {
 $(function() {
 	// 加载列表
 	loadList();
-
+	excel.init(appInfo.uploadExcelUrl);
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
@@ -77,7 +81,22 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
+	
+	// 保存菜单
+	$("#btnOKExcel").on("click", function() {
+		formSubmitforExcel();
+	});
 });
+
+function formSubmitforExcel(){
+	excel.upload();
+	var fileName=$("#excelfileName").val();
+	if(fileName !=""){
+		alert(fileName);
+	}else{
+		 $("#uploadInfo").html("还未上传文件");
+	}
+}
 /**
  * 保存菜单
  */
@@ -86,10 +105,16 @@ function formSubmit() {
 		showMsg("表单校验不通过");
 		return;
 	}
+	var imageUrlPut=img.getImageVal("addMainImg");
+	if(imageUrlPut ==''){
+		showMsg("请添加图片");
+		return;
+	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
+	parms += "&imageUrl=" + imageUrlPut;
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
 			try {
@@ -121,7 +146,7 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		autoRowHeight : false,
+		autoRowHeight : true,
 		idField : 'goodId',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
@@ -135,7 +160,7 @@ function loadList() {
 			hidden : true
 		}, {
 			title : '条形码',
-			field : 'barCode',
+			field : 'sku_num',
 			width : 100,
 			align : "center"
 		}, {
@@ -144,43 +169,36 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '商品价格',
+			title : '商品价格(分)',
 			field : 'goodPrice',
 			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value==null || value.length<5){
+					return "";
+				}
+				return value;
+			}
 		}, {
 			title : '图片路径',
-			field : 'imgUrl',
-			width : 100,
-			align : "center"
-		}, {
-			title : '上架状态',
-			field : 'onsale',
-			width : 100,
-			align : "center"
-		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 100,
-			align : "center"
+			field : 'imageUrl',
+			width : 150,
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value==null || value.length<5){
+					return "";
+				}
+				return ' <img class="picUrl" src="'+window.urlImgBase+value+'" style="width: 100px; height: 80px;" />';
+			}
+		
 		}, {
 			title : '更新时间',
 			field : 'updatetime',
 			width : 100,
 			align : "center"
 		}, {
-			title : '创建者',
-			field : 'creator',
-			width : 100,
-			align : "center"
-		}, {
 			title : '最后更新者',
 			field : 'updator',
-			width : 100,
-			align : "center"
-		}, {
-			title : '超市ID',
-			field : 'smId',
 			width : 100,
 			align : "center"
 		} ] ],
