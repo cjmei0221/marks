@@ -25,5 +25,7 @@ public interface SmGoodInfoDao {
 
 	List<SmGoodInfo> list(PageBounds pageBounds, Map<String,Object> param);
 
-	SmGoodInfo findByskuAndOrgId(String companyId, String barCode);
+	SmGoodInfo findByskuAndOrgId(@Param("companyId")String companyId,@Param("barCode") String barCode);
+
+	int updateByExcel(SmGoodInfo info);
 }
