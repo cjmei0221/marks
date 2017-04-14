@@ -1,7 +1,6 @@
 package com.marks.module.inner.mall.goodinfo.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class GoodInfo implements Serializable{
