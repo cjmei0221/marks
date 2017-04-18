@@ -45,6 +45,11 @@ excel.init=function(uploadReqUrl){
 	        						return true;
 	        					} else if(data.retcode == '2001'){
 	        						$("#uploadInfo").html(data.retmsg);
+	        						$("#uploadInfo").html("上传成功");
+	        						app.myreload("#tbList");
+	        						appInfo.selectedData = {};
+	        						appInfo.selectedId = -1;
+	        						return true;
 	        					} else {
 	        						$("#uploadInfo").html(data.retmsg);
 	        					}
