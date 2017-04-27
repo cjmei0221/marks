@@ -33,7 +33,7 @@ public class WebLoginController {
 	 * 查询我的日记
 	 */
 	@RequestMapping("/web/login")
-	public void findDiaryById(HttpServletRequest request, HttpServletResponse response) {
+	public void login(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			result.setMessage("findById diary successs!");
@@ -64,7 +64,7 @@ public class WebLoginController {
 			}
 			//校验密码
 			String createdate=request.getParameter("createdate");
-			String password = EncryptUtil.encryptPwd(pwd,createdate+createdate);
+			String password = EncryptUtil.encryptPwd(pwd,createdate);
 			if (!password.equals(loginUser.getPassword())) {
 				result.setCode("4004");
 				result.setMessage("密码错误");
@@ -159,7 +159,7 @@ public class WebLoginController {
 			user.setBindFlag(Enums.SysUserBindFlag.USE.getValue());
 			user.setCompanyId(RunModel.getInstance().getCompanyId());
 			user.setCreator(mobile);
-			user.setPassword(EncryptUtil.encryptPwd(password,createdate+createdate));
+			user.setPassword(EncryptUtil.encryptPwd(password,createdate));
 			user.setUsername(mobile);
 			user.setRoleid(user.getCompanyId()+"_"+Enums.UserType.VIP.getValue());
 			user.setFanId(fanId);

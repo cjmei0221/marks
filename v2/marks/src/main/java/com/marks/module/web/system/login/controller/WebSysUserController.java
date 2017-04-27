@@ -38,7 +38,7 @@ public class WebSysUserController {
 			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser user = loginService.getSysUserByUseridOrMobile(loginUser.getUserid());
 			String createdate=request.getParameter("createdate");
-			String password = EncryptUtil.encryptPwd(pwd,createdate+createdate);
+			String password = EncryptUtil.encryptPwd(pwd,createdate);
 			if (password.equals(user.getPassword())) {
 				sysUserService.updateMobile(user.getUserid(), mobile);
 			} else {
@@ -66,9 +66,9 @@ public class WebSysUserController {
 			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser user = loginService.getSysUserByUseridOrMobile(loginUser.getUserid());
 			String createdate=request.getParameter("createdate");
-			String password = EncryptUtil.encryptPwd(oldPwd,createdate+createdate);
+			String password = EncryptUtil.encryptPwd(oldPwd,createdate);
 			if (password.equals(user.getPassword())) {
-				sysUserService.updatePwd(user.getUserid(), EncryptUtil.encryptPwd(newPwd,createdate+createdate));
+				sysUserService.updatePwd(user.getUserid(), EncryptUtil.encryptPwd(newPwd,createdate));
 			} else {
 				result.setCode("4001");
 				result.setMessage("原密码错误");
