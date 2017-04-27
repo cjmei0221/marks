@@ -24,7 +24,8 @@ public class EncryptUtil {
 		 * @throws Exception 
 		 * @修改记录:(日期,修改人,描述) (可选) <br/>
 		 */
-		public static String encryptPwd(String src,String key) throws Exception{
+		public static String encryptPwd(String src,String createdate) throws Exception{
+			String key=createdate+createdate;
 			String pwd=AESUtil2.aesDecrypt(src, key);
 			return AESUtil.desCrypDefto(pwd);
 		}

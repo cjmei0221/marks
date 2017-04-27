@@ -58,7 +58,7 @@ public class LoginController {
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
 	@RequestMapping("/inner/login")
-	public void queryDepartmentList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
@@ -79,7 +79,7 @@ public class LoginController {
 			JsonUtil.output(response, result);
 			return;
 		}
-		String password = EncryptUtil.encryptPwd(pwd,createdate+createdate);
+		String password = EncryptUtil.encryptPwd(pwd,createdate);
 
 		if (!password.equals(user.getPassword())) {
 			result.setCode("4003");
