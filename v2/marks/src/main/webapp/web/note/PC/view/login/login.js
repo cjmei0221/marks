@@ -23,12 +23,14 @@ function summitForm() {
 		msg.error("密码为空");
 		return false;
 	}
+	var createtime=initKey();
 	$.ajax({
 		url : tool.reqUrl.login,
 		type : 'POST',
 		data : {
 			mobile : c_mobile,
-			password : Encrypt(c_password)
+			password : Encrypt(c_password,createtime),
+			createdate:createtime
 		},
 		success : function(data) {
 			if (data.retcode == "0") {

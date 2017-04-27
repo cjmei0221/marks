@@ -67,12 +67,15 @@
 		}
 		var newPwd = $("#pwd").val();
 		var reqUrl = top.window.urlBase + '/inner/sysUser/updateMobile.do';
+		
+		var createtime=initKey();
 		$.ajax({
 			type : "POST", //提交方式  
 			url : reqUrl,//路径  
 			data : {
 				"newPhone" : $("#newPhone").val(),
-				"newPwd" : Encrypt(newPwd)
+				"newPwd" : Encrypt(newPwd,createtime),
+				createdate:createtime
 			},//数据，这里使用的是Json格式进行传输  
 			success : function(data) {//返回数据根据结果进行相应的处理  
 				if (data.retcode == "0") {

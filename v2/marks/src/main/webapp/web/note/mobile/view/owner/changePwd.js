@@ -23,12 +23,14 @@ function summitForm() {
 		return false;
 	}
 	$("#isLoading").hide();
+	var createtime=initKey();
 	$.ajax({
 		url : tool.reqUrl.changePwd,
 		type : 'POST',
 		data : {
-			oldPwd : Encrypt(c_oldPwd),
-			newPwd : Encrypt(c_newPwd)
+			oldPwd : Encrypt(c_oldPwd,createtime),
+			newPwd : Encrypt(c_newPwd,createtime),
+			createdate:createtime
 		},
 		success : function(data) {
 			if(data.retcode=="0"){
