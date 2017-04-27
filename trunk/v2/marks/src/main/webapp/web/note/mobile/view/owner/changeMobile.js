@@ -23,12 +23,14 @@ function summitForm() {
 		return false;
 	}
 	$("#isLoading").hide();
+	var createtime=initKey();
 	$.ajax({
 		url : tool.reqUrl.changeMobile,
 		type : 'POST',
 		data : {
 			mobile : c_mobile,
-			password : Encrypt(c_password)
+			password : Encrypt(c_password,createtime),
+			createdate : createtime
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
