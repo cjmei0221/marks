@@ -62,6 +62,7 @@ public class LoginController {
 		Result result = new Result();
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
+		String createdate=request.getParameter("createdate");
 		/**
 		 * 如果登陆用为system，则拥有所有权限除了业务权限
 		 */
@@ -78,7 +79,7 @@ public class LoginController {
 			JsonUtil.output(response, result);
 			return;
 		}
-		String password = EncryptUtil.encrypt(pwd);
+		String password = EncryptUtil.encryptPwd(pwd,createdate+createdate);
 
 		if (!password.equals(user.getPassword())) {
 			result.setCode("4003");
