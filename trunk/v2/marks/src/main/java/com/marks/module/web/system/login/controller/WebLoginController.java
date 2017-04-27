@@ -63,7 +63,8 @@ public class WebLoginController {
 				return;
 			}
 			//校验密码
-			String password = EncryptUtil.encrypt(pwd);
+			String createdate=request.getParameter("createdate");
+			String password = EncryptUtil.encryptPwd(pwd,createdate+createdate);
 			if (!password.equals(loginUser.getPassword())) {
 				result.setCode("4004");
 				result.setMessage("密码错误");
@@ -151,13 +152,14 @@ public class WebLoginController {
 					return;
 				}
 			}
+			String createdate=request.getParameter("createdate");
 			SysUser user=new SysUser();
 			user.setActiveFlag(Enums.SysUserUse.USE.getValue());
 			user.setBind_mobile(mobile);
 			user.setBindFlag(Enums.SysUserBindFlag.USE.getValue());
 			user.setCompanyId(RunModel.getInstance().getCompanyId());
 			user.setCreator(mobile);
-			user.setPassword(EncryptUtil.encrypt(password));
+			user.setPassword(EncryptUtil.encryptPwd(password,createdate+createdate));
 			user.setUsername(mobile);
 			user.setRoleid(user.getCompanyId()+"_"+Enums.UserType.VIP.getValue());
 			user.setFanId(fanId);
