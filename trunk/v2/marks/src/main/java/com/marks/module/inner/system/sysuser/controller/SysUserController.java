@@ -265,11 +265,10 @@ public class SysUserController extends SupportContorller{
 		try {
 			String newPwd=request.getParameter("newPwd");
 			String oldPwd=request.getParameter("oldPwd");
-			String createdate=request.getParameter("createdate");
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			SysUser su=sysUserService.findById(admin.getUserid());
-			if(su.getPassword().equals(EncryptUtil.encryptPwd(oldPwd,createdate))){
-				admin.setPassword(EncryptUtil.encryptPwd(newPwd,createdate));
+			if(su.getPassword().equals(EncryptUtil.encryptPwd(oldPwd))){
+				admin.setPassword(EncryptUtil.encryptPwd(newPwd));
 				sysUserService.updatePwd(admin.getUserid(),admin.getPassword());
 			}else{
 				result.setMessage("原密码错误");
@@ -294,10 +293,9 @@ public class SysUserController extends SupportContorller{
 		try {
 			String newPhone=request.getParameter("newPhone");
 			String newPwd=request.getParameter("newPwd");
-			String createdate=request.getParameter("createdate");
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			SysUser su=sysUserService.findById(admin.getUserid());
-			if(su.getPassword().equals(EncryptUtil.encryptPwd(newPwd,createdate))){
+			if(su.getPassword().equals(EncryptUtil.encryptPwd(newPwd))){
 				SysUser sUser=sysUserService.findByMobile(newPhone);
 				if(sUser==null){
 					sysUserService.updateMobile(admin.getUserid(),newPhone);

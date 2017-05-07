@@ -1,5 +1,7 @@
 package com.marks.common.util.encrypt;
 
+import org.apache.log4j.Logger;
+
 import com.marks.common.util.IDUtil;
 
 /**
@@ -12,6 +14,7 @@ import com.marks.common.util.IDUtil;
  * @Copyright (c) 2016, cjmei  All Rights Reserved.
  */
 public class EncryptUtil {
+	private static Logger logger = Logger.getLogger( EncryptUtil.class);
 	
 	 public static String defaultPwd="B15A268148D9C5A9363E915581CE1819";
 	 
@@ -24,8 +27,9 @@ public class EncryptUtil {
 		 * @throws Exception 
 		 * @修改记录:(日期,修改人,描述) (可选) <br/>
 		 */
-		public static String encryptPwd(String src,String createdate) throws Exception{
-			String key=createdate+createdate;
+		public static String encryptPwd(String src) throws Exception{
+			String key=IDUtil.getDateID()+IDUtil.getDateID();
+			logger.info("src:"+src+"-key:"+key);
 			String pwd=AESUtil2.aesDecrypt(src, key);
 			return AESUtil.desCrypDefto(pwd);
 		}
@@ -58,8 +62,8 @@ public class EncryptUtil {
 	public static void main(String[] args) throws Exception {
 		String key=IDUtil.getDateID()+IDUtil.getDateID();
 		System.out.println(key);
-		System.out.println(AESUtil2.aesEncrypt("234123414", key));
+		System.out.println(AESUtil2.aesEncrypt("111111", key));
 		
-		System.out.println(EncryptUtil.decrypt(EncryptUtil.encryptPwd("8V9m+H02MMDkDxZJcIpAJw==",key)).length());
+		System.out.println(EncryptUtil.decrypt(EncryptUtil.encryptPwd("bTAKua+7TtXXvXxrIZdSJQ==")).length());
 	}
 }
