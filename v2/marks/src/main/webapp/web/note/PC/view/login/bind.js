@@ -40,13 +40,12 @@ function summitForm() {
 		return false;
 	}
 	$("#isLoading").hide();
-	var createtime=initKey();
 	$.ajax({
 		url : tool.reqUrl.bind,
 		type : 'POST',
 		data : {
 			mobile : c_mobile,
-			password : Encrypt(c_password,createtime),
+			password : Encrypt(c_password),
 			code:$("#c_check").val()
 		},
 		success : function(data) {

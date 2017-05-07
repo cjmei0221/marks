@@ -425,13 +425,11 @@ input:-webkit-autofill {
 		} catch (e00) {
 
 		}
-		var createtime=initKey();
 		
 		if (checkParams()) {
 			var p = {
 				userid : $("#userid").val(),
-				pwd : Encrypt($("#password").val(),createtime),
-				createdate:createtime
+				pwd : Encrypt($("#password").val())
 			}
 
 			$.ajax({
