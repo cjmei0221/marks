@@ -24,14 +24,12 @@ function summitForm() {
 		return false;
 	}
 	$("#isLoading").hide();
-	var createtime=initKey();
 	$.ajax({
 		url : tool.reqUrl.login,
 		type : 'POST',
 		data : {
 			mobile : c_mobile,
-			password : Encrypt(c_password,createtime),
-			create:createtime
+			password : Encrypt(c_password)
 		},
 		success : function(data) {
 			if(data.retcode=="0"){

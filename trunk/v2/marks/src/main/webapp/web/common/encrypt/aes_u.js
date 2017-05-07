@@ -1,6 +1,6 @@
 //使用（YYYMMDDYYYYMMDD）为密钥
-function Encrypt(word,encryptkey) {
-	var initkey=encryptkey+encryptkey;
+function Encrypt(word) {
+	var initkey=initKey()+initKey();
 	var key = CryptoJS.enc.Utf8.parse(initkey);
 	var srcs = CryptoJS.enc.Utf8.parse(word);
 	var encrypted = CryptoJS.AES.encrypt(srcs, key, {

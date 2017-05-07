@@ -29,8 +29,7 @@ function summitForm() {
 		type : 'POST',
 		data : {
 			mobile : c_mobile,
-			password : Encrypt(c_password,createtime),
-			createdate:createtime
+			password : Encrypt(c_password)
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
