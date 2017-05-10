@@ -5,26 +5,35 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.X509TrustManager;
+
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpConnectionManager;
-import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.httpclient.util.IdleConnectionTimeoutThread;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
+import com.sun.net.ssl.HttpsURLConnection;
+import com.sun.net.ssl.SSLContext;
+import com.sun.net.ssl.TrustManager;
 
 /**
  * Created with IntelliJ IDEA. User: sunshine Date: 13-7-24 Time: 上午11:11 To
@@ -32,28 +41,21 @@ import com.marks.common.util.center.SysCode;
  */
 public class HttpUtils {
 	private static Logger logger = Logger.getLogger(HttpUtils.class);
-	private static Integer statusCode = 0;
-	private static int connectiontimeout = 5000;// 链接超时
-	private static int sotimeout = 15000;// 读取超时
-	private static final char[] hexDigit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
-
-			'B', 'C', 'D', 'E', 'F' };
-
-	/** 闲置连接超时时间, 由bean factory设置，缺省为60秒钟 */
-	private int defaultIdleConnTimeout = 60000;
-
-	private int defaultMaxConnPerHost = 30;
-
-	private int defaultMaxTotalConn = 80;
-
-	/** 默认等待HttpConnectionManager返回连接超时（只有在达到最大连接数时起作用）：1秒 */
-	private static final long defaultHttpConnectionManagerTimeout = 3 * 1000;
 
 	private static HttpUtils httpProtocolHandler = new HttpUtils();
-	/**
-	 * HTTP连接管理器，该连接管理器必须是线程安全的.
-	 */
-	private HttpConnectionManager connectionManager;
+
+	private class MyX509TrustManager implements X509TrustManager, TrustManager {
+
+		public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+		}
+
+		public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+		}
+
+		public X509Certificate[] getAcceptedIssuers() {
+			return new X509Certificate[] {};
+		}
+	}
 
 	/**
 	 * 工厂方法
@@ -69,21 +71,13 @@ public class HttpUtils {
 	 * 私有的构造方法
 	 */
 	private HttpUtils() {
-		// 创建一个线程安全的HTTP连接池
-		connectionManager = new MultiThreadedHttpConnectionManager();
-		connectionManager.getParams().setDefaultMaxConnectionsPerHost(defaultMaxConnPerHost);
-		connectionManager.getParams().setMaxTotalConnections(defaultMaxTotalConn);
 
-		IdleConnectionTimeoutThread ict = new IdleConnectionTimeoutThread();
-		ict.addConnectionManager(connectionManager);
-		ict.setConnectionTimeout(defaultIdleConnTimeout);
-
-		ict.start();
 	}
+
 	public JsonResult doGet(String url, Map<String, String> params, Map<String, String> header, String charSet)
 			throws IOException {
 		JsonResult jsonObject = null;
-		HttpMethod method = null;
+		String requestUrl = "";
 		if (params != null && params.size() > 0) {
 			StringBuffer paramUrl = new StringBuffer("");
 			Set<String> keySet = params.keySet();
@@ -94,125 +88,154 @@ public class HttpUtils {
 				paramUrl.append("&" + key + "=" + value);
 			}
 			if (url.indexOf("?") == -1) {
-				method = new GetMethod(url + "?" + paramUrl);
+				requestUrl = url + "?" + paramUrl;
 			} else {
-				method = new GetMethod(url + paramUrl);
+				requestUrl = url + paramUrl;
 			}
-			logger.info(method.getURI());
+			logger.info(requestUrl);
 		} else {
-			method = new GetMethod(url);
+			requestUrl = url;
 		}
-		if (header != null && header.size() > 0) {
-			Set<String> headerKeySet = header.keySet();
-			Iterator<String> headerIt = headerKeySet.iterator();
-			while (headerIt.hasNext()) {
-				String headerKey = headerIt.next();
-				String headerValue = params.get(headerKey);
-				method.setRequestHeader(headerKey, headerValue);
-			}
-
-		}
-		jsonObject = requestHttp(method, charSet);
+		jsonObject = requestHttp(requestUrl, "GET", null);
 		return jsonObject;
 	}
 
 	public JsonResult doPost(String url, Map<String, String> params, Map<String, String> header, String charSet)
 			throws IOException {
 		JsonResult jsonObject = null;
-		HttpMethod method = new PostMethod(url);
-
+		String requestUrl = "";
 		if (params != null && params.size() > 0) {
-			NameValuePair[] data = null;
-			data = new NameValuePair[params.size()];
+			StringBuffer paramUrl = new StringBuffer("");
 			Set<String> keySet = params.keySet();
 			Iterator<String> it = keySet.iterator();
-			int i = 0;
 			while (it.hasNext()) {
 				String key = it.next();
 				String value = params.get(key);
-				data[i] = new NameValuePair(key, value);
-				i++;
+				paramUrl.append("&" + key + "=" + value);
 			}
-			((PostMethod) method).addParameters(data);
-			method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; text/html; charset=" + charSet);
-		}
-
-		if (header != null && header.size() > 0) {
-			Set<String> headerKeySet = header.keySet();
-			Iterator<String> headerIt = headerKeySet.iterator();
-			while (headerIt.hasNext()) {
-				String headerKey = headerIt.next();
-				String headerValue = header.get(headerKey);
-				method.setRequestHeader(headerKey, headerValue);
+			if (url.indexOf("?") == -1) {
+				requestUrl = url + "?" + paramUrl;
+			} else {
+				requestUrl = url + paramUrl;
 			}
-
+			logger.info(requestUrl);
+		} else {
+			requestUrl = url;
 		}
-		jsonObject = requestHttp(method, charSet);
-
+		jsonObject = requestHttp(requestUrl, "GET", null);
 		return jsonObject;
 	}
 
 	public JsonResult doPostJson(String url, JSONObject jsonObj, Map<String, String> header, String charSet)
 			throws IOException {
 		JsonResult jsonObject = null;
-		HttpMethod method = new PostMethod(url);
-
-		if (jsonObj != null) {
-			RequestEntity requestEntity = new StringRequestEntity(jsonObj.toString(), "text/json", "UTF-8");
-			((PostMethod) method).setRequestEntity(requestEntity);
+		String requestUrl = url;
+		String data=null;
+		if(jsonObj !=null){
+			data=jsonObj.toString();
 		}
-		if (header != null && header.size() > 0) {
-			Set<String> headerKeySet = header.keySet();
-			Iterator<String> headerIt = headerKeySet.iterator();
-			while (headerIt.hasNext()) {
-				String headerKey = headerIt.next();
-				String headerValue = header.get(headerKey);
-				method.setRequestHeader(headerKey, headerValue);
-			}
-
-		}
-		jsonObject = requestHttp(method, charSet);
-
+		jsonObject = requestHttp(requestUrl, "POST", data);
 		return jsonObject;
 	}
 
-	private JsonResult requestHttp(HttpMethod method, String charSet) {
+	private JsonResult requestHttp(String requestUrl, String requestMethod, String outStr) {
 		JsonResult jsonObject = new JsonResult();
-		HttpClient httpClient = new HttpClient(connectionManager);
-		// 链接超时
-		httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(connectiontimeout);
-		httpClient.getHttpConnectionManager().getParams().setSoTimeout(sotimeout);
-		// 设置等待ConnectionManager释放connection的时间
-		httpClient.getParams().setConnectionManagerTimeout(defaultHttpConnectionManagerTimeout);
-		/* method.releaseConnection(); */
-		// 设置Http Header中的User-Agent属性
-		method.addRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko");
+		BufferedInputStream ins = null;
+		HttpsURLConnection httpUrlConn = null;
+		OutputStream outputStream =null;
 		try {
-			statusCode = httpClient.executeMethod(method);
-			jsonObject.setErrorCode(statusCode + "");
-			if (statusCode != HttpStatus.SC_OK) {
-				jsonObject.setSuccess(Boolean.FALSE);
-				jsonObject.setErrorMsg("服务器繁忙，请稍等···");
-			} else {
-				jsonObject.setErrorCode(SysCode.SUCCESS);
-				String searchResult = "";
-				jsonObject.setSuccess(Boolean.TRUE);
-				BufferedInputStream ins = new BufferedInputStream(method.getResponseBodyAsStream());
-				byte resultBytes[] = readUrlStream(ins);
-				if (resultBytes != null && resultBytes.length > 0) {
-					searchResult = new String(resultBytes, charSet);
-				}
-				jsonObject.setResult(searchResult);
+			// 创建SSLContext对象，并使用我们指定的信任管理器初始化
+			TrustManager[] tm = { new MyX509TrustManager() };
+			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
+			sslContext.init(null, tm, new java.security.SecureRandom());
+			// 从上述SSLContext对象中得到SSLSocketFactory对象
+			SSLSocketFactory ssf = sslContext.getSocketFactory();
+
+			URL url = new URL(requestUrl);
+			httpUrlConn = (HttpsURLConnection) url.openConnection();
+			httpUrlConn.setSSLSocketFactory(ssf);
+			httpUrlConn.setConnectTimeout(10000);
+			httpUrlConn.setReadTimeout(10000);
+			httpUrlConn.setDoOutput(true);
+			httpUrlConn.setDoInput(true);
+			httpUrlConn.setUseCaches(false);
+			// 设置请求方式（GET/POST）
+			httpUrlConn.setRequestMethod(requestMethod);
+
+			// if ("GET".equalsIgnoreCase(requestMethod))
+			httpUrlConn.connect();
+			String charSet="UTF-8";
+			// 当有数据需要提交时
+			if (null != outStr && outStr.length()>0) {
+				outputStream = httpUrlConn.getOutputStream();
+				// 注意编码格式，防止中文乱码
+				outputStream.write(outStr.getBytes(charSet));
+				outputStream.close();
 			}
+			// 将返回的输入流转换成字符串    
+			String searchResult = "";
+			ins = new BufferedInputStream(httpUrlConn.getInputStream());
+			byte resultBytes[] = readUrlStream(ins);
+			if (resultBytes != null && resultBytes.length > 0) {
+				searchResult = new String(resultBytes, charSet);
+			}
+			
+			jsonObject.setResult(searchResult);
 			logger.info("腾讯返回报文>>" + jsonObject.getResult());
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			jsonObject.setSuccess(Boolean.FALSE);
-			jsonObject.setErrorCode("4000");
-			jsonObject.setErrorMsg("系统异常·");
-		} finally {
-			method.releaseConnection();
+		} catch (KeyManagementException e) {
+			jsonObject.setErrorCode("2001");
+			jsonObject.setSuccess(false);
+			jsonObject.setErrorMsg("KeyManagementException");
+		} catch (NoSuchAlgorithmException e) {
+			jsonObject.setErrorCode("2002");
+			jsonObject.setSuccess(false);
+			jsonObject.setErrorMsg("KeyManagementException");
+		} catch (NoSuchProviderException e) {
+			jsonObject.setErrorCode("2003");
+			jsonObject.setSuccess(false);
+			jsonObject.setErrorMsg("KeyManagementException");
+		} catch (MalformedURLException e) {
+			jsonObject.setErrorCode("2004");
+			jsonObject.setSuccess(false);
+			jsonObject.setErrorMsg("KeyManagementException");
+		} catch (ProtocolException e) {
+			jsonObject.setErrorCode("2005");
+			jsonObject.setSuccess(false);
+			jsonObject.setErrorMsg("KeyManagementException");
+		} catch (UnsupportedEncodingException e) {
+			jsonObject.setErrorCode("2006");
+			jsonObject.setSuccess(false);
+			jsonObject.setErrorMsg("KeyManagementException");
+		} catch (IOException e) {
+			jsonObject.setErrorCode("2007");
+			jsonObject.setSuccess(false);
+			jsonObject.setErrorMsg("KeyManagementException");
+		}finally{
+			
+			try {
+				if(outputStream !=null){
+					outputStream.close();
+				}
+			} catch (IOException e) {
+				
+			}
+			try {
+				if(ins !=null){
+					ins.close();
+				}
+			} catch (IOException e) {
+				
+			}
+			try {
+				if(httpUrlConn !=null){
+					httpUrlConn.disconnect();
+				}
+			} catch (Exception e) {
+				
+			}
 		}
+
+		
 		return jsonObject;
 
 	}
@@ -229,158 +252,26 @@ public class HttpUtils {
 		return swapStream.toByteArray();
 	}
 
-	public static String toEncodedUnicode(String theString, boolean escapeSpace) {
-
-		int len = theString.length();
-
-		int bufLen = len * 2;
-
-		if (bufLen < 0) {
-
-			bufLen = Integer.MAX_VALUE;
-
-		}
-
-		StringBuffer outBuffer = new StringBuffer(bufLen);
-
-		for (int x = 0; x < len; x++) {
-
-			char aChar = theString.charAt(x);
-
-			// Handle common case first, selecting largest block that
-
-			// avoids the specials below
-
-			if ((aChar > 61) && (aChar < 127)) {
-
-				if (aChar == '\\') {
-
-					outBuffer.append('\\');
-
-					outBuffer.append('\\');
-
-					continue;
-
-				}
-
-				outBuffer.append(aChar);
-
-				continue;
-
-			}
-
-			switch (aChar) {
-
-			case ' ':
-
-				if (x == 0 || escapeSpace)
-					outBuffer.append('\\');
-
-				outBuffer.append(' ');
-
-				break;
-
-			case '\t':
-
-				outBuffer.append('\\');
-
-				outBuffer.append('t');
-
-				break;
-
-			case '\n':
-
-				outBuffer.append('\\');
-
-				outBuffer.append('n');
-
-				break;
-
-			case '\r':
-
-				outBuffer.append('\\');
-
-				outBuffer.append('r');
-
-				break;
-
-			case '\f':
-
-				outBuffer.append('\\');
-
-				outBuffer.append('f');
-
-				break;
-
-			case '=': // Fall through
-
-			case ':': // Fall through
-
-			case '#': // Fall through
-
-			case '!':
-
-				outBuffer.append('\\');
-
-				outBuffer.append(aChar);
-
-				break;
-
-			default:
-
-				if ((aChar < 0x0020) || (aChar > 0x007e)) {
-
-					// 每个unicode有16位，每四位对应的16进制从高位保存到低位
-
-					outBuffer.append('\\');
-
-					outBuffer.append('u');
-
-					outBuffer.append(toHex((aChar >> 12) & 0xF));
-
-					outBuffer.append(toHex((aChar >> 8) & 0xF));
-
-					outBuffer.append(toHex((aChar >> 4) & 0xF));
-
-					outBuffer.append(toHex(aChar & 0xF));
-
-				} else {
-
-					outBuffer.append(aChar);
-
-				}
-
-			}
-
-		}
-
-		return outBuffer.toString();
-
-	}
-
-	private static char toHex(int nibble) {
-		return hexDigit[(nibble & 0xF)];
-	}
-
 	public JsonResult download(String url, String fileName) {
 		JsonResult jsonObject = new JsonResult();
 		GetMethod method = null;
 		FileOutputStream output = null;
-		File saveFile =null;
+		File saveFile = null;
 		try {
 
 			method = new GetMethod(url);
-			HttpClient httpClient = new HttpClient(connectionManager);
+			HttpClient httpClient = new HttpClient();
 			// 链接超时
-			httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(connectiontimeout);
-			httpClient.getHttpConnectionManager().getParams().setSoTimeout(sotimeout);
+			httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
+			httpClient.getHttpConnectionManager().getParams().setSoTimeout(15000);
 			// 设置等待ConnectionManager释放connection的时间
-			httpClient.getParams().setConnectionManagerTimeout(defaultHttpConnectionManagerTimeout);
+			httpClient.getParams().setConnectionManagerTimeout(3000);
 			/* method.releaseConnection(); */
 			// 设置Http Header中的User-Agent属性
-			method.addRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+			method.addRequestHeader("User-Agent",
+					"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
 
-			statusCode = httpClient.executeMethod(method);
+			int statusCode = httpClient.executeMethod(method);
 			jsonObject.setErrorCode(statusCode + "");
 			if (statusCode != HttpStatus.SC_OK) {
 				jsonObject.setSuccess(Boolean.FALSE);
@@ -391,12 +282,11 @@ public class HttpUtils {
 				BufferedInputStream ins = new BufferedInputStream(method.getResponseBodyAsStream());
 				saveFile = new File(fileName);
 				output = new FileOutputStream(saveFile, true);
-				/*int size = 0;
-				byte[] buf = new byte[1024 * 1024 * 10];
-				while ((size = ins.read(buf)) != -1) {
-					output.write(buf, 0, size);
-					output.flush();
-				}*/
+				/*
+				 * int size = 0; byte[] buf = new byte[1024 * 1024 * 10]; while
+				 * ((size = ins.read(buf)) != -1) { output.write(buf, 0, size);
+				 * output.flush(); }
+				 */
 				byte resultBytes[] = readUrlStream(ins);
 				output.write(resultBytes);
 				output.flush();
