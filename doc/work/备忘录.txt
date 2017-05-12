@@ -23,12 +23,16 @@
 		
 		http://mvnrepository.com/
 		
+		http://10.1.3.159:81/zentao/bug-browse-42-byModule-1472.html
+		cjmei grgcjmei
+		
 json格式化：http://www.bejson.com/ 
 
 淘宝svn
 http://code.taobao.org/login/
 cjmei cjmei4436
 
+angularjs 前端框架 require + sui mobile + Vue + sass
 
 支付宝
 
@@ -56,7 +60,7 @@ appsecret：c655d6de4b8fa4587fca8691ed478996
 
 台式机本地数据库
 
-nfb nfb/nfb123
+nfb nfb/nfb1234
 nfb system/123456 wxbank/wxbank
 
 183.60.124.27 
@@ -86,6 +90,9 @@ AppSecret(应用密钥)91fdb6bed3be6d74ffa591b12c9b8fd5 隐藏 重置
 微信公众号账号：qilin.zhu@yashili.cn
 微信公众号密码：yashili.cn
 
+商户号 ：1396595802
+key:e5bb23797bfea314a3db43d07dbd6a74
+
 开发者ID
 AppID(应用ID)wxdedfc157198677dd
 AppSecret(应用密钥)91fdb6bed3be6d74ffa591b12c9b8fd5 隐藏 重置
@@ -94,6 +101,9 @@ AppSecret(应用密钥)91fdb6bed3be6d74ffa591b12c9b8fd5 隐藏 重置
 微信公众号账号：banghao.yao@yashili.cn
 微信公众号密码：yashili.cn
 
+商户号：1398033802
+key:c20a32785e1a349bbc99a14c7000c497
+
 开发者ID
 AppID(应用ID)wxdad80fe081831194
 AppSecret(应用密钥)c1fdc2ce4feae40ed7281c9e7044c444 隐藏 重置
@@ -101,6 +111,9 @@ AppSecret(应用密钥)c1fdc2ce4feae40ed7281c9e7044c444 隐藏 重置
 【账号三：多美滋】
 微信公众号账号：meihong.fan@yashili.cn
 微信公众号密码：yashili.cn
+
+商户号：1398045602
+key:34c545616dc5fcac8f7181692d90587c
 
 开发者ID
 AppID(应用ID)wx232522c7de9eec04
@@ -181,6 +194,9 @@ grant dba to o2ostd;
  删除用户
  drop user wxbank cascade;
  
+ create user sap identified by sap123;
+grant create session to sap;
+ 
  
  1.oracle的jia包，因版权问题maven不能下载，需配置maven自导本地。而oracle的jia包在项目的lib下面有。
 
@@ -197,6 +213,20 @@ F:\spring-jar包/ojdbc14-10.2.0.4.0.jar这个是创建完，放路径的地方
 
 mybatis 分页插件 mybatis-paginator
 
+oracle cjmei0221@163.com Cjmei4436
+ 
+数据库服务器：ip:112.74.170.122(172.18.0.2) ? user:root ? ? ?password:YSLdeskry666 oracle oracle123 
+数据库 orcl system/System123 ysl_member/ysl_member123456
+
+会员系统web：ip:112.74.185.128(172.18.0.1) ? ?user:root ? ? password:YSLdeskry666
+
+腾讯地址获取经纬度：<http://lbs.qq.com/tool/getpoint/index.html
+
+ 
+vip_manage/vip_manage666666 
+dmz_vip_mobile/dmz123
+os_vip_mobile/os123
+ysl_vip_mobile/ysl123
 
 s.mengniuarla.com/admin
  
@@ -233,4 +263,204 @@ CREATE TABLE SN_BATCH_LOG (
     creator_id varchar2(150),
     productName varchar2(250),
     orgid varchar2(50)
-)
+);
+
+------------------------------------------
+linux 安装jdk
+
+安装jdk-7u79-linux-x64.rpm安装包
+
+先执行以下命令给所有用户添加可执行的权限
+
+#chmod +x jdk-7u79-Linux-x64.rpm
+
+//重点是下面的命令
+
+执行rpm -ivh 命令，安装jdk-7u79-linux-x64.rpm
+
+#rpm -ivh jdk-7u79-linux-x64.rpm
+
+出现安装协议等，按接受即可。
+
+配置环境变量的方法1. 修改/etc/profile文件 
+如果你的计算机仅仅作为开发使用时推荐使用这种方法，因为所有用户的shell都有权使用这些环境变量，可能会给系统带来安全性问题。 
+·用文本编辑器打开/etc/profile 
+·在profile文件末尾加入： 
+export JAVA_HOME=/usr/local/jdk1.7.0_71
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$JAVA_HOME/bin:$PATH
+
+加载刚设置的变量
+source /etc/profile
+------------------------------------------
+linux 添加用户 sam
+
+useradd -s /bin/sh –d /usr/sam -m sam
+
+passed sam
+
+删除用户
+
+userdel -r sam
+
+nginx安装  http://blog.csdn.net/grhlove123/article/details/47834673
+http://www.cnblogs.com/jianxie/p/3990377.html
+
+restful springmvc框架
+
+create user zqlin identified by zqlin222;
+grant create session to zhangsan;//授予zhangsan用户创建session的权限，即登陆权限
+GRANT SELECT,DELETE,UPDATE,INSERT ON ysl_hlg_n.order_goods_ref to ysl_jfsc ;
+
+
+//service  vsftpd start     启动
+// service vsftpd restart   重新启动
+//service vsftpd stop         停止
+//service vsftpd status   查看ftp服务状态
+
+
+cd usr/local/nginx/sbin
+./nginx
+二、重启
+
+　　更改配置重启nginx　　
+
+kill -HUP 主进程号或进程号文件路径
+或者使用
+cd /usr/local/nginx/sbin
+./nginx -s reload
+    判断配置文件是否正确　
+
+nginx -t -c /usr/local/nginx/conf/nginx.conf
+或者
+cd  /usr/local/nginx/sbin
+./nginx -t
+
+create table bind_wx_user(
+	openid varchar2(64) not null, --openid
+	user_type varchar2(50), -- 用户类型 合伙人  : PTR   省负责人：PIC  业务员 ：SM    财务：FD  店主：SP  导购：SG
+	mobile varchar2(50), -- 绑定手机号码
+	userid varchar2(50), --相关人员的主键
+	orgid varchar2(50),
+	bindtime date,
+	primary key(openid)
+);
+
+create table bind_wx_user_log(
+	id varchar2(64) not null,
+	openid varchar2(64) not null, --openid
+	user_type varchar2(50), -- 用户类型 合伙人  : PTR   省负责人：PIC  业务员 ：SM    财务：FD  店主：SK  导购：SG
+	mobile varchar2(50), -- 绑定手机号码
+	userid varchar2(50), --相关人员的主键
+	username varchar(150),
+	storeid varchar2(50), --店铺ID
+	storename varchar(150),--店铺名称
+	createtime date,
+	bindtype number(1) default 1, --绑定类型 0：解绑 1：绑定 2：取消关注解绑
+	orgid varchar2(50),
+	primary key(id)
+);
+
+
+
+
+【集团 SN_PN 信息对照表】
+外网地址：61.146.92.248，1433
+数据库：SAP
+DB账号：grg_sn_pn
+DB密码：YSLdeskry111
+
+获取积分流程
+
+产品已入库 -- VIP 扫码申请获取积分 -- 导购/店主审核同意 -- VIP获取积分/店主获取返利
+
+产品已入库 --  导购/店主代积分 -- VIP获取积分/店主获取返利
+
+产品已入库 -- 导购/店主售出出库 -- 业务员补积分(VIP要求补录积分) -- VIP获取积分
+
+兑换积分
+
+会员积分兑换 -- 内管提供兑换产品查询
+
+产品积分设置
+
+产品积分设置 错店积分设置
+
+兑换产品
+
+同质产品 、 异质产品  产品名称 编号 图片 兑换积分
+
+
+会员代注册
+
+
+会员绑定店铺
+
+导购二维码 、 店主二维码
+
+
+
+GRANT select any table sap;
+
+grant insert on SAP_CUSTOMER_INFO to sap;
+grant update on SAP_CUSTOMER_INFO to sap;
+
+
+grant insert on SAP_ORDER_DETAIL to sap;
+grant update on SAP_ORDER_DETAIL to sap;
+
+
+grant insert on SAP_ORDER_HEAD to sap;
+grant update on SAP_ORDER_HEAD to sap;
+
+grant insert on SAP_PAYINFO_DETAIL to sap;
+grant update on SAP_PAYINFO_DETAIL to sap;
+
+grant insert on SAP_PRICE_INFO to sap;
+grant update on SAP_PRICE_INFO to sap;
+
+grant insert on SAP_SALEMATS_PROPERTY to sap;
+grant update on SAP_SALEMATS_PROPERTY to sap;
+
+grant insert on SAP_SHIP_PTY to sap;
+grant update on SAP_SHIP_PTY to sap;
+
+
+CREATE TABLE report_store(
+	pid VARCHAR2(50) not null, 
+  oddnum VARCHAR2(50),--yyyyMM 单号
+	orgid VARCHAR2(50),
+	areaid VARCHAR2(50),
+	store_id VARCHAR2(50),
+	store_name VARCHAR2(50),
+  vipnum NUMBER(8),
+	addvipnum NUMBER(8),
+	series_id VARCHAR2(100),
+  series_name VARCHAR2(255),
+  PRODUCT_NUM VARCHAR2(100),
+	buynum NUMBER(8),
+	CREATEtime timestamp,
+  primary key(pid)
+);
+
+CREATE TABLE report_vip(
+	pid VARCHAR2(50) not null, 
+  oddnum VARCHAR2(50),--yyyyMM 单号
+	orgid VARCHAR2(50),
+	areaid VARCHAR2(50),
+	store_id VARCHAR2(50),
+	store_name VARCHAR2(50),
+  vipid VARCHAR2(50),
+	vipnum VARCHAR2(50),
+  vipmobile VARCHAR2(50),
+  newflag NUMBER(1), -- 0:旧 1：信息
+  series_id VARCHAR2(100),
+  series_name VARCHAR2(255),
+  PRODUCT_NUM VARCHAR2(100),
+	buynum NUMBER(8),
+	CREATEtime timestamp,
+  primary key(pid)
+);
+
+http://y.yslsys.com/wxauth/toWxAuth.do?accountid=yashili&to_url=%2Fyashili%2Fstatic%2Fviews%2Fmember%2FgetIntegral%2FgetIntegral
+.html%3FqrType%3DPNQR%26SN%3D0000011419578919%26PN%3D

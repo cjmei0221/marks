@@ -591,6 +591,7 @@ create table tb_evaluate_label(
 
 定一下订单状态 11：购买 0：提交订单  2：业务审核不通过 3：业务审核通过待支付  13 :支付成功待财务确认  6 送货中  7：确认收货订单成功  8：取消订单  9：退货中  10：退货成功 14：合伙人审批不通过  15：合伙人审批通过省负责人审核 16：省负责人审批不通过 17：省负责人审批通过待支付
 
+23：已发货
 
 多美滋退货流程：
 18：申请退货 -- 19：合伙人审批不通过 --20：退货结束
@@ -598,11 +599,11 @@ create table tb_evaluate_label(
 
 蒙牛订单显示流程是：
 0：待审核  -- 2：业务审批不通过 -- 8：订单结束
-0：待审核(审核通过)  -- 3：待支付(支付成功) --13：待确认收款 (确认成功)-- 6：送货中（送货成功） --7：确定收货
+0：待审核(审核通过)  -- 3：待支付(支付成功) --13：待确认收款 (确认成功)-- 6：备货中 （已发货） -- 23：待收货 （7:已收货）
 多美滋：
 0：待合伙人审核 --  14：合伙人审批不通过 -- 8：订单结束
 0：待合伙人审核(审核通过) --  15： 待省负责人审批 -- 16：省负责人审批不通过 -- 8：订单结束
-0：待合伙人审核(审核通过)--  15： 待省负责人审批(审核通过) -- 3：待支付(支付成功) --13：待确认收款  (确认成功) -- 6：送货中 （送货成功）-- 7：确认收货订单成功
+0：待合伙人审核(审核通过)--  15： 待省负责人审批(审核通过) -- 3：待支付(支付成功) --13：待确认收款  (确认成功) -- 6：备货中 （已发货） -- 23：待收货 （7:已收货）
 
 扫码流程
 
@@ -648,3 +649,132 @@ http://localhost:7080/inner/pushWxMsg/order.do?orderId=1234135234534365
 
 
 SN链接:http://s.mengniuarla.com/Query?SN=6349A84DB8B9A569
+
+
+223.167.86.71 open.weixin.qq.com
+223.167.105.44 open.weixin.qq.com
+
+223.167.86.71 mp.weixin.qq.com
+223.167.105.44 mp.weixin.qq.com
+
+58.251.61.149 api.weixin.qq.com
+163.177.83.164 api.weixin.qq.com
+
+
+163.177.83.164 file.api.weixin.com
+58.251.61.149 file.api.weixin.com
+
+163.177.89.203 api.mch.weixin.qq.com
+220.249.243.200 api.mch.weixin.qq.com
+
+220.249.243.200 pay.weixin.qq.com
+163.177.89.203 pay.weixin.qq.com
+  
+140.207.127.79 qyapi.weixin.qq.com
+
+
+#set Java environment
+
+JAVA_HOME=/usr/java/jdk1.7.0_80
+
+CLASSPATH=.:＄JAVA_HOME/lib.tools.jar
+
+PATH=＄JAVA_HOME/bin:＄PATH
+
+/usr/java/jdk1.7.0_80
+
+wget http://zlib.net/zlib-1.2.8.tar.gz
+
+
+server {
+        listen  80;
+        server_name  sys.yashili.cn;
+        access_log  /www/access_yashili.log  main;
+        location / {
+            root   /www/yashili.com;
+            index  index.php index.html index.htm;
+            proxy_pass http://127.0.0.1:9000; 
+						proxy_set_header   Host    $host; 
+						proxy_set_header   X-Real-IP   $remote_addr; 
+						proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for; 
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+       # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        location ~ .php$ {
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  /www/yashili.com/$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+        location ~ /.ht {
+            deny  all;
+        }
+}
+
+
+CustomerInfo info = LoginUtil.getCurrentUserInfo(request);
+				/**
+				 * 绑定标识
+				 */
+				int loginFlag = 0;
+				if (info != null) {
+					loginFlag = 1;
+				}
+				result.getData().put("loginFlag", loginFlag);
+				result.getData().put("loginUser", info);
+				result.getData().put("qrType", qrType);
+
+
+
+
+002014243000237820343	435343465345	10000000001	34523452345	2016-11-02 15:59:39	0615f29a71fe41dabf5c5b66d80ee421	
+
+/home/ftp/uploadImage
+location ~ ^/(uploadImage)/  {
+          root        /home/ftp/uploadImage;
+          access_log  off;
+          expires     30d;
+        }
+
+location ~
+
+
+pasv_enable=YES
+pasv_min_port=50000
+pasv_max_port=50009
+pasv_address=112.74.185.128
+
+
+iptables -A RH-Firewall-1-INPUT -m state –state NEW -m tcp -p tcp –dport 21 -j ACCEPT
+iptables -A RH-Firewall-1-INPUT -m state –state NEW -m tcp -p tcp –dport 40000:40080 -j ACCEPT
+
+
+10.10.03.01001
+
+
+http://api.kuaidi.com/openapi.html?id=50519d0bfeaf120e90e4960eb690dfd7&com=tiantian&nu=667098007865&show=1&muti=0&order=desc
+
+
+
+18802096841
+
+147569
+
+OPENTM207665167
+标题积分通知
+
+flex-shrink: 0;
+
+http://www.css88.com/book/css/properties/flex/flex.htm
+
+
+SELECT
+	*
+FROM
+	STORE_USER T
+WHERE
+	T .ORGID = 'da702b2e9dbb4a97a127322884192289'
+AND T .STOREID = '7CA2767A5DE04BBE9B1AC20D693B3C1B'
