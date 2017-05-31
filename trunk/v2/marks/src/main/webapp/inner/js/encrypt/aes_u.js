@@ -1,6 +1,6 @@
 //使用（YYYMMDDYYYYMMDD）为密钥
-function Encrypt(word,encryptkey) {
-	var initkey=encryptkey+encryptkey;
+function Encrypt(word) {
+	var initkey=initKey()+initKey();
 	var key = CryptoJS.enc.Utf8.parse(initkey);
 	var srcs = CryptoJS.enc.Utf8.parse(word);
 	var encrypted = CryptoJS.AES.encrypt(srcs, key, {
@@ -12,8 +12,19 @@ function Encrypt(word,encryptkey) {
 
 function initKey() {
 	var curr_time = new Date();
-	var dateTime = curr_time.getFullYear() ;
-	dateTime += curr_time.getMonth() + 1;
-	dateTime += curr_time.getDate();
+	var dateTime = curr_time.getFullYear() +"";
+	var monthVal=curr_time.getMonth() + 1+"";
+	
+	if(monthVal.length<2){
+		dateTime += "0"+monthVal;
+	}else{
+		dateTime += monthVal;
+	}
+	var dateVal=curr_time.getDate()+"";
+	if(dateVal.length<2){
+		dateTime += "0"+dateVal;
+	}else{
+		dateTime += dateVal;
+	}
 	return dateTime;
 }
