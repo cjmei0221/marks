@@ -79,9 +79,8 @@ public class SSLNetProvider {
 			SSLContext sc = SSLContext.getInstance("TLS");
 			sc.init(null, new TrustManager[] { new TrustAnyTrustManager() },
 					new SecureRandom());
-			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("", 81));
 			URL console = new URL(null, url, new Handler());
-			conn = (HttpsURLConnectionOldImpl) console.openConnection(proxy);
+			conn = (HttpsURLConnectionOldImpl) console.openConnection();
 			conn.setSSLSocketFactory(sc.getSocketFactory());
 			// conn.setHostnameVerifier(new TrustAnyHostnameVerifier());
 			conn.setConnectTimeout(10000);
