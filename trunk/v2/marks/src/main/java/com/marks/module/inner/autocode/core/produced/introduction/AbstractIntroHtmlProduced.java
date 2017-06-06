@@ -44,7 +44,7 @@ public abstract class AbstractIntroHtmlProduced extends AbstractProduced impleme
     }
     
     public void setFileSrc(AutoBean autoBean){
-        setFileSrc(FileUtil.getIntroSrc() +autoBean.getParentPackage()+"/");
+        setFileSrc(FileUtil.getIntroSrc() +autoBean.getParentPackage());
     }
     
     public abstract String getFileSrc(AutoBean autoBean);
