@@ -2,7 +2,6 @@
 //base-config.js
 window.nfb = {};
 window.urlBase = "";
-window.urlImgBase=window.urlBase+"/upload_file/";
 app = {};
 
 function setupAjax(){
