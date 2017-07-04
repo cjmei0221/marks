@@ -255,7 +255,7 @@ public class WebDiaryController extends SupportContorller{
 		    		sysUser.setCompanyId(RunModel.getInstance().getCompanyId());
 		    		sysUser.setPassword(EncryptUtil.defaultPwd);
 		    		sysUser.setUsername(mobile);
-		    		sysUser.setRoleid(sysUser.getCompanyId()+"_"+Enums.UserType.VIP.getValue());
+		    		sysUser.setRoleid(RunModel.getInstance().getCompanyId()+"_"+Enums.UserType.VIP.getValue());
 		    		sysUser.setCreator(mobile);
 		    		sysUserService.save(sysUser,RunModel.getInstance().getCompanyId());
 		    		sysUser=loginService.getSysUserByUseridOrMobile(mobile);

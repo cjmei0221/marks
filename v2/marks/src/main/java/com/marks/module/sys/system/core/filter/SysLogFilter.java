@@ -58,12 +58,11 @@ public class SysLogFilter implements Filter {
 				if (user != null) {
 					log.setUserid(user.getUserid());
 					log.setUsername(user.getUsername());
-					log.setRetain3(user.getCompanyId());
+					log.setRetain3(user.getCompanyNo());
 				}
 				log.setIp(ip);
 				log.setRetain1(success + "");
 				log.setRetain2(url);
-
 				log.setUrl(url);
 				
 				log.setSource(source);

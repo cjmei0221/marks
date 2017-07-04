@@ -49,8 +49,18 @@ public class OrgInfo implements Serializable{
     
     private List<OrgInfo> children=new ArrayList<OrgInfo>();
     private int childnum;
+    private String logoId;//logo的名称
     
-    public int getChildnum() {
+    
+    public String getLogoId() {
+		return logoId;
+	}
+
+	public void setLogoId(String logoId) {
+		this.logoId = logoId;
+	}
+
+	public int getChildnum() {
 		return childnum;
 	}
 

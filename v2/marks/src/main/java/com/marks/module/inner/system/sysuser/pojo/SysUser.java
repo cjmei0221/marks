@@ -75,6 +75,7 @@ public class SysUser implements Serializable {
 	private Date loginTime;
 
 	private String companyId;
+	private String companyNo;
 	/**
 	 * 用户ID
 	 */
@@ -87,8 +88,14 @@ public class SysUser implements Serializable {
 	 */
 	private List<OrgInfo> orgInfoList;
 	
-	
-	
+	public String getCompanyNo() {
+		return companyNo;
+	}
+
+	public void setCompanyNo(String companyNo) {
+		this.companyNo = companyNo;
+	}
+
 	public String getFanId() {
 		return fanId;
 	}

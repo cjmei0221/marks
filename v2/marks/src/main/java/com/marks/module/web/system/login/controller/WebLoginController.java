@@ -159,7 +159,7 @@ public class WebLoginController {
 			user.setCreator(mobile);
 			user.setPassword(EncryptUtil.encryptPwd(password));
 			user.setUsername(mobile);
-			user.setRoleid(user.getCompanyId()+"_"+Enums.UserType.VIP.getValue());
+			user.setRoleid(RunModel.getInstance().getCompanyId()+"_"+Enums.UserType.VIP.getValue());
 			user.setFanId(fanId);
 			if(sysUser==null){
 				sysUserService.save(user, RunModel.getInstance().getCompanyId());

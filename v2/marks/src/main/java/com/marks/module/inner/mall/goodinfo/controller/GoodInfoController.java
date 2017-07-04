@@ -86,7 +86,7 @@ public class GoodInfoController extends SupportContorller {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			GoodInfo goodInfo = getModel(GoodInfo.class);
 			
-			GoodInfo old=goodInfoService.getGoodInfoBySkuNum(admin.getCompanyId(),goodInfo.getSku_num());
+			GoodInfo old=goodInfoService.getGoodInfoBySkuNum(admin.getCompanyNo(),goodInfo.getSku_num());
 			if(old !=null){
 				result.setMessage("此商品编码已存在");
 				result.setCode("4001");
@@ -123,7 +123,7 @@ public class GoodInfoController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				GoodInfo sku = goodInfoService.getGoodInfoBySkuNum(admin.getCompanyId(),goodInfo.getSku_num());
+				GoodInfo sku = goodInfoService.getGoodInfoBySkuNum(admin.getCompanyNo(),goodInfo.getSku_num());
 				if(sku !=null && !sku.getGoodId().equals(goodInfo.getGoodId())){
 					result.setMessage("此商品编码已存在!");
 					result.setCode("2001");

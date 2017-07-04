@@ -72,7 +72,7 @@ public class QrcodeController extends SupportContorller {
 			if ("1".equals(qrcode.getQrType())) {// 公众号
 				ori = qrcodeService.findByQrNo(qrcode.getQrNo(),qrcode.getAccountid());
 				if (ori == null) {
-					qrcode.setCompanyId(admin.getCompanyId());
+					qrcode.setCompanyId(admin.getCompanyNo());
 					qrcode.setCreator(admin.getUserid());
 					String imagePath = createQrImage(qrcode, request);
 					if (imagePath != null && imagePath.length() > 5) {

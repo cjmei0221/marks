@@ -140,4 +140,11 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	public List<OrgInfo> frameCombo(Map<String, Object> param) {
 		return orgInfoDao.frameCombo(param);
 	}
+
+	@Override
+	public String getOrgId() {
+		return orgInfoDao.getOrgId();
+	}
+	
+	
 }

@@ -57,7 +57,7 @@ public class SmGoodInfoController extends SupportContorller {
 
 			SmGoodInfo ori = null;
 			if (smGoodInfo.getSku_num() != null) {
-				ori = smGoodInfoService.findByskuAndOrgId(admin.getCompanyId(), smGoodInfo.getSku_num());
+				ori = smGoodInfoService.findByskuAndOrgId(admin.getCompanyNo(), smGoodInfo.getSku_num());
 			}
 
 			if (ori == null) {
@@ -97,7 +97,7 @@ public class SmGoodInfoController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				SmGoodInfo info = smGoodInfoService.findByskuAndOrgId(admin.getCompanyId(), smGoodInfo.getSku_num());
+				SmGoodInfo info = smGoodInfoService.findByskuAndOrgId(admin.getCompanyNo(), smGoodInfo.getSku_num());
 				if (info != null && !info.getGoodId().equals(smGoodInfo.getGoodId())) {
 					result.setMessage("此条形码已存在!");
 					result.setCode(Code.CODE_FAIL);
