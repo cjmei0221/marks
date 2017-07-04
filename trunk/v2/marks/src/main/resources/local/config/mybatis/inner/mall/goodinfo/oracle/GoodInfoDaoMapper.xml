@@ -177,7 +177,7 @@
 	<delete id="deleteGoodImg">
 		delete from TB_MALL_GOOD_IMG where goodId=#{goodId}
 	</delete>
-	<select id="getGoodImgByGoodId" resultType="com.marks.module.inner.mall.goodinfo.pojo.GoodImg">
+	<select id="findGoodImgByGoodNo" resultType="com.marks.module.inner.mall.goodinfo.pojo.GoodImg">
 		select * from TB_MALL_GOOD_IMG where goodId=#{goodId}
 	</select>
 
