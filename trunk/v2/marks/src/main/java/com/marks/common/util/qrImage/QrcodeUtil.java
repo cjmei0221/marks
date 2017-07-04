@@ -1,6 +1,7 @@
 package com.marks.common.util.qrImage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,19 +74,19 @@ public class QrcodeUtil {
 	public static String encodeToFile(HttpServletRequest request, String url) {
 		int width = 4000;
 		int height = 4000;
-		String name = "QR"+IDUtil.getTimeID()+ ".png";
+		String name = "QR" + IDUtil.getTimeID() + ".png";
 		Map<EncodeHintType, String> hints = new HashMap<EncodeHintType, String>();
 		hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 		BitMatrix matrix = null;
 		String path = null;
 		try {
 			matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, width, height, hints);
-			File qrcodeFile = new File(UploadUtil.getUploadPath(request) + name );
+			File qrcodeFile = new File(UploadUtil.getUploadPath(request) + name);
 			MatrixToImageWriter.writeToFile(matrix, "png", qrcodeFile);
-			if (FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password, FTPUtil.ftpFileDirectory,
-					name, qrcodeFile, "")) {
+			if (FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
+					FTPUtil.ftpFileDirectory, name, qrcodeFile, "")) {
 				// 上传成功
-				path = qrcodeFile.getName();
+				path = FTPUtil.ftp_url + qrcodeFile.getName();
 			}
 			qrcodeFile.deleteOnExit();
 		} catch (Exception e) {
@@ -94,8 +95,15 @@ public class QrcodeUtil {
 		return path;
 	}
 
+	/**
+	 * 生产微信服务号二维码
+	 * 
+	 * @param request
+	 * @param ticket
+	 * @return
+	 */
 	public static String createFwQrcode(HttpServletRequest request, String ticket) {
-		String filename = "WQR"+IDUtil.getTimeID()+ ".jpg";
+		String filename = "WQR" + IDUtil.getTimeID() + ".jpg";
 		try {
 			OutputStream out = null;
 			InputStream is = null;
@@ -124,13 +132,42 @@ public class QrcodeUtil {
 			is.close();
 			out.close();
 			connection.disconnect();
-			FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password, FTPUtil.ftpFileDirectory,
-					filename, saveFile, "");
-			return filename;
+			FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
+					FTPUtil.ftpFileDirectory, filename, saveFile, "");
+			return FTPUtil.ftp_url + filename;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 		return null;
 	}
 
+	/**
+	 * 生产条形码
+	 * 
+	 * @return
+	 * @throws Exception 
+	 */
+	public static String createBarCode(HttpServletRequest request, String code) throws Exception {
+
+		String commPath = UploadUtil.getUploadPath(request);
+		String fileName = code + ".jpg";
+		String path = commPath + fileName;
+		File file=new File(path);
+		FileOutputStream out = new FileOutputStream(file);
+		JBarCodeUtils.generateBarCode128(code, "0.8", "30", out);
+		FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
+				FTPUtil.ftpFileDirectory, fileName, new File(path), "");
+		return FTPUtil.ftp_url + fileName;
+	}
+	/*
+	 * public static String createBarCode2(HttpServletRequest request,String
+	 * code){
+	 * 
+	 * String commPath = UploadUtil.getUploadPath(request); String
+	 * fileName=code+".png"; String path=commPath+fileName;
+	 * CreateBarCodeUtils.generateFile(code, path);
+	 * FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name,
+	 * FTPUtil.password, FTPUtil.ftpFileDirectory, fileName, new File(path),
+	 * ""); return FTPUtil.ftp_url+fileName; }
+	 */
 }
