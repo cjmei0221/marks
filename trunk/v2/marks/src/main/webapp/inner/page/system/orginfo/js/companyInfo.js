@@ -27,10 +27,10 @@ function add() {
 // 编辑
 function edit() {
 	if (isSelectedOne(appInfo.selectedId)) {
-		if(appInfo.selectedData.isMain==1){
-			showMsg("主公司不可编辑");
-			return;
-		}
+//		if(appInfo.selectedData.isMain==1){
+//			showMsg("主公司不可编辑");
+//			return;
+//		}
 		$("#editWin").window({
 			title : "编辑"
 		}).window("open");
@@ -130,14 +130,18 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			
+			title : '组织编号',
+			field : 'orgid',
+			width : 150,
+			align : "left"
+		}, {
 			title : '组织名称',
 			field : 'orgname',
 			width : 150,
 			align : "left"
 		}, {
-			title : '组织ID',
-			field : 'orgid',
+			title : '英文logo',
+			field : 'logoId',
 			width : 100,
 			align : "center"
 		}, {

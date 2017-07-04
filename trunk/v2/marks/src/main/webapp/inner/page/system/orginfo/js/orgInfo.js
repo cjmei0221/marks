@@ -159,6 +159,11 @@ function loadList() {
 					width : 100,
 					align : "center"
 				}, {
+					title : '英文logo',
+					field : 'logoId',
+					width : 100,
+					align : "center"
+				}, {
 					title : '启用标识',
 					field : 'useflag',
 					width : 100,

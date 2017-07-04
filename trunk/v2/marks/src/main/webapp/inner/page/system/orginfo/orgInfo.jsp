@@ -18,7 +18,7 @@
 		<p class="nav-header-cls">组织管理</p>
 		<div id="tb" style="padding: 5px 0;">
 			<table>
-				
+
 				<tr>
 					<td><wt:button /></td>
 				</tr>
@@ -36,11 +36,12 @@
 		collapsible:false"
 		style="width: 400px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
+			<input type="hidden" id="orgid" name="orgid">
 			<table class="out-win-cls">
-				<tr>
+				<tr style="display:none;">
 					<th>组织ID</th>
-					<td><input id="orgid" name="orgid" class="easyui-validatebox"
-						data-options="required:true"></td>
+					<td><input id="logoId" name="logoId"
+						class="easyui-validatebox"></td>
 				</tr>
 				<tr>
 					<th>组织名称</th>
@@ -50,8 +51,9 @@
 				<tr>
 					<th>上级组织</th>
 					<td><input id="parentName" name="parentName"
-						class="easyui-validatebox" data-options="required:true" readonly="readonly"><input
-						type="hidden" id="parentId" name="parentId"></td>
+						class="easyui-validatebox" data-options="required:true"
+						readonly="readonly"><input type="hidden" id="parentId"
+						name="parentId"></td>
 				</tr>
 				<tr>
 					<th>启用标识</th>
