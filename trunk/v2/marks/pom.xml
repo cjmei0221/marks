@@ -349,6 +349,19 @@
 			<artifactId>mybatis-paginator</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+		
+		<!--barcode4j 条形码 -->
+		<dependency>
+			<groupId>net.sf.barcode4j</groupId>
+			<artifactId>barcode4j-light</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<!--jbarcode -->
+		<dependency>
+			<groupId>org.jbarcode</groupId>
+			<artifactId>JBarcode</artifactId>
+			<version>0.2.8</version>
+		</dependency>
 
 	</dependencies>
 	<build>
@@ -403,7 +416,7 @@
 					<encoding>UTF-8</encoding>
 					<compilerArguments>
 						<verbose />
-						<bootclasspath>${env.JAVA_HOME}/jre/lib/rt.jar;${env.JAVA_HOME}/jre/lib/jce.jar</bootclasspath>
+						<bootclasspath>${env.JAVA7_HOME}/jre/lib/rt.jar;${env.JAVA7_HOME}/jre/lib/jce.jar</bootclasspath>
 					</compilerArguments>
 				</configuration>
 			</plugin>
