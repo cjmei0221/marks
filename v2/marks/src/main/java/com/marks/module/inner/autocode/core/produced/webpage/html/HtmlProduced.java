@@ -20,7 +20,7 @@ import com.marks.module.inner.autocode.core.produced.ModuleProduced;
  */
 public interface HtmlProduced extends ModuleProduced{
    
-    String DEFAULT_FILE_HTML = "jsp";
+    String DEFAULT_FILE_HTML = "html";
     
     String DEFAULT_PACKAGE = "module/";
     

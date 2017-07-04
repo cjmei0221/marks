@@ -200,8 +200,11 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 			}
 
 		}
-
-		return sBuffer.toString();
+		String str=sBuffer.toString().trim();
+		if(str.endsWith(",")){
+			str=str.substring(0, str.length()-1);
+		}
+		return str;
 	}
 	
 	/**
@@ -232,7 +235,11 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 				}
 			}
 		}
-		return sBuffer.toString();
+		String str=sBuffer.toString().trim();
+		if(str.endsWith(",")){
+			str=str.substring(0, str.length()-1);
+		}
+		return str;
 	}
 
 	// 边距
