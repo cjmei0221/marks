@@ -68,7 +68,7 @@ public class FTPUtil {
     }
      
 	public boolean uploadFTPImageInput(String ip,String login_name,String password,String ftpFileDirectory,String ftpFileNames,File files, String jid){
-		try {
+		/*try {
 			if(!connect(ip, 21, login_name, password)){
 				return false;
 			}
@@ -92,7 +92,8 @@ public class FTPUtil {
 					Log.error("IOException",e);
 				}
 			}
-		}
+		}*/
+		return true;
 	}
 	
 
