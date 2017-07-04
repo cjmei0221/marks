@@ -42,12 +42,13 @@
 		collapsible:false"
 		style="width: 400px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
-		<input type="hidden" id="parentId" name="parentId" value="0">
+			<input type="hidden" id="parentId" name="parentId" value="0">
+			<input type="hidden" id="orgid" name="orgid">
 			<table class="out-win-cls">
 				<tr>
-					<th>组织ID</th>
-					<td><input id="orgid" name="orgid" class="easyui-validatebox"
-						data-options="required:true"></td>
+					<th>英文logo</th>
+					<td><input id="logoId" name="logoId"
+						class="easyui-validatebox" data-options="required:true"></td>
 				</tr>
 				<tr>
 					<th>组织名称</th>
