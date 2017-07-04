@@ -132,7 +132,7 @@ public class QrcodeController extends SupportContorller {
 				imagePath = QrcodeUtil.createFwQrcode(request, ticket);
 			}
 		} else {// 链接
-			imagePath = QrcodeUtil.encodeToFile(request, qrcode.getQrUrl());
+			imagePath = QrcodeUtil.createUrlQrcode(request, qrcode.getQrUrl());
 		}
 		return imagePath;
 	}
