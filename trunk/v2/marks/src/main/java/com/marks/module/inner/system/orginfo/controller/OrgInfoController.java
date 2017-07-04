@@ -70,8 +70,14 @@ public class OrgInfoController extends SupportContorller {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			OrgInfo orgInfo = getModel(OrgInfo.class);
 			// orgInfo.setOrgid(IDUtil.getTimeID());
-			OrgInfo ori = orgInfoService.findById(orgInfo.getOrgid());
+			OrgInfo ori = null;
+			if(orgInfo.getLogoId() !=null){
+				ori = orgInfoService.findById(orgInfo.getLogoId());
+			}
+			
 			if (ori == null) {
+				String orgId=orgInfoService.getOrgId();
+				orgInfo.setOrgid(orgId);
 				if (Enums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 					orgInfo.setParentId("0");
 					orgInfo.setCompanyId(orgInfo.getOrgid());

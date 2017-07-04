@@ -125,7 +125,7 @@ public class SmGoodInfoServiceImpl implements SmGoodInfoService {
 					info.setUnit(row.getCell(3)==null?"":row.getCell(3).getRichStringCellValue().getString());
 					info.setRemark(row.getCell(4)==null?"":row.getCell(4).getRichStringCellValue().getString());
 					info.setCreator(admin.getUsername());
-					info.setOrgid(admin.getCompanyId());
+					info.setOrgid(admin.getCompanyNo());
 					info.setUpdator(admin.getUsername());
 					int count=smGoodInfoDao.updateByExcel(info);
 					if(count<1){

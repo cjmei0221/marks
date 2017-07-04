@@ -100,7 +100,7 @@ public class LoginController {
 		user.setLoginTime(new Date());
 		user.setPassword("");
 		user.setRole(role);
-
+		user.setCompanyNo(user.getCompanyId());
 		// 所属机构
 		List<OrgInfo> orgInfo = loginService.getOrgInfoListByUserid(user.getUserid());
 		user.setOrgInfoList(orgInfo);

@@ -5,9 +5,11 @@
 
 	<select id="findById" resultType="com.marks.module.inner.system.orginfo.pojo.OrgInfo">
 		SELECT * FROM TB_ORG_INFO
-		orginfo where orginfo.ORGID = #{orgid}
+		orginfo where orginfo.ORGID = #{orgid} or orginfo.LOGOID=#{orgid}
 	</select>
-
+	<select id="getOrgId" resultType="String">
+		SELECT 'C'||SEQ_ORG_INFO.nextval FROM dual
+	</select>
 	<insert id="save" parameterType="com.marks.module.inner.system.orginfo.pojo.OrgInfo">
 		INSERT INTO TB_ORG_INFO orginfo
 		(
@@ -20,7 +22,8 @@
 		orginfo.PARENTID,
 		orginfo.LVL,
 		orginfo.COMPANYID,
-		orginfo.ORGTYPE
+		orginfo.ORGTYPE，
+		orginfo.LOGOID
 		)
 		VALUES(
 		#{orgid:VARCHAR},
@@ -32,7 +35,8 @@
 		#{parentId:VARCHAR},
 		#{lvl:NUMERIC},
 		#{companyId:VARCHAR},
-		#{orgType:VARCHAR}
+		#{orgType:VARCHAR},
+		#{logoId:VARCHAR}
 		)
 	</insert>
 
@@ -44,7 +48,8 @@
 		orginfo.USEFLAG = #{useflag:NUMERIC},
 		orginfo.PARENTID=#{parentId:VARCHAR},
 		orginfo.LVL=#{lvl:NUMERIC},
-		orginfo.ORGTYPE=#{orgType:VARCHAR}
+		orginfo.ORGTYPE=#{orgType:VARCHAR},
+		orginfo.LOGOID=#{logoId:VARCHAR}
 		WHERE
 		orginfo.ORGID = #{orgid}
 	</update>
@@ -96,7 +101,8 @@
 			or orginfo.ORGNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or to_char(orginfo.CREATETIME,'yyyyMMdd') LIKE
+			or
+			to_char(orginfo.CREATETIME,'yyyyMMdd') LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
@@ -139,12 +145,13 @@
 		select * from tb_org_info t
 		where t.parentid=#{orgid}
 	</select>
-	
+
 	<update id="updateOrgChildNum">
 		update tb_org_info t
-   				set t.childnum = (select count(1)
-                       from tb_org_info t2
-                      where t2.parentid = t.orgid)
- 			where t.orgid = #{orgid}
+		set t.childnum = (select count(1)
+		from tb_org_info t2
+		where t2.parentid = t.orgid)
+		where t.orgid =
+		#{orgid}
 	</update>
 </mapper>
