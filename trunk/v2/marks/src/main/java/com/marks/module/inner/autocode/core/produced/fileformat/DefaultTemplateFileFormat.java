@@ -45,7 +45,7 @@ public class DefaultTemplateFileFormat implements TemplateFileFormat{
 		while(iter.hasNext()){
 			String iterValue = iter.next();
 			String methodName = METHOD_PRE+ StringUtil.getUpperCaseChar( iterValue);
-			//System.out.println("fileContextFormat target >"+methodName+" autoBean>"+autoBean.getBeanName());
+			
 			String target = ReflectUtil.reflectMethod(moduleProduced, methodName, autoBean);
 			String resource = FILEBEGINCODE+iterValue+FILEENDCODE;
 			String result = StringUtil.replaceAll(sBuffer, resource, target==null?"":target);
