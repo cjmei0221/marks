@@ -71,7 +71,7 @@ public class QrcodeUtil {
 	 * @param name
 	 *            图片名字
 	 */
-	public static String encodeToFile(HttpServletRequest request, String url) {
+	public static String createUrlQrcode(HttpServletRequest request, String url) {
 		int width = 4000;
 		int height = 4000;
 		String name = "QR" + IDUtil.getTimeID() + ".png";

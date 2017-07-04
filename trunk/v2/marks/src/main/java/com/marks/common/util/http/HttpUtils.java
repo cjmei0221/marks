@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -31,9 +30,10 @@ import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
-import com.sun.net.ssl.HttpsURLConnection;
 import com.sun.net.ssl.SSLContext;
 import com.sun.net.ssl.TrustManager;
+import com.sun.net.ssl.internal.www.protocol.https.Handler;
+import com.sun.net.ssl.internal.www.protocol.https.HttpsURLConnectionOldImpl;
 
 /**
  * Created with IntelliJ IDEA. User: sunshine Date: 13-7-24 Time: 上午11:11 To
@@ -141,7 +141,7 @@ public class HttpUtils {
 	private JsonResult requestHttp(String requestUrl, String requestMethod, String outStr) {
 		JsonResult jsonObject = new JsonResult();
 		BufferedInputStream ins = null;
-		HttpsURLConnection httpUrlConn = null;
+		HttpsURLConnectionOldImpl httpUrlConn = null;
 		OutputStream outputStream =null;
 		try {
 			// 创建SSLContext对象，并使用我们指定的信任管理器初始化
@@ -151,8 +151,8 @@ public class HttpUtils {
 			// 从上述SSLContext对象中得到SSLSocketFactory对象
 			SSLSocketFactory ssf = sslContext.getSocketFactory();
 
-			URL url = new URL(requestUrl);
-			httpUrlConn = (HttpsURLConnection) url.openConnection();
+			URL url = new URL(null, requestUrl, new Handler());
+			httpUrlConn =  (HttpsURLConnectionOldImpl) url.openConnection();
 			httpUrlConn.setSSLSocketFactory(ssf);
 			httpUrlConn.setConnectTimeout(10000);
 			httpUrlConn.setReadTimeout(10000);
