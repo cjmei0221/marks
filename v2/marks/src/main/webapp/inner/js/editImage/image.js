@@ -41,7 +41,7 @@ function loadImageList(pageNum,pageSize){
 				var imgArr=imgPicArr.split(",");// 在每个逗号(,)处进行分解。
 				if(list.length>0){
 					for(var i=0;i<list.length;i++){
-						var imgDiv=showListImage(list[i].picName,list[i].picId);
+						var imgDiv=showListImage(list[i].picUrl,list[i].picId);
 						showDiv.append(imgDiv);
 						for(var j=0;j<imgArr.length;j++){
 							if(list[i].picName == imgArr[j]){
@@ -158,7 +158,7 @@ img.getImageVal=function getImageVal(eInput){
 function showImageOnlyRead(imgUrl){
 	var str = '<span width="200px" style="float:left; display:inline;">'
 		+ '<input class="imageUrlInput" name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;display:none;" readonly="readonly"><br/>'
-		+ '<img class="imageUrl" src="'+(window.urlImgBase+imgUrl)+'" style="width: 160px; height: 100px;" /> <br/>'
+		+ '<img class="imageUrl" src="'+(imgUrl)+'" style="width: 160px; height: 100px;" /> <br/>'
 		+ '</span>';
 	return str;
 }
@@ -166,7 +166,7 @@ function showImageOnlyRead(imgUrl){
 function showImage(imgUrl){
 	var str = '<span width="200px" style="float:left; display:inline;">'
 		+ '<input class="imageUrlInput" name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;display:none;" readonly="readonly"><br/>'
-		+ '<img class="imageUrl" src="'+(window.urlImgBase+imgUrl)+'" style="width: 160px; height: 100px;" /> <br/>'
+		+ '<img class="imageUrl" src="'+(imgUrl)+'" style="width: 160px; height: 100px;" /> <br/>'
 		+ '<input type="button" onclick="deleteImage(this);" value="删除"/>'
 		+ '</span>';
 	return str;
@@ -186,7 +186,7 @@ function checkImage(eInput){
 		showDiv.children('.flagVal').val("0");
 		img.editImage(img.idDiv, picUrl);
 	}else{
-		$(eInput).attr("src",window.urlImgBase+picUrl);
+		$(eInput).attr("src",picUrl);
 		showDiv.children('.flagVal').val("1");
 		var spanArr=idDiv.children('span');
 		for(var j=0;j<spanArr.length;j++){
@@ -213,7 +213,7 @@ function initImage(picId,flag){
 function showListImage(imgUrl,picId){
 	var str = '<span id="'+picId+'" width="200px" style="float:left; display:inline;">'
 		+ '<input class="imageUrlInput" name="ftpImageUrl" value="'+imgUrl+'" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;display:none;" readonly="readonly"><br/>'	
-		+ '<img class="imageUrl" src="'+(window.urlImgBase+imgUrl)+'" style="width: 160px; height: 100px;" onclick="checkImage(this);"/> <br/>'
+		+ '<img class="imageUrl" src="'+(imgUrl)+'" style="width: 160px; height: 100px;" onclick="checkImage(this);"/> <br/>'
 		+ '<input class="flagVal" value="1" style="width: 155px;display:none;" readonly="readonly"><br/>'	
 		+ '</span>';
 	return str;
