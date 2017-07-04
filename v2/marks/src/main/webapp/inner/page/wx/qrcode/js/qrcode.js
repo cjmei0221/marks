@@ -235,7 +235,7 @@ function loadList() {
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-				return '<img alt="二维码" src="'+window.urlImgBase+value+'" style="width:80px;height:60px;"';
+				return '<img alt="二维码" src="'+value+'" style="width:80px;height:60px;"';
 			}
 		}, {
 			title : '创建时间',

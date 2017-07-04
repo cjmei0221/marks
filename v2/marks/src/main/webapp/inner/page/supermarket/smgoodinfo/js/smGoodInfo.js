@@ -154,7 +154,7 @@ function loadList() {
 				if(value==null || value.length<5){
 					return "";
 				}
-				return ' <img class="picUrl" src="'+window.urlImgBase+value+'" style="width: 100px; height: 80px;" />';
+				return ' <img class="picUrl" src="'+value+'" style="width: 100px; height: 80px;" />';
 			}
 		
 		}, {
