@@ -7,16 +7,24 @@ import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import @{beanPackageUrl}.@{beanName};
 import @{daoInterfacePackageUrl}.@{beanName}Dao;
 import @{serviceInterfacePackageUrl}.@{beanName}Service;
 
+@Service
 public class @{beanName}ServiceImpl implements @{beanName}Service{
-   
 
+	@Resource
+	private @{beanName}Dao @{GetBeanObject}Dao;
+   
+/**
 @{DaoObject}
 @{GetSetMethod}
-    
+ */   
     /**
     *根据ID查找@{ModuleDesc}
     */
