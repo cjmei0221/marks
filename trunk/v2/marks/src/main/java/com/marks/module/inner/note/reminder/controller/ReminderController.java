@@ -223,6 +223,7 @@ public class ReminderController extends SupportContorller{
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("userid", admin.getUserid());
 			PojoDomain<Reminder> list = reminderService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
