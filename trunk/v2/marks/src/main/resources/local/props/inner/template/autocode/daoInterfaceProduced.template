@@ -4,11 +4,14 @@ package @{packageUrl};
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.annotation.MapperScan;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import @{beanPackageUrl}.@{beanName};
 
+@MapperScan
 public interface @{beanName}Dao {
 
 	@{beanName} findById(@Param("@{GetPkAttrName}") String @{GetPkAttrName});
