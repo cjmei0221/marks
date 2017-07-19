@@ -7,7 +7,7 @@ import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.note.diary.service.DiaryService;
 import com.marks.module.inner.note.reminder.pojo.Reminder;
 import com.marks.module.inner.note.reminder.service.ReminderService;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 public class DairyThreadPool {
 
@@ -33,7 +33,7 @@ public class DairyThreadPool {
 class RiminderWxMsgThread implements Runnable {
 
 	private Reminder reminder;
-	ReminderService diaryService = (ReminderService) DatabaseHelper.getBean(ReminderService.class);
+	ReminderService diaryService = (ReminderService) SpringContextHolder.getBean(ReminderService.class);
 
 	public RiminderWxMsgThread(Reminder reminder) {
 		this.reminder = reminder;
@@ -55,7 +55,7 @@ class RiminderWxMsgThread implements Runnable {
 class DairyWxMsgThread implements Runnable {
 
 	private WxUser wxUser;
-	DiaryService diaryService = (DiaryService) DatabaseHelper.getBean(DiaryService.class);
+	DiaryService diaryService = (DiaryService) SpringContextHolder.getBean(DiaryService.class);
 
 	public DairyWxMsgThread(WxUser wxUser) {
 		this.wxUser = wxUser;

@@ -12,12 +12,12 @@ import com.marks.common.util.date.Lunar;
 import com.marks.module.inner.note.diary.threadPool.DairyThreadPool;
 import com.marks.module.inner.note.reminder.dao.ReminderDao;
 import com.marks.module.inner.note.reminder.pojo.Reminder;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 public class ReminderHelper extends QuartzJobBean {
 
 	public void doJob() {
-		ReminderDao reminderDao = (ReminderDao) DatabaseHelper.getBean(ReminderDao.class);
+		ReminderDao reminderDao = (ReminderDao) SpringContextHolder.getBean(ReminderDao.class);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
 		Calendar today = Calendar.getInstance();
 		Lunar lunar = new Lunar(today);

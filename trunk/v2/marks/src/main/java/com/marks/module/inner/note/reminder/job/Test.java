@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.marks.common.util.date.Lunar;
 import com.marks.module.inner.note.reminder.dao.ReminderDao;
 import com.marks.module.inner.note.reminder.pojo.Reminder;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 public class Test {
 
@@ -25,8 +25,7 @@ public class Test {
 		ClassPathXmlApplicationContext context = new
 				  ClassPathXmlApplicationContext(
 				 "classpath:config/spring/applicationContext.xml");
-				DatabaseHelper.init(context);
-				ReminderDao reminderDao = (ReminderDao) DatabaseHelper.getBean(ReminderDao.class);
+				ReminderDao reminderDao = (ReminderDao) SpringContextHolder.getBean(ReminderDao.class);
 		List<Reminder> list = reminderDao.findNeedReminderList(noliMMDD,yangliMMDD,yearStr);
 		System.out.println(list.size());
 	}
