@@ -10,11 +10,11 @@ import com.marks.module.inner.system.sys.pojo.SysMenu;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.SysMenuService;
 import com.marks.module.inner.system.sysrole.service.SysRoleService;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 public class AuthUtil {
-	private SysMenuService sysMenuService = (SysMenuService) DatabaseHelper.getBean(SysMenuService.class);
-	private SysRoleService sysRoleService = (SysRoleService) DatabaseHelper.getBean(SysRoleService.class);
+	private SysMenuService sysMenuService = (SysMenuService) SpringContextHolder.getBean(SysMenuService.class);
+	private SysRoleService sysRoleService = (SysRoleService) SpringContextHolder.getBean(SysRoleService.class);
 	private static AuthUtil util = null;
 
 	private AuthUtil() {

@@ -12,14 +12,14 @@ import com.marks.module.center.wxfwhao.common.entity.AccessTokenVo;
 import com.marks.module.center.wxfwhao.common.service.AccessTokenService;
 import com.marks.module.center.wxfwhao.common.utils.WxfwConfig;
 import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.sys.system.core.data.StaticData;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
 
 public class QyAccessTokenUtil {
 	private static final long expires_in=7100*1000;
 	private static Logger logger = Logger.getLogger(QyAccessTokenUtil.class);
 	private static Map<String, AccessTokenVo> accesstoken_map=new HashMap<String, AccessTokenVo>();
-	AccessTokenService accessTokenService=(AccessTokenService) DatabaseHelper.getBean(AccessTokenService.class);
+	AccessTokenService accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
 	private long updateflag=0;
 	private static QyAccessTokenUtil util=null;
 	private QyAccessTokenUtil(){};
@@ -36,7 +36,7 @@ public class QyAccessTokenUtil {
 		if (WxfwConfig.access_token_db_flag_Y.equals(WxfwConfig.access_token_db_flag) && System.currentTimeMillis()-updateflag>3000) {
 			try {
 				if(null ==accessTokenService){
-					accessTokenService=(AccessTokenService) DatabaseHelper.getBean(AccessTokenService.class);
+					accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
 				}
 				vo=accessTokenService.getAccessTokenVoByAccountid(prefix+accountid);
 				//vo=MemcachedUtil.getInstance().getACCESS_TOKEN();
@@ -72,7 +72,7 @@ public class QyAccessTokenUtil {
 		accesstoken_map.put(vo.getAccountid(), vo);
 		try {
 			if(null ==accessTokenService){
-				accessTokenService=(AccessTokenService) DatabaseHelper.getBean(AccessTokenService.class);
+				accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
 			}
 			accessTokenService.saveOrUpdateAccessTokenVo(vo);
 			//MemcachedUtil.getInstance().putACCESS_TOKEN(vo.getAccountid(), vo,expires_in);

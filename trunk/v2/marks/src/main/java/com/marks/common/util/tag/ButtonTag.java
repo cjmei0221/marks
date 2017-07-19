@@ -13,12 +13,12 @@ import org.apache.log4j.Logger;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.LoginService;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.sys.system.core.helper.SysUserHelper;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
 
 public class ButtonTag extends TagSupport{
 	private static Logger logger = Logger.getLogger(ButtonTag.class);
-	LoginService loginService=(LoginService) DatabaseHelper.getBean(LoginService.class);
+	LoginService loginService=(LoginService) SpringContextHolder.getBean(LoginService.class);
 	/**
 	 * serialVersionUID:描述
 	 */
