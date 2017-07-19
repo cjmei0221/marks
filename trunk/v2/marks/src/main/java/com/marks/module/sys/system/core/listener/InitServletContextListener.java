@@ -28,9 +28,9 @@ public class InitServletContextListener implements ServletContextListener {
 	}
 
 	public void contextInitialized(ServletContextEvent sce) {
-		WebApplicationContext context = WebApplicationContextUtils
-				.getRequiredWebApplicationContext(sce.getServletContext());
-		DatabaseHelper.init(context);
+//		WebApplicationContext context = WebApplicationContextUtils
+//				.getRequiredWebApplicationContext(sce.getServletContext());
+//		DatabaseHelper.init(context);
 		
 		/*记录系统操作日志*/
 		SysLogThreadPool.init();
