@@ -11,7 +11,7 @@ import com.marks.module.inner.wx.wxchatsession.service.WxChatSessionService;
 import com.marks.module.inner.wx.wxuser.dao.WxUserDao;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 public class WxhreadPool {
 	private static ExecutorService pool;
@@ -45,9 +45,9 @@ public class WxhreadPool {
 class WxChatMsgThread implements Runnable {
 	private static Logger logger = Logger.getLogger(WxChatMsgThread.class);
 	private WxChatSession msg;
-	WxUserDao wxUserDao = (WxUserDao) DatabaseHelper
+	WxUserDao wxUserDao = (WxUserDao) SpringContextHolder
 			.getBean(WxUserDao.class);
-	WxChatSessionService wxChatSessionService = (WxChatSessionService) DatabaseHelper
+	WxChatSessionService wxChatSessionService = (WxChatSessionService) SpringContextHolder
 			.getBean(WxChatSessionService.class);
 	public WxChatMsgThread(WxChatSession msg) {
 		this.msg = msg;
@@ -74,7 +74,7 @@ class WxChatMsgThread implements Runnable {
 class UpdateWxUserThread implements Runnable {
 	private int subcribeFlag;
 	private WxUser wxUser;
-	WxUserService wxUserService = (WxUserService) DatabaseHelper
+	WxUserService wxUserService = (WxUserService) SpringContextHolder
 			.getBean(WxUserService.class);
 
 	public UpdateWxUserThread(int subcribeFlag, WxUser wxUser) {

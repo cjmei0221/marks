@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.marks.common.util.Constants;
 import com.marks.module.inner.wx.wxautoreplay.dao.WxAutoReplayDao;
 import com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.wx.util.WxConstants;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
@@ -37,7 +36,7 @@ public abstract class AbstractRequestService implements RequestService {
 	 */
 	public WechatResponse handle(WechatRequest requestMessage, String key) throws Exception {
 		WechatResponse responseMessage = null;
-		WxAutoReplayDao wxAutoReplayDao = (WxAutoReplayDao) DatabaseHelper.getBean(WxAutoReplayDao.class);
+		WxAutoReplayDao wxAutoReplayDao = (WxAutoReplayDao) SpringContextHolder.getBean(WxAutoReplayDao.class);
 		List<WxAutoReplay> replyList = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(),requestMessage.getAccountId());
 		boolean isEquels = false;
 		WxAutoReplay reply = null;
