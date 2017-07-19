@@ -10,7 +10,7 @@
  	<insert id="save" parameterType="@{NameSpaceUrl}.@{beanName}">
 		<selectKey keyProperty="@{PKAttrValue}" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>
 
- 		INSERT INTO @{TableName} @{TableOtherName} (
+ 		INSERT INTO @{TableName}  (
 @{GetAttrName}
 		)
 		VALUES(
@@ -19,11 +19,11 @@
  	</insert>
  	
  	<update id="update" parameterType="@{NameSpaceUrl}.@{beanName}">
- 		UPDATE @{TableName} @{TableOtherName}
+ 		UPDATE @{TableName} 
 		SET 
 @{UpdateMothod}
 		WHERE
-			@{TableOtherName}.@{PKAttrName} = #{@{PKAttrValue}}
+			@{PKAttrName} = #{@{PKAttrValue}}
  	</update>
  	
  	<delete id="delete" parameterType="String">

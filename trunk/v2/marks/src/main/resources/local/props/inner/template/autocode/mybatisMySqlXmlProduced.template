@@ -44,7 +44,7 @@
  	<select id="list" resultType="@{NameSpaceUrl}.@{beanName}" 
  	parameterType="java.util.Map">
  		SELECT  *
-		  FROM   @{TableName} 
+		  FROM   @{TableName} @{TableOtherName}
 						WHERE 1=1
 @{FindToType}
 						
