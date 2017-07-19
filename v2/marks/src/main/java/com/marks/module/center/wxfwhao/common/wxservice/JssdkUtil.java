@@ -13,7 +13,7 @@ import com.marks.module.center.wxfwhao.common.service.AccessTokenService;
 import com.marks.module.center.wxfwhao.common.utils.AccessTokenUtil;
 import com.marks.module.center.wxfwhao.common.utils.WxHttpUtils;
 import com.marks.module.center.wxfwhao.common.utils.WxfwConfig;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 /**
  * 获取jssdk 的 jsapi_ticket
@@ -24,7 +24,7 @@ public class JssdkUtil {
 	private static final long expires_in=7100*1000;
 	private static Logger logger = Logger.getLogger(AccessTokenUtil.class);
 	private static Map<String, AccessTokenVo> accesstoken_map=new HashMap<String, AccessTokenVo>();
-	AccessTokenService accessTokenService=(AccessTokenService) DatabaseHelper.getBean(AccessTokenService.class);
+	AccessTokenService accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
 	private static final String jssdk_pre="jssdk_";
 	private static JssdkUtil util=null;
 	private long updateflag=0;
@@ -41,7 +41,7 @@ public class JssdkUtil {
 		if (WxfwConfig.access_token_db_flag_Y.equals(WxfwConfig.access_token_db_flag) && System.currentTimeMillis()-updateflag>3000) {
 			try {
 				if(null ==accessTokenService){
-					accessTokenService=(AccessTokenService) DatabaseHelper.getBean(AccessTokenService.class);
+					accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
 				}
 				vo=accessTokenService.getAccessTokenVoByAccountid(jssdk_pre+accountid);
 				//vo=MemcachedUtil.getInstance().getACCESS_TOKEN(jssdk_pre+accountid);
@@ -76,7 +76,7 @@ public class JssdkUtil {
 		updateflag=System.currentTimeMillis();
 		accesstoken_map.put(vo.getAccountid(), vo);
 		if(null ==accessTokenService){
-			accessTokenService=(AccessTokenService) DatabaseHelper.getBean(AccessTokenService.class);
+			accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
 		}
 		accessTokenService.saveOrUpdateAccessTokenVo(vo);
 		//MemcachedUtil.getInstance().putACCESS_TOKEN(jssdk_pre+vo.getAccountid(), vo, vo.getExpires_in());
