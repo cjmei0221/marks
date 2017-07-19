@@ -11,7 +11,7 @@ import com.marks.common.util.center.SysCode;
 import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 /**
  * 消息推送线程池类
@@ -64,7 +64,7 @@ class ScanModuleMsgThread implements Runnable {
 		try {
 
 			if (moduleMsgService == null) {
-				moduleMsgService = (ModuleMsgService) DatabaseHelper
+				moduleMsgService = (ModuleMsgService) SpringContextHolder
 						.getBean(ModuleMsgService.class);
 			}
 			moduleMsgService.pustWxbModuleMsg();
@@ -98,7 +98,7 @@ class PushModuleMsgThread implements Runnable {
 		try {
 			if(null != msg){
 				 if (moduleMsgService == null) {
-					 moduleMsgService = (ModuleMsgService) DatabaseHelper.getBean(ModuleMsgService.class);
+					 moduleMsgService = (ModuleMsgService) SpringContextHolder.getBean(ModuleMsgService.class);
 				 }
 				logger.info("开始推送消息  id"+msg.getId());
 				JsonResult result=SendMsgUtils.getInstance().sendTemplateMsg(msg.getAccountid(),msg.getTouser(), msg.getTemplate_id(), msg.getUrl(), msg.getData());

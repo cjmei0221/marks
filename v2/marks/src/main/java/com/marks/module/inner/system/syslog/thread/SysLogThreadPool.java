@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import com.marks.module.inner.system.syslog.dao.SysLogDao;
 import com.marks.module.inner.system.syslog.pojo.SysLog;
 import com.marks.module.inner.system.syslogparam.pojo.SysLogParam;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 /**
  * 系统日志记录线程池
@@ -48,7 +48,7 @@ class SysLogThread implements Runnable{
 		try {
 			Thread.sleep(3000);
 			if(sysLogDao==null){
-				sysLogDao=(SysLogDao) DatabaseHelper.getBean(SysLogDao.class);
+				sysLogDao=(SysLogDao) SpringContextHolder.getBean(SysLogDao.class);
 			}
 			if(log==null){
 				return;
