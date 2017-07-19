@@ -10,8 +10,8 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import com.marks.module.inner.system.orginfo.pojo.OrgInfo;
 import com.marks.module.inner.system.orginfo.service.OrgInfoService;
 import com.marks.module.inner.system.sys.service.LoadDataService;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.sys.system.core.data.StaticData;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
 
 /**
  * 将基础数据加载到缓存中
@@ -24,7 +24,7 @@ public class LoadDataHelper  extends QuartzJobBean{
 
 	public void doJob() {
 		logger.info("开始加载缓存数据");
-		LoadDataService loadDataService = (LoadDataService) DatabaseHelper.getBean(LoadDataService.class);
+		LoadDataService loadDataService = (LoadDataService) SpringContextHolder.getBean(LoadDataService.class);
 		/**
 		 * 加载系统参数到缓存
 		 */
@@ -42,7 +42,7 @@ public class LoadDataHelper  extends QuartzJobBean{
 		 */
 		loadDataService.loadUrlList();
 
-		OrgInfoService orgInfoService = (OrgInfoService) DatabaseHelper.getBean(OrgInfoService.class);
+		OrgInfoService orgInfoService = (OrgInfoService) SpringContextHolder.getBean(OrgInfoService.class);
 		List<OrgInfo> orgInfoList=orgInfoService.findAll();
 		StaticData.putOrgInfoList(orgInfoList);
 		logger.info("结束加载缓存数据");

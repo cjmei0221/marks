@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.pay.unionpay.dao.UnionPayDao;
 import com.marks.module.web.pay.unionpay.pojo.UnionPayLog;
 
@@ -41,7 +41,7 @@ public class PayThreadPool {
  */
 class SaveUnionPayLogThread extends Thread {
 	private Logger logger = Logger.getLogger(SaveUnionPayLogThread.class);
-	private UnionPayDao unionPayDao = (UnionPayDao) DatabaseHelper.getBean(UnionPayDao.class);
+	private UnionPayDao unionPayDao = (UnionPayDao) SpringContextHolder.getBean(UnionPayDao.class);
 	private Map<String, String> valideData;
 	private String status;
 

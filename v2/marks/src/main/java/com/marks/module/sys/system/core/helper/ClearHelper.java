@@ -7,7 +7,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.marks.module.inner.system.syslog.service.SysLogService;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 /**
  * 将基础数据加载到缓存中
@@ -20,9 +20,9 @@ public class ClearHelper  extends QuartzJobBean{
 
 	public void doJob() {
 		logger.info("开始清除数据");
-		SysLogService sysLogService = (SysLogService) DatabaseHelper.getBean(SysLogService.class);
+		SysLogService sysLogService = (SysLogService) SpringContextHolder.getBean(SysLogService.class);
 		sysLogService.clearData();
-		ModuleMsgService moduleMsgService = (ModuleMsgService) DatabaseHelper.getBean(ModuleMsgService.class);
+		ModuleMsgService moduleMsgService = (ModuleMsgService) SpringContextHolder.getBean(ModuleMsgService.class);
 		moduleMsgService.clearData();
 		logger.info("结束清除数据");
 
