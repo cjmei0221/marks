@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.web.wx.wfhao.service.RequestDispatchService;
@@ -33,7 +33,7 @@ public class RequestDispatchServiceImpl implements RequestDispatchService {
 	public WechatResponse dispatch(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
 
 		try {
-			RequestService requestService = (RequestService) DatabaseHelper
+			RequestService requestService = (RequestService) SpringContextHolder
 					.getBean(requestMessage.getMsgType().toLowerCase() + "RequestService");
 			if (requestService != null) {
 				WechatResponse responseMessage = requestService.handle(request, requestMessage);

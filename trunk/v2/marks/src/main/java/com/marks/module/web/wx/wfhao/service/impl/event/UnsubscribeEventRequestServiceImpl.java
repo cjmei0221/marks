@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.web.wx.wfhao.service.impl.normal.AbstractRequestService;
@@ -38,7 +38,7 @@ public class UnsubscribeEventRequestServiceImpl extends AbstractRequestService {
 		try {
 			logger.info("-----------------UnsubscribeEventRequestServiceImpl:accountid:" + requestMessage.getAccountId()
 					+ "-------openid:" + requestMessage.getFromUserName());
-			WxUserService wxUserService = (WxUserService) DatabaseHelper
+			WxUserService wxUserService = (WxUserService) SpringContextHolder
 					.getBean(WxUserService.class);
 			user = wxUserService.findById(requestMessage.getAccountId(),
 					requestMessage.getFromUserName());

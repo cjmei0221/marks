@@ -8,11 +8,9 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.marks.common.util.Constants;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.pay.unionpay.dao.UnionPayDao;
 import com.marks.module.web.pay.unionpay.pojo.UnionPayLog;
-import com.marks.module.web.pay.unionpay.thread.pool.PayThreadPool;
 
 
 /**
@@ -28,7 +26,7 @@ public class UnionPayErrorDealUtil extends QuartzJobBean{
 	public void doJob(){
 		log.info("定时[读取银联交易报文表]开始");
 		try {
-			unionPayDao = (UnionPayDao)DatabaseHelper.getBean(UnionPayDao.class);
+			unionPayDao = (UnionPayDao)SpringContextHolder.getBean(UnionPayDao.class);
 			findUnionPayError();
 		} catch (Exception e) {
 			log.info("Exception:",e);

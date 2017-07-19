@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.web.wx.wfhao.service.impl.normal.AbstractRequestService;
@@ -38,7 +38,7 @@ public class TemplatesendjobfinishEventRequestServiceImpl extends AbstractReques
 	@Override
 	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage) throws Exception {
 		logger.info("TemplatesendjobfinishEventRequestServiceImpl deal start  > msgId: "+requestMessage.getMsgID()+" - result: "+requestMessage.getStatus());
-		ModuleMsgService moduleMsgService=(ModuleMsgService) DatabaseHelper.getBean(ModuleMsgService.class);
+		ModuleMsgService moduleMsgService=(ModuleMsgService) SpringContextHolder.getBean(ModuleMsgService.class);
 		String createtimeStr=requestMessage.getCreateTime();
 		Timestamp time=new Timestamp(Long.parseLong(createtimeStr)*1000);
 		moduleMsgService.updateResultForModuleMsg(requestMessage.getAccountId(),requestMessage.getMsgID(),time,requestMessage.getStatus());

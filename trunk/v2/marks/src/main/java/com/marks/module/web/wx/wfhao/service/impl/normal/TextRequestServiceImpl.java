@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 import com.marks.module.inner.wx.enums.WXEnums;
 import com.marks.module.inner.wx.wxchatsession.dao.WxChatSessionDao;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.sys.system.core.data.StaticData;
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
 import com.marks.module.web.wx.util.WxConstants;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
@@ -50,7 +50,7 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 		logger.info("是否开通系统自带人工服务: "+isOpenRg);
 		//开通人工服务
 		if("Y".equals(isOpenRg)){
-			WxChatSessionDao wxChatSessionDao = (WxChatSessionDao) DatabaseHelper
+			WxChatSessionDao wxChatSessionDao = (WxChatSessionDao) SpringContextHolder
 					.getBean(WxChatSessionDao.class);
 			long timeLong = System.currentTimeMillis() / 1000;
 			String sessionStr = StaticData.getSysConf("session_time");

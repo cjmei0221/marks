@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.marks.module.sys.system.core.listener.DatabaseHelper;
+import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.web.wx.wfhao.service.RequestService;
@@ -34,7 +34,7 @@ public class EventRequestServiceImpl implements RequestService {
 		logger.info("EventRequestServiceImpl deal start event>"+requestMessage.getEvent().toLowerCase());
 		
 		try {
-			RequestService requestService =  (RequestService) DatabaseHelper
+			RequestService requestService =  (RequestService) SpringContextHolder
 					.getBean(requestMessage.getEvent().toLowerCase() + "EventRequestService");
 			if (requestService != null) {
 				WechatResponse responseMessage = requestService.handle(request, requestMessage);
