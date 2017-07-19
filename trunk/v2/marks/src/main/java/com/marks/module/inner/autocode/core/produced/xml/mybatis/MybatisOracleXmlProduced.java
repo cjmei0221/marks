@@ -137,8 +137,8 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
 		for (int i = 0; i < autoAttrs.size(); i++) {
 			sBuffer.append(BANK_VALUE_4).append(BANK_VALUE_4).append(BANK_VALUE_4);
-			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE)
-					.append(autoAttrs.get(i).getAttrName().toUpperCase());
+//			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE);
+			sBuffer.append(autoAttrs.get(i).getAttrName().toUpperCase());
 			if (i != autoAttrs.size() - 1) {
 				sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
 			}
@@ -266,8 +266,8 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 	public String producedSaveValue(String attrName, String type, AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
 
-		sBuffer.append(BANK_VALUE_4).append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE)
-				.append(attrName.toUpperCase()).append(BANK_VALUE_1).append(EQUAL_VALUE).append(BANK_VALUE_1);
+//		sBuffer.append(BANK_VALUE_4).append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE);
+		sBuffer.append(attrName.toUpperCase()).append(BANK_VALUE_1).append(EQUAL_VALUE).append(BANK_VALUE_1);
 		if (updateTime.equals(attrName.toLowerCase())) {
 			sBuffer.append("sysdate");
 		}else{
