@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>计划</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>计划</h1>
+	<p>个人工作计划</p>
+	
+	<h2>计划表  (TB_NOTE_PLAN)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>ID</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>PLANTXT</td><td>计划</td><td>varchar2</td><td>无</td></tr><tr><td>3</td><td>COMPLETETXT</td><td>完成情况</td><td>varchar2</td><td>无</td></tr><tr><td>4</td><td>ISCOMPLETE</td><td>是否完成</td><td>varchar2</td><td>无</td></tr><tr><td>5</td><td>CREATETIME</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>6</td><td>UPDATETIME</td><td>更新时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>7</td><td>CREATOR</td><td>创建者</td><td>varchar2</td><td>无</td></tr><tr><td>8</td><td>MOBILE</td><td>手机号</td><td>varchar2</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (Plan)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>ID</td><td>String</td><td>无</td></tr><tr><td>2</td><td>planTxt</td><td>计划</td><td>String</td><td>无</td></tr><tr><td>3</td><td>completeTxt</td><td>完成情况</td><td>String</td><td>无</td></tr><tr><td>4</td><td>isComplete</td><td>是否完成</td><td>String</td><td>无</td></tr><tr><td>5</td><td>createtime</td><td>创建时间</td><td>Date</td><td>无</td></tr><tr><td>6</td><td>updatetime</td><td>更新时间</td><td>Date</td><td>无</td></tr><tr><td>7</td><td>creator</td><td>创建者</td><td>String</td><td>无</td></tr><tr><td>8</td><td>mobile</td><td>手机号</td><td>String</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (PlanController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/plan/findPlanById</td><td>findPlanById</td><td>查询计划</td></tr><tr><td>2</td><td>/plan/save</td><td>savePlan</td><td>保存计划</td></tr><tr><td>3</td><td>/plan/update</td><td>updatePlan</td><td>更新计划</td></tr><tr><td>4</td><td>/plan/delete</td><td>deletePlanById</td><td>删除计划</td></tr><tr><td>5</td><td>/plan/findAllPlan</td><td>findAllPlan</td><td>查询全部计划</td></tr><tr><td>6</td><td>/plan/deleteIds</td><td>deletePlan</td><td>删除多个计划</td></tr><tr><td>7</td><td>/plan/list</td><td>list</td><td>列表查询计划</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (PlanService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询计划</td></tr><tr><td>2</td><td>save</td><td>保存计划</td></tr><tr><td>3</td><td>update</td><td>更新计划</td></tr><tr><td>4</td><td>deleteById</td><td>删除计划</td></tr><tr><td>5</td><td>findAll</td><td>查询全部计划</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个计划</td></tr><tr><td>7</td><td>list</td><td>列表查询计划</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(PlanDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询计划</td></tr><tr><td>2</td><td>save</td><td>保存计划</td></tr><tr><td>3</td><td>update</td><td>更新计划</td></tr><tr><td>4</td><td>deleteById</td><td>删除计划</td></tr><tr><td>5</td><td>findAll</td><td>查询全部计划</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个计划</td></tr><tr><td>7</td><td>list</td><td>列表查询计划</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
