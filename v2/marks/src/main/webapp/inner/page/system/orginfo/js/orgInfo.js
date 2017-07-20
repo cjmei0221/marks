@@ -136,13 +136,8 @@ function loadList() {
 	$('#tbList').treegrid(
 			{
 				url : appInfo.listUrl,
-				toolbar : "#tb",
-				striped : true,
-				nowrap : true,
+				toolbar : "#tb",	
 				rownumbers : true,
-				animate : true,
-				collapsible : true,
-				fitColumns : true,
 				idField : 'orgid',
 				treeField : 'orgname',
 				singleSelect : true,
