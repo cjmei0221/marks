@@ -56,14 +56,14 @@
 	</filter-mapping>
 
 	<!-- 记录系统日志过滤器 -->
-	<filter>
+	<!-- <filter>
 		<filter-name>SysLogFilter</filter-name>
 		<filter-class>com.marks.module.sys.system.core.filter.SysLogFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>SysLogFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 	<filter>
 		<filter-name>paramsFilter</filter-name>
 		<filter-class>com.marks.module.sys.system.core.filter.ParamsFilter</filter-class>
