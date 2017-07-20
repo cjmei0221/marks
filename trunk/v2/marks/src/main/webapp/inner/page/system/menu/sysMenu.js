@@ -254,8 +254,6 @@ function loadList() {
 	$('#tbList').treegrid({
 		url : appInfo.listUrl,
 		rownumbers : true,
-		animate : false,
-		fitColumns : true,
 		idField : 'menuid',
 		treeField : 'menuitem',
 		frozenColumns : [ [ {
@@ -271,7 +269,7 @@ function loadList() {
 		columns : [ [ {
 			title : '访问URL',
 			field : 'url',
-			width : 150
+			width : 250
 		}, {
 			title : '排序',
 			field : 'sort',
@@ -279,15 +277,15 @@ function loadList() {
 		}, {
 			title : '创建时间',
 			field : 'createtime',
-			width : 80
+			width : 150
 		}, {
 			title : '更新时间',
 			field : 'updatetime',
-			width : 80
+			width : 150
 		}, {
 			title : '更新者',
 			field : 'creator',
-			width : 80
+			width : 100
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
@@ -304,7 +302,6 @@ function loadList() {
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").treegrid('unselectAll');
-			$("#tbList").treegrid('collapseAll');
 			appInfo.selectedData = {};
 		}
 	});
