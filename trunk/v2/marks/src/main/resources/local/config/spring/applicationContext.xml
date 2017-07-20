@@ -27,12 +27,17 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:jdbc.properties" />
 	</bean>
+	<!-- 以静态变量保存Spring ApplicationContext,可在任意代码中取出ApplicaitonContext. -->
+	<bean name="springContextHolder" scope="singleton" lazy-init="false"
+		class="com.marks.module.sys.system.core.common.SpringContextHolder">
+	</bean>
 
-	
-		<import resource="applicationContext-datasource.xml"/>	
-	 	<import resource="applicationContext-mybatis.xml"/>	
-	 	<import resource="applicationContext-aop-tx.xml"/>	
-	 	<import resource="module/inner/applicationContext-*.xml"/>	
-		<import resource="module/center/applicationContext-*.xml"/>	
-		<import resource="module/web/applicationContext-*.xml"/>	
+	<bean class="com.marks.module.sys.system.core.common.ServletContextHolder" />
+
+	<import resource="applicationContext-datasource.xml" />
+	<import resource="applicationContext-mybatis.xml" />
+	<import resource="applicationContext-aop-tx.xml" />
+	<import resource="module/inner/applicationContext-*.xml" />
+	<import resource="module/center/applicationContext-*.xml" />
+	<import resource="module/web/applicationContext-*.xml" />
 </beans>

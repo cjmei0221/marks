@@ -6,10 +6,10 @@
 		<property name="triggers">
 			<list>
 				<ref bean="loadDataTrigger" />
-				<ref bean="dairyTrigger" />
+				<!-- <ref bean="dairyTrigger" />
 				<ref bean="reminderTrigger" />
 				<ref bean="clearTrigger" />
-				<ref bean="wxbModuleMsgTrigger" />
+				<ref bean="wxbModuleMsgTrigger" /> -->
 			</list>
 		</property>
 	</bean>
