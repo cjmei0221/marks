@@ -49,7 +49,7 @@ function submitForm(){
 			return;
 		}
 	}
-	var reqUrl=appInfo.formStatus=="edit"?tool.reqUrl.gains_update:tool.reqUrl.gains_add;
+	var reqUrl=appInfo.formStatus=="edit"?tool.reqUrl.plan_update:tool.reqUrl.plan_add;
 	$.ajax({
 		url : reqUrl,
 		type : 'POST',
