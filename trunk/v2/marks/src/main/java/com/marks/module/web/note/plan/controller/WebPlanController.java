@@ -22,7 +22,7 @@ import com.marks.common.util.Code;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.sys.system.core.helper.SysUserHelper;
-
+import com.marks.module.web.system.login.util.LoginUtil;
 import com.marks.module.inner.note.plan.pojo.Plan;
 import com.marks.module.inner.note.plan.service.PlanService;
 
@@ -74,7 +74,7 @@ public class WebPlanController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Plan plan = getModel(Plan.class);
 	 //     plan.setId(IDUtil.getUUID());
 	 		
@@ -111,7 +111,7 @@ public class WebPlanController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    Plan plan = getModel(Plan.class);
 		    
 		    logger.info(" updatePlan> param>"+plan.toLog());
@@ -215,7 +215,7 @@ public class WebPlanController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");
