@@ -13,12 +13,12 @@ function getDetail(){
 		success : function(data) {
 			if(data.retcode=="0"){
 				var vo=data.plan;
-				
+				console.log(vo);
 				$("#c_createtime").html(vo.createtime);
 				var isTxt="";
 				if (vo.isComplete == 'noComplete') {
 					isTxt= "未完成";
-				}else if(o.isComplete == 'partially'){
+				}else if(vo.isComplete == 'partially'){
 					isTxt= "部分完成";
 				}else{
 					isTxt= "全部完成";
