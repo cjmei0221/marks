@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title>计划</title>
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/marks.css">
+
+</head>
+<body>
+	<div>
+		<div id="cmHead"></div>
+
+		<div id="app" class='container'>
+			<div style="text-align: -webkit-left; margin: 30px;">
+				<div class="sui-form form-horizontal">
+					<h4>
+						<span>计划安排</span>
+					</h4>
+					<div style="border-bottom: 1px solid #e6e6e6; margin-top: 30px;"></div>
+					<div class="control-group" style="width: 100%;">
+						<div class="controls">
+							<textarea style="height: 10rem; width: 100%;" id="planTxt"
+								name="planTxt" class="input-xxlarge cm-input" placeholder="计划"
+								onblur="submitForm()"></textarea>
+						</div>
+					</div>
+					<div class="control-group completeDiv"
+						style="width: 100%; display: none;">
+						<div class="controls">
+							<label data-toggle="radio"
+								class="radio-pretty inline checked noComplete"> <input
+								type="radio" checked="checked" name="c_lvl" value="noComplete"
+								onblur="submitForm()"><span>未完成</span>
+							</label> <label data-toggle="radio" class="radio-pretty inline partially">
+								<input type="radio" name="c_lvl" value="partially"
+								onblur="submitForm()"><span>部分完成</span>
+							</label> <label data-toggle="radio" class="radio-pretty inline complete">
+								<input type="radio" name="c_lvl" value="complete"
+								onblur="submitForm()"><span>已完成</span>
+							</label>
+						</div>
+					</div>
+					<div class="completeDiv" style="border-bottom: 1px solid #e6e6e6; margin-top: 30px;display:none;"></div>
+					<div class="control-group completeDiv"
+						style="width: 100%; display: none;">
+						<div class="controls">
+							<textarea style="height: 10rem; width: 100%;" id="completeTxt"
+								name="completeTxt" class="input-xxlarge cm-input"
+								placeholder="完成情况" onblur="submitForm()"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<script type='text/javascript' src='../../js/my-config.js'
+	charset='utf-8'></script>
+<script type="text/javascript" src="../../js/showMsg.js"></script>
+<script type='text/javascript' src='../../../../common/tool.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../note.js' charset='utf-8'></script>
+<script type="text/javascript" src="./add.js"></script>
+</html>
