@@ -42,7 +42,10 @@ function getDetail(){
 }
 function submitForm(){
 	if(appInfo.formStatus=="edit"){
-		
+		if(trim($("#planTxt").val())=='' && trim($("#planTxt").val())==''){
+			msg.info("计划不能为空");
+			return;
+		}
 	}else{
 		if(trim($("#planTxt").val())=='' && trim($("#planTxt").val())==''){
 			msg.info("计划不能为空");
