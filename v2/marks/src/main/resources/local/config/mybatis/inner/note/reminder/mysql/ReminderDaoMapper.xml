@@ -52,7 +52,6 @@
                 REMIND_TIME = #{remind_time:VARCHAR},
                 IS_BEFORE = #{is_before:NUMERIC},
                 UPDATETIME = now(),
-                CREATOR = #{creator:VARCHAR},
                 CALENDAR_TYPE = #{calendar_type:NUMERIC}
 		WHERE
 			ID = #{id}
