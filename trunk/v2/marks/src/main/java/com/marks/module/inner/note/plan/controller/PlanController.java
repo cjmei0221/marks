@@ -86,6 +86,7 @@ public class PlanController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
+	 			plan.setId(IDUtil.getUUID());
 	 			plan.setCreator(admin.getUserid());
 	 			plan.setMobile(admin.getBind_mobile());
 	 			planService.save(plan);
