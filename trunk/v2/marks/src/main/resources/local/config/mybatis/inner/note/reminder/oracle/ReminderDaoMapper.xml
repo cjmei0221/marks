@@ -58,7 +58,6 @@
 		reminder.IS_BEFORE = #{is_before:NUMERIC},
 		reminder.UPDATETIME =
 		sysdate,
-		reminder.CREATOR = #{creator:VARCHAR},
 		reminder.CALENDAR_TYPE =
 		#{calendar_type:NUMERIC},
 		reminder.HOLIDAY_TYPE=#{holiday_type:NUMERIC}
