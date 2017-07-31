@@ -7,6 +7,7 @@ function loadHead() {
 			+ '<li id="diary"><a href="/web/note/PC/view/diary/list.html">日记</a></li>'
 			+ '<li id="question"><a href="/web/note/PC/view/question/list.html">问题</a></li>'
 			+ '<li id="plan"><a href="/web/note/PC/view/plan/list.html">计划</a></li>'
+			+ '<li id="reminder"><a href="/web/note/PC/view/reminder/list.html">提醒</a></li>'
 			+ '</ul>' + '</div>' + '<div id="showMsg"></div>' + '</div>';
 	$("#cmHead").html(htmlHead);
 }
