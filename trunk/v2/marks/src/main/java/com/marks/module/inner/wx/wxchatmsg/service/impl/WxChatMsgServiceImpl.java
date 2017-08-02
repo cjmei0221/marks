@@ -3,25 +3,27 @@ package com.marks.module.inner.wx.wxchatmsg.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.wx.wxchatmsg.pojo.WxChatMsg;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.wx.wxchatmsg.dao.WxChatMsgDao;
+import com.marks.module.inner.wx.wxchatmsg.pojo.WxChatMsg;
 import com.marks.module.inner.wx.wxchatmsg.service.WxChatMsgService;
-
+@Service
 public class WxChatMsgServiceImpl implements WxChatMsgService{
    
-
+	@Autowired
     private WxChatMsgDao wxChatMsgDao;
 
-    public WxChatMsgDao getWxChatMsgDao(){
+   /* public WxChatMsgDao getWxChatMsgDao(){
         return wxChatMsgDao;
     }
     public void setWxChatMsgDao(WxChatMsgDao wxChatMsgDao){
         this.wxChatMsgDao =wxChatMsgDao;
-    }
+    }*/
 
     
     /**

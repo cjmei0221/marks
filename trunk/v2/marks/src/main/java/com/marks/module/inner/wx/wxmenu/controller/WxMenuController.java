@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.center.wxfwhao.common.entity.WxMenu;
+import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.inner.wx.wxmenu.service.WxMenuService;
@@ -44,7 +44,7 @@ public class WxMenuController extends SupportContorller {
 		Result result = new Result();
 		try {
 			WxMenu wxMenu = getModel(WxMenu.class);
-			
+
 			WxMenu requestWxMenu = wxMenuService.findById(wxMenu.getId());
 			result.getData().put("wxMenu", requestWxMenu);
 			result.setMessage("findById wxMenu successs!");
@@ -67,19 +67,14 @@ public class WxMenuController extends SupportContorller {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			WxMenu wxMenu = getModel(WxMenu.class);
 			// wxMenu.setId(IDUtil.getTimeID());
-			WxMenu ori = null;
-			if (wxMenu.getId() != null) {
-				ori = wxMenuService.findById(wxMenu.getId());
+			if(wxMenu.getLvl() !=0){
+				WxMenu ori  = wxMenuService.findById(wxMenu.getParent_id());
+				wxMenu.setAccountid(ori.getAccountid());
 			}
+			wxMenuService.save(wxMenu);
+			result.setMessage("保存成功");
+			result.setCode(Code.CODE_SUCCESS);
 
-			if (ori == null) {
-				wxMenuService.save(wxMenu);
-				result.setMessage("保存成功");
-				result.setCode(Code.CODE_SUCCESS);
-			} else {
-				result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
-			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("保存失败，请联系管理员！");
@@ -102,6 +97,11 @@ public class WxMenuController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
+				if (wxMenu.getLvl() != 0) {
+					wxMenu.setMenutype(ori.getMenutype());
+					wxMenu.setTagid(ori.getTagid());
+					wxMenu.setMenuid(ori.getMenuid());
+				}
 				wxMenuService.update(wxMenu);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
@@ -122,16 +122,16 @@ public class WxMenuController extends SupportContorller {
 		Result result = new Result();
 		try {
 			WxMenu wxMenu = getModel(WxMenu.class);
-			List<WxMenu> childList=wxMenuService.getChildWxMenuList(wxMenu.getId());
-			if(null != childList && childList.size()>0){
+			List<WxMenu> childList = wxMenuService.getChildWxMenuList(wxMenu.getId());
+			if (null != childList && childList.size() > 0) {
 				result.setMessage("含有子节点不能删除!");
 				result.setCode("4004");
-			}else{
+			} else {
 				wxMenuService.delete(wxMenu.getId());
 				result.setMessage("删除成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			}
-			
+
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("删除失败，请联系管理员！");
@@ -196,9 +196,13 @@ public class WxMenuController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 
 		SysUser admin = SysUserHelper.getCurrentUserInfo(request);
-
+		String parentId = request.getParameter("parentId");
+		if (parentId == null || "".equals(parentId)) {
+			parentId = "0";
+		}
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("accountIds", admin.getAccountids());
+		param.put("parentId", parentId);
 		List<WxMenu> list = wxMenuService.listTree(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
@@ -212,8 +216,8 @@ public class WxMenuController extends SupportContorller {
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		try {
-			String accountid=request.getParameter("accountid");
-			result = wxMenuService.syncWx(accountid);
+			String id = request.getParameter("id");
+			result = wxMenuService.syncWx(id);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("syncWx wxMenu fail!");

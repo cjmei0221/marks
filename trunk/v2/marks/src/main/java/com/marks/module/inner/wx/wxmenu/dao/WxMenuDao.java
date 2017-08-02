@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.marks.module.center.wxfwhao.common.entity.WxMenu;
+import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
 
+@MapperScan
 public interface WxMenuDao {
 
 	WxMenu findById(String id);

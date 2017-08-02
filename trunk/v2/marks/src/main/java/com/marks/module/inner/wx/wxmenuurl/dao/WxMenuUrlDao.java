@@ -4,10 +4,11 @@ package com.marks.module.inner.wx.wxmenuurl.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.annotation.MapperScan;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-
 import com.marks.module.inner.wx.wxmenuurl.pojo.WxMenuUrl;
-
+@MapperScan
 public interface WxMenuUrlDao {
 
 	WxMenuUrl findById(String id);
