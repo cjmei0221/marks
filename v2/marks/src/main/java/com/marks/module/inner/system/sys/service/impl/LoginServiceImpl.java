@@ -3,6 +3,9 @@ package com.marks.module.inner.system.sys.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.marks.module.inner.system.orginfo.pojo.OrgInfo;
 import com.marks.module.inner.system.sys.dao.LoginDao;
 import com.marks.module.inner.system.sys.pojo.SysMenu;
@@ -10,13 +13,14 @@ import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.LoginService;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 
+@Service
 public class LoginServiceImpl implements LoginService {
-
+	@Autowired
 	private LoginDao loginDao;
 
-	public void setLoginDao(LoginDao loginDao) {
+	/*public void setLoginDao(LoginDao loginDao) {
 		this.loginDao = loginDao;
-	}
+	}*/
 
 	@Override
 	public SysUser getSysUserByUserid(String userid) {

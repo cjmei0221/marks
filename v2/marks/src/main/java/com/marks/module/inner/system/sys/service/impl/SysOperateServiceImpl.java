@@ -2,21 +2,24 @@ package com.marks.module.inner.system.sys.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.module.inner.system.sys.dao.SysOperateDao;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.SysOperateService;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
+@Service
 public class SysOperateServiceImpl implements SysOperateService{
-
+	@Autowired
 	private SysOperateDao sysOperateDao;
 	
-	public void setSysOperateDao(SysOperateDao sysOperateDao) {
+	/*public void setSysOperateDao(SysOperateDao sysOperateDao) {
 		this.sysOperateDao = sysOperateDao;
-	}
+	}*/
 
 	@Override
 	public PojoDomain<SysOperate> list(int page_number, int page_size, String keyword) {
