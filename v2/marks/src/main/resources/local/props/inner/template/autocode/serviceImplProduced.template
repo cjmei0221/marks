@@ -7,7 +7,7 @@ import com.marks.common.domain.PojoDomain;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import @{serviceInterfacePackageUrl}.@{beanName}Service;
 @Service
 public class @{beanName}ServiceImpl implements @{beanName}Service{
 
-	@Resource
+	@Autowired
 	private @{beanName}Dao @{GetBeanObject}Dao;
    
 /**
