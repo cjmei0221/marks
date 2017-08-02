@@ -9,7 +9,6 @@ import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.module.center.wxfwhao.common.entity.UserGet;
-import com.marks.module.center.wxfwhao.common.entity.WxMenu;
 import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.center.wxfwhao.common.wxservice.AccountUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.DownloadTempUtil;
@@ -17,7 +16,13 @@ import com.marks.module.center.wxfwhao.common.wxservice.GroupUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.JssdkUtil;
 import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
 import com.marks.module.center.wxfwhao.common.wxservice.UserUtil;
-import com.marks.module.center.wxfwhao.common.wxservice.WxMenuUtil;
+import com.marks.module.center.wxfwhao.tags.pojo.Tag;
+import com.marks.module.center.wxfwhao.tags.wxservice.TagsService;
+import com.marks.module.center.wxfwhao.tags.wxservice.UserTagsService;
+import com.marks.module.center.wxfwhao.wxmenu.pojo.SpecialCondition;
+import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
+import com.marks.module.center.wxfwhao.wxmenu.wxservice.SpecialWxMenuService;
+import com.marks.module.center.wxfwhao.wxmenu.wxservice.WxMenuUtil;
 import com.marks.module.sys.system.core.data.StaticData;
 
 /**
@@ -218,6 +223,133 @@ public class WxFwUtil {
 			result.setCode(res.getErrorCode());
 			result.setMessage(res.getErrorMsg());
 		}
+		return result;
+	}
+	
+	/**
+	 * 创建用户标签
+	 * @param accountid
+	 * @param name
+	 * @return
+	 * @throws Exception
+	 */
+	public Result createTag(String accountid,String name) throws Exception{
+		Result result=new Result();
+		JsonResult res=TagsService.getInstance().createTag(accountid, name);
+		if (res.getSuccess()) {
+			//调用接口，创建成功，返回标签ID
+			result.setCode(Code.CODE_SUCCESS);
+			Tag tag=(Tag) res.getResult();
+			result.getData().put("tagid", tag.getId());
+			System.out.println("tagid--:--"+tag.getId());
+		} else {
+			result.setCode(res.getErrorCode());
+			result.setMessage(res.getErrorMsg());
+		}
+		return result;
+	}
+	/**
+	 * 编辑用户标签
+	 * @param accountid
+	 * @param id 标签ID
+	 * @param name
+	 * @return
+	 * @throws Exception
+	 */
+	public Result editTag(String accountid, int id, String name) throws Exception{
+		Result result=new Result();
+		JsonResult res=TagsService.getInstance().editTag(accountid, id,name);
+		//调用接口，编辑成功
+		if (res.getSuccess()) {	
+			result.setCode(Code.CODE_SUCCESS);
+		} else {
+			result.setCode(res.getErrorCode());
+			result.setMessage(res.getErrorMsg());
+		}
+		return result;
+	}
+	/**
+	 * 删除用户标签
+	 * @param accountid
+	 * @param id 标签ID
+	 * @return
+	 * @throws Exception
+	 */
+	public Result delTag(String accountid, int id)  throws Exception{
+		Result result=new Result();
+		JsonResult res=TagsService.getInstance().delTag(accountid, id);
+		//调用接口，编辑成功
+		if (res.getSuccess()) {	
+			result.setCode(Code.CODE_SUCCESS);
+		} else {
+			result.setCode(res.getErrorCode());
+			result.setMessage(res.getErrorMsg());
+		}
+		return result;
+	}
+	/**
+	 * 批量为用户打标签
+	 * @param accountid
+	 * @param id 标签ID
+	 * @return
+	 * @throws Exception
+	 */
+	public Result batchtaggingForUser(String accountid, int tagid,List<String> openidList) throws Exception{
+		Result result=new Result();
+		JsonResult res=UserTagsService.getInstance().batchtaggingForUser(accountid, tagid, openidList);
+		//调用接口，编辑成功
+		if (res.getSuccess()) {	
+			result.setCode(Code.CODE_SUCCESS);
+		} else {
+			result.setCode(res.getErrorCode());
+			result.setMessage(res.getErrorMsg());
+		}
+		return result;
+	}
+	/**
+	 * 创建个性化菜单
+	 * @param accountid
+	 * @param condition
+	 * @param menu_list
+	 * @return
+	 * @throws Exception
+	 */
+	public Result createSpecialWxMenu(String accountid, SpecialCondition condition, List<WxMenu> menu_list)
+			throws Exception {
+		Result result = new Result();
+		result.setCode(Code.CODE_FAIL);
+		if (null != menu_list && menu_list.size() > 0) {
+			JsonResult res = SpecialWxMenuService.getInstance().createSpecialWxMenu(accountid,condition, menu_list);
+			if (res.getSuccess()) {
+				result.setCode(Code.CODE_SUCCESS);
+				result.getData().put("menuid", res.getResult());
+			} else {
+				result.setCode(res.getErrorCode());
+				result.setMessage(res.getErrorMsg());
+			}
+		}
+		return result;
+	}
+	/**
+	 * 删除个性化微信菜单
+	 * @param accountid
+	 * @param menuid
+	 * @return
+	 * @throws Exception
+	 */
+	public Result delSpecialWxMenu(String accountid, String menuid) throws Exception {
+		Result result = new Result();
+		result.setCode(Code.CODE_FAIL);
+		
+			JsonResult res = SpecialWxMenuService.getInstance().delSpecialWxMenu( accountid,  menuid);
+			if (res.getSuccess()) {
+				result.setCode(Code.CODE_SUCCESS);
+				result.getData().put("menuid", res.getResult());
+			} else {
+				result.setCode(res.getErrorCode());
+				result.setMessage(res.getErrorMsg());
+			}
+		
 		return result;
 	}
 }

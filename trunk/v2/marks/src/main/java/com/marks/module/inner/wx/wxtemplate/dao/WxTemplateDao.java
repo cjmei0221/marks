@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
-import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-
+import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
+@MapperScan
 public interface WxTemplateDao {
 
 	WxTemplate findById(@Param("ywType")String ywType,@Param("accountid")String accountid);

@@ -1,14 +1,16 @@
 package com.marks.module.web.pay.wxpay.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.marks.common.util.IDUtil;
 import com.marks.module.web.pay.wxpay.dao.WXPayDao;
 import com.marks.module.web.pay.wxpay.pojo.PayNotice;
 import com.marks.module.web.pay.wxpay.pojo.WXPayRecord;
 import com.marks.module.web.pay.wxpay.service.WXPayService;
+@Service
 public class WXPayServiceImpl implements WXPayService{
-	@Autowired
+	 @Autowired
 	private WXPayDao wxPayDao;
 
 
