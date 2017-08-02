@@ -3,11 +3,12 @@ package com.marks.module.inner.note.reminder.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
@@ -18,42 +19,20 @@ import com.marks.module.inner.note.diary.service.impl.DiaryServiceImpl;
 import com.marks.module.inner.note.reminder.dao.ReminderDao;
 import com.marks.module.inner.note.reminder.pojo.Reminder;
 import com.marks.module.inner.note.reminder.service.ReminderService;
-import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
-import com.marks.module.inner.wx.modulemsg.pojo.WxMsg;
-import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
 import com.marks.module.inner.wx.modulemsg.util.WxMsgUtil;
-import com.marks.module.inner.wx.wxtemplate.dao.WxTemplateDao;
-import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
-
+@Service
 public class ReminderServiceImpl implements ReminderService {
 	private static Logger logger = Logger.getLogger(DiaryServiceImpl.class);
+	@Autowired
 	private ReminderDao reminderDao;
-	private WxTemplateDao wxTemplateDao;
-	private ModuleMsgService moduleMsgService;
 
-	public WxTemplateDao getWxTemplateDao() {
-		return wxTemplateDao;
-	}
-
-	public void setWxTemplateDao(WxTemplateDao wxTemplateDao) {
-		this.wxTemplateDao = wxTemplateDao;
-	}
-
-	public ModuleMsgService getModuleMsgService() {
-		return moduleMsgService;
-	}
-
-	public void setModuleMsgService(ModuleMsgService moduleMsgService) {
-		this.moduleMsgService = moduleMsgService;
-	}
-
-	public ReminderDao getReminderDao() {
+	/*public ReminderDao getReminderDao() {
 		return reminderDao;
 	}
 
 	public void setReminderDao(ReminderDao reminderDao) {
 		this.reminderDao = reminderDao;
-	}
+	}*/
 
 	/**
 	 * 根据ID查找事务提醒

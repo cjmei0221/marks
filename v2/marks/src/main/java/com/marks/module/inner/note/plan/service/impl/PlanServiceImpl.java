@@ -3,22 +3,20 @@ package com.marks.module.inner.note.plan.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marks.module.inner.note.plan.pojo.Plan;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.note.plan.dao.PlanDao;
+import com.marks.module.inner.note.plan.pojo.Plan;
 import com.marks.module.inner.note.plan.service.PlanService;
 
 @Service
 public class PlanServiceImpl implements PlanService{
 
-	@Resource
+	@Autowired
 	private PlanDao planDao;
    
 /**

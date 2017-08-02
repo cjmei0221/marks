@@ -3,17 +3,20 @@ package com.marks.module.inner.note.gains.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.note.gains.pojo.Gains;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.note.gains.dao.GainsDao;
+import com.marks.module.inner.note.gains.pojo.Gains;
 import com.marks.module.inner.note.gains.service.GainsService;
 
+@Service
 public class GainsServiceImpl implements GainsService{
    
-
+	@Autowired
     private GainsDao gainsDao;
 
     public GainsDao getGainsDao(){
