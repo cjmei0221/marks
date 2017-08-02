@@ -45,7 +45,7 @@ public class DiaryServiceImpl implements DiaryService{
 		List<String> keywordList = new ArrayList<String>();
 		keywordList.add(wxUser.getNickname());
 		keywordList.add(sdf.format(new Date()));
-		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false,wxUser.getAccountid(), "wxtemplate_dairy", openidList, keywordList, note);
+		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false,wxUser.getAccountid(), "wxtemplate_dairy", openidList, keywordList, note,null);
 
 	}
     /**

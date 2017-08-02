@@ -108,7 +108,7 @@ public class ReminderServiceImpl implements ReminderService {
 		List<String> openidList = new ArrayList<String>();
 		openidList.add(reminder.getOpenid());
 		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false,reminder.getAccountid(), templateId, openidList, keywordList,
-				reminder.getNickname());
+				reminder.getNickname(),null);
 		return result;
 	}
 
