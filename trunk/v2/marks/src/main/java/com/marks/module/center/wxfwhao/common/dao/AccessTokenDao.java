@@ -1,9 +1,11 @@
 package com.marks.module.center.wxfwhao.common.dao;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.marks.module.center.wxfwhao.common.entity.AccessTokenVo;
 
+@MapperScan
 public interface AccessTokenDao {
 	
 	public AccessTokenVo getAccessTokenVoByAccountid(@Param("accountid")String accountid);
