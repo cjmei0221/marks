@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
@@ -12,17 +15,19 @@ import com.marks.module.inner.system.orginfo.pojo.OrgInfo;
 import com.marks.module.inner.system.orginfo.service.OrgInfoService;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 
+@Service
 public class OrgInfoServiceImpl implements OrgInfoService {
 
+	@Autowired
 	private OrgInfoDao orgInfoDao;
 
-	public OrgInfoDao getOrgInfoDao() {
+	/*public OrgInfoDao getOrgInfoDao() {
 		return orgInfoDao;
 	}
 
 	public void setOrgInfoDao(OrgInfoDao orgInfoDao) {
 		this.orgInfoDao = orgInfoDao;
-	}
+	}*/
 
 	/**
 	 * 根据ID查找机构管理

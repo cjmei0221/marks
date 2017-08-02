@@ -2,6 +2,9 @@ package com.marks.module.inner.system.sys.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.marks.common.domain.Result;
 import com.marks.common.util.IDUtil;
 import com.marks.module.inner.system.sys.dao.SysMenuDao;
@@ -10,13 +13,14 @@ import com.marks.module.inner.system.sys.pojo.SysMenu;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.SysMenuService;
 
+@Service
 public class SysMenuServiceImpl implements SysMenuService{
-
+	@Autowired
 	private SysMenuDao sysMenuDao;
 
-	public void setSysMenuDao(SysMenuDao sysMenuDao) {
+	/*public void setSysMenuDao(SysMenuDao sysMenuDao) {
 		this.sysMenuDao = sysMenuDao;
-	}
+	}*/
 
 	@Override
 	public List<SysMenu> getSysMenuList() {

@@ -2,6 +2,9 @@ package com.marks.module.inner.system.sys.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.marks.module.inner.system.datadir.pojo.DataDir;
 import com.marks.module.inner.system.sys.dao.LoadDataDao;
 import com.marks.module.inner.system.sys.service.LoadDataService;
@@ -9,13 +12,14 @@ import com.marks.module.inner.system.sysconf.pojo.SysConf;
 import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
 import com.marks.module.sys.system.core.data.StaticData;
 
+@Service
 public class LoadDataServiceImpl implements LoadDataService{
-
+	@Autowired
 	private LoadDataDao loadDataDao;
 	
-	public void setLoadDataDao(LoadDataDao loadDataDao) {
+	/*public void setLoadDataDao(LoadDataDao loadDataDao) {
 		this.loadDataDao = loadDataDao;
-	}
+	}*/
 
 	@Override
 	public void loadSysConf() {

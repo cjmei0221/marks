@@ -3,11 +3,12 @@ package com.marks.module.inner.system.sys.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.marks.module.inner.system.sys.pojo.SysFunc;
 import com.marks.module.inner.system.sys.pojo.SysMenu;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
-
+@MapperScan
 public interface SysMenuDao {
 
 	List<SysMenu> getChildSysMenuList();
