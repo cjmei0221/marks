@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo;
-
+@MapperScan
 public interface SmGoodInfoDao {
 
 	SmGoodInfo findById(@Param("goodId") String goodId);

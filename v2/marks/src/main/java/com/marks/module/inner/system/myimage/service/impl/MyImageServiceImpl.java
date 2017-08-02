@@ -3,6 +3,9 @@ package com.marks.module.inner.system.myimage.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
@@ -10,9 +13,10 @@ import com.marks.module.inner.system.myimage.dao.MyImageDao;
 import com.marks.module.inner.system.myimage.pojo.MyImage;
 import com.marks.module.inner.system.myimage.service.MyImageService;
 
+@Service
 public class MyImageServiceImpl implements MyImageService{
    
-
+	@Autowired
     private MyImageDao myImageDao;
 
     public MyImageDao getMyImageDao(){

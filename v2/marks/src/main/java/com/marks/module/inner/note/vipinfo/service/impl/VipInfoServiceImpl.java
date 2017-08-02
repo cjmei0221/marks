@@ -3,25 +3,27 @@ package com.marks.module.inner.note.vipinfo.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.note.vipinfo.pojo.VipInfo;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.note.vipinfo.dao.VipInfoDao;
+import com.marks.module.inner.note.vipinfo.pojo.VipInfo;
 import com.marks.module.inner.note.vipinfo.service.VipInfoService;
-
+@Service
 public class VipInfoServiceImpl implements VipInfoService{
    
-
+	@Autowired
     private VipInfoDao vipInfoDao;
 
-    public VipInfoDao getVipInfoDao(){
+   /* public VipInfoDao getVipInfoDao(){
         return vipInfoDao;
     }
     public void setVipInfoDao(VipInfoDao vipInfoDao){
         this.vipInfoDao =vipInfoDao;
-    }
+    }*/
 
     
     /**

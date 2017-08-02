@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
@@ -20,18 +22,19 @@ import com.marks.module.inner.supermarket.smgoodinfo.dao.SmGoodInfoDao;
 import com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo;
 import com.marks.module.inner.supermarket.smgoodinfo.service.SmGoodInfoService;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
-
+@Service
 public class SmGoodInfoServiceImpl implements SmGoodInfoService {
 	private static final Logger logger = Logger.getLogger(SmGoodInfoServiceImpl.class);
+	@Autowired
 	private SmGoodInfoDao smGoodInfoDao;
 
-	public SmGoodInfoDao getSmGoodInfoDao() {
+	/*public SmGoodInfoDao getSmGoodInfoDao() {
 		return smGoodInfoDao;
 	}
 
 	public void setSmGoodInfoDao(SmGoodInfoDao smGoodInfoDao) {
 		this.smGoodInfoDao = smGoodInfoDao;
-	}
+	}*/
 
 	/**
 	 * 根据ID查找超市商品
