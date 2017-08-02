@@ -3,6 +3,8 @@ package com.marks.module.inner.wx.modulemsg.util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
@@ -14,7 +16,6 @@ import com.marks.module.inner.wx.modulemsg.dao.ModuleMsgDao;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleContentMsg;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.inner.wx.modulemsg.pojo.Msg;
-import com.marks.module.inner.wx.modulemsg.pojo.WxMsg;
 import com.marks.module.inner.wx.wxtemplate.dao.WxTemplateDao;
 import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
 import com.marks.module.sys.system.core.common.SpringContextHolder;
@@ -47,26 +48,28 @@ public class WxMsgUtil {
 	 * @param accountid
 	 * @param tempType
 	 * @param openidList
-	 * @param keywordList keyword 列表
+	 * @param keywordList
+	 *            keyword 列表
 	 * @param note
 	 * @param isLiji
 	 *            true 立即推送 false 延迟推送
 	 * @return
 	 */
 	public Result pushModuleMsgByKeywordList(boolean isLiji, String accountid, String tempType, List<String> openidList,
-			List<String> keywordList, String note) {
+			List<String> keywordList, String note, Map<String, String> replaceParams) {
 		Result result = new Result();
 		List<Msg> msgList = new ArrayList<Msg>();
 		if (keywordList.size() > 0) {
-			Msg msg=new Msg();
+			Msg msg = null;
 			for (int i = 0; i < keywordList.size(); i++) {
-				msg.setKey("keyword" + (i + 1));
+				int idx = i + 1;
+				msg = new Msg();
+				msg.setKey("keyword" + idx);
 				msg.setValue(keywordList.get(i));
 				msgList.add(msg);
 			}
-			result=pushModuleMsgByMsgList(isLiji,  accountid,  tempType, openidList,
-					msgList,  note);
-		}else{
+			result = pushModuleMsgByMsgList(isLiji, accountid, tempType, openidList, msgList, note, replaceParams);
+		} else {
 			result.setCode("4003");
 			result.setMessage("模版内容为空");
 			logger.info("模版内容为空");
@@ -74,8 +77,10 @@ public class WxMsgUtil {
 
 		return result;
 	}
+
 	/**
 	 * key自定义微信模版消息入口
+	 * 
 	 * @param isLiji
 	 * @param accountid
 	 * @param tempType
@@ -85,23 +90,31 @@ public class WxMsgUtil {
 	 * @return
 	 */
 	public Result pushModuleMsgByMsgList(boolean isLiji, String accountid, String tempType, List<String> openidList,
-			List<Msg> msgList, String note) {
+			List<Msg> msgList, String note, Map<String, String> replaceParams) {
 		Result result = new Result();
 		if (null != openidList && openidList.size() > 0) {
 			WxTemplate temp = wxTemplateDao.findById(tempType, accountid);
 			if (null != temp) {
+				String firstMsg = temp.getFirst_content();
+				String remarkMsg = temp.getRemark_content();
+				String detailUrl = temp.getDetailUrl();
+				// 替换首行／尾行／链接中的参数
+				if (null != replaceParams && replaceParams.size() > 0) {
+					for (Entry<String, String> entry : replaceParams.entrySet()) {
+						firstMsg = firstMsg.replace(entry.getKey(), entry.getValue());
+						remarkMsg = remarkMsg.replace(entry.getKey(), entry.getValue());
+						if (null != detailUrl && detailUrl.length() > 5) {
+							detailUrl = detailUrl.replace(entry.getKey(), entry.getValue());
+						}
+					}
+				}
+				ModuleContentMsg wxMsg = new ModuleContentMsg();
+				wxMsg.setFirst(firstMsg);
+				wxMsg.setRemark(remarkMsg);
+				wxMsg.setKeywordList(msgList);
+				ModuleMsg mmsg = null;
 				for (String openid : openidList) {
-
-					String firstMsg = temp.getFirst_content();
-					String remarkMsg = temp.getRemark_content();
-					String detailUrl = temp.getDetailUrl();
-					ModuleContentMsg wxMsg = new ModuleContentMsg();
-					wxMsg.setFirst(firstMsg);
-					wxMsg.setRemark(remarkMsg);
-
-					wxMsg.setKeywordList(msgList);
-
-					ModuleMsg mmsg = new ModuleMsg();
+					mmsg = new ModuleMsg();
 					mmsg.setAccountid(accountid);
 					mmsg.setCreatetime(new Date());
 					mmsg.setData(wxMsg.toJsonStringByKey());
@@ -142,8 +155,10 @@ public class WxMsgUtil {
 			this.moduleMsgDao.save(mmsg);
 		}
 	}
+
 	/**
 	 * 调用接口推送消息
+	 * 
 	 * @param accountid
 	 * @param toUser
 	 * @param templateCode
