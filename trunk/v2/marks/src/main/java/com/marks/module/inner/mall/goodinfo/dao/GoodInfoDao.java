@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.inner.mall.goodinfo.pojo.GoodImg;
 import com.marks.module.inner.mall.goodinfo.pojo.GoodInfo;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
+@MapperScan
 public interface GoodInfoDao {
 
 	GoodInfo findById(String goodId);
