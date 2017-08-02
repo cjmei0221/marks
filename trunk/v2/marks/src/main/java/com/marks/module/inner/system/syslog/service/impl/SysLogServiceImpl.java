@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
@@ -12,10 +15,10 @@ import com.marks.module.inner.system.syslog.dao.SysLogDao;
 import com.marks.module.inner.system.syslog.pojo.SysLog;
 import com.marks.module.inner.system.syslog.service.SysLogService;
 import com.marks.module.sys.system.core.data.StaticData;
-
+@Service
 public class SysLogServiceImpl implements SysLogService{
    
-
+	@Autowired
     private SysLogDao sysLogDao;
 
     public SysLogDao getSysLogDao(){

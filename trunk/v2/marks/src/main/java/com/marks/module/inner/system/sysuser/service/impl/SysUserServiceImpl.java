@@ -3,20 +3,22 @@ package com.marks.module.inner.system.sysuser.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.system.sys.pojo.SysUserOrg;
 import com.marks.module.inner.system.sysrole.dao.SysRoleDao;
 import com.marks.module.inner.system.sysuser.dao.SysUserDao;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.inner.system.sysuser.service.SysUserService;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
+@Service
 public class SysUserServiceImpl implements SysUserService{
    
-
+	@Autowired
     private SysUserDao sysUserDao;
 
     public SysUserDao getSysUserDao(){
@@ -25,6 +27,7 @@ public class SysUserServiceImpl implements SysUserService{
     public void setSysUserDao(SysUserDao sysUserDao){
         this.sysUserDao =sysUserDao;
     }
+    @Autowired
     private SysRoleDao sysRoleDao;
 
 	public SysRoleDao getSysRoleDao() {

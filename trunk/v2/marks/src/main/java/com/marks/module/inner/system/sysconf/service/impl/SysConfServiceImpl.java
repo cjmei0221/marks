@@ -3,17 +3,21 @@ package com.marks.module.inner.system.sysconf.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.system.sysconf.pojo.SysConf;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.system.sysconf.dao.SysConfDao;
+import com.marks.module.inner.system.sysconf.pojo.SysConf;
 import com.marks.module.inner.system.sysconf.service.SysConfService;
-
+@Service
 public class SysConfServiceImpl implements SysConfService{
    
-
+	@Autowired
     private SysConfDao sysConfDao;
 
     public SysConfDao getSysConfDao(){

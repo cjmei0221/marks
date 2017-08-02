@@ -6,32 +6,22 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.PojoDomain;
-import com.marks.common.domain.Result;
-import com.marks.common.util.Code;
-import com.marks.common.util.center.SysCode;
-import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
 import com.marks.module.inner.wx.modulemsg.dao.ModuleMsgDao;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
 import com.marks.module.inner.wx.modulemsg.thread.pool.WxModuleMsgThreadPool;
-import com.marks.module.inner.wx.wxutil.WxFwUtil;
 import com.marks.module.sys.system.core.data.StaticData;
 
+@Service
 public class ModuleMsgServiceImpl implements ModuleMsgService {
-
+	@Autowired
 	private ModuleMsgDao moduleMsgDao;
-
-	public ModuleMsgDao getModuleMsgDao() {
-		return moduleMsgDao;
-	}
-
-	public void setModuleMsgDao(ModuleMsgDao moduleMsgDao) {
-		this.moduleMsgDao = moduleMsgDao;
-	}
 
 	/**
 	 * 根据ID查找模板消息

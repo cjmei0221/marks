@@ -5,6 +5,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.system.sys.dao.LoginDao;
 import com.marks.module.inner.system.sys.pojo.SysFunc;
@@ -14,17 +19,15 @@ import com.marks.module.inner.system.sysrole.dao.SysRoleDao;
 import com.marks.module.inner.system.sysrole.pojo.SysRole;
 import com.marks.module.inner.system.sysrole.service.SysRoleService;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
+@Service
 public class SysRoleServiceImpl implements SysRoleService {
-
+	@Autowired
 	private LoginDao loginDao;
 
 	public void setLoginDao(LoginDao loginDao) {
 		this.loginDao = loginDao;
 	}
-
+	@Autowired
 	private SysRoleDao sysRoleDao;
 
 	public SysRoleDao getSysRoleDao() {
