@@ -37,7 +37,4 @@
 	<import resource="applicationContext-datasource.xml" />
 	<import resource="applicationContext-mybatis.xml" />
 	<import resource="applicationContext-aop-tx.xml" />
-	<import resource="module/inner/applicationContext-*.xml" />
-	<import resource="module/center/applicationContext-*.xml" />
-	<import resource="module/web/applicationContext-*.xml" />
 </beans>
