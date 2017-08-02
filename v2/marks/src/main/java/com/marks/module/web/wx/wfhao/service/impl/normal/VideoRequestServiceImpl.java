@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
+import org.springframework.stereotype.Service;
 
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
@@ -16,6 +17,7 @@ import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
  * @history 1.修改时间,修改;修改内容：
  * 
  */
+@Service("videoRequestService")
 public class VideoRequestServiceImpl extends AbstractRequestService {
 	private static Logger logger = Logger.getLogger(VideoRequestServiceImpl.class);
 	/**

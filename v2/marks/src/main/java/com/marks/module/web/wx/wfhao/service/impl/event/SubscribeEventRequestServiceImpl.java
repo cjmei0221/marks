@@ -3,6 +3,7 @@ package com.marks.module.web.wx.wfhao.service.impl.event;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.web.wx.util.WxConstants;
@@ -19,6 +20,7 @@ import com.marks.module.web.wx.wfhao.threadPool.WxhreadPool;
  * @history 1.修改时间,修改;修改内容：
  * 
  */
+@Service("subscribeEventRequestService")
 public class SubscribeEventRequestServiceImpl extends AbstractRequestService {
 
 	private static Logger logger = Logger.getLogger(SubscribeEventRequestServiceImpl.class);
