@@ -3,25 +3,28 @@ package com.marks.module.inner.wx.qrcode.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.wx.qrcode.pojo.Qrcode;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.wx.qrcode.dao.QrcodeDao;
+import com.marks.module.inner.wx.qrcode.pojo.Qrcode;
 import com.marks.module.inner.wx.qrcode.service.QrcodeService;
 
+@Service
 public class QrcodeServiceImpl implements QrcodeService{
    
-
+	@Autowired
     private QrcodeDao qrcodeDao;
 
-    public QrcodeDao getQrcodeDao(){
+   /* public QrcodeDao getQrcodeDao(){
         return qrcodeDao;
     }
     public void setQrcodeDao(QrcodeDao qrcodeDao){
         this.qrcodeDao =qrcodeDao;
-    }
+    }*/
 
     
     /**

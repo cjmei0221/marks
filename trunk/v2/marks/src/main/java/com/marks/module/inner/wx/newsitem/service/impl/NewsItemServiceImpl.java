@@ -3,25 +3,28 @@ package com.marks.module.inner.wx.newsitem.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.wx.newsitem.pojo.NewsItem;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.wx.newsitem.dao.NewsItemDao;
+import com.marks.module.inner.wx.newsitem.pojo.NewsItem;
 import com.marks.module.inner.wx.newsitem.service.NewsItemService;
 
+@Service
 public class NewsItemServiceImpl implements NewsItemService{
    
-
+	@Autowired
     private NewsItemDao newsItemDao;
 
-    public NewsItemDao getNewsItemDao(){
+  /*  public NewsItemDao getNewsItemDao(){
         return newsItemDao;
     }
     public void setNewsItemDao(NewsItemDao newsItemDao){
         this.newsItemDao =newsItemDao;
-    }
+    }*/
 
     
     /**

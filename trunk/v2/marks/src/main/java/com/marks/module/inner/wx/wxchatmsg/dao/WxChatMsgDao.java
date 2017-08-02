@@ -4,11 +4,12 @@ package com.marks.module.inner.wx.wxchatmsg.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.mybatis.spring.annotation.MapperScan;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.inner.wx.wxchatmsg.pojo.WxChatMsg;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession;
-
+@MapperScan
 public interface WxChatMsgDao {
 
 	WxChatMsg findById(String id);
