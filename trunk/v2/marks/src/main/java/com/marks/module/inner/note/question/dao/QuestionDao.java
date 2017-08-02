@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
-import com.marks.module.inner.note.question.pojo.Question;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-
+import com.marks.module.inner.note.question.pojo.Question;
+@MapperScan
 public interface QuestionDao {
 
 	Question findById(String id);

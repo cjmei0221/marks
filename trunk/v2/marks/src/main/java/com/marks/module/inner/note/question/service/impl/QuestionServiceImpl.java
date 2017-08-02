@@ -3,25 +3,28 @@ package com.marks.module.inner.note.question.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.note.question.pojo.Question;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.note.question.dao.QuestionDao;
+import com.marks.module.inner.note.question.pojo.Question;
 import com.marks.module.inner.note.question.service.QuestionService;
 
+@Service
 public class QuestionServiceImpl implements QuestionService{
    
-
+	@Autowired
     private QuestionDao questionDao;
 
-    public QuestionDao getQuestionDao(){
+   /* public QuestionDao getQuestionDao(){
         return questionDao;
     }
     public void setQuestionDao(QuestionDao questionDao){
         this.questionDao =questionDao;
-    }
+    }*/
 
     
     /**

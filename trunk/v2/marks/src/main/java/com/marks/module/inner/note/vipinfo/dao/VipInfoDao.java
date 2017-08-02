@@ -4,10 +4,11 @@ package com.marks.module.inner.note.vipinfo.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.annotation.MapperScan;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-
 import com.marks.module.inner.note.vipinfo.pojo.VipInfo;
-
+@MapperScan
 public interface VipInfoDao {
 
 	VipInfo findById(String userid);
