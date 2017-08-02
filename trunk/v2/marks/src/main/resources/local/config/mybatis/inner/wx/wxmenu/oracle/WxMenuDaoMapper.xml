@@ -3,25 +3,29 @@
 
 <mapper namespace="com.marks.module.inner.wx.wxmenu.dao.WxMenuDao">
 
-	<select id="findById" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
+	<select id="findById" resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
 		SELECT * FROM TB_WX_MENU wxmenu
 		where wxmenu.ID = #{id}
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
+	<insert id="save" parameterType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
 			sys_guid() from dual
 		</selectKey>
 
-		INSERT INTO TB_WX_MENU wxmenu (
-		wxmenu.ID,
-		wxmenu.PARENT_ID,
-		wxmenu.NAME,
-		wxmenu.TYPE,
-		wxmenu.CONTENT,
-		wxmenu.SORT,
-		wxmenu.ACCOUNTID,
-		wxmenu.LVL
+		INSERT INTO TB_WX_MENU  (
+		ID,
+		PARENT_ID,
+		NAME,
+		TYPE,
+		CONTENT,
+		SORT,
+		ACCOUNTID,
+		LVL,
+		menutype,
+		tagid,
+		menuid,
+		updatetime
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -31,19 +35,26 @@
 		#{content:VARCHAR},
 		#{sort:NUMERIC},
 		#{accountid:VARCHAR},
-		#{lvl:NUMERIC}
+		#{lvl:NUMERIC},
+		#{menutype:NUMERIC},
+		#{tagid:VARCHAR},
+		#{menuid:VARCHAR},
+		sysdate
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
-		UPDATE TB_WX_MENU wxmenu
+	<update id="update" parameterType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		UPDATE TB_WX_MENU 
 		SET
-		wxmenu.PARENT_ID = #{parent_id:VARCHAR},
-		wxmenu.NAME = #{name:VARCHAR},
-		wxmenu.TYPE = #{type:VARCHAR},
-		wxmenu.CONTENT = #{content:VARCHAR},
-		wxmenu.SORT = #{sort:NUMERIC},
-		wxmenu.ACCOUNTID = #{accountid:VARCHAR}
+		PARENT_ID = #{parent_id:VARCHAR},
+		NAME = #{name:VARCHAR},
+		TYPE = #{type:VARCHAR},
+		CONTENT = #{content:VARCHAR},
+		SORT = #{sort:NUMERIC},
+		menutype=#{menutype:NUMERIC},
+		tagid=#{tagid:VARCHAR},
+		menuid=#{menuid:VARCHAR},
+		updatetime=sysdate
 		WHERE
 		wxmenu.ID = #{id}
 	</update>
@@ -53,7 +64,7 @@
 		WHERE wxmenu.ID=#{id}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
+	<select id="findAll" resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
 		SELECT * FROM TB_WX_MENU
 	</select>
 
@@ -65,66 +76,76 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu"
+	<select id="list" resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_MENU wxmenu
 		WHERE 1=1
-		and ( wxmenu.ID LIKE
-		CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		<if test="keyword!=null and keyword!=''">
+			and ( wxmenu.ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
 			or wxmenu.PARENT_ID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or wxmenu.NAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or wxmenu.TYPE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or wxmenu.CONTENT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or wxmenu.SORT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-		</if>
-		<if test="keyword!=null and keyword!=''">
+
 			or wxmenu.ACCOUNTID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
 		</if>
-		)
-
-
 	</select>
-	<select id="getParentMenu" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
-		SELECT wxaccount.accountid id, wxaccount.accountname name
+	<select id="getParentMenu" resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		SELECT menu.*,(case
+		when cnum is null then
+		'open'
+		else
+		'closed'
+		end) state,
+		tags.name tagname,
+		cnum childnum
 		FROM
-		TB_WX_ACCOUNT wxaccount
+		TB_WX_MENU menu
+		left join tb_wx_tags tags on (tags.tagid=menu.tagid and tags.accountid=menu.accountid)
+		left join (select count(1) cnum, p.parent_id pid
+		from
+		TB_WX_MENU p
+		group by p.parent_id) p
+		on menu.id = p.pid
 		WHERE 1=1
 		<if test="accountIds !=null">
-			and wxaccount.accountid in
-			<foreach collection="accountIds" item="oid" index="index" open="("
-				separator="," close=")">
+			and menu.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
 				#{oid}
 			</foreach>
 		</if>
-		and wxaccount.accttype=0
-		order by wxaccount.ACCOUNTNAME
+		<if test="parentId!=null and parentId!=''">
+			AND menu.parent_id =#{parentId}
+		</if>
+		order by menu.menutype,menu.updatetime desc
 	</select>
 
-	<select id="getWxMenuList" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
+	<select id="getWxMenuList" resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
 		select * from tb_wx_menu t
 		order by t.sort
 	</select>
-	<select id="getWxMenuListByAccountId" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
+	<select id="getWxMenuListByAccountId" resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
 		select * from tb_wx_menu t where t.accountid=#{accountid}
 		order by t.sort
 	</select>
-	<select id="getChildWxMenuList" resultType="com.marks.module.center.wxfwhao.common.entity.WxMenu">
+	<select id="getChildWxMenuList" resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
 		select * from tb_wx_menu t where t.PARENT_ID=#{parent_id}
 	</select>
 </mapper>
