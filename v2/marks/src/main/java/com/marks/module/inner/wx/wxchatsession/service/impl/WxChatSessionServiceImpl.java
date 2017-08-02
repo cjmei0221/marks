@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
@@ -17,11 +19,13 @@ import com.marks.module.inner.wx.wxchatsession.dao.WxChatSessionDao;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatCount;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession;
 import com.marks.module.inner.wx.wxchatsession.service.WxChatSessionService;
-
+@Service
 public class WxChatSessionServiceImpl implements WxChatSessionService{
    
 	private static Logger logger = Logger.getLogger(WxChatMsgServiceImpl.class);
+	@Autowired
     private WxChatSessionDao wxChatSessionDao;
+	@Autowired
     private WxChatMsgDao wxChatMsgDao;
 
     public WxChatMsgDao getWxChatMsgDao(){

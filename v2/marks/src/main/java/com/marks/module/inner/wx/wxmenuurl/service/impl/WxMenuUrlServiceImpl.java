@@ -3,17 +3,21 @@ package com.marks.module.inner.wx.wxmenuurl.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.wx.wxmenuurl.pojo.WxMenuUrl;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.wx.wxmenuurl.dao.WxMenuUrlDao;
+import com.marks.module.inner.wx.wxmenuurl.pojo.WxMenuUrl;
 import com.marks.module.inner.wx.wxmenuurl.service.WxMenuUrlService;
-
+@Service
 public class WxMenuUrlServiceImpl implements WxMenuUrlService{
    
-
+	@Autowired
     private WxMenuUrlDao wxMenuUrlDao;
 
     public WxMenuUrlDao getWxMenuUrlDao(){

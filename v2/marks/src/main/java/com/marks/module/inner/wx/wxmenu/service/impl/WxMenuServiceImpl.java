@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.module.center.wxfwhao.common.entity.WxMenu;
+import com.marks.common.util.Code;
+import com.marks.module.center.wxfwhao.wxmenu.pojo.SpecialCondition;
+import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
 import com.marks.module.inner.wx.wxmenu.dao.WxMenuDao;
 import com.marks.module.inner.wx.wxmenu.service.WxMenuService;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
 
+@Service
+@Transactional
 public class WxMenuServiceImpl implements WxMenuService {
-
+	@Autowired
 	private WxMenuDao wxMenuDao;
-
-	public WxMenuDao getWxMenuDao() {
-		return wxMenuDao;
-	}
-
-	public void setWxMenuDao(WxMenuDao wxMenuDao) {
-		this.wxMenuDao = wxMenuDao;
-	}
 
 	/**
 	 * 根据ID查找微信菜单管理
@@ -51,9 +51,17 @@ public class WxMenuServiceImpl implements WxMenuService {
 
 	/**
 	 * 删除微信菜单管理
+	 * 
+	 * @throws Exception
 	 */
 	@Override
-	public void delete(String id) {
+	public void delete(String id) throws Exception {
+		
+		WxMenu wx=wxMenuDao.findById(id);
+		if(wx !=null && wx.getMenutype()==1 && null !=wx.getMenuid()){
+			// 调用接口，删除个性化菜单
+			WxFwUtil.getInstance().delSpecialWxMenu(wx.getAccountid(), wx.getMenuid());
+		}
 		wxMenuDao.delete(id);
 	}
 
@@ -88,44 +96,22 @@ public class WxMenuServiceImpl implements WxMenuService {
 	@Override
 	public List<WxMenu> listTree(Map<String, Object> param) {
 		List<WxMenu> list = wxMenuDao.getParentMenu(param);
-		if (null != list && list.size() > 0) {
-			List<WxMenu> menuList = wxMenuDao.getWxMenuList();
-			if (null != menuList && menuList.size() > 0) {
-				// 加载一级菜单
-				for (WxMenu p : list) {
-					for (WxMenu wx : menuList) {
-						if (p.getId().equals(wx.getParent_id())) {
-							p.addChildren(wx);
-						}
-					}
-					p.setChildnum(p.getChildren().size());
-					if (p.getChildren().size() > 0) {
-						// 加载二级菜单
-						for (WxMenu pc : p.getChildren()) {
-							for (WxMenu wx : menuList) {
-								if (pc.getId().equals(wx.getParent_id())) {
-									pc.addChildren(wx);
-								}
-							}
-							pc.setChildnum(pc.getChildren().size());
-						}
-					}
-				}
-
-			}
-		}
 		return list;
 	}
 
 	@Override
-	public Result syncWx(String accountid) throws Exception {
+	public Result syncWx(String id) throws Exception {
+		// 同步菜单到微信服务器
 		Result result = new Result();
-		List<WxMenu> menuList = wxMenuDao.getWxMenuListByAccountId(accountid);
+		// 获取菜单对象
+		WxMenu info=wxMenuDao.findById(id);
+		// 获取该服务号下所有菜单
+		List<WxMenu> menuList = wxMenuDao.getWxMenuListByAccountId(info.getAccountid());
 		if (null != menuList && menuList.size() > 0) {
 			List<WxMenu> mlist = new ArrayList<WxMenu>();
 			// 一级菜单
 			for (WxMenu wm : menuList) {
-				if (wm.getParent_id().equals(accountid)) {
+				if (wm.getParent_id().equals(id)) {
 					mlist.add(wm);
 				}
 			}
@@ -141,7 +127,24 @@ public class WxMenuServiceImpl implements WxMenuService {
 //					wmchild.setContent("");
 				}
 			}
-			result=WxFwUtil.getInstance().createWXMenu(accountid, mlist);
+			// 若有菜单则同步微信服务器
+			if(mlist.size()>0){
+				if (info.getMenutype() == 0) {// 通用菜单
+					// 调用创建微信菜单接口
+					result=WxFwUtil.getInstance().createWXMenu(info.getAccountid(), mlist);
+				} else {// 个性菜单，暂时只支持用户标签
+						// 个性化菜单条件
+					SpecialCondition condition=new SpecialCondition();
+					condition.setTag_id(info.getTagid());
+					result=WxFwUtil.getInstance().createSpecialWxMenu(info.getAccountid(), condition, mlist);
+					if(Code.CODE_SUCCESS.equals(result.getCode())){
+						info.setMenuid(result.getData().get("menuid").toString());
+						wxMenuDao.update(info);
+					}
+				}
+			}else{
+				
+			}
 		}
 		return result;
 	}
