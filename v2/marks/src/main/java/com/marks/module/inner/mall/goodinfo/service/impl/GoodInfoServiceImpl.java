@@ -3,6 +3,11 @@ package com.marks.module.inner.mall.goodinfo.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.enums.Enums;
 import com.marks.common.util.IDUtil;
@@ -10,20 +15,11 @@ import com.marks.module.inner.mall.goodinfo.dao.GoodInfoDao;
 import com.marks.module.inner.mall.goodinfo.pojo.GoodImg;
 import com.marks.module.inner.mall.goodinfo.pojo.GoodInfo;
 import com.marks.module.inner.mall.goodinfo.service.GoodInfoService;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
+@Service
 public class GoodInfoServiceImpl implements GoodInfoService {
-
+	@Autowired
 	private GoodInfoDao goodInfoDao;
-
-	public GoodInfoDao getGoodInfoDao() {
-		return goodInfoDao;
-	}
-
-	public void setGoodInfoDao(GoodInfoDao goodInfoDao) {
-		this.goodInfoDao = goodInfoDao;
-	}
 
 	/**
 	 * 根据ID查找商品管理

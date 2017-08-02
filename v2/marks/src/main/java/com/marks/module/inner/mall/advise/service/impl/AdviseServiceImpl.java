@@ -3,25 +3,20 @@ package com.marks.module.inner.mall.advise.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.mall.advise.pojo.Advise;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.mall.advise.dao.AdviseDao;
+import com.marks.module.inner.mall.advise.pojo.Advise;
 import com.marks.module.inner.mall.advise.service.AdviseService;
-
+@Service
 public class AdviseServiceImpl implements AdviseService{
    
-
+	@Autowired
     private AdviseDao adviseDao;
-
-    public AdviseDao getAdviseDao(){
-        return adviseDao;
-    }
-    public void setAdviseDao(AdviseDao adviseDao){
-        this.adviseDao =adviseDao;
-    }
 
     
     /**

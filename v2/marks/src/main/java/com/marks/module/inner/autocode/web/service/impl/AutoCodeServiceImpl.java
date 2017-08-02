@@ -5,25 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.autocode.web.dao.AutoCodeDao;
 import com.marks.module.inner.autocode.web.pojo.AutoCode;
 import com.marks.module.inner.autocode.web.pojo.AutoCodeAttr;
 import com.marks.module.inner.autocode.web.service.AutoCodeService;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
+@Service
 public class AutoCodeServiceImpl implements AutoCodeService {
-
+	@Autowired
 	private AutoCodeDao autoCodeDao;
-
-	public AutoCodeDao getAutoCodeDao() {
-		return autoCodeDao;
-	}
-
-	public void setAutoCodeDao(AutoCodeDao autoCodeDao) {
-		this.autoCodeDao = autoCodeDao;
-	}
 
 	/**
 	 * 根据ID查找自动生成代码记录
@@ -57,7 +53,7 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 		String[] goods = attrList.split(",");
 		AutoCodeAttr info = null;
 		if (null != goods && goods.length > 0) {
-			List<AutoCodeAttr> list=new ArrayList<AutoCodeAttr>();
+			List<AutoCodeAttr> list = new ArrayList<AutoCodeAttr>();
 			for (int i = 0; i < goods.length; i++) {
 
 				// 单个商品信息
@@ -72,22 +68,22 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 						info.setAttrType(infos[1]);
 						info.setTableName(tableName);
 						info.setSort(i);
-						if(infos.length>4){
+						if (infos.length > 4) {
 							info.setNote(infos[4]);
 						}
 						info.setIsQuery(infos[5]);
 						list.add(info);
-						
+
 					}
 				}
 
 			}
-			if(list.size()>0){
-				for(int i=0;i<list.size();i++){
-					AutoCodeAttr vo=list.get(i);
-					if(i==0){
+			if (list.size() > 0) {
+				for (int i = 0; i < list.size(); i++) {
+					AutoCodeAttr vo = list.get(i);
+					if (i == 0) {
 						vo.setIsPK(1);
-					}else{
+					} else {
 						vo.setIsPK(0);
 					}
 					// 保存促销商品
@@ -140,16 +136,16 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 		List<AutoCodeAttr> list = autoCodeDao.attrList(param);
 		List<AutoCodeAttr> returnlist = new ArrayList<AutoCodeAttr>();
 		AutoCodeAttr info = null;
-		if (list == null || (list !=null && list.size()==0)) {
+		if (list == null || (list != null && list.size() == 0)) {
 			list = new ArrayList<AutoCodeAttr>();
 			info = new AutoCodeAttr();
 			info.setIsPK(1);
-			list.add( info );
+			list.add(info);
 		}
 		if (list.size() > 0) {
 			returnlist.addAll(list);
 		}
-		
+
 		for (int i = 0; i < 200 - list.size(); i++) {
 			info = new AutoCodeAttr();
 			returnlist.add(info);
@@ -163,9 +159,9 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 
 	@Override
 	public AutoCode findDetailById(String tableName) {
-		AutoCode info=autoCodeDao.findById(tableName);
-		if(info !=null){
-			Map<String,Object> param=new HashMap<String,Object>();
+		AutoCode info = autoCodeDao.findById(tableName);
+		if (info != null) {
+			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("tableName", tableName);
 			List<AutoCodeAttr> list = autoCodeDao.attrList(param);
 			info.setAttrList(list);
@@ -173,5 +169,5 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 		}
 		return null;
 	}
-	
+
 }

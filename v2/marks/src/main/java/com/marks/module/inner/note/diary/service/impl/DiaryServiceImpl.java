@@ -7,33 +7,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.common.domain.Result;
 import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.note.diary.dao.DiaryDao;
 import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.diary.service.DiaryService;
-import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
-import com.marks.module.inner.wx.modulemsg.pojo.WxMsg;
-import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
 import com.marks.module.inner.wx.modulemsg.util.WxMsgUtil;
-import com.marks.module.inner.wx.wxtemplate.dao.WxTemplateDao;
-import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
-
+@Service
 public class DiaryServiceImpl implements DiaryService{
 	private static Logger logger = Logger.getLogger(DiaryServiceImpl.class);
+	@Autowired
     private DiaryDao diaryDao;
-    
-    
-	public DiaryDao getDiaryDao(){
-        return diaryDao;
-    }
-    public void setDiaryDao(DiaryDao diaryDao){
-        this.diaryDao =diaryDao;
-    }
    
     @Override
 	public void pushDairyWxMsg(WxUser wxUser) {
