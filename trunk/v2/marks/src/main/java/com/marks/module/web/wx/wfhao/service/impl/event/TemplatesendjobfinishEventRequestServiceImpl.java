@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
 import com.marks.module.sys.system.core.common.SpringContextHolder;
@@ -23,6 +24,7 @@ import com.marks.module.web.wx.wfhao.threadPool.WxhreadPool;
  * @history 1.修改时间,修改;修改内容：
  * 
  */
+@Service("templatesendjobfinishEventRequestService")
 public class TemplatesendjobfinishEventRequestServiceImpl extends AbstractRequestService {	
 
 	private static Logger logger = Logger.getLogger(TemplatesendjobfinishEventRequestServiceImpl.class);

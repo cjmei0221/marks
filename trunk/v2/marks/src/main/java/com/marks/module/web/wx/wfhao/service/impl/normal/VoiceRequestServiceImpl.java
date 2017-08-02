@@ -3,6 +3,7 @@ package com.marks.module.web.wx.wfhao.service.impl.normal;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
@@ -15,6 +16,7 @@ import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
  * @history 1.修改时间,修改;修改内容：
  * 
  */
+@Service("voiceRequestService")
 public class VoiceRequestServiceImpl extends AbstractRequestService{
 
 	private static Logger logger = Logger.getLogger(VoiceRequestServiceImpl.class);

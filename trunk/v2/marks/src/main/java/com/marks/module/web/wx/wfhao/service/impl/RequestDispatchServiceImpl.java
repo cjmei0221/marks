@@ -3,6 +3,7 @@ package com.marks.module.web.wx.wfhao.service.impl;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
@@ -18,6 +19,7 @@ import com.marks.module.web.wx.wfhao.service.RequestService;
  * @history 1.修改时间,修改;修改内容：
  * 
  */
+@Service("requestDispatchService")
 public class RequestDispatchServiceImpl implements RequestDispatchService {
 	private static Logger logger = Logger.getLogger(RequestDispatchServiceImpl.class);
 
