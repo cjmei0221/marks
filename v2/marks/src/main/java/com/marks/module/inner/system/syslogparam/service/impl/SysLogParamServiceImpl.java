@@ -3,25 +3,27 @@ package com.marks.module.inner.system.syslogparam.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.system.syslogparam.pojo.SysLogParam;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.system.syslogparam.dao.SysLogParamDao;
+import com.marks.module.inner.system.syslogparam.pojo.SysLogParam;
 import com.marks.module.inner.system.syslogparam.service.SysLogParamService;
-
+@Service
 public class SysLogParamServiceImpl implements SysLogParamService{
    
-
+	@Autowired
     private SysLogParamDao sysLogParamDao;
 
-    public SysLogParamDao getSysLogParamDao(){
+   /* public SysLogParamDao getSysLogParamDao(){
         return sysLogParamDao;
     }
     public void setSysLogParamDao(SysLogParamDao sysLogParamDao){
         this.sysLogParamDao =sysLogParamDao;
-    }
+    }*/
 
     
     /**

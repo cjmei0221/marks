@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.inner.system.sys.pojo.SysFunc;
 import com.marks.module.inner.system.sys.pojo.SysRoleFunc;
 import com.marks.module.inner.system.sysrole.pojo.SysRole;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
+@MapperScan
 public interface SysRoleDao {
 
 	SysRole findById(String roleid);

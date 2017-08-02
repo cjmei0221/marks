@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.inner.system.sys.pojo.SysUserOrg;
 import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-
+@MapperScan
 public interface SysUserDao {
 
 	SysUser findByUserid(String userid);
