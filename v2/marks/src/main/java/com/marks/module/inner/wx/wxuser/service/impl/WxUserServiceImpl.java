@@ -3,24 +3,27 @@ package com.marks.module.inner.wx.wxuser.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.wx.wxuser.dao.WxUserDao;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
-
+@Service
 public class WxUserServiceImpl implements WxUserService{
    
-
+	@Autowired
     private WxUserDao wxUserDao;
 
-    public WxUserDao getWxUserDao(){
+ /*   public WxUserDao getWxUserDao(){
         return wxUserDao;
     }
     public void setWxUserDao(WxUserDao wxUserDao){
         this.wxUserDao =wxUserDao;
-    }
+    }*/
 
     
     /**

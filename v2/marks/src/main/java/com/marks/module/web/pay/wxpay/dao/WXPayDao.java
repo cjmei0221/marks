@@ -1,10 +1,11 @@
 package com.marks.module.web.pay.wxpay.dao;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.marks.module.web.pay.wxpay.pojo.PayNotice;
 import com.marks.module.web.pay.wxpay.pojo.WXPayRecord;
-
+@MapperScan
 public interface WXPayDao{
 
 	/**

@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.center.wxfwhao.common.entity.WxUser;
-
+@MapperScan
 public interface WxUserDao {
 
 	WxUser findById(@Param("accountid") String accountid,@Param("openid") String openid);

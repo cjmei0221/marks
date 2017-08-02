@@ -3,25 +3,27 @@ package com.marks.module.inner.wx.wxtemplate.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
-import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.wx.wxtemplate.dao.WxTemplateDao;
+import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
 import com.marks.module.inner.wx.wxtemplate.service.WxTemplateService;
-
+@Service
 public class WxTemplateServiceImpl implements WxTemplateService{
    
-
+	@Autowired
     private WxTemplateDao wxTemplateDao;
 
-    public WxTemplateDao getWxTemplateDao(){
+   /* public WxTemplateDao getWxTemplateDao(){
         return wxTemplateDao;
     }
     public void setWxTemplateDao(WxTemplateDao wxTemplateDao){
         this.wxTemplateDao =wxTemplateDao;
-    }
+    }*/
 
     
     /**
