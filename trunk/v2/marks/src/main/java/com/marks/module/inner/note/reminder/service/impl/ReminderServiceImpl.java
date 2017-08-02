@@ -21,6 +21,7 @@ import com.marks.module.inner.note.reminder.service.ReminderService;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.inner.wx.modulemsg.pojo.WxMsg;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
+import com.marks.module.inner.wx.modulemsg.util.WxMsgUtil;
 import com.marks.module.inner.wx.wxtemplate.dao.WxTemplateDao;
 import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
 
@@ -64,12 +65,12 @@ public class ReminderServiceImpl implements ReminderService {
 
 	@Override
 	public void pushReminderWxMsg(Reminder reminder) throws Exception {
-		/*SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
-		Calendar today = Calendar.getInstance();
-		Lunar lunar = new Lunar(today);
-		String noliMMDD = lunar.toMMDD();
-		String yangliMMDD = dateFormat.format(today);
-       */
+		/*
+		 * SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd"); Calendar
+		 * today = Calendar.getInstance(); Lunar lunar = new Lunar(today);
+		 * String noliMMDD = lunar.toMMDD(); String yangliMMDD =
+		 * dateFormat.format(today);
+		 */
 		// 普通提示
 		if (reminder.getRemind_type() == 0) {
 			reminder.setNeedFlag(0);
@@ -97,14 +98,6 @@ public class ReminderServiceImpl implements ReminderService {
 
 		Result result = new Result();
 
-		WxTemplate temp = wxTemplateDao.findById(templateId, reminder.getAccountid());
-		if (null == temp) {
-			result.setCode("4002");
-			result.setMessage("模板不存在");
-			logger.info("模板不存在");
-			return result;
-		}
-
 		List<String> keywordList = new ArrayList<String>();
 		keywordList.add(reminder.getRemind_content());
 		if (reminder.getCalendar_type() == 1) {
@@ -112,24 +105,10 @@ public class ReminderServiceImpl implements ReminderService {
 		} else {
 			keywordList.add(reminder.getRemind_date());
 		}
-
-		String firstMsg = temp.getFirst_content();
-		String remarkMsg = temp.getRemark_content();
-		String detailUrl = temp.getDetailUrl();
-		WxMsg wxMsg = new WxMsg();
-		wxMsg.setFirst(firstMsg);
-		wxMsg.setRemark(remarkMsg);
-		wxMsg.setKeywordList(keywordList);
-
-		ModuleMsg mmsg = new ModuleMsg();
-		mmsg.setAccountid(reminder.getAccountid());
-		mmsg.setCreatetime(new Date());
-		mmsg.setData(wxMsg.toJsonString());
-		mmsg.setNote(reminder.getNickname() + " " + temp.getTemplate_name());
-		mmsg.setTemplate_id(temp.getTemplate_id());
-		mmsg.setTouser(reminder.getOpenid());
-		mmsg.setUrl(detailUrl);
-		moduleMsgService.pustModuleMsg(mmsg, false);
+		List<String> openidList = new ArrayList<String>();
+		openidList.add(reminder.getOpenid());
+		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false,reminder.getAccountid(), templateId, openidList, keywordList,
+				reminder.getNickname());
 		return result;
 	}
 

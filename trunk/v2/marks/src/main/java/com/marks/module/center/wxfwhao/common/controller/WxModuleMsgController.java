@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
+import com.marks.module.inner.wx.modulemsg.util.WxMsgUtil;
 
 import net.sf.json.JSONObject;
 
@@ -50,7 +51,7 @@ public class WxModuleMsgController {
 			if (request.getParameter("note") != null && !request.getParameter("note").trim().equals("")) {
 				note = URLDecoder.decode(request.getParameter("note"), "utf-8");
 			}
-			result = moduleMsgService.sendTemplateMsg(accountid, toUser, templateCode, url, data,note);
+			result = WxMsgUtil.getInstance().sendTemplateMsg(accountid, toUser, templateCode, url, data,note);
 		} catch (Exception e) {
 			logger.error("系统异常，请稍后再试", e);
 			result.setSuccess(Boolean.FALSE);

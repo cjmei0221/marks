@@ -23,15 +23,10 @@ public interface ModuleMsgService {
 	public void deleteBatch(List<String> ids);
 
 	public PojoDomain<ModuleMsg> list(int page_number, int page_size, Map<String, Object> param);
-	
-	public void pustModuleMsg(ModuleMsg mmsg, boolean b);
 
 	public void clearData();
 
 	public void pustWxbModuleMsg();
-
-	public JsonResult sendTemplateMsg(String accountid, String toUser, String templateCode, String url, String data,
-			String note);
 
 	public void updateResultForModuleMsg(String accountId, String msgID, Timestamp time, String status);
 }
