@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
@@ -11,18 +14,11 @@ import com.marks.module.inner.system.datadir.dao.DataDirDao;
 import com.marks.module.inner.system.datadir.pojo.DataDir;
 import com.marks.module.inner.system.datadir.service.DataDirService;
 
+@Service
 public class DataDirServiceImpl implements DataDirService{
    
-
+	@Autowired
     private DataDirDao dataDirDao;
-
-    public DataDirDao getDataDirDao(){
-        return dataDirDao;
-    }
-    public void setDataDirDao(DataDirDao dataDirDao){
-        this.dataDirDao =dataDirDao;
-    }
-
     
     /**
     *根据ID查找数据字典

@@ -4,9 +4,11 @@ package com.marks.module.inner.system.myimage.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.annotation.MapperScan;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.inner.system.myimage.pojo.MyImage;
-
+@MapperScan
 public interface MyImageDao {
 
 	MyImage findById(String picId);
