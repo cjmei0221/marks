@@ -3,24 +3,27 @@ package com.marks.module.inner.wx.wxautoreplay.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.wx.wxautoreplay.dao.WxAutoReplayDao;
 import com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay;
 import com.marks.module.inner.wx.wxautoreplay.service.WxAutoReplayService;
-
+@Service
 public class WxAutoReplayServiceImpl implements WxAutoReplayService{
    
-
+	@Autowired
     private WxAutoReplayDao wxAutoReplayDao;
 
-    public WxAutoReplayDao getWxAutoReplayDao(){
+   /* public WxAutoReplayDao getWxAutoReplayDao(){
         return wxAutoReplayDao;
     }
     public void setWxAutoReplayDao(WxAutoReplayDao wxAutoReplayDao){
         this.wxAutoReplayDao =wxAutoReplayDao;
-    }
+    }*/
 
     
     /**

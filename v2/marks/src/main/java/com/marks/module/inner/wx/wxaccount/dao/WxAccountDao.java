@@ -4,9 +4,11 @@ package com.marks.module.inner.wx.wxaccount.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.mybatis.spring.annotation.MapperScan;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
+@MapperScan
 public interface WxAccountDao {
 
 	WxAccount findById(String accountId);
