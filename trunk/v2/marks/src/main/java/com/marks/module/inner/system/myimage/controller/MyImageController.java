@@ -21,8 +21,8 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.system.myimage.pojo.MyImage;
 import com.marks.module.inner.system.myimage.service.MyImageService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 
  /**
 	 * 图片: 图片
