@@ -19,11 +19,11 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatCount;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession;
 import com.marks.module.inner.wx.wxchatsession.service.WxChatSessionService;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
 
  /**
 	 * 回话管理: 微信自动回复管理
