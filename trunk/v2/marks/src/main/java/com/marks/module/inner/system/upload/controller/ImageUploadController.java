@@ -17,10 +17,10 @@ import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.system.myimage.pojo.MyImage;
 import com.marks.module.inner.system.myimage.service.MyImageService;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
 import com.marks.module.inner.system.upload.util.FTPUtil;
 import com.marks.module.inner.system.upload.util.UploadUtil;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 
 import sun.misc.BASE64Decoder;
 
