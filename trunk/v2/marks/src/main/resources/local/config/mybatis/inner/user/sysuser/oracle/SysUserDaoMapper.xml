@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.inner.system.sysuser.dao.SysUserDao">
+<mapper namespace="com.marks.module.inner.user.sysuser.dao.SysUserDao">
 
-	<select id="findById" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser">
+	<select id="findById" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
 		select * from tb_sys_user t
 		where t.userid=#{userid}
 	</select>
-	<select id="findByUserid" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser">
+	<select id="findByUserid" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
 		select distinct
 		u.*,
 		tsr.rolename
@@ -16,14 +16,14 @@
 		where u.USERID =#{userid}
 	</select>
 
-	<select id="findByMobile" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser">
+	<select id="findByMobile" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
 		select * from tb_sys_user t
 		where t.bind_mobile=#{mobile}
 	</select>
 	<select id="getUserIdForUser" resultType="String">
 		SELECT 'U'||SEQ_SYS_USER.nextval FROM dual
 	</select>
-	<insert id="save" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
+	<insert id="save" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
 		INSERT INTO TB_SYS_USER sysuser
 		(
 		sysuser.USERID,
@@ -55,7 +55,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
+	<update id="update" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
 		UPDATE TB_SYS_USER sysuser
 		SET
 		sysuser.USERNAME = #{username:VARCHAR},
@@ -80,7 +80,7 @@
 		sysuser.USERID
 		= #{userid}
 	</update>
-	<update id="updatetPwd" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
+	<update id="updatetPwd" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
 		UPDATE TB_SYS_USER sysuser
 		SET
 		sysuser.PASSWORD = #{password:VARCHAR},
@@ -117,7 +117,7 @@
 		DELETE FROM TB_SYS_USER
 		sysuser WHERE sysuser.USERID=#{userid}
 	</delete>
-	<select id="findAll" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser">
+	<select id="findAll" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
 		SELECT * FROM TB_SYS_USER
 	</select>
 
@@ -129,7 +129,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser"
+	<select id="list" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser"
 		parameterType="java.util.Map">
 		SELECT distinct sysuser.*,
 		tsr.rolename,
@@ -205,7 +205,7 @@
 		DELETE FROM
 		tb_sys_user_org t WHERE t.USERID=#{userid}
 	</delete>
-	<insert id="saveSysUserOrg" parameterType="com.marks.module.inner.system.sys.pojo.SysUserOrg">
+	<insert id="saveSysUserOrg" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUserOrg">
 		INSERT INTO
 		tb_sys_user_org (
 		USERID,
