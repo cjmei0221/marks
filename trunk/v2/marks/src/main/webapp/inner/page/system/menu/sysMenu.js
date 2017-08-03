@@ -274,18 +274,6 @@ function loadList() {
 			title : '排序',
 			field : 'sort',
 			width : 60
-		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 150
-		}, {
-			title : '更新时间',
-			field : 'updatetime',
-			width : 150
-		}, {
-			title : '更新者',
-			field : 'creator',
-			width : 100
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
