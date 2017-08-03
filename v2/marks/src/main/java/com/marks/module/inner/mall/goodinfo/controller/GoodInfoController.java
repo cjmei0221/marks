@@ -24,8 +24,8 @@ import com.marks.module.inner.mall.goodinfo.pojo.GoodImg;
 import com.marks.module.inner.mall.goodinfo.pojo.GoodInfo;
 import com.marks.module.inner.mall.goodinfo.service.GoodInfoService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 
 @Controller
 public class GoodInfoController extends SupportContorller {
