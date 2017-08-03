@@ -21,9 +21,9 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.note.question.pojo.Question;
 import com.marks.module.inner.note.question.service.QuestionService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.sys.system.core.data.StaticData;
-import com.marks.module.web.system.login.util.LoginUtil;
+import com.marks.module.web.user.login.util.LoginUtil;
 
 @Controller
 public class WebQuestionController extends SupportContorller {

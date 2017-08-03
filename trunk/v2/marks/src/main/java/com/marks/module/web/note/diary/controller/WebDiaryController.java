@@ -24,11 +24,11 @@ import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.diary.service.DiaryService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
-import com.marks.module.inner.system.sys.service.LoginService;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.marks.module.inner.system.sysuser.service.SysUserService;
+import com.marks.module.inner.user.login.service.LoginService;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
+import com.marks.module.inner.user.sysuser.service.SysUserService;
 import com.marks.module.web.runModel.RunModel;
-import com.marks.module.web.system.login.util.LoginUtil;
+import com.marks.module.web.user.login.util.LoginUtil;
 
 @Controller
 public class WebDiaryController extends SupportContorller{
