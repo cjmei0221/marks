@@ -10,10 +10,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.sys.system.core.data.StaticData;
 import com.marks.module.sys.system.core.filter.RequestRegex;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
 
 public class PopedomInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log = Logger.getLogger(PopedomInterceptor.class);
