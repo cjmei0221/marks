@@ -21,7 +21,7 @@ import com.marks.common.util.IDUtil;
 import com.marks.module.inner.supermarket.smgoodinfo.dao.SmGoodInfoDao;
 import com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo;
 import com.marks.module.inner.supermarket.smgoodinfo.service.SmGoodInfoService;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 @Service
 public class SmGoodInfoServiceImpl implements SmGoodInfoService {
 	private static final Logger logger = Logger.getLogger(SmGoodInfoServiceImpl.class);

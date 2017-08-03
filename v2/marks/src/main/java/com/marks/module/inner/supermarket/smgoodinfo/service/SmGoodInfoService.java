@@ -7,7 +7,7 @@ import java.util.Map;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.module.inner.supermarket.smgoodinfo.pojo.SmGoodInfo;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 
 public interface SmGoodInfoService{
 
