@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.marks.common.util.Constants;
+import com.marks.module.inner.org.orginfo.pojo.OrgInfo;
 import com.marks.module.inner.system.datadir.pojo.DataDir;
-import com.marks.module.inner.system.orginfo.pojo.OrgInfo;
 import com.marks.module.inner.system.sysconf.pojo.SysConf;
 import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
 

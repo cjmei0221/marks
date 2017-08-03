@@ -7,8 +7,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.marks.module.inner.system.orginfo.pojo.OrgInfo;
-import com.marks.module.inner.system.orginfo.service.OrgInfoService;
+import com.marks.module.inner.org.orginfo.pojo.OrgInfo;
+import com.marks.module.inner.org.orginfo.service.OrgInfoService;
 import com.marks.module.inner.system.sys.service.LoadDataService;
 import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.sys.system.core.data.StaticData;
