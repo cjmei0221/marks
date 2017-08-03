@@ -22,8 +22,8 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.note.reminder.pojo.Reminder;
 import com.marks.module.inner.note.reminder.service.ReminderService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 
  /**
 	 * 事务提醒: 1，事务提醒 ，特殊日子可设置每年提醒，普通事务提醒，默认明天；<br/>2，提醒时间是9点提醒<br/>3，可设置提前提醒
