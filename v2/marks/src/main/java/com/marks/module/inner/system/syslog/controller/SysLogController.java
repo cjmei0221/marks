@@ -18,8 +18,8 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.system.syslog.pojo.SysLog;
 import com.marks.module.inner.system.syslog.service.SysLogService;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 
 @Controller
 public class SysLogController extends SupportContorller{
