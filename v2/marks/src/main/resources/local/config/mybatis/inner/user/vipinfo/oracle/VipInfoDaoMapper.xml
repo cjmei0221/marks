@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.inner.note.vipinfo.dao.VipInfoDao">
+<mapper namespace="com.marks.module.inner.user.vipinfo.dao.VipInfoDao">
 
-	<select id="findById" resultType="com.marks.module.inner.note.vipinfo.pojo.VipInfo">
+	<select id="findById" resultType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
 		SELECT * FROM TB_VIP_INFO
 		vipinfo where vipinfo.USERID = #{userid}
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.inner.note.vipinfo.pojo.VipInfo">
+	<insert id="save" parameterType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
 		INSERT INTO TB_VIP_INFO vipinfo (
 		vipinfo.USERID,
 		vipinfo.REALNAME,
@@ -32,7 +32,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.inner.note.vipinfo.pojo.VipInfo">
+	<update id="update" parameterType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
 		UPDATE TB_VIP_INFO vipinfo
 		SET
 		vipinfo.REALNAME = #{realname:VARCHAR},
@@ -54,7 +54,7 @@
 		vipinfo WHERE vipinfo.USERID=#{userid}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.inner.note.vipinfo.pojo.VipInfo">
+	<select id="findAll" resultType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
 		SELECT * FROM TB_VIP_INFO
 	</select>
 
@@ -66,7 +66,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.inner.note.vipinfo.pojo.VipInfo"
+	<select id="list" resultType="com.marks.module.inner.user.vipinfo.pojo.VipInfo"
 		parameterType="java.util.Map">
 		SELECT su.*,
 		vip.realname,
@@ -109,7 +109,7 @@
 
 	</select>
 
-	<select id="findVipDetailInfoById" resultType="com.marks.module.inner.note.vipinfo.pojo.VipInfo">
+	<select id="findVipDetailInfoById" resultType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
 		SELECT
 		vipinfo.*,su.skin FROM
 		tb_sys_user su left join TB_VIP_INFO vipinfo on
