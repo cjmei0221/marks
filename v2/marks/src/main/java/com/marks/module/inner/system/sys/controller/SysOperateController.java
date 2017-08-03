@@ -16,8 +16,8 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.SysOperateService;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 
 /**
  * 系统菜单控制层 File Name: com.grgbanking.inner.controller.SysMenuController.java
