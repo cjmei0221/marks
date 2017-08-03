@@ -19,8 +19,8 @@ import com.marks.module.inner.system.sys.pojo.SysFunc;
 import com.marks.module.inner.system.sys.pojo.SysMenu;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.SysMenuService;
-import com.marks.module.inner.system.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.helper.SysUserHelper;
+import com.marks.module.inner.user.login.helper.SysUserHelper;
+import com.marks.module.inner.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
 
