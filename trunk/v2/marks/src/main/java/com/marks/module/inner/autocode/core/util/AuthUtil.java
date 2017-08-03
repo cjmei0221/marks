@@ -9,7 +9,7 @@ import com.marks.module.inner.autocode.core.produced.webpage.html.htmlpage.HtmlP
 import com.marks.module.inner.system.sys.pojo.SysMenu;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.SysMenuService;
-import com.marks.module.inner.system.sysrole.service.SysRoleService;
+import com.marks.module.inner.user.sysrole.service.SysRoleService;
 import com.marks.module.sys.system.core.common.SpringContextHolder;
 
 public class AuthUtil {
