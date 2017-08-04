@@ -19,7 +19,7 @@ import com.marks.module.web.pay.unionpay.thread.pool.PayThreadPool;
  * @createTime 2015-06-17 <br>
  */
 public class UnionPay_Wap {
-	private static String configPath="props/web/pay/acp_sdk.properties";
+	private static String configPath="props/pay/union/acp_sdk.properties";
 	private static Logger logger = Logger.getLogger(UnionPay_Wap.class);
 	private static String version = "5.0.0";//版本号
 	private static String encoding = "UTF-8";//编码方式

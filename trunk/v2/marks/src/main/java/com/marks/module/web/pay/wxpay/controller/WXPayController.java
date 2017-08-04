@@ -31,6 +31,7 @@ import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
 import com.marks.module.sys.system.core.data.StaticData;
 import com.marks.module.web.pay.wxpay.pay.WXPayUtil;
 import com.marks.module.web.pay.wxpay.pay.WxConfig;
+import com.marks.module.web.pay.wxpay.pay.WxPayPropUtil;
 import com.marks.module.web.pay.wxpay.pojo.PayNotice;
 import com.marks.module.web.pay.wxpay.pojo.WXPayRecord;
 import com.marks.module.web.pay.wxpay.pojo.WeixinPayRequestDomain;
@@ -133,8 +134,8 @@ public class WXPayController extends SupportContorller{
 		Result result = new Result();
 		JSONObject json = new JSONObject();		
 		String appid =wa.getAppid();
-		String mch_id = WxConfig.getInstance().getValueByAccountid(accountId, WxConfig.mch_id);
-		String key = WxConfig.getInstance().getValueByAccountid(accountId, WxConfig.key);
+		String mch_id = WxPayPropUtil.getValueByAccountId(accountId, WxConfig.mch_id);
+		String key = WxPayPropUtil.getValueByAccountId(accountId, WxConfig.key);
 		String nonce_str = IDUtil.getUUID();	
 		String openid =WxUtil.getInstance().getCurrentOpenid(request);	
 		String trade_type = request.getParameter("trade_type");//取值如下：JSAPI，NATIVE，APP	
@@ -340,7 +341,7 @@ public class WXPayController extends SupportContorller{
 			//String sign = requestMap.get("sign");
 			
 			String trade_type ="NATIVE";
-			String key = WxConfig.getInstance().getValueByAccountid(accountid, WxConfig.key);
+			String key = WxPayPropUtil.getValueByAccountId(accountid, WxConfig.key);
 			
 			String body = "静态Native商品链接";// 商品描述
 			
