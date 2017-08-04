@@ -23,16 +23,16 @@ public class HttpService {
 
 	public static String doSendMoney(String requestUrl, String data, String accountid) throws Exception {
 		// 证书文件(微信商户平台-账户设置-API安全-API证书-下载证书)
-		String keyStorePath = PropsPaywxUtil.getProperty("keyStorePath");
+		String keyStorePath = WxPayPropUtil.getProperty("keyStorePath");
 		// 证书密码（默认为商户ID）
-		String password = PropsPaywxUtil.getProperty("password");
+		String password = WxPayPropUtil.getProperty("password");
 		if (null == accountid || "".equals(accountid)) {
 			logger.info("accountid is null ");
 			return "";
 		}
 
-		keyStorePath = PropsPaywxUtil.getValue("payWx_" + accountid + ".properties").getProperty("keyStorePath");
-		password = PropsPaywxUtil.getValue("payWx_" + accountid + ".properties").getProperty("password");
+		keyStorePath = WxPayPropUtil.getValueByAccountId(accountid,"keyStorePath");
+		password =WxPayPropUtil.getValueByAccountId(accountid,"password");
 
 		logger.info("keyStorePath" + keyStorePath + "-" + password);
 		// 实例化密钥库

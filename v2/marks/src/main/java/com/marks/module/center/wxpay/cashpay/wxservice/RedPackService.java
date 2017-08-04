@@ -13,8 +13,8 @@ import com.marks.module.center.wxpay.cashpay.pojo.RedPackReq;
 import com.marks.module.center.wxpay.cashpay.pojo.RedPackReqGroup;
 import com.marks.module.center.wxpay.cashpay.pojo.RedPackRes;
 import com.marks.module.center.wxpay.util.HttpService;
-import com.marks.module.center.wxpay.util.PropsPaywxUtil;
 import com.marks.module.center.wxpay.util.WXPayUtil;
+import com.marks.module.center.wxpay.util.WxPayPropUtil;
 
 public class RedPackService {
 	private static Logger logger = Logger.getLogger(RedPackService.class);
@@ -34,8 +34,8 @@ public class RedPackService {
 		WXPayUtil wxPayUtil = new WXPayUtil();
 		try {
 			vo.setTotal_num(1);
-			String sign = wxPayUtil.createSign(vo.getSortedMap(),PropsPaywxUtil.getProperty("key"));
-			String reqUrl=PropsPaywxUtil.getProperty("payurl");
+			String sign = wxPayUtil.createSign(vo.getSortedMap(),WxPayPropUtil.getValueByAccountId(accountid, "key"));
+			String reqUrl=WxPayPropUtil.getProperty("payurl");
 			SortedMap<String, String> reqMap=vo.getSortedMap();
 			reqMap.put("sign", sign);
 			String rsp = HttpService.doSendMoney(reqUrl, wxPayUtil.parseMapToXML(reqMap),accountid).replaceAll("\r|\n", "");
@@ -65,8 +65,8 @@ public class RedPackService {
 		//签名
 		WXPayUtil wxPayUtil = new WXPayUtil();
 		try {
-			String sign = wxPayUtil.createSign(vo.getSortedMap(),PropsPaywxUtil.getProperty("key"));
-			String reqUrl=PropsPaywxUtil.getProperty("payGroupUrl");
+			String sign = wxPayUtil.createSign(vo.getSortedMap(),WxPayPropUtil.getValueByAccountId(accountid, "key"));
+			String reqUrl=WxPayPropUtil.getProperty("payGroupUrl");
 			SortedMap<String, String> reqMap=vo.getSortedMap();
 			reqMap.put("sign", sign);
 			String rsp = HttpService.doSendMoney(reqUrl, wxPayUtil.parseMapToXML(reqMap),accountid).replaceAll("\r|\n", "");
@@ -96,8 +96,8 @@ public class RedPackService {
 		//签名
 		WXPayUtil wxPayUtil = new WXPayUtil();
 		try {
-			String sign = wxPayUtil.createSign(vo.getSortedMap(),PropsPaywxUtil.getProperty("key"));
-			String reqUrl=PropsPaywxUtil.getProperty("gethbinfo");
+			String sign = wxPayUtil.createSign(vo.getSortedMap(),WxPayPropUtil.getValueByAccountId(accountid, "key"));
+			String reqUrl=WxPayPropUtil.getProperty("gethbinfo");
 			SortedMap<String, String> reqMap=vo.getSortedMap();
 			reqMap.put("sign", sign);
 			String rsp = HttpService.doSendMoney(reqUrl, wxPayUtil.parseMapToXML(reqMap),accountid).replaceAll("\r|\n", "");

@@ -12,7 +12,7 @@ public class AlipayPropUtil {
 
 	private static Properties props = new Properties();
 	static{
-		InputStream in = AlipayPropUtil.class.getClassLoader().getResourceAsStream("props/web/pay/alipay.properties");
+		InputStream in = AlipayPropUtil.class.getClassLoader().getResourceAsStream("props/pay/alipay/alipay.properties");
 		try {
 			props.load(in);
 		} catch (IOException e) {

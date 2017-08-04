@@ -12,8 +12,8 @@ import com.marks.module.center.wxpay.mmpay.pojo.CompanyQueryRedPackRes;
 import com.marks.module.center.wxpay.mmpay.pojo.CompanyRedPackReq;
 import com.marks.module.center.wxpay.mmpay.pojo.CompanyRedPackRes;
 import com.marks.module.center.wxpay.util.HttpService;
-import com.marks.module.center.wxpay.util.PropsPaywxUtil;
 import com.marks.module.center.wxpay.util.WXPayUtil;
+import com.marks.module.center.wxpay.util.WxPayPropUtil;
 
 public class CompanyRedPackService {
 	private static Logger logger = Logger.getLogger(CompanyRedPackService.class);
@@ -32,8 +32,8 @@ public class CompanyRedPackService {
 		//签名
 		WXPayUtil wxPayUtil = new WXPayUtil();
 		try {
-			String sign = wxPayUtil.createSign(vo.getSortedMap(),PropsPaywxUtil.getProperty("key"));
-			String reqUrl=PropsPaywxUtil.getProperty("transfers_url");
+			String sign = wxPayUtil.createSign(vo.getSortedMap(),WxPayPropUtil.getValueByAccountId(accountid, "key"));
+			String reqUrl=WxPayPropUtil.getProperty("transfers_url");
 			SortedMap<String, String> reqMap=vo.getSortedMap();
 			reqMap.put("sign", sign);
 			String rsp = HttpService.doSendMoney(reqUrl, wxPayUtil.parseMapToXML(reqMap),accountid).replaceAll("\r|\n", "");
@@ -64,8 +64,8 @@ public class CompanyRedPackService {
 		//签名
 		WXPayUtil wxPayUtil = new WXPayUtil();
 		try {
-			String sign = wxPayUtil.createSign(vo.getSortedMap(),PropsPaywxUtil.getProperty("key"));
-			String reqUrl=PropsPaywxUtil.getProperty("gettransferinfo_url");
+			String sign = wxPayUtil.createSign(vo.getSortedMap(),WxPayPropUtil.getValueByAccountId(accountid, "key"));
+			String reqUrl=WxPayPropUtil.getProperty("gettransferinfo_url");
 			SortedMap<String, String> reqMap=vo.getSortedMap();
 			reqMap.put("sign", sign);
 			String rsp = HttpService.doSendMoney(reqUrl, wxPayUtil.parseMapToXML(reqMap),accountid).replaceAll("\r|\n", "");
