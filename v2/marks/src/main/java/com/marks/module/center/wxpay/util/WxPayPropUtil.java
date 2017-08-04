@@ -15,13 +15,13 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
  * @history 1.修改时间,修改;修改内容：
  * 
  */
-public class PropsPaywxUtil {
-	private static Logger logger = Logger.getLogger(PropsPaywxUtil.class);
+public class WxPayPropUtil {
+	private static Logger logger = Logger.getLogger(WxPayPropUtil.class);
 
 	private static Properties props = new Properties();
 	static{
 		try {
-			props.load(new InputStreamReader(PropsPaywxUtil.class.getClassLoader().getResourceAsStream("props/center/payWx_common.properties"), "UTF-8"));  ;
+			props.load(new InputStreamReader(WxPayPropUtil.class.getClassLoader().getResourceAsStream("props/pay/wx/wxpay.properties"), "UTF-8"));  ;
 		} catch (IOException e) {
 			logger.error("IOException:",e);
 		}
@@ -31,13 +31,20 @@ public class PropsPaywxUtil {
 		return props.getProperty(key);
 	}
 	
-	public	static Properties getValue(String fileSrc){
+	private	static Properties getValue(String fileSrc){
 		try {
 			Properties props = PropertiesLoaderUtils.loadAllProperties(fileSrc);
 			return props;
 		} catch (IOException e) {
 		}
 		return null;
+	}
+	
+	public static String getValueByAccountId(String accountid,String key){
+		if(null !=accountid && accountid.length()>1){
+			return getValue("props/pay/wx/acctNo/acct_" + accountid + ".properties").getProperty(key);
+		}
+		return getProperty(key);
 	}
 	
 }
