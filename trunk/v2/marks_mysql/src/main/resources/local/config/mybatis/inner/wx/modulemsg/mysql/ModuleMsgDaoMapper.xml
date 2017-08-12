@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.inner.wx.modulemsg.dao.ModuleMsgDao">
+
+    <select id="findById" resultType="com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg">
+		SELECT * FROM TB_WX_MODULE_MSG where ID = #{id}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+
+ 		INSERT INTO TB_WX_MODULE_MSG (
+            ID,
+            ACCOUNTID,
+            TEMPLATE_ID,
+            TOUSER,
+            URL,
+            DATA,
+            NEEDFLAG,
+            SENDFLAG,
+            SENDTIMES,
+            CREATETIME,
+            SENDTIME,
+            MSGID,
+            PUSH_CODE,
+            PUSH_MSG,
+            RESULTCODE,
+            RESULTMSG,
+            NOTE
+		)
+		VALUES(
+            #{id:VARCHAR},
+            #{accountid:VARCHAR},
+            #{template_id:VARCHAR},
+            #{touser:VARCHAR},
+            #{url:VARCHAR},
+            #{data:VARCHAR},
+            #{needFlag:NUMERIC},
+            #{sendFlag:NUMERIC},
+            #{sendTimes:NUMERIC},
+            #{createtime:TIMESTAMP},
+            #{sendtime:TIMESTAMP},
+            #{msgId:VARCHAR},
+            #{push_code:VARCHAR},
+            #{push_msg:VARCHAR},
+            #{resultCode:VARCHAR},
+            #{resultMsg:VARCHAR},
+            #{note:VARCHAR}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg">
+ 		UPDATE TB_WX_MODULE_MSG 
+		SET 
+                ACCOUNTID = #{accountid:VARCHAR},
+                TEMPLATE_ID = #{template_id:VARCHAR},
+                TOUSER = #{touser:VARCHAR},
+                URL = #{url:VARCHAR},
+                DATA = #{data:VARCHAR},
+                NEEDFLAG = #{needFlag:NUMERIC},
+                SENDFLAG = #{sendFlag:NUMERIC},
+                SENDTIMES = #{sendTimes:NUMERIC},
+                CREATETIME = #{createtime:TIMESTAMP},
+                SENDTIME = #{sendtime:TIMESTAMP},
+                MSGID = #{msgId:VARCHAR},
+                PUSH_CODE = #{push_code:VARCHAR},
+                PUSH_MSG = #{push_msg:VARCHAR},
+                RESULTCODE = #{resultCode:VARCHAR},
+                RESULTMSG = #{resultMsg:VARCHAR},
+                NOTE = #{note:VARCHAR}
+		WHERE
+			ID = #{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_WX_MODULE_MSG WHERE ID=#{id}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg">
+ 		SELECT * FROM TB_WX_MODULE_MSG
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_WX_MODULE_MSG WHERE ID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_WX_MODULE_MSG 
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( modulemsg.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.TEMPLATE_ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.TOUSER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.URL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.DATA LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.NEEDFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.SENDFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.SENDTIMES LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.SENDTIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.MSGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.PUSH_CODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.PUSH_MSG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.RESULTCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.RESULTMSG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or modulemsg.NOTE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+						
+					
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

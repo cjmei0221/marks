@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.inner.wx.wxuser.dao.WxUserDao">
+
+    <select id="findById" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+		SELECT * FROM TB_WX_USER where OPENID = #{openid}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+		<selectKey keyProperty="openid" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+
+ 		INSERT INTO TB_WX_USER (
+            OPENID,
+            NICKNAME,
+            GROUPID,
+            COUNTRY,
+            PROVINCE,
+            CITY,
+            SEX,
+            IMAGEURL,
+            LANGUAGE,
+            ISSUBSCRIBE,
+            SUBSCRIBETIME,
+            UPDATETIME,
+            ACCOUNTID,
+            CREATETIME,
+            USEFLAG,
+            QRNO,
+            REMARK
+		)
+		VALUES(
+            #{openid:VARCHAR},
+            #{nickname:VARCHAR},
+            #{groupid:NUMERIC},
+            #{country:VARCHAR},
+            #{province:VARCHAR},
+            #{city:VARCHAR},
+            #{sex:NUMERIC},
+            #{imageUrl:VARCHAR},
+            #{language:VARCHAR},
+            #{issubscribe:NUMERIC},
+            #{subscribetime:TIMESTAMP},
+            #{updatetime:TIMESTAMP},
+            #{accountid:VARCHAR},
+            #{createtime:TIMESTAMP},
+            #{useflag:NUMERIC},
+            #{qrNo:VARCHAR},
+            #{remark:VARCHAR}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+ 		UPDATE TB_WX_USER 
+		SET 
+                NICKNAME = #{nickname:VARCHAR},
+                GROUPID = #{groupid:NUMERIC},
+                COUNTRY = #{country:VARCHAR},
+                PROVINCE = #{province:VARCHAR},
+                CITY = #{city:VARCHAR},
+                SEX = #{sex:NUMERIC},
+                IMAGEURL = #{imageUrl:VARCHAR},
+                LANGUAGE = #{language:VARCHAR},
+                ISSUBSCRIBE = #{issubscribe:NUMERIC},
+                SUBSCRIBETIME = #{subscribetime:TIMESTAMP},
+                UPDATETIME = #{updatetime:TIMESTAMP},
+                ACCOUNTID = #{accountid:VARCHAR},
+                CREATETIME = #{createtime:TIMESTAMP},
+                USEFLAG = #{useflag:NUMERIC},
+                QRNO = #{qrNo:VARCHAR},
+                REMARK = #{remark:VARCHAR}
+		WHERE
+			OPENID = #{openid}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_WX_USER WHERE OPENID=#{openid}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
+ 		SELECT * FROM TB_WX_USER
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_WX_USER WHERE OPENID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_WX_USER 
+						WHERE 1=1
+ and ( wxuser.OPENID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.NICKNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.GROUPID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.COUNTRY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.PROVINCE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.CITY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.SEX LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.IMAGEURL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.LANGUAGE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.ISSUBSCRIBE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.SUBSCRIBETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.USEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.QRNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxuser.REMARK LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+ )
+						
+					
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

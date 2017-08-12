@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.inner.wx.wxmenu.dao.WxMenuDao">
+
+	<select id="findById"
+		resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		SELECT * FROM TB_WX_MENU where ID = #{id}
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
+			replace(uuid(),'-','')
+		</selectKey>
+
+		INSERT INTO TB_WX_MENU (
+		ID,
+		PARENT_ID,
+		NAME,
+		TYPE,
+		CONTENT,
+		SORT,
+		ACCOUNTID,
+		LVL,
+		menutype,
+		tagid,
+		menuid,
+		updatetime
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{parent_id:VARCHAR},
+		#{name:VARCHAR},
+		#{type:VARCHAR},
+		#{content:VARCHAR},
+		#{sort:NUMERIC},
+		#{accountid:VARCHAR},
+		#{lvl:NUMERIC},
+		#{menutype:NUMERIC},
+		#{tagid:VARCHAR},
+		#{menuid:VARCHAR},
+		now()
+		)
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		UPDATE TB_WX_MENU
+		SET
+		PARENT_ID = #{parent_id:VARCHAR},
+		NAME = #{name:VARCHAR},
+		TYPE =
+		#{type:VARCHAR},
+		CONTENT =
+		#{content:VARCHAR},
+		SORT = #{sort:NUMERIC},
+		menutype=#{menutype:NUMERIC},
+		tagid=#{tagid:VARCHAR},
+		menuid=#{menuid:VARCHAR},
+		updatetime=now()
+		WHERE
+		ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_MENU WHERE
+		ID=#{id}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		SELECT * FROM TB_WX_MENU
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_MENU WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_MENU wxmenu
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( wxmenu.ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxmenu.PARENT_ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxmenu.NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxmenu.TYPE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxmenu.CONTENT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxmenu.SORT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxmenu.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+	</select>
+
+	<select id="getParentMenu"
+		resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		SELECT menu.*,(case
+		when cnum is null then
+		'open'
+		else
+		'closed'
+		end) state,
+		tags.name tagname,
+		cnum childnum
+		FROM
+		TB_WX_MENU menu
+		left join tb_wx_tags tags on (tags.tagid=menu.tagid and tags.accountid=menu.accountid)
+		left join (select count(1) cnum, p.parent_id pid
+		from
+		TB_WX_MENU p
+		group by p.parent_id) p
+		on menu.id = p.pid
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and menu.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="parentId!=null and parentId!=''">
+			AND menu.parent_id =#{parentId}
+		</if>
+		order by menu.menutype,menu.updatetime desc
+	</select>
+	<select id="getWxMenuList"
+		resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		select * from tb_wx_menu t
+		order by t.sort
+	</select>
+	<select id="getWxMenuListByAccountId"
+		resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		select * from tb_wx_menu t where t.accountid=#{accountid}
+		order by t.sort
+	</select>
+	<select id="getChildWxMenuList"
+		resultType="com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu">
+		select * from tb_wx_menu t where t.PARENT_ID=#{parent_id}
+	</select>
+
+</mapper>

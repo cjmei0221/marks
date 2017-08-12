@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>日记</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet" href="../../assets/css/marks5.css">
+</head>
+<body>
+	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+	<div id="app">
+		<!-- 单个page ,第一个.page默认被展示-->
+		<div>
+			<!-- 标题栏 -->
+			<header class="bar bar-nav cm-head">
+				<a class="icon icon-left pull-left" href="./list.html"></a>
+				<h1 class="title" id="t_title">添加</h1>
+			</header>
+			<!-- 这里是页面内容区 -->
+			<div class="content cm-contnet-img">
+				<div id="tooltips" class="tooltips"></div>
+				<div class="list-block">
+					<ul style="background: rgba(255, 255, 255, 0);">
+						<!-- Text inputs -->
+						<li>
+							<div class="item-content cm-item-content">
+								<div class="item-media">
+									<i class="icon icon-form-name"></i>
+								</div>
+								<div class="item-inner cm-item-inner">
+									<div class="item-input">
+										<input type="text" id="c_mobile" name="c_mobile"
+											placeholder="手机号码(绑定手机后可查询)" onblur="summitForm();" maxlength="11">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content cm-item-content">
+								<div class="item-media">
+									<i class="icon icon-form-name"></i>
+								</div>
+								<div class="item-inner cm-item-inner">
+									<div class="item-input">
+										<input type="text" id="c_title" name="c_title"
+											placeholder="标题" onblur="summitForm();">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content cm-item-content">
+								<div class="item-media">
+									<i class="icon icon-form-email"></i>
+								</div>
+								<div class="item-inner cm-item-inner">
+									<div class="item-input">
+										<input type="text" id="createtime" name="createtime"
+											value="2016-12-19" readonly="readonly">
+									</div>
+								</div>
+							</div>
+						</li>
+
+						<!-- Select -->
+						<li>
+							<div class="item-content cm-item-content">
+								<div class="item-media">
+									<i class="icon icon-form-gender"></i>
+								</div>
+								<div class="item-inner cm-item-inner">
+									<div class="item-input">
+										<textarea id="c_content" name="c_content" placeholder="内容"
+											style="height: 20rem;" onblur="summitForm();"></textarea>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<!-- <div class="content-block" style="margin: 0;">
+					<div class="row" style="margin-left: 0px;">
+						<div>
+							<a href="javascript:void(0)" onclick="summitForm();"
+								class="button button-big button-fill button-success cm-btn">提交</a>
+						</div>
+					</div>
+				</div> -->
+			</div>
+
+		</div>
+	</div>
+
+</body>
+<script type='text/javascript'
+	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../../js/my-config.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../../common/tool.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../js/msg.js' charset='utf-8'></script>
+<script type='text/javascript' src='./add1.js' charset='utf-8'></script>
+</html>
