@@ -67,16 +67,4 @@ public abstract class AbstractRequestService implements RequestService {
 
 		return responseMessage;
 	}
-
-	/**
-	 * 业务组件处理
-	 * 
-	 * @param requestMessage
-	 * @param content
-	 * @return
-	 */
-	private WechatResponse moduleProcess(WechatRequest requestMessage, String content) {
-		logger.info("Module path:" + content);
-		return ModuleController.moduleHandle(content, requestMessage);
-	}
 }
