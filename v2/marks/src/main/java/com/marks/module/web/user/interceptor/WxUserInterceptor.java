@@ -8,7 +8,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.web.wx.wfhao.util.WxUtil;
 
 public class WxUserInterceptor extends HandlerInterceptorAdapter {
@@ -28,9 +27,9 @@ public class WxUserInterceptor extends HandlerInterceptorAdapter {
 		if(null !=device && "PC".equals(device)){
 			return true;
 		}
-		WxUser wxUser=WxUtil.getInstance().getCurrentWxbUser(request);
-		if (null != wxUser) {
-			log.info("wxUser > openid:"+wxUser.getOpenid()+" - nickname:"+wxUser.getNickname());
+		String openid=WxUtil.getInstance().getCurrentOpenid(request);
+		if (null != openid && openid.length()>5) {
+			log.info("wxUser > openid:"+openid);
 			return true;
 		} else {
 			result.setCode("-101");

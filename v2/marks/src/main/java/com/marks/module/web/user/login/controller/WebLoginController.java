@@ -18,6 +18,7 @@ import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.user.login.service.LoginService;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.inner.user.sysuser.service.SysUserService;
+import com.marks.module.inner.wx.wxuser.service.WxUserService;
 import com.marks.module.web.runModel.RunModel;
 import com.marks.module.web.user.login.util.LoginUtil;
 import com.marks.module.web.wx.wfhao.util.WxUtil;
@@ -29,6 +30,8 @@ public class WebLoginController {
 	private LoginService loginService;
 	@Autowired
 	private SysUserService sysUserService;
+	@Autowired
+	private WxUserService wxUserService;
 	/**
 	 * 查询我的日记
 	 */
@@ -73,7 +76,7 @@ public class WebLoginController {
 			
 			if(loginUser.getFanId()==null|| "".equals(loginUser.getFanId())){
 				String fanId="";
-				WxUser wxUser=WxUtil.getInstance().getCurrentWxbUser(request);
+				WxUser wxUser = wxUserService.findById(WxUtil.getInstance().getCurrentAccountid(request), WxUtil.getInstance().getCurrentOpenid(request));
 				if(wxUser !=null){
 					fanId=wxUser.getFanId();
 				}
@@ -132,7 +135,7 @@ public class WebLoginController {
 			String password=request.getParameter("password");
 			SysUser sysUser=loginService.getSysUserByUseridOrMobile(mobile);
 			String fanId="";
-			WxUser wxUser=WxUtil.getInstance().getCurrentWxbUser(request);
+			WxUser wxUser = wxUserService.findById(WxUtil.getInstance().getCurrentAccountid(request), WxUtil.getInstance().getCurrentOpenid(request));
 			if(wxUser !=null){
 				fanId=wxUser.getFanId();
 			}
