@@ -7,13 +7,11 @@ import org.apache.log4j.Logger;
 import com.marks.module.inner.wx.wxautoreplay.dao.WxAutoReplayDao;
 import com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay;
 import com.marks.module.sys.system.core.common.SpringContextHolder;
-import com.marks.module.web.wx.util.WxConstants;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.web.wx.wfhao.module.ModuleController;
 import com.marks.module.web.wx.wfhao.service.RequestService;
-import com.marks.module.web.wx.wfhao.service.impl.NewsHelper;
-import com.puredo.module.web.wx.wfhao.service.impl.ReplyHelper;
+import com.marks.module.web.wx.wfhao.service.impl.ReplyHelper;
 
 /**
  * 请求消息对象分发接口的抽象类实现 核心功能：提供统一请求消息处理
