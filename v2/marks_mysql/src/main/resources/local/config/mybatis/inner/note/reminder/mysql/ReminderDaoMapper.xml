@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.inner.note.reminder.dao.ReminderDao">
+
+    <select id="findById" resultType="com.marks.module.inner.note.reminder.pojo.Reminder">
+		SELECT * FROM TB_NOTE_REMINDER where ID = #{id}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.inner.note.reminder.pojo.Reminder">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+
+ 		INSERT INTO TB_NOTE_REMINDER (
+            ID,
+            REMIND_TYPE,
+            REMIND_DATE,
+            IS_REPEAT,
+            REMIND_CONTENT,
+            BEFORE_DAYS,
+            REMIND_TIME,
+            IS_BEFORE,
+            CREATETIME,
+            UPDATETIME,
+            CREATOR,
+            CALENDAR_TYPE
+		)
+		VALUES(
+            #{id:VARCHAR},
+            #{remind_type:NUMERIC},
+            #{remind_date:VARCHAR},
+            #{is_repeat:NUMERIC},
+            #{remind_content:VARCHAR},
+            #{before_days:NUMERIC},
+            #{remind_time:VARCHAR},
+            #{is_before:NUMERIC},
+            now(),
+            now(),
+            #{creator:VARCHAR},
+            #{calendar_type:NUMERIC}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.inner.note.reminder.pojo.Reminder">
+ 		UPDATE TB_NOTE_REMINDER 
+		SET 
+                REMIND_TYPE = #{remind_type:NUMERIC},
+                REMIND_DATE = #{remind_date:VARCHAR},
+                IS_REPEAT = #{is_repeat:NUMERIC},
+                REMIND_CONTENT = #{remind_content:VARCHAR},
+                BEFORE_DAYS = #{before_days:NUMERIC},
+                REMIND_TIME = #{remind_time:VARCHAR},
+                IS_BEFORE = #{is_before:NUMERIC},
+                UPDATETIME = now(),
+                CALENDAR_TYPE = #{calendar_type:NUMERIC}
+		WHERE
+			ID = #{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_NOTE_REMINDER WHERE ID=#{id}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.inner.note.reminder.pojo.Reminder">
+ 		SELECT * FROM TB_NOTE_REMINDER
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_NOTE_REMINDER WHERE ID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.inner.note.reminder.pojo.Reminder" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_NOTE_REMINDER 
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( reminder.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.REMIND_TYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.REMIND_DATE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.IS_REPEAT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.REMIND_CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.BEFORE_DAYS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.REMIND_TIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.IS_BEFORE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or to_char(reminder.CREATETIME,'yyyy-MM-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or to_char(reminder.UPDATETIME,'yyyy-MM-dd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or reminder.CALENDAR_TYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+						
+			    order by  reminder.UPDATETIME DESC		
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

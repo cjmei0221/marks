@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.inner.cell.wxaccount.dao.WxAccountDao">
+
+    <select id="findById" resultType="com.marks.module.inner.cell.wxaccount.pojo.WxAccount">
+		SELECT * FROM TB_WX_ACCOUNT where ACCOUNTID = #{accountId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.inner.cell.wxaccount.pojo.WxAccount">
+		<selectKey keyProperty="accountId" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+
+ 		INSERT INTO TB_WX_ACCOUNT (
+            ACCOUNTID,
+            URL,
+            TOKEN,
+            AESKEY,
+            CREATOR,
+            CREATETIME,
+            SERVER_CONTEXT,
+            WX_ACCTNO,
+            IS_SERVICE,
+            ACCTTYPE,
+            UPDATETIME,
+            ACCOUNTNAME,
+            ORGID,
+            APPID,
+            APPSECRET,
+            AUTHDOMAN
+		)
+		VALUES(
+            #{accountId:VARCHAR},
+            #{url:VARCHAR},
+            #{token:VARCHAR},
+            #{aeskey:VARCHAR},
+            #{creator:VARCHAR},
+            #{createtime:TIMESTAMP},
+            #{server_context:VARCHAR},
+            #{wx_acctno:VARCHAR},
+            #{is_service:NUMERIC},
+            #{accttype:NUMERIC},
+            #{updatetime:TIMESTAMP},
+            #{accountname:VARCHAR},
+            #{orgid:VARCHAR},
+            #{appid:VARCHAR},
+            #{appsecret:VARCHAR},
+            #{authdoman:VARCHAR}
+			
+			)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.inner.cell.wxaccount.pojo.WxAccount">
+ 		UPDATE TB_WX_ACCOUNT 
+		SET 
+                URL = #{url:VARCHAR},
+                TOKEN = #{token:VARCHAR},
+                AESKEY = #{aeskey:VARCHAR},
+                CREATOR = #{creator:VARCHAR},
+                CREATETIME = #{createtime:TIMESTAMP},
+                SERVER_CONTEXT = #{server_context:VARCHAR},
+                WX_ACCTNO = #{wx_acctno:VARCHAR},
+                IS_SERVICE = #{is_service:NUMERIC},
+                ACCTTYPE = #{accttype:NUMERIC},
+                UPDATETIME = #{updatetime:TIMESTAMP},
+                ACCOUNTNAME = #{accountname:VARCHAR},
+                ORGID = #{orgid:VARCHAR},
+                APPID = #{appid:VARCHAR},
+                APPSECRET = #{appsecret:VARCHAR},
+                AUTHDOMAN = #{authdoman:VARCHAR}
+		WHERE
+			ACCOUNTID = #{accountId}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_WX_ACCOUNT WHERE ACCOUNTID=#{accountId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.inner.cell.wxaccount.pojo.WxAccount">
+ 		SELECT * FROM TB_WX_ACCOUNT
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_WX_ACCOUNT WHERE ACCOUNTID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.inner.cell.wxaccount.pojo.WxAccount" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_WX_ACCOUNT 
+						WHERE 1=1
+ and ( wxaccount.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.URL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.TOKEN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.AESKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.SERVER_CONTEXT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.WX_ACCTNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.IS_SERVICE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.ACCTTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.ACCOUNTNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.APPID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.APPSECRET LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+                        <if test="keyword!=null and keyword!=''">
+                            or wxaccount.AUTHDOMAN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                        </if>
+ )
+						
+					
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

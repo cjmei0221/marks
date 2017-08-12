@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title>提醒</title>
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/marks.css">
+<link rel="stylesheet"
+	href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css">
+</head>
+<body>
+	<div>
+		<div id="cmHead"></div>
+
+		<div id="app" class='container'>
+			<div style="text-align: -webkit-left; margin: 30px;">
+				<div class="sui-form form-horizontal">
+					<h4>
+						<span>提醒内容</span>
+					</h4>
+					<div style="border-bottom: 1px solid #e6e6e6; margin-top: 30px;"></div>
+					<div class="control-group" style="width: 100%;">
+						<div class="controls">
+							<textarea style="height: 10rem; width: 100%;" id="planTxt"
+								name="planTxt" class="input-xxlarge cm-input" placeholder="内容"
+								onblur="submitForm()"></textarea>
+						</div>
+					</div>
+					<h4>
+						<span>提醒时间</span>
+					</h4>
+					<div style="border-bottom: 1px solid #e6e6e6; margin-top: 30px;"></div>
+					<div class="control-group" style="width: 100%;">
+
+						<div class="controls">
+							<input type="text" id="remindDate" name="remindDate"
+								class="input-xlarge cm-input" placeholder="提醒时间"
+								style="width: 100%; height: 35px;" data-toggle="datepicker" onblur="submitForm()">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<script type='text/javascript' src='../../js/my-config.js'
+	charset='utf-8'></script>
+<script type="text/javascript" src="../../js/showMsg.js"></script>
+<script type='text/javascript' src='../../../../common/tool.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../note.js' charset='utf-8'></script>
+<script type="text/javascript" src="./add.js"></script>
+</html>
