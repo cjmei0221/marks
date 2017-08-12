@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>marks</groupId>
-	<artifactId>marks-mvn</artifactId>
+	<artifactId>marks-oracle</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>marks-mvn Maven Webapp</name>
+	<name>marks-oracle Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<profiles>
@@ -365,7 +365,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>marks-mvn</finalName>
+		<finalName>marks-oracle</finalName>
 		<resources>
 			<resource>
 				<directory>
@@ -416,7 +416,7 @@
 					<encoding>UTF-8</encoding>
 					<compilerArguments>
 						<verbose />
-						<bootclasspath>${env.JAVA7_HOME}/jre/lib/rt.jar;${env.JAVA7_HOME}/jre/lib/jce.jar</bootclasspath>
+						 <bootclasspath>${env.JAVA7_HOME}/jre/lib/rt.jar:${env.JAVA7_HOME}/jre/lib/jce.jar</bootclasspath>
 					</compilerArguments>
 				</configuration>
 			</plugin>
