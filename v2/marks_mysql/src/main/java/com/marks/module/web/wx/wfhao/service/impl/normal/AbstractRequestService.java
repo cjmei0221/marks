@@ -13,6 +13,7 @@ import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.web.wx.wfhao.module.ModuleController;
 import com.marks.module.web.wx.wfhao.service.RequestService;
 import com.marks.module.web.wx.wfhao.service.impl.NewsHelper;
+import com.puredo.module.web.wx.wfhao.service.impl.ReplyHelper;
 
 /**
  * 请求消息对象分发接口的抽象类实现 核心功能：提供统一请求消息处理
@@ -63,20 +64,7 @@ public abstract class AbstractRequestService implements RequestService {
 		}
 
 		if (isEquels) {
-			responseMessage = new WechatResponse(requestMessage);
-			if(null ==reply.getCreplay() || "".equals(reply.getCreplay())){
-				return null;
-			}
-			String content = reply.getCreplay();
-			if (WxConstants.weixin_replay_type_news.equals(reply.getReplayType())) {
-				content = WxConstants.weixin_replay_type_news + ":" + reply.getCreplay();
-				responseMessage = NewsHelper.Handle(requestMessage, content);
-			} else if (WxConstants.weixin_replay_type_module.equals(reply.getReplayType())) {
-				responseMessage = moduleProcess(requestMessage, content);
-			} else {
-				responseMessage.setContent(content);
-			}
-			return responseMessage;
+			return ReplyHelper.getInstance().replay(requestMessage, reply, null);
 		}
 
 		return responseMessage;
