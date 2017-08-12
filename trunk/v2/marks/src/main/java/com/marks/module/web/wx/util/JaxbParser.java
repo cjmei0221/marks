@@ -6,14 +6,12 @@ package com.marks.module.web.wx.util;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.log4j.Logger;
-
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
@@ -60,9 +58,8 @@ public class JaxbParser {
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			m.setProperty(Marshaller.JAXB_FRAGMENT, true);// 去掉报文头
+			m.setProperty(Marshaller.JAXB_FRAGMENT, true);
 		    OutputStream os = new ByteOutputStream();
-			StringWriter writer = new StringWriter();
 			XMLSerializer serializer = getXMLSerializer(os);
 			m.marshal(obj, serializer.asContentHandler());
 			result = os.toString();
