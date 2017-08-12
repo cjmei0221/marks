@@ -97,20 +97,4 @@ public class WxUtil {
 
 	
 
-	public void setCurrentWxbUser(HttpServletRequest request,WxUser user) {
-		request.getSession().setAttribute("cWxUser", user);
-	}
-	public WxUser getCurrentWxbUser(HttpServletRequest request){
-		Object obj = request.getSession().getAttribute("cWxUser");
-		WxUser user = null;
-		if (null != obj) {
-			user = (WxUser) obj;
-		}
-		if (RunModel.getInstance().getWeixinMode().equals("N")) {
-			user=new WxUser();
-	    	user.setOpenid(getCurrentOpenid(request));
-	    	user.setNickname("mecki");
-		}
-		return user;
-	}
 }
