@@ -45,7 +45,7 @@ public class @{beanName}Controller extends SupportContorller{
     /**
 	 * 查询@{GetModuleDesc}
 	 */
-    @RequestMapping("/inner/@{BeanObject}/find@{beanName}ById")
+    @RequestMapping("/inner/@{BeanObject}/findById")
     public void find@{beanName}ById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
@@ -56,7 +56,7 @@ public class @{beanName}Controller extends SupportContorller{
 		    
 			@{beanName} request@{beanName} = @{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
 			result.getData().put("@{BeanObject}",request@{beanName});
-			result.setMessage("findById @{BeanObject} successs!");
+			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
