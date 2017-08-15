@@ -12,17 +12,19 @@ import com.marks.module.inner.autocode.core.produced.DBProduced;
 import com.marks.module.inner.autocode.core.produced.ModuleProduced;
 import com.marks.module.inner.autocode.core.produced.annotation.TableField;
 import com.marks.module.inner.autocode.core.produced.annotation.TableName;
+import com.marks.module.inner.autocode.core.produced.config.AutoConfig;
 import com.marks.module.inner.autocode.core.produced.extern.ExternAutoCode;
 import com.marks.module.inner.autocode.core.produced.factory.DefaultExternAutoBeanFactory;
 import com.marks.module.inner.autocode.core.produced.pojo.AutoAttr;
 import com.marks.module.inner.autocode.core.produced.pojo.AutoBean;
+import com.marks.module.inner.autocode.core.produced.table.MySqlTableProduced;
 import com.marks.module.inner.autocode.core.produced.table.OracleTableProduced;
 import com.marks.module.inner.autocode.core.produced.util.StringUtils;
 import com.marks.module.inner.autocode.core.test.TestCode;
 import com.marks.module.inner.autocode.web.controller.AutoCodeController;
 
 public class AutoCodeFactory {
-	 private static Logger logger = Logger.getLogger( AutoCodeController.class);
+	private static Logger logger = Logger.getLogger(AutoCodeController.class);
 	private static AutoCodeFactory util = null;
 
 	private AutoCodeFactory() {
@@ -39,28 +41,31 @@ public class AutoCodeFactory {
 		ExternAutoCode autoCode = new DefaultExternAutoBeanFactory().externAutoCodeBean();
 		autoCode.autoProducedCode(autoBean, true);
 	}
-	
-	public void autoCodeOneFile(AutoBean autoBean,ModuleProduced moduleProduced) {
+
+	public void autoCodeOneFile(AutoBean autoBean, ModuleProduced moduleProduced) {
 		ExternAutoCode autoCode = new DefaultExternAutoBeanFactory().externAutoCodeBean();
-		autoCode.autoProducedCode(autoBean,moduleProduced, true);
+		autoCode.autoProducedCode(autoBean, moduleProduced, true);
 	}
 
 	public void createTable(AutoBean autoBean) {
-		try {
-			
-			DBProduced oracleutil = new OracleTableProduced();
-			logger.info(oracleutil.createTableSql(autoBean));
-			oracleutil.createTable(autoBean);
-		} catch (Exception e) {
+		String dialect = AutoConfig.jdbc_password;
+		if ("oracle".equals(dialect)) {
+			try {
 
+				DBProduced oracleutil = new OracleTableProduced();
+				logger.info(oracleutil.createTableSql(autoBean));
+				oracleutil.createTable(autoBean);
+			} catch (Exception e) {
+
+			}
+		} else {
+			try {
+				DBProduced dbutil = new MySqlTableProduced();
+				dbutil.createTable(autoBean);
+			} catch (Exception e) {
+
+			}
 		}
-
-		/*
-		 * try { DBProduced dbutil = new MySqlTableProduced();
-		 * dbutil.createTable(autoBean); } catch (Exception e) {
-		 * 
-		 * }
-		 */
 
 	}
 
@@ -158,8 +163,10 @@ public class AutoCodeFactory {
 	 * 
 	 * autoCodeByEntity:描述 <br/>
 	 *
-	 * @param isAuth 是否授权
-	 * @param is_createtable 是否创建
+	 * @param isAuth
+	 *            是否授权
+	 * @param is_createtable
+	 *            是否创建
 	 * @param class1
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
@@ -171,11 +178,10 @@ public class AutoCodeFactory {
 			if (is_createtable) {
 				this.createTable(autoBean);
 			}
-			
+
 		}
 	}
 
-	
 	public static void main(String[] args) {
 		OracleTableProduced oracleTableProduced = new OracleTableProduced();
 		System.out.println(
