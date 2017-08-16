@@ -3,85 +3,83 @@
 
 <mapper namespace="com.marks.module.inner.system.sysconf.dao.SysConfDao">
 
-    <select id="findById" resultType="com.marks.module.inner.system.sysconf.pojo.SysConf">
-		SELECT * FROM TB_SYS_CONF where CKEY = #{ckey}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.system.sysconf.pojo.SysConf">
-		<selectKey keyProperty="ckey" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<select id="findById" resultType="com.marks.module.inner.system.sysconf.pojo.SysConf">
+		SELECT * FROM TB_SYS_CONF
+		sysconf where sysconf.CKEY = #{ckey}
+	</select>
 
- 		INSERT INTO TB_SYS_CONF (
-            CKEY,
-            CVALUE,
-            CKEYNAME,
-            CTYPE,
-            CTYPENAME,
-            CREATETIME,
-            UPDATETIME,
-            CREATOR
+	<insert id="save" parameterType="com.marks.module.inner.system.sysconf.pojo.SysConf">
+		INSERT INTO TB_SYS_CONF  (
+		CKEY,
+		CVALUE,
+		CKEYNAME,
+		COMPANYID,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR
 		)
 		VALUES(
-            #{ckey:VARCHAR},
-            #{cvalue:VARCHAR},
-            #{ckeyName:VARCHAR},
-            #{ctype:VARCHAR},
-            #{ctypename:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{creator:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.system.sysconf.pojo.SysConf">
- 		UPDATE TB_SYS_CONF 
-		SET 
-                CVALUE = #{cvalue:VARCHAR},
-                CKEYNAME = #{ckeyName:VARCHAR},
-                CTYPE = #{ctype:VARCHAR},
-                CTYPENAME = #{ctypename:VARCHAR},
-                CREATETIME = #{createtime:TIMESTAMP},
-                UPDATETIME = #{updatetime:TIMESTAMP},
-                CREATOR = #{creator:VARCHAR}
-		WHERE
-			CKEY = #{ckey}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_SYS_CONF WHERE CKEY=#{ckey}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.system.sysconf.pojo.SysConf">
- 		SELECT * FROM TB_SYS_CONF
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_SYS_CONF WHERE CKEY in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.system.sysconf.pojo.SysConf" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_SYS_CONF 
-						WHERE 1=1
-                        <if test="keyword!=null and keyword!=''">
- and ( sysconf.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or sysconf.CVALUE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or sysconf.CKEYNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or sysconf.CTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or sysconf.CTYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or sysconf.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or sysconf.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or sysconf.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
- )                        </if>
+		#{ckey:VARCHAR},
+		#{cvalue:VARCHAR},
+		#{ckeyName:VARCHAR},
+		#{companyId:VARCHAR},
+		now(),
+		now(),
+		#{creator:VARCHAR}
 
-						
-					
- 	</select>
- 	
- 	
- 	
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.inner.system.sysconf.pojo.SysConf">
+		UPDATE TB_SYS_CONF 
+		SET
+		CVALUE = #{cvalue:VARCHAR},
+		CKEYNAME =
+		#{ckeyName:VARCHAR},
+		UPDATETIME = now()
+		WHERE
+		CKEY =#{ckey}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_SYS_CONF
+		 WHERE CKEY=#{ckey}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.inner.system.sysconf.pojo.SysConf">
+		SELECT * FROM TB_SYS_CONF
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_SYS_CONF WHERE CKEY in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.inner.system.sysconf.pojo.SysConf"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_SYS_CONF sysconf
+		WHERE 1=1
+		<if test="companyId !=null and companyId !=''">
+			and sysconf.COMPANYID=#{companyId}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( sysconf.CKEY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysconf.CVALUE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysconf.CKEYNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+
+	</select>
+
+
+
 </mapper>

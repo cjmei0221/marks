@@ -4,27 +4,25 @@
 <mapper namespace="com.marks.module.inner.system.myimage.dao.MyImageDao">
 
     <select id="findById" resultType="com.marks.module.inner.system.myimage.pojo.MyImage">
-		SELECT * FROM TB_IMAGE where PICID = #{picId}
+		SELECT * FROM TB_IMAGE myimage where myimage.PICID = #{picId}
  	</select>
  	
  	<insert id="save" parameterType="com.marks.module.inner.system.myimage.pojo.MyImage">
-		<selectKey keyProperty="picId" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	INSERT INTO TB_IMAGE  (
+	PICID,
+	PICNAME,
+	PICURL,
+	CREATETIME,
+	CREATOR
+	)
+	VALUES(
+	#{picId:VARCHAR},
+	#{picName:VARCHAR},
+	#{picUrl:VARCHAR},
+	now(),
+	#{creator:VARCHAR}
 
- 		INSERT INTO TB_IMAGE (
-            PICID,
-            PICNAME,
-            PICURL,
-            CREATETIME,
-            CREATOR
-		)
-		VALUES(
-            #{picId:VARCHAR},
-            #{picName:VARCHAR},
-            #{picUrl:VARCHAR},
-            now(),
-            #{creator:VARCHAR}
-			
-			)
+	)
  	</insert>
  	
  	<update id="update" parameterType="com.marks.module.inner.system.myimage.pojo.MyImage">
@@ -38,7 +36,7 @@
  	</update>
  	
  	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_IMAGE WHERE PICID=#{picId}
+ 		DELETE FROM TB_IMAGE  WHERE PICID=#{picId}
  	</delete>
  	
  	<select id="findAll" resultType="com.marks.module.inner.system.myimage.pojo.MyImage">
@@ -55,11 +53,11 @@
  	<select id="list" resultType="com.marks.module.inner.system.myimage.pojo.MyImage" 
  	parameterType="java.util.Map">
  		SELECT  *
-		  FROM   TB_IMAGE 
+		  FROM   TB_IMAGE myimage
 						WHERE 1=1
-
-						
+		  order by myimage.CREATETIME desc
 					
+							
  	</select>
  	
  	
