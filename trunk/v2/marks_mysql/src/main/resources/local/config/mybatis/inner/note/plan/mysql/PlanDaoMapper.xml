@@ -4,8 +4,8 @@
 <mapper namespace="com.marks.module.inner.note.plan.dao.PlanDao">
 
 	<select id="findById" resultType="com.marks.module.inner.note.plan.pojo.Plan">
-		SELECT * FROM TB_NOTE_PLAN
-		where ID = #{id}
+		SELECT * FROM TB_NOTE_PLAN plan
+		where plan.ID = #{id}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.inner.note.plan.pojo.Plan">
@@ -35,18 +35,19 @@
 	<update id="update" parameterType="com.marks.module.inner.note.plan.pojo.Plan">
 		UPDATE TB_NOTE_PLAN
 		SET
-		PLANTXT = #{planTxt:VARCHAR},
+		PLANTXT
+		= #{planTxt:VARCHAR},
 		COMPLETETXT = #{completeTxt:VARCHAR},
-		ISCOMPLETE = #{isComplete:VARCHAR},
-		UPDATETIME = now(),
-		CREATOR = #{creator:VARCHAR},
-		MOBILE = #{mobile:VARCHAR}
+		ISCOMPLETE =
+		#{isComplete:VARCHAR},
+		UPDATETIME = now()
 		WHERE
 		ID = #{id}
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_NOTE_PLAN WHERE ID=#{id}
+		DELETE FROM TB_NOTE_PLAN 
+		WHERE ID=#{id}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.inner.note.plan.pojo.Plan">
@@ -69,14 +70,21 @@
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1 or plan.PLANTXT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or plan.COMPLETETXT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or to_char(plan.CREATETIME,'yyyyMMdd') LIKE
+			or plan.COMPLETETXT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or plan.MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			to_char(plan.CREATETIME,'yyyyMMdd') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or plan.MOBILE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-
-
+		<if test="s_isComplete!=null and s_isComplete!=''">
+			and plan.ISCOMPLETE=#{s_isComplete}
+		</if>
+		<if test="creator!=null and creator!=''">
+			and plan.CREATOR=#{creator}
+		</if>
 		order by plan.UPDATETIME DESC
 	</select>
 
