@@ -3,85 +3,100 @@
 
 <mapper namespace="com.marks.module.inner.system.syslogparam.dao.SysLogParamDao">
 
-    <select id="findById" resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
-		SELECT * FROM TB_SYS_LOG_PARAM where ID = #{id}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
-		<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<select id="findById"
+		resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
+		SELECT * FROM TB_SYS_LOG_PARAM syslogparam where
+		syslogparam.ID = #{id}
+	</select>
+	<select id="findByUrlAndSource"
+		resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
+		SELECT * FROM TB_SYS_LOG_PARAM syslogparam where
+		syslogparam.url = #{reqUrl} and syslogparam.SOURCE=#{source}
+	</select>
 
- 		INSERT INTO TB_SYS_LOG_PARAM (
-            ID,
-            SOURCE,
-            MENUNAME,
-            OPERNAME,
-            CREATETIME,
-            UPDATETIME,
-            CREATOR,
-            URL
+	<insert id="save"
+		parameterType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+		INSERT INTO TB_SYS_LOG_PARAM  (
+		ID,
+		SOURCE,
+		MENUNAME,
+		OPERNAME,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		URL
 		)
 		VALUES(
-            #{id:VARCHAR},
-            #{source:NUMERIC},
-            #{menuName:VARCHAR},
-            #{operName:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{creator:VARCHAR},
-            #{url:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
- 		UPDATE TB_SYS_LOG_PARAM 
-		SET 
-                SOURCE = #{source:NUMERIC},
-                MENUNAME = #{menuName:VARCHAR},
-                OPERNAME = #{operName:VARCHAR},
-                CREATETIME = #{createtime:TIMESTAMP},
-                UPDATETIME = #{updatetime:TIMESTAMP},
-                CREATOR = #{creator:VARCHAR},
-                URL = #{url:VARCHAR}
-		WHERE
-			ID = #{id}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_SYS_LOG_PARAM WHERE ID=#{id}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
- 		SELECT * FROM TB_SYS_LOG_PARAM
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_SYS_LOG_PARAM WHERE ID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_SYS_LOG_PARAM 
-						WHERE 1=1
-                        <if test="keyword!=null and keyword!=''">
- and ( syslogparam.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or syslogparam.SOURCE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or syslogparam.MENUNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or syslogparam.OPERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or syslogparam.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or syslogparam.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or syslogparam.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or syslogparam.URL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
- )                        </if>
+		#{id:VARCHAR},
+		#{source:NUMERIC},
+		#{menuName:VARCHAR},
+		#{operName:VARCHAR},
+		now(),
+		now(),
+		#{creator:VARCHAR},
+		#{url:VARCHAR}
 
-						
-					
- 	</select>
- 	
- 	
- 	
+		)
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
+		UPDATE TB_SYS_LOG_PARAM 
+		SET
+		SOURCE = #{source:NUMERIC},
+		MENUNAME = #{menuName:VARCHAR},
+		OPERNAME = #{operName:VARCHAR},
+		UPDATETIME = sysdate,
+		URL = #{url:VARCHAR}
+		WHERE
+		ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_SYS_LOG_PARAM  WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam">
+		SELECT * FROM TB_SYS_LOG_PARAM
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_SYS_LOG_PARAM WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.module.inner.system.syslogparam.pojo.SysLogParam"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_SYS_LOG_PARAM syslogparam
+		WHERE 1=1
+		<if test="source!=null and source!=''">
+		 	and syslogparam.SOURCE=#{source}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( syslogparam.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslogparam.MENUNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslogparam.OPERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslogparam.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslogparam.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslogparam.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or syslogparam.URL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+
+	</select>
+
+
+
 </mapper>

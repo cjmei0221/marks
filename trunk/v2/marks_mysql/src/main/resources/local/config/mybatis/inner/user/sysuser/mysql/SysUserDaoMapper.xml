@@ -1,135 +1,219 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.inner.system.sysuser.dao.SysUserDao">
+<mapper namespace="com.marks.module.inner.user.sysuser.dao.SysUserDao">
 
-    <select id="findById" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser">
-		SELECT * FROM TB_SYS_USER where USERID = #{userid}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
-		<selectKey keyProperty="userid" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<select id="findById" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
+		select * from tb_sys_user t
+		where t.userid=#{userid}
+	</select>
+	<select id="findByUserid" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
+		select distinct
+		u.*,
+		tsr.rolename
+		from TB_SYS_USER u 
+		join tb_sys_role tsr on u.roleid = tsr.roleid
+		where u.USERID =#{userid}
+	</select>
 
- 		INSERT INTO TB_SYS_USER (
-            USERID,
-            USERNAME,
-            PASSWORD,
-            BIND_MOBILE,
-            ACTIVEFLAG,
-            CREATETIME,
-            UPDATETIME,
-            CREATOR,
-            ORGID,
-            COMPANYID,
-            TOKEN,
-            OPENID,
-            USERTYPE,
-            LASTLOGINTIME
+	<select id="findByMobile" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
+		select * from tb_sys_user t
+		where t.bind_mobile=#{mobile}
+	</select>
+	<select id="getUserIdForUser" resultType="String">
+		SELECT 'U'||SEQ_SYS_USER.nextval FROM dual
+	</select>
+	<insert id="save" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
+		INSERT INTO TB_SYS_USER 
+		(
+		USERID,
+		USERNAME,
+		PASSWORD,
+		BIND_MOBILE,
+		ACTIVEFLAG,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		COMPANYID,
+		TOKEN,
+		ROLEID,
+		openid,
+		accountid
 		)
 		VALUES(
-            #{userid:VARCHAR},
-            #{username:VARCHAR},
-            #{password:VARCHAR},
-            #{bind_mobile:VARCHAR},
-            #{activeFlag:NUMERIC},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{creator:VARCHAR},
-            #{orgid:VARCHAR},
-            #{companyId:VARCHAR},
-            #{token:VARCHAR},
-            #{openid:VARCHAR},
-            #{userType:VARCHAR},
-            #{lastLoginTime:TIMESTAMP}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
- 		UPDATE TB_SYS_USER 
-		SET 
-                USERNAME = #{username:VARCHAR},
-                PASSWORD = #{password:VARCHAR},
-                BIND_MOBILE = #{bind_mobile:VARCHAR},
-                ACTIVEFLAG = #{activeFlag:NUMERIC},
-                CREATETIME = #{createtime:TIMESTAMP},
-                UPDATETIME = #{updatetime:TIMESTAMP},
-                CREATOR = #{creator:VARCHAR},
-                ORGID = #{orgid:VARCHAR},
-                COMPANYID = #{companyId:VARCHAR},
-                TOKEN = #{token:VARCHAR},
-                OPENID = #{openid:VARCHAR},
-                USERTYPE = #{userType:VARCHAR},
-                LASTLOGINTIME = #{lastLoginTime:TIMESTAMP}
+		#{userid:VARCHAR},
+		#{username:VARCHAR},
+		#{password:VARCHAR},
+		#{bind_mobile:VARCHAR},
+		#{activeFlag:NUMERIC},
+		now(),
+		now(),
+		#{creator:VARCHAR},
+		#{companyId:VARCHAR},
+		#{token:VARCHAR},
+		#{roleid:VARCHAR},
+		#{openid:VARCHAR},
+		#{accountid:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
+		UPDATE TB_SYS_USER 
+		SET
+		USERNAME = #{username:VARCHAR},
+		ACTIVEFLAG =
+		#{activeFlag:NUMERIC},
+		UPDATETIME = now(),
+		COMPANYID =
+		#{companyId:VARCHAR},
+		TOKEN = #{token:VARCHAR},
+		openid = #{openid:VARCHAR},
+		accountid = #{accountid:VARCHAR},
+		ROLEID=#{roleid:VARCHAR}
 		WHERE
-			USERID = #{userid}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_SYS_USER WHERE USERID=#{userid}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser">
- 		SELECT * FROM TB_SYS_USER
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_SYS_USER WHERE USERID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
+		USERID
+		= #{userid}
+	</update>
+	<update id="updatetPwd" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
+		UPDATE TB_SYS_USER
+		SET
+		PASSWORD = #{password:VARCHAR},
+		UPDATETIME = now()
+		WHERE
+		USERID
+		= #{userid}
+	</update>
+
+	<update id="updateActiveFlag">
+		UPDATE TB_SYS_USER
+		SET
+		ACTIVEFLAG = #{flag},
+		UPDATETIME =now()
+		WHERE
+		USERID
+		= #{userid}
+	</update>
+
+	<update id="updateMobile">
+		UPDATE TB_SYS_USER 
+		SET
+		BIND_MOBILE =
+		#{newPhone:VARCHAR},
+		UPDATETIME = now()
+		WHERE
+		USERID=#{userid}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_SYS_USER WHERE USERID=#{userid}
+	</delete>
+	<select id="findAll" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
+		SELECT * FROM TB_SYS_USER
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_SYS_USER WHERE USERID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
 		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_SYS_USER 
-						WHERE 1=1
- and ( sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.PASSWORD LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.BIND_MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.ACTIVEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.COMPANYID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.TOKEN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.OPENID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.USERTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or sysuser.LASTLOGINTIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
- )
-						
-					
- 	</select>
- 	
- 	
- 	
+	</delete>
+
+	<select id="list" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser"
+		parameterType="java.util.Map">
+		SELECT distinct sysuser.*,
+		tsr.rolename,
+		orgtb.orgidsStr,
+		orgtb.orgidNamesStr
+		FROM TB_SYS_USER sysuser
+		join tb_sys_role tsr on ( sysuser.roleid = tsr.roleid and tsr.showflag=1)
+		join (select
+		tsuo.userid, listagg(toi.orgid, ',') within
+		group(
+		order by toi.orgid)
+		over(partition by tsuo.userid) as orgidsStr,
+		listagg(toi.orgname, ',')
+		within
+		group(
+		order by toi.orgid) over(partition by tsuo.userid) as
+		orgidNamesStr
+		from tb_sys_user_org tsuo
+		join tb_org_info toi on
+		tsuo.orgid = toi.orgid
+		where 1=1
+		<if test="orgids !=null">
+			and toi.orgid in
+			<foreach collection="orgids" item="oid" index="index" open="("
+				separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		) orgtb on sysuser.userid =
+		orgtb.userid
+		WHERE 1=1 and sysuser.userid !='system'
+		<if test="companyId !=null and companyId != ''">
+			and sysuser.COMPANYID = #{companyId}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and (
+			sysuser.USERID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.USERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.BIND_MOBILE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.ACTIVEFLAG LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.COMPANYID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.TOKEN LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		<if test="sorgid !=null and sorgid != ''">
+			and orgtb.orgidsStr like '%${sorgid}%'
+		</if>
+		<if test="s_role !=null and s_role != ''">
+			and sysuser.roleid like '%${s_role}%'
+		</if>
+		order by sysuser.UPDATETIME desc
+	</select>
+
+	<delete id="deleteSysUserOrg" parameterType="String">
+		DELETE FROM
+		tb_sys_user_org WHERE USERID=#{userid}
+	</delete>
+	<insert id="saveSysUserOrg" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUserOrg">
+		INSERT INTO
+		tb_sys_user_org (
+		USERID,
+		ORGID,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR
+		)
+		VALUES(
+		#{userid:VARCHAR},
+		#{orgid:VARCHAR},
+		now(),
+		now(),
+		#{creator:VARCHAR}
+		)
+	</insert>
+	<update id="updateSkin" flushCache="true">
+		update tb_sys_user set
+		skin=#{skin},UPDATETIME=now() where userid=#{userid}
+	</update>
 </mapper>

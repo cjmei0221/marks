@@ -37,7 +37,8 @@
 		sysuser.COMPANYID,
 		sysuser.TOKEN,
 		sysuser.ROLEID,
-		sysuser.FANID
+		sysuser.openid,
+		sysuser.accountid
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -51,7 +52,8 @@
 		#{companyId:VARCHAR},
 		#{token:VARCHAR},
 		#{roleid:VARCHAR},
-		#{fanId:VARCHAR}
+		#{openid:VARCHAR},
+		#{accountid:VARCHAR}
 		)
 	</insert>
 
@@ -65,17 +67,9 @@
 		sysuser.COMPANYID =
 		#{companyId:VARCHAR},
 		sysuser.TOKEN = #{token:VARCHAR},
-		sysuser.FANID = #{fanId:VARCHAR},
+		sysuser.openid = #{openid:VARCHAR},
+		sysuser.accountid = #{accountid:VARCHAR},
 		sysuser.ROLEID=#{roleid:VARCHAR}
-		WHERE
-		sysuser.USERID
-		= #{userid}
-	</update>
-	<update id="updateFanId" parameterType="String">
-		UPDATE TB_SYS_USER sysuser
-		SET
-		sysuser.FANID = #{fanId:VARCHAR},
-		sysuser.UPDATETIME = sysdate
 		WHERE
 		sysuser.USERID
 		= #{userid}
