@@ -25,7 +25,6 @@
 		wxchatsession.CREATELONG,
 		wxchatsession.UPDATETIME,
 		wxchatsession.C_CONTENT,
-		wxchatsession.FANID,
 		wxchatsession.FLAG
 		)
 		VALUES(
@@ -36,7 +35,6 @@
 		#{createLong:NUMERIC},
 		sysdate,
 		#{c_content:VARCHAR},
-		#{fanId:VARCHAR},
 		#{flag:NUMERIC}
 		)
 	</insert>
@@ -52,8 +50,7 @@
 		wxchatsession.UPDATETIME = sysdate,
 		wxchatsession.C_CONTENT =
 		#{c_content:VARCHAR},
-		wxchatsession.ENDTIME = #{endtime:TIMESTAMP},
-		wxchatsession.FANID = #{fanId:VARCHAR}
+		wxchatsession.ENDTIME = #{endtime:TIMESTAMP}
 		WHERE
 		wxchatsession.SESSION_ID =
 		#{session_id}
@@ -108,8 +105,6 @@
 			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or wxchatsession.FANID
-			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 		order by wxchatsession.CREATETIME DESC

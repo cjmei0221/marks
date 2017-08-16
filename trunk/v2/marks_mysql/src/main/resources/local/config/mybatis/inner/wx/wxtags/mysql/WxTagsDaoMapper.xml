@@ -4,15 +4,14 @@
 <mapper namespace="com.marks.module.inner.wx.wxtags.dao.WxTagsDao">
 
 	<select id="findById" resultType="com.marks.module.inner.wx.wxtags.pojo.WxTags">
-		SELECT * FROM TB_WX_TAGS where
-		ID = #{id}
+		SELECT * FROM TB_WX_TAGS wxtags
+		where wxtags.ID = #{id}
 	</select>
 	<select id="findByAccountIdAndName" resultType="com.marks.module.inner.wx.wxtags.pojo.WxTags">
 		SELECT * FROM
 		TB_WX_TAGS where
 		ACCOUNTID = #{accountid} and NAME=#{name}
 	</select>
-
 	<select id="findWxTagsByAccountid" resultType="com.marks.module.inner.wx.wxtags.pojo.WxTags">
 		SELECT * FROM
 		TB_WX_TAGS where
@@ -24,7 +23,7 @@
 			replace(uuid(),'-','')
 		</selectKey>
 
-		INSERT INTO TB_WX_TAGS (
+		INSERT INTO TB_WX_TAGS  (
 		ID,
 		NAME,
 		FANS_COUNT,
@@ -60,8 +59,7 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_WX_TAGS WHERE
-		ID=#{id}
+		DELETE FROM TB_WX_TAGS WHERE ID=#{id}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.inner.wx.wxtags.pojo.WxTags">
@@ -82,14 +80,13 @@
 		FROM TB_WX_TAGS wxtags
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
-			and ( 2=1 or wxtags.NAME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtags.ACCOUNTID LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtags.TAGID LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			and ( 2=1 or wxtags.NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtags.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtags.TAGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
+
+
 		order by wxtags.UPDATETIME DESC
 	</select>
 

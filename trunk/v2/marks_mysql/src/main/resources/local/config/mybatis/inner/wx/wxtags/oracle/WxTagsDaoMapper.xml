@@ -51,7 +51,7 @@
 		NAME =
 		#{name:VARCHAR},
 		FANS_COUNT = #{fans_count:NUMERIC},
-		UPDATETIME = now(),
+		UPDATETIME = sysdate,
 		UPDATER = #{updater:VARCHAR}
 		WHERE
 		ID = #{id}

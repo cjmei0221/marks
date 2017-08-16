@@ -56,7 +56,7 @@
 		menuid=#{menuid:VARCHAR},
 		updatetime=sysdate
 		WHERE
-		wxmenu.ID = #{id}
+		ID = #{id}
 	</update>
 
 	<delete id="delete" parameterType="String">

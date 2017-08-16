@@ -3,151 +3,155 @@
 
 <mapper namespace="com.marks.module.inner.wx.wxuser.dao.WxUserDao">
 
-    <select id="findById" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
-		SELECT * FROM TB_WX_USER where OPENID = #{openid}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
-		<selectKey keyProperty="openid" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<select id="findById" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser">
+		SELECT * FROM TB_WX_USER wxuser
+		where wxuser.OPENID = #{openid} and wxuser.ACCOUNTID=#{accountid}
+	</select>
 
- 		INSERT INTO TB_WX_USER (
-            OPENID,
-            NICKNAME,
-            GROUPID,
-            COUNTRY,
-            PROVINCE,
-            CITY,
-            SEX,
-            IMAGEURL,
-            LANGUAGE,
-            ISSUBSCRIBE,
-            SUBSCRIBETIME,
-            UPDATETIME,
-            ACCOUNTID,
-            CREATETIME,
-            USEFLAG,
-            QRNO,
-            REMARK
+	<select id="findWxUserListForDairy" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser">
+		SELECT * FROM
+		TB_WX_USER wxuser
+		where wxuser.DAIRYFLAG = 1
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.center.wxfwhao.common.entity.WxUser">
+		INSERT INTO TB_WX_USER  (
+		OPENID,
+		NICKNAME,
+		GROUPID,
+		COUNTRY,
+		PROVINCE,
+		CITY,
+		SEX,
+		IMAGEURL,
+		LANGUAGE,
+		ISSUBSCRIBE,
+		SUBSCRIBETIME,
+		UPDATETIME,
+		ACCOUNTID,
+		CREATETIME,
+		USEFLAG,
+		QRNO,
+		REMARK
 		)
 		VALUES(
-            #{openid:VARCHAR},
-            #{nickname:VARCHAR},
-            #{groupid:NUMERIC},
-            #{country:VARCHAR},
-            #{province:VARCHAR},
-            #{city:VARCHAR},
-            #{sex:NUMERIC},
-            #{imageUrl:VARCHAR},
-            #{language:VARCHAR},
-            #{issubscribe:NUMERIC},
-            #{subscribetime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{accountid:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{useflag:NUMERIC},
-            #{qrNo:VARCHAR},
-            #{remark:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
- 		UPDATE TB_WX_USER 
-		SET 
-                NICKNAME = #{nickname:VARCHAR},
-                GROUPID = #{groupid:NUMERIC},
-                COUNTRY = #{country:VARCHAR},
-                PROVINCE = #{province:VARCHAR},
-                CITY = #{city:VARCHAR},
-                SEX = #{sex:NUMERIC},
-                IMAGEURL = #{imageUrl:VARCHAR},
-                LANGUAGE = #{language:VARCHAR},
-                ISSUBSCRIBE = #{issubscribe:NUMERIC},
-                SUBSCRIBETIME = #{subscribetime:TIMESTAMP},
-                UPDATETIME = #{updatetime:TIMESTAMP},
-                ACCOUNTID = #{accountid:VARCHAR},
-                CREATETIME = #{createtime:TIMESTAMP},
-                USEFLAG = #{useflag:NUMERIC},
-                QRNO = #{qrNo:VARCHAR},
-                REMARK = #{remark:VARCHAR}
+		#{openid:VARCHAR},
+		#{nickname:VARCHAR},
+		#{groupid:NUMERIC},
+		#{country:VARCHAR},
+		#{province:VARCHAR},
+		#{city:VARCHAR},
+		#{sex:NUMERIC},
+		#{imageUrl:VARCHAR},
+		#{language:VARCHAR},
+		#{issubscribe:NUMERIC},
+		#{subscribetime:TIMESTAMP},
+		now(),
+		#{accountid:VARCHAR},
+		now(),
+		#{useflag:NUMERIC},
+		#{qrNo:VARCHAR},
+		#{remark:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.center.wxfwhao.common.entity.WxUser">
+		UPDATE TB_WX_USER
+		SET
+		NICKNAME = #{nickname:VARCHAR},
+		GROUPID = #{groupid:NUMERIC},
+		COUNTRY = #{country:VARCHAR},
+		PROVINCE = #{province:VARCHAR},
+		CITY = #{city:VARCHAR},
+		SEX = #{sex:NUMERIC},
+		IMAGEURL = #{imageUrl:VARCHAR},
+		LANGUAGE = #{language:VARCHAR},
+		ISSUBSCRIBE = #{issubscribe:NUMERIC},
+		SUBSCRIBETIME = #{subscribetime:TIMESTAMP},
+		UPDATETIME =now(),
+		REMARK = #{remark:VARCHAR}
 		WHERE
-			OPENID = #{openid}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_WX_USER WHERE OPENID=#{openid}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser">
- 		SELECT * FROM TB_WX_USER
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_WX_USER WHERE OPENID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
+		OPENID = #{openid} and ACCOUNTID = #{accountid:VARCHAR}
+	</update>
+
+	<update id="udateDairyFlag">
+		UPDATE TB_WX_USER 
+		SET
+		DAIRYFLAG =
+		#{dairyFlag},
+		UPDATETIME =now()
+		WHERE
+		OPENID = #{openid}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_USER 
+		WHERE OPENID=#{openid}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser">
+		SELECT * FROM TB_WX_USER
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_USER WHERE OPENID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
 		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.wx.wxuser.pojo.WxUser" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_WX_USER 
-						WHERE 1=1
- and ( wxuser.OPENID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.NICKNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.GROUPID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.COUNTRY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.PROVINCE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.CITY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.SEX LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.IMAGEURL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.LANGUAGE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.ISSUBSCRIBE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.SUBSCRIBETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.USEFLAG LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.QRNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxuser.REMARK LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
- )
-						
-					
- 	</select>
- 	
- 	
- 	
+	</delete>
+
+	<select id="list" resultType="com.marks.module.center.wxfwhao.common.entity.WxUser"
+		parameterType="java.util.Map">
+		SELECT wxuser.*, wq.qrname
+		FROM TB_WX_USER wxuser
+		left join tb_wx_qrcode
+		wq on (wxuser.qrno = wq.qrno and wxuser.accountid=wq.accountid and
+		wq.QRTYPE='1')
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxuser.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and (
+			 wxuser.NICKNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wq.qrname LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxuser.COUNTRY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxuser.PROVINCE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxuser.CITY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+
+			or wxuser.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxuser.REMARK LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		<if test="s_issubscribe!=null and s_issubscribe!=''">
+		    and wxuser.ISSUBSCRIBE=#{s_issubscribe}
+		</if>
+		<if test="s_sex!=null and s_sex!=''">
+		    and wxuser.SEX=#{s_sex}
+		</if>
+		order by wxuser.SUBSCRIBETIME desc
+
+	</select>
+
+
+
 </mapper>
