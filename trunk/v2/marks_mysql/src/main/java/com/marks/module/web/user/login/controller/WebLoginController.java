@@ -73,15 +73,6 @@ public class WebLoginController {
 				JsonUtil.output(response, result);
 				return;
 			} 
-			
-			if(loginUser.getFanId()==null|| "".equals(loginUser.getFanId())){
-				String fanId="";
-				WxUser wxUser = wxUserService.findById(WxUtil.getInstance().getCurrentAccountid(request), WxUtil.getInstance().getCurrentOpenid(request));
-				if(wxUser !=null){
-					fanId=wxUser.getFanId();
-				}
-				sysUserService.updateFanId(loginUser.getUserid(), fanId);
-			}
 			LoginUtil.getInstance().setCurrentUser(request, loginUser);
 		} catch (Exception e) {
 			logger.error("findDiaryById", e);
@@ -134,11 +125,7 @@ public class WebLoginController {
 			String mobile=request.getParameter("mobile");
 			String password=request.getParameter("password");
 			SysUser sysUser=loginService.getSysUserByUseridOrMobile(mobile);
-			String fanId="";
-			WxUser wxUser = wxUserService.findById(WxUtil.getInstance().getCurrentAccountid(request), WxUtil.getInstance().getCurrentOpenid(request));
-			if(wxUser !=null){
-				fanId=wxUser.getFanId();
-			}
+			
 			
 			if(sysUser !=null){
 				if(Enums.SysUserUse.NOUSE.getValue()==sysUser.getActiveFlag()){
@@ -163,7 +150,8 @@ public class WebLoginController {
 			user.setPassword(EncryptUtil.encryptPwd(password));
 			user.setUsername(mobile);
 			user.setRoleid(RunModel.getInstance().getCompanyId()+"_"+Enums.UserType.VIP.getValue());
-			user.setFanId(fanId);
+			user.setOpenid(WxUtil.getInstance().getCurrentOpenid(request));
+			user.setAccountid(WxUtil.getInstance().getCurrentAccountid(request));
 			if(sysUser==null){
 				sysUserService.save(user, RunModel.getInstance().getCompanyId());
 			}else{

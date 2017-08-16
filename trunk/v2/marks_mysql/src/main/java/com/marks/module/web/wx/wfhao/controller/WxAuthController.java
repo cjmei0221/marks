@@ -133,32 +133,19 @@ public class WxAuthController {
 		if (flag) {
 			WxUtil.getInstance().setCurrentOpenid(request, newOpenid);
 			WxUtil.getInstance().setCurrentAccountid(request, accountid);
-			WxUser user = wxUserService.findById(accountid, newOpenid);
-			if (user == null) {
-				return false;
-			}
-			SysUser loginUser = loginService.getSysUserByUseridOrMobile(user.getFanId());
+			SysUser loginUser = loginService.getSysUserByOpenidAndAccountid(accountid,newOpenid);
 			if (null == loginUser) {
 				return false;
 			}
-			loginUser.setUsername(user.getNickname());
 			LoginUtil.getInstance().setCurrentUser(request, loginUser);
 			return false;
 		} else {
 			String openid = WxUtil.getInstance().getCurrentOpenid(request);
+			
 			logger.info("session>>openid>>" + openid);
 			if (openid != null && openid.length() > 5) {
-				WxUser user = wxUserService.findById(accountid, newOpenid);
-				if (user != null) {
-					return true;
-				}
-				user = wxUserService.findById(accountid, openid);
-				if(user==null){
-					return true;
-				}
-				SysUser loginUser = loginService.getSysUserByUseridOrMobile(user.getFanId());
+				SysUser loginUser = loginService.getSysUserByOpenidAndAccountid(accountid,openid);
 				if (null != loginUser) {
-					loginUser.setUsername(user.getNickname());
 					LoginUtil.getInstance().setCurrentUser(request, loginUser);
 				}
 				return true;
