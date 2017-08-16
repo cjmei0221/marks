@@ -3,109 +3,132 @@
 
 <mapper namespace="com.marks.module.inner.wx.newsitem.dao.NewsItemDao">
 
-    <select id="findById" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
-		SELECT * FROM TB_WX_AUTO_REPLAY_NEWSITEM where ID = #{id}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
-		<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<select id="findById" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
+		SELECT * FROM
+		TB_WX_AUTO_REPLAY_NEWSITEM newsitem where newsitem.ID = #{id}
+	</select>
 
- 		INSERT INTO TB_WX_AUTO_REPLAY_NEWSITEM (
-            ID,
-            TITLE,
-            DESCRIPTION,
-            PICURL,
-            URL,
-            SORT,
-            ACCOUNTID,
-            CREATETIME,
-            UPDATETIME,
-            CREATOR
+	<insert id="save" parameterType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
+		INSERT INTO TB_WX_AUTO_REPLAY_NEWSITEM  (
+		ID,
+		TITLE,
+		DESCRIPTION,
+		PICURL,
+		URL,
+		SORT,
+		ACCOUNTID,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR
 		)
 		VALUES(
-            #{id:VARCHAR},
-            #{title:VARCHAR},
-            #{description:VARCHAR},
-            #{picUrl:VARCHAR},
-            #{url:VARCHAR},
-            #{sort:NUMERIC},
-            #{accountid:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{creator:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
- 		UPDATE TB_WX_AUTO_REPLAY_NEWSITEM 
-		SET 
-                TITLE = #{title:VARCHAR},
-                DESCRIPTION = #{description:VARCHAR},
-                PICURL = #{picUrl:VARCHAR},
-                URL = #{url:VARCHAR},
-                SORT = #{sort:NUMERIC},
-                ACCOUNTID = #{accountid:VARCHAR},
-                CREATETIME = #{createtime:TIMESTAMP},
-                UPDATETIME = #{updatetime:TIMESTAMP},
-                CREATOR = #{creator:VARCHAR}
+		#{id:VARCHAR},
+		#{title:VARCHAR},
+		#{description:VARCHAR},
+		#{picUrl:VARCHAR},
+		#{url:VARCHAR},
+		#{sort:NUMERIC},
+		#{accountid:VARCHAR},
+		now(),
+		now(),
+		#{creator:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
+		UPDATE
+		TB_WX_AUTO_REPLAY_NEWSITEM 
+		SET
+		TITLE =
+		#{title:VARCHAR},
+		DESCRIPTION = #{description:VARCHAR},
+		PICURL = #{picUrl:VARCHAR},
+		URL = #{url:VARCHAR},
+		SORT = #{sort:NUMERIC},
+		UPDATETIME = now()
 		WHERE
-			ID = #{id}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_WX_AUTO_REPLAY_NEWSITEM WHERE ID=#{id}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
- 		SELECT * FROM TB_WX_AUTO_REPLAY_NEWSITEM
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_WX_AUTO_REPLAY_NEWSITEM WHERE ID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
+		newsitem.ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_WX_AUTO_REPLAY_NEWSITEM  WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
+		SELECT * FROM
+		TB_WX_AUTO_REPLAY_NEWSITEM
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_AUTO_REPLAY_NEWSITEM WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
 		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_WX_AUTO_REPLAY_NEWSITEM 
-						WHERE 1=1
- and ( newsitem.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.TITLE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.DESCRIPTION LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.PICURL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.URL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.SORT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or newsitem.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
- )
-						
-					
- 	</select>
- 	
- 	
- 	
+	</delete>
+
+	<select id="list" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_AUTO_REPLAY_NEWSITEM newsitem
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and newsitem.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and (
+			newsitem.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or newsitem.TITLE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or newsitem.DESCRIPTION LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or newsitem.PICURL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or newsitem.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or newsitem.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		order by newsitem.UPDATETIME desc
+
+	</select>
+	<select id="getnewItems" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM
+		TB_WX_AUTO_REPLAY_NEWSITEM newsitem
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxmenuurl.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		order by newsitem.UPDATETIME desc
+
+	</select>
+	<select id="countNews" resultType="int">
+		select count(1) from tb_wx_auto_replay t where t.creplay like '%${newsId}%'
+	</select>
+	<select id="getNewsItemByIds" resultType="com.marks.module.inner.wx.newsitem.pojo.NewsItem">
+		select * from tb_wx_auto_replay_newsitem t where t.id in
+		<foreach collection="newsItemIds" item="id" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+		order by t.sort
+	</select>
 </mapper>

@@ -15,7 +15,6 @@
 
 		INSERT INTO TB_WX_CHAT_MSG wxchatmsg (
 		wxchatmsg.ID,
-		wxchatmsg.FANID,
 		wxchatmsg.C_TYPE,
 		wxchatmsg.USERID,
 		wxchatmsg.C_CONTENT,
@@ -27,7 +26,6 @@
 		)
 		VALUES(
 		#{id:VARCHAR},
-		#{fanId:VARCHAR},
 		#{c_type:NUMERIC},
 		#{userid:VARCHAR},
 		#{c_content:VARCHAR},
@@ -79,9 +77,6 @@
 		wxchatmsg.C_TYPE=0
 		<if test="keyword!=null and keyword!=''">
 			and (
-			or wxchatmsg.FANID LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
 			or wxchatmsg.C_CONTENT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or

@@ -3,109 +3,119 @@
 
 <mapper namespace="com.marks.module.inner.wx.wxautoreplay.dao.WxAutoReplayDao">
 
-    <select id="findById" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
-		SELECT * FROM TB_WX_AUTO_REPLAY where CPARENTTYPE = #{cparentType}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
-		<selectKey keyProperty="cparentType" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<select id="findById" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+		SELECT * FROM TB_WX_AUTO_REPLAY
+		wxautoreplay where wxautoreplay.CTYPE = #{ctype:VARCHAR}
+	</select>
 
- 		INSERT INTO TB_WX_AUTO_REPLAY (
-            CPARENTTYPE,
-            CKEY,
-            CREPLAY,
-            CTYPE,
-            CTYPENAME,
-            ACCOUNTID,
-            REPLAYTYPE,
-            CREATETIME,
-            UPDATETIME,
-            CREATOR
+	<select id="findByCkey" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+		SELECT * FROM
+		TB_WX_AUTO_REPLAY
+		wxautoreplay where
+		wxautoreplay.ACCOUNTID=#{accountid} and wxautoreplay.CKEY=#{ckey}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+		<selectKey keyProperty="ctype" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+		INSERT INTO TB_WX_AUTO_REPLAY (
+		CKEY,
+		CREPLAY,
+		CTYPE,
+		CTYPENAME,
+		ACCOUNTID,
+		REPLAYTYPE,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		DELFLAG,
+		CKEYNAME
 		)
 		VALUES(
-            #{cparentType:VARCHAR},
-            #{ckey:VARCHAR},
-            #{creplay:VARCHAR},
-            #{ctype:VARCHAR},
-            #{ctypeName:VARCHAR},
-            #{accountid:VARCHAR},
-            #{replayType:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{creator:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
- 		UPDATE TB_WX_AUTO_REPLAY 
-		SET 
-                CKEY = #{ckey:VARCHAR},
-                CREPLAY = #{creplay:VARCHAR},
-                CTYPE = #{ctype:VARCHAR},
-                CTYPENAME = #{ctypeName:VARCHAR},
-                ACCOUNTID = #{accountid:VARCHAR},
-                REPLAYTYPE = #{replayType:VARCHAR},
-                CREATETIME = #{createtime:TIMESTAMP},
-                UPDATETIME = #{updatetime:TIMESTAMP},
-                CREATOR = #{creator:VARCHAR}
+		#{ckey:VARCHAR},
+		#{creplay:VARCHAR},
+		#{ctype:VARCHAR},
+		#{ctypeName:VARCHAR},
+		#{accountid:VARCHAR},
+		#{replayType:VARCHAR},
+		now(),
+		now(),
+		#{creator:VARCHAR},
+		#{delFlag:NUMERIC},
+		#{ckeyName:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+		UPDATE TB_WX_AUTO_REPLAY
+		SET
+		CKEY = #{ckey:VARCHAR},
+		CREPLAY = #{creplay:VARCHAR},
+		CTYPENAME =
+		#{ctypeName:VARCHAR},
+		REPLAYTYPE = #{replayType:VARCHAR},
+		UPDATETIME = now(),
+		DELFLAG=#{delFlag:NUMERIC},
+		CKEYNAME=#{ckeyName:VARCHAR}
 		WHERE
-			CPARENTTYPE = #{cparentType}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_WX_AUTO_REPLAY WHERE CPARENTTYPE=#{cparentType}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
- 		SELECT * FROM TB_WX_AUTO_REPLAY
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_WX_AUTO_REPLAY WHERE CPARENTTYPE in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
+		CTYPE =
+		#{ctype:VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_AUTO_REPLAY WHERE
+		CTYPE = #{ctype:VARCHAR}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+		SELECT * FROM TB_WX_AUTO_REPLAY
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_AUTO_REPLAY WHERE CTYPE in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
 		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_WX_AUTO_REPLAY 
-						WHERE 1=1
- and ( wxautoreplay.CPARENTTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CREPLAY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CTYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.REPLAYTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
-                        <if test="keyword!=null and keyword!=''">
-                            or wxautoreplay.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                        </if>
- )
-						
-					
- 	</select>
- 	
- 	
- 	
+	</delete>
+
+	<select id="list" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_AUTO_REPLAY wxautoreplay
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxautoreplay.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( wxautoreplay.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxautoreplay.CREPLAY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxautoreplay.CTYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxautoreplay.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxautoreplay.REPLAYTYPE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxautoreplay.CKEYNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by wxautoreplay.CTYPENAME,wxautoreplay.CKEY
+	</select>
+
+	<!-- 加载系统参数 -->
+	<select id="getWxAutoReplayByKey" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+		select * from
+		tb_wx_auto_replay t where t.accountid=#{accountId} and instr(#{ckey},t.CKEY) &gt; 0 
+	</select>
+
 </mapper>
