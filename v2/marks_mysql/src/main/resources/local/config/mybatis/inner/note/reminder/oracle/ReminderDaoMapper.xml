@@ -119,8 +119,8 @@
 		from tb_note_reminder t
 		join
 		tb_sys_user su on t.creator = su.userid
-		join tb_wx_user wu on su.fanid
-		= wu.fanid
+		join tb_wx_user wu on su.openid
+		= wu.openid adn su.accountid=wu.accountid
 		where t.needflag = 1
 		and ((substr(t.remind_date, 6) =
 		#{yangliMMDD:VARCHAR} and t.remind_type= 0) or

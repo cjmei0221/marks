@@ -3,97 +3,107 @@
 
 <mapper namespace="com.marks.module.inner.note.question.dao.QuestionDao">
 
-    <select id="findById" resultType="com.marks.module.inner.note.question.pojo.Question">
-		SELECT * FROM TB_NOTE_QUESTION where ID = #{id}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.note.question.pojo.Question">
-		<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<select id="findById" resultType="com.marks.module.inner.note.question.pojo.Question">
+		SELECT * FROM TB_NOTE_QUESTION
+		question where question.ID = #{id}
+	</select>
+	<select id="findByQuestion" resultType="com.marks.module.inner.note.question.pojo.Question">
+		SELECT * FROM
+		TB_NOTE_QUESTION question where question.question = #{question}
+	</select>
 
- 		INSERT INTO TB_NOTE_QUESTION (
-            ID,
-            LVL,
-            LVLNAME,
-            QUESTION,
-            SOLUTION,
-            LABELS,
-            CREATEDATE,
-            CREATETIME,
-            UPDATETIME,
-            CREATOR,
-            UPDATER
+
+	<insert id="save" parameterType="com.marks.module.inner.note.question.pojo.Question">
+		INSERT INTO TB_NOTE_QUESTION (
+		ID,
+		LVL,
+		LVLNAME,
+		QUESTION,
+		SOLUTION,
+		LABELS,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		UPDATER,
+		MOBILE
 		)
 		VALUES(
-            #{id:VARCHAR},
-            #{lvl:NUMERIC},
-            #{lvlName:VARCHAR},
-            #{question:VARCHAR},
-            #{solution:VARCHAR},
-            #{labels:VARCHAR},
-            #{createDate:VARCHAR},
-            #{createtime:TIMESTAMP},
-            #{updatetime:TIMESTAMP},
-            #{creator:VARCHAR},
-            #{updater:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.note.question.pojo.Question">
- 		UPDATE TB_NOTE_QUESTION 
-		SET 
-                LVL = #{lvl:NUMERIC},
-                LVLNAME = #{lvlName:VARCHAR},
-                QUESTION = #{question:VARCHAR},
-                SOLUTION = #{solution:VARCHAR},
-                LABELS = #{labels:VARCHAR},
-                CREATEDATE = #{createDate:VARCHAR},
-                CREATETIME = #{createtime:TIMESTAMP},
-                UPDATETIME = #{updatetime:TIMESTAMP},
-                CREATOR = #{creator:VARCHAR},
-                UPDATER = #{updater:VARCHAR}
-		WHERE
-			ID = #{id}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_NOTE_QUESTION WHERE ID=#{id}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.note.question.pojo.Question">
- 		SELECT * FROM TB_NOTE_QUESTION
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_NOTE_QUESTION WHERE ID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.note.question.pojo.Question" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_NOTE_QUESTION 
-						WHERE 1=1
-                        <if test="keyword!=null and keyword!=''">
- and ( question.ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.LVL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.LVLNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.QUESTION LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.SOLUTION LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.LABELS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.CREATEDATE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or question.UPDATER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
- )                        </if>
+		#{id:VARCHAR},
+		#{lvl:VARCHAR},
+		#{lvlName:VARCHAR},
+		#{question:VARCHAR},
+		#{solution:VARCHAR},
+		#{labels:VARCHAR},
+		now(),
+		now(),
+		#{creator:VARCHAR},
+		#{updater:VARCHAR},
+		#{mobile:VARCHAR}
+		)
+	</insert>
 
-						
-					
- 	</select>
- 	
- 	
- 	
+	<update id="update" parameterType="com.marks.module.inner.note.question.pojo.Question">
+		UPDATE TB_NOTE_QUESTION
+		SET
+		LVL
+		= #{lvl:VARCHAR},
+		LVLNAME =
+		#{lvlName:VARCHAR},
+		QUESTION =
+		#{question:VARCHAR},
+		SOLUTION = #{solution:VARCHAR},
+		LABELS =
+		#{labels:VARCHAR},
+		UPDATETIME = sysdate,
+		UPDATER =
+		#{updater:VARCHAR}
+		WHERE
+		ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_NOTE_QUESTION
+		WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.inner.note.question.pojo.Question">
+		SELECT * FROM TB_NOTE_QUESTION
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_NOTE_QUESTION WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.inner.note.question.pojo.Question"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_NOTE_QUESTION question
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( question.LVLNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or question.QUESTION LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or question.SOLUTION LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or question.LABELS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			to_char(question.CREATETIME,'yyyyMMdd') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+		<if test="userid!=null and userid!=''">
+			and question.CREATOR =#{userid:VARCHAR}
+		</if>
+		order by question.UPDATETIME desc
+	</select>
+
+
+
 </mapper>
