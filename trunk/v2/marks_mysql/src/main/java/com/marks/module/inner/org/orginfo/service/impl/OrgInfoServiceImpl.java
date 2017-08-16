@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.util.IDUtil;
 import com.marks.module.inner.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.inner.org.orginfo.pojo.OrgInfo;
 import com.marks.module.inner.org.orginfo.service.OrgInfoService;
@@ -148,7 +149,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 
 	@Override
 	public String getOrgId() {
-		return orgInfoDao.getOrgId();
+		return IDUtil.getDateSID();
 	}
 	
 	
