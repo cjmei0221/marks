@@ -13,10 +13,7 @@ public class WxChatMsg implements Serializable{
     *ID
     */
     private String id;
-    /**
-    *粉丝ID
-    */
-    private String fanId;
+   
     /**
     *类型
     */
@@ -75,13 +72,7 @@ public class WxChatMsg implements Serializable{
         this.id = id;
     }
 
-    public String getFanId(){
-        return fanId;
-    }
-    public void setFanId(String fanId){
-        this.fanId = fanId;
-    }
-
+  
     public int getC_type(){
         return c_type;
     }
@@ -147,6 +138,6 @@ public class WxChatMsg implements Serializable{
 		this.replayList = replayList;
 	}
 	public String toLog(){
-		return " - id:" +String.valueOf(id)+" - fanId:" +String.valueOf(fanId)+" - c_type:" +String.valueOf(c_type)+" - userid:" +String.valueOf(userid)+" - c_content:" +String.valueOf(c_content)+" - createtime:" +String.valueOf(createtime)+" - c_replayType:" +String.valueOf(c_replayType)+" - session_id:" +String.valueOf(session_id)+" - openid:" +String.valueOf(openid)+" - accountid:" +String.valueOf(accountid);
+		return " - id:" +String.valueOf(id)+" - c_type:" +String.valueOf(c_type)+" - userid:" +String.valueOf(userid)+" - c_content:" +String.valueOf(c_content)+" - createtime:" +String.valueOf(createtime)+" - c_replayType:" +String.valueOf(c_replayType)+" - session_id:" +String.valueOf(session_id)+" - openid:" +String.valueOf(openid)+" - accountid:" +String.valueOf(accountid);
 	}
 }

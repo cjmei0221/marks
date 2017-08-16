@@ -43,10 +43,6 @@ public class WxChatSession implements Serializable{
     *结束时间
     */
     private Date endtime;
-    /**
-    *粉丝ID
-    */
-    private String fanId;
     
     private String username;
     
@@ -140,15 +136,9 @@ public class WxChatSession implements Serializable{
         this.endtime = endtime;
     }
 
-    public String getFanId(){
-        return fanId;
-    }
-    public void setFanId(String fanId){
-        this.fanId = fanId;
-    }
-
+   
 
 	public String toLog(){
-		return " - session_id:" +String.valueOf(session_id)+" - accountid:" +String.valueOf(accountid)+" - openid:" +String.valueOf(openid)+" - createtime:" +String.valueOf(createtime)+" - createLong:" +String.valueOf(createLong)+" - updatetime:" +String.valueOf(updatetime)+" - c_content:" +String.valueOf(c_content)+" - endtime:" +String.valueOf(endtime)+" - fanId:" +String.valueOf(fanId);
+		return " - session_id:" +String.valueOf(session_id)+" - accountid:" +String.valueOf(accountid)+" - openid:" +String.valueOf(openid)+" - createtime:" +String.valueOf(createtime)+" - createLong:" +String.valueOf(createLong)+" - updatetime:" +String.valueOf(updatetime)+" - c_content:" +String.valueOf(c_content)+" - endtime:" +String.valueOf(endtime);
 	}
 }
