@@ -76,11 +76,6 @@
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
-						<th style="width: 120px; text-align: right;">粉丝ID&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="fanId" name="fanId" class="easyui-validatebox"
-							data-options="required:true" style="width: 200px;" maxlength="50"></td>
-					</tr>
-					<tr>
 						<td colspan="2" style="text-align: center"><a id="btnOK"
 							name="btnOK" href="javascript:void(0)" class="easyui-linkbutton"
 							style="width: 100px;" data-options="iconCls:'icon-save'">保存</a>

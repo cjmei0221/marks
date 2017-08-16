@@ -74,12 +74,6 @@ function loadList() {
 			title : 'OPENID',
 			field : 'openid',
 			width : 100,
-			align : "center",
-			hidden : true
-		}, {
-			title : '粉丝ID',
-			field : 'fanId',
-			width : 120,
 			align : "center"
 		}, {
 			title : '昵称',
