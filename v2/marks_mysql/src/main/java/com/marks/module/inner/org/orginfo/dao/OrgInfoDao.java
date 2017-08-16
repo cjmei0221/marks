@@ -35,6 +35,5 @@ public interface OrgInfoDao {
 
 	void updateOrgChildNum(@Param("orgid") String orgid);
 
-	String getOrgId();
 
 }
