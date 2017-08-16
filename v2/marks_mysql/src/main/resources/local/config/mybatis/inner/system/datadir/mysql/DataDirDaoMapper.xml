@@ -3,85 +3,109 @@
 
 <mapper namespace="com.marks.module.inner.system.datadir.dao.DataDirDao">
 
-    <select id="findById" resultType="com.marks.module.inner.system.datadir.pojo.DataDir">
-		SELECT * FROM TB_SYS_DATADIR_INFO where CKEY = #{ckey}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.inner.system.datadir.pojo.DataDir">
-		<selectKey keyProperty="ckey" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<select id="findById" resultType="com.marks.module.inner.system.datadir.pojo.DataDir">
+		SELECT * FROM
+		TB_SYS_DATADIR_INFO datadir where datadir.CKEY = #{ckey} and
+		datadir.PARENTKEY=#{parentKey}
+	</select>
+	
+	<select id="findChildList" resultType="com.marks.module.inner.system.datadir.pojo.DataDir">
+		select * from tb_sys_datadir_info t where t.parentkey=#{ckey} order by t.SORT
+	</select>
 
- 		INSERT INTO TB_SYS_DATADIR_INFO (
-            CKEY,
-            PARENTKEY,
-            CVALUE,
-            TYPENAME,
-            SORT,
-            CREATETIME,
-            UPDATETIME,
-            CREATOR
+	<insert id="save" parameterType="com.marks.module.inner.system.datadir.pojo.DataDir">
+
+		INSERT INTO TB_SYS_DATADIR_INFO
+		 (
+		CKEY,
+		PARENTKEY,
+		CVALUE,
+		COMPANYID,
+		SORT,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR
 		)
 		VALUES(
-            #{ckey:VARCHAR},
-            #{parentkey:VARCHAR},
-            #{cvalue:VARCHAR},
-            #{typename:VARCHAR},
-            #{sort:NUMERIC},
-            #{createtime:VARCHAR},
-            #{updatetime:VARCHAR},
-            #{creator:VARCHAR}
-			
-			)
- 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.inner.system.datadir.pojo.DataDir">
- 		UPDATE TB_SYS_DATADIR_INFO 
-		SET 
-                PARENTKEY = #{parentkey:VARCHAR},
-                CVALUE = #{cvalue:VARCHAR},
-                TYPENAME = #{typename:VARCHAR},
-                SORT = #{sort:NUMERIC},
-                CREATETIME = #{createtime:VARCHAR},
-                UPDATETIME = #{updatetime:VARCHAR},
-                CREATOR = #{creator:VARCHAR}
-		WHERE
-			CKEY = #{ckey}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_SYS_DATADIR_INFO WHERE CKEY=#{ckey}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.inner.system.datadir.pojo.DataDir">
- 		SELECT * FROM TB_SYS_DATADIR_INFO
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_SYS_DATADIR_INFO WHERE CKEY in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.inner.system.datadir.pojo.DataDir" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_SYS_DATADIR_INFO 
-						WHERE 1=1
-                        <if test="keyword!=null and keyword!=''">
- and ( datadir.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or datadir.PARENTKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or datadir.CVALUE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or datadir.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or datadir.SORT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or datadir.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or datadir.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or datadir.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
- )                        </if>
+		#{ckey:VARCHAR},
+		#{parentkey:VARCHAR},
+		#{cvalue:VARCHAR},
+		#{companyId:VARCHAR},
+		#{sort:NUMERIC},
+		now(),
+		now(),
+		#{creator:VARCHAR}
 
-						
-					
- 	</select>
- 	
- 	
- 	
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.inner.system.datadir.pojo.DataDir">
+		UPDATE TB_SYS_DATADIR_INFO
+		SET
+		CVALUE =
+		#{cvalue:VARCHAR},
+		SORT = #{sort:NUMERIC},
+		UPDATETIME =
+		now()
+		WHERE
+		CKEY = #{ckey} and PARENTKEY = #{parentkey:VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_SYS_DATADIR_INFO  WHERE CKEY=#{ckey} and
+		PARENTKEY=#{parentKey}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.inner.system.datadir.pojo.DataDir">
+		SELECT * FROM
+		TB_SYS_DATADIR_INFO
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_SYS_DATADIR_INFO WHERE CKEY in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.inner.system.datadir.pojo.DataDir"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_SYS_DATADIR_INFO datadir
+		WHERE 1=1
+		<!-- <if test="companyId !=null and companyId !=''">
+			and datadir.COMPANYID=#{companyId}
+		</if> -->
+		<if test="keyword!=null and keyword!=''">
+			and ( datadir.CKEY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.PARENTKEY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.CVALUE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.SORT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+	</select>
+
+	<select id="listByParam" resultType="com.marks.module.inner.system.datadir.pojo.DataDir"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_SYS_DATADIR_INFO datadir
+		WHERE 1=1
+		<if test="companyId !=null and companyId !=''">
+			and datadir.COMPANYID=#{companyId}
+		</if>
+		order by datadir.UPDATETIME desc
+	</select>
+
 </mapper>

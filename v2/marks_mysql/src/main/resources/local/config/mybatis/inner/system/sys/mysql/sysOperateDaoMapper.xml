@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.marks.module.inner.system.sys.dao.SysOperateDao">
+	<select id="list" resultType="com.marks.module.inner.system.sys.pojo.SysOperate">
+		select * from tb_sys_operate t
+		where 1=1
+		<if test="keyword !=null and keyword !=''">
+			and (t.opername like '%${keyword}%'
+			or t.operid like '%${keyword}%')
+		</if>
+		order by t.sort
+	</select>
+	<insert id="save" parameterType="com.marks.module.inner.system.sys.pojo.SysOperate">
+		insert into tb_sys_operate
+		(
+		OPERID,
+		OPERNAME,
+		PICICON,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		SORT)
+		values
+		(#{info.operid:VARCHAR}, 
+		#{info.opername:VARCHAR}, 
+		#{info.picicon:VARCHAR}, 
+		now(), 
+		now(), 
+		#{info.creator:VARCHAR},
+		#{info.sort:INTEGER})
+	</insert>
+	<update id="update" parameterType="com.marks.module.inner.system.sys.pojo.SysOperate"
+		flushCache="true">
+		UPDATE tb_sys_operate
+		SET OPERNAME =#{info.opername:VARCHAR},
+		PICICON = #{info.picicon:VARCHAR},
+		SORT = #{info.sort:INTEGER},
+		UPDATETIME = now(),
+		CREATOR = #{info.creator:VARCHAR}
+		WHERE
+		OPERID = #{info.operid:VARCHAR}
+	</update>
+	<delete id="delete">
+		delete from tb_sys_operate where operid=#{operid}
+	</delete>
+	
+	<select id="countfunc" resultType="int">
+		select count(1) from tb_sys_func t where t.operid=#{operid}
+	</select>
+	<select id="getObjectById" resultType="com.marks.module.inner.system.sys.pojo.SysOperate">
+		select * from tb_sys_operate t where t.operid=#{operid}
+	</select>
+</mapper>
