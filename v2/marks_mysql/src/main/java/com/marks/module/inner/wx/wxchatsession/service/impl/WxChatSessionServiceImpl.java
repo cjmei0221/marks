@@ -67,7 +67,6 @@ public class WxChatSessionServiceImpl implements WxChatSessionService{
 			WxChatMsg info = new WxChatMsg();
 			info.setAccountid(sessionVo.getAccountid());
 			info.setC_content(sessionVo.getC_content());
-			info.setFanId(sessionVo.getFanId());
 			info.setOpenid(sessionVo.getOpenid());
 			info.setSession_id(sessionId);
 			info.setSession_id(sessionVo.getSession_id());
