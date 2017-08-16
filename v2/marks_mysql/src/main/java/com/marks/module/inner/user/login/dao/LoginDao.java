@@ -45,5 +45,7 @@ public interface LoginDao {
 
 	List<OrgInfo> getOrgInfoListByUserid(@Param("userid")String userid);
 
+	SysUser getSysUserByOpenidAndAccountid(@Param("accountid")String accountid, @Param("openid")String openid);
+
 
 }

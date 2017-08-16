@@ -53,7 +53,8 @@ public class SysUser implements Serializable {
 	 */
 	private String token;
 	
-	private String fanId;
+	private String openid;
+	private String accountid;
 	
 	private int skin;
 
@@ -96,12 +97,22 @@ public class SysUser implements Serializable {
 		this.companyNo = companyNo;
 	}
 
-	public String getFanId() {
-		return fanId;
+	
+
+	public String getOpenid() {
+		return openid;
 	}
 
-	public void setFanId(String fanId) {
-		this.fanId = fanId;
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public String getAccountid() {
+		return accountid;
+	}
+
+	public void setAccountid(String accountid) {
+		this.accountid = accountid;
 	}
 
 	public int getSkin() {

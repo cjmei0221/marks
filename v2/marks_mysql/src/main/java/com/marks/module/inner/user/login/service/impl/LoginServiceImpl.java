@@ -79,4 +79,11 @@ public class LoginServiceImpl implements LoginService {
 		return loginDao.getOrgInfoListByUserid(userid);
 	}
 
+
+
+	@Override
+	public SysUser getSysUserByOpenidAndAccountid(String accountid, String openid) {
+		return loginDao.getSysUserByOpenidAndAccountid(accountid,openid);
+	}
+
 }

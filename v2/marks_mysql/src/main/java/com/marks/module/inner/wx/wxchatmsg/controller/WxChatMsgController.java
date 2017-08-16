@@ -83,7 +83,6 @@ public class WxChatMsgController extends SupportContorller {
 			WxChatSession old = wxChatSessionService.findById(wxChatMsg.getSession_id());
 			wxChatMsg.setAccountid(old.getAccountid());
 			wxChatMsg.setC_type(1);
-			wxChatMsg.setFanId(old.getFanId());
 			wxChatMsg.setOpenid(old.getOpenid());
 			wxChatMsg.setSession_id(old.getSession_id());
 			wxChatMsg.setUserid(admin.getUserid());

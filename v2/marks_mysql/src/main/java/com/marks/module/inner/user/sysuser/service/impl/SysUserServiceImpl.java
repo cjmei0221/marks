@@ -148,10 +148,4 @@ public class SysUserServiceImpl implements SysUserService{
 	public void updateSkin(String userid, int skin) {
 		sysUserDao.updateSkin(userid, skin);
 	}
-	@Override
-	public void updateFanId(String userid, String fanId) {
-		sysUserDao.updateFanId(userid, fanId);
-	}
-	
-	
 }
