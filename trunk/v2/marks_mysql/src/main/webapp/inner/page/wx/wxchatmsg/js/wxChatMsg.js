@@ -158,12 +158,6 @@ function loadList() {
 									hidden:true
 								},
 								{
-									title : '粉丝ID',
-									field : 'fanId',
-									width : 100,
-									align : "center"
-								},
-								{
 									title : '昵称',
 									field : 'username',
 									width : 100,
