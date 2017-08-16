@@ -21,6 +21,7 @@ public class AutoConfig {
 	public static String jdbc_url=AutoCodePropsUtil.getValue("jdbc.properties").getProperty("jdbc.jdbcUrl");
 	public static String jdbc_user=AutoCodePropsUtil.getValue("jdbc.properties").getProperty("jdbc.user");
 	public static String jdbc_password=AutoCodePropsUtil.getValue("jdbc.properties").getProperty("jdbc.password");
+	public static String jdbc_dialect=AutoCodePropsUtil.getValue("jdbc.properties").getProperty("jdbc.dialect");
 	/**
 	 * 模板路径*/
 	public static String template_path="props/inner/template/autocode";

@@ -33,8 +33,12 @@ public class JdbcUtil {
 		private static Connection getConnection() {
 			if (connection == null) {
 				try {
-					Class.forName(JdbcUtil.getDriver("oracle"));
-					Class.forName(JdbcUtil.getDriver("mysql"));
+					String dialect = AutoConfig.jdbc_password;
+					if ("oracle".equals(dialect)) {
+						Class.forName(JdbcUtil.getDriver("oracle"));
+					}else{
+						Class.forName(JdbcUtil.getDriver("mysql"));
+					}
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 				}
