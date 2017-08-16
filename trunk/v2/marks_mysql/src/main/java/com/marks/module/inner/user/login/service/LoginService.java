@@ -29,5 +29,12 @@ public interface LoginService {
 	List<OrgInfo> getOrgInfoListByUserid(String userid);
 
 	SysUser getSysUserByUseridOrMobile(String userid);
+	/**
+	 * 根据openid和accountid获取系统用户
+	 * @param accountid
+	 * @param openid
+	 * @return
+	 */
+	SysUser getSysUserByOpenidAndAccountid(String accountid, String openid);
 
 }

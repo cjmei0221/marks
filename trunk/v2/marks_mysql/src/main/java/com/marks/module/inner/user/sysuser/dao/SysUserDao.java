@@ -35,5 +35,5 @@ public interface SysUserDao {
 	void updateActiveFlag(@Param("userid") String userid,@Param("flag") int flag);
 	void updateSkin(@Param("userid")String userid,@Param("skin") int skin);
 	String getUserIdForUser();
-	void updateFanId(@Param("userid")String userid, @Param("fanId")String fanId);
+	
 }

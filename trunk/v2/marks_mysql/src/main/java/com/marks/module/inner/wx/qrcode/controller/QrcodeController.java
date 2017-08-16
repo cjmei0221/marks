@@ -17,6 +17,7 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.qrImage.QrcodeUtil;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
@@ -67,11 +68,12 @@ public class QrcodeController extends SupportContorller {
 		try {
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			Qrcode qrcode = getModel(Qrcode.class);
-			// qrcode.setQrNo(IDUtil.getTimeID());
+			qrcode.setQrNo(IDUtil.getTimeID());
 			Qrcode ori = null;
 			if ("1".equals(qrcode.getQrType())) {// 公众号
 				ori = qrcodeService.findByQrNo(qrcode.getQrNo(),qrcode.getAccountid());
 				if (ori == null) {
+					
 					qrcode.setCompanyId(admin.getCompanyNo());
 					qrcode.setCreator(admin.getUserid());
 					String imagePath = createQrImage(qrcode, request);

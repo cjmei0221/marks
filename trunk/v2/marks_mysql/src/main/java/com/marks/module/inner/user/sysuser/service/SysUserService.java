@@ -22,6 +22,6 @@ public interface SysUserService{
 	public void updateMobile(String userid, String newPhone);
 	public void updateActiveFlag(String userid, int flag);
 	public void updateSkin(String userid, int parseInt);
-	public void updateFanId(String userid, String fanId);
+	
 
 }
