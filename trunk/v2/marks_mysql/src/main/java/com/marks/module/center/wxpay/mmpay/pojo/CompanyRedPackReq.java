@@ -15,26 +15,32 @@ import com.marks.common.util.date.DateUtil;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 
 public class CompanyRedPackReq {
-	private String mch_appid;// 随机字符串
-	private String mchid;// 商户订单号
-	private String nonce_str;// 商户号
-	private String partner_trade_no;// 商户号
-	private String openid;// 公众账号appid
-	private String check_name;// 商户名称
-	private String re_user_name;// 用户openid
+	private String mch_appid;// 公众账号appid
+	private String mchid;// 商户号
+	private String nonce_str;// 随机字符串
+	private String partner_trade_no;// 商户订单号
+	private String openid;// 用户openid
+	private String check_name;// 校验用户姓名选项NO_CHECK：不校验真实姓名  FORCE_CHECK：强校验真实姓名
+	private String re_user_name;// 收款用户姓名
 	private int amount;// 付款金额
-	private int desc;// 红包发放总人数
+	private String desc;//企业付款描述信息
 	private String spbill_create_ip;// IP地址
+	
+	public CompanyRedPackReq(){
+		nonce_str=IDUtil.getUUID();
+		String dateStr = DateUtil.parseDate(new Date(), "yyyyMMddHHmmssS");
+		int num = dateStr.length();
+		String minu=System.currentTimeMillis()+"";
+		String mch_billno = minu.substring(minu.length()-10, minu.length()) + dateStr.substring(0, 8) + "00" + dateStr.substring(num - 10, num);
+		partner_trade_no=mch_billno;
+	}
 
 	public String getNonce_str() {
-		return IDUtil.getUUID();
+		return nonce_str;
 	}
 
 	public String getPartner_trade_no() {
-		String dateStr = DateUtil.parseDate(new Date(), "yyyyMMddHHmmssS");
-		int num = dateStr.length();
-		String mch_billno = this.getMchid() + dateStr.substring(0, 8) + "00" + dateStr.substring(num - 10, num);
-		return mch_billno;
+		return partner_trade_no;
 	}
 
 	
@@ -97,11 +103,11 @@ public class CompanyRedPackReq {
 		this.amount = amount;
 	}
 
-	public int getDesc() {
+	public String getDesc() {
 		return desc;
 	}
 
-	public void setDesc(int desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 

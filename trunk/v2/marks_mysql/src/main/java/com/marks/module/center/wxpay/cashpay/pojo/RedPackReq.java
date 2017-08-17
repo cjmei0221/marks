@@ -35,15 +35,20 @@ public class RedPackReq {
 	private String scene_id;// 可为空
 	private String risk_info;// 可为空
 	private String consume_mch_id;// 可为空
+	public RedPackReq(){
+		nonce_str=IDUtil.getUUID();
+		String dateStr = DateUtil.parseDate(new Date(), "yyyyMMddHHmmssS");
+		int num = dateStr.length();
+		String minu=System.currentTimeMillis()+"";
+		String mch_billno2 = minu.substring(minu.length()-10, minu.length()) + dateStr.substring(0, 8) + "00" + dateStr.substring(num - 10, num);
+		mch_billno=mch_billno2;
+	}
 
 	public String getNonce_str() {
-		return IDUtil.getUUID();
+		return nonce_str;
 	}
 
 	public String getMch_billno() {
-		String dateStr = DateUtil.parseDate(new Date(), "yyyyMMddHHmmssS");
-		int num = dateStr.length();
-		String mch_billno = this.getMch_id() + dateStr.substring(0, 8) + "00" + dateStr.substring(num - 10, num);
 		return mch_billno;
 	}
 
