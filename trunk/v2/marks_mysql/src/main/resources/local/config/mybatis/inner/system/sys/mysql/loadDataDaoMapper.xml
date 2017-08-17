@@ -8,7 +8,7 @@
 	<!-- 加载数据字典 -->
 	<select id="loadDataDir" resultType="com.marks.module.inner.system.datadir.pojo.DataDir">
 		SELECT * FROM
-		TB_SYS_DATADIR_INFO t order by t."SORT"
+		TB_SYS_DATADIR_INFO t order by t.SORT
 	</select>
 
 	<!-- 加载微信公众号信息 -->
