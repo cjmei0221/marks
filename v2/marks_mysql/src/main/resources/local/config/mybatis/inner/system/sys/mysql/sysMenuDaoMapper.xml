@@ -3,11 +3,11 @@
 <mapper namespace="com.marks.module.inner.system.sys.dao.SysMenuDao">
 	<select id="getChildSysMenuList" resultType="com.marks.module.inner.system.sys.pojo.SysMenu">
 		SELECT * FROM
-		TB_SYS_MENU t where t.PARENTID != '0' ORDER BY t."SORT"
+		TB_SYS_MENU t where t.PARENTID != '0' ORDER BY t.SORT
 	</select>
 	<select id="getParentSysMenuList" resultType="com.marks.module.inner.system.sys.pojo.SysMenu">
 		SELECT * FROM
-		TB_SYS_MENU t where t.PARENTID = '0' ORDER BY t."SORT"
+		TB_SYS_MENU t where t.PARENTID = '0' ORDER BY t.SORT
 	</select>
 	<insert id="save" parameterType="com.marks.module.inner.system.sys.pojo.SysMenu">
 		INSERT INTO TB_SYS_MENU (
@@ -48,7 +48,7 @@
 		MENUID = #{sm.menuid:VARCHAR}
 	</update>
 	<delete id="delete">
-		DELETE TB_SYS_MENU where MENUID=#{menuid}
+		DELETE from TB_SYS_MENU where MENUID=#{menuid}
 	</delete>
 	<delete id="deleteRoleFunc">
 		delete from tb_sys_role_func

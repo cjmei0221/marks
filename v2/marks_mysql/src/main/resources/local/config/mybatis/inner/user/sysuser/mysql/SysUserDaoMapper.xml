@@ -128,26 +128,11 @@
 		FROM TB_SYS_USER sysuser
 		join tb_sys_role tsr on ( sysuser.roleid = tsr.roleid and tsr.showflag=1)
 		join (select
-		tsuo.userid, listagg(toi.orgid, ',') within
-		group(
-		order by toi.orgid)
-		over(partition by tsuo.userid) as orgidsStr,
-		listagg(toi.orgname, ',')
-		within
-		group(
-		order by toi.orgid) over(partition by tsuo.userid) as
-		orgidNamesStr
+		tsuo.userid, GROUP_CONCAT(toi.orgid)  orgidsStr,
+		GROUP_CONCAT(toi.orgname) orgidNamesStr
 		from tb_sys_user_org tsuo
 		join tb_org_info toi on
-		tsuo.orgid = toi.orgid
-		where 1=1
-		<if test="orgids !=null">
-			and toi.orgid in
-			<foreach collection="orgids" item="oid" index="index" open="("
-				separator="," close=")">
-				#{oid}
-			</foreach>
-		</if>
+		tsuo.orgid = toi.orgid group by tsuo.userid
 		) orgtb on sysuser.userid =
 		orgtb.userid
 		WHERE 1=1 and sysuser.userid !='system'
