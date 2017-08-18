@@ -34,6 +34,7 @@ tool.reqUrl={
 		dairy_add:tool.baseUrl+"/web/diary/save.do",
 		dairy_update:tool.baseUrl+"/web/diary/update.do",
 		dairy_detail:tool.baseUrl+"/web/diary/findDiaryById.do",
+		dairy_download:tool.baseUrl+"/web/diary/export.do",
 		login:tool.baseUrl+"/web/login.do",
 		changePwd:tool.baseUrl+"/web/sysUser/changePwd.do",
 		changeSkin:tool.baseUrl+"/web/sysUser/changeSkin.do",
