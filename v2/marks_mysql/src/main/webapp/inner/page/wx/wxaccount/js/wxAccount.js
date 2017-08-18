@@ -22,6 +22,7 @@ function add() {
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
 	$("#urlTr").hide();
+	$("#accountId").removeAttr("readonly");
 }
 
 // 编辑
@@ -34,7 +35,7 @@ function edit() {
 		$('#ff').form('load', appInfo.selectedData);
 		$("#urlTr").show();
 		$("#urlTd").html(appInfo.selectedData.url);
-		
+		$("#accountId").attr("readonly",'readonly');
 	}
 }
 
