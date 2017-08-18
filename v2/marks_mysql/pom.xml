@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>marks</groupId>
-	<artifactId>marks-oracle</artifactId>
+	<artifactId>marks-mysql</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>marks-oracle Maven Webapp</name>
+	<name>marks-mysql Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<profiles>
@@ -365,7 +365,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>marks-oracle</finalName>
+		<finalName>marks-mysql</finalName>
 		<resources>
 			<resource>
 				<directory>
