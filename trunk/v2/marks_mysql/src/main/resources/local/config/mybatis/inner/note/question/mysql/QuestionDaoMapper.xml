@@ -54,7 +54,7 @@
 		SOLUTION = #{solution:VARCHAR},
 		LABELS =
 		#{labels:VARCHAR},
-		UPDATETIME = sysdate,
+		UPDATETIME = now(),
 		UPDATER =
 		#{updater:VARCHAR}
 		WHERE

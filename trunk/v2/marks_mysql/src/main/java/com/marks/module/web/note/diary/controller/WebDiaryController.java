@@ -275,12 +275,12 @@ public class WebDiaryController extends SupportContorller {
 		}
 		JsonUtil.output(response, result);
 	}
+
 	/**
 	 * 导出txt
 	 */
-    @RequestMapping("/web/diary/export")
-    public void export(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/web/diary/export")
+	public void export(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
@@ -288,9 +288,9 @@ public class WebDiaryController extends SupportContorller {
 			String keyword = request.getParameter("keyword");
 			param.put("userid", admin.getUserid());
 			param.put("keyword", keyword);
-			String basePath=UploadUtil.getUploadPath(request);
-			String path=diaryService.exportTxt(param,basePath);
-			result.getData().put("filepath",path);
+			String basePath = UploadUtil.getUploadPath(request);
+			String path = diaryService.exportTxt(param, basePath);
+			result.getData().put("filepath", path);
 			result.setMessage("findAll diary successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -299,4 +299,5 @@ public class WebDiaryController extends SupportContorller {
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-	}}
+	}
+}
