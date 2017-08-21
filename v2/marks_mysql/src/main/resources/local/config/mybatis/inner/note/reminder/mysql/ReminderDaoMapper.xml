@@ -58,7 +58,7 @@
 		UPDATETIME = now(),
 		CALENDAR_TYPE =
 		#{calendar_type:NUMERIC},
-		reminder.HOLIDAY_TYPE=#{holiday_type:NUMERIC}
+		HOLIDAY_TYPE=#{holiday_type:NUMERIC}
 		WHERE
 		ID = #{id}
 	</update>
