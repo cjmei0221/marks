@@ -105,24 +105,29 @@ public class LoginController {
 		List<OrgInfo> orgInfo = loginService.getOrgInfoListByUserid(user.getUserid());
 		user.setOrgInfoList(orgInfo);
 		// 组织架构
-		boolean topflag = true;
+		boolean topflag = false;
+		boolean companyflag=false;
 		for (OrgInfo sr : orgInfo) {
 			if (1 == sr.getIsMain()) {
-				topflag = false;
-				break;
+				topflag = true;
+			}
+			if(sr.getOrgType()==Enums.OrgType.company.getValue()){
+				companyflag=true;
 			}
 		}
 		if (topflag) {
-			List<String> orgids = loginService.getOrgidBySysUser(orgInfo);
-			user.setOrgids(orgids);
-		} else {
 			user.setOrgids(null);
 			user.setCompanyId(null);
 		}
-
+		if(!companyflag){
+			List<String> orgids = loginService.getOrgidBySysUser(orgInfo);
+			user.setOrgids(orgids);
+		}else{
+			user.setOrgids(null);
+		}
 		// 关联服务号
 		user.setAccountids(null);
-		if (null != user.getOrgids() && null != user.getCompanyId()) {
+		if (null != user.getCompanyId()) {
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("conpanyId", user.getCompanyId());
 			// param.put("orgids", user.getOrgids());
