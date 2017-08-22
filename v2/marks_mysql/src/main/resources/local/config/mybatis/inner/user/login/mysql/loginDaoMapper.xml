@@ -17,7 +17,8 @@
 		FROM
 		TB_SYS_USER tsu
 		WHERE
-		tsu.accountid=#{accountid} and tsu.openid=#{openid}
+		tsu.accountid=#{accountid} and
+		tsu.openid=#{openid}
 	</select>
 	<!-- 加载父级菜单 -->
 	<select id="getParentSysMenu" resultType="com.marks.module.inner.system.sys.pojo.SysMenu">
@@ -79,8 +80,7 @@
 	<select id="getOrgidBySysUser" resultType="String">
 		SELECT T.Orgid
 		FROM tb_org_info T
-		CONNECT BY parentid = PRIOR orgid
-		START WITH orgid
+		where orgid
 		in
 		<foreach collection="orglist" item="ids" index="index" open="("
 			separator="," close=")">
@@ -89,7 +89,9 @@
 	</select>
 	<select id="getOrgInfoListByUserid" resultType="com.marks.module.inner.org.orginfo.pojo.OrgInfo">
 		SELECT toi.*
-		FROM tb_sys_user_org T join tb_org_info toi on t.orgid=toi.orgid
-		where t.userid=#{userid}
+		FROM
+		tb_sys_user_org T join tb_org_info toi on t.orgid=toi.orgid
+		where
+		t.userid=#{userid}
 	</select>
 </mapper>
