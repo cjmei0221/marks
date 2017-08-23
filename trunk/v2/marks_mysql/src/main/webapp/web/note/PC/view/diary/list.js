@@ -7,7 +7,7 @@ var appInfo = {
 
 $(function() {
 	getDairylist();
-	$("#downloadFile").html('<a href="'+downLoadFile()+'" class="sui-btn cm-btn" download=""  class="downloadA">下载</a>')
+	$("#downloadFile").html('<a href="'+downLoadFile()+'" class="sui-btn cm-btn-down" download=""  class="downloadA">下载</a>');
 });
 function mysearch(){
 	appInfo.pageNum=1;
