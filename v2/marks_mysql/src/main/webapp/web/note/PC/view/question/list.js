@@ -7,7 +7,7 @@ var appInfo = {
 
 $(function() {
 	getlist();
-	$("#downloadFile").html('<a href="'+downLoadFile()+'" class="sui-btn cm-btn-down" download=""  class="downloadA">下载</a>');
+	$("#downloadFile").html('<a href="'+downLoadFile()+'" class="sui-btn cm-btn-down" download=""  id="downloadA">下载</a>');
 });
 function mysearch(){
 	appInfo.pageNum=1;
@@ -77,7 +77,7 @@ function downLoadFile(){
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
-				$('.downloadA').attr('href',data.filepath);
+				$('#downloadA').attr('href',data.filepath);
 			} else {
 				msg.error(data.retmsg);
 			}
