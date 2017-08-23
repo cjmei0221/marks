@@ -20,6 +20,7 @@ import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.question.dao.QuestionDao;
 import com.marks.module.inner.note.question.pojo.Question;
 import com.marks.module.inner.note.question.service.QuestionService;
+import com.marks.module.inner.note.util.NoteConstants;
 import com.marks.module.inner.system.upload.util.FTPUtil;
 
 @Service
@@ -113,7 +114,7 @@ public class QuestionServiceImpl implements QuestionService{
 			if (!file.exists()) {
 				file.createNewFile();
 				fos = new FileOutputStream(file);
-				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,"gbk")));
+				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,NoteConstants.charaterSet)));
 				StringBuffer sb = new StringBuffer();
 				for (int i = 0; i < list.size(); i++) {	
 					Question info=list.get(i);
