@@ -18,4 +18,5 @@ public interface QuestionService{
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<Question> list(int page_number, int page_size,Map<String,Object> param);
 	public Question findByQuestion(String question);
+	public String exportTxt(Map<String, Object> param, String basePath);
 }
