@@ -24,6 +24,7 @@ import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.note.diary.dao.DiaryDao;
 import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.diary.service.DiaryService;
+import com.marks.module.inner.note.util.NoteConstants;
 import com.marks.module.inner.system.upload.util.FTPUtil;
 import com.marks.module.inner.wx.modulemsg.util.WxMsgUtil;
 @Service
@@ -117,7 +118,7 @@ public class DiaryServiceImpl implements DiaryService{
 			if (!file.exists()) {
 				file.createNewFile();
 				fos = new FileOutputStream(file);
-				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,"gbk")));
+				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,NoteConstants.charaterSet)));
 				StringBuffer sb = new StringBuffer();
 				for (int i = 0; i < list.size(); i++) {	
 					Diary info=list.get(i);

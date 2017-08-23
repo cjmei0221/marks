@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.util.Constants;
 import com.marks.common.util.IDUtil;
 import com.marks.module.inner.note.question.dao.QuestionDao;
 import com.marks.module.inner.note.question.pojo.Question;
 import com.marks.module.inner.note.question.service.QuestionService;
+import com.marks.module.inner.note.util.NoteConstants;
 import com.marks.module.inner.system.upload.util.FTPUtil;
 
 @Service
@@ -111,7 +113,7 @@ public class QuestionServiceImpl implements QuestionService{
 			if (!file.exists()) {
 				file.createNewFile();
 				fos = new FileOutputStream(file);
-				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,"gbk")));
+				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,NoteConstants.charaterSet)));
 				StringBuffer sb = new StringBuffer();
 				for (int i = 0; i < list.size(); i++) {	
 					Question info=list.get(i);
