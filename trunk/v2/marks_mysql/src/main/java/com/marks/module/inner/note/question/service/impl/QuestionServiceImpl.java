@@ -1,17 +1,26 @@
 package com.marks.module.inner.note.question.service.impl;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.httpclient.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.util.IDUtil;
+import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.question.dao.QuestionDao;
 import com.marks.module.inner.note.question.pojo.Question;
 import com.marks.module.inner.note.question.service.QuestionService;
+import com.marks.module.inner.system.upload.util.FTPUtil;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
@@ -89,5 +98,51 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public Question findByQuestion(String question) {
 		return questionDao.findByQuestion(question);
+	}
+
+	@Override
+	public String exportTxt(Map<String, Object> param, String basePath) {
+		PageBounds pageBounds = new PageBounds(1, 100000);
+		List<Question> list = questionDao.list(pageBounds, param);
+		String fileName="question_"+IDUtil.getTimeID()+".txt";
+		FileOutputStream fos=null;
+		PrintWriter pw=null;
+		String filePath=null;
+		try {
+			File file = new File(basePath+fileName);
+			if (!file.exists()) {
+				file.createNewFile();
+				fos = new FileOutputStream(file);
+				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,"gbk")));
+				StringBuffer sb = new StringBuffer();
+				for (int i = 0; i < list.size(); i++) {	
+					Question info=list.get(i);
+//					sb.append(System.getProperty("line.separator"));
+					//写入文件
+					sb.append("===========================================");
+					sb.append(System.getProperty("line.separator"));
+					sb.append(info.getQuestion());
+					sb.append(System.getProperty("line.separator"));
+					sb.append(System.getProperty("line.separator"));
+					sb.append(DateUtil.formatDate(info.getCreatetime(), "yyyy-MM-dd HH:mm:ss")+" - "+info.getLvlName()+" - "+info.getLabels());
+					sb.append(System.getProperty("line.separator"));
+					sb.append("---------------------");
+					sb.append(System.getProperty("line.separator"));
+					sb.append(info.getSolution());
+					sb.append(System.getProperty("line.separator"));
+					sb.append(System.getProperty("line.separator"));
+				}
+				pw.write(sb.toString());
+				pw.flush();
+				filePath= FTPUtil.ftp_url+fileName;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pw !=null){
+				pw.close();
+			}
+		}
+		return filePath;
 	}
 }
