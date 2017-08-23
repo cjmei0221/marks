@@ -21,7 +21,7 @@ public class IDUtil {
 	 * @return
 	 */
 	public static String getTimeID(){
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmssS");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmss_S");
 		return sdf.format(new Date());
 	}
 	/**
