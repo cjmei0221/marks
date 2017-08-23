@@ -18,4 +18,11 @@ public interface GainsService{
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<Gains> list(int page_number, int page_size,Map<String,Object> param);
 	public Gains findByTitle(String title);
+	/**
+	 * 导出txt文件
+	 * @param param
+	 * @param basePath
+	 * @return
+	 */
+	public String exportTxt(Map<String, Object> param, String basePath);
 }
