@@ -24,6 +24,7 @@ import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.diary.service.DiaryService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
+import com.marks.module.inner.system.upload.util.UploadUtil;
 import com.marks.module.inner.user.login.service.LoginService;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.inner.user.sysuser.service.SysUserService;
@@ -282,5 +283,28 @@ public class WebDiaryController extends SupportContorller{
 			}
 			JsonUtil.output(response, result);
 		}
-	
+	    /**
+		 * 导出txt
+		 */
+		@RequestMapping("/web/diary/export")
+		public void export(HttpServletRequest request, HttpServletResponse response) {
+			Result result = new Result();
+			try {
+				SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+				Map<String, Object> param = new HashMap<String, Object>();
+				String keyword = request.getParameter("keyword");
+				param.put("userid", admin.getUserid());
+				param.put("keyword", keyword);
+				String basePath = UploadUtil.getUploadPath(request);
+				String path = diaryService.exportTxt(param, basePath);
+				result.getData().put("filepath", path);
+				result.setMessage("findAll diary successs!");
+				result.setCode(Code.CODE_SUCCESS);
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.setMessage("findAll diary fail!");
+				result.setCode(Code.CODE_FAIL);
+			}
+			JsonUtil.output(response, result);
+		}
 }

@@ -21,6 +21,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.note.gains.pojo.Gains;
 import com.marks.module.inner.note.gains.service.GainsService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
+import com.marks.module.inner.system.upload.util.UploadUtil;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.sys.system.core.data.StaticData;
 import com.marks.module.web.user.login.util.LoginUtil;
@@ -212,6 +213,30 @@ public class WebGainsController extends SupportContorller {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("find gains fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+	/**
+	 * 导出txt
+	 */
+	@RequestMapping("/web/gains/export")
+	public void export(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+			Map<String, Object> param = new HashMap<String, Object>();
+			String keyword = request.getParameter("keyword");
+			param.put("userid", admin.getUserid());
+			param.put("keyword", keyword);
+			String basePath = UploadUtil.getUploadPath(request);
+			String path = gainsService.exportTxt(param, basePath);
+			result.getData().put("filepath", path);
+			result.setMessage("findAll diary successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setMessage("findAll diary fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);

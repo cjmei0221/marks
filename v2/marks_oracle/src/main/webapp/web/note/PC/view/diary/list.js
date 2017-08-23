@@ -7,6 +7,7 @@ var appInfo = {
 
 $(function() {
 	getDairylist();
+	$("#downloadFile").html('<a href="'+downLoadFile()+'" class="sui-btn cm-btn-down" download=""  id="downloadA">下载</a>');
 });
 function mysearch(){
 	appInfo.pageNum=1;
@@ -57,6 +58,26 @@ function getDairylist() {
 					index++;
 				}
 				$('#trDiv').html(arr.join(''));
+			} else {
+				msg.error(data.retmsg);
+			}
+		},
+		complete : function() {
+
+		}
+	});
+}
+function downLoadFile(){
+	$.ajax({
+		url : tool.reqUrl.dairy_download,
+		type : 'POST',
+		dataType : "json",
+		data : {
+			keyword : appInfo.keyword
+		},
+		success : function(data) {
+			if (data.retcode == "0") {
+				$('#downloadA').attr('href',data.filepath);
 			} else {
 				msg.error(data.retmsg);
 			}

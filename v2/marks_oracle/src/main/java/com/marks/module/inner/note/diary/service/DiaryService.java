@@ -19,4 +19,5 @@ public interface DiaryService{
 	public PojoDomain<Diary> list(int page_number, int page_size,Map<String,Object> param);
 	
 	public void pushDairyWxMsg(WxUser wxUser);
+	public String exportTxt(Map<String, Object> param, String basePath);
 }
