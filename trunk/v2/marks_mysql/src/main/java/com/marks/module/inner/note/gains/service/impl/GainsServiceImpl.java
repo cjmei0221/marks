@@ -20,6 +20,7 @@ import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.gains.dao.GainsDao;
 import com.marks.module.inner.note.gains.pojo.Gains;
 import com.marks.module.inner.note.gains.service.GainsService;
+import com.marks.module.inner.note.util.NoteConstants;
 import com.marks.module.inner.system.upload.util.FTPUtil;
 
 @Service
@@ -112,7 +113,7 @@ public class GainsServiceImpl implements GainsService{
 			if (!file.exists()) {
 				file.createNewFile();
 				fos = new FileOutputStream(file);
-				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,"gbk")));
+				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos,NoteConstants.charaterSet)));
 				StringBuffer sb = new StringBuffer();
 				for (int i = 0; i < list.size(); i++) {	
 					Gains info=list.get(i);
