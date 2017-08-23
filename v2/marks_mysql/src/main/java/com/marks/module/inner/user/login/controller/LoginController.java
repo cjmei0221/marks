@@ -131,7 +131,9 @@ public class LoginController {
 			// param.put("orgids", user.getOrgids());
 			param.put("orgids", null);
 			List<String> accountids = wxAccountService.getAccountIdsByLoginUser(param);
-			user.setAccountids(accountids);
+			if(accountids !=null && accountids.size()>0){
+				user.setAccountids(accountids);
+			}
 		}
 		SysUserHelper.setCurrentUserInfo(request, user);
 
