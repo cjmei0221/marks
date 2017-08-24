@@ -416,7 +416,7 @@
 					<encoding>UTF-8</encoding>
 					<compilerArguments>
 						<verbose />
-						 <bootclasspath>${env.JAVA7_HOME}/jre/lib/rt.jar:${env.JAVA7_HOME}/jre/lib/jce.jar</bootclasspath>
+						 <bootclasspath>${env.JAVA_HOME}/jre/lib/rt.jar:${env.JAVA_HOME}/jre/lib/jce.jar</bootclasspath>
 					</compilerArguments>
 				</configuration>
 			</plugin>
