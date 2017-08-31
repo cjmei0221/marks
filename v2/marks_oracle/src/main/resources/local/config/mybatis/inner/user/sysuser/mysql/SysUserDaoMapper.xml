@@ -4,13 +4,13 @@
 <mapper namespace="com.marks.module.inner.system.sysuser.dao.SysUserDao">
 
     <select id="findById" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser">
-		SELECT * FROM TB_SYS_USER where USERID = #{userid}
+		SELECT * FROM tb_user where USERID = #{userid}
  	</select>
  	
  	<insert id="save" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
 		<selectKey keyProperty="userid" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
 
- 		INSERT INTO TB_SYS_USER (
+ 		INSERT INTO tb_user (
             USERID,
             USERNAME,
             PASSWORD,
@@ -46,7 +46,7 @@
  	</insert>
  	
  	<update id="update" parameterType="com.marks.module.inner.system.sysuser.pojo.SysUser">
- 		UPDATE TB_SYS_USER 
+ 		UPDATE tb_user 
 		SET 
                 USERNAME = #{username:VARCHAR},
                 PASSWORD = #{password:VARCHAR},
@@ -66,15 +66,15 @@
  	</update>
  	
  	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_SYS_USER WHERE USERID=#{userid}
+ 		DELETE FROM tb_user WHERE USERID=#{userid}
  	</delete>
  	
  	<select id="findAll" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser">
- 		SELECT * FROM TB_SYS_USER
+ 		SELECT * FROM tb_user
  	</select>
  	
  	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_SYS_USER WHERE USERID in 
+ 		DELETE FROM tb_user WHERE USERID in 
  		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
 				#{ids}
 		</foreach>
@@ -83,7 +83,7 @@
  	<select id="list" resultType="com.marks.module.inner.system.sysuser.pojo.SysUser" 
  	parameterType="java.util.Map">
  		SELECT  *
-		  FROM   TB_SYS_USER 
+		  FROM   tb_user 
 						WHERE 1=1
  and ( sysuser.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
                         <if test="keyword!=null and keyword!=''">
