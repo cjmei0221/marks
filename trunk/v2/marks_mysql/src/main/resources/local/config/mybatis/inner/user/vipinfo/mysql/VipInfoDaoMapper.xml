@@ -4,12 +4,12 @@
 <mapper namespace="com.marks.module.inner.user.vipinfo.dao.VipInfoDao">
 
 	<select id="findById" resultType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
-		SELECT * FROM TB_VIP_INFO
+		SELECT * FROM TB_USER_VIP
 		vipinfo where vipinfo.USERID = #{userid}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
-		INSERT INTO TB_VIP_INFO  (
+		INSERT INTO TB_USER_VIP  (
 		USERID,
 		REALNAME,
 		GENDER,
@@ -32,7 +32,7 @@
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
-		UPDATE TB_VIP_INFO
+		UPDATE TB_USER_VIP
 		SET
 		REALNAME = #{realname:VARCHAR},
 		GENDER =
@@ -49,16 +49,16 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_VIP_INFO
+		DELETE FROM TB_USER_VIP
 		WHERE USERID=#{userid}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
-		SELECT * FROM TB_VIP_INFO
+		SELECT * FROM TB_USER_VIP
 	</select>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
-		DELETE FROM TB_VIP_INFO WHERE USERID in
+		DELETE FROM TB_USER_VIP WHERE USERID in
 		<foreach collection="list" item="ids" index="index" open="("
 			separator="," close=")">
 			#{ids}
@@ -73,9 +73,9 @@
 		vip.birthdate,
 		vip.email,
 		vip.signature
-		FROM tb_sys_user su
+		FROM tb_user su
 		join TB_SYS_ROLE tsr on (su.roleid=tsr.roleid and su.COMPANYID=tsr.COMPANYID)
-		left join TB_VIP_INFO vip on su.userid
+		left join TB_USER_VIP vip on su.userid
 		= vip.userid
 		where tsr.usertype = 'VIP'
 		
@@ -111,7 +111,7 @@
 	<select id="findVipDetailInfoById" resultType="com.marks.module.inner.user.vipinfo.pojo.VipInfo">
 		SELECT
 		vipinfo.*,su.skin FROM
-		tb_sys_user su left join TB_VIP_INFO vipinfo on
+		tb_user su left join TB_USER_VIP vipinfo on
 		vipinfo.userid=su.userid where su.USERID = #{userid}
 	</select>
 

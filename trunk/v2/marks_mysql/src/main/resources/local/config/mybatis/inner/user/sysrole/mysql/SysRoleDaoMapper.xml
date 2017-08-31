@@ -168,6 +168,6 @@
 	</select>
 	<select id="countUserByRoleid" resultType="int">
 		select count(1) from
-		tb_sys_user t where t.roleid=#{roleId}
+		tb_user t where t.roleid=#{roleId}
 	</select>
 </mapper>

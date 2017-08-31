@@ -6,7 +6,7 @@
 		SELECT
 		TSU.*
 		FROM
-		TB_SYS_USER tsu
+		tb_user tsu
 		WHERE
 		tsu.USERID = #{userid} or
 		tsu.bind_mobile=#{userid}
@@ -15,7 +15,7 @@
 		SELECT
 		TSU.*
 		FROM
-		TB_SYS_USER tsu
+		tb_user tsu
 		WHERE
 		tsu.accountid=#{accountid} and tsu.openid=#{openid}
 	</select>
@@ -68,7 +68,7 @@
 		SELECT DISTINCT
 		sf.url
 		FROM
-		tb_sys_user sur
+		tb_user sur
 		JOIN tb_sys_role_func srf ON SUR.ROLEID =
 		SRF.ROLEID
 		JOIN tb_sys_func sf ON sf.funcid = srf.funcid
@@ -89,7 +89,7 @@
 	</select>
 	<select id="getOrgInfoListByUserid" resultType="com.marks.module.inner.org.orginfo.pojo.OrgInfo">
 		SELECT toi.*
-		FROM tb_sys_user_org T join tb_org_info toi on t.orgid=toi.orgid
+		FROM tb_user_org T join tb_org_info toi on t.orgid=toi.orgid
 		where t.userid=#{userid}
 	</select>
 </mapper>
