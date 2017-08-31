@@ -264,7 +264,7 @@ function loadList() {
 		}, {
 			title : '菜单名称',
 			field : 'menuitem',
-			width : 300
+			width : 200
 		} ] ],
 		columns : [ [ {
 			title : '访问URL',
