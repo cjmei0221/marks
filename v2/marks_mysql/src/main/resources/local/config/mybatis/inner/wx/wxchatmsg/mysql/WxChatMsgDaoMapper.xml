@@ -94,7 +94,7 @@
            		select wxcmsg.c_content,wxcmsg.createtime,wxcmsg.openid,wxcmsg.session_id,wxcmsg.userid,wxcmsg.c_type from tb_wx_chat_msg wxcmsg union 
           		select wcsession.c_content,wcsession.createtime,wcsession.openid,wcsession.session_id,wcsession.openid userid,2 from tb_wx_chat_session wcsession
    				 ) t2 ) wxchatmsg
-    		left join tb_sys_user suser on wxchatmsg.userid = suser.userid
+    		left join tb_user suser on wxchatmsg.userid = suser.userid
     		left join tb_wx_user wxuser on wxchatmsg.openid = wxuser.openid
     		WHERE 1=1
 			and
@@ -107,7 +107,7 @@
 		parameterType="java.util.List">
 		SELECT nvl(suser.username, wxuser.nickname) username, wxchatmsg.*
 		FROM TB_WX_CHAT_MSG wxchatmsg
-		left join tb_sys_user suser on wxchatmsg.userid = suser.userid
+		left join tb_user suser on wxchatmsg.userid = suser.userid
 		left join tb_wx_user wxuser on wxchatmsg.openid = wxuser.openid
 		WHERE 1=1
 		<if test="list !=null">

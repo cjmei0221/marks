@@ -4,27 +4,27 @@
 <mapper namespace="com.marks.module.inner.user.sysuser.dao.SysUserDao">
 
 	<select id="findById" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
-		select * from tb_sys_user t
+		select * from tb_user t
 		where t.userid=#{userid}
 	</select>
 	<select id="findByUserid" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
 		select distinct
 		u.*,
 		tsr.rolename
-		from TB_SYS_USER u 
+		from tb_user u 
 		join tb_sys_role tsr on u.roleid = tsr.roleid
 		where u.USERID =#{userid}
 	</select>
 
 	<select id="findByMobile" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
-		select * from tb_sys_user t
+		select * from tb_user t
 		where t.bind_mobile=#{mobile}
 	</select>
 	<select id="getUserIdForUser" resultType="String">
 		SELECT 'U'||SEQ_SYS_USER.nextval FROM dual
 	</select>
 	<insert id="save" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
-		INSERT INTO TB_SYS_USER sysuser
+		INSERT INTO tb_user sysuser
 		(
 		sysuser.USERID,
 		sysuser.USERNAME,
@@ -58,7 +58,7 @@
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
-		UPDATE TB_SYS_USER sysuser
+		UPDATE tb_user sysuser
 		SET
 		sysuser.USERNAME = #{username:VARCHAR},
 		sysuser.ACTIVEFLAG =
@@ -75,7 +75,7 @@
 		= #{userid}
 	</update>
 	<update id="updatetPwd" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUser">
-		UPDATE TB_SYS_USER sysuser
+		UPDATE tb_user sysuser
 		SET
 		sysuser.PASSWORD = #{password:VARCHAR},
 		sysuser.UPDATETIME = sysdate
@@ -85,7 +85,7 @@
 	</update>
 
 	<update id="updateActiveFlag">
-		UPDATE TB_SYS_USER
+		UPDATE tb_user
 		SET
 		ACTIVEFLAG = #{flag},
 		UPDATETIME =
@@ -96,7 +96,7 @@
 	</update>
 
 	<update id="updateMobile">
-		UPDATE TB_SYS_USER sysuser
+		UPDATE tb_user sysuser
 		SET
 		sysuser.BIND_MOBILE =
 		#{newPhone:VARCHAR},
@@ -108,15 +108,15 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_SYS_USER
+		DELETE FROM tb_user
 		sysuser WHERE sysuser.USERID=#{userid}
 	</delete>
 	<select id="findAll" resultType="com.marks.module.inner.user.sysuser.pojo.SysUser">
-		SELECT * FROM TB_SYS_USER
+		SELECT * FROM tb_user
 	</select>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
-		DELETE FROM TB_SYS_USER WHERE USERID in
+		DELETE FROM tb_user WHERE USERID in
 		<foreach collection="list" item="ids" index="index" open="("
 			separator="," close=")">
 			#{ids}
@@ -129,7 +129,7 @@
 		tsr.rolename,
 		orgtb.orgidsStr,
 		orgtb.orgidNamesStr
-		FROM TB_SYS_USER sysuser
+		FROM tb_user sysuser
 		join tb_sys_role tsr on ( sysuser.roleid = tsr.roleid and tsr.showflag=1)
 		join (select
 		tsuo.userid, listagg(toi.orgid, ',') within
@@ -141,7 +141,7 @@
 		group(
 		order by toi.orgid) over(partition by tsuo.userid) as
 		orgidNamesStr
-		from tb_sys_user_org tsuo
+		from tb_user_org tsuo
 		join tb_org_info toi on
 		tsuo.orgid = toi.orgid
 		where 1=1
@@ -197,11 +197,11 @@
 
 	<delete id="deleteSysUserOrg" parameterType="String">
 		DELETE FROM
-		tb_sys_user_org t WHERE t.USERID=#{userid}
+		tb_user_org t WHERE t.USERID=#{userid}
 	</delete>
 	<insert id="saveSysUserOrg" parameterType="com.marks.module.inner.user.sysuser.pojo.SysUserOrg">
 		INSERT INTO
-		tb_sys_user_org (
+		tb_user_org (
 		USERID,
 		ORGID,
 		CREATETIME,
@@ -217,7 +217,7 @@
 		)
 	</insert>
 	<update id="updateSkin" flushCache="true">
-		update tb_sys_user set
+		update tb_user set
 		skin=#{skin},UPDATETIME=sysdate where userid=#{userid}
 	</update>
 </mapper>
