@@ -16,6 +16,7 @@ import @{daoInterfacePackageUrl}.@{beanName}Dao;
 import @{serviceInterfacePackageUrl}.@{beanName}Service;
 
 @Service
+@Transactional
 public class @{beanName}ServiceImpl implements @{beanName}Service{
 
 	@Autowired
