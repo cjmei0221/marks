@@ -216,6 +216,9 @@ public class @{beanName}Controller extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
+			if (page_size > 200) {
+				page_size = 200;
+			}
 			String keyword=request.getParameter("keyword");
 			if(keyword==null){
 				keyword="";
