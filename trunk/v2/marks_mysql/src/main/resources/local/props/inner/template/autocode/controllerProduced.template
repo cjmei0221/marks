@@ -157,7 +157,8 @@ public class @{beanName}Controller extends SupportContorller{
 	/**
 	 * 查询全部@{GetModuleDesc}
 	 */
-    @RequestMapping("/inner/@{BeanObject}/findAll@{beanName}")
+
+    /*@RequestMapping("/inner/@{BeanObject}/findAll@{beanName}")
     public void findAll@{beanName}(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -172,12 +173,12 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-	}
+	} */
 	
 	/**
 	 * 删除多个@{GetModuleDesc}
 	 */
-	@RequestMapping("/inner/@{BeanObject}/deleteIds")
+	/*@RequestMapping("/inner/@{BeanObject}/deleteIds")
 	public void delete@{beanName}(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
@@ -204,7 +205,7 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-	}
+	}*/
 	
 	/**
 	 * jqGrid多种条件查询
