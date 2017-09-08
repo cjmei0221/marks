@@ -35,7 +35,7 @@ var appInfo = {
 	}
 		//删除
 	function del(){
-		if (isSelectedOne(appInfo.selectedId)) {
+		if (!isSelectedOne(appInfo.selectedId)) {
 			return;
 		}
 		
