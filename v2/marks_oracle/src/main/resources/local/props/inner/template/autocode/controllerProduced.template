@@ -45,7 +45,7 @@ public class @{beanName}Controller extends SupportContorller{
     /**
 	 * 查询@{GetModuleDesc}
 	 */
-    @RequestMapping("/inner/@{BeanObject}/find@{beanName}ById")
+    @RequestMapping("/inner/@{BeanObject}/findById")
     public void find@{beanName}ById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
@@ -56,7 +56,7 @@ public class @{beanName}Controller extends SupportContorller{
 		    
 			@{beanName} request@{beanName} = @{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
 			result.getData().put("@{BeanObject}",request@{beanName});
-			result.setMessage("findById @{BeanObject} successs!");
+			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -157,7 +157,8 @@ public class @{beanName}Controller extends SupportContorller{
 	/**
 	 * 查询全部@{GetModuleDesc}
 	 */
-    @RequestMapping("/inner/@{BeanObject}/findAll@{beanName}")
+
+    /*@RequestMapping("/inner/@{BeanObject}/findAll@{beanName}")
     public void findAll@{beanName}(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
@@ -172,12 +173,12 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-	}
+	} */
 	
 	/**
 	 * 删除多个@{GetModuleDesc}
 	 */
-	@RequestMapping("/inner/@{BeanObject}/deleteIds")
+	/*@RequestMapping("/inner/@{BeanObject}/deleteIds")
 	public void delete@{beanName}(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
@@ -204,7 +205,7 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-	}
+	}*/
 	
 	/**
 	 * jqGrid多种条件查询
@@ -216,6 +217,9 @@ public class @{beanName}Controller extends SupportContorller{
 			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
+			if (page_size > 200) {
+				page_size = 200;
+			}
 			String keyword=request.getParameter("keyword");
 			if(keyword==null){
 				keyword="";
