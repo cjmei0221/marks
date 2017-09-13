@@ -47,7 +47,7 @@ public abstract class AbstractRequestService implements RequestService {
 			sb = new StringBuffer();
 			sb.append("亲，您可以换种方式试试，输入以下关键词：\r\n");
 			for (WxAutoReplay vo : replyList) {
-				sb.append(" [" + vo.getCkey() + "] " + vo.getCkeyName() + "\r");
+				sb.append(" [" + vo.getCkeyCode() + "] " + vo.getCkeyName() + "\r");
 				if (vo.getCkey().equals(key.toLowerCase())) {
 					isEquels = true;
 					reply = vo;

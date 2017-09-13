@@ -48,7 +48,38 @@ public class WxAutoReplay implements Serializable{
 
     private int delFlag;//是否可删除 1：是  0：否
 
-    public String getCkey(){
+	private int itemType;// 类型 0:通用资料 1:内部资料
+
+	private int ckeyCode;// 项目代码
+
+	private String newsTxt;// 图文名称
+
+
+	public String getNewsTxt() {
+		return newsTxt;
+	}
+
+	public void setNewsTxt(String newsTxt) {
+		this.newsTxt = newsTxt;
+	}
+
+	public int getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(int itemType) {
+		this.itemType = itemType;
+	}
+
+	public int getCkeyCode() {
+		return ckeyCode;
+	}
+
+	public void setCkeyCode(int ckeyCode) {
+		this.ckeyCode = ckeyCode;
+	}
+
+	public String getCkey() {
         return ckey;
     }
     public void setCkey(String ckey){

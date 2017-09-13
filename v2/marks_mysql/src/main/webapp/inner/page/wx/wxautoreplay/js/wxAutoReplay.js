@@ -26,6 +26,7 @@ function add() {
 	$('#replayType').combobox("setValue","TEXT");
 	$("#newsListTr").hide();
 	$("#delFlag").combobox("setValues", '1');
+	$("#itemType").combobox("setValues", '0');
 	$('#replayType').combobox("setValue","TEXT");
 	$('#newsList').combobox('reload');
 	$('#newsList').combobox("clear");
@@ -112,6 +113,7 @@ $(function() {
 				$("#creplay").removeAttr("readonly");
 			}
 			$("#creplay").val("");
+			$("#newsTxt").val('');
 		}
 	});
 	$('#newsList').combobox({
@@ -122,9 +124,11 @@ $(function() {
 					showMsg("只能选择5个图文");
 					$('#newsList').combobox("clear");
 					$("#creplay").val('');
+					$("#newsTxt").val('');
 					return;
 				}
 				$("#creplay").val(vals);
+				$("#newsTxt").val($('#newsList').combobox("getText"));
 			}
 		}
 	})
@@ -186,19 +190,30 @@ function loadList() {
 			align : "center",
 			hidden : true
 		}, {
-			title : '分类',
-			field : 'ctypeName',
-			width : 200
+			title : '类型',
+			field : 'itemType',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "运维知识";
+				} 
+				return "通用知识";
+			}
 		}, {
-			title : '匹配词',
+			title : '业务分类',
+			field : 'ctypeName',
+			width : 200,
+			align : "center"
+		}, {
+			title : '搜索词',
 			field : 'ckey',
 			width : 150,
 			align : "center"
 		}, {
-			title : '匹配词描述',
+			title : '问题描述',
 			field : 'ckeyName',
-			width : 200,
-			align : "center"
+			width : 200
 		}, {
 			title : '回复方式',
 			field : 'replayType',
@@ -215,7 +230,13 @@ function loadList() {
 		}, {
 			title : '回复内容',
 			field : 'creplay',
-			width : 500
+			width : 500,
+			formatter : function(value, row, index) {
+				if (row.replayType == 'NEWS') {
+					return row.newsTxt;
+				}
+				return value;
+			}
 		}, {
 			title : '是否可删除',
 			field : 'delFlag',

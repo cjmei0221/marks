@@ -39,6 +39,12 @@ public class WxAutoReplayServiceImpl implements WxAutoReplayService{
     */
     @Override
     public void save(WxAutoReplay wxAutoReplay){
+		String keyCode = wxAutoReplayDao.getKeyCode(wxAutoReplay.getAccountid());
+		int num = 0;
+		if (null != keyCode && !"".equals(keyCode)) {
+			num = Integer.parseInt(keyCode);
+		}
+		wxAutoReplay.setCkeyCode(num + 1);
         wxAutoReplayDao.save(wxAutoReplay);
     }
     
@@ -86,8 +92,9 @@ public class WxAutoReplayServiceImpl implements WxAutoReplayService{
 		return pojoDomain;
 	}
 	@Override
-	public List<WxAutoReplay> findByCkey(String ckey,String accountid) {
-		  return wxAutoReplayDao.findByCkey(ckey,accountid);
+	public List<WxAutoReplay> findByCkey(String ckey, String ckeyName, String accountid) {
+		return wxAutoReplayDao.findByCkey(ckey, ckeyName, accountid);
 	}
 	
+
 }

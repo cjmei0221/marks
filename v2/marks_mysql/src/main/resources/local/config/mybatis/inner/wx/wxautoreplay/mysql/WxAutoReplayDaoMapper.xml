@@ -3,26 +3,44 @@
 
 <mapper namespace="com.marks.module.inner.wx.wxautoreplay.dao.WxAutoReplayDao">
 
-	<select id="findById" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+	<select id="findById"
+		resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
-		wxautoreplay where wxautoreplay.CTYPE = #{ctype:VARCHAR}
+		wxautoreplay where
+		wxautoreplay.CTYPE = #{ctype:VARCHAR}
+	</select>
+	
+	<select id="getKeyCode"
+		resultType="String">
+		SELECT max(wxautoreplay.ckeyCode) FROM TB_WX_AUTO_REPLAY
+		wxautoreplay where
+		wxautoreplay.ACCOUNTID = #{accountid}
 	</select>
 
-	<select id="findByCkey" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+	<select id="findByCkey"
+		resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
 		SELECT * FROM
 		TB_WX_AUTO_REPLAY
 		wxautoreplay where
 		wxautoreplay.ACCOUNTID=#{accountid} and wxautoreplay.CKEY=#{ckey}
+		<if test="ckeyName!=null and ckeyName!=''">
+			and wxautoreplay.CTYPENAME=#{ckeyName}
+		</if>
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
-		<selectKey keyProperty="ctype" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+	<insert id="save"
+		parameterType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+		<selectKey keyProperty="ctype" resultType="String" order="BEFORE">select
+			replace(uuid(),'-','')</selectKey>
 		INSERT INTO TB_WX_AUTO_REPLAY (
 		CKEY,
 		CREPLAY,
 		CTYPE,
 		CTYPENAME,
 		ACCOUNTID,
+		itemType,
+		ckeyCode,
+		newsTxt,
 		REPLAYTYPE,
 		CREATETIME,
 		UPDATETIME,
@@ -36,6 +54,9 @@
 		#{ctype:VARCHAR},
 		#{ctypeName:VARCHAR},
 		#{accountid:VARCHAR},
+		#{itemType:NUMERIC},
+		#{ckeyCode:NUMERIC},
+		#{newsTxt:VARCHAR},
 		#{replayType:VARCHAR},
 		now(),
 		now(),
@@ -45,15 +66,20 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+	<update id="update"
+		parameterType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
 		UPDATE TB_WX_AUTO_REPLAY
 		SET
-		CKEY = #{ckey:VARCHAR},
+		itemType=#{itemType:NUMERIC},
+		newsTxt=#{newsTxt:VARCHAR},
+		CKEY =
+		#{ckey:VARCHAR},
 		CREPLAY = #{creplay:VARCHAR},
 		CTYPENAME =
 		#{ctypeName:VARCHAR},
 		REPLAYTYPE = #{replayType:VARCHAR},
-		UPDATETIME = now(),
+		UPDATETIME =
+		now(),
 		DELFLAG=#{delFlag:NUMERIC},
 		CKEYNAME=#{ckeyName:VARCHAR}
 		WHERE
@@ -62,11 +88,13 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_WX_AUTO_REPLAY WHERE
+		DELETE FROM TB_WX_AUTO_REPLAY
+		WHERE
 		CTYPE = #{ctype:VARCHAR}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+	<select id="findAll"
+		resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
 	</select>
 
@@ -78,7 +106,8 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay"
+	<select id="list"
+		resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_AUTO_REPLAY wxautoreplay
@@ -91,21 +120,27 @@
 			</foreach>
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			and ( wxautoreplay.CKEY LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or wxautoreplay.CREPLAY LIKE
+			and ( wxautoreplay.CKEY LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or wxautoreplay.CTYPENAME LIKE
+			or wxautoreplay.CREPLAY
+			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or wxautoreplay.ACCOUNTID LIKE
+			or
+			wxautoreplay.CTYPENAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or wxautoreplay.REPLAYTYPE LIKE
+			or wxautoreplay.ACCOUNTID
+			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or wxautoreplay.CKEYNAME LIKE
+			or
+			wxautoreplay.REPLAYTYPE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxautoreplay.CKEYNAME
+			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
@@ -113,9 +148,11 @@
 	</select>
 
 	<!-- 加载系统参数 -->
-	<select id="getWxAutoReplayByKey" resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
+	<select id="getWxAutoReplayByKey"
+		resultType="com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay">
 		select * from
-		tb_wx_auto_replay t where t.accountid=#{accountId} and instr(#{ckey},t.CKEY) &gt; 0 
+		tb_wx_auto_replay t where
+		t.accountid=#{accountId} and instr(#{ckey},t.CKEY) &gt; 0
 	</select>
 
 </mapper>

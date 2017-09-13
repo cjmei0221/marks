@@ -1,12 +1,11 @@
 package com.marks.module.inner.wx.wxautoreplay.service;
 
 
-import com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay;
-
 import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
+import com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay;
 
 public interface WxAutoReplayService{
 
@@ -17,5 +16,6 @@ public interface WxAutoReplayService{
 	public List<WxAutoReplay> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<WxAutoReplay> list(int page_number, int page_size,Map<String,Object> param);
-	public List<WxAutoReplay> findByCkey(String ckey,String accountid);
+
+	public List<WxAutoReplay> findByCkey(String ckey, String ckeyName, String accountid);
 }
