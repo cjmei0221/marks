@@ -48,22 +48,21 @@
 			<input type="hidden" id="ctype" name="ctype">
 			<table class="out-win-cls">
 				<tr>
-					<th style="width: 120px; text-align: right;">分类&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<th style="width: 120px; text-align: right;">业务分类&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="ctypeName" name="ctypeName"
 						class="easyui-validatebox" data-options="required:true"
 						style="width: 300px;"></td>
 				</tr>
-				
+
 				<tr>
-					<th style="width: 120px; text-align: right;">匹配词&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<th style="width: 120px; text-align: right;">搜索词&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="ckey" name="ckey" class="easyui-validatebox"
 						data-options="required:true" style="width: 300px;"></td>
 				</tr>
 				<tr>
-					<th style="width: 120px; text-align: right;">匹配词描述&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-					<td><input id="ckeyName" name="ckeyName"
-						class="easyui-validatebox" 
-						style="width: 300px;"></td>
+					<th style="width: 120px; text-align: right;">问题描述&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="ckeyName" name="ckeyName" data-options="required:true"
+						class="easyui-validatebox" style="width: 300px;"></td>
 				</tr>
 				<tr>
 					<th style="width: 120px; text-align: right;">回复方式&nbsp;&nbsp;:&nbsp;&nbsp;</th>
@@ -79,14 +78,23 @@
 					<th style="width: 120px; text-align: right;">图文&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="newsList" class="easyui-combobox"
 						data-options="editable:false,multiple:true,valueField:'id',textField:'text',url:'<%=request.getContextPath()%>/inner/newsItem/combox.do'"
-						name="newsList" style="width: 300px;"></td>
+						name="newsList" style="width: 300px;"><input type="hidden"
+						id="newsTxt" name="newsTxt"></td>
 				</tr>
 				<tr id="creplayTr">
 					<th style="width: 120px; text-align: right;">回复内容&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><textarea rows="5" cols="30"
 							style="width: 300px; height: 300px;" id="creplay" name="creplay"></textarea></td>
 				</tr>
-
+				<tr>
+					<th style="width: 120px; text-align: right;">类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><select id="itemType" class="easyui-combobox"
+						name="itemType" style="width: 200px;"
+						data-options="required:true">
+							<option value="0">通用知识</option>
+							<option value="1">内部知识</option>
+					</select></td>
+				</tr>
 
 				<tr id="accountidTr">
 					<th style="width: 120px; text-align: right;">公众号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
