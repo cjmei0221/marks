@@ -72,7 +72,7 @@ public class WxAutoReplayController extends SupportContorller {
 						wxAutoReplay.getAccountid());
 			}
 
-			if (ori != null && ori.size()>0) {
+			if (ori != null && ori.size() > 0) {
 				result.setMessage("此记录已经存在，不能重复！");
 				result.setCode(Code.CODE_FAIL);
 			} else {
@@ -103,14 +103,15 @@ public class WxAutoReplayController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				if (ori.getCkey().equals(wxAutoReplay.getCkey())) {
+				if (ori.getCkey().equals(wxAutoReplay.getCkey())
+						&& ori.getCkeyName().equals(wxAutoReplay.getCkeyName())) {
 					wxAutoReplayService.update(wxAutoReplay);
 					result.setMessage("更新成功!");
 					result.setCode(Code.CODE_SUCCESS);
 				} else {
 					List<WxAutoReplay> oriList = wxAutoReplayService.findByCkey(wxAutoReplay.getCkey(),
 							wxAutoReplay.getCkeyName(), wxAutoReplay.getAccountid());
-					if (oriList != null && oriList.size()>0) {
+					if (oriList != null && oriList.size() > 0) {
 						result.setMessage("此记录已经存在，不能重复!");
 						result.setCode("4002");
 					} else {
