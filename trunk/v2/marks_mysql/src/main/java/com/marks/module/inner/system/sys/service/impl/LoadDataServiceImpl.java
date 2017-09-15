@@ -10,7 +10,7 @@ import com.marks.module.inner.system.sys.dao.LoadDataDao;
 import com.marks.module.inner.system.sys.service.LoadDataService;
 import com.marks.module.inner.system.sysconf.pojo.SysConf;
 import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 
 @Service
 public class LoadDataServiceImpl implements LoadDataService{

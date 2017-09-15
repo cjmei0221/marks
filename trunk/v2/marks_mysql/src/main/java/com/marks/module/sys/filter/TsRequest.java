@@ -1,4 +1,4 @@
-package com.marks.module.sys.system.core.filter;
+package com.marks.module.sys.filter;
 
 import java.util.Enumeration;
 import java.util.Map;

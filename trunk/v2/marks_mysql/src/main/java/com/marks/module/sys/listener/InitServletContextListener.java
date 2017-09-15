@@ -1,15 +1,12 @@
-package com.marks.module.sys.system.core.listener;
+package com.marks.module.sys.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import com.marks.module.inner.note.diary.threadPool.DairyThreadPool;
 import com.marks.module.inner.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.inner.wx.modulemsg.thread.pool.WxModuleMsgThreadPool;
-import com.marks.module.sys.system.core.helper.LoadDataHelper;
+import com.marks.module.sys.helper.LoadDataHelper;
 import com.marks.module.web.wx.wfhao.threadPool.WxhreadPool;
 
 /**

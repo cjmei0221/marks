@@ -1,4 +1,4 @@
-package com.marks.module.sys.system.core.filter;
+package com.marks.module.sys.filter;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 

@@ -8,7 +8,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 import com.marks.module.web.pay.unionpay.dao.UnionPayDao;
 import com.marks.module.web.pay.unionpay.pojo.UnionPayLog;
 

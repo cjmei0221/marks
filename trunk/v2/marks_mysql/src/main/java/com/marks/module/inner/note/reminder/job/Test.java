@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.marks.common.util.date.Lunar;
 import com.marks.module.inner.note.reminder.dao.ReminderDao;
 import com.marks.module.inner.note.reminder.pojo.Reminder;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 
 public class Test {
 

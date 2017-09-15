@@ -8,7 +8,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.marks.module.inner.note.diary.threadPool.DairyThreadPool;
 import com.marks.module.inner.wx.wxuser.dao.WxUserDao;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 
 public class DairyHelper extends QuartzJobBean {

@@ -10,7 +10,7 @@ import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 import com.marks.module.wxapi.wxfwhao.common.wxservice.SendMsgUtils;
 
 /**

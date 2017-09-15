@@ -16,7 +16,7 @@ import com.marks.module.inner.wx.modulemsg.dao.ModuleMsgDao;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
 import com.marks.module.inner.wx.modulemsg.thread.pool.WxModuleMsgThreadPool;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 
 @Service
 public class ModuleMsgServiceImpl implements ModuleMsgService {

@@ -2,7 +2,7 @@ package com.marks.module.inner.org.orginfo.util;
 
 import com.marks.common.enums.Enums;
 import com.marks.module.inner.org.orginfo.pojo.OrgInfo;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 
 public class OrgUtil {
 

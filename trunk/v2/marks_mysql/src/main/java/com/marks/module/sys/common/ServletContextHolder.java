@@ -1,4 +1,4 @@
-package com.marks.module.sys.system.core.common;
+package com.marks.module.sys.common;
 import java.io.File;
 import java.io.InputStream;
 

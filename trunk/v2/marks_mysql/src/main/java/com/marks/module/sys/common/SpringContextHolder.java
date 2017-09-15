@@ -4,7 +4,7 @@
  * Copyright (c) 2011-2017 广电运通
  * All rights reserved.
  */
-package com.marks.module.sys.system.core.common;
+package com.marks.module.sys.common;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

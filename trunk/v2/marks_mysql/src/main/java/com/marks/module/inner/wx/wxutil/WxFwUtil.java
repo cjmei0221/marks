@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 import com.marks.module.wxapi.wxfwhao.common.entity.UserGet;
 import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 import com.marks.module.wxapi.wxfwhao.common.wxservice.AccountUtil;

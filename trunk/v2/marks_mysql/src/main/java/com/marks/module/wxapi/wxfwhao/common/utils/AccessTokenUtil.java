@@ -9,8 +9,8 @@ import org.json.JSONObject;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.http.HttpUtils;
 import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.common.SpringContextHolder;
+import com.marks.module.sys.data.StaticData;
 import com.marks.module.wxapi.wxfwhao.common.entity.AccessTokenVo;
 import com.marks.module.wxapi.wxfwhao.common.service.AccessTokenService;
 

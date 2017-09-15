@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import com.marks.module.inner.system.syslog.dao.SysLogDao;
 import com.marks.module.inner.system.syslog.pojo.SysLog;
 import com.marks.module.inner.system.syslogparam.pojo.SysLogParam;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 
 /**
  * 系统日志记录线程池

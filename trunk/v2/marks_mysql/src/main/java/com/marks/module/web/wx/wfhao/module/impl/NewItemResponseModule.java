@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.marks.module.inner.wx.newsitem.dao.NewsItemDao;
 import com.marks.module.inner.wx.newsitem.pojo.NewsItem;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 import com.marks.module.web.wx.util.WxConstants;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.ArticleResponse;

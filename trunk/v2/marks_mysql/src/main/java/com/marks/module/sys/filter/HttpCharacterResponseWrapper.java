@@ -1,8 +1,9 @@
-package com.marks.module.sys.system.core.filter;
+package com.marks.module.sys.filter;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 //定义具有缓存功能response

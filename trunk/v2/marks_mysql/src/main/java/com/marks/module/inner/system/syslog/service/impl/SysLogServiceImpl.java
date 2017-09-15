@@ -14,7 +14,7 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.system.syslog.dao.SysLogDao;
 import com.marks.module.inner.system.syslog.pojo.SysLog;
 import com.marks.module.inner.system.syslog.service.SysLogService;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 @Service
 public class SysLogServiceImpl implements SysLogService{
    

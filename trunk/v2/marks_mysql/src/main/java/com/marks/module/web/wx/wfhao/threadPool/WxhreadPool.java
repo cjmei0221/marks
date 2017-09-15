@@ -10,7 +10,7 @@ import com.marks.module.inner.wx.wxchatsession.service.WxChatSessionService;
 import com.marks.module.inner.wx.wxuser.dao.WxUserDao;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 
 public class WxhreadPool {

@@ -28,7 +28,7 @@ import com.marks.common.util.http.SSLNetProvider;
 import com.marks.common.util.number.NumberUtil;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 import com.marks.module.web.pay.wxpay.pay.WXPayUtil;
 import com.marks.module.web.pay.wxpay.pay.WxConfig;
 import com.marks.module.web.pay.wxpay.pay.WxPayPropUtil;

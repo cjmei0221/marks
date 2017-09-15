@@ -3,7 +3,7 @@ package com.marks.module.inner.user.vipinfo.pojo;
 import java.io.Serializable;
 
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 
 public class VipInfo extends SysUser implements Serializable {
 
