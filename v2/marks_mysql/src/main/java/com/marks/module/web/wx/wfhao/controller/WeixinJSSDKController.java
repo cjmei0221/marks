@@ -16,7 +16,7 @@ import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.system.myimage.pojo.MyImage;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 import com.marks.module.web.wx.mp.SHAUtil;
 import com.marks.module.web.wx.wfhao.util.WxUtil;
 

@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.marks.module.inner.wx.wxautoreplay.dao.WxAutoReplayDao;
 import com.marks.module.inner.wx.wxautoreplay.pojo.WxAutoReplay;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.web.wx.wfhao.module.ModuleController;

@@ -17,7 +17,7 @@ import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 import com.marks.module.inner.wx.modulemsg.pojo.Msg;
 import com.marks.module.inner.wx.wxtemplate.dao.WxTemplateDao;
 import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 import com.marks.module.wxapi.wxfwhao.common.wxservice.SendMsgUtils;
 
 /**

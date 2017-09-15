@@ -1,4 +1,4 @@
-package com.marks.module.sys.system.core.data;
+package com.marks.module.sys.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;

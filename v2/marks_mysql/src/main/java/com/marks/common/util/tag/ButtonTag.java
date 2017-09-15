@@ -14,7 +14,7 @@ import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.user.login.helper.SysUserHelper;
 import com.marks.module.inner.user.login.service.LoginService;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 
 public class ButtonTag extends TagSupport{
 	private static Logger logger = Logger.getLogger(ButtonTag.class);

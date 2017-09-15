@@ -10,7 +10,7 @@ import com.marks.module.inner.system.sys.pojo.SysMenu;
 import com.marks.module.inner.system.sys.pojo.SysOperate;
 import com.marks.module.inner.system.sys.service.SysMenuService;
 import com.marks.module.inner.user.sysrole.service.SysRoleService;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 
 public class AuthUtil {
 	private SysMenuService sysMenuService = (SysMenuService) SpringContextHolder.getBean(SysMenuService.class);

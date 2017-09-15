@@ -23,7 +23,7 @@ import com.marks.module.inner.note.question.service.QuestionService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.system.upload.util.UploadUtil;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 import com.marks.module.web.user.login.util.LoginUtil;
 
 @Controller

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.marks.module.inner.wx.wxaccount.pojo.WxAccount;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 import com.marks.module.web.wx.mp.DataDicUtil;
 import com.marks.module.web.wx.util.StreamUtils;
 import com.marks.module.web.wx.util.encrypt.CheckSign;

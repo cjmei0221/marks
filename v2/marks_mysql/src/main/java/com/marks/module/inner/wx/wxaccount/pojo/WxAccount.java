@@ -3,7 +3,7 @@ package com.marks.module.inner.wx.wxaccount.pojo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 
 public class WxAccount implements Serializable{
 

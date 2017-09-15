@@ -1,4 +1,4 @@
-package com.marks.module.sys.system.core.helper;
+package com.marks.module.sys.helper;
 
 import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
@@ -7,7 +7,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.marks.module.inner.system.syslog.service.SysLogService;
 import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 
 /**
  * 将基础数据加载到缓存中

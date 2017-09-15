@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
-import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.sys.common.SpringContextHolder;
 import com.marks.module.web.pay.unionpay.dao.UnionPayDao;
 import com.marks.module.web.pay.unionpay.pojo.UnionPayLog;
 

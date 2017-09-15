@@ -24,7 +24,7 @@ import com.marks.module.inner.note.gains.service.GainsService;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.user.login.helper.SysUserHelper;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.sys.data.StaticData;
 
 @Controller
 public class GainsController extends SupportContorller{

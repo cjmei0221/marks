@@ -1,4 +1,4 @@
-package com.marks.module.sys.system.core.interceptor;
+package com.marks.module.sys.interceptor;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.inner.user.login.helper.SysUserHelper;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
-import com.marks.module.sys.system.core.data.StaticData;
-import com.marks.module.sys.system.core.filter.RequestRegex;
+import com.marks.module.sys.data.StaticData;
+import com.marks.module.sys.filter.RequestRegex;
 
 public class PopedomInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log = Logger.getLogger(PopedomInterceptor.class);
