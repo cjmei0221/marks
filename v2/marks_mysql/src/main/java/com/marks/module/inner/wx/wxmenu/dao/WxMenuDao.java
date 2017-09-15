@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
+import com.marks.module.wxapi.wxfwhao.wxmenu.pojo.WxMenu;
 
 @MapperScan
 public interface WxMenuDao {

@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.user.login.helper.SysUserHelper;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.inner.wx.wxmenu.service.WxMenuService;
+import com.marks.module.wxapi.wxfwhao.wxmenu.pojo.WxMenu;
 
 import net.sf.json.JSONArray;
 

@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
 import com.marks.module.sys.system.core.common.SpringContextHolder;
 import com.marks.module.web.wx.wfhao.message.request.WechatRequest;
 import com.marks.module.web.wx.wfhao.message.response.WechatResponse;
 import com.marks.module.web.wx.wfhao.service.impl.normal.AbstractRequestService;
+import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 
 /**
  * 取消关注事件请求服务

@@ -8,22 +8,22 @@ import org.apache.log4j.Logger;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.module.center.wxfwhao.common.entity.UserGet;
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
-import com.marks.module.center.wxfwhao.common.wxservice.AccountUtil;
-import com.marks.module.center.wxfwhao.common.wxservice.DownloadTempUtil;
-import com.marks.module.center.wxfwhao.common.wxservice.GroupUtil;
-import com.marks.module.center.wxfwhao.common.wxservice.JssdkUtil;
-import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
-import com.marks.module.center.wxfwhao.common.wxservice.UserUtil;
-import com.marks.module.center.wxfwhao.tags.pojo.Tag;
-import com.marks.module.center.wxfwhao.tags.wxservice.TagsService;
-import com.marks.module.center.wxfwhao.tags.wxservice.UserTagsService;
-import com.marks.module.center.wxfwhao.wxmenu.pojo.SpecialCondition;
-import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
-import com.marks.module.center.wxfwhao.wxmenu.wxservice.SpecialWxMenuService;
-import com.marks.module.center.wxfwhao.wxmenu.wxservice.WxMenuUtil;
 import com.marks.module.sys.system.core.data.StaticData;
+import com.marks.module.wxapi.wxfwhao.common.entity.UserGet;
+import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
+import com.marks.module.wxapi.wxfwhao.common.wxservice.AccountUtil;
+import com.marks.module.wxapi.wxfwhao.common.wxservice.DownloadTempUtil;
+import com.marks.module.wxapi.wxfwhao.common.wxservice.GroupUtil;
+import com.marks.module.wxapi.wxfwhao.common.wxservice.JssdkUtil;
+import com.marks.module.wxapi.wxfwhao.common.wxservice.SendMsgUtils;
+import com.marks.module.wxapi.wxfwhao.common.wxservice.UserUtil;
+import com.marks.module.wxapi.wxfwhao.tags.pojo.Tag;
+import com.marks.module.wxapi.wxfwhao.tags.wxservice.TagsService;
+import com.marks.module.wxapi.wxfwhao.tags.wxservice.UserTagsService;
+import com.marks.module.wxapi.wxfwhao.wxmenu.pojo.SpecialCondition;
+import com.marks.module.wxapi.wxfwhao.wxmenu.pojo.WxMenu;
+import com.marks.module.wxapi.wxfwhao.wxmenu.wxservice.SpecialWxMenuService;
+import com.marks.module.wxapi.wxfwhao.wxmenu.wxservice.WxMenuUtil;
 
 /**
  * 调用微信接口服务工具类

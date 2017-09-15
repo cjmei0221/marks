@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.center.SysCode;
-import com.marks.module.center.wxfwhao.common.wxservice.SendMsgUtils;
 import com.marks.module.inner.wx.modulemsg.dao.ModuleMsgDao;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleContentMsg;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
@@ -19,6 +18,7 @@ import com.marks.module.inner.wx.modulemsg.pojo.Msg;
 import com.marks.module.inner.wx.wxtemplate.dao.WxTemplateDao;
 import com.marks.module.inner.wx.wxtemplate.pojo.WxTemplate;
 import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.wxapi.wxfwhao.common.wxservice.SendMsgUtils;
 
 /**
  * 微信模版消息推送工具类
