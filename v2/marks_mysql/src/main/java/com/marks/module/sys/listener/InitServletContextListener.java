@@ -3,10 +3,10 @@ package com.marks.module.sys.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.marks.module.inner.note.diary.threadPool.DairyThreadPool;
 import com.marks.module.inner.system.syslog.thread.SysLogThreadPool;
-import com.marks.module.inner.wx.modulemsg.thread.pool.WxModuleMsgThreadPool;
-import com.marks.module.sys.helper.LoadDataHelper;
+import com.marks.module.quartz.data.job.LoadDataHelper;
+import com.marks.module.quartz.note.thread.pool.NoteThreadPool;
+import com.marks.module.quartz.wx.thread.pool.WxModuleMsgThreadPool;
 import com.marks.module.web.wx.wfhao.threadPool.WxhreadPool;
 
 /**
@@ -21,7 +21,7 @@ public class InitServletContextListener implements ServletContextListener {
 
 	public void contextDestroyed(ServletContextEvent arg0) {
 		SysLogThreadPool.destroy();
-		DairyThreadPool.destroy();
+		NoteThreadPool.destroy();
 	}
 
 	public void contextInitialized(ServletContextEvent sce) {
@@ -34,7 +34,7 @@ public class InitServletContextListener implements ServletContextListener {
 		/*首次加载基础数据*/
 		new LoadDataHelper().doJob();
 		
-		DairyThreadPool.init();
+		NoteThreadPool.init();
 		/**
 		 * 更新粉丝信息
 		 */
