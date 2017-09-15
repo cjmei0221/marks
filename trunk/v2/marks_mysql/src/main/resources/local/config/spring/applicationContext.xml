@@ -31,7 +31,8 @@
 	<bean name="springContextHolder" scope="singleton" lazy-init="false"
 		class="com.marks.module.sys.common.SpringContextHolder">
 	</bean>
-
+	<bean class="com.grgbanking.system.core.common.ServletContextHolder" />
+	
 	<import resource="applicationContext-datasource.xml" />
 	<import resource="applicationContext-mybatis.xml" />
 	<import resource="applicationContext-aop-tx.xml" />
