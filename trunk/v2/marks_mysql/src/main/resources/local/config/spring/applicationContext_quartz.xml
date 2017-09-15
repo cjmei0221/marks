@@ -18,7 +18,7 @@
 	<bean id="wxbModuleMsgDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.inner.wx.modulemsg.job.WxbModuleMsgHelper</value>
+			<value>com.marks.module.quartz.wx.job.WxbModuleMsgHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -33,7 +33,7 @@
 	<bean id="clearDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.sys.helper.ClearHelper</value>
+			<value>com.marks.module.quartz.clear.job.ClearHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -48,7 +48,7 @@
 	<bean id="dairyDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.inner.note.diary.job.DairyHelper</value>
+			<value>com.marks.module.quartz.note.job.DairyHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -64,7 +64,7 @@
 	<bean id="reminderDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.inner.note.reminder.job.ReminderHelper</value>
+			<value>com.marks.module.quartz.note.job.ReminderHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -79,7 +79,7 @@
 	<bean id="loadDataDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.marks.module.sys.helper.LoadDataHelper</value>
+			<value>com.marks.module.quartz.data.job.LoadDataHelper</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -88,7 +88,7 @@
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="loadDataDetail" />
 		<!-- 每22分钟触发 -->
-		<property name="cronExpression" value="0 0 0/1 * * ?" />
+		<property name="cronExpression" value="0 0 0/2 * * ?" />
 	</bean>
 
 </beans>
