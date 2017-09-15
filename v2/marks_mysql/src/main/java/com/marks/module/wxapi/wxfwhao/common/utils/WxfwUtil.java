@@ -11,7 +11,7 @@ public class WxfwUtil {
 
 	private static Properties props = new Properties();
 	static{
-		InputStream in = WxfwUtil.class.getClassLoader().getResourceAsStream("props/center/wxFwConfig.properties");
+		InputStream in = WxfwUtil.class.getClassLoader().getResourceAsStream("props/wxapi/wxFwConfig.properties");
 		try {
 			props.load(in);
 		} catch (IOException e) {
