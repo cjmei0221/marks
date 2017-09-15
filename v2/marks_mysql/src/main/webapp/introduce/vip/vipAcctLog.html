@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>消费记录</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>消费记录</h1>
+	<p>消费记录</p>
+	
+	<h2>消费记录表  (TB_VIP_ACCOUNT_LOG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>主键</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>ITEMCONTENT</td><td>业务内容</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>ITEMCODE</td><td>业务代码</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>CONSUMEAMOUNT</td><td>消费金额</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>COMPANYID</td><td>公司Id</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>USERID</td><td>用户Id</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>I_UNIONID</td><td>联合用户Id</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>SOURCEID</td><td>渠道Id</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>SOURCENAME</td><td>渠道</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>OPERATEROLE</td><td>操作角色</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>OPERATORID</td><td>操作人编号</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>OPERATOR</td><td>操作人</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>CREATETIME</td><td>操作时间</td><td>TIMESTAMP</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (VipAcctLog)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>主键</td><td>String</td><td></td></tr><tr><td>2</td><td>itemContent</td><td>业务内容</td><td>String</td><td></td></tr><tr><td>3</td><td>itemCode</td><td>业务代码</td><td>String</td><td></td></tr><tr><td>4</td><td>consumeAmount</td><td>消费金额</td><td>String</td><td></td></tr><tr><td>5</td><td>companyId</td><td>公司Id</td><td>String</td><td></td></tr><tr><td>6</td><td>userid</td><td>用户Id</td><td>String</td><td></td></tr><tr><td>7</td><td>i_unionid</td><td>联合用户Id</td><td>String</td><td></td></tr><tr><td>8</td><td>sourceId</td><td>渠道Id</td><td>String</td><td></td></tr><tr><td>9</td><td>sourceName</td><td>渠道</td><td>String</td><td></td></tr><tr><td>10</td><td>operateRole</td><td>操作角色</td><td>String</td><td></td></tr><tr><td>11</td><td>operatorId</td><td>操作人编号</td><td>String</td><td></td></tr><tr><td>12</td><td>operator</td><td>操作人</td><td>String</td><td></td></tr><tr><td>13</td><td>createtime</td><td>操作时间</td><td>Date</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (VipAcctLogController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/vipAcctLog/findVipAcctLogById</td><td>findVipAcctLogById</td><td>查询消费记录</td></tr><tr><td>2</td><td>/vipAcctLog/save</td><td>saveVipAcctLog</td><td>保存消费记录</td></tr><tr><td>3</td><td>/vipAcctLog/update</td><td>updateVipAcctLog</td><td>更新消费记录</td></tr><tr><td>4</td><td>/vipAcctLog/delete</td><td>deleteVipAcctLogById</td><td>删除消费记录</td></tr><tr><td>5</td><td>/vipAcctLog/findAllVipAcctLog</td><td>findAllVipAcctLog</td><td>查询全部消费记录</td></tr><tr><td>6</td><td>/vipAcctLog/deleteIds</td><td>deleteVipAcctLog</td><td>删除多个消费记录</td></tr><tr><td>7</td><td>/vipAcctLog/list</td><td>list</td><td>列表查询消费记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (VipAcctLogService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询消费记录</td></tr><tr><td>2</td><td>save</td><td>保存消费记录</td></tr><tr><td>3</td><td>update</td><td>更新消费记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除消费记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部消费记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个消费记录</td></tr><tr><td>7</td><td>list</td><td>列表查询消费记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(VipAcctLogDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询消费记录</td></tr><tr><td>2</td><td>save</td><td>保存消费记录</td></tr><tr><td>3</td><td>update</td><td>更新消费记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除消费记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部消费记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个消费记录</td></tr><tr><td>7</td><td>list</td><td>列表查询消费记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

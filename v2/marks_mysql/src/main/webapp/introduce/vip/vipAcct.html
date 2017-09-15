@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>充值账户</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>充值账户</h1>
+	<p>会员充值账户</p>
+	
+	<h2>充值账户表  (TB_VIP_ACCOUNT)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ACCTNO</td><td>会员账户编号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>ACCTYPE</td><td>账户类型</td><td>varchar2</td><td>0:储值账户</td></tr><tr><td>3</td><td>USERID</td><td>用户Id</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>I_UNIONID</td><td>联合用户ID</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>BALAMOUNT</td><td>可用余额</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>CASHAMOUNT</td><td>实充金额</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>SENDAMOUNT</td><td>赠送金额</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>TOTALAMOUNT</td><td>总额</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>LOCKAMOUNT</td><td>冻结金额</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>GRAND_TOTAL_CASH_AMOUNT</td><td>积累实充金额</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>GRAND_TOTAL_CONSUME_AMOUNT</td><td>累计消费金额</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>CREATETIME</td><td>创建时间</td><td>TIMESTAMP</td><td></td></tr><tr><td>13</td><td>CREATOR</td><td>创建者</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>UPDATER</td><td>更新者</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (VipAcct)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>acctNo</td><td>会员账户编号</td><td>String</td><td></td></tr><tr><td>2</td><td>accType</td><td>账户类型</td><td>String</td><td>0:储值账户</td></tr><tr><td>3</td><td>userid</td><td>用户Id</td><td>String</td><td></td></tr><tr><td>4</td><td>i_unionid</td><td>联合用户ID</td><td>String</td><td></td></tr><tr><td>5</td><td>balAmount</td><td>可用余额</td><td>String</td><td></td></tr><tr><td>6</td><td>cashAmount</td><td>实充金额</td><td>String</td><td></td></tr><tr><td>7</td><td>sendAmount</td><td>赠送金额</td><td>String</td><td></td></tr><tr><td>8</td><td>totalAmount</td><td>总额</td><td>String</td><td></td></tr><tr><td>9</td><td>lockAmount</td><td>冻结金额</td><td>String</td><td></td></tr><tr><td>10</td><td>grand_total_cash_amount</td><td>积累实充金额</td><td>String</td><td></td></tr><tr><td>11</td><td>grand_total_consume_amount</td><td>累计消费金额</td><td>String</td><td></td></tr><tr><td>12</td><td>createtime</td><td>创建时间</td><td>Date</td><td></td></tr><tr><td>13</td><td>creator</td><td>创建者</td><td>String</td><td></td></tr><tr><td>14</td><td>updater</td><td>更新者</td><td>String</td><td></td></tr><tr><td>15</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (VipAcctController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/vipAcct/findVipAcctById</td><td>findVipAcctById</td><td>查询充值账户</td></tr><tr><td>2</td><td>/vipAcct/save</td><td>saveVipAcct</td><td>保存充值账户</td></tr><tr><td>3</td><td>/vipAcct/update</td><td>updateVipAcct</td><td>更新充值账户</td></tr><tr><td>4</td><td>/vipAcct/delete</td><td>deleteVipAcctById</td><td>删除充值账户</td></tr><tr><td>5</td><td>/vipAcct/findAllVipAcct</td><td>findAllVipAcct</td><td>查询全部充值账户</td></tr><tr><td>6</td><td>/vipAcct/deleteIds</td><td>deleteVipAcct</td><td>删除多个充值账户</td></tr><tr><td>7</td><td>/vipAcct/list</td><td>list</td><td>列表查询充值账户</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (VipAcctService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询充值账户</td></tr><tr><td>2</td><td>save</td><td>保存充值账户</td></tr><tr><td>3</td><td>update</td><td>更新充值账户</td></tr><tr><td>4</td><td>deleteById</td><td>删除充值账户</td></tr><tr><td>5</td><td>findAll</td><td>查询全部充值账户</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个充值账户</td></tr><tr><td>7</td><td>list</td><td>列表查询充值账户</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(VipAcctDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询充值账户</td></tr><tr><td>2</td><td>save</td><td>保存充值账户</td></tr><tr><td>3</td><td>update</td><td>更新充值账户</td></tr><tr><td>4</td><td>deleteById</td><td>删除充值账户</td></tr><tr><td>5</td><td>findAll</td><td>查询全部充值账户</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个充值账户</td></tr><tr><td>7</td><td>list</td><td>列表查询充值账户</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

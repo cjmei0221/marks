@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>会员信息</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>会员信息</h1>
+	<p>测试</p>
+	
+	<h2>会员信息表  (TB_VIP_INFO_1)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>USERID</td><td>会员编号</td><td>varchar2</td><td>格式 A 8位数字</td></tr><tr><td>2</td><td>DOMDAY</td><td>结婚纪念日</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>SOURCE</td><td>渠道</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>SOURCENAME</td><td>渠道名称</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>ADDRESS</td><td>地址</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>RECOMMENDER</td><td>推荐人</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>RECOMMENDERID</td><td>推荐人编号</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>CREATETIME</td><td>创建时间</td><td>TIMESTAMP</td><td></td></tr><tr><td>9</td><td>UPDATETIME</td><td>更新时间</td><td>TIMESTAMP</td><td></td></tr><tr><td>10</td><td>LVLID</td><td>等级编号</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>I_UNIONID</td><td>联合用户ID</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>MOBILE</td><td>手机号</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>ORGID</td><td>机构ID</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>ORGNAME</td><td>机构名称</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>COMPANYID</td><td>公司ID</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>COMPANYNAME</td><td>公司名称</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>TRUTHNAME</td><td>真实姓名</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>NICKNAME</td><td>昵称</td><td>varchar2</td><td></td></tr><tr><td>19</td><td>BIRTHDAY</td><td>生日</td><td>varchar2</td><td></td></tr><tr><td>20</td><td>GENDER</td><td>性别</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (VipInfo)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>userid</td><td>会员编号</td><td>String</td><td>格式 A 8位数字</td></tr><tr><td>2</td><td>domday</td><td>结婚纪念日</td><td>String</td><td></td></tr><tr><td>3</td><td>source</td><td>渠道</td><td>String</td><td></td></tr><tr><td>4</td><td>sourceName</td><td>渠道名称</td><td>String</td><td></td></tr><tr><td>5</td><td>address</td><td>地址</td><td>String</td><td></td></tr><tr><td>6</td><td>recommender</td><td>推荐人</td><td>String</td><td></td></tr><tr><td>7</td><td>recommenderId</td><td>推荐人编号</td><td>String</td><td></td></tr><tr><td>8</td><td>createtime</td><td>创建时间</td><td>Date</td><td></td></tr><tr><td>9</td><td>updatetime</td><td>更新时间</td><td>Date</td><td></td></tr><tr><td>10</td><td>lvlId</td><td>等级编号</td><td>String</td><td></td></tr><tr><td>11</td><td>i_unionid</td><td>联合用户ID</td><td>String</td><td></td></tr><tr><td>12</td><td>mobile</td><td>手机号</td><td>String</td><td></td></tr><tr><td>13</td><td>orgid</td><td>机构ID</td><td>String</td><td></td></tr><tr><td>14</td><td>orgName</td><td>机构名称</td><td>String</td><td></td></tr><tr><td>15</td><td>companyId</td><td>公司ID</td><td>String</td><td></td></tr><tr><td>16</td><td>companyName</td><td>公司名称</td><td>String</td><td></td></tr><tr><td>17</td><td>truthName</td><td>真实姓名</td><td>String</td><td></td></tr><tr><td>18</td><td>nickName</td><td>昵称</td><td>String</td><td></td></tr><tr><td>19</td><td>birthday</td><td>生日</td><td>String</td><td></td></tr><tr><td>20</td><td>gender</td><td>性别</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (VipInfoController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/vipInfo/findVipInfoById</td><td>findVipInfoById</td><td>查询会员信息</td></tr><tr><td>2</td><td>/vipInfo/save</td><td>saveVipInfo</td><td>保存会员信息</td></tr><tr><td>3</td><td>/vipInfo/update</td><td>updateVipInfo</td><td>更新会员信息</td></tr><tr><td>4</td><td>/vipInfo/delete</td><td>deleteVipInfoById</td><td>删除会员信息</td></tr><tr><td>5</td><td>/vipInfo/findAllVipInfo</td><td>findAllVipInfo</td><td>查询全部会员信息</td></tr><tr><td>6</td><td>/vipInfo/deleteIds</td><td>deleteVipInfo</td><td>删除多个会员信息</td></tr><tr><td>7</td><td>/vipInfo/list</td><td>list</td><td>列表查询会员信息</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (VipInfoService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询会员信息</td></tr><tr><td>2</td><td>save</td><td>保存会员信息</td></tr><tr><td>3</td><td>update</td><td>更新会员信息</td></tr><tr><td>4</td><td>deleteById</td><td>删除会员信息</td></tr><tr><td>5</td><td>findAll</td><td>查询全部会员信息</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个会员信息</td></tr><tr><td>7</td><td>list</td><td>列表查询会员信息</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(VipInfoDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询会员信息</td></tr><tr><td>2</td><td>save</td><td>保存会员信息</td></tr><tr><td>3</td><td>update</td><td>更新会员信息</td></tr><tr><td>4</td><td>deleteById</td><td>删除会员信息</td></tr><tr><td>5</td><td>findAll</td><td>查询全部会员信息</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个会员信息</td></tr><tr><td>7</td><td>list</td><td>列表查询会员信息</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

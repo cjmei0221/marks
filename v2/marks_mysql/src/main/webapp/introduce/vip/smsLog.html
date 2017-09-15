@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>短信记录</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>短信记录</h1>
+	<p>短信记录</p>
+	
+	<h2>短信记录表  (TB_SMS_LOG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>单号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>COMPANYID</td><td>公司ID</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>SUPPLIERID</td><td>供应商ID</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>ISMPSMS</td><td>是否为平台短信</td><td>number</td><td></td></tr><tr><td>5</td><td>INSCRIBE</td><td>短信落款</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>MOBILE</td><td>手机号</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>USERID</td><td>用户编号</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>USERNAME</td><td>用户姓名</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>ITEMTHEME</td><td>主题</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>YWTYPE</td><td>业务类型</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>BATCHID</td><td>批次号</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>ITEMCONTENT</td><td>消息内容</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>SMSNUM</td><td>短信条数</td><td>number</td><td></td></tr><tr><td>14</td><td>CREATETIME</td><td>创建时间</td><td>TIMESTAMP</td><td></td></tr><tr><td>15</td><td>CREATOR</td><td>创建者</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>CREATORID</td><td>创建编号</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>ORGID</td><td>机构编码</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>ORGNAME</td><td>机构名称</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (SmsLog)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>单号</td><td>String</td><td></td></tr><tr><td>2</td><td>companyId</td><td>公司ID</td><td>String</td><td></td></tr><tr><td>3</td><td>supplierId</td><td>供应商ID</td><td>String</td><td></td></tr><tr><td>4</td><td>isMpSMS</td><td>是否为平台短信</td><td>int</td><td></td></tr><tr><td>5</td><td>inscribe</td><td>短信落款</td><td>String</td><td></td></tr><tr><td>6</td><td>mobile</td><td>手机号</td><td>String</td><td></td></tr><tr><td>7</td><td>userid</td><td>用户编号</td><td>String</td><td></td></tr><tr><td>8</td><td>username</td><td>用户姓名</td><td>String</td><td></td></tr><tr><td>9</td><td>itemTheme</td><td>主题</td><td>String</td><td></td></tr><tr><td>10</td><td>ywType</td><td>业务类型</td><td>String</td><td></td></tr><tr><td>11</td><td>batchId</td><td>批次号</td><td>String</td><td></td></tr><tr><td>12</td><td>itemContent</td><td>消息内容</td><td>String</td><td></td></tr><tr><td>13</td><td>smsNum</td><td>短信条数</td><td>int</td><td></td></tr><tr><td>14</td><td>createtime</td><td>创建时间</td><td>Date</td><td></td></tr><tr><td>15</td><td>creator</td><td>创建者</td><td>String</td><td></td></tr><tr><td>16</td><td>creatorId</td><td>创建编号</td><td>String</td><td></td></tr><tr><td>17</td><td>orgid</td><td>机构编码</td><td>String</td><td></td></tr><tr><td>18</td><td>orgName</td><td>机构名称</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (SmsLogController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/smsLog/findSmsLogById</td><td>findSmsLogById</td><td>查询短信记录</td></tr><tr><td>2</td><td>/smsLog/save</td><td>saveSmsLog</td><td>保存短信记录</td></tr><tr><td>3</td><td>/smsLog/update</td><td>updateSmsLog</td><td>更新短信记录</td></tr><tr><td>4</td><td>/smsLog/delete</td><td>deleteSmsLogById</td><td>删除短信记录</td></tr><tr><td>5</td><td>/smsLog/findAllSmsLog</td><td>findAllSmsLog</td><td>查询全部短信记录</td></tr><tr><td>6</td><td>/smsLog/deleteIds</td><td>deleteSmsLog</td><td>删除多个短信记录</td></tr><tr><td>7</td><td>/smsLog/list</td><td>list</td><td>列表查询短信记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (SmsLogService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询短信记录</td></tr><tr><td>2</td><td>save</td><td>保存短信记录</td></tr><tr><td>3</td><td>update</td><td>更新短信记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除短信记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部短信记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个短信记录</td></tr><tr><td>7</td><td>list</td><td>列表查询短信记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(SmsLogDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询短信记录</td></tr><tr><td>2</td><td>save</td><td>保存短信记录</td></tr><tr><td>3</td><td>update</td><td>更新短信记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除短信记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部短信记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个短信记录</td></tr><tr><td>7</td><td>list</td><td>列表查询短信记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
