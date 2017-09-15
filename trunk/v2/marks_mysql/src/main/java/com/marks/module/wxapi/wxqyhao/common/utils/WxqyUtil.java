@@ -11,7 +11,7 @@ public class WxqyUtil {
 
 	private static Properties props = new Properties();
 	static{
-		InputStream in = WxqyUtil.class.getClassLoader().getResourceAsStream("props/center/wxQyConfig.properties");
+		InputStream in = WxqyUtil.class.getClassLoader().getResourceAsStream("props/wxapi/wxQyConfig.properties");
 		try {
 			props.load(in);
 		} catch (IOException e) {
