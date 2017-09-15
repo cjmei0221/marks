@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
+import com.marks.module.wxapi.wxfwhao.wxmenu.pojo.WxMenu;
 
 
 public interface WxMenuService{

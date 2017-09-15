@@ -13,11 +13,11 @@ import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.module.center.wxfwhao.wxmenu.pojo.SpecialCondition;
-import com.marks.module.center.wxfwhao.wxmenu.pojo.WxMenu;
 import com.marks.module.inner.wx.wxmenu.dao.WxMenuDao;
 import com.marks.module.inner.wx.wxmenu.service.WxMenuService;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
+import com.marks.module.wxapi.wxfwhao.wxmenu.pojo.SpecialCondition;
+import com.marks.module.wxapi.wxfwhao.wxmenu.pojo.WxMenu;
 
 @Service
 @Transactional

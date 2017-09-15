@@ -20,13 +20,13 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.util.IDUtil;
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.note.diary.dao.DiaryDao;
 import com.marks.module.inner.note.diary.pojo.Diary;
 import com.marks.module.inner.note.diary.service.DiaryService;
 import com.marks.module.inner.note.util.NoteConstants;
 import com.marks.module.inner.system.upload.util.FTPUtil;
 import com.marks.module.inner.wx.modulemsg.util.WxMsgUtil;
+import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 
 @Service
 public class DiaryServiceImpl implements DiaryService {

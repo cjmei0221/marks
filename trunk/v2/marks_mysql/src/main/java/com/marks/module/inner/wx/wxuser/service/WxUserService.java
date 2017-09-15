@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
+import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 
 public interface WxUserService{
 

@@ -5,13 +5,13 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.wx.wxchatsession.pojo.WxChatSession;
 import com.marks.module.inner.wx.wxchatsession.service.WxChatSessionService;
 import com.marks.module.inner.wx.wxuser.dao.WxUserDao;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
 import com.marks.module.sys.system.core.common.SpringContextHolder;
+import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 
 public class WxhreadPool {
 	private static ExecutorService pool;

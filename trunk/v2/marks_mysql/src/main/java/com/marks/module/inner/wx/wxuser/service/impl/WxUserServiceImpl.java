@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.wx.wxuser.dao.WxUserDao;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
+import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 @Service
 public class WxUserServiceImpl implements WxUserService{
    

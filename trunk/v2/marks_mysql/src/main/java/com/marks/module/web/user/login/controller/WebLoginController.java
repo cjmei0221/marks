@@ -14,7 +14,6 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.common.util.validate.VcodeUtil;
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.user.login.service.LoginService;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.inner.user.sysuser.service.SysUserService;

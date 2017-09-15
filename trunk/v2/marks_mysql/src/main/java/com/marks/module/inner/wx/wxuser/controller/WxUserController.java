@@ -19,13 +19,13 @@ import com.marks.common.domain.Result;
 import com.marks.common.enums.Enums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.center.wxfwhao.common.entity.UserGet;
-import com.marks.module.center.wxfwhao.common.entity.WxUser;
 import com.marks.module.inner.system.sys.controller.SupportContorller;
 import com.marks.module.inner.user.login.helper.SysUserHelper;
 import com.marks.module.inner.user.sysuser.pojo.SysUser;
 import com.marks.module.inner.wx.wxuser.service.WxUserService;
 import com.marks.module.inner.wx.wxutil.WxFwUtil;
+import com.marks.module.wxapi.wxfwhao.common.entity.UserGet;
+import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
 
 @Controller
 public class WxUserController extends SupportContorller{
