@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.marks.module.wxapi.wxfwhao.common.dao.AccessTokenDao">
+	
+	<select id="getAccessTokenVoByAccountid" resultType="com.marks.module.wxapi.wxfwhao.common.entity.AccessTokenVo">
+		select * from TB_WX_ACCESS_TOKEN t where t.accountid=#{accountid}
+	</select>
+	<update id="updateAccessTokenVo" parameterType="com.marks.module.wxapi.wxfwhao.common.entity.AccessTokenVo"
+		flushCache="true">
+		UPDATE TB_WX_ACCESS_TOKEN
+		SET ACCESSTOKEN =
+		#{vo.accesstoken:VARCHAR},
+		PUTTIME = #{vo.puttime:VARCHAR},
+		EXPIRES_IN =
+		#{vo.expires_in:VARCHAR},
+		UPDATETIME=now()
+		WHERE
+		ACCOUNTID
+		=#{vo.accountid:VARCHAR}
+	</update>
+
+	<insert id="saveAccessTokenVo" parameterType="com.marks.module.wxapi.wxfwhao.common.entity.AccessTokenVo">
+		insert into
+		TB_WX_ACCESS_TOKEN
+		(ACCOUNTID, ACCESSTOKEN, PUTTIME, EXPIRES_IN,UPDATETIME)
+		values
+		(#{vo.accountid:VARCHAR}, #{vo.accesstoken:VARCHAR},
+		#{vo.puttime:VARCHAR}, #{vo.expires_in:VARCHAR},now())
+	</insert>
+</mapper>
