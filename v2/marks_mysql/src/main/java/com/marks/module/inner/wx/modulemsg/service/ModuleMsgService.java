@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
 
