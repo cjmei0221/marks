@@ -29,10 +29,8 @@
 	</bean>
 	<!-- 以静态变量保存Spring ApplicationContext,可在任意代码中取出ApplicaitonContext. -->
 	<bean name="springContextHolder" scope="singleton" lazy-init="false"
-		class="com.marks.module.sys.system.core.common.SpringContextHolder">
+		class="com.marks.module.sys.common.SpringContextHolder">
 	</bean>
-
-	<bean class="com.marks.module.sys.system.core.common.ServletContextHolder" />
 
 	<import resource="applicationContext-datasource.xml" />
 	<import resource="applicationContext-mybatis.xml" />
