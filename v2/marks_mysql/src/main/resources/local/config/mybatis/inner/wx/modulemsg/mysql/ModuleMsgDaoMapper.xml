@@ -130,7 +130,7 @@
 	</delete>
 	
 	<select id="getNeedPustMsg" resultType="com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg">
- 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=1 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; #{pushlimitnum} and (#{nowtime}-t.create_stamp) &lt;= #{timelimit} and ROWNUM &lt;= #{limitnum}
+ 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=1 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; #{pushlimitnum} and (#{nowtime}-t.create_stamp) &lt;= #{timelimit} limit #{limitnum}
  	</select>
 	<update id="updateResultForModuleMsg">
 		update tb_wx_module_msg
