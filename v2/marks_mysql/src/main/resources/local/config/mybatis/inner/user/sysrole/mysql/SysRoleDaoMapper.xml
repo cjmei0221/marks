@@ -35,9 +35,10 @@
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.inner.user.sysrole.pojo.SysRole">
-		UPDATE TB_SYS_ROLE 
+		UPDATE TB_SYS_ROLE
 		SET
-		USERTYPE = #{userType:VARCHAR},
+		USERTYPE
+		= #{userType:VARCHAR},
 		LVL=#{lvl:NUMERIC},
 		COMPANYID=#{companyId:VARCHAR},
 		showflag=#{showFlag:NUMERIC},
@@ -51,7 +52,8 @@
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM TB_SYS_ROLE
-		 WHERE ROLEID=#{roleid}
+		WHERE
+		ROLEID=#{roleid}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.inner.user.sysrole.pojo.SysRole">
@@ -65,11 +67,12 @@
 			#{ids}
 		</foreach>
 	</delete>
-	
+
 	<select id="getUserlist" resultType="com.marks.module.inner.user.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
 		SELECT sysrole.*,o.orgname companyName
-		FROM TB_SYS_ROLE sysrole left join
+		FROM TB_SYS_ROLE sysrole left
+		join
 		tb_org_info o on sysrole.companyId=o.orgid
 		WHERE 1=1
 		<if test="companyId !=null and companyId != ''">
@@ -83,7 +86,8 @@
 	<select id="list" resultType="com.marks.module.inner.user.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
 		SELECT sysrole.*,o.orgname companyName
-		FROM TB_SYS_ROLE sysrole left join
+		FROM TB_SYS_ROLE sysrole left
+		join
 		tb_org_info o on sysrole.companyId=o.orgid
 		WHERE 1=1
 		<if test="companyId !=null and companyId != ''">
@@ -119,9 +123,10 @@
 
 	</select>
 
-	<insert id="saveRoleFunc" parameterType="com.marks.module.inner.user.sysrole.pojo.SysRoleFunc">
+	<insert id="saveRoleFunc"
+		parameterType="com.marks.module.inner.user.sysrole.pojo.SysRoleFunc">
 		INSERT INTO
-		TB_SYS_ROLE_FUNC  (
+		TB_SYS_ROLE_FUNC (
 		ROLEID,
 		FUNCID,
 		UPDATETIME,
@@ -136,8 +141,32 @@
 		now()
 		)
 	</insert>
+
+	<insert id="saveBatchRoleFunc" parameterType="java.util.List">
+
+		INSERT INTO
+		TB_SYS_ROLE_FUNC (
+		ROLEID,
+		FUNCID,
+		UPDATETIME,
+		CREATOR,
+		CREATETIME
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.roleid:VARCHAR},
+			#{item.funcid:VARCHAR},
+			now(),
+			#{item.creator:VARCHAR},
+			now()
+			)
+		</foreach>
+	</insert>
+
 	<delete id="deleteFuncByRoleid">
-		delete from tb_sys_role_func  where
+		delete from tb_sys_role_func where
 		roleid=#{roleid}
 	</delete>
 	<select id="getFuncList" resultType="com.marks.module.inner.system.sys.pojo.SysFunc">
