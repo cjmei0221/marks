@@ -25,13 +25,14 @@ var appInfo = {
 	
 	//编辑
 	function edit(){
-		if(isSelectedOne(appInfo.selectedId)){
-			$("#editWin").window({
+		if (!isSelectedOne(appInfo.selectedId)) {
+			return;
+		}
+		$("#editWin").window({
 				title : "编辑"
 			}).window("open");
 			appInfo.formStatus="edit";
 			$('#ff').form('load',appInfo.selectedData);
-		}
 	}
 		//删除
 	function del(){
