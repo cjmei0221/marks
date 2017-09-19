@@ -34,10 +34,11 @@ public interface SysRoleDao {
 
 	List<SysFunc> getFuncList(@Param("loginUserRoleId") String loginUserRoleId, @Param("roleId") String roleId);
 
-	SysRole findByUserTypeAndCompanyId(@Param("roleid") String roleid, 
-			@Param("companyId") String companyId);
+	SysRole findByUserTypeAndCompanyId(@Param("roleid") String roleid, @Param("companyId") String companyId);
 
-	int countUserByRoleid( @Param("roleId") String roleid);
+	int countUserByRoleid(@Param("roleId") String roleid);
 
 	List<SysRole> getUserlist(Map<String, Object> param);
+
+	void saveBatchRoleFunc(@Param("list") List<SysRoleFunc> list);
 }

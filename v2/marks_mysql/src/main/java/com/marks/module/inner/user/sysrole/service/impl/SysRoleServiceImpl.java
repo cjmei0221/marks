@@ -111,15 +111,17 @@ public class SysRoleServiceImpl implements SysRoleService {
 	public void addSysFuncByRoleId(String role_id, List<String> funcIds) {
 		SysRoleFunc srf = null;
 		if (null != funcIds && funcIds.size() > 0) {
+			List<SysRoleFunc> list = new ArrayList<SysRoleFunc>();
 			for (String funcid : funcIds) {
 				srf = new SysRoleFunc();
 				srf.setCreatetime(new Date());
 				srf.setFuncid(funcid);
 				srf.setRoleid(role_id);
 				srf.setUpdatetime(new Date());
-				sysRoleDao.saveRoleFunc(srf);
+				list.add(srf);
+				// sysRoleDao.saveRoleFunc(srf);
 			}
-
+			sysRoleDao.saveBatchRoleFunc(list);
 		}
 
 	}
