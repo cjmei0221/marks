@@ -49,18 +49,18 @@
 			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
 			<mvc:mapping path="/inner/*/*" />
 			<bean
-				class="com.marks.module.sys.interceptor.PopedomInterceptor"></bean>
+				class="com.marks.module.core.interceptor.PopedomInterceptor"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
 			<mvc:mapping path="/web/*/*" />
 			<mvc:mapping path="/web/*/*/*" />
-			<bean class="com.marks.module.web.user.interceptor.WxUserInterceptor"></bean>
+			<bean class="com.marks.module.core.interceptor.WxUserInterceptor"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
 			<mvc:mapping path="/web/*/*" />
-			<bean class="com.marks.module.web.user.interceptor.LoginInterceptor"></bean>
+			<bean class="com.marks.module.core.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>
