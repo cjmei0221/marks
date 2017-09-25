@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.note.question.dao.QuestionDao">
+
+	<select id="findById" resultType="com.marks.module.note.question.pojo.Question">
+		SELECT * FROM TB_NOTE_QUESTION
+		question where question.ID = #{id}
+	</select>
+	<select id="findByQuestion" resultType="com.marks.module.note.question.pojo.Question">
+		SELECT * FROM
+		TB_NOTE_QUESTION question where question.question = #{question}
+	</select>
+
+
+	<insert id="save" parameterType="com.marks.module.note.question.pojo.Question">
+		INSERT INTO TB_NOTE_QUESTION (
+		ID,
+		LVL,
+		LVLNAME,
+		QUESTION,
+		SOLUTION,
+		LABELS,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		UPDATER,
+		MOBILE
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{lvl:VARCHAR},
+		#{lvlName:VARCHAR},
+		#{question:VARCHAR},
+		#{solution:VARCHAR},
+		#{labels:VARCHAR},
+		now(),
+		now(),
+		#{creator:VARCHAR},
+		#{updater:VARCHAR},
+		#{mobile:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.note.question.pojo.Question">
+		UPDATE TB_NOTE_QUESTION
+		SET
+		LVL
+		= #{lvl:VARCHAR},
+		LVLNAME =
+		#{lvlName:VARCHAR},
+		QUESTION =
+		#{question:VARCHAR},
+		SOLUTION = #{solution:VARCHAR},
+		LABELS =
+		#{labels:VARCHAR},
+		UPDATETIME = now(),
+		UPDATER =
+		#{updater:VARCHAR}
+		WHERE
+		ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_NOTE_QUESTION
+		WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.note.question.pojo.Question">
+		SELECT * FROM TB_NOTE_QUESTION
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_NOTE_QUESTION WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.note.question.pojo.Question"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_NOTE_QUESTION question
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( question.LVLNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or question.QUESTION LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or question.SOLUTION LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or question.LABELS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			to_char(question.CREATETIME,'yyyyMMdd') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+		<if test="userid!=null and userid!=''">
+			and question.CREATOR =#{userid:VARCHAR}
+		</if>
+		order by question.UPDATETIME desc
+	</select>
+
+
+
+</mapper>

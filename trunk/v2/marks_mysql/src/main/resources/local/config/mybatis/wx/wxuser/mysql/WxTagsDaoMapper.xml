@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.wx.manage.wxuser.dao.WxTagsDao">
+
+	<select id="findById" resultType="com.marks.module.wx.manage.wxuser.pojo.WxTags">
+		SELECT * FROM TB_WX_TAGS wxtags
+		where wxtags.ID = #{id}
+	</select>
+	<select id="findByAccountIdAndName" resultType="com.marks.module.wx.manage.wxuser.pojo.WxTags">
+		SELECT * FROM
+		TB_WX_TAGS where
+		ACCOUNTID = #{accountid} and NAME=#{name}
+	</select>
+	<select id="findWxTagsByAccountid" resultType="com.marks.module.wx.manage.wxuser.pojo.WxTags">
+		SELECT * FROM
+		TB_WX_TAGS where
+		ACCOUNTID = #{accountid}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.wx.manage.wxuser.pojo.WxTags">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
+			replace(uuid(),'-','')
+		</selectKey>
+
+		INSERT INTO TB_WX_TAGS  (
+		ID,
+		NAME,
+		FANS_COUNT,
+		CREATETIME,
+		UPDATETIME,
+		UPDATER,
+		ACCOUNTID,
+		TAGID
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{name:VARCHAR},
+		#{fans_count:NUMERIC},
+		now(),
+		now(),
+		#{updater:VARCHAR},
+		#{accountid:VARCHAR},
+		#{tagid:NUMERIC}
+
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.wx.manage.wxuser.pojo.WxTags">
+		UPDATE TB_WX_TAGS
+		SET
+		NAME =
+		#{name:VARCHAR},
+		FANS_COUNT = #{fans_count:NUMERIC},
+		UPDATETIME = now(),
+		UPDATER = #{updater:VARCHAR}
+		WHERE
+		ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_TAGS WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.wx.manage.wxuser.pojo.WxTags">
+		SELECT * FROM TB_WX_TAGS
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_TAGS WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.wx.manage.wxuser.pojo.WxTags"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_TAGS wxtags
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or wxtags.NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtags.ACCOUNTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtags.TAGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by wxtags.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

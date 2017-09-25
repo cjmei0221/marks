@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.wx.manage.wxchat.dao.WxChatSessionDao">
+
+	<select id="findByAccountidAndOpenid" resultType="com.marks.module.wx.manage.wxchat.pojo.WxChatSession">
+		SELECT *
+		FROM TB_WX_CHAT_SESSION wxchatsession
+		where wxchatsession.FLAG=#{flag} and wxchatsession.accountid = #{accountid}
+		and wxchatsession.openid = #{openid}
+		and (#{timeLong} - wxchatsession.createlong ) &lt;= #{sessionTimes}
+	</select>
+	<select id="findById"
+		resultType="com.marks.module.wx.manage.wxchat.pojo.WxChatSession">
+		SELECT * FROM TB_WX_CHAT_SESSION wxchatsession where
+		wxchatsession.SESSION_ID = #{session_id}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.wx.manage.wxchat.pojo.WxChatSession">
+		INSERT INTO TB_WX_CHAT_SESSION wxchatsession (
+		wxchatsession.SESSION_ID,
+		wxchatsession.ACCOUNTID,
+		wxchatsession.OPENID,
+		wxchatsession.CREATETIME,
+		wxchatsession.CREATELONG,
+		wxchatsession.UPDATETIME,
+		wxchatsession.C_CONTENT,
+		wxchatsession.FLAG
+		)
+		VALUES(
+		#{session_id:VARCHAR},
+		#{accountid:VARCHAR},
+		#{openid:VARCHAR},
+		sysdate,
+		#{createLong:NUMERIC},
+		sysdate,
+		#{c_content:VARCHAR},
+		#{flag:NUMERIC}
+		)
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.module.wx.manage.wxchat.pojo.WxChatSession">
+		UPDATE TB_WX_CHAT_SESSION wxchatsession
+		SET
+		wxchatsession.ACCOUNTID = #{accountid:VARCHAR},
+		wxchatsession.OPENID =
+		#{openid:VARCHAR},
+		wxchatsession.CREATELONG = #{createLong:NUMERIC},
+		wxchatsession.UPDATETIME = sysdate,
+		wxchatsession.C_CONTENT =
+		#{c_content:VARCHAR},
+		wxchatsession.ENDTIME = #{endtime:TIMESTAMP}
+		WHERE
+		wxchatsession.SESSION_ID =
+		#{session_id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_CHAT_SESSION
+		wxchatsession WHERE
+		wxchatsession.SESSION_ID=#{session_id}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.module.wx.manage.wxchat.pojo.WxChatSession">
+		SELECT * FROM TB_WX_CHAT_SESSION
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_CHAT_SESSION WHERE SESSION_ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.module.wx.manage.wxchat.pojo.WxChatSession"
+		parameterType="java.util.Map">
+		SELECT wxuser.nickname username, wxchatsession.*
+		FROM
+		TB_WX_CHAT_SESSION wxchatsession
+		join tb_wx_user wxuser on
+		(wxchatsession.accountid = wxuser.accountid and
+		wxchatsession.openid =
+		wxuser.openid)
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxchatsession.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( wxchatsession.SESSION_ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or
+			to_char(wxchatsession.CREATETIME,'yyyy-MM-dd') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxchatsession.C_CONTENT
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		order by wxchatsession.CREATETIME DESC
+	</select>
+	<select id="getCountList" resultType="com.marks.module.wx.manage.wxchat.pojo.WxChatCount"
+		parameterType="java.util.Map">
+		select wxsession.c_content, wxreplay.ctypename dpt, count(1) content_num
+  		from TB_WX_CHAT_SESSION wxsession
+  		left join tb_wx_auto_replay wxreplay on wxsession.c_content =
+                                          wxreplay.ckey
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxsession.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and (
+			wxsession.C_CONTENT
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxreplay.ctypename
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+         group by wxsession.c_content, wxreplay.ctypename,wxsession.accountid
+ 		 order by content_num desc
+	</select>
+
+
+</mapper>
