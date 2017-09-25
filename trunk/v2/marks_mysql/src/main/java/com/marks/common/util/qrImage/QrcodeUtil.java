@@ -1,7 +1,6 @@
 package com.marks.common.util.qrImage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,8 +20,8 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.marks.common.util.IDUtil;
-import com.marks.module.inner.system.upload.util.FTPUtil;
-import com.marks.module.inner.system.upload.util.UploadUtil;
+import com.marks.module.system.upload.util.FTPUtil;
+import com.marks.module.system.upload.util.UploadUtil;
 
 /**
  * 

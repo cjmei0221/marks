@@ -10,11 +10,11 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.log4j.Logger;
 
-import com.marks.module.inner.system.sys.pojo.SysOperate;
-import com.marks.module.inner.user.login.helper.SysUserHelper;
-import com.marks.module.inner.user.login.service.LoginService;
-import com.marks.module.inner.user.sysuser.pojo.SysUser;
-import com.marks.module.sys.common.SpringContextHolder;
+import com.marks.module.core.common.SpringContextHolder;
+import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.user.login.helper.LoginInnerUtil;
+import com.marks.module.user.login.service.LoginService;
+import com.marks.module.user.sysuser.pojo.SysUser;
 
 public class ButtonTag extends TagSupport{
 	private static Logger logger = Logger.getLogger(ButtonTag.class);
@@ -29,7 +29,7 @@ public class ButtonTag extends TagSupport{
 		try {
 			JspWriter out = pageContext.getOut();
 			HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-			SysUser user=SysUserHelper.getCurrentUserInfo(request);
+			SysUser user = LoginInnerUtil.getCurrentUserInfo(request);
 			String menuid=request.getParameter("menuid");
 			if(user!=null){
 				List<SysOperate> list=loginService.getSysOperate(menuid,user);
