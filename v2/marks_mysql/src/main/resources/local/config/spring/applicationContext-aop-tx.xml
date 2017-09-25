@@ -50,7 +50,7 @@
 
 	<aop:config>
 		<aop:pointcut id="txPointcut"
-			expression="execution(* com.marks.module.*.*.*.service.*Service.*(..)) || execution(* com.marks.module.*.*.*.*.service.*Service.*(..))" />
+			expression="execution(* com.marks.module.**.*.service.*Service.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
 </beans>
