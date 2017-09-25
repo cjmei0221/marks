@@ -42,7 +42,7 @@ public abstract class AbstractCssProduced extends AbstractProduced implements Cs
     }
     
     public void setFileSrc(AutoBean autoBean){
-        setFileSrc( FileUtil.getWebAppSrc() +autoBean.getParentPackage()+"/"+ getFileSrc(autoBean));
+		setFileSrc(FileUtil.getWebAppSrc() + autoBean.getParentPackage() + "/" + DEFAULT_FILE_CSS);
     }
     
     public abstract String getFileSrc(AutoBean autoBean);
