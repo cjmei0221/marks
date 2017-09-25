@@ -19,7 +19,7 @@ import com.marks.common.util.properties.PropsUtil;
 public class AutoCodePropsUtil {
 	private static Properties props = new Properties();
 	static{
-		InputStream in = PropsUtil.class.getClassLoader().getResourceAsStream("props/inner/template/autocode/autocode.properties");
+		InputStream in = PropsUtil.class.getClassLoader().getResourceAsStream("props/autocode/autocode.properties");
 		try {
 			props.load(in);
 		} catch (IOException e) {
