@@ -44,7 +44,7 @@ public abstract class AbstractHtmlProduced extends AbstractProduced implements H
     }
     
     public void setFileSrc(AutoBean autoBean){
-        setFileSrc(FileUtil.getWebAppSrc() +autoBean.getParentPackage()+"/"+ getFileSrc(autoBean));
+		setFileSrc(FileUtil.getWebAppSrc() + autoBean.getParentPackage());
     }
     
     public abstract String getFileSrc(AutoBean autoBean);
