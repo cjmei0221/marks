@@ -27,7 +27,7 @@ public abstract class AbstractXmlProduced extends AbstractProduced implements Xm
 	}
 	
 	public void setFileSrc(AutoBean autoBean){
-		setFileSrc( FileUtil.getResourceSrc()+autoBean.getParentPackage()+"."+autoBean.getFactBeanName().toLowerCase()+"."+ getFileSrc(autoBean));
+		setFileSrc(FileUtil.getResourceSrc() + autoBean.getParentPackage() + "." + getFileSrc(autoBean));
 	}
 	
 	public abstract String getFileSrc(AutoBean autoBean);
