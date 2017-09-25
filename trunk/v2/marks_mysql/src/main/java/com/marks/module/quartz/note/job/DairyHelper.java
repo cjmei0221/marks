@@ -6,10 +6,10 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.marks.module.inner.wx.wxuser.dao.WxUserDao;
+import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.quartz.note.thread.pool.NoteThreadPool;
-import com.marks.module.sys.common.SpringContextHolder;
-import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
+import com.marks.module.wx.api.wxfwhao.common.entity.WxUser;
+import com.marks.module.wx.manage.wxuser.dao.WxUserDao;
 
 public class DairyHelper extends QuartzJobBean {
 

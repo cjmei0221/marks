@@ -7,11 +7,11 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.marks.module.inner.org.orginfo.pojo.OrgInfo;
-import com.marks.module.inner.org.orginfo.service.OrgInfoService;
-import com.marks.module.inner.system.sys.service.LoadDataService;
-import com.marks.module.sys.common.SpringContextHolder;
-import com.marks.module.sys.data.StaticData;
+import com.marks.module.core.common.SpringContextHolder;
+import com.marks.module.core.data.StaticData;
+import com.marks.module.org.orginfo.pojo.OrgInfo;
+import com.marks.module.org.orginfo.service.OrgInfoService;
+import com.marks.module.system.sys.service.LoadDataService;
 
 /**
  * 将基础数据加载到缓存中
