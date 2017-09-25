@@ -19,9 +19,9 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
-import com.marks.module.inner.system.sys.controller.SupportContorller;
-import com.marks.module.inner.user.login.helper.SysUserHelper;
-import com.marks.module.inner.user.sysuser.pojo.SysUser;
+import com.marks.module.core.controller.SupportContorller;
+import com.marks.module.user.login.helper.LoginInnerUtil;
+import com.marks.module.user.sysuser.pojo.SysUser;
 
 import @{beanPackageUrl}.@{beanName};
 import @{ServicePackageUrl}.@{beanName}Service;
@@ -74,7 +74,7 @@ public class @{beanName}Controller extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
 	    	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
 	 //     @{BeanObject}.set@{GetIdAttrName}(IDUtil.getUUID());
 	 		
@@ -109,7 +109,7 @@ public class @{beanName}Controller extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
 		    @{beanName} @{BeanObject} = getModel(@{beanName}.class);
 		    
 		    logger.info(" update@{beanName}> param>"+@{BeanObject}.toLog());
@@ -214,7 +214,7 @@ public class @{beanName}Controller extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = SysUserHelper.getCurrentUserInfo(request);
+			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {
