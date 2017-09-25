@@ -26,50 +26,50 @@ public class AuthUtil {
 		}
 		return util;
 	}
-	
-	// 授权
-		public void addFuncForRole(AutoBean autoBean) {
-			HtmlPageProduced html = new HtmlPageProduced();
-			String autoBeanName = autoBean.getFactBeanName();
-		String menuUrl = AutoConfig.config_menu_src + autoBean.getParentPackage().replace(".", "/") + "/"
-				+ autoBeanName.toLowerCase() + "/" + autoBeanName + "." + html.DEFAULT_FILE_HTML;
-			String listurl = "/inner/" + autoBeanName + "/list";
-			String saveurl = "/inner/" + autoBeanName + "/save";
-			String updateurl = "/inner/" + autoBeanName + "/update";
-			String deleteurl = "/inner/" + autoBeanName + "/delete";
-			String parentId="parent_"+autoBean.getParentPackage();
-			String menuId=autoBean.getParentPackage()+"_"+autoBeanName;
-			SysMenu smP = sysMenuService.getSysMenuByMenuid(parentId);
-			
-			if (smP == null) {
-				smP = new SysMenu();
-				smP.setMenuid(parentId);
-				smP.setMenuitem(autoBean.getModuleDesc());
-				smP.setParentid("0");
-				smP.setSort(1);
-				smP.setUrl("#");
-				sysMenuService.save(smP);
-			}
-			SysMenu sm = sysMenuService.getSysMenuByMenuid(menuId);
-			if(sm==null){
-				sm = new SysMenu();
-				sm.setMenuid(menuId);
-				sm.setMenuitem(autoBean.getModuleDesc());
-				sm.setParentid(parentId);
-				sm.setSort(100);
-				sm.setUrl(menuUrl);
 
-				sysMenuService.save(sm);
-				SysOperate query = sysMenuService.saveFunc("query", sm.getMenuid(), listurl);
-				SysOperate add = sysMenuService.saveFunc("add", sm.getMenuid(), saveurl);
-				SysOperate update = sysMenuService.saveFunc("edit", sm.getMenuid(), updateurl);
-				SysOperate delete = sysMenuService.saveFunc("delete", sm.getMenuid(), deleteurl);
-				List<String> funcIds = new ArrayList<String>();
-				funcIds.add(query.getFuncid());
-				funcIds.add(add.getFuncid());
-				funcIds.add(update.getFuncid());
-				funcIds.add(delete.getFuncid());
-				sysRoleService.addSysFuncByRoleId(AutoConfig.role_id, funcIds);
-			}
+	// 授权
+	public void addFuncForRole(AutoBean autoBean) {
+		HtmlPageProduced html = new HtmlPageProduced();
+		String autoBeanName = autoBean.getFactBeanName();
+		String menuUrl = AutoConfig.config_menu_src + autoBean.getParentPackage().replace(".", "/") + "/" + autoBeanName
+				+ "." + html.DEFAULT_FILE_HTML;
+		String listurl = "/inner/" + autoBeanName + "/list";
+		String saveurl = "/inner/" + autoBeanName + "/save";
+		String updateurl = "/inner/" + autoBeanName + "/update";
+		String deleteurl = "/inner/" + autoBeanName + "/delete";
+		String parentId = "parent_" + autoBean.getParentPackage();
+		String menuId = autoBean.getParentPackage() + "_" + autoBeanName;
+		SysMenu smP = sysMenuService.getSysMenuByMenuid(parentId);
+
+		if (smP == null) {
+			smP = new SysMenu();
+			smP.setMenuid(parentId);
+			smP.setMenuitem(autoBean.getModuleDesc());
+			smP.setParentid("0");
+			smP.setSort(1);
+			smP.setUrl("#");
+			sysMenuService.save(smP);
 		}
+		SysMenu sm = sysMenuService.getSysMenuByMenuid(menuId);
+		if (sm == null) {
+			sm = new SysMenu();
+			sm.setMenuid(menuId);
+			sm.setMenuitem(autoBean.getModuleDesc());
+			sm.setParentid(parentId);
+			sm.setSort(100);
+			sm.setUrl(menuUrl);
+
+			sysMenuService.save(sm);
+			SysOperate query = sysMenuService.saveFunc("query", sm.getMenuid(), listurl);
+			SysOperate add = sysMenuService.saveFunc("add", sm.getMenuid(), saveurl);
+			SysOperate update = sysMenuService.saveFunc("edit", sm.getMenuid(), updateurl);
+			SysOperate delete = sysMenuService.saveFunc("delete", sm.getMenuid(), deleteurl);
+			List<String> funcIds = new ArrayList<String>();
+			funcIds.add(query.getFuncid());
+			funcIds.add(add.getFuncid());
+			funcIds.add(update.getFuncid());
+			funcIds.add(delete.getFuncid());
+			sysRoleService.addSysFuncByRoleId(AutoConfig.role_id, funcIds);
+		}
+	}
 }
