@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.note.diary.dao.DiaryDao">
+
+	<select id="findById" resultType="com.marks.module.note.diary.pojo.Diary">
+		SELECT * FROM TB_NOTE_DIARY diary
+		where diary.ID = #{ID}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.note.diary.pojo.Diary">
+		INSERT INTO TB_NOTE_DIARY diary (
+		diary.ID,
+		diary.UPDATETIME,
+		diary.CONTENT,
+		diary.CREATOR,
+		diary.TITLE,
+		diary.CREATETIME,
+		diary.MOBILE
+		)
+		VALUES(
+		#{id:VARCHAR},
+		sysdate,
+		#{content:VARCHAR},
+		#{creator:VARCHAR},
+		#{title:VARCHAR},
+		sysdate,
+		#{mobile:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.note.diary.pojo.Diary">
+		UPDATE TB_NOTE_DIARY diary
+		SET
+		diary.UPDATETIME = sysdate,
+		diary.CONTENT = #{content:VARCHAR},
+		diary.TITLE = #{title:VARCHAR}
+		WHERE
+		diary.ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_NOTE_DIARY diary WHERE diary.ID=#{ID}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.note.diary.pojo.Diary">
+		SELECT * FROM TB_NOTE_DIARY
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_NOTE_DIARY WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.note.diary.pojo.Diary"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_NOTE_DIARY diary
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and (
+			diary.CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			to_char(diary.CREATETIME,'yyyyMMdd') LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			diary.TITLE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		<if test="userid!=null and userid!=''">
+			and diary.CREATOR =#{userid:VARCHAR}
+		</if>
+		<if test="statedate!=null and statedate!=''">
+			and to_char(diary.CREATETIME,'yyyy-mm-dd') &gt;= #{statedate}
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and to_char(diary.CREATETIME,'yyyy-mm-dd') &lt;= #{enddate}
+		</if>
+		order by diary.CREATETIME desc
+	</select>
+
+
+
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.marks.module.pay.wxpay.dao.WXPayDao">
+    
+    <update id="updateOrderPayStatus">
+        update order_info o set o.orderstatus=#{status},o.payflag=#{pay},o.orderupdatetime=now(),o.paytype=#{payType}
+        	where o.orderId=#{orderId}
+    </update>
+
+	<insert id="savePayNotice" parameterType="com.marks.module.pay.wxpay.pojo.PayNotice">
+	    insert into PAY_NOTICE(
+	    	appid,mch_id,device_info,result_code,err_code,openid,is_subscribe,
+	    	trade_type,bank_type,total_fee,fee_type,cash_fee,cash_fee_type,
+	    	coupon_fee,coupon_count,coupon_batch_id_index,coupon_id_index,coupon_fee_index,
+	   	 	transaction_id,out_trade_no,attach,time_end,payLocation,recodeTime) 
+	    	values(
+	    		#{notice.appid:VARCHAR},
+	    		#{notice.mch_id:VARCHAR},
+	    		#{notice.device_info:VARCHAR},
+	    		#{notice.result_code:VARCHAR},
+	    		#{notice.err_code:VARCHAR},
+	    		#{notice.openid:VARCHAR},
+	    		#{notice.is_subscribe:VARCHAR},
+			    #{notice.trade_type:VARCHAR},
+			    #{notice.bank_type:VARCHAR},
+			    #{notice.total_fee:VARCHAR},
+			    #{notice.fee_type:VARCHAR},
+			    #{notice.cash_fee:VARCHAR},
+			    #{notice.cash_fee_type:VARCHAR},
+			    #{notice.coupon_fee:VARCHAR},
+			    #{notice.coupon_count:VARCHAR},
+			    #{notice.coupon_batch_id_index:VARCHAR},
+			    #{notice.coupon_id_index:VARCHAR},
+			    #{notice.coupon_fee_index:VARCHAR},
+			    #{notice.transaction_id:VARCHAR},
+			    #{notice.out_trade_no:VARCHAR},
+			    #{notice.attach:VARCHAR},
+			    #{notice.time_end:VARCHAR},
+			    #{notice.payLocation:VARCHAR},
+			    sysdate
+			  )
+	</insert>
+	
+	<insert id="savePayRecord" parameterType="com.marks.module.pay.wxpay.pojo.WXPayRecord">
+	    insert into wxpay_record(id,openid,device_info,payLocation,orderId,total,trade_type,body,
+	    	product_id,recordTime,flag)
+	    	values(#{record.id:VARCHAR},#{record.openid:VARCHAR},#{record.device_info:VARCHAR},
+	    	#{record.payLocation:VARCHAR},#{record.orderId:VARCHAR},
+	    	#{record.total_fee},#{record.trade_type:VARCHAR},#{record.body:VARCHAR},#{record.product_id:VARCHAR}
+	    	,now(),#{record.flag:VARCHAR})
+	</insert>
+</mapper>
+
+
+
