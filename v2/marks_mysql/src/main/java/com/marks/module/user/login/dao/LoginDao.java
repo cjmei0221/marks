@@ -21,7 +21,7 @@ public interface LoginDao {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	SysUser getSysUserByUserid(@Param("userid")String userid);
+	SysUser getSysUserByUserid(@Param("userid") String userid);
 
 	List<SysMenu> getChildMenu(@Param("roleId") String roleId);
 
