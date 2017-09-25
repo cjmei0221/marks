@@ -55,8 +55,7 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 	 */
 	public String producedNameSpaceUrl(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
-		sBuffer.append(autoBean.getDefaultPackageUrl()).append(autoBean.getFactBeanName().toLowerCase())
-				.append(DOT_VALUE).append(autoBean.getDefaultPojo());
+		sBuffer.append(autoBean.getDefaultPackageUrl()).append(DOT_VALUE).append(autoBean.getDefaultPojo());
 		return sBuffer.toString();
 	}
 
@@ -364,8 +363,7 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 
 	public String producedDaoInterfacePackageUrl(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
-		sBuffer.append(autoBean.getDefaultPackageUrl()).append(autoBean.getFactBeanName().toLowerCase())
-				.append(DOT_VALUE).append(autoBean.getDefaultDao());
+		sBuffer.append(autoBean.getDefaultPackageUrl()).append(DOT_VALUE).append(autoBean.getDefaultDao());
 		return sBuffer.toString();
 	}
 

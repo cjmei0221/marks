@@ -63,8 +63,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 	 */
 	public String producedNameSpaceUrl(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
-		sBuffer.append(autoBean.getDefaultPackageUrl()).append(autoBean.getFactBeanName().toLowerCase())
-				.append(DOT_VALUE).append(autoBean.getDefaultPojo());
+		sBuffer.append(autoBean.getDefaultPackageUrl()).append(DOT_VALUE).append(autoBean.getDefaultPojo());
 		return sBuffer.toString();
 	}
 
@@ -137,7 +136,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
 		for (int i = 0; i < autoAttrs.size(); i++) {
 			sBuffer.append(BANK_VALUE_4).append(BANK_VALUE_4).append(BANK_VALUE_4);
-//			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE);
+			// sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE);
 			sBuffer.append(autoAttrs.get(i).getAttrName().toUpperCase());
 			if (i != autoAttrs.size() - 1) {
 				sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
@@ -200,13 +199,13 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 			}
 
 		}
-		String str=sBuffer.toString().trim();
-		if(str.endsWith(",")){
-			str=str.substring(0, str.length()-1);
+		String str = sBuffer.toString().trim();
+		if (str.endsWith(",")) {
+			str = str.substring(0, str.length() - 1);
 		}
 		return str;
 	}
-	
+
 	/**
 	 * update方法
 	 * 
@@ -235,9 +234,9 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 				}
 			}
 		}
-		String str=sBuffer.toString().trim();
-		if(str.endsWith(",")){
-			str=str.substring(0, str.length()-1);
+		String str = sBuffer.toString().trim();
+		if (str.endsWith(",")) {
+			str = str.substring(0, str.length() - 1);
 		}
 		return str;
 	}
@@ -266,17 +265,17 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 	public String producedSaveValue(String attrName, String type, AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
 
-//		sBuffer.append(BANK_VALUE_4).append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE);
+		// sBuffer.append(BANK_VALUE_4).append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE);
 		sBuffer.append(attrName.toUpperCase()).append(BANK_VALUE_1).append(EQUAL_VALUE).append(BANK_VALUE_1);
 		if (updateTime.equals(attrName.toLowerCase())) {
 			sBuffer.append("sysdate");
-		}else{
+		} else {
 			sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS).append(attrName).append(COlON_VALUE).append(type)
-			.append(RIGHT_BRACKETS);
+					.append(RIGHT_BRACKETS);
 		}
 		return sBuffer.toString();
 	}
-	
+
 	public String producedOrderBy(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
 
@@ -285,8 +284,8 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 			String attrName = autoAttrs.get(i).getAttrName();
 			if (updateTime.equals(attrName.toLowerCase())) {
 				sBuffer.append(BANK_VALUE_4).append("order by ").append(BANK_VALUE_1);
-				sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE)
-				.append(attrName.toUpperCase()).append(BANK_VALUE_1);
+				sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE).append(attrName.toUpperCase())
+						.append(BANK_VALUE_1);
 				sBuffer.append("DESC");
 			}
 		}
@@ -320,13 +319,13 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		sBuffer.append(producedTypeIfStatement());
 		sBuffer.append(" and ( 2=1 ");
 		List<AutoAttr> autoAttrs = autoBean.getAutoAttrs();
-		boolean isFlag=false;
+		boolean isFlag = false;
 		for (int i = 0; i < autoAttrs.size(); i++) {
-			String isQuery=autoAttrs.get(i).getIsQuery();
+			String isQuery = autoAttrs.get(i).getIsQuery();
 			String attrName = autoAttrs.get(i).getAttrName();
 			String type = autoAttrs.get(i).getAttrType().getMybatisType();
 			if ("YES".equals(isQuery)) {
-				isFlag=true;
+				isFlag = true;
 				sBuffer.append(producedSpace());
 				sBuffer.append(producedSpace());
 				sBuffer.append(BANK_VALUE_4).append(DEFAULT_OR);
@@ -337,7 +336,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		sBuffer.append(producedSpace());
 		sBuffer.append(producedSpace());
 		sBuffer.append(producedEndIfStatement());
-		if(isFlag){
+		if (isFlag) {
 			return sBuffer.toString();
 		}
 		return "";
@@ -375,7 +374,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 
 	public String producedDaoInterfacePackageUrl(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
-		sBuffer.append(autoBean.getDefaultPackageUrl()).append(autoBean.getFactBeanName().toLowerCase())
+		sBuffer.append(autoBean.getDefaultPackageUrl())
 				.append(DOT_VALUE).append(autoBean.getDefaultDao());
 		return sBuffer.toString();
 	}
