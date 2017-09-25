@@ -22,7 +22,7 @@ public abstract class AbstractProduced implements ModuleProduced {
 	 * 获取实体bean的包路径
 	 */
 	public String producedBeanPackageUrl(AutoBean autoBean) {
-		return StringUtil.StringJoin(autoBean.getDefaultPackageUrl(),autoBean.getFactBeanName().toLowerCase(),DOT_VALUE,autoBean.getDefaultPojo());
+		return StringUtil.StringJoin(autoBean.getDefaultPackageUrl(), DOT_VALUE, autoBean.getDefaultPojo());
 	}
 	
 //	public abstract String producedPackageUrl(AutoBean autoBean);

@@ -43,7 +43,7 @@ public class ServiceInterfaceProduced extends AbstractCodeProduced{
     @Override
     public String producedPackageUrl(AutoBean autoBean) {
         String packageUrl =  StringUtil.StringJoin( autoBean.getDefaultPackageUrl(),
-                autoBean.getFactBeanName().toLowerCase(),DOT_VALUE,autoBean.getDefaultService()); 
+				DOT_VALUE, autoBean.getDefaultService());
         //TODO 改为代理注入方案
 //        setFileSrc(outFileContent, packageUrl);
         return packageUrl;

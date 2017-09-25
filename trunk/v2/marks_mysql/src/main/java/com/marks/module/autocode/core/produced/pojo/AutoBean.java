@@ -161,8 +161,8 @@ public class AutoBean implements Serializable{
 	
 
 	public String getDefaultPackageUrl() {
-		if(StringUtil.isNull(defaultPackageUrl))
-			return CodeProduced.DEFAULT_PACKAGE_URL+this.getParentPackage()+".";
+		if (StringUtil.isNull(defaultPackageUrl))
+			return CodeProduced.DEFAULT_PACKAGE_URL + this.getParentPackage();
 		return defaultPackageUrl;
 	}
 

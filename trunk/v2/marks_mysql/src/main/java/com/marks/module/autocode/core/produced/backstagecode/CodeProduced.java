@@ -27,7 +27,7 @@ public interface CodeProduced extends ModuleProduced {
 	String DEFAULT_DAO = "dao";
 	String DEFAULT_POJO = "pojo";
 	String DEFAULT_SERVICE = "service";
-	
+	String DEFAULT_SERVICEIMPL = "serviceImpl";
 	String DEFAULT_FILE_JAVA = "java";
 	
 	String GET_VALUE="get";
