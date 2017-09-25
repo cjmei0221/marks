@@ -3,11 +3,11 @@ package com.marks.module.quartz.note.thread.pool;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.marks.module.inner.note.diary.service.DiaryService;
-import com.marks.module.inner.note.reminder.pojo.Reminder;
-import com.marks.module.inner.note.reminder.service.ReminderService;
-import com.marks.module.sys.common.SpringContextHolder;
-import com.marks.module.wxapi.wxfwhao.common.entity.WxUser;
+import com.marks.module.core.common.SpringContextHolder;
+import com.marks.module.note.diary.service.DiaryService;
+import com.marks.module.note.reminder.pojo.Reminder;
+import com.marks.module.note.reminder.service.ReminderService;
+import com.marks.module.wx.api.wxfwhao.common.entity.WxUser;
 
 public class NoteThreadPool {
 

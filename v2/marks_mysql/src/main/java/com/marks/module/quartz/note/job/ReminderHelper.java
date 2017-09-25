@@ -9,10 +9,10 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.marks.common.util.date.Lunar;
-import com.marks.module.inner.note.reminder.dao.ReminderDao;
-import com.marks.module.inner.note.reminder.pojo.Reminder;
+import com.marks.module.core.common.SpringContextHolder;
+import com.marks.module.note.reminder.dao.ReminderDao;
+import com.marks.module.note.reminder.pojo.Reminder;
 import com.marks.module.quartz.note.thread.pool.NoteThreadPool;
-import com.marks.module.sys.common.SpringContextHolder;
 
 public class ReminderHelper extends QuartzJobBean {
 

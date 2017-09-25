@@ -8,10 +8,10 @@ import org.apache.log4j.Logger;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
-import com.marks.module.inner.wx.modulemsg.pojo.ModuleMsg;
-import com.marks.module.inner.wx.modulemsg.service.ModuleMsgService;
-import com.marks.module.sys.common.SpringContextHolder;
-import com.marks.module.wxapi.wxfwhao.common.wxservice.SendMsgUtils;
+import com.marks.module.core.common.SpringContextHolder;
+import com.marks.module.wx.api.wxfwhao.common.wxservice.SendMsgUtils;
+import com.marks.module.wx.manage.template.pojo.ModuleMsg;
+import com.marks.module.wx.manage.template.service.ModuleMsgService;
 
 /**
  * 消息推送线程池类
