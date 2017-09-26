@@ -50,7 +50,7 @@ public enum AttrType {
 		}
 
 		public String getMySqlType() {
-			return "date";
+			return "datetime";
 		}
 
 		public String getJavaType() {
