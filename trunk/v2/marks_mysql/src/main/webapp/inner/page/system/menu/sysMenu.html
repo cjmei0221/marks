@@ -40,7 +40,7 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 300px; padding: 10px;">
+		style="width: 600px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="menuid" name="menuid">
 			<table class="out-win-cls">
@@ -48,23 +48,23 @@
 					<th>菜单名称</th>
 					<td><input id="menuitemPut" name="menuitemPut"
 						class="easyui-validatebox" data-options="required:true"
-						maxlength="60"></td>
+						maxlength="60" style="width:300px;"></td>
 				</tr>
 				<tr>
 					<th>父菜单</th>
-					<td><input id="parentidPut" name="parentidPut"
-						class="easyui-combobox" data-options="required:true,valueField:'menuid',textField:'menuitem',url:'<%=request.getContextPath()%>/inner/sysMenu/parentMenu.do'"></td>
+					<td><input id="parentidPut" name="parentidPut" style="width:200px;"
+						class="easyui-combobox" data-options="required:true,valueField:'menuid',textField:'menuitem',url:'/inner/sysMenu/parentMenu.do'"></td>
 				</tr>
 				<tr>
 					<th>链接URL</th>
-					<td><input id="urlPut" name="urlPut"
+					<td><input id="urlPut" name="urlPut" style="width:400px;"
 						class="easyui-validatebox" data-options="required:true" value="#">
 					</td>
 				</tr>
 				<tr>
 					<th>排序</th>
 					<td><input id="sortPut" name="sortPut" type="text"
-						class="easyui-numberbox" value="150"
+						class="easyui-numberbox" value="150" style="width:200px;"
 						data-options="required:true,max:999,min:0,precision:0"></td>
 				</tr>
 				<tr>
