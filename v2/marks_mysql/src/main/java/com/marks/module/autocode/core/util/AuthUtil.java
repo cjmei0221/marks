@@ -37,8 +37,9 @@ public class AuthUtil {
 		String saveurl = "/inner/" + autoBeanName + "/save";
 		String updateurl = "/inner/" + autoBeanName + "/update";
 		String deleteurl = "/inner/" + autoBeanName + "/delete";
-		String parentId = "parent_" + autoBean.getParentPackage();
-		String menuId = autoBean.getParentPackage() + "_" + autoBeanName;
+		String[] arr = autoBean.getParentPackage().split("\\.");
+		String parentId = "parent_" + arr[0];
+		String menuId = parentId + "_" + autoBeanName;
 		SysMenu smP = sysMenuService.getSysMenuByMenuid(parentId);
 
 		if (smP == null) {
@@ -46,7 +47,7 @@ public class AuthUtil {
 			smP.setMenuid(parentId);
 			smP.setMenuitem(autoBean.getModuleDesc());
 			smP.setParentid("0");
-			smP.setSort(1);
+			smP.setSort(12);
 			smP.setUrl("#");
 			sysMenuService.save(smP);
 		}
