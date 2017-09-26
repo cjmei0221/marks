@@ -97,7 +97,7 @@ function importExcel(){
 $(function() {
 	// 加载列表
 	loadList();
-	excel.init();
+//	excel.init();
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
