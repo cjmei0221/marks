@@ -153,7 +153,8 @@ public class QrcodeUtil {
 		String path = commPath + fileName;
 		File file=new File(path);
 		FileOutputStream out = new FileOutputStream(file);
-		JBarCodeUtils.generateBarCode128(code, "0.8", "30", out);
+//		JBarCodeUtils.generateBarCode128(code, "0.8", "30", out);
+		CreateBarCodeUtils.generateFile(code, path);
 		FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
 				FTPUtil.ftpFileDirectory, fileName, new File(path), "");
 		return FTPUtil.ftp_url + fileName;
