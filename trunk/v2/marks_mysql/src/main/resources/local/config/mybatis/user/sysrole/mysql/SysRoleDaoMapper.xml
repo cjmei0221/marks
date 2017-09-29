@@ -169,7 +169,7 @@
 		delete from tb_sys_role_func where
 		roleid=#{roleid}
 	</delete>
-	<select id="getFuncList" resultType="com.marks.module.system.sys.pojo.SysFunc">
+	<select id="getFuncList" resultType="com.marks.module.system.sysmenu.pojo.SysFunc">
 		SELECT distinct
 		VSRF.OPERID,
 		VSRF.OPERNAME,
