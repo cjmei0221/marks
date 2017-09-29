@@ -11,7 +11,7 @@ import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.core.data.StaticData;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
-import com.marks.module.system.sys.service.LoadDataService;
+import com.marks.module.system.data.service.LoadDataService;
 
 /**
  * 将基础数据加载到缓存中

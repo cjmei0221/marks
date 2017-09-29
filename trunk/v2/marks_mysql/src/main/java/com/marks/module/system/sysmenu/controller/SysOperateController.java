@@ -1,4 +1,4 @@
-package com.marks.module.system.sys.controller;
+package com.marks.module.system.sysmenu.controller;
 
 import java.util.Date;
 
@@ -14,8 +14,8 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.system.sys.pojo.SysOperate;
-import com.marks.module.system.sys.service.SysOperateService;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
+import com.marks.module.system.sysmenu.service.SysOperateService;
 import com.marks.module.user.login.helper.LoginInnerUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 

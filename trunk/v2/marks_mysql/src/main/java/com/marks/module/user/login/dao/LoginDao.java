@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 import com.marks.module.org.orginfo.pojo.OrgInfo;
-import com.marks.module.system.sys.pojo.SysMenu;
-import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sysmenu.pojo.SysMenu;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.sysuser.pojo.SysUser;
 @MapperScan
 public interface LoginDao {

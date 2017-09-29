@@ -1,4 +1,4 @@
-package com.marks.module.system.sys.dao;
+package com.marks.module.system.data.dao;
 
 import java.util.List;
 

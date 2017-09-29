@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.marks.module.system.sys.pojo.SysFunc;
+import com.marks.module.system.sysmenu.pojo.SysFunc;
 import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysrole.pojo.SysRoleFunc;
 

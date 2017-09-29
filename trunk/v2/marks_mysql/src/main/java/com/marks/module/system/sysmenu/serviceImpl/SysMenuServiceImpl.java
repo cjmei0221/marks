@@ -1,4 +1,4 @@
-package com.marks.module.system.sys.serviceImpl;
+package com.marks.module.system.sysmenu.serviceImpl;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.IDUtil;
-import com.marks.module.system.sys.dao.SysMenuDao;
-import com.marks.module.system.sys.pojo.SysFunc;
-import com.marks.module.system.sys.pojo.SysMenu;
-import com.marks.module.system.sys.pojo.SysOperate;
-import com.marks.module.system.sys.service.SysMenuService;
+import com.marks.module.system.sysmenu.dao.SysMenuDao;
+import com.marks.module.system.sysmenu.pojo.SysFunc;
+import com.marks.module.system.sysmenu.pojo.SysMenu;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
+import com.marks.module.system.sysmenu.service.SysMenuService;
 
 @Service
 public class SysMenuServiceImpl implements SysMenuService{

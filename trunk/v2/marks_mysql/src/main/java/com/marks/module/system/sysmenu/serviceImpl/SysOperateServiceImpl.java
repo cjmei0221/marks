@@ -1,4 +1,4 @@
-package com.marks.module.system.sys.serviceImpl;
+package com.marks.module.system.sysmenu.serviceImpl;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.module.system.sys.dao.SysOperateDao;
-import com.marks.module.system.sys.pojo.SysOperate;
-import com.marks.module.system.sys.service.SysOperateService;
+import com.marks.module.system.sysmenu.dao.SysOperateDao;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
+import com.marks.module.system.sysmenu.service.SysOperateService;
 @Service
 public class SysOperateServiceImpl implements SysOperateService{
 	@Autowired

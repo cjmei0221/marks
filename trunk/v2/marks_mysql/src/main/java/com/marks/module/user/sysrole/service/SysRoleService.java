@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
-import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
