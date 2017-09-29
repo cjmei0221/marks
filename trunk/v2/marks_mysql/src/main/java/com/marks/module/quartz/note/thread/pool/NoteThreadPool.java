@@ -33,7 +33,7 @@ public class NoteThreadPool {
 class RiminderWxMsgThread implements Runnable {
 
 	private Reminder reminder;
-	ReminderService diaryService = (ReminderService) SpringContextHolder.getBean(ReminderService.class);
+	ReminderService reminderService = (ReminderService) SpringContextHolder.getBean(ReminderService.class);
 
 	public RiminderWxMsgThread(Reminder reminder) {
 		this.reminder = reminder;
@@ -43,7 +43,7 @@ class RiminderWxMsgThread implements Runnable {
 	public void run() {
 		if (reminder != null) {
 			try {
-				diaryService.pushReminderWxMsg(reminder);
+				reminderService.pushReminderWxMsg(reminder);
 			} catch (Exception e) {
 			
 			}
