@@ -17,7 +17,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.data.StaticData;
 import com.marks.module.system.myimage.pojo.MyImage;
 import com.marks.module.user.login.helper.LoginWxUtil;
-import com.marks.module.wx.manage.wxutil.WxFwUtil;
+import com.marks.module.wx.manage.wxutil.WxMpUtil;
 import com.marks.module.wx.web.mp.SHAUtil;
 
 @Controller
@@ -39,7 +39,7 @@ public class WeixinJSSDKController {
 			String accountId = LoginWxUtil.getInstance().getCurrentAccountid(request);
 			String location = request.getParameter("location");
 
-			String newTicket = WxFwUtil.getInstance().getJsSDKTicket(accountId);
+			String newTicket = WxMpUtil.getInstance().getJsSDKTicket(accountId);
 
 			String url = location;
 			String nonceStr = IDUtil.getUUID();
@@ -78,7 +78,7 @@ public class WeixinJSSDKController {
 				for(String mediaId:mediaIds){
 					logger.info("mediaId:" + mediaId);
 					String fileName="Wx"+IDUtil.getUUID()+".jpg";
-					result=WxFwUtil.getInstance().download(accountId,"image",fileName,mediaId);
+					result=WxMpUtil.getInstance().download(accountId,"image",fileName,mediaId);
 					if(Code.CODE_SUCCESS.equals(result.getCode())){
 						image = new MyImage();
 						image.setPicUrl(fileName);
@@ -96,7 +96,7 @@ public class WeixinJSSDKController {
 
 	
 	public static void main(String[] args) throws Exception {
-		String newTicket = WxFwUtil.getInstance().getJsSDKTicket("wxbank");
+		String newTicket = WxMpUtil.getInstance().getJsSDKTicket("wxbank");
 		String url = "https://wxcs.hebbank.com/wechat/test/jssdkTest.html";
 		String nonceStr = IDUtil.getUUID();
 		String timestamp = (System.currentTimeMillis() / 1000) + "";

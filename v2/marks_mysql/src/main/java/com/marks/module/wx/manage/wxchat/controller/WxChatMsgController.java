@@ -26,7 +26,7 @@ import com.marks.module.wx.manage.wxchat.pojo.WxChatMsg;
 import com.marks.module.wx.manage.wxchat.pojo.WxChatSession;
 import com.marks.module.wx.manage.wxchat.service.WxChatMsgService;
 import com.marks.module.wx.manage.wxchat.service.WxChatSessionService;
-import com.marks.module.wx.manage.wxutil.WxFwUtil;
+import com.marks.module.wx.manage.wxutil.WxMpUtil;
 
 /**
  * 询问管理: 记录粉丝询问和回复
@@ -89,7 +89,7 @@ public class WxChatMsgController extends SupportContorller {
 			wxChatMsg.setCreatetime(new Date());
 			wxChatMsg.setUsername(admin.getUsername());
 			wxChatMsg.setIs_replay(1);
-			result=WxFwUtil.getInstance().sendCustomTextMsg(wxChatMsg.
+			result=WxMpUtil.getInstance().sendCustomTextMsg(wxChatMsg.
 			getAccountid(), wxChatMsg.getOpenid(), wxChatMsg.getC_content());
 			 
 			if (Code.CODE_SUCCESS.equals(result.getCode())) {

@@ -12,7 +12,7 @@ import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.center.SysCode;
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.wx.api.wxfwhao.common.wxservice.SendMsgUtils;
+import com.marks.module.wx.api.mp.msg.wxservice.SendMsgUtils;
 import com.marks.module.wx.manage.template.dao.ModuleMsgDao;
 import com.marks.module.wx.manage.template.dao.WxTemplateDao;
 import com.marks.module.wx.manage.template.pojo.ModuleContentMsg;

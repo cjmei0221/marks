@@ -3,7 +3,7 @@ package com.marks.module.wx.manage.base.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.marks.module.wx.api.wxfwhao.wxmenu.pojo.WxMenu;
+import com.marks.module.wx.api.mp.wxmenu.pojo.WxMenu;
 
 public class MyWxMenu extends WxMenu implements Serializable {
 

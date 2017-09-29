@@ -23,7 +23,7 @@ import com.marks.module.user.login.helper.LoginInnerUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.manage.wxuser.pojo.WxTags;
 import com.marks.module.wx.manage.wxuser.service.WxTagsService;
-import com.marks.module.wx.manage.wxutil.WxFwUtil;
+import com.marks.module.wx.manage.wxutil.WxMpUtil;
 
 import net.sf.json.JSONArray;
 
@@ -87,7 +87,7 @@ public class WxTagsController extends SupportContorller{
 	 		
 	 		if(ori==null){
 	 			//调用微信接口，创建标签
-	 			result=WxFwUtil.getInstance().createTag(wxTags.getAccountid(), wxTags.getName());
+	 			result=WxMpUtil.getInstance().createTag(wxTags.getAccountid(), wxTags.getName());
 	 			//成功则保存数据库
 	 			if(result.getCode().equals(Code.CODE_SUCCESS)){
 	 				wxTags.setTagid(Integer.parseInt(result.getData().get("tagid").toString()) );
@@ -126,7 +126,7 @@ public class WxTagsController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	result=WxFwUtil.getInstance().editTag(ori.getAccountid(), wxTags.getTagid(), wxTags.getName());
+		    	result=WxMpUtil.getInstance().editTag(ori.getAccountid(), wxTags.getTagid(), wxTags.getName());
 		    	if(result.getCode().equals(Code.CODE_SUCCESS)){
 		    		wxTags.setUpdater(admin.getUserid()+"-"+admin.getUsername());
 			    	wxTagsService.update(wxTags);
@@ -153,7 +153,7 @@ public class WxTagsController extends SupportContorller{
 		   	WxTags wxTags = getModel(WxTags.class);
 		   	
 		   	logger.info("deleteWxTagsById > param>"+wxTags.getId());
-		   	result=WxFwUtil.getInstance().delTag(wxTags.getAccountid(), wxTags.getTagid());
+		   	result=WxMpUtil.getInstance().delTag(wxTags.getAccountid(), wxTags.getTagid());
 		   	if(result.getCode().equals(Code.CODE_SUCCESS)){
 		   		wxTagsService.delete(wxTags.getId());
 				result.setMessage("删除成功!");

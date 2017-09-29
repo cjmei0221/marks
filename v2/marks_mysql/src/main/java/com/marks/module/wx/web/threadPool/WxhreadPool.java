@@ -6,12 +6,12 @@ import java.util.concurrent.Executors;
 import org.apache.log4j.Logger;
 
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.wx.api.wxfwhao.common.entity.WxUser;
+import com.marks.module.wx.api.mp.user.entity.WxUser;
 import com.marks.module.wx.manage.wxchat.pojo.WxChatSession;
 import com.marks.module.wx.manage.wxchat.service.WxChatSessionService;
 import com.marks.module.wx.manage.wxuser.dao.WxUserDao;
 import com.marks.module.wx.manage.wxuser.service.WxUserService;
-import com.marks.module.wx.manage.wxutil.WxFwUtil;
+import com.marks.module.wx.manage.wxutil.WxMpUtil;
 
 public class WxhreadPool {
 	private static ExecutorService pool;
@@ -83,7 +83,7 @@ class UpdateWxUserThread implements Runnable {
 	public void run() {
 		try {
 			Thread.sleep(3000);
-			WxUser user = WxFwUtil.getInstance().getUserInfo(wxUser.getAccountid(), wxUser.getOpenid());
+			WxUser user = WxMpUtil.getInstance().getUserInfo(wxUser.getAccountid(), wxUser.getOpenid());
 			if (user != null) {
 				if (subcribeFlag == 1) {
 					user.setSubscribetype(wxUser.getSubscribetype());

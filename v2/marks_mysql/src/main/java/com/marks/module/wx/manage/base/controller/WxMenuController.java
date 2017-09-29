@@ -19,7 +19,6 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.LoginInnerUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
-import com.marks.module.wx.api.wxfwhao.wxmenu.pojo.WxMenu;
 import com.marks.module.wx.manage.base.pojo.MyWxMenu;
 import com.marks.module.wx.manage.base.service.WxMenuService;
 
@@ -69,7 +68,7 @@ public class WxMenuController extends SupportContorller {
 			MyWxMenu wxMenu = getModel(MyWxMenu.class);
 			// wxMenu.setId(IDUtil.getTimeID());
 			if(wxMenu.getLvl() !=0){
-				WxMenu ori  = wxMenuService.findById(wxMenu.getParent_id());
+				MyWxMenu ori  = wxMenuService.findById(wxMenu.getParent_id());
 				wxMenu.setAccountid(ori.getAccountid());
 			}
 			wxMenuService.save(wxMenu);

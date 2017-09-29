@@ -22,10 +22,10 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.LoginInnerUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
-import com.marks.module.wx.api.wxfwhao.common.entity.UserGet;
-import com.marks.module.wx.api.wxfwhao.common.entity.WxUser;
+import com.marks.module.wx.api.mp.user.entity.UserGet;
+import com.marks.module.wx.api.mp.user.entity.WxUser;
 import com.marks.module.wx.manage.wxuser.service.WxUserService;
-import com.marks.module.wx.manage.wxutil.WxFwUtil;
+import com.marks.module.wx.manage.wxutil.WxMpUtil;
 
 @Controller
 public class WxUserController extends SupportContorller{
@@ -263,10 +263,10 @@ public class WxUserController extends SupportContorller{
 		Result result = new Result();
 		try {
 		   	String accountId=request.getParameter("accountId");
-		   	UserGet ug=WxFwUtil.getInstance().getWXUserOpenId(accountId, "");
+		   	UserGet ug=WxMpUtil.getInstance().getWXUserOpenId(accountId, "");
 		   	if(ug !=null){
 				for(String openid:ug.getOpenid_list()){
-					WxUser user = WxFwUtil.getInstance().getUserInfo(accountId, openid);
+					WxUser user = WxMpUtil.getInstance().getUserInfo(accountId, openid);
 					wxUserService.saveOrUpdateWxUser(user);
 				}
 			}
