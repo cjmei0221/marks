@@ -7,7 +7,7 @@ import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.note.diary.service.DiaryService;
 import com.marks.module.note.reminder.pojo.Reminder;
 import com.marks.module.note.reminder.service.ReminderService;
-import com.marks.module.wx.api.wxfwhao.common.entity.WxUser;
+import com.marks.module.wx.api.mp.user.entity.WxUser;
 
 public class NoteThreadPool {
 

@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.marks.module.wx.api.wxfwhao.common.entity.WxUser;
+import com.marks.module.wx.api.mp.user.entity.WxUser;
 @MapperScan
 public interface WxUserDao {
 

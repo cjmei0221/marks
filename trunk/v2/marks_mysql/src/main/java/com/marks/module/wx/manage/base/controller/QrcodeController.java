@@ -25,7 +25,7 @@ import com.marks.module.user.login.helper.LoginInnerUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.manage.base.pojo.Qrcode;
 import com.marks.module.wx.manage.base.service.QrcodeService;
-import com.marks.module.wx.manage.wxutil.WxFwUtil;
+import com.marks.module.wx.manage.wxutil.WxMpUtil;
 
 @Controller
 public class QrcodeController extends SupportContorller {
@@ -129,7 +129,7 @@ public class QrcodeController extends SupportContorller {
 			int action_type = qrcode.getSceneType();
 			int expire_seconds = 2592000;
 			int scene_id = Integer.parseInt(qrcode.getQrNo());
-			String ticket = WxFwUtil.getInstance().createQrcode(aid, action_type, expire_seconds, scene_id);
+			String ticket = WxMpUtil.getInstance().createQrcode(aid, action_type, expire_seconds, scene_id);
 			if (ticket != null) {
 				imagePath = QrcodeUtil.createFwQrcode(request, ticket);
 			}

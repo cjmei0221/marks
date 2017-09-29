@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.wx.api.wxfwhao.common.wxservice.SendMsgUtils;
+import com.marks.module.wx.api.mp.msg.wxservice.SendMsgUtils;
 import com.marks.module.wx.manage.template.pojo.ModuleMsg;
 import com.marks.module.wx.manage.template.service.ModuleMsgService;
 

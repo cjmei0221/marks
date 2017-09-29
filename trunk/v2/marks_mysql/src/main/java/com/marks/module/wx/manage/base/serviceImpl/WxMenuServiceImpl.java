@@ -13,12 +13,12 @@ import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.module.wx.api.wxfwhao.wxmenu.pojo.SpecialCondition;
-import com.marks.module.wx.api.wxfwhao.wxmenu.pojo.WxMenu;
+import com.marks.module.wx.api.mp.wxmenu.pojo.SpecialCondition;
+import com.marks.module.wx.api.mp.wxmenu.pojo.WxMenu;
 import com.marks.module.wx.manage.base.dao.WxMenuDao;
 import com.marks.module.wx.manage.base.pojo.MyWxMenu;
 import com.marks.module.wx.manage.base.service.WxMenuService;
-import com.marks.module.wx.manage.wxutil.WxFwUtil;
+import com.marks.module.wx.manage.wxutil.WxMpUtil;
 
 @Service
 @Transactional
@@ -61,7 +61,7 @@ public class WxMenuServiceImpl implements WxMenuService {
 		MyWxMenu wx = wxMenuDao.findById(id);
 		if(wx !=null && wx.getMenutype()==1 && null !=wx.getMenuid()){
 			// 调用接口，删除个性化菜单
-			WxFwUtil.getInstance().delSpecialWxMenu(wx.getAccountid(), wx.getMenuid());
+			WxMpUtil.getInstance().delSpecialWxMenu(wx.getAccountid(), wx.getMenuid());
 		}
 		wxMenuDao.delete(id);
 	}
@@ -132,12 +132,12 @@ public class WxMenuServiceImpl implements WxMenuService {
 			if(mlist.size()>0){
 				if (info.getMenutype() == 0) {// 通用菜单
 					// 调用创建微信菜单接口
-					result=WxFwUtil.getInstance().createWXMenu(info.getAccountid(), mlist);
+					result=WxMpUtil.getInstance().createWXMenu(info.getAccountid(), mlist);
 				} else {// 个性菜单，暂时只支持用户标签
 						// 个性化菜单条件
 					SpecialCondition condition=new SpecialCondition();
 					condition.setTag_id(info.getTagid());
-					result=WxFwUtil.getInstance().createSpecialWxMenu(info.getAccountid(), condition, mlist);
+					result=WxMpUtil.getInstance().createSpecialWxMenu(info.getAccountid(), condition, mlist);
 					if(Code.CODE_SUCCESS.equals(result.getCode())){
 						info.setMenuid(result.getData().get("menuid").toString());
 						wxMenuDao.update(info);
