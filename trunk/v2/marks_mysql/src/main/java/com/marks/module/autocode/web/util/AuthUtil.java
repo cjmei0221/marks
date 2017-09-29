@@ -7,9 +7,9 @@ import com.marks.module.autocode.core.produced.config.AutoConfig;
 import com.marks.module.autocode.core.produced.pojo.AutoBean;
 import com.marks.module.autocode.core.produced.webpage.html.htmlpage.HtmlPageProduced;
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.system.sys.pojo.SysMenu;
-import com.marks.module.system.sys.pojo.SysOperate;
-import com.marks.module.system.sys.service.SysMenuService;
+import com.marks.module.system.sysmenu.pojo.SysMenu;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
+import com.marks.module.system.sysmenu.service.SysMenuService;
 import com.marks.module.user.sysrole.service.SysRoleService;
 
 public class AuthUtil {
