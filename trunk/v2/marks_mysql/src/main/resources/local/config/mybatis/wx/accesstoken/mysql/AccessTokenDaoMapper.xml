@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.marks.module.wx.api.wxfwhao.common.dao.AccessTokenDao">
+<mapper namespace="com.marks.module.wx.api.mp.base.dao.AccessTokenDao">
 	
-	<select id="getAccessTokenVoByAccountid" resultType="com.marks.module.wx.api.wxfwhao.common.entity.AccessTokenVo">
+	<select id="getAccessTokenVoByAccountid" resultType="com.marks.module.wx.api.mp.base.entity.AccessTokenVo">
 		select * from TB_WX_ACCESS_TOKEN t where t.accountid=#{accountid}
 	</select>
-	<update id="updateAccessTokenVo" parameterType="com.marks.module.wx.api.wxfwhao.common.entity.AccessTokenVo"
+	<update id="updateAccessTokenVo" parameterType="com.marks.module.wx.api.mp.base.entity.AccessTokenVo"
 		flushCache="true">
 		UPDATE TB_WX_ACCESS_TOKEN
 		SET ACCESSTOKEN =
@@ -19,7 +19,7 @@
 		=#{vo.accountid:VARCHAR}
 	</update>
 
-	<insert id="saveAccessTokenVo" parameterType="com.marks.module.wx.api.wxfwhao.common.entity.AccessTokenVo">
+	<insert id="saveAccessTokenVo" parameterType="com.marks.module.wx.api.mp.base.entity.AccessTokenVo">
 		insert into
 		TB_WX_ACCESS_TOKEN
 		(ACCOUNTID, ACCESSTOKEN, PUTTIME, EXPIRES_IN,UPDATETIME)
