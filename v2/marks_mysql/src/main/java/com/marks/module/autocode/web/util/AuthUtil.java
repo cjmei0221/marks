@@ -1,4 +1,4 @@
-package com.marks.module.autocode.core.util;
+package com.marks.module.autocode.web.util;
 
 import java.util.ArrayList;
 import java.util.List;
