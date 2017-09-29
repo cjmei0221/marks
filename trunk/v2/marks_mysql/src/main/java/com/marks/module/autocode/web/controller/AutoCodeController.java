@@ -22,11 +22,11 @@ import com.marks.module.autocode.core.produced.introduction.introduction.Introdu
 import com.marks.module.autocode.core.produced.pojo.AttrType;
 import com.marks.module.autocode.core.produced.pojo.AutoAttr;
 import com.marks.module.autocode.core.produced.pojo.AutoBean;
-import com.marks.module.autocode.core.util.AuthUtil;
 import com.marks.module.autocode.core.util.AutoCodeFactory;
 import com.marks.module.autocode.web.pojo.AutoCode;
 import com.marks.module.autocode.web.pojo.AutoCodeAttr;
 import com.marks.module.autocode.web.service.AutoCodeService;
+import com.marks.module.autocode.web.util.AuthUtil;
 import com.marks.module.core.controller.SupportContorller;
 
 @Controller
