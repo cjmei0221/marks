@@ -35,5 +35,7 @@ public interface OrgInfoDao {
 
 	void updateOrgChildNum(@Param("orgid") String orgid);
 
+	void updateMoreLvlName(@Param("orgid") String orgid, @Param("orgname")  String orgname,@Param("lvl") int lvl);
+
 
 }
