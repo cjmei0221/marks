@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.note.diary.pojo.Diary;
-import com.marks.module.wx.api.wxfwhao.common.entity.WxUser;
+import com.marks.module.wx.api.mp.user.entity.WxUser;
 
 public interface DiaryService{
 
