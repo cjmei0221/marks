@@ -5,18 +5,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.marks.module.core.util.WebPropsUtil;
+import com.marks.common.util.properties.PropsUtil;
 
 public class RunModel {
-	private String run_mode = WebPropsUtil.getProperty("runModul");// 与行方对接 N：测试
+	private String run_mode = PropsUtil.getProperty("runModul");// 与行方对接 N：测试
 																	// Y:对接
-	private String weixin_mode = WebPropsUtil.getProperty("weixinMode");// 与微信对接
+	private String weixin_mode = PropsUtil.getProperty("weixinMode");// 与微信对接
 																		// N：测试
 																		// Y:对接
-	private String run_companyId = WebPropsUtil.getProperty("run_companyId");// 与微信对接
+	private String default_companyId = PropsUtil.getProperty("default_companyId");// 与微信对接
 																				// N：测试
 																				// Y:对接
-	private String run_wxaccountId = WebPropsUtil.getProperty("run_wxaccountId");// 与微信对接
+	private String default_wxaccountId = PropsUtil.getProperty("default_wxaccountId");// 与微信对接
 																					// N：测试
 																					// Y:对接
 	private static RunModel util = null;
@@ -37,11 +37,11 @@ public class RunModel {
 	}
 
 	public String getCompanyId() {
-		return run_companyId;
+		return default_companyId;
 	}
 
 	public String getWxAccountId() {
-		return run_wxaccountId;
+		return default_wxaccountId;
 	}
 
 	public static void main(String[] args) {
