@@ -25,7 +25,7 @@ import com.marks.module.note.diary.pojo.Diary;
 import com.marks.module.note.diary.service.DiaryService;
 import com.marks.module.note.util.NoteConstants;
 import com.marks.module.system.upload.util.FTPUtil;
-import com.marks.module.wx.api.wxfwhao.common.entity.WxUser;
+import com.marks.module.wx.api.mp.user.entity.WxUser;
 import com.marks.module.wx.manage.template.util.WxMsgUtil;
 
 @Service
