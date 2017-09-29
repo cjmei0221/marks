@@ -20,8 +20,18 @@
 		PARENTID,
 		LVL,
 		COMPANYID,
-		ORGTYPE，
-		LOGOID
+		ORGTYPE,
+		LOGOID,
+		lvl2Id,
+		lvl2Name,
+		lvl3Id,
+		lvl3Name,
+		lvl4Id,
+		lvl4Name,
+		lvl5Id,
+		lvl5Name,
+		lvl6Id,
+		lvl6Name
 		)
 		VALUES(
 		#{orgid:VARCHAR},
@@ -34,7 +44,17 @@
 		#{lvl:NUMERIC},
 		#{companyId:VARCHAR},
 		#{orgType:VARCHAR},
-		#{logoId:VARCHAR}
+		#{logoId:VARCHAR},
+		#{lvl2Id:VARCHAR},
+		#{lvl2Name:VARCHAR},
+		#{lvl3Id:VARCHAR},
+		#{lvl3Name:VARCHAR},
+		#{lvl4Id:VARCHAR},
+		#{lvl4Name:VARCHAR},
+		#{lvl5Id:VARCHAR},
+		#{lvl5Name:VARCHAR},
+		#{lvl6Id:VARCHAR},
+		#{lvl6Name:VARCHAR}
 		)
 	</insert>
 
@@ -48,10 +68,28 @@
 		PARENTID=#{parentId:VARCHAR},
 		LVL=#{lvl:NUMERIC},
 		ORGTYPE=#{orgType:VARCHAR},
-		LOGOID=#{logoId:VARCHAR}
+		LOGOID=#{logoId:VARCHAR},
+		lvl2Id=#{lvl2Id:VARCHAR},
+		lvl2Name=#{lvl2Name:VARCHAR},
+		lvl3Id=#{lvl3Id:VARCHAR},
+		lvl3Name=#{lvl3Name:VARCHAR},
+		lvl4Id=#{lvl4Id:VARCHAR},
+		lvl4Name=#{lvl4Name:VARCHAR},
+		lvl5Id=#{lvl5Id:VARCHAR},
+		lvl5Name=#{lvl5Name:VARCHAR},
+		lvl6Id=#{lvl6Id:VARCHAR},
+		lvl6Name=#{lvl6Name:VARCHAR}
 		WHERE
 		ORGID =
 		#{orgid}
+	</update>
+	
+		<update id="updateMoreLvlName">
+		UPDATE TB_ORG_INFO
+		SET
+		lvl#{lvl}Name=#{orgname}
+		WHERE
+		lvl#{lvl}Id =#{orgid}
 	</update>
 
 	<delete id="delete" parameterType="String">
