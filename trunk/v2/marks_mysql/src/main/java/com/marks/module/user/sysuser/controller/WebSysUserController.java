@@ -1,4 +1,4 @@
-package com.marks.module.user.web.base.controller;
+package com.marks.module.user.sysuser.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.marks.module.user.web.vip.controller;
+package com.marks.module.user.vipinfo.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
