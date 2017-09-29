@@ -71,12 +71,12 @@ public class OrgInfoController extends SupportContorller {
 			OrgInfo orgInfo = getModel(OrgInfo.class);
 			// orgInfo.setOrgid(IDUtil.getTimeID());
 			OrgInfo ori = null;
-			if(orgInfo.getLogoId() !=null){
+			if (orgInfo.getLogoId() != null) {
 				ori = orgInfoService.findById(orgInfo.getLogoId());
 			}
-			
+
 			if (ori == null) {
-				String orgId=orgInfoService.getOrgId();
+				String orgId = orgInfoService.getOrgId();
 				orgInfo.setOrgid(orgId);
 				if (Enums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 					orgInfo.setParentId("0");
@@ -86,6 +86,38 @@ public class OrgInfoController extends SupportContorller {
 					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
 					orgInfo.setLvl(parentVo.getLvl() + 1);
 					orgInfo.setCompanyId(parentVo.getCompanyId());
+
+					orgInfo.setLvl2Id(parentVo.getLvl2Id());
+					orgInfo.setLvl2Name(parentVo.getLvl2Name());
+
+					orgInfo.setLvl3Id(parentVo.getLvl3Id());
+					orgInfo.setLvl3Name(parentVo.getLvl3Name());
+
+					orgInfo.setLvl4Id(parentVo.getLvl4Id());
+					orgInfo.setLvl4Name(parentVo.getLvl4Name());
+
+					orgInfo.setLvl5Id(parentVo.getLvl5Id());
+					orgInfo.setLvl5Name(parentVo.getLvl5Name());
+
+					orgInfo.setLvl6Id(parentVo.getLvl6Id());
+					orgInfo.setLvl6Name(parentVo.getLvl6Name());
+
+					if (orgInfo.getLvl() == 2) {
+						orgInfo.setLvl2Id(orgInfo.getOrgid());
+						orgInfo.setLvl2Name(orgInfo.getOrgname());
+					} else if (orgInfo.getLvl() == 3) {
+						orgInfo.setLvl3Id(orgInfo.getOrgid());
+						orgInfo.setLvl3Name(orgInfo.getOrgname());
+					} else if (orgInfo.getLvl() == 4) {
+						orgInfo.setLvl4Id(orgInfo.getOrgid());
+						orgInfo.setLvl4Name(orgInfo.getOrgname());
+					} else if (orgInfo.getLvl() == 5) {
+						orgInfo.setLvl5Id(orgInfo.getOrgid());
+						orgInfo.setLvl5Name(orgInfo.getOrgname());
+					} else if (orgInfo.getLvl() == 6) {
+						orgInfo.setLvl6Id(orgInfo.getOrgid());
+						orgInfo.setLvl6Name(orgInfo.getOrgname());
+					}
 				}
 				orgInfo.setCreator(admin.getUserid());
 				StaticData.putOrgInfo(orgInfo);
@@ -116,19 +148,59 @@ public class OrgInfoController extends SupportContorller {
 			if (ori == null) {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
-			} else {
-				if (Enums.OrgType.company.getValue() == orgInfo.getOrgType()) {
-					orgInfo.setParentId("0");
-					orgInfo.setLvl(1);
-				} else {
-					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
-					orgInfo.setLvl(parentVo.getLvl() + 1);
-				}
-				StaticData.putOrgInfo(orgInfo);
-				orgInfoService.update(orgInfo);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
+				JsonUtil.output(response, result);
+				return;
 			}
+			if (Enums.OrgType.company.getValue() != orgInfo.getOrgType() && ori.getChildnum() > 0 && !ori.getParentId().equals(orgInfo.getParentId())) {
+				result.setMessage("此记录下有子节点不能更换父节点!");
+				result.setCode(Code.CODE_FAIL);
+				JsonUtil.output(response, result);
+				return;
+			}
+			if (Enums.OrgType.company.getValue() == orgInfo.getOrgType()) {
+				orgInfo.setParentId("0");
+				orgInfo.setLvl(1);
+			} else {
+				OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
+				orgInfo.setLvl(parentVo.getLvl() + 1);
+
+				orgInfo.setLvl2Id(parentVo.getLvl2Id());
+				orgInfo.setLvl2Name(parentVo.getLvl2Name());
+
+				orgInfo.setLvl3Id(parentVo.getLvl3Id());
+				orgInfo.setLvl3Name(parentVo.getLvl3Name());
+
+				orgInfo.setLvl4Id(parentVo.getLvl4Id());
+				orgInfo.setLvl4Name(parentVo.getLvl4Name());
+
+				orgInfo.setLvl5Id(parentVo.getLvl5Id());
+				orgInfo.setLvl5Name(parentVo.getLvl5Name());
+
+				orgInfo.setLvl6Id(parentVo.getLvl6Id());
+				orgInfo.setLvl6Name(parentVo.getLvl6Name());
+
+				if (orgInfo.getLvl() == 2) {
+					orgInfo.setLvl2Id(orgInfo.getOrgid());
+					orgInfo.setLvl2Name(orgInfo.getOrgname());
+				} else if (orgInfo.getLvl() == 3) {
+					orgInfo.setLvl3Id(orgInfo.getOrgid());
+					orgInfo.setLvl3Name(orgInfo.getOrgname());
+				} else if (orgInfo.getLvl() == 4) {
+					orgInfo.setLvl4Id(orgInfo.getOrgid());
+					orgInfo.setLvl4Name(orgInfo.getOrgname());
+				} else if (orgInfo.getLvl() == 5) {
+					orgInfo.setLvl5Id(orgInfo.getOrgid());
+					orgInfo.setLvl5Name(orgInfo.getOrgname());
+				} else if (orgInfo.getLvl() == 6) {
+					orgInfo.setLvl6Id(orgInfo.getOrgid());
+					orgInfo.setLvl6Name(orgInfo.getOrgname());
+				}
+			}
+			StaticData.putOrgInfo(orgInfo);
+			orgInfoService.update(orgInfo);
+			result.setMessage("更新成功!");
+			result.setCode(Code.CODE_SUCCESS);
+
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");
@@ -224,19 +296,19 @@ public class OrgInfoController extends SupportContorller {
 		String parentId = request.getParameter("parentId");
 		String companyId = request.getParameter("companyId");
 		List<OrgInfo> list = null;
-		
-		//根节点加载
+
+		// 根节点加载
 		if (parentId == null || "".equals(parentId)) {
 			if (null == admin.getCompanyId()) {
 				List<OrgInfo> s = admin.getOrgInfoList();
 				plist.add(s.get(0).getParentId());
-				
-				if(null == companyId){
+
+				if (null == companyId) {
 					list = orgInfoService.listGrid(plist, admin.getCompanyId());
-				}else{
+				} else {
 					list = orgInfoService.listGrid(plist, companyId);
 				}
-				
+
 			} else {
 				list = admin.getOrgInfoList();
 				for (OrgInfo info : list) {
@@ -245,10 +317,10 @@ public class OrgInfoController extends SupportContorller {
 					}
 				}
 			}
-		} else {//非根节点
+		} else {// 非根节点
 			plist.add(parentId);
 			list = orgInfoService.listGrid(plist, admin.getCompanyId());
-			
+
 		}
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 		return;

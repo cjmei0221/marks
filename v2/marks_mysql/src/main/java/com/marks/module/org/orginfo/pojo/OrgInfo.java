@@ -51,8 +51,106 @@ public class OrgInfo implements Serializable{
     private int childnum;
     private String logoId;//logo的名称
     
+   
     
-    public String getLogoId() {
+    private String lvl2Id;//級別2编号  lvl1为公司 公司不计入
+    private String lvl2Name;//级别2名称;
+    
+    private String lvl3Id;//級別3编号 lvl1为公司 公司不计入
+    private String lvl3Name;//级别3名称;
+    
+    private String lvl4Id;//級別3编号
+    private String lvl4Name;//级别3名称;
+    
+    private String lvl5Id;//級別3编号
+    private String lvl5Name;//级别3名称;
+    
+    private String lvl6Id;//級別6编号
+    private String lvl6Name;//级别6名称;
+    
+    
+    
+    public String getLvl2Id() {
+		return lvl2Id;
+	}
+
+	public void setLvl2Id(String lvl2Id) {
+		this.lvl2Id = lvl2Id;
+	}
+
+	public String getLvl2Name() {
+		return lvl2Name;
+	}
+
+	public void setLvl2Name(String lvl2Name) {
+		this.lvl2Name = lvl2Name;
+	}
+
+	public String getLvl3Id() {
+		return lvl3Id;
+	}
+
+	public void setLvl3Id(String lvl3Id) {
+		this.lvl3Id = lvl3Id;
+	}
+
+	public String getLvl3Name() {
+		return lvl3Name;
+	}
+
+	public void setLvl3Name(String lvl3Name) {
+		this.lvl3Name = lvl3Name;
+	}
+
+	public String getLvl4Id() {
+		return lvl4Id;
+	}
+
+	public void setLvl4Id(String lvl4Id) {
+		this.lvl4Id = lvl4Id;
+	}
+
+	public String getLvl4Name() {
+		return lvl4Name;
+	}
+
+	public void setLvl4Name(String lvl4Name) {
+		this.lvl4Name = lvl4Name;
+	}
+
+	public String getLvl5Id() {
+		return lvl5Id;
+	}
+
+	public void setLvl5Id(String lvl5Id) {
+		this.lvl5Id = lvl5Id;
+	}
+
+	public String getLvl5Name() {
+		return lvl5Name;
+	}
+
+	public void setLvl5Name(String lvl5Name) {
+		this.lvl5Name = lvl5Name;
+	}
+
+	public String getLvl6Id() {
+		return lvl6Id;
+	}
+
+	public void setLvl6Id(String lvl6Id) {
+		this.lvl6Id = lvl6Id;
+	}
+
+	public String getLvl6Name() {
+		return lvl6Name;
+	}
+
+	public void setLvl6Name(String lvl6Name) {
+		this.lvl6Name = lvl6Name;
+	}
+
+	public String getLogoId() {
 		return logoId;
 	}
 

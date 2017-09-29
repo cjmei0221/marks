@@ -53,6 +53,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Override
 	public void update(OrgInfo orgInfo) {
 		orgInfoDao.update(orgInfo);
+		orgInfoDao.updateMoreLvlName(orgInfo.getOrgid(),orgInfo.getOrgname(),orgInfo.getLvl());
 		updateOrgChildNum(orgInfo.getParentId());
 	}
 
