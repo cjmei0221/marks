@@ -21,7 +21,7 @@ import com.marks.common.domain.TreeVo;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.system.sys.pojo.SysMenu;
+import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.user.login.helper.LoginInnerUtil;
 import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysrole.service.SysRoleService;

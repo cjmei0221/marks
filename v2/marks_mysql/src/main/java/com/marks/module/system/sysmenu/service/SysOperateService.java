@@ -1,8 +1,8 @@
-package com.marks.module.system.sys.service;
+package com.marks.module.system.sysmenu.service;
 
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
 
 public interface SysOperateService {
 

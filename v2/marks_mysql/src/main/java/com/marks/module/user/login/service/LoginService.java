@@ -3,8 +3,8 @@ package com.marks.module.user.login.service;
 import java.util.List;
 
 import com.marks.module.org.orginfo.pojo.OrgInfo;
-import com.marks.module.system.sys.pojo.SysMenu;
-import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sysmenu.pojo.SysMenu;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 /**

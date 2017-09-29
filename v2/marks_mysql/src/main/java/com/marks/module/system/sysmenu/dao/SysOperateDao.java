@@ -1,4 +1,4 @@
-package com.marks.module.system.sys.dao;
+package com.marks.module.system.sysmenu.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
 @MapperScan
 public interface SysOperateDao {
 

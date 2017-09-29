@@ -1,4 +1,4 @@
-package com.marks.module.system.sys.pojo;
+package com.marks.module.system.sysmenu.pojo;
 
 import java.util.ArrayList;
 import java.util.Date;

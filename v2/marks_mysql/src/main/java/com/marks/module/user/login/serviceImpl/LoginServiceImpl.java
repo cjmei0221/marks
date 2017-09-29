@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marks.module.org.orginfo.pojo.OrgInfo;
-import com.marks.module.system.sys.pojo.SysMenu;
-import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sysmenu.pojo.SysMenu;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.login.dao.LoginDao;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;

@@ -1,4 +1,4 @@
-package com.marks.module.system.sys.service;
+package com.marks.module.system.data.service;
 
 public interface LoadDataService {
 

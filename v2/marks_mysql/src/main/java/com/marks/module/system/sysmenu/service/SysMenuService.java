@@ -1,11 +1,11 @@
-package com.marks.module.system.sys.service;
+package com.marks.module.system.sysmenu.service;
 
 import java.util.List;
 
 import com.marks.common.domain.Result;
-import com.marks.module.system.sys.pojo.SysFunc;
-import com.marks.module.system.sys.pojo.SysMenu;
-import com.marks.module.system.sys.pojo.SysOperate;
+import com.marks.module.system.sysmenu.pojo.SysFunc;
+import com.marks.module.system.sysmenu.pojo.SysMenu;
+import com.marks.module.system.sysmenu.pojo.SysOperate;
 
 public interface SysMenuService {
 
