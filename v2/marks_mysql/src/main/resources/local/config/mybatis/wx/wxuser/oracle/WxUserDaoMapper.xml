@@ -3,18 +3,18 @@
 
 <mapper namespace="com.marks.module.inner.wx.wxuser.dao.WxUserDao">
 
-	<select id="findById" resultType="com.marks.module.wx.api.wxfwhao.common.entity.WxUser">
+	<select id="findById" resultType="com.marks.module.wx.api.mp.user.entity.WxUser">
 		SELECT * FROM TB_WX_USER wxuser
 		where wxuser.OPENID = #{openid} and wxuser.ACCOUNTID=#{accountid}
 	</select>
 
-	<select id="findWxUserListForDairy" resultType="com.marks.module.wx.api.wxfwhao.common.entity.WxUser">
+	<select id="findWxUserListForDairy" resultType="com.marks.module.wx.api.mp.user.entity.WxUser">
 		SELECT * FROM
 		TB_WX_USER wxuser
 		where wxuser.DAIRYFLAG = 1
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.wx.api.wxfwhao.common.entity.WxUser">
+	<insert id="save" parameterType="com.marks.module.wx.api.mp.user.entity.WxUser">
 		INSERT INTO TB_WX_USER wxuser (
 		wxuser.OPENID,
 		wxuser.NICKNAME,
@@ -55,7 +55,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.wx.api.wxfwhao.common.entity.WxUser">
+	<update id="update" parameterType="com.marks.module.wx.api.mp.user.entity.WxUser">
 		UPDATE TB_WX_USER wxuser
 		SET
 		wxuser.NICKNAME = #{nickname:VARCHAR},
@@ -89,7 +89,7 @@
 		WHERE wxuser.OPENID=#{openid}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.wx.api.wxfwhao.common.entity.WxUser">
+	<select id="findAll" resultType="com.marks.module.wx.api.mp.user.entity.WxUser">
 		SELECT * FROM TB_WX_USER
 	</select>
 
@@ -101,7 +101,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.wx.api.wxfwhao.common.entity.WxUser"
+	<select id="list" resultType="com.marks.module.wx.api.mp.user.entity.WxUser"
 		parameterType="java.util.Map">
 		SELECT wxuser.*, wq.qrname
 		FROM TB_WX_USER wxuser
