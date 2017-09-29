@@ -21,7 +21,7 @@
 		tsu.openid=#{openid}
 	</select>
 	<!-- 加载父级菜单 -->
-	<select id="getParentSysMenu" resultType="com.marks.module.system.sys.pojo.SysMenu">
+	<select id="getParentSysMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
 		SELECT DISTINCT
 		VSRM.MENUID,
 		VSRM.MENUITEM,
@@ -34,7 +34,7 @@
 		vsrm.PARENTID = '0' order by vsrm.nsort
 	</select>
 
-	<select id="getChildMenu" resultType="com.marks.module.system.sys.pojo.SysMenu">
+	<select id="getChildMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
 		SELECT DISTINCT
 		VSRM.MENUID,
 		VSRM.MENUITEM,
@@ -49,7 +49,7 @@
 		</if>
 		and vsrm.PARENTID != '0' order by vsrm.nsort
 	</select>
-	<select id="getSysOperate" resultType="com.marks.module.system.sys.pojo.SysOperate">
+	<select id="getSysOperate" resultType="com.marks.module.system.sysmenu.pojo.SysOperate">
 		SELECT distinct
 		VSRF.OPERID,
 		VSRF.OPERNAME,

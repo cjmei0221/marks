@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.marks.module.system.sys.dao.SysOperateDao">
-	<select id="list" resultType="com.marks.module.system.sys.pojo.SysOperate">
+<mapper namespace="com.marks.module.system.sysmenu.dao.SysOperateDao">
+	<select id="list" resultType="com.marks.module.system.sysmenu.pojo.SysOperate">
 		select * from tb_sys_operate t
 		where 1=1
 		<if test="keyword !=null and keyword !=''">
@@ -10,7 +10,7 @@
 		</if>
 		order by t.sort
 	</select>
-	<insert id="save" parameterType="com.marks.module.system.sys.pojo.SysOperate">
+	<insert id="save" parameterType="com.marks.module.system.sysmenu.pojo.SysOperate">
 		insert into tb_sys_operate
 		(
 		OPERID,
@@ -29,7 +29,7 @@
 		#{info.creator:VARCHAR},
 		#{info.sort:INTEGER})
 	</insert>
-	<update id="update" parameterType="com.marks.module.system.sys.pojo.SysOperate"
+	<update id="update" parameterType="com.marks.module.system.sysmenu.pojo.SysOperate"
 		flushCache="true">
 		UPDATE tb_sys_operate
 		SET OPERNAME =#{info.opername:VARCHAR},
@@ -47,7 +47,7 @@
 	<select id="countfunc" resultType="int">
 		select count(1) from tb_sys_func t where t.operid=#{operid}
 	</select>
-	<select id="getObjectById" resultType="com.marks.module.system.sys.pojo.SysOperate">
+	<select id="getObjectById" resultType="com.marks.module.system.sysmenu.pojo.SysOperate">
 		select * from tb_sys_operate t where t.operid=#{operid}
 	</select>
 </mapper>
