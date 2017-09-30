@@ -37,5 +37,6 @@ public interface OrgInfoDao {
 
 	void updateMoreLvlName(@Param("orgid") String orgid, @Param("orgname")  String orgname,@Param("lvl") int lvl);
 
+	String getOrgId();
 
 }
