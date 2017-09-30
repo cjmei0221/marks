@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- Area.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>管理平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="format-detection" content="telephone=no, email=no" />
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/inner/css/base.css">
+<script type="text/javascript" src="/inner/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/inner/js/base-config.js"></script>
+<script type="text/javascript" src="/inner/js/sysmsg.js"></script>
+<script type="text/javascript" src="/inner/js/tool.js"></script>
+</head>
+	
+	<body>
+	
+	<div id="mainPanel">
+		<p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p>
+		<div id="tb" style="padding: 5px 0;">
+		<table>
+				<tr>
+					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="区域编号/区域名称/公司ID/级别/创建时间/更新时间/上级编号/上级名称/级别1编号/级别1名称/级别2编号/级别2名称/级别3编号/级别3名称/级别4编号/级别4名称/级别5编号/级别5名称"/></td>
+					<td><a id="doSearch" href="javascript:void(0)" class="easyui-linkbutton menuBtnCls" data-options="iconCls:'icon-search'">查询</a></td>
+				</tr>
+			</table>
+			<div>
+				<span id="operateBtns"></span>
+			</div>
+		</div>
+		<table id="tbList">
+		</table>
+	</div>
+	
+	<div id="editWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 600px; height: 450px; padding: 10px;">
+		<div align="center" style="width: 100%;">
+		<form id="ff" name="ff" method="post">
+			<input type="hidden"  id="areaId" name="areaId">
+			<table>
+				<tr><th style="width: 120px;text-align: right;">区域名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="areaName" name="areaName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">公司ID&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="companyId" name="companyId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl" name="lvl" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">上级编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="parentId" name="parentId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">上级名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="parentName" name="parentName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别1编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl1Id" name="lvl1Id" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别1名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl1Name" name="lvl1Name" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别2编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl2Id" name="lvl2Id" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别2名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl2Name" name="lvl2Name" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别3编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl3Id" name="lvl3Id" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别3名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl3Name" name="lvl3Name" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别4编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl4Id" name="lvl4Id" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别4名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl4Name" name="lvl4Name" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别5编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl5Id" name="lvl5Id" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">级别5名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="lvl5Name" name="lvl5Name" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr>
+				<tr height="25px"><td colspan="2"></td></tr>
+				<tr>
+					<td colspan="2" style="text-align: center">
+							<a id="btnCancel"
+							name="btnCancel" href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;"
+							data-options="iconCls:'icon-cancel'">取消</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<a id="btnOK"
+							name="btnOK" href="javascript:void(0)"  class="easyui-linkbutton" style="width:100px;"
+							data-options="iconCls:'icon-save'">保存</a>
+						</td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	
+</body>
+<script src="js/area.js"></script>
+</html>
