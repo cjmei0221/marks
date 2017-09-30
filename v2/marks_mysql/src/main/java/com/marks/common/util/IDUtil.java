@@ -2,6 +2,7 @@ package com.marks.common.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 
@@ -52,6 +53,12 @@ public class IDUtil {
 		return idStr.substring(idStr.length()-size, idStr.length());
 	}
 	
+	public static String getRandom(int min, int max) {
+		Random random = new Random();
+		int s = random.nextInt(max) % (max - min + 1) + min;
+		return String.valueOf(s);
+	}
+
 	/*public static void main(String[] args) {
 		System.out.println(IDUtil.getTimeID());
 	}*/
