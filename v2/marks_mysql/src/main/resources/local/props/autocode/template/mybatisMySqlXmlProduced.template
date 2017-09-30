@@ -14,9 +14,22 @@
 @{GetAttrName}
 		)
 		VALUES(
-@{SetAttrValue}			
+		@{SetAttrValue}			
 			)
  	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO @{TableName} (
+			@{GetAttrName}
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+				@{SetAttrValue}			
+			)
+		</foreach>
+	</insert>
  	
  	<update id="update" parameterType="@{NameSpaceUrl}.@{beanName}">
  		UPDATE @{TableName} 

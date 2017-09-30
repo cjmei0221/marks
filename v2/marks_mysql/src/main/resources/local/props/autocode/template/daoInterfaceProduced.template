@@ -17,6 +17,8 @@ public interface @{beanName}Dao {
 	@{beanName} findById(@Param("@{GetPkAttrName}") String @{GetPkAttrName});
 
 	void save(@{beanName} @{BeanObject});
+	
+	void saveBatch(@Param("list") List<@{beanName}> list);
 
 	void update(@{beanName} @{BeanObject});
 
