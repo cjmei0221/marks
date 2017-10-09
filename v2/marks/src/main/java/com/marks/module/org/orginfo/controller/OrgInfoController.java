@@ -151,7 +151,8 @@ public class OrgInfoController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
-			if (Enums.OrgType.company.getValue() != orgInfo.getOrgType() && ori.getChildnum() > 0 && !ori.getParentId().equals(orgInfo.getParentId())) {
+			if (Enums.OrgType.company.getValue() != orgInfo.getOrgType() && ori.getChildnum() > 0
+					&& !ori.getParentId().equals(orgInfo.getParentId())) {
 				result.setMessage("此记录下有子节点不能更换父节点!");
 				result.setCode(Code.CODE_FAIL);
 				JsonUtil.output(response, result);
@@ -291,36 +292,22 @@ public class OrgInfoController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 
 		SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
-
-		List<String> plist = new ArrayList<String>();
 		String parentId = request.getParameter("parentId");
-		String companyId = request.getParameter("companyId");
+		logger.info("list parentId:" + parentId);
+		String companyId = admin.getCompanyNo();
 		List<OrgInfo> list = null;
 
 		// 根节点加载
 		if (parentId == null || "".equals(parentId)) {
-			if (null == admin.getCompanyId()) {
-				List<OrgInfo> s = admin.getOrgInfoList();
-				plist.add(s.get(0).getParentId());
-
-				if (null == companyId) {
-					list = orgInfoService.listGrid(plist, admin.getCompanyId());
-				} else {
-					list = orgInfoService.listGrid(plist, companyId);
-				}
-
-			} else {
-				list = admin.getOrgInfoList();
-				for (OrgInfo info : list) {
-					if (info.getChildnum() > 0) {
-						info.setState("closed");
-					}
-				}
+			OrgInfo info = orgInfoService.findById(companyId);
+			if (info.getChildnum() > 0) {
+				info.setState("closed");
 			}
-		} else {// 非根节点
-			plist.add(parentId);
-			list = orgInfoService.listGrid(plist, admin.getCompanyId());
-
+			list = new ArrayList<OrgInfo>();
+			list.add(info);
+		} else {
+			logger.info("list parentId:" + parentId + " - " + admin.getCompanyId());
+			list = orgInfoService.listGrid(parentId, companyId);
 		}
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 		return;

@@ -4,9 +4,8 @@ package com.marks.module.org.area.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.annotation.MapperScan;
-
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.org.area.pojo.Area;
@@ -27,4 +26,9 @@ public interface AreaDao {
 	void deleteBatch(List<String> list);
 
 	List<Area> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<Area> findByParentId(@Param("parentId") String parentId);
+
+	List<Area> getTreeGridByParentId(@Param("parentId") String parentId);
+
 }

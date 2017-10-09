@@ -1,12 +1,11 @@
 package com.marks.module.org.area.service;
 
 
-import com.marks.module.org.area.pojo.Area;
-
 import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
+import com.marks.module.org.area.pojo.Area;
 
 public interface AreaService{
 
@@ -17,4 +16,14 @@ public interface AreaService{
 	public List<Area> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<Area> list(int page_number, int page_size,Map<String,Object> param);
+
+	/**
+	 * 通过父ID获取集合
+	 * 
+	 * @param companyId
+	 * @return
+	 */
+	public List<Area> findByParentId(String companyId);
+
+	public List<Area> treeGrid(String parentId);
 }

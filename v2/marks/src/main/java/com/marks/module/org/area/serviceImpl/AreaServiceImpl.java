@@ -3,17 +3,15 @@ package com.marks.module.org.area.serviceImpl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marks.module.org.area.pojo.Area;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.org.area.dao.AreaDao;
+import com.marks.module.org.area.pojo.Area;
 import com.marks.module.org.area.service.AreaService;
 
 @Service
@@ -92,6 +90,16 @@ public class AreaServiceImpl implements AreaService{
 		pojoDomain.setPage_size(page_size);
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
+	}
+
+	@Override
+	public List<Area> findByParentId(String parenId) {
+		return areaDao.findByParentId(parenId);
+	}
+
+	@Override
+	public List<Area> treeGrid(String parentId) {
+		return areaDao.getTreeGridByParentId(parentId);
 	}
 	
 }

@@ -1,9 +1,7 @@
 package com.marks.module.org.area.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,18 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.marks.common.domain.PaginationResult;
-import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.util.JsonUtil;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
+import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
+import com.marks.module.org.area.pojo.Area;
+import com.marks.module.org.area.service.AreaService;
 import com.marks.module.user.login.helper.LoginInnerUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
-import com.marks.module.org.area.pojo.Area;
-import com.marks.module.org.area.service.AreaService;
+import net.sf.json.JSONArray;
 
  /**
 	 * 区域管理: 机构区域管理
@@ -35,7 +32,6 @@ public class AreaController extends SupportContorller{
     
     @Autowired
     private AreaService  areaService;
-   
 
     @Override
 	public Logger getLogger() {
@@ -84,8 +80,10 @@ public class AreaController extends SupportContorller{
 	 		if(area.getAreaId() != null){
 	 			ori=areaService.findById(area.getAreaId());
 	 		}
-	 		
+			String areaId = "A" + IDUtil.getDateID() + "_" + IDUtil.getRandom(1001, 9999);
 	 		if(ori==null){
+				area.setCompanyId(admin.getCompanyNo());
+				area.setAreaId(areaId);
 	 			areaService.save(area);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -212,35 +210,31 @@ public class AreaController extends SupportContorller{
 	 */
 	@RequestMapping("/inner/area/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
-       PaginationResult result = new PaginationResult();
-		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
-			int page_number = Integer.parseInt(request.getParameter("page_number"));
-			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			if (page_size > 200) {
-				page_size = 200;
+		SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+
+		
+		String parentId = request.getParameter("parentId");
+		String companyId = admin.getCompanyNo();
+		List<Area> list = null;
+
+		// 根节点加载
+		if (parentId == null || "".equals(parentId)) {
+			list = new ArrayList<Area>();
+			parentId=companyId;
+			List<Area> areaList = areaService.findByParentId(companyId);
+			Area area = new Area();
+			area.setAreaId(companyId);
+			area.setAreaName("总区");
+			area.setLvl(0);
+			if (null != areaList && areaList.size() > 0) {
+				area.setState("closed");
 			}
-			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
-			}
-			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
-			Map<String,Object> param=new HashMap<String,Object>();
-			param.put("keyword", keyword);
-			PojoDomain<Area> list = areaService.list(page_number, page_size, param);
-			result.getData().put("list", list.getPojolist());
-			result.setPageNumber(list.getPage_number());
-			result.setPageSize(list.getPage_size());
-			result.setPageTotal(list.getPage_total());
-			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find area successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("find area fail!");
-			result.setCode(Code.CODE_FAIL);
+			list.add(area);
+		} else {// 非根节点
+			list = areaService.treeGrid(parentId);
 		}
-		JsonUtil.output(response, result);
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+		return;
     }
 	
 }
