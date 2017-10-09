@@ -47,6 +47,9 @@ public class Area implements Serializable{
     *
     */
     private String parentName;
+
+	private String state = "open";
+
     /**
     *级别1编号
     *
@@ -98,9 +101,15 @@ public class Area implements Serializable{
     */
     private String lvl5Name;
 
+	public String getState() {
+		return state;
+	}
 
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public String getAreaId(){
+	public String getAreaId() {
         return areaId;
     }
     public void setAreaId(String areaId){

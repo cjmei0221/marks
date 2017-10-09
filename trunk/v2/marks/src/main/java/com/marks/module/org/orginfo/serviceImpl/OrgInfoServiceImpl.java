@@ -85,8 +85,8 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	}
 
 	@Override
-	public List<OrgInfo> listGrid(List<String> plist, String companyId) {
-		return orgInfoDao.getTreeGridByParentId(plist, companyId);
+	public List<OrgInfo> listGrid(String parentId, String companyId) {
+		return orgInfoDao.getTreeGridByParentId(parentId, companyId);
 	}
 
 	public List<OrgInfo> list(SysUser admin) {
