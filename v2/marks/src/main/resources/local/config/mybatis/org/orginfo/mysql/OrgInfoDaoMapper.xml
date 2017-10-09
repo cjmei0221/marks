@@ -168,21 +168,15 @@
 		end) state
 		from tb_org_info t
 		left join tb_org_info p2 on
-		t.parentid = p2.orgid
+		t.parentid =
+		p2.orgid
 		left join (select count(1) cnum, p.parentid pid
-		from tb_org_info p
+		from
+		tb_org_info p
 		group by p.parentid) p on t.orgid = p.pid
-		where 1=1
-		<if test="plist != null">
-			AND t.parentid IN
-			<foreach collection="plist" item="ids" index="index" open="("
-				separator="," close=")">
-				#{ids}
-			</foreach>
-		</if>
-		<if test="companyId !=null and companyId !=''">
-			and t.COMPANYID=#{companyId}
-		</if>
+		where 1=1 and
+		t.COMPANYID=#{companyId}
+		AND t.parentid =#{parentId}
 	</select>
 
 	<select id="getChildList" resultType="com.marks.module.org.orginfo.pojo.OrgInfo">
