@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.marks.module.core.runModel.RunModel;
 import com.marks.module.wx.web.config.PageConfigUtil;
 
 @Controller
@@ -25,13 +24,13 @@ public class MenuController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/wxMenu/{pageUrl}")
-	public void wxMenu(@PathVariable String pageUrl, HttpServletRequest request,
+	@RequestMapping("/wxMenu/{accountid}/{pageUrl}")
+	public void wxMenu(@PathVariable String accountid, @PathVariable String pageUrl, HttpServletRequest request,
 			HttpServletResponse response) {
 		String url = request.getContextPath() + PageConfigUtil.getProperty("unsubscribeurl");
 		try {
 			String to_url = request.getContextPath() + PageConfigUtil.getProperty(pageUrl);
-			url = toAuth + "?accountid=" + RunModel.getInstance().getWxAccountId()+ "&to_url="
+			url = toAuth + "?accountid=" + accountid + "&to_url="
 					+ URLEncoder.encode(to_url, "UTF-8");
 			logger.info("URL>>" + url);
 			// response.sendRedirect(url);
