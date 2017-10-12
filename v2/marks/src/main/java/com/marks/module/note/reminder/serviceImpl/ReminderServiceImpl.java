@@ -19,20 +19,21 @@ import com.marks.module.note.diary.serviceImpl.DiaryServiceImpl;
 import com.marks.module.note.reminder.dao.ReminderDao;
 import com.marks.module.note.reminder.pojo.Reminder;
 import com.marks.module.note.reminder.service.ReminderService;
+import com.marks.module.wx.manage.template.util.TmpConstants;
 import com.marks.module.wx.manage.template.util.WxMsgUtil;
+
 @Service
 public class ReminderServiceImpl implements ReminderService {
 	private static Logger logger = Logger.getLogger(DiaryServiceImpl.class);
 	@Autowired
 	private ReminderDao reminderDao;
 
-	/*public ReminderDao getReminderDao() {
-		return reminderDao;
-	}
-
-	public void setReminderDao(ReminderDao reminderDao) {
-		this.reminderDao = reminderDao;
-	}*/
+	/*
+	 * public ReminderDao getReminderDao() { return reminderDao; }
+	 * 
+	 * public void setReminderDao(ReminderDao reminderDao) { this.reminderDao =
+	 * reminderDao; }
+	 */
 
 	/**
 	 * 根据ID查找事务提醒
@@ -53,7 +54,7 @@ public class ReminderServiceImpl implements ReminderService {
 		// 普通提示
 		if (reminder.getRemind_type() == 0) {
 			reminder.setNeedFlag(0);
-			pushModuleMsgByParams(reminder, "wxtemplate_reminder_normal");
+			pushModuleMsgByParams(reminder, TmpConstants.wxtemplate_note_reminder_normal);
 			reminderDao.update(reminder);
 			return;
 		}
@@ -61,10 +62,10 @@ public class ReminderServiceImpl implements ReminderService {
 		// 特殊节日 农历
 		if (reminder.getHoliday_type() == 1) {
 			// 生日
-			pushModuleMsgByParams(reminder, "wxtemplate_reminder_birthday");
+			pushModuleMsgByParams(reminder, TmpConstants.wxtemplate_note_reminder_birthday);
 			return;
 		}
-		pushModuleMsgByParams(reminder, "wxtemplate_reminder_holiday");
+		pushModuleMsgByParams(reminder, TmpConstants.wxtemplate_note_reminder_holiday);
 
 		if (reminder.getIs_repeat() == 0) {
 			reminder.setNeedFlag(0);
@@ -86,8 +87,8 @@ public class ReminderServiceImpl implements ReminderService {
 		}
 		List<String> openidList = new ArrayList<String>();
 		openidList.add(reminder.getOpenid());
-		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false,reminder.getAccountid(), templateId, openidList, keywordList,
-				reminder.getNickname(),null);
+		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false, reminder.getAccountid(), templateId, openidList,
+				keywordList, reminder.getNickname(), null);
 		return result;
 	}
 
