@@ -26,6 +26,7 @@ import com.marks.module.note.diary.service.DiaryService;
 import com.marks.module.note.util.NoteConstants;
 import com.marks.module.system.upload.util.FTPUtil;
 import com.marks.module.wx.api.mp.user.entity.WxUser;
+import com.marks.module.wx.manage.template.util.TmpConstants;
 import com.marks.module.wx.manage.template.util.WxMsgUtil;
 
 @Service
@@ -44,7 +45,9 @@ public class DiaryServiceImpl implements DiaryService {
 		List<String> keywordList = new ArrayList<String>();
 		keywordList.add(wxUser.getNickname());
 		keywordList.add(sdf.format(new Date()));
-		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false, wxUser.getAccountid(), "wxtemplate_dairy", openidList,
+		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false, wxUser.getAccountid(),
+				TmpConstants.wxtemplate_note_dairy,
+				openidList,
 				keywordList, note, null);
 
 	}
