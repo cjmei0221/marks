@@ -27,7 +27,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.number.NumberUtil;
 import com.marks.common.util.properties.PropsUtil;
-import com.marks.module.core.data.CacheData;
+import com.marks.module.cache.CacheData;
 import com.marks.module.pay.unionpay.sdk.AcpService;
 import com.marks.module.pay.unionpay.sdk.SDKConstants;
 import com.marks.module.pay.unionpay.thread.pool.PayThreadPool;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.module.core.data.CacheData;
+import com.marks.module.cache.CacheData;
 import com.marks.module.system.syslog.dao.SysLogDao;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.service.SysLogService;

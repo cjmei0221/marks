@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.marks.module.core.data.CacheData;
+import com.marks.module.cache.CacheData;
 import com.marks.module.user.login.helper.LoginWxUtil;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
 import com.marks.module.wx.web.message.MessageConverter;

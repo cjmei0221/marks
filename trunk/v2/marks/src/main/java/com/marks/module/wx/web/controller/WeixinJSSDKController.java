@@ -14,7 +14,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.core.data.CacheData;
+import com.marks.module.cache.CacheData;
 import com.marks.module.system.myimage.pojo.MyImage;
 import com.marks.module.user.login.helper.LoginWxUtil;
 import com.marks.module.wx.manage.wxutil.WxMpUtil;

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marks.module.core.data.CacheData;
+import com.marks.module.cache.CacheData;
 import com.marks.module.system.data.dao.LoadDataDao;
 import com.marks.module.system.data.service.LoadDataService;
 import com.marks.module.system.datadir.pojo.DataDir;
