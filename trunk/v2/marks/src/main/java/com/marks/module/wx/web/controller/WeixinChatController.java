@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.user.login.helper.LoginWxUtil;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
 import com.marks.module.wx.web.message.MessageConverter;
@@ -59,7 +59,7 @@ public class WeixinChatController {
 			return;
 		}
 
-		WxAccount account = StaticData.getWxAccount(accountid);
+		WxAccount account = CacheData.getWxAccount(accountid);
 		if (account == null) {
 			logger.info("----------check wxb_wechat_account table has data accountid=" + accountid + ",for return");
 			return;
@@ -104,7 +104,7 @@ public class WeixinChatController {
 			return;
 		}
 
-		WxAccount account = StaticData.getWxAccount(accountId);
+		WxAccount account = CacheData.getWxAccount(accountId);
 		if (account == null) {
 			logger.info("----------check wxb_wechat_account table has data accountid=" + accountId + ",for return");
 			return;

@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.http.HttpUtils;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
 import com.marks.module.wx.web.config.WxFwConfig;
 
@@ -27,7 +27,7 @@ public class WxUtil {
 	
 	public String getWeixinUrl(String accountid,String url) throws UnsupportedEncodingException{
 		logger.info("组装授权url>>start");
-		WxAccount acc=StaticData.getWxAccount(accountid);
+		WxAccount acc = CacheData.getWxAccount(accountid);
 		String reurnurl="";
 		url=acc.getAuthdomain()+url;
 		url=URLEncoder.encode(url,"UTF-8");
@@ -38,7 +38,7 @@ public class WxUtil {
 	}
 	public String getOpenIdByCode(String code, String accountid) {
 		try {
-			WxAccount wx = StaticData.getWxAccount(accountid);
+			WxAccount wx = CacheData.getWxAccount(accountid);
 			String appid = wx.getAppid();
 			String appSercet = wx.getAppsecret();
 			String url = String.format(WxFwConfig.weixin_connect_oauth2_access_token, appid,
@@ -54,7 +54,7 @@ public class WxUtil {
 		return null;
 	}
 	public String getCompleteUrl(String accountid,String url) throws UnsupportedEncodingException{
-		WxAccount acc=StaticData.getWxAccount(accountid);
+		WxAccount acc = CacheData.getWxAccount(accountid);
 		url=acc.getAuthdomain()+url;
 		logger.info("返回>>"+url);
 		return url;

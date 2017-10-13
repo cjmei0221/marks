@@ -27,7 +27,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.http.SSLNetProvider;
 import com.marks.common.util.number.NumberUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.pay.wxpay.pay.WXPayUtil;
 import com.marks.module.pay.wxpay.pay.WxConfig;
 import com.marks.module.pay.wxpay.pay.WxPayPropUtil;
@@ -129,7 +129,7 @@ public class WXPayController extends SupportContorller{
 			HttpServletResponse response) {
 		String orderId=request.getParameter("orderId");
 		String accountId = LoginWxUtil.getInstance().getCurrentAccountid(request);
-		WxAccount wa=StaticData.getWxAccount(accountId);
+		WxAccount wa = CacheData.getWxAccount(accountId);
 		String txnAmt = NumberUtil.formatNum(3452, "0");
 		Result result = new Result();
 		JSONObject json = new JSONObject();		

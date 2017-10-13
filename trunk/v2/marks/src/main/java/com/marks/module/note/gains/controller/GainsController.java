@@ -20,7 +20,7 @@ import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.note.gains.pojo.Gains;
 import com.marks.module.note.gains.service.GainsService;
 import com.marks.module.user.login.helper.LoginInnerUtil;
@@ -78,7 +78,7 @@ public class GainsController extends SupportContorller{
 	 		
 	 		if(ori==null){
 	 			gains.setMobile(admin.getBind_mobile());
-	 			gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
+				gains.setLvlName(CacheData.getDatadirValue("gains_level", gains.getLvl()));
 	 			gains.setCreator(admin.getUserid());
 	 			gains.setUpdater(admin.getUserid());
 	 			gainsService.save(gains);
@@ -111,7 +111,7 @@ public class GainsController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
+				gains.setLvlName(CacheData.getDatadirValue("gains_level", gains.getLvl()));
 	 			gains.setUpdater(admin.getUserid());
 		    	gainsService.update(gains);
 				result.setMessage("更新成功!");

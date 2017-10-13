@@ -20,7 +20,7 @@ import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.note.question.pojo.Question;
 import com.marks.module.note.question.service.QuestionService;
 import com.marks.module.user.login.helper.LoginInnerUtil;
@@ -78,7 +78,7 @@ public class QuestionController extends SupportContorller{
 	 		
 	 		if(ori==null){
 	 			question.setMobile(admin.getBind_mobile());
-	 			question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
+				question.setLvlName(CacheData.getDatadirValue("question_level", question.getLvl()));
 	 			question.setCreator(admin.getUserid());
 	 			question.setUpdater(admin.getUserid());
 	 			questionService.save(question);
@@ -112,7 +112,7 @@ public class QuestionController extends SupportContorller{
 				result.setCode(Code.CODE_FAIL);
 		    }else{
 		    	question.setUpdater(admin.getUserid());
-		    	question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
+				question.setLvlName(CacheData.getDatadirValue("question_level", question.getLvl()));
 		    	questionService.update(question);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);

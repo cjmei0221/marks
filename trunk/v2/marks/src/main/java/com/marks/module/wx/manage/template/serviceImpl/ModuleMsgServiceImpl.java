@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.quartz.wx.thread.pool.WxModuleMsgThreadPool;
 import com.marks.module.wx.manage.template.dao.ModuleMsgDao;
 import com.marks.module.wx.manage.template.pojo.ModuleMsg;
@@ -86,7 +86,7 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 	@Override
 	public void clearData() {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		String clear_modulemsg_data_str=StaticData.getSysConf("clear_modulemsg_data");
+		String clear_modulemsg_data_str = CacheData.getSysConf("clear_modulemsg_data");
 		int clearNum=30;
 		if(null !=clear_modulemsg_data_str && !"".equals(clear_modulemsg_data_str)){
 			clearNum=Integer.parseInt(clear_modulemsg_data_str);
@@ -99,17 +99,17 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 	@Override
 	public void pustWxbModuleMsg() {
 		int limitnum = 1000;// 一次扫描的记录条数
-		String limitStr = StaticData.getSysConf("wx_modulemsg_scan_limitnum");
+		String limitStr = CacheData.getSysConf("wx_modulemsg_scan_limitnum");
 		if (null != limitStr && !"".equals(limitStr)) {
 			limitnum = Integer.parseInt(limitStr);
 		}
 		int pushlimitnum = 3;// 一条记录推送次数
-		String pushlimitnumStr = StaticData.getSysConf("wx_modulemsg_push_limitnum");
+		String pushlimitnumStr = CacheData.getSysConf("wx_modulemsg_push_limitnum");
 		if (null != pushlimitnumStr && !"".equals(pushlimitnumStr)) {
 			pushlimitnum = Integer.parseInt(pushlimitnumStr);
 		}
 		int timelimit = 60;// 时间限制 默认60分钟
-		String timelimitStr = StaticData.getSysConf("wx_modulemsg_time_limit");
+		String timelimitStr = CacheData.getSysConf("wx_modulemsg_time_limit");
 		if (null != timelimitStr && !"".equals(timelimitStr)) {
 			timelimit = Integer.parseInt(timelimitStr);
 		}

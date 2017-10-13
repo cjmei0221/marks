@@ -92,7 +92,7 @@ public class WebVipInfoController extends SupportContorller {
 		try {
 			SysUser admin = LoginWebUtil.getInstance().getCurrentUser(request);
 			VipInfo vipInfo = getModel(VipInfo.class);
-			VipInfo ori = vipInfoService.findById(vipInfo.getUserid());
+			VipInfo ori = vipInfoService.findById(admin.getUserid());
 			if (ori == null) {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);

@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.wx.api.mp.acct.wxservice.AccountUtil;
 import com.marks.module.wx.api.mp.acct.wxservice.DownloadTempUtil;
 import com.marks.module.wx.api.mp.base.wxservice.JssdkUtil;
@@ -19,11 +19,11 @@ import com.marks.module.wx.api.mp.tags.wxservice.UserTagsService;
 import com.marks.module.wx.api.mp.user.entity.UserGet;
 import com.marks.module.wx.api.mp.user.entity.WxUser;
 import com.marks.module.wx.api.mp.user.wxservice.GroupUtil;
+import com.marks.module.wx.api.mp.user.wxservice.UserUtil;
 import com.marks.module.wx.api.mp.wxmenu.pojo.SpecialCondition;
 import com.marks.module.wx.api.mp.wxmenu.pojo.WxMenu;
 import com.marks.module.wx.api.mp.wxmenu.wxservice.SpecialWxMenuService;
 import com.marks.module.wx.api.mp.wxmenu.wxservice.WxMenuUtil;
-import com.marks.module.wx.api.mp.user.wxservice.UserUtil;
 
 /**
  * 调用微信接口服务工具类
@@ -36,7 +36,7 @@ import com.marks.module.wx.api.mp.user.wxservice.UserUtil;
 public class WxMpUtil {
 	private static String CHARSET = "UTF-8";
 	// private static String wx_host_url = "http://127.0.0.1:6080";
-	private static String wx_host_url = StaticData.getSysConf("wx_host_url");
+	private static String wx_host_url = CacheData.getSysConf("wx_host_url");
 	private static Logger logger = Logger.getLogger(WxMpUtil.class);
 	private static WxMpUtil util = null;
 

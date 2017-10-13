@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.wx.manage.enums.WXEnums;
 import com.marks.module.wx.manage.wxchat.dao.WxChatSessionDao;
 import com.marks.module.wx.manage.wxchat.pojo.WxChatSession;
@@ -45,7 +45,7 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 		msg.setC_content(requestMessage.getContent());
 		msg.setOpenid(requestMessage.getFromUserName());
 		String isOpenRg="N";//是否开通系统自带人工服务 N：不开通  Y：开通  默认不开通
-		String isOpenRgStr = StaticData.getSysConf("is_open_session");
+		String isOpenRgStr = CacheData.getSysConf("is_open_session");
 		if(null !=isOpenRgStr){
 			isOpenRg=isOpenRgStr;
 		}
@@ -55,7 +55,7 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 			WxChatSessionDao wxChatSessionDao = (WxChatSessionDao) SpringContextHolder
 					.getBean(WxChatSessionDao.class);
 			long timeLong = System.currentTimeMillis() / 1000;
-			String sessionStr = StaticData.getSysConf("session_time");
+			String sessionStr = CacheData.getSysConf("session_time");
 			int sessionTimes = 15 ;
 			if (sessionStr != null) {
 				sessionTimes = Integer.parseInt(sessionStr);

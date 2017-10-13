@@ -3,7 +3,7 @@ package com.marks.module.wx.manage.base.pojo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 
 public class WxAccount implements Serializable{
 
@@ -199,7 +199,7 @@ public class WxAccount implements Serializable{
 	}
 	public String getOrgname() {
 		if(orgid !=null){
-			return StaticData.getOrgInfo(orgid).getOrgname();
+			return CacheData.getOrgInfo(orgid).getOrgname();
 		}
 		return "";
 	}

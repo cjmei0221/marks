@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.system.syslog.dao.SysLogDao;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.service.SysLogService;
@@ -42,7 +42,7 @@ public class SysLogServiceImpl implements SysLogService{
 	@Override
 	public void clearData() {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		String clear_syslog_data_str=StaticData.getSysConf("clear_syslog_data");
+		String clear_syslog_data_str = CacheData.getSysConf("clear_syslog_data");
 		int clearNum=60;
 		if(null !=clear_syslog_data_str && !"".equals(clear_syslog_data_str)){
 			clearNum=Integer.parseInt(clear_syslog_data_str);
