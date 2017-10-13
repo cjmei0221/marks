@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.marks.module.cache.CacheData;
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.core.data.CacheData;
 import com.marks.module.wx.manage.enums.WXEnums;
 import com.marks.module.wx.manage.wxchat.dao.WxChatSessionDao;
 import com.marks.module.wx.manage.wxchat.pojo.WxChatSession;

@@ -8,8 +8,8 @@ import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.http.HttpUtils;
+import com.marks.module.cache.CacheData;
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.core.data.CacheData;
 import com.marks.module.wx.api.mp.base.entity.AccessTokenVo;
 import com.marks.module.wx.api.mp.base.service.AccessTokenService;
 import com.marks.module.wx.manage.base.pojo.WxAccount;

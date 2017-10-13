@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.module.core.data.CacheData;
+import com.marks.module.cache.CacheData;
 import com.marks.module.quartz.wx.thread.pool.WxModuleMsgThreadPool;
 import com.marks.module.wx.manage.template.dao.ModuleMsgDao;
 import com.marks.module.wx.manage.template.pojo.ModuleMsg;

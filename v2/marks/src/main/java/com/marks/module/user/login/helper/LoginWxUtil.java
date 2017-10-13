@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.http.HttpUtils;
-import com.marks.module.core.data.CacheData;
+import com.marks.module.cache.CacheData;
 import com.marks.module.core.runModel.RunModel;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
 import com.marks.module.wx.web.config.WxFwConfig;

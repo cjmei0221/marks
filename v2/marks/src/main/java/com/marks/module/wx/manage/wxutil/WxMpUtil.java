@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.module.core.data.CacheData;
+import com.marks.module.cache.CacheData;
 import com.marks.module.wx.api.mp.acct.wxservice.AccountUtil;
 import com.marks.module.wx.api.mp.acct.wxservice.DownloadTempUtil;
 import com.marks.module.wx.api.mp.base.wxservice.JssdkUtil;
