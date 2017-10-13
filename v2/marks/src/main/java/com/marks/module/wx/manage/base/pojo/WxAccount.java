@@ -3,8 +3,6 @@ package com.marks.module.wx.manage.base.pojo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import com.marks.module.core.data.CacheData;
-
 public class WxAccount implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -198,10 +196,7 @@ public class WxAccount implements Serializable{
 		this.accttype = accttype;
 	}
 	public String getOrgname() {
-		if(orgid !=null){
-			return CacheData.getOrgInfo(orgid).getOrgname();
-		}
-		return "";
+		return orgname;
 	}
 	public String getCompanyId() {
 		return companyId;
