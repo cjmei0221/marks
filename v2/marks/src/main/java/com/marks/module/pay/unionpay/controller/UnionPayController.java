@@ -27,7 +27,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.number.NumberUtil;
 import com.marks.common.util.properties.PropsUtil;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.pay.unionpay.sdk.AcpService;
 import com.marks.module.pay.unionpay.sdk.SDKConstants;
 import com.marks.module.pay.unionpay.thread.pool.PayThreadPool;
@@ -187,7 +187,7 @@ public class UnionPayController {
 			try {
 				String orderId = valideData.get("orderId");
 				logger.info("通知报文验证签名结果[成功]...");
-				String http = StaticData.getSysConf("appUrl");
+				String http = CacheData.getSysConf("appUrl");
 				String params = "orderId=" + orderId + "&orderprice=" + valideData.get("txnAmt");
 				String orderPageUrl = paramsUrl+ "?" + params;
 				response.sendRedirect(orderPageUrl);

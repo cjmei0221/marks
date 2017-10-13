@@ -19,7 +19,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.note.question.pojo.Question;
 import com.marks.module.note.question.service.QuestionService;
 import com.marks.module.system.upload.util.UploadUtil;
@@ -70,7 +70,7 @@ public class WebQuestionController extends SupportContorller {
 			Question question = getModel(Question.class);
 			// question.setId(IDUtil.getTimeID());
 
-			question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
+			question.setLvlName(CacheData.getDatadirValue("question_level", question.getLvl()));
 			question.setCreator(userid);
 			question.setUpdater(userid);
 			question.setMobile(admin.getBind_mobile());
@@ -106,7 +106,7 @@ public class WebQuestionController extends SupportContorller {
 				result.setCode(Code.CODE_FAIL);
 			} else {
 				question.setUpdater(userid);
-				question.setLvlName(StaticData.getDatadirValue("question_level", question.getLvl()));
+				question.setLvlName(CacheData.getDatadirValue("question_level", question.getLvl()));
 				questionService.update(question);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);

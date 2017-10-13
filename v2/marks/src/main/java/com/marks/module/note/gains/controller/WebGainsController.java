@@ -19,7 +19,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.note.gains.pojo.Gains;
 import com.marks.module.note.gains.service.GainsService;
 import com.marks.module.system.upload.util.UploadUtil;
@@ -70,7 +70,7 @@ public class WebGainsController extends SupportContorller {
 			Gains gains = getModel(Gains.class);
 			// gains.setId(IDUtil.getTimeID());
 
-			gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
+			gains.setLvlName(CacheData.getDatadirValue("gains_level", gains.getLvl()));
 			gains.setCreator(userid);
 			gains.setUpdater(userid);
 			gains.setMobile(admin.getBind_mobile());
@@ -102,7 +102,7 @@ public class WebGainsController extends SupportContorller {
 			String userid = admin == null ? "" : admin.getUserid();
 			Gains gains = getModel(Gains.class);
 
-			gains.setLvlName(StaticData.getDatadirValue("gains_level", gains.getLvl()));
+			gains.setLvlName(CacheData.getDatadirValue("gains_level", gains.getLvl()));
 			gains.setUpdater(userid);
 			gainsService.update(gains);
 			result.setMessage("更新成功!");

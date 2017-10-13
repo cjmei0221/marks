@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.http.HttpUtils;
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.wx.api.mp.base.entity.AccessTokenVo;
 import com.marks.module.wx.api.mp.base.service.AccessTokenService;
 import com.marks.module.wx.api.mp.base.utils.WxfwConfig;
@@ -93,7 +93,7 @@ public class QyAccessTokenUtil {
         JsonResult jsonResult = new JsonResult();
         try{
         	String url=WxqyConfig.weixin_qy_server_prefix+"/gettoken";
-        	WxAccount wx=StaticData.getWxAccount(accountid);
+			WxAccount wx = CacheData.getWxAccount(accountid);
             Map<String,String> params = new HashMap<String,String>();
             params.put("corpid",wx.getAppid());
             params.put("corpsecret",wx.getAppsecret());

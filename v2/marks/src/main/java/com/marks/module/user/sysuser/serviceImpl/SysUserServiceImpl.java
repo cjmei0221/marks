@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.util.IDUtil;
 import com.marks.module.user.sysrole.dao.SysRoleDao;
 import com.marks.module.user.sysuser.dao.SysUserDao;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -64,7 +65,7 @@ public class SysUserServiceImpl implements SysUserService{
     */
     @Override
     public void save(SysUser sysUser,String orgIdsPut){
-    	String userid=sysUserDao.getUserIdForUser();
+		String userid = "V" + IDUtil.getDateID() + "_" + IDUtil.getRandom(1000, 9999) + IDUtil.getRandom(1000, 9999);
     	sysUser.setUserid(userid);
         sysUserDao.save(sysUser);
         saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());

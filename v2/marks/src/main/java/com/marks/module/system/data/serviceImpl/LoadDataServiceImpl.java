@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.system.data.dao.LoadDataDao;
 import com.marks.module.system.data.service.LoadDataService;
 import com.marks.module.system.datadir.pojo.DataDir;
@@ -25,27 +25,27 @@ public class LoadDataServiceImpl implements LoadDataService{
 	public void loadSysConf() {
 		List<SysConf> list=loadDataDao.loadSysConf();
 		//将数据放入memcache缓存
-		StaticData.putSysConfList(list);
+		CacheData.putSysConfList(list);
 	}
 
 	@Override
 	public void loadDataDir() {
 		List<DataDir> list=loadDataDao.loadDataDir();
 		//将数据放入memcache缓存
-		StaticData.putDatadirList(list);
+		CacheData.putDatadirList(list);
 	}
 	
 	@Override
 	public void loadUrlList() {
 		List<String> list=loadDataDao.loadUrlList();
-		StaticData.putUrlList(list);
+		CacheData.putUrlList(list);
 	}
 
 	@Override
 	public void loadWxAccount() {
 		List<WxAccount> list=loadDataDao.loadWxAccount();
 		//将数据放入memcache缓存
-		StaticData.putWxAccount(list);
+		CacheData.putWxAccount(list);
 	}
 
 }

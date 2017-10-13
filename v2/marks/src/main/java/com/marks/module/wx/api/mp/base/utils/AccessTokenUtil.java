@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.http.HttpUtils;
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.wx.api.mp.base.entity.AccessTokenVo;
 import com.marks.module.wx.api.mp.base.service.AccessTokenService;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
@@ -100,7 +100,7 @@ public class AccessTokenUtil {
 		JsonResult jsonResult = new JsonResult();
 		String url = WxfwConfig.weixin_server_prefix + "/token?grant_type=client_credential";
 		try {
-			WxAccount wx = StaticData.getWxAccount(accountid);
+			WxAccount wx = CacheData.getWxAccount(accountid);
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("appid", wx.getAppid());
 			params.put("secret", wx.getAppsecret());

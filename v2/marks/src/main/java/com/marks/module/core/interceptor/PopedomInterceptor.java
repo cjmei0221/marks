@@ -10,7 +10,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.core.filter.RequestRegex;
 import com.marks.module.user.login.helper.LoginInnerUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -39,7 +39,7 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 		String url = RequestRegex.repace("/", request.getRequestURI());
 		int idx = url.indexOf(".");
 		url = url.substring(request.getContextPath().length(), idx);
-		List<String> list = StaticData.getUrlList();
+		List<String> list = CacheData.getUrlList();
 		if (list.contains(url) && !loginUser.getUserUrlList().contains(url)) {
 			result.setCode("-1001");
 			result.setMessage("您无此权限访问此地址[" + request.getRequestURI() + "]");

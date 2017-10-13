@@ -8,7 +8,7 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
 import com.marks.module.system.data.service.LoadDataService;
@@ -44,7 +44,7 @@ public class LoadDataHelper  extends QuartzJobBean{
 
 		OrgInfoService orgInfoService = (OrgInfoService) SpringContextHolder.getBean(OrgInfoService.class);
 		List<OrgInfo> orgInfoList=orgInfoService.findAll();
-		StaticData.putOrgInfoList(orgInfoList);
+		CacheData.putOrgInfoList(orgInfoList);
 		logger.info("结束加载缓存数据");
 
 	}

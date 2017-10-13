@@ -2,7 +2,7 @@ package com.marks.module.user.vipinfo.pojo;
 
 import java.io.Serializable;
 
-import com.marks.module.core.data.StaticData;
+import com.marks.module.core.data.CacheData;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 public class VipInfo extends SysUser implements Serializable {
@@ -78,6 +78,6 @@ public class VipInfo extends SysUser implements Serializable {
 		if(this.getCompanyId()==null){
 			return "";
 		}
-		return StaticData.getOrgInfo(this.getCompanyId()).getOrgname();
+		return CacheData.getOrgInfo(this.getCompanyId()).getOrgname();
 	}
 }
