@@ -20,7 +20,6 @@ import com.marks.common.enums.Enums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.core.data.CacheData;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
 import com.marks.module.user.login.helper.LoginInnerUtil;
@@ -120,7 +119,6 @@ public class OrgInfoController extends SupportContorller {
 					}
 				}
 				orgInfo.setCreator(admin.getUserid());
-				CacheData.putOrgInfo(orgInfo);
 				orgInfoService.save(orgInfo);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -197,7 +195,6 @@ public class OrgInfoController extends SupportContorller {
 					orgInfo.setLvl6Name(orgInfo.getOrgname());
 				}
 			}
-			CacheData.putOrgInfo(orgInfo);
 			orgInfoService.update(orgInfo);
 			result.setMessage("更新成功!");
 			result.setCode(Code.CODE_SUCCESS);

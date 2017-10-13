@@ -45,7 +45,7 @@ public class LoadDataServiceImpl implements LoadDataService{
 	public void loadWxAccount() {
 		List<WxAccount> list=loadDataDao.loadWxAccount();
 		//将数据放入memcache缓存
-		CacheData.putWxAccount(list);
+		CacheData.putWxAccountList(list);
 	}
 
 }
