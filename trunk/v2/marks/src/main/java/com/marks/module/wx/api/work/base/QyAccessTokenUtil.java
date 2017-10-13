@@ -9,19 +9,15 @@ import org.json.JSONObject;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.http.HttpUtils;
 import com.marks.module.cache.CacheData;
-import com.marks.module.core.common.SpringContextHolder;
+import com.marks.module.cache.WxCacheData;
 import com.marks.module.wx.api.mp.base.entity.AccessTokenVo;
-import com.marks.module.wx.api.mp.base.service.AccessTokenService;
-import com.marks.module.wx.api.mp.base.utils.WxfwConfig;
 import com.marks.module.wx.api.work.base.utils.WxqyConfig;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
 
 public class QyAccessTokenUtil {
-	private static final long expires_in=7100*1000;
+
 	private static Logger logger = Logger.getLogger(QyAccessTokenUtil.class);
-	private static Map<String, AccessTokenVo> accesstoken_map=new HashMap<String, AccessTokenVo>();
-	AccessTokenService accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
-	private long updateflag=0;
+
 	private static QyAccessTokenUtil util=null;
 	private QyAccessTokenUtil(){};
 	
@@ -33,54 +29,17 @@ public class QyAccessTokenUtil {
 	}
 	private static final String prefix="qy_";
 	public String getQyAccessToken(String accountid){
-		AccessTokenVo vo=null;
-		if (WxfwConfig.access_token_db_flag_Y.equals(WxfwConfig.access_token_db_flag) && System.currentTimeMillis()-updateflag>3000) {
-			try {
-				if(null ==accessTokenService){
-					accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
-				}
-				vo=accessTokenService.getAccessTokenVoByAccountid(prefix+accountid);
-				//vo=MemcachedUtil.getInstance().getACCESS_TOKEN();
-			} catch (Exception e) {
-				vo=accesstoken_map.get(prefix+accountid);
-			}	
-		}else{
-			vo=accesstoken_map.get(prefix+accountid);
+		AccessTokenVo vo = WxCacheData.getInstance().getAccessToken(prefix + accountid);
+		// 首次
+		if (vo == null) {
+			vo = sendQyAccessTokenRequest(accountid);
 		}
-		//updateflag=true;
-		if(vo==null){
-			vo=accesstoken_map.get(prefix+accountid);
-		}
-		//首次
-		if(vo==null){
-			vo=sendQyAccessTokenRequest(accountid);
-			if(vo ==null){
-				vo=sendQyAccessTokenRequest(accountid);
-			}
-		}
-		if(null != vo){
-			long nowtime=System.currentTimeMillis();
-			long time=Long.parseLong(vo.getPuttime());
-			if((nowtime-time)>expires_in){
-				vo=sendQyAccessTokenRequest(accountid);
-			}
+		if (vo == null) {
+			return null;
 		}
 		return vo.getAccesstoken();
 	}
 	
-	public  void putQyAccessToken(AccessTokenVo vo){
-		updateflag=System.currentTimeMillis();
-		accesstoken_map.put(vo.getAccountid(), vo);
-		try {
-			if(null ==accessTokenService){
-				accessTokenService=(AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
-			}
-			accessTokenService.saveOrUpdateAccessTokenVo(vo);
-			//MemcachedUtil.getInstance().putACCESS_TOKEN(vo.getAccountid(), vo,expires_in);
-		} catch (Exception e) {
-	
-		}
-	}
 	
 	  /***
      * 获取当前公众号Token
@@ -107,7 +66,7 @@ public class QyAccessTokenUtil {
                 	vo.setAccountid(prefix+accountid);
                 	vo.setExpires_in(jsonObj.getLong("expires_in")+"");
                 	vo.setPuttime(System.currentTimeMillis()+"");
-                	putQyAccessToken(vo);
+					WxCacheData.getInstance().putAccessToken(vo);
                 }else {
                     jsonResult.setSuccess(Boolean.FALSE);
                     jsonResult.setErrorCode(String.valueOf(jsonObj.get("errcode")));
