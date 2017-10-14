@@ -111,7 +111,7 @@
 		TB_WX_AUTO_REPLAY_NEWSITEM newsitem
 		WHERE 1=1
 		<if test="accountIds !=null">
-			and wxmenuurl.accountid in
+			and newsitem.accountid in
 			<foreach collection="accountIds" item="oid" index="index"
 				open="(" separator="," close=")">
 				#{oid}
