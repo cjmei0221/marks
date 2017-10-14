@@ -91,8 +91,8 @@ public class GoodInfoController extends SupportContorller {
 				result.setMessage("此商品编码已存在");
 				result.setCode("4001");
 			}else{
-				goodInfo.setGoodId("P"+IDUtil.getTimeID());
-				goodInfo.setOrgid(admin.getCompanyId());
+				goodInfo.setGoodId("P" + IDUtil.getDateID() + IDUtil.getRandom(100, 999) + IDUtil.getRandom(100, 999));
+				goodInfo.setCompanyId(admin.getCompanyNo());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
 				String addMainImagePut=request.getParameter("addMainImagePut");
 				String addDetailImagePut=request.getParameter("addDetailImagePut");

@@ -90,9 +90,9 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	}
 
 	public List<OrgInfo> list(SysUser admin) {
-		List<OrgInfo> allList = orgInfoDao.findAll(admin.getCompanyId());
+		List<OrgInfo> allList = orgInfoDao.findAll(admin.getCompanyNo());
 		List<OrgInfo> list = null;
-		if (null == admin.getCompanyId()) {
+		if (null == admin.getCompanyNo()) {
 			list = new ArrayList<OrgInfo>();
 			for (OrgInfo vo : allList) {
 				if (admin.getOrgInfoList().get(0).getParentId().equals(vo.getParentId())) {

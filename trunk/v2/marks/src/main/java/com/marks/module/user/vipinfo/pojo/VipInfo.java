@@ -74,9 +74,6 @@ public class VipInfo extends SysUser implements Serializable {
 	}
 
 	public String getCompanyName() {
-		if(this.getCompanyId()==null){
-			return "";
-		}
 		return companyName;
 	}
 }

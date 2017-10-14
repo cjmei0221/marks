@@ -91,7 +91,7 @@ public class QrcodeController extends SupportContorller {
 					result.setCode("4001");
 				}
 			} else {
-				qrcode.setCompanyId(admin.getCompanyId());
+				qrcode.setCompanyId(admin.getCompanyNo());
 				qrcode.setCreator(admin.getUserid());
 				qrcode.setSceneType(1);
 				String imagePath = createQrImage(qrcode, request);
@@ -248,7 +248,7 @@ public class QrcodeController extends SupportContorller {
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
-			param.put("companyId", admin.getCompanyId());
+			param.put("companyId", admin.getCompanyNo());
 			PojoDomain<Qrcode> list = qrcodeService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

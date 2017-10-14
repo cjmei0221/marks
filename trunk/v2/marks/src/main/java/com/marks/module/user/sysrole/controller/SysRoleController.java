@@ -219,7 +219,7 @@ public class SysRoleController extends SupportContorller {
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("s_lvl", s_lvl);
-			param.put("companyId", admin.getCompanyId());
+			param.put("companyId", admin.getCompanyNo());
 			param.put("lvl", admin.getRole().getLvl());
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
@@ -299,7 +299,7 @@ public class SysRoleController extends SupportContorller {
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("companyId", admin.getCompanyId());
+		param.put("companyId", admin.getCompanyNo());
 		param.put("lvl", admin.getRole().getLvl());
 		List<SysRole> list = sysRoleService.getUserlist(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
