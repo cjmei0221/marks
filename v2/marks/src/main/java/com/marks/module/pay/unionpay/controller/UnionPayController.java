@@ -175,13 +175,13 @@ public class UnionPayController {
 		if (AcpService.validate(valideData, encoding)) { // 验证签名
 			logger.info("通知报文验证签名结果[成功]...");
 			success = true;
-			paramsUrl = PropsUtil.getValue("acp_sdk.properties").get("pay_success_page_url").toString();
+			paramsUrl = PropsUtil.getValue("props/pay/union/acp_sdk.properties").get("pay_success_page_url").toString();
 			if ("wap".equals(valideData.get("reqReserved"))) { // 手机端wap支付
 				logger.info("手机端-wap支付成功后-返回商户");
 			}
 		} else {
 			logger.info("通知报文验证签名结果[失败]...");
-			paramsUrl = PropsUtil.getValue("acp_sdk.properties").get("pay_fail_page_url").toString();
+			paramsUrl = PropsUtil.getValue("props/pay/union/acp_sdk.properties").get("pay_fail_page_url").toString();
 		}
 		if (success) {
 			try {
