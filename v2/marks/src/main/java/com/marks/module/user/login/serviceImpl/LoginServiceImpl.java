@@ -23,19 +23,21 @@ public class LoginServiceImpl implements LoginService {
 	}*/
 
 	@Override
-	public SysUser getSysUserByUserid(String userid) {
-		SysUser user = loginDao.getSysUserByUserid(userid);
-		if (null != user) {
-			List<String> list = loginDao.getUrlByUserid(user.getUserid());
-			user.setUserUrlList(list);
-		}
+	public SysUser findById(String companyId, String userid) {
+		SysUser user = loginDao.findById(companyId, userid);
+
 		return user;
 	}
 	
 	
 
 	@Override
-	public SysUser getSysUserByUseridOrMobile(String userid) {
+	public List<String> getUrlByUserid(String userid) {
+		return loginDao.getUrlByUserid(userid);
+	}
+
+	@Override
+	public SysUser findSysUserByUserid(String userid) {
 		return loginDao.getSysUserByUserid(userid);
 	}
 

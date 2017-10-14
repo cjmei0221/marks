@@ -36,7 +36,7 @@ public class WebSysUserController {
 			String mobile = request.getParameter("mobile");
 			String pwd = request.getParameter("password");
 			SysUser loginUser = LoginWebUtil.getInstance().getCurrentUser(request);
-			SysUser user = loginService.getSysUserByUseridOrMobile(loginUser.getUserid());
+			SysUser user = loginService.findSysUserByUserid(loginUser.getUserid());
 			String password = EncryptUtil.encryptPwd(pwd);
 			if (password.equals(user.getPassword())) {
 				sysUserService.updateMobile(user.getUserid(), mobile);
@@ -63,7 +63,7 @@ public class WebSysUserController {
 			String oldPwd = request.getParameter("oldPwd");
 			String newPwd = request.getParameter("newPwd");
 			SysUser loginUser = LoginWebUtil.getInstance().getCurrentUser(request);
-			SysUser user = loginService.getSysUserByUseridOrMobile(loginUser.getUserid());
+			SysUser user = loginService.findSysUserByUserid(loginUser.getUserid());
 			String password = EncryptUtil.encryptPwd(oldPwd);
 			if (password.equals(user.getPassword())) {
 				sysUserService.updatePwd(user.getUserid(), EncryptUtil.encryptPwd(newPwd));

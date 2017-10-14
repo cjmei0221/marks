@@ -18,7 +18,7 @@ import com.marks.module.user.sysuser.pojo.SysUser;
  */
 public interface LoginService {
 
-	SysUser getSysUserByUserid(String userid);
+	SysUser findById(String companyId, String id);
 
 	List<SysMenu> getSysMenuOfSysUser(SysUser user);
 
@@ -27,8 +27,6 @@ public interface LoginService {
 	List<String> getOrgidBySysUser(List<OrgInfo> orgInfo);
 
 	List<OrgInfo> getOrgInfoListByUserid(String userid);
-
-	SysUser getSysUserByUseridOrMobile(String userid);
 	/**
 	 * 根据openid和accountid获取系统用户
 	 * @param accountid
@@ -36,5 +34,9 @@ public interface LoginService {
 	 * @return
 	 */
 	SysUser getSysUserByOpenidAndAccountid(String accountid, String openid);
+
+	List<String> getUrlByUserid(String userid);
+
+	SysUser findSysUserByUserid(String userid);
 
 }
