@@ -8,7 +8,7 @@
 		FROM
 		tb_user tsu
 		WHERE 1=1 and tsu.companyId=#{companyId}
-		(tsu.USERID = #{id} or
+		and (tsu.USERID = #{id} or
 		tsu.bind_mobile=#{id})
 	</select>
 	<select id="getSysUserByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
@@ -95,7 +95,7 @@
 		</foreach>
 	</select>
 	<select id="getOrgInfoListByUserid" resultType="com.marks.module.org.orginfo.pojo.OrgInfo">
-		SELECT toi.*
+		SELECT toi.*,T.isDefault
 		FROM
 		tb_user_org T join tb_org_info toi on t.orgid=toi.orgid
 		where
