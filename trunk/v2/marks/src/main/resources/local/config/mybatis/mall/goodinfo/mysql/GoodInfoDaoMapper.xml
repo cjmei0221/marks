@@ -36,7 +36,7 @@
 		SKU_NUM,
 		WEIGHT,
 		WEIGHT_UNIT,
-		ORGID
+		companyId
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -55,7 +55,7 @@
 		#{sku_num:VARCHAR},
 		#{weight:VARCHAR},
 		#{weight_unit:VARCHAR},
-		#{orgid:VARCHAR}
+		#{companyId:VARCHAR}
 		)
 	</insert>
 
