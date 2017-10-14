@@ -9,8 +9,8 @@ import org.json.JSONObject;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.http.HttpUtils;
 import com.marks.module.cache.CacheData;
-import com.marks.module.cache.WxCacheData;
 import com.marks.module.wx.api.mp.base.entity.AccessTokenVo;
+import com.marks.module.wx.api.util.WxCacheData;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
 
 public class AccessTokenUtil {
