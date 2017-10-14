@@ -54,7 +54,7 @@ public class @{beanName}Controller extends SupportContorller{
 		    
 		    logger.info("find@{beanName}ById > param>"+reqVo.get@{GetIdAttrName}());
 		    
-			@{beanName} info = @{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+			@{beanName} info = @{BeanObject}Service.findById(reqVo.get@{GetIdAttrName}());
 			result.getData().put("info",info);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -76,7 +76,7 @@ public class @{beanName}Controller extends SupportContorller{
 		try {
 			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
 	    	@{beanName} reqVo = getModel(@{beanName}.class);
-	 //     reqVo.set@{GetIdAttrName}(IDUtil.getUUID());
+	        reqVo.set@{GetIdAttrName}(IDUtil.getUUID());
 	 		
 	 		logger.info("save@{beanName} > param>"+reqVo.toLog());
 	 
