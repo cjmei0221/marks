@@ -35,12 +35,12 @@
 				<tr>
 					<td>用户类型
 						<ul id="s_role" name="s_role" class="easyui-combobox"
-							data-options="valueField:'roleid',textField:'roleFullName',url:'<%=request.getContextPath()%>/inner/sysRole/combo.do'"
+							data-options="valueField:'roleid',textField:'roleFullName',url:'/inner/sysRole/combo.do'"
 							style="width: 200px"></ul>
 					</td>
 					<td>所属组织
 						<ul id="ssorgid" name="ssorgid" class="easyui-combotree"
-							data-options="url:'<%=request.getContextPath()%>/inner/orgInfo/tree.do'"
+							data-options="url:'/inner/orgInfo/tree.do'"
 							style="width: 200px"></ul>
 					</td>
 					<td><input type="text" id="keyword" name="keyword"
