@@ -1,4 +1,4 @@
-package com.marks.module.cache;
+package com.marks.module.wx.api.util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,15 +28,21 @@ public class WxCacheData {
 
 	public AccessTokenVo getAccessToken(String accountid) {
 		AccessTokenVo vo = null;
-		if (WxfwConfig.access_token_db_flag_Y.equals(WxfwConfig.access_token_db_flag)
+		if ("Y".equals(WxfwConfig.access_token_share_flag)
 				&& System.currentTimeMillis() - updateflag > 3000) {
-			try {
-				if (null == accessTokenService) {
-					accessTokenService = (AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
+			if ("Y".equals(WxfwConfig.access_token_db_flag)) {
+				try {
+					if (null == accessTokenService) {
+						accessTokenService = (AccessTokenService) SpringContextHolder.getBean(AccessTokenService.class);
+					}
+					vo = accessTokenService.getAccessTokenVoByAccountid(accountid);
+
+				} catch (Exception e) {
+					vo = accesstoken_map.get(accountid);
 				}
-				vo = accessTokenService.getAccessTokenVoByAccountid(accountid);
+			} else {
+				// 使用redis或者memcache缓存
 				// vo=MemcachedUtil.getInstance().getACCESS_TOKEN(accountid);
-			} catch (Exception e) {
 				vo = accesstoken_map.get(accountid);
 			}
 		} else {

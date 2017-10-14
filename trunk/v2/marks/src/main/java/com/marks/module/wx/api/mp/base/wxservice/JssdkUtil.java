@@ -5,11 +5,11 @@ import org.json.JSONObject;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
-import com.marks.module.cache.WxCacheData;
 import com.marks.module.wx.api.mp.base.entity.AccessTokenVo;
 import com.marks.module.wx.api.mp.base.utils.AccessTokenUtil;
 import com.marks.module.wx.api.mp.base.utils.WxHttpUtils;
 import com.marks.module.wx.api.mp.base.utils.WxfwConfig;
+import com.marks.module.wx.api.util.WxCacheData;
 
 /**
  * 获取jssdk 的 jsapi_ticket
