@@ -137,9 +137,9 @@ public class InnerLoginController {
 		}
 		// 关联服务号
 		user.setAccountids(null);
-		if (null != user.getCompanyId()) {
+		if (null != user.getCompanyNo()) {
 			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("conpanyId", user.getCompanyId());
+			param.put("conpanyId", user.getCompanyNo());
 			// param.put("orgids", user.getOrgids());
 			param.put("orgids", null);
 			List<String> accountids = wxAccountService.getAccountIdsByLoginUser(param);
@@ -152,7 +152,7 @@ public class InnerLoginController {
 		SysLog log = new SysLog();
 		log.setUserid(user.getUserid());
 		log.setUsername(user.getUsername());
-		log.setRetain3(user.getCompanyId());
+		log.setRetain3(user.getCompanyNo());
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 		String ip = RequestUtil.getIpAddr(request);
 		log.setIp(ip);
@@ -176,7 +176,7 @@ public class InnerLoginController {
 			SysLog log = new SysLog();
 			log.setUserid(user.getUserid());
 			log.setUsername(user.getUsername());
-			log.setRetain3(user.getCompanyId());
+			log.setRetain3(user.getCompanyNo());
 			String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 			String ip = RequestUtil.getIpAddr(request);
 			log.setIp(ip);
