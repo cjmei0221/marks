@@ -64,11 +64,14 @@ public class SysUserServiceImpl implements SysUserService{
     *保存用户管理
     */
     @Override
-    public void save(SysUser sysUser,String orgIdsPut){
+	public String save(SysUser sysUser, String orgIdsPut) {
 		String userid = "V" + IDUtil.getDateID() + "_" + IDUtil.getRandom(1000, 9999) + IDUtil.getRandom(1000, 9999);
     	sysUser.setUserid(userid);
         sysUserDao.save(sysUser);
-        saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
+		if (null != orgIdsPut && !"".equals(orgIdsPut)) {
+			saveSysUserOrg(sysUser.getUserid(), orgIdsPut, sysUser.getCreator());
+		}
+		return userid;
     }
     
     /**
@@ -77,7 +80,9 @@ public class SysUserServiceImpl implements SysUserService{
     @Override
     public void update(SysUser sysUser,String orgIdsPut){
         sysUserDao.update(sysUser);
-        saveSysUserOrg(sysUser.getUserid(),orgIdsPut,sysUser.getCreator());
+		if (null != orgIdsPut && !"".equals(orgIdsPut)) {
+			saveSysUserOrg(sysUser.getUserid(), orgIdsPut, sysUser.getCreator());
+		}
     }
     private void saveSysUserOrg(String userid,String orgIdsPut,String creator){
     	sysUserDao.deleteSysUserOrg(userid);

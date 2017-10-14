@@ -2,14 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.marks.module.user.login.dao.LoginDao">
 	<!-- 通过userid获取系统用户 -->
+	<select id="findById" resultType="com.marks.module.user.sysuser.pojo.SysUser">
+		SELECT
+		TSU.*
+		FROM
+		tb_user tsu
+		WHERE 1=1 and tsu.companyId=#{companyId}
+		(tsu.USERID = #{id} or
+		tsu.bind_mobile=#{id})
+	</select>
 	<select id="getSysUserByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		SELECT
 		TSU.*
 		FROM
 		tb_user tsu
-		WHERE 1=1 and
-		(tsu.USERID = #{userid} or
-		tsu.bind_mobile=#{userid})
+		WHERE tsu.USERID = #{userid}
 	</select>
 	<select id="getSysUserByOpenidAndAccountid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		SELECT

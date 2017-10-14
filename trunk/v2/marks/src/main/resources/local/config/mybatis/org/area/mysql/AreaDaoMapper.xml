@@ -11,7 +11,7 @@
 		SELECT * FROM TB_ORG_AREA
 		where PARENTID = #{parentId}
 	</select>
-	
+
 	<select id="getTreeGridByParentId" resultType="com.marks.module.org.area.pojo.Area">
 		select t.*,
 		(case
@@ -24,9 +24,11 @@
 		left join (select count(1) cnum, p.parentid pid
 		from
 		tb_org_area p
-		group by p.parentid) p on t.areaId = p.pid
-		where 1=1 
-		AND t.parentid =#{parentId}
+		group
+		by p.parentid) p on t.areaId = p.pid
+		where 1=1 and t.COMPANYID=#{companyId}
+		AND t.parentid
+		=#{parentId}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.org.area.pojo.Area">
@@ -75,28 +77,35 @@
 	<update id="update" parameterType="com.marks.module.org.area.pojo.Area">
 		UPDATE TB_ORG_AREA
 		SET
-		AREANAME = #{areaName:VARCHAR},
+		AREANAME
+		= #{areaName:VARCHAR},
 		COMPANYID = #{companyId:VARCHAR},
-		LVL = #{lvl:NUMERIC},
+		LVL =
+		#{lvl:NUMERIC},
 		UPDATETIME = now(),
 		PARENTID = #{parentId:VARCHAR},
 		PARENTNAME = #{parentName:VARCHAR},
 		LVL1ID = #{lvl1Id:VARCHAR},
 		LVL1NAME = #{lvl1Name:VARCHAR},
 		LVL2ID = #{lvl2Id:VARCHAR},
-		LVL2NAME = #{lvl2Name:VARCHAR},
+		LVL2NAME =
+		#{lvl2Name:VARCHAR},
 		LVL3ID = #{lvl3Id:VARCHAR},
-		LVL3NAME = #{lvl3Name:VARCHAR},
+		LVL3NAME =
+		#{lvl3Name:VARCHAR},
 		LVL4ID = #{lvl4Id:VARCHAR},
-		LVL4NAME = #{lvl4Name:VARCHAR},
+		LVL4NAME =
+		#{lvl4Name:VARCHAR},
 		LVL5ID = #{lvl5Id:VARCHAR},
-		LVL5NAME = #{lvl5Name:VARCHAR}
+		LVL5NAME =
+		#{lvl5Name:VARCHAR}
 		WHERE
 		AREAID = #{areaId}
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_ORG_AREA WHERE AREAID=#{areaId}
+		DELETE FROM TB_ORG_AREA WHERE
+		AREAID=#{areaId}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.org.area.pojo.Area">
@@ -110,6 +119,20 @@
 			#{ids}
 		</foreach>
 	</delete>
+	<update id="updateMoreLvlName" flushCache="true">
+		UPDATE TB_ORG_AREA
+		SET
+		lvl#{lvl}Name=#{areaName}
+		WHERE
+		lvl#{lvl}Id =#{areaId}
+	</update>
+	<update id="updateParentName" flushCache="true">
+		UPDATE TB_ORG_AREA
+		SET
+		parentName=#{areaName}
+		WHERE
+		parentId =#{areaId}
+	</update>
 
 	<select id="list" resultType="com.marks.module.org.area.pojo.Area"
 		parameterType="java.util.Map">
@@ -117,26 +140,44 @@
 		FROM TB_ORG_AREA area
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
-			and ( 2=1 or area.AREAID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.AREANAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.COMPANYID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or date_format(area.CREATETIME,'%Y%m%d') LIKE
+			and ( 2=1 or area.AREAID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or date_format(area.UPDATETIME,'%Y%m%d') LIKE
+			or area.AREANAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.PARENTID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.PARENTNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL1ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL1NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL2ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL2NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL3ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL3NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL4ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL4NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL5ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or area.LVL5NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.COMPANYID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			date_format(area.CREATETIME,'%Y%m%d') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			date_format(area.UPDATETIME,'%Y%m%d') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.PARENTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.PARENTNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL1ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL1NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL2ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL2NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL3ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL3NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL4ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL4NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL5ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL5NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 

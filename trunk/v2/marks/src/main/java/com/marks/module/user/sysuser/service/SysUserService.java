@@ -10,7 +10,8 @@ import com.marks.module.user.sysuser.pojo.SysUser;
 public interface SysUserService{
 
 	public SysUser findByUserid(String userid);
-	public void save(SysUser sysUser,String orgIdsPut);
+
+	public String save(SysUser sysUser, String orgIdsPut);
 	public void update(SysUser sysUser,String orgIdsPut);
 	public void delete(String userid);
 	public List<SysUser> findAll();
