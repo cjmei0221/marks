@@ -8,7 +8,7 @@
  	</select>
  	
  	<insert id="save" parameterType="@{NameSpaceUrl}.@{beanName}">
-		<selectKey keyProperty="@{PKAttrValue}" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+		<!--<selectKey keyProperty="@{PKAttrValue}" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
 
  		INSERT INTO @{TableName} (
 @{GetAttrName}
@@ -23,7 +23,7 @@
 			@{GetAttrName}
 		)
 		VALUES
-		<foreach collection="list" item="item" index="index"
+		<foreach collection="list" item="info" index="index"
 			separator=",">
 			(
 				@{SetAttrValue}			
@@ -36,7 +36,7 @@
 		SET 
 @{UpdateMothod}
 		WHERE
-			@{PKAttrName} = #{@{PKAttrValue}}
+			@{PKAttrName} = #{info.@{PKAttrValue}}
  	</update>
  	
  	<delete id="delete" parameterType="String">
