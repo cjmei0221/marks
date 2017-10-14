@@ -68,9 +68,18 @@ public class OrgInfo implements Serializable{
     private String lvl6Id;//級別6编号
     private String lvl6Name;//级别6名称;
     
+	private int isDefault;
+
     
-    
-    public String getLvl2Id() {
+	public int getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(int isDefault) {
+		this.isDefault = isDefault;
+	}
+
+	public String getLvl2Id() {
 		return lvl2Id;
 	}
 
