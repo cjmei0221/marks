@@ -89,6 +89,25 @@ public class SysUser implements Serializable {
 	 */
 	private List<OrgInfo> orgInfoList;
 	
+	private String defaultOrgid;
+	private String defaultOrgname;
+
+	public String getDefaultOrgid() {
+		return defaultOrgid;
+	}
+
+	public void setDefaultOrgid(String defaultOrgid) {
+		this.defaultOrgid = defaultOrgid;
+	}
+
+	public String getDefaultOrgname() {
+		return defaultOrgname;
+	}
+
+	public void setDefaultOrgname(String defaultOrgname) {
+		this.defaultOrgname = defaultOrgname;
+	}
+
 	public String getCompanyNo() {
 		return companyNo;
 	}

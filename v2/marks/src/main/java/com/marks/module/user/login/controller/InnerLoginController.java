@@ -1,5 +1,6 @@
 package com.marks.module.user.login.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.core.runModel.RunModel;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
+import com.marks.module.org.orginfo.service.OrgInfoService;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
@@ -48,7 +50,8 @@ public class InnerLoginController {
 
 	@Autowired
 	private SysRoleService sysRoleService;
-
+	@Autowired
+	private OrgInfoService orgInfoService;
 	/**
 	 * 登录 queryDepartmentList:描述 <br/>
 	 *
@@ -106,25 +109,30 @@ public class InnerLoginController {
 		user.setRole(role);
 		user.setCompanyNo(user.getCompanyId());
 		// 所属机构
-		List<OrgInfo> orgInfo = loginService.getOrgInfoListByUserid(user.getUserid());
-		user.setOrgInfoList(orgInfo);
+		List<OrgInfo> orgList = loginService.getOrgInfoListByUserid(user.getUserid());
+		user.setOrgInfoList(orgList);
+		List<String> orgids = null;
 		// 组织架构
-		boolean topflag = false;
 		boolean companyflag=false;
-		for (OrgInfo sr : orgInfo) {
-			if (1 == sr.getIsMain()) {
-				topflag = true;
-			}
-			if(Enums.OrgType.company.getValue()==sr.getOrgType()){
-				companyflag=true;
+		if (null != orgList && orgList.size() > 0) {
+			orgids = new ArrayList<String>();
+			for (OrgInfo sr : orgList) {
+				orgids.add(sr.getOrgid());
+				if (Enums.OrgType.company.getValue() == sr.getOrgType()) {
+					companyflag = true;
+				}
+				if (1 == sr.getIsDefault()) {
+					user.setDefaultOrgid(sr.getOrgid());
+					user.setDefaultOrgname(sr.getOrgname());
+				}
 			}
 		}
-		if (topflag) {
-			user.setOrgids(null);
+		OrgInfo company = orgInfoService.findById(user.getCompanyNo());
+		user.setOrgids(null);
+		if (company.getIsMain() == 1) {
 			user.setCompanyId(null);
 		}
 		if(!companyflag){
-			List<String> orgids = loginService.getOrgidBySysUser(orgInfo);
 			user.setOrgids(orgids);
 		}
 		// 关联服务号
@@ -140,7 +148,6 @@ public class InnerLoginController {
 			}
 		}
 		LoginInnerUtil.setCurrentUserInfo(request, user);
-
 		// 保存日志
 		SysLog log = new SysLog();
 		log.setUserid(user.getUserid());
