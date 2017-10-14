@@ -240,18 +240,19 @@ public class WebDiaryController extends SupportContorller {
 			Diary diary = getModel(Diary.class);
 			Diary old = diaryService.findById(diary.getId());
 			String mobile = request.getParameter("mobile");
-			SysUser sysUser = loginService.getSysUserByUseridOrMobile(mobile);
+			String companyId = RunModel.getInstance().getCompanyId();
+			SysUser sysUser = loginService.findById(companyId, mobile);
 			if (sysUser == null) {
 				sysUser = new SysUser();
 				sysUser.setActiveFlag(Enums.SysUserUse.USE.getValue());
 				sysUser.setBind_mobile(mobile);
-				sysUser.setCompanyId(RunModel.getInstance().getCompanyId());
+				sysUser.setCompanyId(companyId);
 				sysUser.setPassword(EncryptUtil.defaultPwd);
 				sysUser.setUsername(mobile);
-				sysUser.setRoleid(RunModel.getInstance().getCompanyId() + "_" + Enums.UserType.VIP.getValue());
+				sysUser.setRoleid(companyId + "_" + Enums.UserType.VIP.getValue());
 				sysUser.setCreator(mobile);
-				sysUserService.save(sysUser, RunModel.getInstance().getCompanyId());
-				sysUser = loginService.getSysUserByUseridOrMobile(mobile);
+				String userid = sysUserService.save(sysUser, null);
+				sysUser.setUserid(userid);
 			} else {
 				if (sysUser.getActiveFlag() == Enums.SysUserUse.NOUSE.getValue()) {
 					result.setMessage("此手机号已禁用");

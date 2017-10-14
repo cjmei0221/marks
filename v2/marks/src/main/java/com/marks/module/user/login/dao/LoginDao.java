@@ -21,7 +21,7 @@ public interface LoginDao {
 	 * @author marks
 	 * @修改记录:(日期,修改人,描述) (可选) <br/>
 	 */
-	SysUser getSysUserByUserid(@Param("userid") String userid);
+	SysUser findById(@Param("companyId") String companyId, @Param("id") String id);
 
 	List<SysMenu> getChildMenu(@Param("roleId") String roleId);
 
@@ -47,5 +47,6 @@ public interface LoginDao {
 
 	SysUser getSysUserByOpenidAndAccountid(@Param("accountid")String accountid, @Param("openid")String openid);
 
+	SysUser getSysUserByUserid(@Param("userid") String userid);
 
 }

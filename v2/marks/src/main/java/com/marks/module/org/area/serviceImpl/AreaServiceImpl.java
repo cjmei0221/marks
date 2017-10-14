@@ -54,6 +54,8 @@ public class AreaServiceImpl implements AreaService{
     @Override
     public void update(Area area){
         areaDao.update(area);
+		areaDao.updateMoreLvlName(area.getAreaId(), area.getAreaName(), area.getLvl());
+		areaDao.updateParentName(area.getAreaId(), area.getAreaName());
     }
     
     /**
@@ -98,8 +100,8 @@ public class AreaServiceImpl implements AreaService{
 	}
 
 	@Override
-	public List<Area> treeGrid(String parentId) {
-		return areaDao.getTreeGridByParentId(parentId);
+	public List<Area> treeGrid(String companyId, String parentId) {
+		return areaDao.getTreeGridByParentId(companyId, parentId);
 	}
 	
 }

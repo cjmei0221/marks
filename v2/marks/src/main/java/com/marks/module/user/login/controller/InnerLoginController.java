@@ -18,6 +18,7 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
+import com.marks.module.core.runModel.RunModel;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
@@ -62,10 +63,11 @@ public class InnerLoginController {
 		Result result = new Result();
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
+		String companyId = RunModel.getInstance().getCompanyId();
 		/**
 		 * 如果登陆用为system，则拥有所有权限除了业务权限
 		 */
-		SysUser user = loginService.getSysUserByUserid(userid);
+		SysUser user = loginService.findById(companyId, userid);
 		if (user == null) {
 			result.setCode("4001");
 			result.setMessage("用户不存在");
@@ -94,6 +96,8 @@ public class InnerLoginController {
 			JsonUtil.output(response, result);
 			return;
 		}
+		List<String> list = loginService.getUrlByUserid(user.getUserid());
+		user.setUserUrlList(list);
 
 		result.setCode("0");
 		result.setMessage("success");
