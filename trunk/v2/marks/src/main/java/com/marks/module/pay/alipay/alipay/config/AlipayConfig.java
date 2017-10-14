@@ -89,7 +89,7 @@ public class AlipayConfig {
 	private String app_pay= "app_pay";
 	private String pay_fail_page_url= "pay_fail_page_url";
 	private String pay_success_page_url= "pay_success_page_url";
-	private String prefix_conf="props/web/pay/alipay_";
+	private String prefix_conf = "props/pay/alipay_";
 	private String end_conf=".properties";
 	
 	public String getValue(String accountId,String key){
