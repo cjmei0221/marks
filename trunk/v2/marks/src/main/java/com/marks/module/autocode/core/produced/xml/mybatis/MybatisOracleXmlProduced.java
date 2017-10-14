@@ -189,7 +189,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 				sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
 			} else {
 				sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS);
-				sBuffer.append(autoAttr.getAttrName());
+				sBuffer.append("info").append(DOT_VALUE).append(autoAttr.getAttrName());
 				sBuffer.append(COlON_VALUE).append(autoAttr.getAttrType().getMybatisType());
 				if (i == autoAttrs.size() - 1) {
 					sBuffer.append(RIGHT_BRACKETS).append(ENTER_VALUE);
