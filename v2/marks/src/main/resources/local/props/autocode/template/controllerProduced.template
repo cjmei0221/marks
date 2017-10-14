@@ -50,12 +50,12 @@ public class @{beanName}Controller extends SupportContorller{
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    @{beanName} @{BeanObject} = getModel(@{beanName}.class);
+		    @{beanName} reqVo = getModel(@{beanName}.class);
 		    
-		    logger.info("find@{beanName}ById > param>"+@{BeanObject}.get@{GetIdAttrName}());
+		    logger.info("find@{beanName}ById > param>"+reqVo.get@{GetIdAttrName}());
 		    
-			@{beanName} request@{beanName} = @{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
-			result.getData().put("@{BeanObject}",request@{beanName});
+			@{beanName} info = @{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+			result.getData().put("info",info);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -75,18 +75,18 @@ public class @{beanName}Controller extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
-	    	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
-	 //     @{BeanObject}.set@{GetIdAttrName}(IDUtil.getUUID());
+	    	@{beanName} reqVo = getModel(@{beanName}.class);
+	 //     reqVo.set@{GetIdAttrName}(IDUtil.getUUID());
 	 		
-	 		logger.info("save@{beanName} > param>"+@{BeanObject}.toLog());
+	 		logger.info("save@{beanName} > param>"+reqVo.toLog());
 	 
 			 @{beanName} ori=null;
-	 		if(@{BeanObject}.get@{GetIdAttrName}() != null){
-	 			ori=@{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+	 		if(reqVo.get@{GetIdAttrName}() != null){
+	 			ori=@{BeanObject}Service.findById(reqVo.get@{GetIdAttrName}());
 	 		}
 	 		
 	 		if(ori==null){
-	 			@{BeanObject}Service.save(@{BeanObject});
+	 			@{BeanObject}Service.save(reqVo);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -110,16 +110,16 @@ public class @{beanName}Controller extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
-		    @{beanName} @{BeanObject} = getModel(@{beanName}.class);
+		    @{beanName} reqVo = getModel(@{beanName}.class);
 		    
-		    logger.info(" update@{beanName}> param>"+@{BeanObject}.toLog());
+		    logger.info(" update@{beanName}> param>"+reqVo.toLog());
 		    
-		    @{beanName} ori=@{BeanObject}Service.findById(@{BeanObject}.get@{GetIdAttrName}());
+		    @{beanName} ori=@{BeanObject}Service.findById(reqVo.get@{GetIdAttrName}());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	@{BeanObject}Service.update(@{BeanObject});
+		    	@{BeanObject}Service.update(reqVo);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -139,11 +139,11 @@ public class @{beanName}Controller extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-		   	@{beanName} @{BeanObject} = getModel(@{beanName}.class);
+		   	@{beanName} reqVo = getModel(@{beanName}.class);
 		   	
-		   	logger.info("delete@{beanName}ById > param>"+@{BeanObject}.get@{GetIdAttrName}());
+		   	logger.info("delete@{beanName}ById > param>"+reqVo.get@{GetIdAttrName}());
 		   	
-			@{BeanObject}Service.delete(@{BeanObject}.get@{GetIdAttrName}());
+			@{BeanObject}Service.delete(reqVo.get@{GetIdAttrName}());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -163,8 +163,8 @@ public class @{beanName}Controller extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			List<@{beanName}> @{BeanObject}List = @{BeanObject}Service.findAll();
-			result.getData().put("@{BeanObject}List",@{BeanObject}List);
+			List<@{beanName}> allList = @{BeanObject}Service.findAll();
+			result.getData().put("allList",allList);
 			result.setMessage("findAll @{BeanObject} successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {

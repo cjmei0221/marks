@@ -12,17 +12,35 @@ var appInfo = {
 };
 // -----------------权限控制功能 start---------------
 // 新增
+function topNode() {
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	$("#parentName").val("总区");
+	$("#parentId").val("top");
+	$("#lvl").val(1);
+	$("#parentNameTr").hide();
+
+}
 function add() {
-	if (isSelectedOne(appInfo.selectedId)) {
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-		$("#parentName").val(appInfo.selectedData.areaName);
-		$("#parentId").val(appInfo.selectedId);
-		$("#lvl").val(appInfo.selectedData.lvl + 1);
+	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
 	}
+	if (appInfo.selectedData.lvl >= 5) {
+		showMsg("只能新增5级！");
+		return;
+	}
+	$("#parentNameTr").show();
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	$("#parentName").val(appInfo.selectedData.areaName);
+	$("#parentId").val(appInfo.selectedId);
+	$("#lvl").val(appInfo.selectedData.lvl + 1);
 
 }
 
@@ -31,6 +49,11 @@ function edit() {
 	if (!isSelectedOne(appInfo.selectedId)) {
 		return;
 	}
+	if (appInfo.selectedData.lvl == 0) {
+		showMsg("根节点不可编辑！");
+		return;
+	}
+	$("#parentNameTr").show();
 	$("#editWin").window({
 		title : "编辑"
 	}).window("open");
@@ -42,17 +65,19 @@ function del() {
 	if (!isSelectedOne(appInfo.selectedId)) {
 		return;
 	}
-
+	if (appInfo.selectedData.lvl == 0) {
+		showMsg("根节点不可删除！");
+		return;
+	}
 	$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 		if (r) {
 			var parms = "areaId=" + appInfo.selectedId;
 			$.post(appInfo.deleteUrl, parms, function(data) {
 				if (data.retcode == '0') {
-					appInfo.requestParam.parentId="";
+					appInfo.requestParam.parentId = "";
 					loadList();
 					appInfo.selectedData = {};
 					appInfo.selectedId = -1;
-					showMsg("删除成功");
 					showMsg("删除成功");
 				} else {
 					showMsg(data.retmsg);
@@ -105,7 +130,7 @@ function formSubmit() {
 		}
 		if (data.retcode == "0") {
 			$("#editWin").window("close");
-			appInfo.requestParam.parentId="";
+			appInfo.requestParam.parentId = "";
 			loadList();
 			$("#tbList").treegrid('unselectAll');
 			appInfo.selectedData = {};
@@ -134,16 +159,6 @@ function loadList() {
 				}, {
 					title : '区域编号',
 					field : 'areaId',
-					width : 200,
-					align : "center"
-				}, {
-					title : '创建时间',
-					field : 'createtime',
-					width : 200,
-					align : "center"
-				}, {
-					title : '更新时间',
-					field : 'updatetime',
 					width : 200,
 					align : "center"
 				} ] ],
