@@ -4,7 +4,7 @@
 <mapper namespace="@{daoInterfacePackageUrl}.@{beanName}Dao">
 
     <select id="findById" resultType="@{NameSpaceUrl}.@{beanName}">
-		SELECT * FROM @{TableName} @{TableOtherName} where @{TableOtherName}.@{PKAttrName} = #{@{PKAttrValue}}
+		SELECT * FROM @{TableName} t where t.@{PKAttrName} = #{@{PKAttrValue}}
  	</select>
  	
  	<insert id="save" parameterType="@{NameSpaceUrl}.@{beanName}">
@@ -23,7 +23,7 @@
 			@{GetAttrName}
 		)
 		VALUES
-		<foreach collection="list" item="item" index="index"
+		<foreach collection="list" item="info" index="index"
 			separator=",">
 			(
 				@{SetAttrValue}			
@@ -37,15 +37,15 @@
 		SET 
 @{UpdateMothod}
 		WHERE
-			@{PKAttrName} = #{@{PKAttrValue}}
+			@{PKAttrName} = info.#{@{PKAttrValue}}
  	</update>
  	
  	<delete id="delete" parameterType="String">
- 		DELETE FROM @{TableName} @{TableOtherName} WHERE @{TableOtherName}.@{PKAttrName}=#{@{PKAttrValue}}
+ 		DELETE FROM @{TableName} t WHERE t.@{PKAttrName}=#{@{PKAttrValue}}
  	</delete>
  	
  	<select id="findAll" resultType="@{NameSpaceUrl}.@{beanName}">
- 		SELECT * FROM @{TableName}
+ 		SELECT * FROM @{TableName} t
  	</select>
  	
  	<delete id="deleteBatch" parameterType="java.util.List">
@@ -58,7 +58,7 @@
  	<select id="list" resultType="@{NameSpaceUrl}.@{beanName}" 
  	parameterType="java.util.Map">
  		SELECT  *
-		  FROM   @{TableName} @{TableOtherName}
+		  FROM   @{TableName} t
 						WHERE 1=1
 @{FindToType}
 					

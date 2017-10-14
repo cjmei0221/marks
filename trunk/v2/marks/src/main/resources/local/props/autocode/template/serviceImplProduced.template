@@ -31,32 +31,32 @@ public class @{beanName}ServiceImpl implements @{beanName}Service{
     *根据ID查找@{ModuleDesc}
     */
     @Override
-    public @{beanName} findById(@{GetIdAttrType} @{GetIdAttrValue}){
-        return @{GetBeanObject}Dao.findById(@{GetIdAttrValue});
+    public @{beanName} findById(@{GetIdAttrType} id){
+        return @{GetBeanObject}Dao.findById(id);
     }
     
     /**
     *保存@{ModuleDesc}
     */
     @Override
-    public void save(@{beanName} @{GetBeanObject}){
-        @{GetBeanObject}Dao.save(@{GetBeanObject});
+    public void save(@{beanName} info){
+        @{GetBeanObject}Dao.save(info);
     }
     
     /**
     *更新@{ModuleDesc}
     */
     @Override
-    public void update(@{beanName} @{GetBeanObject}){
-        @{GetBeanObject}Dao.update(@{GetBeanObject});
+    public void update(@{beanName} info){
+        @{GetBeanObject}Dao.update(info);
     }
     
     /**
     *删除@{ModuleDesc}
     */
     @Override
-    public void delete(@{GetIdAttrType} @{GetIdAttrValue}){
-        @{GetBeanObject}Dao.delete(@{GetIdAttrValue});       
+    public void delete(@{GetIdAttrType} id){
+        @{GetBeanObject}Dao.delete(id);       
     }
     
     /**
