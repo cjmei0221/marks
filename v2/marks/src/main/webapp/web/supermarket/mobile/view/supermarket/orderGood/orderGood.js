@@ -1,7 +1,7 @@
 var orderId="20170806125346";
 
 $(function(){
-	wxsdk.wx_init(["chooseWXPay"]);//注册扫一扫事件
+	wxsdk.wx_init(["chooseWXPay"]);//注册微信支付事件
 });
 $(document).on('click','#payOrder', function () {
       var buttons1 = [
