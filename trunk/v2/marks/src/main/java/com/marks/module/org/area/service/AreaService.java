@@ -25,5 +25,5 @@ public interface AreaService{
 	 */
 	public List<Area> findByParentId(String companyId);
 
-	public List<Area> treeGrid(String parentId);
+	public List<Area> treeGrid(String companyId, String parentId);
 }

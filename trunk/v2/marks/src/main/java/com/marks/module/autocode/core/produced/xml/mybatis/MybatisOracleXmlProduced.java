@@ -270,7 +270,8 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		if (updateTime.equals(attrName.toLowerCase())) {
 			sBuffer.append("sysdate");
 		} else {
-			sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS).append(attrName).append(COlON_VALUE).append(type)
+			sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS).append("info").append(DOT_VALUE).append(attrName)
+					.append(COlON_VALUE).append(type)
 					.append(RIGHT_BRACKETS);
 		}
 		return sBuffer.toString();
@@ -284,7 +285,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 			String attrName = autoAttrs.get(i).getAttrName();
 			if (updateTime.equals(attrName.toLowerCase())) {
 				sBuffer.append(BANK_VALUE_4).append("order by ").append(BANK_VALUE_1);
-				sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE).append(attrName.toUpperCase())
+				sBuffer.append("t").append(DOT_VALUE).append(attrName.toUpperCase())
 						.append(BANK_VALUE_1);
 				sBuffer.append("DESC");
 			}
@@ -350,10 +351,10 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		sBuffer.append(BANK_VALUE_1);
 		if (attrType.equals(AttrType.Date.getMybatisType())) {
 			sBuffer.append("to_char(");
-			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE).append(attrName.toUpperCase());
+			sBuffer.append("t").append(DOT_VALUE).append(attrName.toUpperCase());
 			sBuffer.append(",'yyyyMMdd')");
 		} else {
-			sBuffer.append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE).append(attrName.toUpperCase());
+			sBuffer.append("t").append(DOT_VALUE).append(attrName.toUpperCase());
 		}
 		sBuffer.append(BANK_VALUE_1);
 		sBuffer.append(LIKE_VALUE).append(BANK_VALUE_1).append(CONCAT_VALUE).append(LEFT_PATEN).append(CONCAT_VALUE)

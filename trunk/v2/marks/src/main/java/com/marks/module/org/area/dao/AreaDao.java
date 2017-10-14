@@ -29,6 +29,10 @@ public interface AreaDao {
 
 	List<Area> findByParentId(@Param("parentId") String parentId);
 
-	List<Area> getTreeGridByParentId(@Param("parentId") String parentId);
+	List<Area> getTreeGridByParentId(@Param("companyId") String companyId, @Param("parentId") String parentId);
+
+	void updateMoreLvlName(@Param("areaId") String areaId, @Param("areaName") String areaName, @Param("lvl") int lvl);
+
+	void updateParentName(@Param("areaId") String areaId, @Param("areaName") String areaName);
 
 }

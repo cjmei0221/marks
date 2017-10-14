@@ -20,7 +20,6 @@ import com.marks.module.user.login.helper.LoginWxUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.user.sysuser.service.SysUserService;
-import com.marks.module.wx.manage.wxuser.service.WxUserService;
 
 @Controller
 public class WebLoginController {
@@ -29,10 +28,9 @@ public class WebLoginController {
 	private LoginService loginService;
 	@Autowired
 	private SysUserService sysUserService;
-	@Autowired
-	private WxUserService wxUserService;
+	
 	/**
-	 * 查询我的日记
+	 * 前端登陆
 	 */
 	@RequestMapping("/web/login")
 	public void login(HttpServletRequest request, HttpServletResponse response) {
@@ -42,7 +40,8 @@ public class WebLoginController {
 			result.setCode(Code.CODE_SUCCESS);
 			String userid = request.getParameter("mobile");
 			String pwd = request.getParameter("password");
-			SysUser loginUser = loginService.getSysUserByUseridOrMobile(userid);
+			String companyId = RunModel.getInstance().getCompanyId();
+			SysUser loginUser = loginService.findById(companyId, userid);
 			//盘点用户是否为空
 			if (loginUser == null) {
 				result.setMessage("用户不存在");
@@ -97,7 +96,7 @@ public class WebLoginController {
 				JsonUtil.output(response, result);
 				return;
 			}
-			SysUser user = loginService.getSysUserByUseridOrMobile(loginUser.getUserid());
+			SysUser user = loginService.findSysUserByUserid(loginUser.getUserid());
 			result.getData().put("loginUser", user);
 		} catch (Exception e) {
 			logger.error("getInfo", e);
@@ -123,7 +122,8 @@ public class WebLoginController {
 			}
 			String mobile=request.getParameter("mobile");
 			String password=request.getParameter("password");
-			SysUser sysUser=loginService.getSysUserByUseridOrMobile(mobile);
+			String companyId = RunModel.getInstance().getCompanyId();
+			SysUser sysUser = loginService.findById(companyId, mobile);
 			
 			
 			if(sysUser !=null){
@@ -144,17 +144,17 @@ public class WebLoginController {
 			user.setActiveFlag(Enums.SysUserUse.USE.getValue());
 			user.setBind_mobile(mobile);
 			user.setBindFlag(Enums.SysUserBindFlag.USE.getValue());
-			user.setCompanyId(RunModel.getInstance().getCompanyId());
+			user.setCompanyId(companyId);
 			user.setCreator(mobile);
 			user.setPassword(EncryptUtil.encryptPwd(password));
 			user.setUsername(mobile);
-			user.setRoleid(RunModel.getInstance().getCompanyId()+"_"+Enums.UserType.VIP.getValue());
+			user.setRoleid(companyId + "_" + Enums.UserType.VIP.getValue());
 			user.setOpenid(LoginWxUtil.getInstance().getCurrentOpenid(request));
 			user.setAccountid(LoginWxUtil.getInstance().getCurrentAccountid(request));
 			if(sysUser==null){
-				sysUserService.save(user, RunModel.getInstance().getCompanyId());
+				sysUserService.save(user, null);
 			}else{
-				sysUserService.update(user,RunModel.getInstance().getCompanyId());
+				sysUserService.update(user, null);
 			}
 		} catch (Exception e) {
 			logger.error("bind", e);
