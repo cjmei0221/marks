@@ -42,7 +42,9 @@
 		barNo,
 		salePrice,
 		vipPrice,
-		minPrice
+		minPrice,
+		typeId,
+		typeName
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -69,7 +71,9 @@
 		#{barNo:VARCHAR},
 		#{salePrice:VARCHAR},
 		#{vipPrice:VARCHAR},
-		#{minPrice:VARCHAR}
+		#{minPrice:VARCHAR},
+		#{typeId:VARCHAR},
+		#{typeName:VARCHAR}
 		)
 	</insert>
 
@@ -99,7 +103,9 @@
 		barNo=#{barNo:VARCHAR},
 		salePrice=#{salePrice:VARCHAR},
 		vipPrice=#{vipPrice:VARCHAR},
-		minPrice=#{minPrice:VARCHAR}
+		minPrice=#{minPrice:VARCHAR},
+		typeId=#{typeId:VARCHAR},
+		typeName=#{typeName:VARCHAR}
 		WHERE
 		GOODID =
 		#{goodId}
