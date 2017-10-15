@@ -179,20 +179,20 @@ function formSubmit() {
 		return;
 	}
 	var imageUrlPut=img.getImageVal("addMainImg");
-	if(imageUrlPut ==''){
-		showMsg("请添加列表图片");
-		return;
-	}
+//	if(imageUrlPut ==''){
+//		showMsg("请添加列表图片");
+//		return;
+//	}
 	var addMainImagePut=img.getImageVal("addMainImageDiv");
-	if(addMainImagePut ==''){
-		showMsg("请主副图片");
-		return;
-	}
+//	if(addMainImagePut ==''){
+//		showMsg("请主副图片");
+//		return;
+//	}
 	var addDetailImagePut=img.getImageVal("addDetailImageDiv");
-	if(addDetailImagePut ==''){
-		showMsg("请详情图片");
-		return;
-	}
+//	if(addDetailImagePut ==''){
+//		showMsg("请详情图片");
+//		return;
+//	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	
@@ -246,52 +246,14 @@ function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
 		toolbar : "#tb",
-		striped : true,
-		nowrap : true,
 		rownumbers : true,
-		animate : true,
-		collapsible : true,
-		fitColumns : true,
-		pagination : true,
 		idField : 'goodId',
+		height : 580,
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '商品编码',
-			field : 'sku_num',
-			width : 100,
-			align : "center"
-		}, {
-			title : '商品名称',
-			field : 'goodName',
-			width : 100,
-			align : "center"
-		}, {
-			title : '商品单价',
-			field : 'goodPrice',
-			width : 100,
-			align : "center"
-		}, {
-			title : '商品单位',
-			field : 'unit',
-			width : 100,
-			align : "center"
-		}, {
-			title : '商品品牌',
-			field : 'brand',
-			width : 100,
-			align : "center"
-		}, {
-			title : '商品主图',
-			field : 'imageUrl',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				return ' <img class="picUrl" src="'+value+'" style="width: 100px; height: 80px;" />';
-			}
-		}, {
 			title : '上架状态',
 			field : 'onsale_status',
 			width : 100,
@@ -307,9 +269,105 @@ function loadList() {
 				return '';
 			}
 		}, {
+			title : '商品主图',
+			field : 'imageUrl',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value==''){
+					return '';
+				}
+				return ' <img class="picUrl" src="'+value+'" style="width: 100px; height: 80px;" />';
+			}
+		}, {
+			title : '编码',
+			field : 'goodNo',
+			width : 100,
+			align : "center"
+		}, {
+			title : '条码',
+			field : 'barNo',
+			width : 100,
+			align : "center"
+		}, {
+			title : '商品名称',
+			field : 'goodName',
+			width : 100,
+			align : "center"
+		}, {
+			title : '类目',
+			field : 'typeName',
+			width : 100,
+			align : "center"
+		}, {
+			title : '品牌',
+			field : 'brandName',
+			width : 100,
+			align : "center"
+		}, {
+			title : '零售价',
+			field : 'price',
+			width : 100,
+			align : "center"
+		}, {
+			title : '会员价',
+			field : 'vipPrice',
+			width : 100,
+			align : "center"
+		}, {
+			title : '特价',
+			field : 'salePrice',
+			width : 100,
+			align : "center"
+		}, {
+			title : '最低价',
+			field : 'minPrice',
+			width : 100,
+			align : "center"
+		}, {
+			title : '单位',
+			field : 'unit',
+			width : 100,
+			align : "center"
+		}, {
+			title : '规格',
+			field : 'unit',
+			width : 100,
+			align : "center"
+		}, {
+			title : '型号',
+			field : 'model',
+			width : 100,
+			align : "center"
+		}, {
+			title : '重量',
+			field : 'model',
+			width : 100,
+			align : "center"
+		}, {
+			title : '材质',
+			field : 'material',
+			width : 100,
+			align : "center"
+		}, {
+			title : '产地',
+			field : 'madeIn',
+			width : 100,
+			align : "center"
+		}, {
+			title : '备注',
+			field : 'remark',
+			width : 100,
+			align : "center"
+		}, {
+			title : '特色描述',
+			field : 'description',
+			width : 100,
+			align : "center"
+		}, {
 			title : '更新时间',
 			field : 'updatetime',
-			width : 100,
+			width : 180,
 			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
@@ -323,7 +381,7 @@ function loadList() {
 		onDblClickRow:function(rowIndex, rowData){
 			appInfo.selectedId = rowData.goodId;
 			appInfo.selectedData = rowData;
-			showDetail();
+			edit();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');

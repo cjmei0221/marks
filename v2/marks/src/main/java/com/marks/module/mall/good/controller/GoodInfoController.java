@@ -86,17 +86,18 @@ public class GoodInfoController extends SupportContorller {
 			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
 			GoodInfo goodInfo = getModel(GoodInfo.class);
 			
-			GoodInfo old=goodInfoService.getGoodInfoBySkuNum(admin.getCompanyNo(),goodInfo.getSku_num());
+			GoodInfo old = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyNo(), goodInfo.getGoodNo());
 			if(old !=null){
 				result.setMessage("此商品编码已存在");
 				result.setCode("4001");
 			}else{
 				goodInfo.setGoodId("P" + IDUtil.getDateID() + IDUtil.getRandom(100, 999) + IDUtil.getRandom(100, 999));
 				goodInfo.setCompanyId(admin.getCompanyNo());
+				goodInfo.setCreator(admin.getUserid() + " - " + admin.getUsername());
+				goodInfo.setUpdater(admin.getUserid() + " - " + admin.getUsername());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
 				String addMainImagePut=request.getParameter("addMainImagePut");
 				String addDetailImagePut=request.getParameter("addDetailImagePut");
-				goodInfo.setCreator(admin.getUserid());
 				goodInfoService.save(goodInfo,addMainImagePut,addDetailImagePut);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -123,11 +124,12 @@ public class GoodInfoController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				GoodInfo sku = goodInfoService.getGoodInfoBySkuNum(admin.getCompanyNo(),goodInfo.getSku_num());
+				GoodInfo sku = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyNo(), goodInfo.getGoodNo());
 				if(sku !=null && !sku.getGoodId().equals(goodInfo.getGoodId())){
 					result.setMessage("此商品编码已存在!");
 					result.setCode("2001");
 				}else{
+					goodInfo.setUpdater(admin.getUserid() + " - " + admin.getUsername());
 					goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
 					String addMainImagePut=request.getParameter("addMainImagePut");
 					String addDetailImagePut=request.getParameter("addDetailImagePut");
