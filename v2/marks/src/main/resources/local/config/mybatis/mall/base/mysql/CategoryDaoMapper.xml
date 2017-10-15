@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.mall.base.dao.CategoryDao">
+
+	<select id="findById" resultType="com.marks.module.mall.base.pojo.Category">
+		SELECT * FROM TB_MALL_CATEGORY
+		t where t.typeID = #{typeId}
+	</select>
+	
+	<select id="getTreeGridByParentId" resultType="com.marks.module.mall.base.pojo.Category">
+		select t.*,
+		(case
+		when cnum is null then
+		'open'
+		else
+		'closed'
+		end) state
+		from TB_MALL_CATEGORY t
+		left join (select count(1) cnum, p.parentid pid
+		from
+		TB_MALL_CATEGORY p
+		group
+		by p.parentid) p on t.typeId = p.pid
+		where 1=1 and t.COMPANYID=#{companyId}
+		AND t.parentid
+		=#{parentId}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.mall.base.pojo.Category">
+		<!--<selectKey keyProperty="cId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_CATEGORY (
+		typeID,
+		typeNAME,
+		CREATETIME,
+		ParentID,
+		ParentNAME,
+		UPDATETIME,
+		PICURL,
+		COMPANYID,
+		LVL1ID,
+		LVL1NAME,
+		LVL2ID,
+		LVL2NAME,
+		LVL3ID,
+		LVL3NAME,
+		LVL4ID,
+		LVL4NAME,
+		LVL5ID,
+		LVL5NAME,
+		LVL,
+		STATUS
+		)
+		VALUES(
+		#{info.typeId:VARCHAR},
+		#{info.typeName:VARCHAR},
+		now(),
+		#{info.parentId:VARCHAR},
+		#{info.parentName:VARCHAR},
+		now(),
+		#{info.picUrl:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.lvl1Id:VARCHAR},
+		#{info.lvl1Name:VARCHAR},
+		#{info.lvl2Id:VARCHAR},
+		#{info.lvl2Name:VARCHAR},
+		#{info.lvl3Id:VARCHAR},
+		#{info.lvl3Name:VARCHAR},
+		#{info.lvl4Id:VARCHAR},
+		#{info.lvl4Name:VARCHAR},
+		#{info.lvl5Id:VARCHAR},
+		#{info.lvl5Name:VARCHAR},
+		#{info.lvl:NUMERIC},
+		#{info.status:NUMERIC}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_CATEGORY (
+		TypeID,
+		TypeNAME,
+		CREATETIME,
+		PARENTID,
+		PARENTNAME,
+		UPDATETIME,
+		PICURL,
+		COMPANYID,
+		LVL1ID,
+		LVL1NAME,
+		LVL2ID,
+		LVL2NAME,
+		LVL3ID,
+		LVL3NAME,
+		LVL4ID,
+		LVL4NAME,
+		LVL5ID,
+		LVL5NAME,
+		LVL,
+		STATUS
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.typeId:VARCHAR},
+			#{info.typeName:VARCHAR},
+			now(),
+			#{info.parentId:VARCHAR},
+			#{info.parentName:VARCHAR},
+			now(),
+			#{info.picUrl:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.lvl1Id:VARCHAR},
+			#{info.lvl1Name:VARCHAR},
+			#{info.lvl2Id:VARCHAR},
+			#{info.lvl2Name:VARCHAR},
+			#{info.lvl3Id:VARCHAR},
+			#{info.lvl3Name:VARCHAR},
+			#{info.lvl4Id:VARCHAR},
+			#{info.lvl4Name:VARCHAR},
+			#{info.lvl5Id:VARCHAR},
+			#{info.lvl5Name:VARCHAR},
+			#{info.lvl:NUMERIC},
+			#{info.status:NUMERIC}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.mall.base.pojo.Category">
+		UPDATE TB_MALL_CATEGORY
+		SET
+		typeNAME = #{info.typeName:VARCHAR},
+		UPDATETIME = now(),
+		PICURL = #{info.picUrl:VARCHAR},
+		STATUS = #{info.status:NUMERIC}
+		WHERE
+		typeID = #{info.typeId}
+	</update>
+	<update id="updateMoreLvlName" flushCache="true">
+		UPDATE TB_MALL_CATEGORY
+		SET
+		lvl#{lvl}Name=#{typeName}
+		WHERE
+		lvl#{lvl}Id =#{typeId}
+	</update>
+	<update id="updateParentName" flushCache="true">
+		UPDATE TB_MALL_CATEGORY
+		SET
+		parentName=#{typeName}
+		WHERE
+		parentId =#{typeId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_MALL_CATEGORY WHERE typeID=#{typeId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.mall.base.pojo.Category">
+		SELECT * FROM TB_MALL_CATEGORY t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_CATEGORY WHERE typeID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.mall.base.pojo.Category"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_CATEGORY t
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.LVL1NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.LVL2NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.LVL3NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.LVL4NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.LVL5NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>
