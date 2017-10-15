@@ -70,7 +70,35 @@ public class OrgInfo implements Serializable{
     
 	private int isDefault;
 
+	private String areaId;
+	private String areaName;
+	private String address;
+
     
+	public String getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(String areaId) {
+		this.areaId = areaId;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public int getIsDefault() {
 		return isDefault;
 	}

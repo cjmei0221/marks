@@ -46,23 +46,37 @@
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="orgid" name="orgid">
 			<table class="out-win-cls">
-				<tr style="display:none;">
+				<tr style="display: none;">
 					<th>组织ID</th>
 					<td><input id="logoId" name="logoId"
 						class="easyui-validatebox"></td>
 				</tr>
 				<tr>
-					<th>组织名称</th>
-					<td><input id="orgname" name="orgname"
-						class="easyui-validatebox" data-options="required:true"></td>
-				</tr>
-				<tr>
 					<th>上级组织</th>
 					<td><input id="parentName" name="parentName"
-						class="easyui-validatebox" data-options="required:true"
-						readonly="readonly"><input type="hidden" id="parentId"
+						class="easyui-validatebox" readonly="readonly"
+						style="width: 200px;"><input type="hidden" id="parentId"
 						name="parentId"></td>
 				</tr>
+				<tr>
+					<th>组织名称</th>
+					<td><input id="orgname" name="orgname"
+						class="easyui-validatebox" data-options="required:true"
+						style="width: 200px;"></td>
+				</tr>
+				<tr>
+					<th>区域</th>
+					<td><input id="areaId" name="areaId" class="easyui-combotree"
+						style="width: 200px;"><input id="areaName" name="areaName"
+						class="easyui-validatebox" style="width: 200px;display:none;"></td>
+				</tr>
+				<tr>
+					<th>地址</th>
+					<td><input id="address" name="address"
+						class="easyui-validatebox" style="width: 300px;"></td>
+				</tr>
+
+
 				<tr>
 					<th>启用标识</th>
 					<td><select id="useflag" class="easyui-combobox"

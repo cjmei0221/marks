@@ -36,7 +36,10 @@
 		lvl5Id,
 		lvl5Name,
 		lvl6Id,
-		lvl6Name
+		lvl6Name,
+		areaId,
+		areaName,
+		address
 		)
 		VALUES(
 		#{orgid:VARCHAR},
@@ -59,7 +62,10 @@
 		#{lvl5Id:VARCHAR},
 		#{lvl5Name:VARCHAR},
 		#{lvl6Id:VARCHAR},
-		#{lvl6Name:VARCHAR}
+		#{lvl6Name:VARCHAR},
+		#{areaId:VARCHAR},
+		#{areaName:VARCHAR},
+		#{address:VARCHAR}
 		)
 	</insert>
 
@@ -84,7 +90,10 @@
 		lvl5Id=#{lvl5Id:VARCHAR},
 		lvl5Name=#{lvl5Name:VARCHAR},
 		lvl6Id=#{lvl6Id:VARCHAR},
-		lvl6Name=#{lvl6Name:VARCHAR}
+		lvl6Name=#{lvl6Name:VARCHAR},
+		areaId=#{areaId:VARCHAR},
+		areaName=#{areaName:VARCHAR},
+		address=#{address:VARCHAR}
 		WHERE
 		ORGID =
 		#{orgid}
