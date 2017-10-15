@@ -79,26 +79,7 @@
 		SET
 		AREANAME
 		= #{areaName:VARCHAR},
-		COMPANYID = #{companyId:VARCHAR},
-		LVL =
-		#{lvl:NUMERIC},
-		UPDATETIME = now(),
-		PARENTID = #{parentId:VARCHAR},
-		PARENTNAME = #{parentName:VARCHAR},
-		LVL1ID = #{lvl1Id:VARCHAR},
-		LVL1NAME = #{lvl1Name:VARCHAR},
-		LVL2ID = #{lvl2Id:VARCHAR},
-		LVL2NAME =
-		#{lvl2Name:VARCHAR},
-		LVL3ID = #{lvl3Id:VARCHAR},
-		LVL3NAME =
-		#{lvl3Name:VARCHAR},
-		LVL4ID = #{lvl4Id:VARCHAR},
-		LVL4NAME =
-		#{lvl4Name:VARCHAR},
-		LVL5ID = #{lvl5Id:VARCHAR},
-		LVL5NAME =
-		#{lvl5Name:VARCHAR}
+		UPDATETIME = now()
 		WHERE
 		AREAID = #{areaId}
 	</update>
