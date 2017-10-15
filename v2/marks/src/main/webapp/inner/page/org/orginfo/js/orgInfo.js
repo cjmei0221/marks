@@ -1,18 +1,21 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/inner/orgInfo/list.do',// 获取机构管理列表接口 OrgInfo
+	listUrl : top.window.urlBase + '/inner/orgInfo/list.do',// 获取机构管理列表接口
+															// OrgInfo
 	saveUrl : top.window.urlBase + '/inner/orgInfo/save.do',// 保存新增机构管理接口
 	updateUrl : top.window.urlBase + '/inner/orgInfo/update.do',// 编辑机构管理信息接口
 	deleteUrl : top.window.urlBase + '/inner/orgInfo/delete.do',// 删除机构管理接口
+	arealistUrl : top.window.urlBase + '/inner/area/list.do',// 获取机构管理列表接口
+																// OrgInfo
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
 		parentId : ""
 	},
 	formStatus : "new",
-	orgType:0
+	orgType : 0
 };
 
-//新增
+// 新增
 function add() {
 	if (isSelectedOne(appInfo.selectedId)) {
 		$("#editWin").window({
@@ -29,7 +32,7 @@ function add() {
 // 编辑
 function edit() {
 	if (isSelectedOne(appInfo.selectedId)) {
-		if(appInfo.selectedData.orgType==1){
+		if (appInfo.selectedData.orgType == 1) {
 			showMsg("根节点不可编辑");
 			return;
 		}
@@ -38,18 +41,18 @@ function edit() {
 		}).window("open");
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
-		$("#orgid").attr("readonly","readonly");
+		$("#orgid").attr("readonly", "readonly");
 	}
 }
 
 // 删除
 function del() {
 	if (isSelectedOne(appInfo.selectedId)) {
-		if( appInfo.selectedId=='0'){
+		if (appInfo.selectedId == '0') {
 			showMsg("根节点不可删除");
 			return;
 		}
-		if(appInfo.selectedData.parentId=='0'){
+		if (appInfo.selectedData.parentId == '0') {
 			showMsg("请在公司管理编辑");
 			return;
 		}
@@ -58,7 +61,7 @@ function del() {
 				var parms = "orgid=" + appInfo.selectedId;
 				$.post(appInfo.deleteUrl, parms, function(data) {
 					if (data.retcode == "0") {
-						appInfo.requestParam.parentId="0";
+						appInfo.requestParam.parentId = "0";
 						loadList();
 						appInfo.selectedData = {};
 						appInfo.selectedId = -1;
@@ -84,8 +87,6 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
-	
-
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -93,8 +94,23 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-});
+	$('#areaId').combotree(
+			{
+				url : appInfo.arealistUrl,
+				valueField : 'id',
+				textField : 'text',
+				parentField : 'parentId',
+				onBeforeExpand : function(node) {
+					$(this).tree('options').url = appInfo.arealistUrl
+							+ "?parentId=" + node.id + "&_timer="
+							+ new Date().getTime();
+				},
+				onClick:function(node){
+					$("#areaName").val(node.text);
+				}
+			});
 
+});
 
 /**
  * 保存菜单
@@ -120,7 +136,7 @@ function formSubmit() {
 		}
 		if (data.retcode == "0") {
 			$("#editWin").window("close");
-			appInfo.requestParam.parentId="0";
+			appInfo.requestParam.parentId = "0";
 			loadList();
 			$("#tbList").treegrid('unselectAll');
 			appInfo.selectedData = {};
@@ -136,7 +152,7 @@ function loadList() {
 	$('#tbList').treegrid(
 			{
 				url : appInfo.listUrl,
-				toolbar : "#tb",	
+				toolbar : "#tb",
 				rownumbers : true,
 				idField : 'orgid',
 				treeField : 'orgname',
@@ -157,6 +173,16 @@ function loadList() {
 					title : '英文logo',
 					field : 'logoId',
 					width : 100,
+					align : "center"
+				}, {
+					title : '区域',
+					field : 'areaName',
+					width : 100,
+					align : "center"
+				}, {
+					title : '地址',
+					field : 'address',
+					width : 200,
 					align : "center"
 				}, {
 					title : '启用标识',
