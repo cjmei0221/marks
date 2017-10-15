@@ -8,80 +8,104 @@
 		goodinfo where goodinfo.GOODID = #{goodId}
 	</select>
 
-	<select id="getGoodInfoBySkuNum" resultType="com.marks.module.mall.good.pojo.GoodInfo">
+	<select id="getGoodInfoByGoodNo" resultType="com.marks.module.mall.good.pojo.GoodInfo">
 		SELECT * FROM
 		TB_MALL_GOOD_INFO
-		goodinfo where goodinfo.SKU_NUM = #{sku_num}
-		<if test="orgid!=null and orgid!=''">
-			and goodinfo.ORGID=#{orgid}
-		</if>
+		goodinfo where goodinfo.goodNo = #{goodNo}
+		and goodinfo.companyId=#{companyId}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		INSERT INTO TB_MALL_GOOD_INFO
-		 (
+		(
 		GOODID,
 		GOODNAME,
-		GOODPRICE,
+		PRICE,
 		UNIT,
 		IMAGEURL,
 		CREATETIME,
 		UPDATETIME,
 		CREATOR,
-		BRAND,
+		BRANDID,
 		MADEIN,
 		MATERIAL,
 		DESCRIPTION,
 		REMARK,
-		SKU_NUM,
 		WEIGHT,
 		WEIGHT_UNIT,
-		companyId
+		companyId,
+		updater,
+		brandName,
+		rank,
+		model,
+		goodNo,
+		barNo,
+		salePrice,
+		vipPrice,
+		minPrice
 		)
 		VALUES(
 		#{goodId:VARCHAR},
 		#{goodName:VARCHAR},
-		#{goodPrice:NUMERIC},
+		#{price:VARCHAR},
 		#{unit:VARCHAR},
 		#{imageUrl:VARCHAR},
 		now(),
 		now(),
 		#{creator:VARCHAR},
-		#{brand:VARCHAR},
+		#{brandId:VARCHAR},
 		#{madeIn:VARCHAR},
 		#{material:VARCHAR},
 		#{description:VARCHAR},
 		#{remark:VARCHAR},
-		#{sku_num:VARCHAR},
 		#{weight:VARCHAR},
 		#{weight_unit:VARCHAR},
-		#{companyId:VARCHAR}
+		#{companyId:VARCHAR},
+		#{updater:VARCHAR},
+		#{brandName:VARCHAR},
+		#{rank:VARCHAR},
+		#{model:VARCHAR},
+		#{goodNo:VARCHAR},
+		#{barNo:VARCHAR},
+		#{salePrice:VARCHAR},
+		#{vipPrice:VARCHAR},
+		#{minPrice:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		UPDATE TB_MALL_GOOD_INFO
-		
+
 		SET
 		GOODNAME = #{goodName:VARCHAR},
-		GOODPRICE
-		= #{goodPrice:NUMERIC},
-		UNIT = #{unit:VARCHAR},
+		PRICE
+		= #{price:VARCHAR},
+		UNIT =
+		#{unit:VARCHAR},
 		IMAGEURL = #{imageUrl:VARCHAR},
 		UPDATETIME = now(),
-		BRAND=#{brand:VARCHAR},
+		BRANDID=#{brandId:VARCHAR},
 		MADEIN=#{madeIn:VARCHAR},
 		MATERIAL=#{material:VARCHAR},
 		DESCRIPTION=#{description:VARCHAR},
 		REMARK=#{remark:VARCHAR},
-		SKU_NUM=#{sku_num:VARCHAR},
 		WEIGHT=#{weight:VARCHAR},
-		WEIGHT_UNIT=#{weight_unit:VARCHAR}
+		WEIGHT_UNIT=#{weight_unit:VARCHAR},
+		updater=#{updater:VARCHAR},
+		brandName=#{brandName:VARCHAR},
+		rank=#{rank:VARCHAR},
+		model=#{model:VARCHAR},
+		goodNo=#{goodNo:VARCHAR},
+		barNo=#{barNo:VARCHAR},
+		salePrice=#{salePrice:VARCHAR},
+		vipPrice=#{vipPrice:VARCHAR},
+		minPrice=#{minPrice:VARCHAR}
 		WHERE
-		GOODID = #{goodId}
+		GOODID =
+		#{goodId}
 	</update>
 	<update id="onSale">
-	UPDATE TB_MALL_GOOD_INFO
+		UPDATE TB_MALL_GOOD_INFO
 		SET
 		ONSALE_STATUS = #{state},
 		ONSALE_TIME=now(),
@@ -92,7 +116,7 @@
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM TB_MALL_GOOD_INFO
-		 WHERE GOODID=#{goodId}
+		WHERE GOODID=#{goodId}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.mall.good.pojo.GoodInfo">
@@ -116,45 +140,36 @@
 			and goodinfo.ORGID=#{orgid}
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			and ( goodinfo.GOODID
+			and ( goodinfo.GOODNO
 			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or goodinfo.GOODNAME LIKE
+			or goodinfo.barNo LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
 			or
-			goodinfo.GOODPRICE LIKE
+			goodinfo.GOODNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
 			or
-			to_char(goodinfo.CREATETIME,'yyyyMMdd') LIKE
+			goodinfo.BRANDNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or to_char(goodinfo.UPDATETIME,'yyyyMMdd') LIKE
+			or
+			goodinfo.MADEIN LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or goodinfo.CREATOR LIKE
+			or
+			goodinfo.MATERIAL LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or goodinfo.BRAND LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or goodinfo.MADEIN LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or goodinfo.MATERIAL LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or goodinfo.SKU_NUM LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
 			)
 		</if>
-			order by goodinfo.onsale_status,goodinfo.UPDATETIME desc
+		order by goodinfo.onsale_status,goodinfo.UPDATETIME desc
 	</select>
 
 	<insert id="saveGoodImg" parameterType="com.marks.module.mall.good.pojo.GoodImg">
 		INSERT INTO
-		TB_MALL_GOOD_IMG  (
+		TB_MALL_GOOD_IMG (
 		ID,
 		GOODID,
 		IMGTYPE,
@@ -176,8 +191,9 @@
 	<delete id="deleteGoodImg">
 		delete from TB_MALL_GOOD_IMG where goodId=#{goodId}
 	</delete>
-	<select id="findGoodImgByGoodNo" resultType="com.marks.module.mall.good.pojo.GoodImg">
-		select * from TB_MALL_GOOD_IMG where goodId=#{goodId}
+	<select id="getGoodImgByGoodId" resultType="com.marks.module.mall.good.pojo.GoodImg">
+		select * from
+		TB_MALL_GOOD_IMG where goodId=#{goodId}
 	</select>
 
 </mapper>

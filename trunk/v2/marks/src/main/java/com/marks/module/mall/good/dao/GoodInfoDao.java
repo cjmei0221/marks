@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.mall.good.pojo.GoodImg;
 import com.marks.module.mall.good.pojo.GoodInfo;
 
@@ -28,7 +28,7 @@ public interface GoodInfoDao {
 
 	List<GoodInfo> list(PageBounds pageBounds, Map<String,Object> param);
 
-	GoodInfo getGoodInfoBySkuNum(@Param("orgid") String orgid,@Param("sku_num")String sku_num);
+	GoodInfo getGoodInfoByGoodNo(@Param("companyId") String companyId, @Param("goodNo") String sku_num);
 
 	void saveGoodImg(GoodImg img);
 

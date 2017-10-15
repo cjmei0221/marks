@@ -23,8 +23,10 @@
 <script type="text/javascript" src="../../../js/sysmsg.js"></script>
 <script type="text/javascript" src="../../../js/tool.js"></script>
 <script type="text/javascript" src="../../../js/editImage/image.js"></script>
-<script src="../../../js/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="../../../js/uploadify/uploadify.css">
+<script src="../../../js/uploadify/jquery.uploadify.min.js"
+	type="text/javascript"></script>
+<link rel="stylesheet" type="text/css"
+	href="../../../js/uploadify/uploadify.css">
 <script type="text/javascript" src="../../../js/excel/excel.js"></script>
 </head>
 
@@ -56,81 +58,112 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 650px; height: 500px; padding: 10px;">
+		style="width: 750px; height: 500px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="goodId" name="goodId">
 			<table>
 				<tr>
-					<th>商品编码</th>
-					<td><input id="sku_num" name="sku_num"
+					<th style="width: 120px; text-align: right;">自编码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="goodNo" name="goodNo"
 						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
-					<th>商品名称</th>
-					<td><input id="goodName" name="goodName"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
-				</tr>
-				<tr>
-					<th>品牌名称</th>
-					<td><input id="brand" name="brand" class="easyui-validatebox"
+						style="width: 200px;" placeholder="若有条码，则填写条码"></td>
+					<th style="width: 120px; text-align: right;">条码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="barNo" name="barNo" class="easyui-validatebox"
 						data-options="required:true" style="width: 200px;"></td>
-					<th>产地</th>
-					<td><input id="madeIn" name="madeIn"
+				</tr>
+				<tr>
+					<th style="width: 120px; text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td colspan="3"><input id="goodName" name="goodName"
+						class="easyui-validatebox" data-options="required:true"
+						style="width: 500px;"></td>
+				</tr>
+				<tr>
+					<th style="width: 120px; text-align: right;">类目&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="typeId" name="typeId"
 						class="easyui-validatebox" data-options="required:true"
 						style="width: 200px;"></td>
-				</tr>
+					<th style="width: 120px; text-align: right;">品牌&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="brandId" name="brandId"
+						data-options="required:true" class="easyui-validatebox"
+						style="width: 200px;"></td>
 
+				</tr>
 				<tr>
-					<th>商品单价(单位分)</th>
-					<td><input id="goodPrice" name="goodPrice"
+					<th style="width: 120px; text-align: right;">零售价(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="price" name="price" class="easyui-numberbox"
+						data-options="required:true" style="width: 200px;"></td>
+					<th style="width: 120px; text-align: right;">会员价(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="vipPrice" name="vipPrice"
 						class="easyui-numberbox" data-options="required:true"
 						style="width: 200px;"></td>
-					<th>商品单位</th>
-					<td><input id="unit" name="unit" class="easyui-validatebox"
-						data-options="required:true" style="width: 200px;"></td>
 				</tr>
 				<tr>
-					<th>材质</th>
-					<td><input id="material" name="material"
-						class="easyui-validatebox" data-options="required:true"
+					<th style="width: 120px; text-align: right;">特价(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="salePrice" name="salePrice"
+						class="easyui-numberbox" data-options="required:true"
 						style="width: 200px;"></td>
-					<th>重量</th>
+					<th style="width: 120px; text-align: right;">最低价(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="minPrice" name="minPrice"
+						class="easyui-numberbox" data-options="required:true"
+						style="width: 200px;"></td>
+
+				</tr>
+				<tr>
+					<th style="width: 120px; text-align: right;">单位&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="unit" name="unit" class="easyui-validatebox"
+						style="width: 200px;"></td>
+					<th style="width: 120px; text-align: right;">规格&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="rank" name="rank" class="easyui-validatebox"
+						style="width: 200px;"></td>
+				</tr>
+				<tr>
+					<th style="width: 120px; text-align: right;">型号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="model" name="model" class="easyui-validatebox"
+						style="width: 200px;"></td>
+					<th style="width: 120px; text-align: right;">重量&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="weight" name="weight" class="easyui-numberbox"
-						data-options="required:true" style="width: 145px;">&nbsp;<input
-						id="weight_unit" name="weight_unit" class="easyui-validatebox"
-						style="width: 50px;"></td>
+						style="width: 145px;">&nbsp;<input id="weight_unit"
+						name="weight_unit" class="easyui-validatebox" style="width: 50px;"></td>
 				</tr>
 				<tr>
-					<th>特色描述</th>
-					<td colspan="3"><input id="description" name="description"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 460px;"></td>
+					<th style="width: 120px; text-align: right;">材质&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="material" name="material"
+						class="easyui-validatebox" style="width: 200px;"></td>
+					<th style="width: 120px; text-align: right;">产地&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="madeIn" name="madeIn"
+						class="easyui-validatebox" style="width: 200px;"></td>
 				</tr>
 
-
 				<tr>
-					<th>备注</th>
+					<th style="width: 120px; text-align: right;">备注&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td colspan="3"><input id="remark" name="remark"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 460px;"></td>
+						class="easyui-validatebox" style="width: 460px;"></td>
 				</tr>
 				<tr>
-					<th>列表图片</th>
+					<th style="width: 120px; text-align: right;">特色描述&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td colspan="3"><input id="description" name="description"
+						class="easyui-validatebox" style="width: 460px;"></td>
+				</tr>
+				<tr>
+					<th style="width: 120px; text-align: right;">列表图片&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td colspan="3" valign="top" height="150px"><a
 						class="uploadImage" href="javascript:void(0)"
 						onclick="selectUploadImage('addMainImg',1);">选择图片 </a>
 						<div id="addMainImg"></div></td>
 				</tr>
 				<tr>
-					<th>详情页图片</th>
+					<th style="width: 120px; text-align: right;">详情页图片&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td colspan="3"><a href="javascript:void(0)"
 						onclick="addImage()">添加图片</a></td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: center"><input
-						type="button" id="btnOK" name="btnOK" value=" 保 存 " />
-						&nbsp;&nbsp;&nbsp; <input type="button" id="btnCancel"
-						name="btnCancel" value=" 取 消 " /></td>
+					<td colspan="4" style="text-align: center"><a id="btnCancel"
+						name="btnCancel" href="javascript:void(0)"
+						class="easyui-linkbutton" style="width: 100px;"
+						data-options="iconCls:'icon-cancel'">取消</a>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+						href="javascript:void(0)" class="easyui-linkbutton"
+						style="width: 100px;" data-options="iconCls:'icon-save'">保存</a></td>
 				</tr>
 			</table>
 		</form>
@@ -166,7 +199,9 @@
 			<tr>
 				<td align="center" style="width: 100%;">
 					<div style="width: 100%;">
-						<input type="button" id="imgBtnOk" value="确定 " />
+						<a id="imgBtnOk" name="imgBtnOk" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;"
+							data-options="iconCls:'icon-save'">确定</a>
 					</div>
 				</td>
 			</tr>
@@ -271,25 +306,28 @@
 		collapsible:false"
 		style="width: 400px; height: 350px; padding: 10px;">
 		<div align="center" style="width: 100%;">
-			<a id="downloadExcel" name="downloadExcel" href="/inner/fileUpload/excelTemplate.do?fileName=supermarket_good_info.xls"
+			<a id="downloadExcel" name="downloadExcel"
+				href="/inner/fileUpload/excelTemplate.do?fileName=supermarket_good_info.xls"
 				class="easyui-linkbutton" style="width: 100px;">下载模板</a>
 			<div style="height: 10px;"></div>
 			<form id="importFileForm" method="post" enctype="multipart/form-data">
 				<table style="margin: 5px; height: 70px;">
 					<tr>
-						<td colspan="2"><input id="file_upload" name="file_upload" type="file" multiple="false"></td>
+						<td colspan="2"><input id="file_upload" name="file_upload"
+							type="file" multiple="false"></td>
 					</tr>
-					<tr id="excelfileNameTr" style="display:none;">
-						<td colspan="2"><label id="fileName" /><input id="excelfileName" name="excelfileName"></td>
+					<tr id="excelfileNameTr" style="display: none;">
+						<td colspan="2"><label id="fileName" /><input
+							id="excelfileName" name="excelfileName"></td>
 					</tr>
-					
+
 					<tr>
 						<td colspan="2">&nbsp;&nbsp;<a id="btnOKExcel"
-							name="btnOKExcel" href="javascript:void(0)" class="easyui-linkbutton"
-							style="width: 100px;">上传</a></td>
+							name="btnOKExcel" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;">上传</a></td>
 					</tr>
 					<tr>
-						<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;<span id="uploadInfo" ></span></td>
+						<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;<span id="uploadInfo"></span></td>
 					</tr>
 				</table>
 			</form>
