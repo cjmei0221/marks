@@ -123,6 +123,10 @@ public class Category implements Serializable{
 		return typeId;
 	}
 
+	public String getId() {
+		return typeId;
+	}
+
 	public void setTypeId(String typeId) {
 		this.typeId = typeId;
 	}
@@ -131,6 +135,9 @@ public class Category implements Serializable{
 		return typeName;
 	}
 
+	public String getText() {
+		return typeName;
+	}
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
