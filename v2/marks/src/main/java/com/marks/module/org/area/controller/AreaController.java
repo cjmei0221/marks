@@ -17,7 +17,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.org.area.pojo.Area;
 import com.marks.module.org.area.service.AreaService;
-import com.marks.module.user.login.helper.LoginManageUtil;
+import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -67,7 +67,7 @@ public class AreaController extends SupportContorller {
 	public void saveArea(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			Area area = getModel(Area.class);
 			// area.setAreaId(IDUtil.getUUID());
 
@@ -146,7 +146,7 @@ public class AreaController extends SupportContorller {
 	public void updateArea(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			Area area = getModel(Area.class);
 
 			logger.info(" updateArea> param>" + area.toLog());
@@ -236,7 +236,7 @@ public class AreaController extends SupportContorller {
 	 */
 	@RequestMapping("/inner/area/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
-		SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 
 		String parentId = request.getParameter("parentId");
 		String companyId = admin.getCompanyNo();

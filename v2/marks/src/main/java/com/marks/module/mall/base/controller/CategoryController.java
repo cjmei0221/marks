@@ -18,7 +18,7 @@ import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.base.pojo.Category;
 import com.marks.module.mall.base.service.CategoryService;
 import com.marks.module.org.area.pojo.Area;
-import com.marks.module.user.login.helper.LoginManageUtil;
+import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -71,7 +71,7 @@ public class CategoryController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 	    	Category reqVo = getModel(Category.class);
 			reqVo.setTypeId("T" + IDUtil.getDateID() + IDUtil.getRandom(1000, 9999));
 			reqVo.setCompanyId(admin.getCompanyNo());
@@ -149,7 +149,7 @@ public class CategoryController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		    Category reqVo = getModel(Category.class);
 		    
 		    logger.info(" updateCategory> param>"+reqVo.toLog());
@@ -252,7 +252,7 @@ public class CategoryController extends SupportContorller{
 	 */
 	@RequestMapping("/inner/category/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
-		SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 
 		String parentId = request.getParameter("parentId");
 		String companyId = admin.getCompanyNo();
