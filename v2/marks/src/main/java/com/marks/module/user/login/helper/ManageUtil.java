@@ -14,9 +14,9 @@ import com.marks.module.user.sysuser.pojo.SysUser;
  * @history 1.修改时间,修改;修改内容：
  * 
  */
-public class LoginManageUtil {
+public class ManageUtil {
 
-	private static final Logger LOG = Logger.getLogger(LoginManageUtil.class);
+	private static final Logger LOG = Logger.getLogger(ManageUtil.class);
 
 	/**
 	 * 获取取当前用户key

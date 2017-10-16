@@ -5,17 +5,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import com.marks.module.core.runModel.RunModel;
-import com.marks.module.wx.web.util.WxUtil;
 
-public class LoginWxUtil {
-	public static LoginWxUtil util = null;
+public class WxUtil {
+	public static WxUtil util = null;
 
-	private LoginWxUtil() {
+	private WxUtil() {
 	}
 
-	public static LoginWxUtil getInstance() {
+	public static WxUtil getInstance() {
 		if(util==null){
-			util = new LoginWxUtil();
+			util = new WxUtil();
 		}
 		return util;
 	}
