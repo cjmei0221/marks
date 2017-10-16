@@ -19,7 +19,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.system.datadir.pojo.DataDir;
 import com.marks.module.system.datadir.service.DataDirService;
-import com.marks.module.user.login.helper.LoginInnerUtil;
+import com.marks.module.user.login.helper.LoginManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -63,7 +63,7 @@ public class DataDirController extends SupportContorller {
 	public void saveDataDir(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
 			DataDir dataDir = getModel(DataDir.class);
 			// dataDir.setCkey(IDUtil.getTimeID());
 			DataDir ori = null;
@@ -96,7 +96,7 @@ public class DataDirController extends SupportContorller {
 	public void updateDataDir(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
 			DataDir dataDir = getModel(DataDir.class);
 			DataDir ori = dataDirService.findById(dataDir.getCkey(), dataDir.getParentkey());
 			if (ori == null) {
@@ -195,7 +195,7 @@ public class DataDirController extends SupportContorller {
 	 */
 	@RequestMapping("/inner/dataDir/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
-		SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
 
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("companyId", admin.getCompanyId());
