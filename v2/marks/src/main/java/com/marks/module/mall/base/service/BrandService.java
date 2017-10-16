@@ -1,12 +1,11 @@
 package com.marks.module.mall.base.service;
 
 
-import com.marks.module.mall.base.pojo.Brand;
-
 import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
+import com.marks.module.mall.base.pojo.Brand;
 
 public interface BrandService{
 
@@ -17,4 +16,6 @@ public interface BrandService{
 	public List<Brand> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<Brand> list(int page_number, int page_size,Map<String,Object> param);
+
+	public List<Brand> findListByTypeId(String companyId, String typeId);
 }

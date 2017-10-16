@@ -1,6 +1,7 @@
 package com.marks.module.mall.base.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,195 +24,173 @@ import com.marks.module.mall.base.service.BrandService;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
- /**
-	 * 品牌管理: 品牌管理
-	 */
-@Controller
-public class BrandController extends SupportContorller{
-    private static Logger logger = Logger.getLogger( BrandController.class);
-    
-    @Autowired
-    private BrandService  brandService;
-   
+import net.sf.json.JSONArray;
 
-    @Override
+/**
+ * 品牌管理: 品牌管理
+ */
+@Controller
+public class BrandController extends SupportContorller {
+	private static Logger logger = Logger.getLogger(BrandController.class);
+
+	@Autowired
+	private BrandService brandService;
+
+	@Override
 	public Logger getLogger() {
 		return logger;
 	}
 
-    /**
+	/**
 	 * 查询品牌管理
 	 */
-    @RequestMapping("/inner/brand/findById")
-    public void findBrandById(HttpServletRequest request,
-    HttpServletResponse response){
-        Result result = new Result();
+	@RequestMapping("/inner/brand/findById")
+	public void findBrandById(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
 		try {
-		    Brand reqVo = getModel(Brand.class);
-		    
-		    logger.info("findBrandById > param>"+reqVo.getBrandId());
-		    
+			Brand reqVo = getModel(Brand.class);
+
+			logger.info("findBrandById > param>" + reqVo.getBrandId());
+
 			Brand info = brandService.findById(reqVo.getBrandId());
-			result.getData().put("info",info);
+			result.getData().put("info", info);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("查询失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-    }
-    
-    /**
+	}
+
+	/**
 	 * 保存品牌管理
 	 */
-    @RequestMapping("/inner/brand/save")
-    public void saveBrand(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/inner/brand/save")
+	public void saveBrand(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	Brand reqVo = getModel(Brand.class);
+			Brand reqVo = getModel(Brand.class);
 			reqVo.setBrandId("B" + IDUtil.getDateID() + IDUtil.getID(4));
-	 		
-	 		logger.info("saveBrand > param>"+reqVo.toLog());
-	 
-			 Brand ori=null;
-	 		if(reqVo.getBrandId() != null){
-	 			ori=brandService.findById(reqVo.getBrandId());
-	 		}
-	 		
-	 		if(ori==null){
+
+			logger.info("saveBrand > param>" + reqVo.toLog());
+
+			Brand ori = null;
+			if (reqVo.getBrandId() != null) {
+				ori = brandService.findById(reqVo.getBrandId());
+			}
+
+			if (ori == null) {
 				reqVo.setCompanyId(admin.getCompanyNo());
 				reqVo.setCreator(admin.getUserid() + " - " + admin.getUsername());
-	 			brandService.save(reqVo);
-	 			result.setMessage("保存成功");
+				brandService.save(reqVo);
+				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
-	 		}else{
-	    		result.setMessage("此记录已存在");
+			} else {
+				result.setMessage("此记录已存在");
 				result.setCode(Code.CODE_FAIL);
-	    	}
+			}
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("保存失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 更改品牌管理
 	 */
-    @RequestMapping("/inner/brand/update")
-    public void updateBrand(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/inner/brand/update")
+	public void updateBrand(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-		    Brand reqVo = getModel(Brand.class);
-		    
-		    logger.info(" updateBrand> param>"+reqVo.toLog());
-		    
-		    Brand ori=brandService.findById(reqVo.getBrandId());
-		    if(ori == null){
-		    	result.setMessage("此记录已删除!");
+			Brand reqVo = getModel(Brand.class);
+
+			logger.info(" updateBrand> param>" + reqVo.toLog());
+
+			Brand ori = brandService.findById(reqVo.getBrandId());
+			if (ori == null) {
+				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
-		    }else{
-		    	brandService.update(reqVo);
+			} else {
+				brandService.update(reqVo);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
-		    }
+			}
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 删除品牌管理
 	 */
-    @RequestMapping("/inner/brand/delete")
-    public void deleteBrandById(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/inner/brand/delete")
+	public void deleteBrandById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-		   	Brand reqVo = getModel(Brand.class);
-		   	
-		   	logger.info("deleteBrandById > param>"+reqVo.getBrandId());
-		   	
+			Brand reqVo = getModel(Brand.class);
+
+			logger.info("deleteBrandById > param>" + reqVo.getBrandId());
+
 			brandService.delete(reqVo.getBrandId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("删除失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	/**
 	 * 查询全部品牌管理
 	 */
 
-    /*@RequestMapping("/inner/brand/findAllBrand")
-    public void findAllBrand(HttpServletRequest request,
-    HttpServletResponse response){
+	@RequestMapping("/inner/brand/brandbox")
+	public void findAllBrand(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
-		try {
-			List<Brand> allList = brandService.findAll();
-			result.getData().put("allList",allList);
-			result.setMessage("findAll brand successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("findAll brand fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	} */
-	
+
+		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		String typeId = request.getParameter("typeId");
+		List<Brand> allList = brandService.findListByTypeId(admin.getCompanyNo(), typeId);
+
+		JsonUtil.output(response, JSONArray.fromObject(allList).toString());
+	}
+
 	/**
 	 * 删除多个品牌管理
 	 */
-	/*@RequestMapping("/inner/brand/deleteIds")
-	public void deleteBrand(HttpServletRequest request,
-			HttpServletResponse response){
-		Result result = new Result();
-		try {
-			String id = request.getParameter("brandId");
-			logger.info("delete batch> param>"+id);
-			String[] ids = id.split(",");
-			List<String> idList = new ArrayList<String>();
-			for(int i=0;i<ids.length;i++){
-				idList.add(ids[i]);
-			}
-			if(idList.size()>0){
-				brandService.deleteBatch(idList);
-				result.setMessage("删除成功!");
-				result.setCode(Code.CODE_SUCCESS);
-			}else{
-				result.setMessage("删除失败，请联系管理员!");
-				result.setCode(Code.CODE_FAIL);
-			}
-			
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("delete brand fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}*/
-	
+	/*
+	 * @RequestMapping("/inner/brand/deleteIds") public void
+	 * deleteBrand(HttpServletRequest request, HttpServletResponse response){
+	 * Result result = new Result(); try { String id =
+	 * request.getParameter("brandId"); logger.info("delete batch> param>"+id);
+	 * String[] ids = id.split(","); List<String> idList = new
+	 * ArrayList<String>(); for(int i=0;i<ids.length;i++){ idList.add(ids[i]); }
+	 * if(idList.size()>0){ brandService.deleteBatch(idList);
+	 * result.setMessage("删除成功!"); result.setCode(Code.CODE_SUCCESS); }else{
+	 * result.setMessage("删除失败，请联系管理员!"); result.setCode(Code.CODE_FAIL); }
+	 * 
+	 * } catch (Exception e) { logger.error(e.getMessage(),e);
+	 * result.setMessage("delete brand fail!"); result.setCode(Code.CODE_FAIL);
+	 * } JsonUtil.output(response, result); }
+	 */
+
 	/**
 	 * jqGrid多种条件查询
 	 */
 	@RequestMapping("/inner/brand/list")
-    public void list(HttpServletRequest request,HttpServletResponse response){
-       PaginationResult result = new PaginationResult();
+	public void list(HttpServletRequest request, HttpServletResponse response) {
+		PaginationResult result = new PaginationResult();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
@@ -219,12 +198,12 @@ public class BrandController extends SupportContorller{
 			if (page_size > 200) {
 				page_size = 200;
 			}
-			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
+			String keyword = request.getParameter("keyword");
+			if (keyword == null) {
+				keyword = "";
 			}
-			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
-			Map<String,Object> param=new HashMap<String,Object>();
+			logger.info("list> param>" + page_number + "-" + page_size + "-" + keyword);
+			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("companyId", admin.getCompanyId());
 			PojoDomain<Brand> list = brandService.list(page_number, page_size, param);
@@ -236,11 +215,11 @@ public class BrandController extends SupportContorller{
 			result.setMessage("find brand successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 			result.setMessage("find brand fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-    }
-	
+	}
+
 }

@@ -114,7 +114,7 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 	}
 
 	@Override
-	public void onsale(String goodId, int state) {
+	public void updateStatus(String goodId, int state) {
 		goodInfoDao.onSale(goodId,state);
 	}
 

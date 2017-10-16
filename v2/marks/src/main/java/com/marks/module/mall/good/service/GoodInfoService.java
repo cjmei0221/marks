@@ -20,5 +20,6 @@ public interface GoodInfoService{
 
 	public GoodInfo getGoodInfoByGoodNo(String companyId, String goodNo);
 	public List<GoodImg> findGoodImgByGoodId(String goodId);
-	public void onsale(String goodId, int value);
+
+	public void updateStatus(String goodId, int value);
 }
