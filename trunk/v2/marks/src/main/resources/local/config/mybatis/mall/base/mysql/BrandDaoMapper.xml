@@ -91,6 +91,14 @@
 	<select id="findAll" resultType="com.marks.module.mall.base.pojo.Brand">
 		SELECT * FROM TB_MALL_BRAND t
 	</select>
+	<select id="findListByTypeId" resultType="com.marks.module.mall.base.pojo.Brand">
+		SELECT * FROM TB_MALL_BRAND t where t.companyId=#{companyId}
+		<if test="typeId!=null and typeId!=''">
+			and t.typeId=#{typeId}
+		</if>
+		order by t.updatetime desc
+	</select>
+
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		DELETE FROM TB_MALL_BRAND WHERE BRANDID in
@@ -104,7 +112,7 @@
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_MALL_BRAND t
-		WHERE 1=1 
+		WHERE 1=1
 		<if test="companyId!=null and companyId!=''">
 			and t.companyId=#{companyId}
 		</if>

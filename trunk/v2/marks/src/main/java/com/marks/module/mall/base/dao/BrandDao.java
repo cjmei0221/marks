@@ -4,9 +4,8 @@ package com.marks.module.mall.base.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.annotation.MapperScan;
-
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.mall.base.pojo.Brand;
@@ -29,4 +28,6 @@ public interface BrandDao {
 	void deleteBatch(@Param("list") List<String> list);
 
 	List<Brand> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<Brand> findListByTypeId(@Param("companyId") String companyId, @Param("typeId") String typeId);
 }

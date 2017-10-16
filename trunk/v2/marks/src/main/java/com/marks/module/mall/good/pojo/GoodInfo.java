@@ -80,6 +80,26 @@ public class GoodInfo implements Serializable {
 
 	private String typeName;
 
+	private int goodType;// 商品类型 0:商品 1:赠品和商品 2:赠品
+
+	private int stockManageType;// 商品库存管理方式 0:一瓶一码 1:数量管理
+
+	public int getGoodType() {
+		return goodType;
+	}
+
+	public void setGoodType(int goodType) {
+		this.goodType = goodType;
+	}
+
+	public int getStockManageType() {
+		return stockManageType;
+	}
+
+	public void setStockManageType(int stockManageType) {
+		this.stockManageType = stockManageType;
+	}
+
 	public String getTypeId() {
 		return typeId;
 	}

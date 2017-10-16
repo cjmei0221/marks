@@ -3,17 +3,15 @@ package com.marks.module.mall.base.serviceImpl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marks.module.mall.base.pojo.Brand;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.mall.base.dao.BrandDao;
+import com.marks.module.mall.base.pojo.Brand;
 import com.marks.module.mall.base.service.BrandService;
 
 @Service
@@ -92,6 +90,11 @@ public class BrandServiceImpl implements BrandService{
 		pojoDomain.setPage_size(page_size);
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
+	}
+
+	@Override
+	public List<Brand> findListByTypeId(String companyId, String typeId) {
+		return brandDao.findListByTypeId(companyId, typeId);
 	}
 	
 }

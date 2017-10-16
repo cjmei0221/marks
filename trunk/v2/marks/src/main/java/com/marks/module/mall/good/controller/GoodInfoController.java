@@ -257,10 +257,10 @@ public class GoodInfoController extends SupportContorller {
 			GoodInfo goodInfo =goodInfoService.findById(goodId);
 			if(null != goodInfo){
 				if(Enums.GoodOnsale.onsale.getValue()==goodInfo.getOnsale_status()){
-					goodInfoService.onsale(goodId,Enums.GoodOnsale.shelves.getValue());
+					goodInfoService.updateStatus(goodId, Enums.GoodOnsale.shelves.getValue());
 					result.setMessage("下架成功!");
 				}else{
-					goodInfoService.onsale(goodId,Enums.GoodOnsale.onsale.getValue());
+					goodInfoService.updateStatus(goodId, Enums.GoodOnsale.onsale.getValue());
 					result.setMessage("上架成功!");
 				}
 				result.setCode(Code.CODE_SUCCESS);
