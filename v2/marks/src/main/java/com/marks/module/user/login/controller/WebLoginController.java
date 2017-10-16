@@ -15,8 +15,8 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.common.util.validate.VcodeUtil;
 import com.marks.module.core.runModel.RunModel;
-import com.marks.module.user.login.helper.LoginWebUtil;
-import com.marks.module.user.login.helper.LoginWxUtil;
+import com.marks.module.user.login.helper.WebUtil;
+import com.marks.module.user.login.helper.WxUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.user.sysuser.service.SysUserService;
@@ -71,7 +71,7 @@ public class WebLoginController {
 				JsonUtil.output(response, result);
 				return;
 			} 
-			LoginWebUtil.getInstance().setCurrentUser(request, loginUser);
+			WebUtil.getInstance().setCurrentUser(request, loginUser);
 		} catch (Exception e) {
 			logger.error("findDiaryById", e);
 			result.setMessage("查询失败，请联系管理员！");
@@ -89,7 +89,7 @@ public class WebLoginController {
 		try {
 			result.setMessage("findById diary successs!");
 			result.setCode(Code.CODE_SUCCESS);
-			SysUser loginUser = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
 			if(loginUser==null){
 				result.setMessage("用户未登录");
 				result.setCode("-102");
@@ -149,8 +149,8 @@ public class WebLoginController {
 			user.setPassword(EncryptUtil.encryptPwd(password));
 			user.setUsername(mobile);
 			user.setRoleid(companyId + "_" + Enums.UserType.VIP.getValue());
-			user.setOpenid(LoginWxUtil.getInstance().getCurrentOpenid(request));
-			user.setAccountid(LoginWxUtil.getInstance().getCurrentAccountid(request));
+			user.setOpenid(WxUtil.getInstance().getCurrentOpenid(request));
+			user.setAccountid(WxUtil.getInstance().getCurrentAccountid(request));
 			if(sysUser==null){
 				sysUserService.save(user, null);
 			}else{

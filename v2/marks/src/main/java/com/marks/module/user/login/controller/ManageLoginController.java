@@ -26,7 +26,7 @@ import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
-import com.marks.module.user.login.helper.LoginManageUtil;
+import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysrole.service.SysRoleService;
@@ -147,7 +147,7 @@ public class ManageLoginController {
 				user.setAccountids(accountids);
 			}
 		}
-		LoginManageUtil.setCurrentUserInfo(request, user);
+		ManageUtil.setCurrentUserInfo(request, user);
 		// 保存日志
 		SysLog log = new SysLog();
 		log.setUserid(user.getUserid());
@@ -169,9 +169,9 @@ public class ManageLoginController {
 	@RequestMapping("/inner/logout")
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = LoginManageUtil.getCurrentUserInfo(request);
+		SysUser user = ManageUtil.getCurrentUserInfo(request);
 		if (user != null) {
-			LoginManageUtil.setCurrentUserInfo(request, null);
+			ManageUtil.setCurrentUserInfo(request, null);
 			// 保存日志
 			SysLog log = new SysLog();
 			log.setUserid(user.getUserid());
@@ -195,7 +195,7 @@ public class ManageLoginController {
 	@RequestMapping("/inner/sys/menu")
 	public void sysMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = LoginManageUtil.getCurrentUserInfo(request);
+		SysUser user = ManageUtil.getCurrentUserInfo(request);
 		List<SysMenu> list = loginService.getSysMenuOfSysUser(user);
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
@@ -206,7 +206,7 @@ public class ManageLoginController {
 	@RequestMapping("/inner/sys/menuOperate")
 	public void menuOperate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = LoginManageUtil.getCurrentUserInfo(request);
+		SysUser user = ManageUtil.getCurrentUserInfo(request);
 		String menuid=request.getParameter("menuid");
 		List<SysOperate> list=loginService.getSysOperate(menuid,user);
 		result.setCode(Code.CODE_SUCCESS);
