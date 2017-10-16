@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.module.core.runModel.RunModel;
-import com.marks.module.user.login.helper.LoginWebUtil;
-import com.marks.module.user.login.helper.LoginWxUtil;
+import com.marks.module.user.login.helper.WebUtil;
+import com.marks.module.user.login.helper.WxUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.web.config.PageConfigUtil;
-import com.marks.module.wx.web.util.WxUtil;
+import com.marks.module.wx.web.util.WxAuthUtil;
 
 @Controller
 public class WxAuthController {
@@ -50,7 +50,7 @@ public class WxAuthController {
 				boolean flag = checkSession(request, false, null, accountid);
 				if (flag) {
 					String return_url = URLDecoder.decode(to_url, "utf-8");
-					return_url = WxUtil.getInstance().getCompleteUrl(accountid, return_url);
+					return_url = WxAuthUtil.getInstance().getCompleteUrl(accountid, return_url);
 					response.sendRedirect(return_url);
 					return;
 				} else {
@@ -61,14 +61,14 @@ public class WxAuthController {
 						response.sendRedirect(return_url);
 					} else {
 						// 组装授权URL
-						String url = WxUtil.getInstance().getWeixinUrl(accountid,
+						String url = WxAuthUtil.getInstance().getWeixinUrl(accountid,
 								request.getContextPath() + "/web/wxAuthCallback.do?accountid=" + accountid);
 						response.sendRedirect(url);
 					}
 				}
 			} else {
 				logger.info("调用微信授权接口去授权>>6");
-				response.sendRedirect(WxUtil.getInstance().getCompleteUrl(accountid,
+				response.sendRedirect(WxAuthUtil.getInstance().getCompleteUrl(accountid,
 						request.getContextPath() + PageConfigUtil.getProperty("errorUrl")));
 			}
 		} catch (Exception e) {
@@ -90,7 +90,7 @@ public class WxAuthController {
 			String to_url = URLDecoder.decode((String) request.getSession().getAttribute(wxauth_after_url), "utf-8");
 			if (RunModel.getInstance().getWeixinMode().equals("Y")) {
 				logger.info("通过code获取openid>>start");
-				String openid = WxUtil.getInstance().getOpenIdByCode(code, accountid);
+				String openid = WxAuthUtil.getInstance().getOpenIdByCode(code, accountid);
 				logger.info("通过code获取openid>>end");
 				if (null != openid && openid.length() > 5) {
 					logger.info(" weixin openid >> " + openid);
@@ -101,7 +101,7 @@ public class WxAuthController {
 				}
 			}
 			logger.info("微信授权回调>>end");
-			String return_url = WxUtil.getInstance().getCompleteUrl(accountid, to_url);
+			String return_url = WxAuthUtil.getInstance().getCompleteUrl(accountid, to_url);
 			logger.info("微信授权回调结束之后跳转url>>" + return_url);
 			response.sendRedirect(return_url);
 		} catch (Exception e) {
@@ -109,7 +109,7 @@ public class WxAuthController {
 			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统繁忙");
 			try {
-				response.sendRedirect(WxUtil.getInstance().getCompleteUrl(accountid,
+				response.sendRedirect(WxAuthUtil.getInstance().getCompleteUrl(accountid,
 						request.getContextPath() + PageConfigUtil.getProperty("errorUrl")));
 			} catch (IOException e1) {
 
@@ -127,22 +127,22 @@ public class WxAuthController {
 	 */
 	private boolean checkSession(HttpServletRequest request, boolean flag, String newOpenid, String accountid) {
 		if (flag) {
-			LoginWxUtil.getInstance().setCurrentOpenid(request, newOpenid);
-			LoginWxUtil.getInstance().setCurrentAccountid(request, accountid);
+			WxUtil.getInstance().setCurrentOpenid(request, newOpenid);
+			WxUtil.getInstance().setCurrentAccountid(request, accountid);
 			SysUser loginUser = loginService.getSysUserByOpenidAndAccountid(accountid,newOpenid);
 			if (null == loginUser) {
 				return false;
 			}
-			LoginWebUtil.getInstance().setCurrentUser(request, loginUser);
+			WebUtil.getInstance().setCurrentUser(request, loginUser);
 			return false;
 		} else {
-			String openid = LoginWxUtil.getInstance().getCurrentOpenid(request);
+			String openid = WxUtil.getInstance().getCurrentOpenid(request);
 			
 			logger.info("session>>openid>>" + openid);
 			if (openid != null && openid.length() > 5) {
 				SysUser loginUser = loginService.getSysUserByOpenidAndAccountid(accountid,openid);
 				if (null != loginUser) {
-					LoginWebUtil.getInstance().setCurrentUser(request, loginUser);
+					WebUtil.getInstance().setCurrentUser(request, loginUser);
 				}
 				return true;
 			}

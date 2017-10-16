@@ -18,7 +18,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.LoginInnerUtil;
+import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.manage.msg.pojo.WxAutoReplay;
 import com.marks.module.wx.manage.msg.service.WxAutoReplayService;
@@ -62,7 +62,7 @@ public class WxAutoReplayController extends SupportContorller {
 	public void saveWxAutoReplay(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			WxAutoReplay wxAutoReplay = getModel(WxAutoReplay.class);
 			// wxAutoReplay.setCparentType(IDUtil.getTimeID());
 			wxAutoReplay.setCkey(wxAutoReplay.getCkey().toLowerCase());
@@ -174,7 +174,7 @@ public class WxAutoReplayController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");

@@ -19,7 +19,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.LoginWebUtil;
+import com.marks.module.user.login.helper.WebUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.user.vipinfo.pojo.VipInfo;
 import com.marks.module.user.vipinfo.service.VipInfoService;
@@ -43,7 +43,7 @@ public class WebVipInfoController extends SupportContorller {
 	public void findVipInfoById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser loginUser = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
 			VipInfo requestVipInfo = vipInfoService.findVipDetailInfoById(loginUser.getUserid());
 			result.getData().put("vipInfo", requestVipInfo);
 			result.setMessage("findById vipInfo successs!");
@@ -63,7 +63,7 @@ public class WebVipInfoController extends SupportContorller {
 	public void saveVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
 			VipInfo vipInfo = getModel(VipInfo.class);
 			vipInfo.setUserid(admin.getUserid());
 			VipInfo ori = null;
@@ -90,7 +90,7 @@ public class WebVipInfoController extends SupportContorller {
 	public void updateVipInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
 			VipInfo vipInfo = getModel(VipInfo.class);
 			VipInfo ori = vipInfoService.findById(admin.getUserid());
 			if (ori == null) {
@@ -184,7 +184,7 @@ public class WebVipInfoController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.marks.module.cache.CacheData;
-import com.marks.module.user.login.helper.LoginWxUtil;
+import com.marks.module.user.login.helper.WxUtil;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
 import com.marks.module.wx.web.message.MessageConverter;
 import com.marks.module.wx.web.message.request.WechatRequest;
@@ -143,8 +143,8 @@ public class WeixinChatController {
 		// 请求封装
 		WechatRequest requestMessage = MessageConverter.convertRequest(accountId, xml);
 
-		LoginWxUtil.getInstance().setCurrentOpenid(request, requestMessage.getFromUserName());
-		LoginWxUtil.getInstance().setCurrentAccountid(request, accountId);
+		WxUtil.getInstance().setCurrentOpenid(request, requestMessage.getFromUserName());
+		WxUtil.getInstance().setCurrentAccountid(request, accountId);
 
 		WechatResponse wechatResponse = null;
 		try {
