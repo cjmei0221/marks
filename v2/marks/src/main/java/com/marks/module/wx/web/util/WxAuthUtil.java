@@ -12,18 +12,19 @@ import com.marks.module.cache.CacheData;
 import com.marks.module.wx.manage.base.pojo.WxAccount;
 import com.marks.module.wx.web.config.WxFwConfig;
 
-public class WxUtil {
-	public static WxUtil util=null;
-	private WxUtil(){}
-	public static WxUtil getInstance(){
+public class WxAuthUtil {
+	public static WxAuthUtil util = null;
+
+	private WxAuthUtil() {
+	}
+
+	public static WxAuthUtil getInstance() {
 		if(util==null){
-			util=new WxUtil();
+			util = new WxAuthUtil();
 		}
 		return util;
 	}
-	public static String LOGINUSER_OPENID="LOGINUSER_OPENID";
-	public static String LOGINUSER_ACCOUNTID="LOGINUSER_ACCOUNTID";
-	private static Logger logger = Logger.getLogger(WxUtil.class);
+	private static Logger logger = Logger.getLogger(WxAuthUtil.class);
 	
 	public String getWeixinUrl(String accountid,String url) throws UnsupportedEncodingException{
 		logger.info("组装授权url>>start");
