@@ -23,7 +23,7 @@ import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.note.question.pojo.Question;
 import com.marks.module.note.question.service.QuestionService;
 import com.marks.module.system.upload.util.UploadUtil;
-import com.marks.module.user.login.helper.LoginWebUtil;
+import com.marks.module.user.login.helper.WebUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 @Controller
@@ -65,7 +65,7 @@ public class WebQuestionController extends SupportContorller {
 	public void saveQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
 			String userid = admin == null ? "" : admin.getUserid();
 			Question question = getModel(Question.class);
 			// question.setId(IDUtil.getTimeID());
@@ -97,7 +97,7 @@ public class WebQuestionController extends SupportContorller {
 	public void updateQuestion(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
 			String userid = admin == null ? "" : admin.getUserid();
 			Question question = getModel(Question.class);
 			Question ori = questionService.findById(question.getId());
@@ -194,7 +194,7 @@ public class WebQuestionController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
 			String userid = admin == null ? "" : admin.getUserid();
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
@@ -228,7 +228,7 @@ public class WebQuestionController extends SupportContorller {
 	public void export(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginWebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
 			Map<String, Object> param = new HashMap<String, Object>();
 			String keyword = request.getParameter("keyword");
 			param.put("userid", admin.getUserid());

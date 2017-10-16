@@ -23,7 +23,7 @@ import com.marks.module.cache.CacheData;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.note.question.pojo.Question;
 import com.marks.module.note.question.service.QuestionService;
-import com.marks.module.user.login.helper.LoginManageUtil;
+import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 @Controller
@@ -68,7 +68,7 @@ public class QuestionController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 	    	Question question = getModel(Question.class);
 	    	question.setId(IDUtil.getTimeID());
 			 Question ori=null;
@@ -104,7 +104,7 @@ public class QuestionController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		    Question question = getModel(Question.class);
 		    Question ori=questionService.findById(question.getId());
 		    if(ori == null){
@@ -203,7 +203,7 @@ public class QuestionController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");

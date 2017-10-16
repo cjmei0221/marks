@@ -16,7 +16,7 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.system.sysmenu.service.SysOperateService;
-import com.marks.module.user.login.helper.LoginManageUtil;
+import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 /**
@@ -71,7 +71,7 @@ public class SysOperateController {
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("sucess");
 		String formStatus = request.getParameter("formStatus");
-		SysUser user = LoginManageUtil.getCurrentUserInfo(request);
+		SysUser user = ManageUtil.getCurrentUserInfo(request);
 		String operid = request.getParameter("operid");
 		SysOperate info = sysOperateService.getObjectById(operid);
 		if ("new".equals(formStatus)) {

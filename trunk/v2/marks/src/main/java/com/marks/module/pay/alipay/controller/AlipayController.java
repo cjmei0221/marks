@@ -20,7 +20,7 @@ import com.marks.module.pay.alipay.alipay.config.AlipayConfig;
 import com.marks.module.pay.alipay.alipay.util.AlipayNotify;
 import com.marks.module.pay.alipay.pojo.AlipayLog;
 import com.marks.module.pay.alipay.service.AlipayService;
-import com.marks.module.user.login.helper.LoginWxUtil;
+import com.marks.module.user.login.helper.WxUtil;
 @Controller
 public class AlipayController {
 	private static Logger logger = Logger.getLogger(AlipayController.class);
@@ -42,7 +42,7 @@ public class AlipayController {
 		Result result = new Result();
 		String html = null;
 		try {
-			accountId = LoginWxUtil.getInstance().getCurrentAccountid(request);
+			accountId = WxUtil.getInstance().getCurrentAccountid(request);
 			String txnAmt = String.valueOf("2342");
 			Double txnAmtd=Double.parseDouble(txnAmt);
 			Map<String,String> paramMap=new HashMap<String,String>();
@@ -73,7 +73,7 @@ public class AlipayController {
 		Result result = new Result();
 		String html = null;
 		try {
-			accountId = LoginWxUtil.getInstance().getCurrentAccountid(request);
+			accountId = WxUtil.getInstance().getCurrentAccountid(request);
 			String txnAmt = String.valueOf("");
 			Double txnAmtd=Double.parseDouble(txnAmt);
 			Map<String,String> paramMap=new HashMap<String,String>();
