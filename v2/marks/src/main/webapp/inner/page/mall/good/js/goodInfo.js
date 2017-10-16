@@ -5,6 +5,8 @@ var appInfo = {
 	deleteUrl : top.window.urlBase + '/inner/goodInfo/delete.do',// 删除商品管理接口
 	goodImgListUrl : top.window.urlBase + '/inner/goodInfo/findGoodImgByGoodId.do',// 删除商品管理接口
 	onsaleUrl: top.window.urlBase + '/inner/goodSale/onsale.do',
+	typelistUrl:top.window.urlBase + '/inner/category/list.do',//获取品牌管理列表接口  Brand
+	brandlistUrl:top.window.urlBase + '/inner/brand/brandbox.do',//获取品牌管理列表接口  Brand
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -23,6 +25,8 @@ function add() {
 	}).window("open");
 	$('#ff').form('clear');
 	$("#weight_unit").val("Kg");
+	$("#goodType").combobox("setValue",0);
+	$("#stockManageType").combobox("setValue",0);
 	appInfo.formStatus = "new";
 	img.deleteImageDiv("addMainImg");
 	img.deleteImageDiv("addMainImageDiv");
@@ -118,6 +122,28 @@ $(function() {
 	$("#imgBtnOk").on("click", function() {
 		$("#imageWin").window("close");
 	});
+	
+	$('#typeId').combotree(
+			{
+				url : appInfo.typelistUrl,
+				valueField : 'id',
+				textField : 'text',
+				parentField : 'parentId',
+				onBeforeExpand : function(node) {
+					$(this).tree('options').url = appInfo.typelistUrl
+							+ "?parentId=" + node.id + "&_timer="
+							+ new Date().getTime();
+				},
+				onClick:function(node){
+					$("#typeName").val(node.text);
+				}
+			});
+	$('#brandId').combobox(
+			{
+				url : appInfo.brandlistUrl+"?page_number=1&page_size=1000",
+				valueField : 'brandId',
+				textField : 'brandName'
+			});
 });
 
 function formSubmitforExcel(){
@@ -256,7 +282,7 @@ function loadList() {
 		columns : [ [ {
 			title : '上架状态',
 			field : 'onsale_status',
-			width : 100,
+			width : 80,
 			align : "center",
 			formatter : function(value, row, index) {
 				if(value==1){
@@ -305,6 +331,21 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '单位',
+			field : 'unit',
+			width : 100,
+			align : "center"
+		}, {
+			title : '规格',
+			field : 'unit',
+			width : 100,
+			align : "center"
+		}, {
+			title : '型号',
+			field : 'model',
+			width : 100,
+			align : "center"
+		}, {
 			title : '零售价',
 			field : 'price',
 			width : 100,
@@ -325,20 +366,29 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '单位',
-			field : 'unit',
+			title : '商品类别',
+			field : 'goodType',
 			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value==2){
+					return '赠品';
+				}else if(value==1){
+					return '商品&赠品';
+				}
+				return '商品';
+			}
 		}, {
-			title : '规格',
-			field : 'unit',
+			title : '库存管理类别',
+			field : 'stockManageType',
 			width : 100,
-			align : "center"
-		}, {
-			title : '型号',
-			field : 'model',
-			width : 100,
-			align : "center"
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value==1){
+					return '数量管理';
+				}
+				return '一瓶一码';
+			}
 		}, {
 			title : '重量',
 			field : 'model',
