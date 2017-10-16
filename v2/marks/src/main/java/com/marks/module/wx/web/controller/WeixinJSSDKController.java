@@ -16,7 +16,7 @@ import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.cache.CacheData;
 import com.marks.module.system.myimage.pojo.MyImage;
-import com.marks.module.user.login.helper.LoginWxUtil;
+import com.marks.module.user.login.helper.WxUtil;
 import com.marks.module.wx.manage.wxutil.WxMpUtil;
 import com.marks.module.wx.web.mp.SHAUtil;
 
@@ -36,7 +36,7 @@ public class WeixinJSSDKController {
 		Result result = new Result();
 		result.setCode(Code.CODE_SUCCESS);
 		try {
-			String accountId = LoginWxUtil.getInstance().getCurrentAccountid(request);
+			String accountId = WxUtil.getInstance().getCurrentAccountid(request);
 			String location = request.getParameter("location");
 
 			String newTicket = WxMpUtil.getInstance().getJsSDKTicket(accountId);
@@ -67,7 +67,7 @@ public class WeixinJSSDKController {
 	public void getMediaId(HttpServletRequest request,
 			HttpServletResponse response) {
 		Result result = new Result();
-		String accountId = LoginWxUtil.getInstance().getCurrentAccountid(request);
+		String accountId = WxUtil.getInstance().getCurrentAccountid(request);
 		try {
 			String[] mediaIds = request.getParameterValues("mediaIds");
 			logger.info("mediaIds:" + mediaIds);
