@@ -5,15 +5,15 @@ import javax.servlet.http.HttpServletRequest;
 import com.marks.module.core.runModel.RunModel;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
-public class LoginWebUtil {
-	public static LoginWebUtil util = null;
+public class WebUtil {
+	public static WebUtil util = null;
 
-	private LoginWebUtil() {
+	private WebUtil() {
 	}
 
-	public static LoginWebUtil getInstance() {
+	public static WebUtil getInstance() {
 		if(util==null){
-			util = new LoginWebUtil();
+			util = new WebUtil();
 		}
 		return util;
 	}
