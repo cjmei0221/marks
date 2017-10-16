@@ -44,7 +44,9 @@
 		vipPrice,
 		minPrice,
 		typeId,
-		typeName
+		typeName,
+		goodType,
+		stockManageType
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -73,14 +75,17 @@
 		#{vipPrice:VARCHAR},
 		#{minPrice:VARCHAR},
 		#{typeId:VARCHAR},
-		#{typeName:VARCHAR}
+		#{typeName:VARCHAR},
+		#{goodType:NUMERIC},
+		#{stockManageType:NUMERIC}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		UPDATE TB_MALL_GOOD_INFO
-
 		SET
+		goodType=#{goodType:NUMERIC},
+		stockManageType=#{stockManageType:NUMERIC},
 		GOODNAME = #{goodName:VARCHAR},
 		PRICE
 		= #{price:VARCHAR},

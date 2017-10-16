@@ -79,13 +79,13 @@
 				</tr>
 				<tr>
 					<th style="width: 120px; text-align: right;">类目&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-					<td><input id="typeId" name="typeId"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
+					<td><input id="typeId" name="typeId" class="easyui-combotree"
+						data-options="required:true" style="width: 200px;"><input
+						id="typeName" name="typeName" type="hidden"></td>
 					<th style="width: 120px; text-align: right;">品牌&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-					<td><input id="brandId" name="brandId"
-						data-options="required:true" class="easyui-validatebox"
-						style="width: 200px;"></td>
+					<td><input id="brandId" name="brandId" class="easyui-combobox"
+						data-options="required:true" style="width: 200px;"><input
+						id="brandName" name="brandName" type="hidden"></td>
 
 				</tr>
 				<tr>
@@ -107,6 +107,22 @@
 						class="easyui-numberbox" data-options="required:true"
 						style="width: 200px;"></td>
 
+				</tr>
+				<tr>
+					<th style="width: 120px; text-align: right;">商品类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><select id="goodType" class="easyui-combobox"
+						name="goodType" style="width: 200px;" data-options="required:true">
+							<option value="0">商品</option>
+							<option value="1">商品&赠品</option>
+							<option value="2">赠品</option>
+					</select></td>
+					<th style="width: 120px; text-align: right;">库存管理方式&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><select id="stockManageType" class="easyui-combobox"
+						name="stockManageType" style="width: 200px;"
+						data-options="required:true">
+							<option value="0">一瓶一码</option>
+							<option value="1">数量管理</option>
+					</select></td>
 				</tr>
 				<tr>
 					<th style="width: 120px; text-align: right;">单位&nbsp;&nbsp;:&nbsp;&nbsp;</th>
