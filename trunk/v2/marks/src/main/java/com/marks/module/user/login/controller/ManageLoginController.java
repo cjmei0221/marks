@@ -26,7 +26,7 @@ import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
-import com.marks.module.user.login.helper.LoginInnerUtil;
+import com.marks.module.user.login.helper.LoginManageUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysrole.service.SysRoleService;
@@ -42,7 +42,7 @@ import com.marks.module.wx.manage.base.service.WxAccountService;
  * @Copyright (c) 2016, marks All Rights Reserved.
  */
 @Controller
-public class InnerLoginController {
+public class ManageLoginController {
 	@Autowired
 	private LoginService loginService;
 	@Autowired
@@ -147,7 +147,7 @@ public class InnerLoginController {
 				user.setAccountids(accountids);
 			}
 		}
-		LoginInnerUtil.setCurrentUserInfo(request, user);
+		LoginManageUtil.setCurrentUserInfo(request, user);
 		// 保存日志
 		SysLog log = new SysLog();
 		log.setUserid(user.getUserid());
@@ -169,9 +169,9 @@ public class InnerLoginController {
 	@RequestMapping("/inner/logout")
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = LoginInnerUtil.getCurrentUserInfo(request);
+		SysUser user = LoginManageUtil.getCurrentUserInfo(request);
 		if (user != null) {
-			LoginInnerUtil.setCurrentUserInfo(request, null);
+			LoginManageUtil.setCurrentUserInfo(request, null);
 			// 保存日志
 			SysLog log = new SysLog();
 			log.setUserid(user.getUserid());
@@ -195,7 +195,7 @@ public class InnerLoginController {
 	@RequestMapping("/inner/sys/menu")
 	public void sysMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = LoginInnerUtil.getCurrentUserInfo(request);
+		SysUser user = LoginManageUtil.getCurrentUserInfo(request);
 		List<SysMenu> list = loginService.getSysMenuOfSysUser(user);
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
@@ -206,7 +206,7 @@ public class InnerLoginController {
 	@RequestMapping("/inner/sys/menuOperate")
 	public void menuOperate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = LoginInnerUtil.getCurrentUserInfo(request);
+		SysUser user = LoginManageUtil.getCurrentUserInfo(request);
 		String menuid=request.getParameter("menuid");
 		List<SysOperate> list=loginService.getSysOperate(menuid,user);
 		result.setCode(Code.CODE_SUCCESS);
