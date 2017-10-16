@@ -21,7 +21,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.system.syslogparam.pojo.SysLogParam;
 import com.marks.module.system.syslogparam.service.SysLogParamService;
-import com.marks.module.user.login.helper.LoginInnerUtil;
+import com.marks.module.user.login.helper.LoginManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 @Controller
@@ -63,7 +63,7 @@ public class SysLogParamController extends SupportContorller {
 	public void saveSysLogParam(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
 			SysLogParam sysLogParam = getModel(SysLogParam.class);
 			// sysLogParam.setId(IDUtil.getTimeID());
 			SysLogParam ori = null;
@@ -93,7 +93,7 @@ public class SysLogParamController extends SupportContorller {
 	public void updateSysLogParam(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
 			SysLogParam sysLogParam = getModel(SysLogParam.class);
 			SysLogParam ori = sysLogParamService.findById(sysLogParam.getId());
 			if (ori == null) {
@@ -194,7 +194,7 @@ public class SysLogParamController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");

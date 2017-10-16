@@ -18,7 +18,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
-import com.marks.module.user.login.helper.LoginInnerUtil;
+import com.marks.module.user.login.helper.LoginManageUtil;
 import com.marks.module.user.login.helper.LoginWebUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
@@ -37,7 +37,7 @@ public class SysLogFilter implements Filter {
 		SysUser user = null;
 		int source=1;
 		if(url.indexOf("/inner")>=0){
-			user = LoginInnerUtil.getCurrentUserInfo(request);
+			user = LoginManageUtil.getCurrentUserInfo(request);
 			source=0;
 		}else if(url.indexOf("/web")>=0){
 			user = LoginWebUtil.getInstance().getCurrentUser(request);

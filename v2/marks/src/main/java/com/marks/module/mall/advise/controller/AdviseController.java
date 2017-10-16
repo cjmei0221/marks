@@ -21,7 +21,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.advise.pojo.Advise;
 import com.marks.module.mall.advise.service.AdviseService;
-import com.marks.module.user.login.helper.LoginInnerUtil;
+import com.marks.module.user.login.helper.LoginManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 @Controller
@@ -63,7 +63,7 @@ public class AdviseController extends SupportContorller {
 	public void saveAdvise(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
 			Advise advise = getModel(Advise.class);
 			// advise.setID(IDUtil.getTimeID());
 
@@ -180,7 +180,7 @@ public class AdviseController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = LoginInnerUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginManageUtil.getCurrentUserInfo(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");
