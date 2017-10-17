@@ -102,24 +102,24 @@ public class StcCacheData {
 		}
 	}
 
-	public static OrgInfo getOrgInfo(String orgid) {
-		return orgMap.get(orgid);
-	}
-
-	public static void putOrgInfo(OrgInfo info) {
-		if (info != null) {
-
-			orgMap.put(info.getOrgid(), info);
-
-		}
-	}
-
-	public static void putOrgInfoList(List<OrgInfo> list) {
-		if (list != null && list.size() > 0) {
-			for (OrgInfo info : list) {
-				putOrgInfo(info);
-			}
-		}
-	}
+	// public static OrgInfo getOrgInfo(String orgid) {
+	// return orgMap.get(orgid);
+	// }
+	//
+	// public static void putOrgInfo(OrgInfo info) {
+	// if (info != null) {
+	//
+	// orgMap.put(info.getOrgid(), info);
+	//
+	// }
+	// }
+	//
+	// public static void putOrgInfoList(List<OrgInfo> list) {
+	// if (list != null && list.size() > 0) {
+	// for (OrgInfo info : list) {
+	// putOrgInfo(info);
+	// }
+	// }
+	// }
 
 }
