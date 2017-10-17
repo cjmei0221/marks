@@ -152,7 +152,7 @@
 		resultType="com.marks.module.wx.manage.msg.pojo.WxAutoReplay">
 		select * from
 		tb_wx_auto_replay t where
-		t.accountid=#{accountId} and instr(#{ckey},t.CKEY) &gt; 0
+		t.accountid=#{accountId} and instr(t.CKEY,#{ckey})
 	</select>
 
 </mapper>
