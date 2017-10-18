@@ -5,7 +5,8 @@
 
 	<select id="findById" resultType="com.marks.module.wx.manage.template.pojo.WxTemplate">
 		SELECT * FROM TB_WX_TEMPLATE
-		wxtemplate where wxtemplate.YWTYPE = #{ywType} and wxtemplate.ACCOUNTID=#{accountid}
+		wxtemplate where wxtemplate.YWTYPE = #{ywType} and
+		wxtemplate.ACCOUNTID=#{accountid}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.wx.manage.template.pojo.WxTemplate">
@@ -20,7 +21,8 @@
 		STATUS,
 		CREATETIME,
 		UPDATETIME,
-		CREATOR
+		CREATOR,
+		companyId
 		)
 		VALUES(
 		#{ywType:VARCHAR},
@@ -33,28 +35,29 @@
 		#{status:NUMERIC},
 		now(),
 		now(),
-		#{creator:VARCHAR}
-
+		#{creator:VARCHAR},
+		#{companyId:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.wx.manage.template.pojo.WxTemplate">
-	UPDATE TB_WX_TEMPLATE
-	SET
-	ACCOUNTID = #{accountid:VARCHAR},
-	TEMPLATE_ID = #{template_id:VARCHAR},
-	TEMPLATE_NAME = #{template_name:VARCHAR},
-	FIRST_CONTENT = #{first_content:VARCHAR},
-	REMARK_CONTENT = #{remark_content:VARCHAR},
-	DETAILURL = #{detailUrl:VARCHAR},
-	STATUS = #{status:NUMERIC},
-	UPDATETIME = now()
-	WHERE
-	wxtemplate.YWTYPE = #{ywType}
+		UPDATE TB_WX_TEMPLATE
+		SET
+		ACCOUNTID = #{accountid:VARCHAR},
+		TEMPLATE_ID = #{template_id:VARCHAR},
+		TEMPLATE_NAME = #{template_name:VARCHAR},
+		FIRST_CONTENT = #{first_content:VARCHAR},
+		REMARK_CONTENT = #{remark_content:VARCHAR},
+		DETAILURL = #{detailUrl:VARCHAR},
+		STATUS = #{status:NUMERIC},
+		UPDATETIME = now()
+		WHERE
+		wxtemplate.YWTYPE = #{ywType}
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_WX_TEMPLATE WHERE YWTYPE=#{ywType} and ACCOUNTID=#{accountid}
+		DELETE FROM TB_WX_TEMPLATE
+		WHERE YWTYPE=#{ywType} and ACCOUNTID=#{accountid}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.wx.manage.template.pojo.WxTemplate">
@@ -82,19 +85,27 @@
 			</foreach>
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			and ( wxtemplate.YWTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.ACCOUNTID LIKE
+			and ( wxtemplate.YWTYPE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.TEMPLATE_ID LIKE
+			or wxtemplate.ACCOUNTID
+			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.TEMPLATE_NAME LIKE
+			or
+			wxtemplate.TEMPLATE_ID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.FIRST_CONTENT LIKE
+			or wxtemplate.TEMPLATE_NAME
+			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.REMARK_CONTENT LIKE
+			or
+			wxtemplate.FIRST_CONTENT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.STATUS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or wxtemplate.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			wxtemplate.REMARK_CONTENT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtemplate.STATUS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtemplate.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 

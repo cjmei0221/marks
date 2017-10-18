@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.mall.stock.dao.BarCodeDao">
+
+    <select id="findById" resultType="com.marks.module.mall.stock.pojo.BarCode">
+		SELECT * FROM TB_MALL_GOOD_BARCODE t where t.BARCODE = #{barcode}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.mall.stock.pojo.BarCode">
+		<!--<selectKey keyProperty="barcode" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+
+ 		INSERT INTO TB_MALL_GOOD_BARCODE (
+            BARCODE,
+            COMPANYID,
+            GOODID,
+            GOODNO,
+            BARNO,
+            GOODNAME,
+            CREATETIME,
+            UPDATETIME,
+            TRACEID,
+            ACTIVESTATUS,
+            STOCKSTATUS,
+            TYPEID,
+            TYPENAME,
+            BRANDID,
+            BRANDNAME
+		)
+		VALUES(
+		#{info.barcode:VARCHAR},
+            #{info.companyId:VARCHAR},
+            #{info.goodId:VARCHAR},
+            #{info.goodNo:VARCHAR},
+            #{info.barNo:VARCHAR},
+            #{info.goodName:VARCHAR},
+            now(),
+            now(),
+            #{info.traceId:VARCHAR},
+            #{info.activeStatus:NUMERIC},
+            #{info.stockStatus:NUMERIC},
+            #{info.typeId:VARCHAR},
+            #{info.typeName:VARCHAR},
+            #{info.brandId:VARCHAR},
+            #{info.brandName:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_GOOD_BARCODE (
+			            BARCODE,
+            COMPANYID,
+            GOODID,
+            GOODNO,
+            BARNO,
+            GOODNAME,
+            CREATETIME,
+            UPDATETIME,
+            TRACEID,
+            ACTIVESTATUS,
+            STOCKSTATUS,
+            TYPEID,
+            TYPENAME,
+            BRANDID,
+            BRANDNAME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.barcode:VARCHAR},
+            #{info.companyId:VARCHAR},
+            #{info.goodId:VARCHAR},
+            #{info.goodNo:VARCHAR},
+            #{info.barNo:VARCHAR},
+            #{info.goodName:VARCHAR},
+            now(),
+            now(),
+            #{info.traceId:VARCHAR},
+            #{info.activeStatus:NUMERIC},
+            #{info.stockStatus:NUMERIC},
+            #{info.typeId:VARCHAR},
+            #{info.typeName:VARCHAR},
+            #{info.brandId:VARCHAR},
+            #{info.brandName:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.BarCode">
+ 		UPDATE TB_MALL_GOOD_BARCODE 
+		SET 
+COMPANYID = #{info.companyId:VARCHAR},
+                GOODID = #{info.goodId:VARCHAR},
+                GOODNO = #{info.goodNo:VARCHAR},
+                BARNO = #{info.barNo:VARCHAR},
+                GOODNAME = #{info.goodName:VARCHAR},
+                UPDATETIME = now(),
+                TRACEID = #{info.traceId:VARCHAR},
+                ACTIVESTATUS = #{info.activeStatus:NUMERIC},
+                STOCKSTATUS = #{info.stockStatus:NUMERIC},
+                TYPEID = #{info.typeId:VARCHAR},
+                TYPENAME = #{info.typeName:VARCHAR},
+                BRANDID = #{info.brandId:VARCHAR},
+                BRANDNAME = #{info.brandName:VARCHAR}
+		WHERE
+			BARCODE = #{info.barcode}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_MALL_GOOD_BARCODE WHERE BARCODE=#{barcode}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.mall.stock.pojo.BarCode">
+ 		SELECT * FROM TB_MALL_GOOD_BARCODE t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_MALL_GOOD_BARCODE WHERE BARCODE in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.mall.stock.pojo.BarCode" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_MALL_GOOD_BARCODE t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.BARCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.GOODNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BARNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TRACEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BRANDID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BRANDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+						
+			    order by  t.UPDATETIME DESC		
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

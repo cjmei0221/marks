@@ -20,7 +20,8 @@
 		C_REPLAYTYPE,
 		SESSION_ID,
 		OPENID,
-		ACCOUNTID
+		ACCOUNTID,
+		companyId
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -31,7 +32,8 @@
 		#{c_replayType:VARCHAR},
 		#{session_id:VARCHAR},
 		#{openid:VARCHAR},
-		#{accountid:VARCHAR}
+		#{accountid:VARCHAR},
+		#{companyId:VARCHAR}
 
 		)
 	</insert>

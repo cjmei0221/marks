@@ -25,7 +25,8 @@
 		CREATELONG,
 		UPDATETIME,
 		C_CONTENT,
-		FLAG
+		FLAG,
+		companyId
 		)
 		VALUES(
 		#{session_id:VARCHAR},
@@ -35,7 +36,8 @@
 		#{createLong:NUMERIC},
 		now(),
 		#{c_content:VARCHAR},
-		#{flag:NUMERIC}
+		#{flag:NUMERIC},
+		#{companyId:VARCHAR}
 		)
 	</insert>
 
