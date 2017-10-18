@@ -73,10 +73,10 @@ public class SysUserServiceImpl implements SysUserService{
 		}
 		return userid;
     }
-    
-    /**
-    *更新用户管理
-    */
+
+	/**
+	 * 更新用户管理
+	 */
     @Override
     public void update(SysUser sysUser,String orgIdsPut){
         sysUserDao.update(sysUser);
@@ -88,8 +88,14 @@ public class SysUserServiceImpl implements SysUserService{
     	sysUserDao.deleteSysUserOrg(userid);
     	SysUserOrg su=null;
     	String[] arr=orgIdsPut.split(",");
+		int count = 0;
+		String orgid = null;
     	for(String id:arr){
     		if(id !=null && !"".equals(id)){
+				count++;
+				if (count == 1) {
+					orgid = id;
+				}
     			su=new SysUserOrg();
         		su.setOrgid(id);
         		su.setUserid(userid);
@@ -97,6 +103,9 @@ public class SysUserServiceImpl implements SysUserService{
         		sysUserDao.saveSysUserOrg(su);
     		}
     	}
+		if (orgid != null) {
+			sysUserDao.updateDefaultOrg(userid, orgid);
+		}
     	
     }
     

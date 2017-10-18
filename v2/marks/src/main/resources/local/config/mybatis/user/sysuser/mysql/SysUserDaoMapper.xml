@@ -194,6 +194,13 @@
 		#{creator:VARCHAR}
 		)
 	</insert>
+	<update id="updateDefaultOrg">
+		UPDATE tb_user_org 
+		SET
+		isDefault =1
+		WHERE
+		USERID=#{userid} and orgid=#{orgid}
+	</update>
 	<update id="updateSkin" flushCache="true">
 		update tb_user set
 		skin=#{skin},UPDATETIME=now() where userid=#{userid}

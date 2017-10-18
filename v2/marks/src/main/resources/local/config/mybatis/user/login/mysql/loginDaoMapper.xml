@@ -4,9 +4,9 @@
 	<!-- 通过userid获取系统用户 -->
 	<select id="findById" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		SELECT
-		TSU.*
+		TSU.*,tsr.rolename,tsr.lvl roleLvl
 		FROM
-		tb_user tsu
+		tb_user tsu join TB_SYS_ROLE tsr on tsu.roleid=tsr.roleid
 		WHERE 1=1 and tsu.companyId=#{companyId}
 		and (tsu.USERID = #{id} or
 		tsu.bind_mobile=#{id})
