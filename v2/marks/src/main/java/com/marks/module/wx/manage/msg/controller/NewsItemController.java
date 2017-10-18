@@ -80,6 +80,7 @@ public class NewsItemController extends SupportContorller{
 	 		if(ori==null){
 	 			newsItem.setId("N"+IDUtil.getDateSID());
 	 			newsItem.setCreator(admin.getUserid());
+				newsItem.setCompanyId(admin.getCompanyId());
 	 			newsItemService.save(newsItem);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -216,7 +217,7 @@ public class NewsItemController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("accountIds", admin.getAccountids());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<NewsItem> list = newsItemService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -238,7 +239,7 @@ public class NewsItemController extends SupportContorller{
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("accountIds", admin.getAccountids());
+		param.put("companyId", admin.getCompanyId());
 		List<NewsItem> list = newsItemService.getnewItems(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}

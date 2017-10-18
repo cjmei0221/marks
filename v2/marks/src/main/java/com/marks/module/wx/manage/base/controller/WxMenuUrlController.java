@@ -75,6 +75,7 @@ public class WxMenuUrlController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
+				wxMenuUrl.setCompanyId(admin.getCompanyId());
 	 			wxMenuUrlService.save(wxMenuUrl);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -204,7 +205,7 @@ public class WxMenuUrlController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("accountIds", admin.getAccountids());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<WxMenuUrl> list = wxMenuUrlService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

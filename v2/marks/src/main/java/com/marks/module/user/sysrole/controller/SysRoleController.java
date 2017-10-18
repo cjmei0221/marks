@@ -23,7 +23,6 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.user.login.helper.ManageUtil;
-import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysrole.service.SysRoleService;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -220,8 +219,8 @@ public class SysRoleController extends SupportContorller {
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("s_lvl", s_lvl);
-			param.put("companyId", admin.getCompanyNo());
-			param.put("lvl", admin.getRole().getLvl());
+			param.put("companyId", admin.getCompanyId());
+			param.put("lvl", admin.getRoleLvl());
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -284,7 +283,7 @@ public class SysRoleController extends SupportContorller {
 	@RequestMapping("/inner/sysRole/lvl")
 	public void combox(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
-		int lvl = admin.getRole().getLvl();
+		int lvl = admin.getRoleLvl();
 		List<TreeVo> list = new ArrayList<TreeVo>();
 		TreeVo vo = null;
 		for (int i = lvl; i < 10; i++) {
@@ -300,8 +299,8 @@ public class SysRoleController extends SupportContorller {
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("companyId", admin.getCompanyNo());
-		param.put("lvl", admin.getRole().getLvl());
+		param.put("companyId", admin.getCompanyId());
+		param.put("lvl", admin.getRoleLvl());
 		List<SysRole> list = sysRoleService.getUserlist(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}

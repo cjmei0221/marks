@@ -68,13 +68,13 @@ public class QrcodeController extends SupportContorller {
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			Qrcode qrcode = getModel(Qrcode.class);
-			qrcode.setQrNo(IDUtil.getTimeID());
+			qrcode.setId(IDUtil.getTimeID());
 			Qrcode ori = null;
 			if ("1".equals(qrcode.getQrType())) {// 公众号
 				ori = qrcodeService.findByQrNo(qrcode.getQrNo(),qrcode.getAccountid());
 				if (ori == null) {
 					
-					qrcode.setCompanyId(admin.getCompanyNo());
+					qrcode.setCompanyId(admin.getCompanyId());
 					qrcode.setCreator(admin.getUserid());
 					String imagePath = createQrImage(qrcode, request);
 					if (imagePath != null && imagePath.length() > 5) {
@@ -91,7 +91,7 @@ public class QrcodeController extends SupportContorller {
 					result.setCode("4001");
 				}
 			} else {
-				qrcode.setCompanyId(admin.getCompanyNo());
+				qrcode.setCompanyId(admin.getCompanyId());
 				qrcode.setCreator(admin.getUserid());
 				qrcode.setSceneType(1);
 				String imagePath = createQrImage(qrcode, request);
@@ -131,7 +131,8 @@ public class QrcodeController extends SupportContorller {
 			int scene_id = Integer.parseInt(qrcode.getQrNo());
 			String ticket = WxMpUtil.getInstance().createQrcode(aid, action_type, expire_seconds, scene_id);
 			if (ticket != null) {
-				imagePath = QrcodeUtil.createFwQrcode(request, ticket);
+				// imagePath = QrcodeUtil.createFwQrcode(request, ticket);
+				imagePath = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" + ticket;
 			}
 		} else {// 链接
 			imagePath = QrcodeUtil.createUrlQrcode(request, qrcode.getQrUrl());
@@ -248,7 +249,7 @@ public class QrcodeController extends SupportContorller {
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
-			param.put("companyId", admin.getCompanyNo());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<Qrcode> list = qrcodeService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

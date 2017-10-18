@@ -75,6 +75,7 @@ public class WxTemplateController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
+				wxTemplate.setCompanyId(admin.getCompanyId());
 	 			wxTemplate.setCreator(admin.getUserid());
 	 			wxTemplateService.save(wxTemplate);
 	 			result.setMessage("保存成功");
@@ -205,7 +206,7 @@ public class WxTemplateController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("accountIds", admin.getAccountids());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<WxTemplate> list = wxTemplateService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

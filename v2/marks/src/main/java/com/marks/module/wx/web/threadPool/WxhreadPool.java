@@ -57,8 +57,6 @@ class WxChatMsgThread implements Runnable {
 	public void run() {
 		try {
 			if (msg != null) {
-				
-				WxUser wxUser=wxUserDao.findById(msg.getAccountid(), msg.getOpenid());
 				wxChatSessionService.save(msg);
 			}
 		} catch (Exception e) {

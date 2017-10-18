@@ -52,9 +52,19 @@ public class WxTemplate implements Serializable {
 	 * 创建者
 	 */
 	private String creator;
-	
+
+	private String companyId;
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
 	public String getId() {
-		return accountid+"_"+ywType;
+		return accountid + "_" + ywType;
 	}
 
 	public String getYwType() {

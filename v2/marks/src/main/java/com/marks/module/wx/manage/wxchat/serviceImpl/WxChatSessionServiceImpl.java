@@ -11,6 +11,8 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.util.IDUtil;
+import com.marks.module.cache.CacheData;
+import com.marks.module.wx.manage.base.pojo.WxAccount;
 import com.marks.module.wx.manage.enums.WXEnums;
 import com.marks.module.wx.manage.wxchat.dao.WxChatMsgDao;
 import com.marks.module.wx.manage.wxchat.dao.WxChatSessionDao;
@@ -57,9 +59,11 @@ public class WxChatSessionServiceImpl implements WxChatSessionService{
     	long timeLong = System.currentTimeMillis() / 1000;
 		String sessionId = "SID" + IDUtil.getTimeID();
 		logger.info("getSessionFlag:"+sessionVo.getSessionFlag());
+		WxAccount wx = CacheData.getWxAccount(sessionVo.getAccountid());
 		if (WXEnums.SessionType.AUTO.getValue() == sessionVo.getSessionFlag()) {
 			sessionVo.setCreateLong(timeLong);
 			sessionVo.setSession_id(sessionId);
+			sessionVo.setCompanyId(wx.getCompanyId());
 			wxChatSessionDao.save(sessionVo);
 		} else {
 			// wxChatSessionDao.update(wxSession);
@@ -70,6 +74,7 @@ public class WxChatSessionServiceImpl implements WxChatSessionService{
 			info.setSession_id(sessionId);
 			info.setSession_id(sessionVo.getSession_id());
 			info.setC_type(WXEnums.ReqType.ask.getValue());
+			info.setCompanyId(wx.getCompanyId());
 			wxChatMsgDao.save(info);
 		}
     }

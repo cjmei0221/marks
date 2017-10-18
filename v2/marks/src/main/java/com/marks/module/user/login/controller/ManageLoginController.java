@@ -1,10 +1,7 @@
 package com.marks.module.user.login.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +17,6 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.core.runModel.RunModel;
-import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
@@ -28,7 +24,6 @@ import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.login.service.LoginService;
-import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysrole.service.SysRoleService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.manage.base.service.WxAccountService;
@@ -92,13 +87,6 @@ public class ManageLoginController {
 			return;
 		}
 
-		SysRole role = sysRoleService.findById(user.getRoleid());
-		if (role == null) {
-			result.setCode("4005");
-			result.setMessage("您没有权限登录");
-			JsonUtil.output(response, result);
-			return;
-		}
 		List<String> list = loginService.getUrlByUserid(user.getUserid());
 		user.setUserUrlList(list);
 
@@ -106,53 +94,17 @@ public class ManageLoginController {
 		result.setMessage("success");
 		user.setLoginTime(new Date());
 		user.setPassword("");
-		user.setRole(role);
-		user.setCompanyNo(user.getCompanyId());
-		// 所属机构
-		List<OrgInfo> orgList = loginService.getOrgInfoListByUserid(user.getUserid());
-		user.setOrgInfoList(orgList);
-		List<String> orgids = null;
-		// 组织架构
-		boolean companyflag=false;
-		if (null != orgList && orgList.size() > 0) {
-			orgids = new ArrayList<String>();
-			for (OrgInfo sr : orgList) {
-				orgids.add(sr.getOrgid());
-				if (Enums.OrgType.company.getValue() == sr.getOrgType()) {
-					companyflag = true;
-				}
-				if (1 == sr.getIsDefault()) {
-					user.setDefaultOrgid(sr.getOrgid());
-					user.setDefaultOrgname(sr.getOrgname());
-				}
-			}
+		user.setQueryOrgid(user.getDefaultOrgid());
+		if (user.getCompanyId().equals(user.getDefaultOrgid())) {
+			user.setQueryOrgid(null);
 		}
-		OrgInfo company = orgInfoService.findById(user.getCompanyNo());
-		user.setOrgids(null);
-		if (company.getIsMain() == 1) {
-			user.setCompanyId(null);
-		}
-		if(!companyflag){
-			user.setOrgids(orgids);
-		}
-		// 关联服务号
-		user.setAccountids(null);
-		if (null != user.getCompanyNo()) {
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("conpanyId", user.getCompanyNo());
-			// param.put("orgids", user.getOrgids());
-			param.put("orgids", null);
-			List<String> accountids = wxAccountService.getAccountIdsByLoginUser(param);
-			if(accountids !=null && accountids.size()>0){
-				user.setAccountids(accountids);
-			}
-		}
+
 		ManageUtil.setCurrentUserInfo(request, user);
 		// 保存日志
 		SysLog log = new SysLog();
 		log.setUserid(user.getUserid());
 		log.setUsername(user.getUsername());
-		log.setRetain3(user.getCompanyNo());
+		log.setRetain3(user.getCompanyId());
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 		String ip = RequestUtil.getIpAddr(request);
 		log.setIp(ip);
@@ -176,7 +128,7 @@ public class ManageLoginController {
 			SysLog log = new SysLog();
 			log.setUserid(user.getUserid());
 			log.setUsername(user.getUsername());
-			log.setRetain3(user.getCompanyNo());
+			log.setRetain3(user.getCompanyId());
 			String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 			String ip = RequestUtil.getIpAddr(request);
 			log.setIp(ip);

@@ -291,7 +291,7 @@ public class OrgInfoController extends SupportContorller {
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		String parentId = request.getParameter("parentId");
 		logger.info("list parentId:" + parentId);
-		String companyId = admin.getCompanyNo();
+		String companyId = admin.getCompanyId();
 		List<OrgInfo> list = null;
 
 		// 根节点加载
@@ -303,7 +303,7 @@ public class OrgInfoController extends SupportContorller {
 			list = new ArrayList<OrgInfo>();
 			list.add(info);
 		} else {
-			logger.info("list parentId:" + parentId + " - " + admin.getCompanyNo());
+			logger.info("list parentId:" + parentId + " - " + admin.getCompanyId());
 			list = orgInfoService.listGrid(parentId, companyId);
 		}
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
@@ -336,7 +336,7 @@ public class OrgInfoController extends SupportContorller {
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
-			param.put("companyId", admin.getCompanyNo());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<OrgInfo> list = orgInfoService.framelist(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -357,7 +357,7 @@ public class OrgInfoController extends SupportContorller {
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();
-		String companyId = admin.getCompanyNo();
+		String companyId = admin.getCompanyId();
 		param.put("companyId", companyId);
 		List<OrgInfo> list = orgInfoService.frameCombo(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());

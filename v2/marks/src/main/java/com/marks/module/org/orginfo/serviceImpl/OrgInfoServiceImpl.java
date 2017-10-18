@@ -21,13 +21,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Autowired
 	private OrgInfoDao orgInfoDao;
 
-	/*public OrgInfoDao getOrgInfoDao() {
-		return orgInfoDao;
-	}
-
-	public void setOrgInfoDao(OrgInfoDao orgInfoDao) {
-		this.orgInfoDao = orgInfoDao;
-	}*/
+	/*
+	 * public OrgInfoDao getOrgInfoDao() { return orgInfoDao; }
+	 * 
+	 * public void setOrgInfoDao(OrgInfoDao orgInfoDao) { this.orgInfoDao =
+	 * orgInfoDao; }
+	 */
 
 	/**
 	 * 根据ID查找机构管理
@@ -52,14 +51,14 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Override
 	public void update(OrgInfo orgInfo) {
 		orgInfoDao.update(orgInfo);
-		orgInfoDao.updateMoreLvlName(orgInfo.getOrgid(),orgInfo.getOrgname(),orgInfo.getLvl());
+		orgInfoDao.updateMoreLvlName(orgInfo.getOrgid(), orgInfo.getOrgname(), orgInfo.getLvl());
 		updateOrgChildNum(orgInfo.getParentId());
 	}
 
-	private void updateOrgChildNum(String orgid){
+	private void updateOrgChildNum(String orgid) {
 		orgInfoDao.updateOrgChildNum(orgid);
 	}
-	
+
 	/**
 	 * 删除机构管理
 	 */
@@ -90,17 +89,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	}
 
 	public List<OrgInfo> list(SysUser admin) {
-		List<OrgInfo> allList = orgInfoDao.findAll(admin.getCompanyNo());
-		List<OrgInfo> list = null;
-		if (null == admin.getCompanyNo()) {
-			list = new ArrayList<OrgInfo>();
-			for (OrgInfo vo : allList) {
-				if (admin.getOrgInfoList().get(0).getParentId().equals(vo.getParentId())) {
-					list.add(vo);
-				}
+		List<OrgInfo> allList = orgInfoDao.findAll(admin.getCompanyId());
+		List<OrgInfo> list = new ArrayList<OrgInfo>();
+		for (OrgInfo vo : allList) {
+			if (admin.getCompanyId().equals(vo.getOrgid())) {
+				list.add(vo);
 			}
-		} else {
-			list = admin.getOrgInfoList();
 		}
 		if (list.size() > 0) {
 			getChildren(list, allList);
@@ -159,6 +153,5 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		orgId = "C" + (num + 1);
 		return orgId;
 	}
-	
-	
+
 }

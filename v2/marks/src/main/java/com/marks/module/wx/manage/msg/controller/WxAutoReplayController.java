@@ -76,6 +76,7 @@ public class WxAutoReplayController extends SupportContorller {
 				result.setMessage("此记录已经存在，不能重复！");
 				result.setCode(Code.CODE_FAIL);
 			} else {
+				wxAutoReplay.setCompanyId(admin.getCompanyId());
 				wxAutoReplay.setCreator(admin.getUserid());
 				wxAutoReplayService.save(wxAutoReplay);
 				result.setMessage("保存成功");
@@ -183,7 +184,7 @@ public class WxAutoReplayController extends SupportContorller {
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
-			param.put("accountIds", admin.getAccountids());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<WxAutoReplay> list = wxAutoReplayService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

@@ -25,6 +25,15 @@ public class MyWxMenu extends WxMenu implements Serializable {
 	private Date updatetime;
 
 	private int delflag;// 是否可以删除标识
+	private String companyId;//
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
 
 	public String getUpdater() {
 		return updater;

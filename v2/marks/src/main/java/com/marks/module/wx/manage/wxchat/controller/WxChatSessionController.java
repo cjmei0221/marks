@@ -222,7 +222,7 @@ public class WxChatSessionController extends SupportContorller{
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("accountIds", admin.getAccountids());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<WxChatSession> list = wxChatSessionService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -253,7 +253,7 @@ public class WxChatSessionController extends SupportContorller{
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("accountIds", admin.getAccountids());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<WxChatCount> list = wxChatSessionService.getCountList(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

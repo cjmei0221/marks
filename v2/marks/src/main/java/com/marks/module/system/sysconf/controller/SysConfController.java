@@ -72,7 +72,7 @@ public class SysConfController extends SupportContorller {
 			}
 
 			if (ori == null) {
-				sysConf.setCompanyId(admin.getCompanyNo());
+				sysConf.setCompanyId(admin.getCompanyId());
 				sysConf.setCreator(admin.getUserid());
 				sysConfService.save(sysConf);
 				result.setMessage("保存成功");

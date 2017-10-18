@@ -92,6 +92,7 @@ public class WxTagsController extends SupportContorller{
 	 			if(result.getCode().equals(Code.CODE_SUCCESS)){
 	 				wxTags.setTagid(Integer.parseInt(result.getData().get("tagid").toString()) );
 	 				wxTags.setUpdater(admin.getUserid()+"-"+admin.getUsername());
+					wxTags.setCompanyId(admin.getCompanyId());
 	 				wxTagsService.save(wxTags);
 		 			result.setMessage("保存成功");
 					result.setCode(Code.CODE_SUCCESS);
