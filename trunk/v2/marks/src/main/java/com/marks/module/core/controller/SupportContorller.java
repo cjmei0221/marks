@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.marks.common.util.string.IStringUtil;
+
 /**
  * 类名: SupportContorller</br>
  * 包名：module.base.control </br>
@@ -80,6 +82,7 @@ public abstract class SupportContorller {
 				value = convert(value);
 				if (value == null || value.equals(""))
 					continue;
+				value = IStringUtil.getUTF8(value);
 				getMethod = object.getClass().getMethod("get" + toUpperFirst(param));
 				Class c = getMethod.getReturnType();
 				Method method = object.getClass().getMethod("set" + toUpperFirst(param), c);

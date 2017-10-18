@@ -25,7 +25,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		Result result = new Result();
 		SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
 		if (null != loginUser) {
-			log.info("loginUser > userid: "+loginUser.getUserid()+" - mobile:"+loginUser.getBind_mobile());
+			log.info("loginUser > userid: " + loginUser.getUserid() + " - mobile:" + loginUser.getBind_mobile());
 			return true;
 		} else {
 			result.setCode("-100");
