@@ -58,7 +58,7 @@ public class SysLogFilter implements Filter {
 				if (user != null) {
 					log.setUserid(user.getUserid());
 					log.setUsername(user.getUsername());
-					log.setRetain3(user.getCompanyNo());
+					log.setRetain3(user.getCompanyId());
 				}
 				log.setIp(ip);
 				log.setRetain1(success + "");

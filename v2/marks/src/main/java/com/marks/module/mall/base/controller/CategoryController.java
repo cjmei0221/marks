@@ -74,7 +74,7 @@ public class CategoryController extends SupportContorller{
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 	    	Category reqVo = getModel(Category.class);
 			reqVo.setTypeId("T" + IDUtil.getDateID() + IDUtil.getRandom(1000, 9999));
-			reqVo.setCompanyId(admin.getCompanyNo());
+			reqVo.setCompanyId(admin.getCompanyId());
 	 		logger.info("saveCategory > param>"+reqVo.toLog());
 	 
 			 Category ori=null;
@@ -87,7 +87,7 @@ public class CategoryController extends SupportContorller{
 				if ("top".equals(reqVo.getParentId())) {
 					parentVo = new Category();
 					parentVo.setLvl(0);
-					reqVo.setParentId(admin.getCompanyNo());
+					reqVo.setParentId(admin.getCompanyId());
 					reqVo.setLvl(1);
 				} else {
 					parentVo = categoryService.findById(reqVo.getParentId());
@@ -255,7 +255,7 @@ public class CategoryController extends SupportContorller{
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 
 		String parentId = request.getParameter("parentId");
-		String companyId = admin.getCompanyNo();
+		String companyId = admin.getCompanyId();
 		List<Area> list = null;
 		// 根节点加载
 		if (parentId == null || "".equals(parentId)) {

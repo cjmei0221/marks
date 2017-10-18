@@ -83,7 +83,7 @@ public class BrandController extends SupportContorller {
 			}
 
 			if (ori == null) {
-				reqVo.setCompanyId(admin.getCompanyNo());
+				reqVo.setCompanyId(admin.getCompanyId());
 				reqVo.setCreator(admin.getUserid() + " - " + admin.getUsername());
 				brandService.save(reqVo);
 				result.setMessage("保存成功");
@@ -161,7 +161,7 @@ public class BrandController extends SupportContorller {
 
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		String typeId = request.getParameter("typeId");
-		List<Brand> allList = brandService.findListByTypeId(admin.getCompanyNo(), typeId);
+		List<Brand> allList = brandService.findListByTypeId(admin.getCompanyId(), typeId);
 
 		JsonUtil.output(response, JSONArray.fromObject(allList).toString());
 	}

@@ -86,13 +86,13 @@ public class GoodInfoController extends SupportContorller {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			GoodInfo goodInfo = getModel(GoodInfo.class);
 			
-			GoodInfo old = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyNo(), goodInfo.getGoodNo());
+			GoodInfo old = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyId(), goodInfo.getGoodNo());
 			if(old !=null){
 				result.setMessage("此商品编码已存在");
 				result.setCode("4001");
 			}else{
 				goodInfo.setGoodId("P" + IDUtil.getDateID() + IDUtil.getRandom(100, 999) + IDUtil.getRandom(100, 999));
-				goodInfo.setCompanyId(admin.getCompanyNo());
+				goodInfo.setCompanyId(admin.getCompanyId());
 				goodInfo.setCreator(admin.getUserid() + " - " + admin.getUsername());
 				goodInfo.setUpdater(admin.getUserid() + " - " + admin.getUsername());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
@@ -124,7 +124,7 @@ public class GoodInfoController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				GoodInfo sku = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyNo(), goodInfo.getGoodNo());
+				GoodInfo sku = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyId(), goodInfo.getGoodNo());
 				if(sku !=null && !sku.getGoodId().equals(goodInfo.getGoodId())){
 					result.setMessage("此商品编码已存在!");
 					result.setCode("2001");
