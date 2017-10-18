@@ -9,7 +9,15 @@ public class SysUserOrg {
 	private Date createtime;
 	private Date updatetime;
 	private String creator;
+	private int isDefault;
 	
+	public int getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(int isDefault) {
+		this.isDefault = isDefault;
+	}
 	public String getUserid() {
 		return userid;
 	}

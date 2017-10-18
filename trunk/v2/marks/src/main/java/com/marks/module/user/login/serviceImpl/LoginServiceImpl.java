@@ -43,7 +43,6 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List<SysMenu> getSysMenuOfSysUser(SysUser user) {
-		boolean getflag = false;// 请求数据标识
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
 
 		List<SysMenu> child = loginDao.getChildMenu(user.getRoleid());

@@ -110,29 +110,29 @@ $(function() {
 		$("#editWin").window("close");
 	});
 
-	$("#roleid").combobox({
-		onChange : function(newValue, oldValue) {
-			if (newValue != oldValue) {
-				$.ajax({
-					url : appInfo.roleUrl,
-					type : "get",
-					data : {
-						"roleid" : newValue
-					},
-					dataType : "json",
-					success : function(data, status, xhr) {
-						if (data.retcode == "0") {
-							$("#companyId").val(data.sysRole.companyId);
-							appInfo.checkRole = [];
-							$("#inputRoleDiv").html('');
-							// 加载角色信息
-							loadRoleList(data.sysRole.companyId);
-						}
-					}
-				});
-			}
-		}
-	});
+//	$("#roleid").combobox({
+//		onChange : function(newValue, oldValue) {
+//			if (newValue != oldValue) {
+//				$.ajax({
+//					url : appInfo.roleUrl,
+//					type : "get",
+//					data : {
+//						"roleid" : newValue
+//					},
+//					dataType : "json",
+//					success : function(data, status, xhr) {
+//						if (data.retcode == "0") {
+//							$("#companyId").val(data.sysRole.companyId);
+//							appInfo.checkRole = [];
+//							$("#inputRoleDiv").html('');
+//							// 加载角色信息
+//							loadRoleList(data.sysRole.companyId);
+//						}
+//					}
+//				});
+//			}
+//		}
+//	});
 
 	$("#chooseRole").on("click", function() {
 		var roleId = $("#roleid").combobox("getValue")
@@ -347,7 +347,7 @@ function loadList() {
 }
 
 function loadRoleList(id) {
-	var roleUrl = top.window.urlBase + '/inner/orgInfo/list.do?companyId=' + id;
+	var roleUrl = top.window.urlBase + '/inner/orgInfo/list.do';
 	$('#roleList').treegrid(
 			{
 				url : roleUrl,

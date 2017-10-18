@@ -17,16 +17,13 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.core.runModel.RunModel;
-import com.marks.module.org.orginfo.service.OrgInfoService;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.login.service.LoginService;
-import com.marks.module.user.sysrole.service.SysRoleService;
 import com.marks.module.user.sysuser.pojo.SysUser;
-import com.marks.module.wx.manage.base.service.WxAccountService;
 
 /**
  * 用户登录 控制层 File Name: com.grgbanking.inner.controller.LoginController.java
@@ -40,13 +37,6 @@ import com.marks.module.wx.manage.base.service.WxAccountService;
 public class ManageLoginController {
 	@Autowired
 	private LoginService loginService;
-	@Autowired
-	private WxAccountService wxAccountService;
-
-	@Autowired
-	private SysRoleService sysRoleService;
-	@Autowired
-	private OrgInfoService orgInfoService;
 	/**
 	 * 登录 queryDepartmentList:描述 <br/>
 	 *
