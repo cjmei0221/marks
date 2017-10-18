@@ -205,8 +205,8 @@ public class SysUserController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("orgids", admin.getOrgids());
-			param.put("companyId", admin.getCompanyNo());
+			param.put("orgid", admin.getQueryOrgid());
+			param.put("companyId", admin.getCompanyId());
 			param.put("sorgid", ssorgid);
 			param.put("s_role", s_role);
 			param.put("userType", Enums.UserType.SYS.getValue());

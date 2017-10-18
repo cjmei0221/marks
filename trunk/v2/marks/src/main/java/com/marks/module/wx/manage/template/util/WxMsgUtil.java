@@ -122,6 +122,7 @@ public class WxMsgUtil {
 					mmsg.setTemplate_id(temp.getTemplate_id());
 					mmsg.setTouser(openid);
 					mmsg.setUrl(detailUrl);
+					mmsg.setCompanyId(temp.getCompanyId());
 					pustModuleMsg(mmsg, isLiji);
 				}
 			} else {

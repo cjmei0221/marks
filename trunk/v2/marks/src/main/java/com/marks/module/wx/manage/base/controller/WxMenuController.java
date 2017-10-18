@@ -71,6 +71,7 @@ public class WxMenuController extends SupportContorller {
 				MyWxMenu ori  = wxMenuService.findById(wxMenu.getParent_id());
 				wxMenu.setAccountid(ori.getAccountid());
 			}
+			wxMenu.setCompanyId(admin.getCompanyId());
 			wxMenuService.save(wxMenu);
 			result.setMessage("保存成功");
 			result.setCode(Code.CODE_SUCCESS);
@@ -201,7 +202,7 @@ public class WxMenuController extends SupportContorller {
 			parentId = "0";
 		}
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("accountIds", admin.getAccountids());
+		param.put("companyId", admin.getCompanyId());
 		param.put("parentId", parentId);
 		List<MyWxMenu> list = wxMenuService.listTree(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());

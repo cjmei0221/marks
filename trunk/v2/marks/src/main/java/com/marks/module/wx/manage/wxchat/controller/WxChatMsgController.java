@@ -89,6 +89,7 @@ public class WxChatMsgController extends SupportContorller {
 			wxChatMsg.setCreatetime(new Date());
 			wxChatMsg.setUsername(admin.getUsername());
 			wxChatMsg.setIs_replay(1);
+			wxChatMsg.setCompanyId(admin.getCompanyId());
 			result=WxMpUtil.getInstance().sendCustomTextMsg(wxChatMsg.
 			getAccountid(), wxChatMsg.getOpenid(), wxChatMsg.getC_content());
 			 

@@ -52,8 +52,17 @@ public class WxChatMsg implements Serializable{
 
     private List<WxChatMsg> replayList=new ArrayList<WxChatMsg>();
     
+	private String companyId;
     
-    public int getIs_replay() {
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public int getIs_replay() {
 		return is_replay;
 	}
 	public void setIs_replay(int is_replay) {

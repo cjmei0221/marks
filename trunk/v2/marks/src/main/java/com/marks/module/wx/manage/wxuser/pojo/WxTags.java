@@ -48,9 +48,19 @@ public class WxTags implements Serializable{
     */
     private int tagid;
 
+	private String companyId;
 
 
-    public String getId(){
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getId() {
         return id;
     }
     public void setId(String id){

@@ -79,13 +79,13 @@ public class AreaController extends SupportContorller {
 			}
 			String areaId = IDUtil.getDateID() + "_" + IDUtil.getRandom(1001, 9999);
 			if (ori == null) {
-				area.setCompanyId(admin.getCompanyNo());
+				area.setCompanyId(admin.getCompanyId());
 				area.setAreaId(areaId);
 				Area parentVo = null;
 				if ("top".equals(area.getParentId())) {
 					parentVo = new Area();
 					parentVo.setLvl(0);
-					area.setParentId(admin.getCompanyNo());
+					area.setParentId(admin.getCompanyId());
 					area.setLvl(1);
 				} else {
 					parentVo = areaService.findById(area.getParentId());
@@ -239,7 +239,7 @@ public class AreaController extends SupportContorller {
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 
 		String parentId = request.getParameter("parentId");
-		String companyId = admin.getCompanyNo();
+		String companyId = admin.getCompanyId();
 		List<Area> list = null;
 		// 根节点加载
 		if (parentId == null || "".equals(parentId)) {

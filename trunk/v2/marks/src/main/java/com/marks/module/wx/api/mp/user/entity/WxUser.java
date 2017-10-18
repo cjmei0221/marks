@@ -84,7 +84,17 @@ public class WxUser implements Serializable{
     private String tagid_list;//标签列表
     private int subscribetype;
 
-    public int getSubscribetype() {
+	private String companyId;
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public int getSubscribetype() {
 		return subscribetype;
 	}
 	public void setSubscribetype(int subscribetype) {

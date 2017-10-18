@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.module.cache.CacheData;
 import com.marks.module.wx.api.mp.user.entity.WxUser;
+import com.marks.module.wx.manage.base.pojo.WxAccount;
 import com.marks.module.wx.manage.wxuser.dao.WxUserDao;
 import com.marks.module.wx.manage.wxuser.service.WxUserService;
 @Service
@@ -92,6 +94,8 @@ public class WxUserServiceImpl implements WxUserService{
 	@Override
 	public void saveOrUpdateWxUser(WxUser user) {
 		WxUser old=wxUserDao.findById(user.getAccountid(),user.getOpenid());
+		WxAccount wx = CacheData.getWxAccount(user.getAccountid());
+		user.setCompanyId(wx.getCompanyId());
 		if(old !=null){
 			wxUserDao.update(user);
 		}else{

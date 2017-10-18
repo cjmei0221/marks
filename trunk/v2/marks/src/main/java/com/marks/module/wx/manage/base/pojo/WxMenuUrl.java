@@ -1,7 +1,6 @@
 package com.marks.module.wx.manage.base.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 public class WxMenuUrl implements Serializable{
 
@@ -24,9 +23,19 @@ public class WxMenuUrl implements Serializable{
     */
     private String accountid;
 
+	private String companyId;
 
 
-    public String getId(){
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getId() {
         return id;
     }
     public void setId(String id){

@@ -206,6 +206,7 @@ public class ModuleMsgController extends SupportContorller{
 			param.put("keyword", keyword);
 			param.put("s_resultCode", request.getParameter("s_resultCode"));
 			param.put("s_sendFlag", request.getParameter("s_sendFlag"));
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<ModuleMsg> list = moduleMsgService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

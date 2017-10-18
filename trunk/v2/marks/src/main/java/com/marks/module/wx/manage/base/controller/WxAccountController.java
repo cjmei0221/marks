@@ -218,7 +218,7 @@ public class WxAccountController extends SupportContorller{
 			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("accountIds", admin.getAccountids());
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<WxAccount> list = wxAccountService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -241,7 +241,7 @@ public class WxAccountController extends SupportContorller{
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("accountIds", admin.getAccountids());
+		param.put("companyId", admin.getCompanyId());
 		List<WxAccount> list = wxAccountService.combox(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
