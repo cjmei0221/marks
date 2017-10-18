@@ -1,0 +1,21 @@
+
+/* TraceLog.css */
+
+.nav-search{
+	position: initial;
+	top: initial;
+	left: initial;
+	display: inline-block;
+	vertical-align: middle;
+}
+#searchBtu{
+	display: inline-block;
+	vertical-align: middle;
+}
+#searchText{
+	padding-left: 10px;
+}
+body{
+    padding-top:10px;
+    padding-left:10px;
+}
