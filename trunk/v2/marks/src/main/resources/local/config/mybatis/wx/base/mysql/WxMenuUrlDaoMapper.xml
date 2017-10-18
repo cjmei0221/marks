@@ -14,13 +14,15 @@
 		ID,
 		MENUNAME,
 		MENUURL,
-		ACCOUNTID
+		ACCOUNTID,
+		companyid
 		)
 		VALUES(
 		#{id:VARCHAR},
 		#{menuName:VARCHAR},
 		#{menuUrl:VARCHAR},
-		#{accountid:VARCHAR}
+		#{accountid:VARCHAR},
+		#{companyId:VARCHAR}
 
 		)
 	</insert>

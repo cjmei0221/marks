@@ -25,7 +25,8 @@
 		menutype,
 		tagid,
 		menuid,
-		updatetime
+		updatetime,
+		COMPANYID
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -39,7 +40,8 @@
 		#{menutype:NUMERIC},
 		#{tagid:VARCHAR},
 		#{menuid:VARCHAR},
-		now()
+		now(),
+		#{companyId:VARCHAR}
 		)
 	</insert>
 

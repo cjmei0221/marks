@@ -46,7 +46,8 @@
 		UPDATETIME,
 		CREATOR,
 		DELFLAG,
-		CKEYNAME
+		CKEYNAME,
+		companyId
 		)
 		VALUES(
 		#{ckey:VARCHAR},
@@ -62,7 +63,8 @@
 		now(),
 		#{creator:VARCHAR},
 		#{delFlag:NUMERIC},
-		#{ckeyName:VARCHAR}
+		#{ckeyName:VARCHAR},
+		#{companyId:VARCHAR}
 		)
 	</insert>
 

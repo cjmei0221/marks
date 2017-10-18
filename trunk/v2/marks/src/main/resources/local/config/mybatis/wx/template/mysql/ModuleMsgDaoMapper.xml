@@ -23,7 +23,8 @@
 		SENDTIMES,
 		CREATETIME,
 		NOTE,
-		CREATE_STAMP
+		CREATE_STAMP,
+		companyId
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -37,7 +38,8 @@
 		#{sendTimes:NUMERIC},
 		now(),
 		#{note:VARCHAR},
-		#{create_stamp:NUMERIC}
+		#{create_stamp:NUMERIC},
+		#{companyId:VARCHAR}
 		)
 	</insert>
 
