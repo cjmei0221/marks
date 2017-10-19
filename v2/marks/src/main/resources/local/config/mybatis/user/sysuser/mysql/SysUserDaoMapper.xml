@@ -5,13 +5,14 @@
 
 	<select id="findById" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		select * from tb_user t
-		where t.userid=#{userid}
+		where
+		t.userid=#{userid}
 	</select>
 	<select id="findByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		select distinct
 		u.*,
 		tsr.rolename
-		from tb_user u 
+		from tb_user u
 		join tb_sys_role tsr on u.roleid = tsr.roleid
 		where u.USERID =#{userid}
 	</select>
@@ -21,7 +22,7 @@
 		where t.bind_mobile=#{mobile}
 	</select>
 	<insert id="save" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
-		INSERT INTO tb_user 
+		INSERT INTO tb_user
 		(
 		USERID,
 		USERNAME,
@@ -59,18 +60,21 @@
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
-		UPDATE tb_user 
+		UPDATE tb_user
 		SET
 		defaultOrgid=#{defaultOrgid:VARCHAR},
 		defaultOrgname=#{defaultOrgname:VARCHAR},
-		USERNAME = #{username:VARCHAR},
+		USERNAME =
+		#{username:VARCHAR},
 		ACTIVEFLAG =
 		#{activeFlag:NUMERIC},
-		UPDATETIME = now(),
+		UPDATETIME =
+		now(),
 		COMPANYID =
 		#{companyId:VARCHAR},
 		TOKEN = #{token:VARCHAR},
-		openid = #{openid:VARCHAR},
+		openid
+		= #{openid:VARCHAR},
 		accountid = #{accountid:VARCHAR},
 		ROLEID=#{roleid:VARCHAR}
 		WHERE
@@ -80,7 +84,8 @@
 	<update id="updatetPwd" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
 		UPDATE tb_user
 		SET
-		PASSWORD = #{password:VARCHAR},
+		PASSWORD
+		= #{password:VARCHAR},
 		UPDATETIME = now()
 		WHERE
 		USERID
@@ -91,14 +96,15 @@
 		UPDATE tb_user
 		SET
 		ACTIVEFLAG = #{flag},
-		UPDATETIME =now()
+		UPDATETIME
+		=now()
 		WHERE
 		USERID
 		= #{userid}
 	</update>
 
 	<update id="updateMobile">
-		UPDATE tb_user 
+		UPDATE tb_user
 		SET
 		BIND_MOBILE =
 		#{newPhone:VARCHAR},
@@ -108,7 +114,8 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM tb_user WHERE USERID=#{userid}
+		DELETE FROM tb_user WHERE
+		USERID=#{userid}
 	</delete>
 	<select id="findAll" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		SELECT * FROM tb_user
@@ -129,16 +136,19 @@
 		orgtb.orgidsStr,
 		orgtb.orgidNamesStr
 		FROM tb_user sysuser
-		join tb_sys_role tsr on ( sysuser.roleid = tsr.roleid and tsr.showflag=1)
+		join tb_sys_role tsr on (
+		sysuser.roleid = tsr.roleid and tsr.showflag=1)
 		join (select
-		tsuo.userid, GROUP_CONCAT(toi.orgid)  orgidsStr,
+		tsuo.userid, GROUP_CONCAT(toi.orgid) orgidsStr,
 		GROUP_CONCAT(toi.orgname) orgidNamesStr
 		from tb_user_org tsuo
-		join tb_org_info toi on
+		join
+		tb_org_info toi on
 		tsuo.orgid = toi.orgid group by tsuo.userid
-		) orgtb on sysuser.userid =
+		) orgtb
+		on sysuser.userid =
 		orgtb.userid
-		WHERE 1=1 and sysuser.userid !='system'
+		WHERE 1=1 and sysuser.hideFlag =0
 		<if test="companyId !=null and companyId != ''">
 			and sysuser.COMPANYID = #{companyId}
 		</if>
@@ -205,7 +215,7 @@
 		)
 	</insert>
 	<update id="updateDefaultOrg">
-		UPDATE tb_user_org 
+		UPDATE tb_user_org
 		SET
 		isDefault =1
 		WHERE

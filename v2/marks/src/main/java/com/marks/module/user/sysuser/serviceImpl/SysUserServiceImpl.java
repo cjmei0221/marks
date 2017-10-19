@@ -67,7 +67,7 @@ public class SysUserServiceImpl implements SysUserService {
 	 */
 	@Override
 	public String save(SysUser sysUser, String orgIdsPut, String orgNamesPut) {
-		String userid = "V" + IDUtil.getDateID() + "_" + IDUtil.getRandom(1000, 9999) + IDUtil.getRandom(1000, 9999);
+		String userid = "V" + IDUtil.getDateID() + "_" + IDUtil.getRandom(100, 999) + IDUtil.getRandom(100, 999);
 		sysUser.setUserid(userid);
 		if (null != orgIdsPut && !"".equals(orgIdsPut)) {
 			SysUserOrg uorg = saveSysUserOrg(sysUser.getUserid(), orgIdsPut, orgNamesPut, sysUser.getCreator());
