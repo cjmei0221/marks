@@ -74,6 +74,7 @@ public class SysUserController extends SupportContorller{
 	 			String orgIdsPut=request.getParameter("orgIdsPut");
 	 			sysUser.setPassword(EncryptUtil.defaultPwd);
 	 			sysUser.setCreator(admin.getUserid());
+				sysUser.setCompanyId(admin.getCompanyId());
 	 			sysUserService.save(sysUser,orgIdsPut);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -97,6 +98,7 @@ public class SysUserController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		    SysUser sysUser = getModel(SysUser.class);
 		    SysUser ori=sysUserService.findByMobile(sysUser.getBind_mobile());
 		    if(ori == null){
@@ -104,6 +106,7 @@ public class SysUserController extends SupportContorller{
 				result.setCode(Code.CODE_FAIL);
 		    }else{
 	 			String orgIdsPut=request.getParameter("orgIdsPut");
+				sysUser.setCompanyId(admin.getCompanyId());
 		    	sysUserService.update(sysUser,orgIdsPut);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);

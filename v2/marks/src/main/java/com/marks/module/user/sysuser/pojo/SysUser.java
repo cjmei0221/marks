@@ -75,7 +75,26 @@ public class SysUser implements Serializable {
 	private String defaultOrgid;
 	private String defaultOrgname;
 
+	private String orgidsStr;
+	private String orgidNamesStr;
+
 	private String queryOrgid;// 查询字段
+
+	public String getOrgidsStr() {
+		return orgidsStr;
+	}
+
+	public void setOrgidsStr(String orgidsStr) {
+		this.orgidsStr = orgidsStr;
+	}
+
+	public String getOrgidNamesStr() {
+		return orgidNamesStr;
+	}
+
+	public void setOrgidNamesStr(String orgidNamesStr) {
+		this.orgidNamesStr = orgidNamesStr;
+	}
 
 	public int getRoleLvl() {
 		return roleLvl;
