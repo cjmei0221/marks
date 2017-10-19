@@ -55,6 +55,8 @@ public class SysUser implements Serializable {
 	
 	private int skin;
 
+	private int hideFlag = 0;// 隐藏标识 1:隐藏
+
 	/**
 	 * 上次登录时间
 	 */
@@ -79,6 +81,14 @@ public class SysUser implements Serializable {
 	private String orgidNamesStr;
 
 	private String queryOrgid;// 查询字段
+
+	public int getHideFlag() {
+		return hideFlag;
+	}
+
+	public void setHideFlag(int hideFlag) {
+		this.hideFlag = hideFlag;
+	}
 
 	public String getOrgidsStr() {
 		return orgidsStr;
