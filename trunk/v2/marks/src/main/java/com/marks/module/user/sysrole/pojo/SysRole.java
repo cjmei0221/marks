@@ -46,7 +46,17 @@ public class SysRole implements Serializable{
      */
     private int showFlag=1;
 
-    public int getShowFlag() {
+	private int delFlag = 1;
+
+	public int getDelFlag() {
+		return delFlag;
+	}
+
+	public void setDelFlag(int delFlag) {
+		this.delFlag = delFlag;
+	}
+
+	public int getShowFlag() {
 		return showFlag;
 	}
 	public void setShowFlag(int showFlag) {
