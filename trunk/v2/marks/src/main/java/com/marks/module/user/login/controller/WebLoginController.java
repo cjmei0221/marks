@@ -152,9 +152,9 @@ public class WebLoginController {
 			user.setOpenid(WxUtil.getInstance().getCurrentOpenid(request));
 			user.setAccountid(WxUtil.getInstance().getCurrentAccountid(request));
 			if(sysUser==null){
-				sysUserService.save(user, null);
+				sysUserService.save(user);
 			}else{
-				sysUserService.update(user, null);
+				sysUserService.update(user);
 			}
 		} catch (Exception e) {
 			logger.error("bind", e);

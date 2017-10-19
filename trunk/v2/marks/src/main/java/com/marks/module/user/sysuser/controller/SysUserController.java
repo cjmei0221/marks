@@ -72,10 +72,11 @@ public class SysUserController extends SupportContorller{
 	 		if(ori==null){
 	 			//密码处理
 	 			String orgIdsPut=request.getParameter("orgIdsPut");
+				String orgNamesPut = request.getParameter("orgNamesPut");
 	 			sysUser.setPassword(EncryptUtil.defaultPwd);
 	 			sysUser.setCreator(admin.getUserid());
 				sysUser.setCompanyId(admin.getCompanyId());
-	 			sysUserService.save(sysUser,orgIdsPut);
+				sysUserService.save(sysUser, orgIdsPut, orgNamesPut);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -106,8 +107,9 @@ public class SysUserController extends SupportContorller{
 				result.setCode(Code.CODE_FAIL);
 		    }else{
 	 			String orgIdsPut=request.getParameter("orgIdsPut");
+				String orgNamesPut = request.getParameter("orgNamesPut");
 				sysUser.setCompanyId(admin.getCompanyId());
-		    	sysUserService.update(sysUser,orgIdsPut);
+				sysUserService.update(sysUser, orgIdsPut, orgNamesPut);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }

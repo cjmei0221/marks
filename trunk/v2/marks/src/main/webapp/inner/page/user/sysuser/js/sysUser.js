@@ -1,5 +1,6 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/inner/sysUser/list.do',// 获取用户管理列表接口 SysUser
+	listUrl : top.window.urlBase + '/inner/sysUser/list.do',// 获取用户管理列表接口
+	// SysUser
 	saveUrl : top.window.urlBase + '/inner/sysUser/save.do',// 保存新增用户管理接口
 	updateUrl : top.window.urlBase + '/inner/sysUser/update.do',// 编辑用户管理信息接口
 	deleteUrl : top.window.urlBase + '/inner/sysUser/delete.do',// 删除用户管理接口
@@ -15,17 +16,21 @@ var appInfo = {
 		s_role : null
 	},
 	formStatus : "new",
-	checkRole : []
+	checkOrg : {
+		orgids : [],
+		orgnames : []
+	}
 };
 
-//新增
+// 新增
 function add() {
 	$("#editWin").window({
 		title : "新增"
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
-	appInfo.checkRole = [];
+	appInfo.checkOrg.orgids = [];
+	appInfo.checkOrg.orgnames = [];
 	$("#roleid").combobox("reload");
 	$("#inputRoleDiv").html('');
 	$("#bind_mobile").numberbox({
@@ -42,7 +47,8 @@ function edit() {
 		appInfo.formStatus = "edit";
 		$("#roleid").combobox("reload");
 		$('#ff').form('load', appInfo.selectedData);
-		appInfo.checkRole = [];
+		appInfo.checkOrg.orgids = [];
+		appInfo.checkOrg.orgnames = [];
 		$("#inputRoleDiv").html('');
 		initUser(appInfo.selectedData);
 		notEdit();
@@ -88,7 +94,6 @@ function resetPwdBtn() {
 	}
 }
 
-
 $(function() {
 	// 加载列表
 	loadList();
@@ -100,7 +105,6 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
-	
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -108,54 +112,52 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-//
-//	$("#roleid").combobox({
-//		onChange : function(newValue, oldValue) {
-//			if (newValue != oldValue) {
-//				$.ajax({
-//					url : appInfo.roleUrl,
-//					type : "get",
-//					data : {
-//						"roleid" : newValue
-//					},
-//					dataType : "json",
-//					success : function(data, status, xhr) {
-//						if (data.retcode == "0") {
-//							$("#companyId").val(data.sysRole.companyId);
-//							appInfo.checkRole = [];
-//							$("#inputRoleDiv").html('');
-//							// 加载角色信息
-//							loadRoleList(data.sysRole.companyId);
-//						}
-//					}
-//				});
-//			}
-//		}
-//	});
+	//
+	// $("#roleid").combobox({
+	// onChange : function(newValue, oldValue) {
+	// if (newValue != oldValue) {
+	// $.ajax({
+	// url : appInfo.roleUrl,
+	// type : "get",
+	// data : {
+	// "roleid" : newValue
+	// },
+	// dataType : "json",
+	// success : function(data, status, xhr) {
+	// if (data.retcode == "0") {
+	// $("#companyId").val(data.sysRole.companyId);
+	// appInfo.checkRole = [];
+	// $("#inputRoleDiv").html('');
+	// // 加载角色信息
+	// loadRoleList(data.sysRole.companyId);
+	// }
+	// }
+	// });
+	// }
+	// }
+	// });
 
-	$("#chooseRole").on("click", function() {
-//		var roleId = $("#roleid").combobox("getValue")
-//		if (roleId == '') {
-//			showMsg("请先选择用户类型");
-//			return;
-//		}
-		appInfo.checkRole = [];
-		$("#inputRoleDiv").html('');
+	$("#chooseOrg").on("click", function() {
+		// var roleId = $("#roleid").combobox("getValue")
+		// if (roleId == '') {
+		// showMsg("请先选择用户类型");
+		// return;
+		// }
+		// appInfo.checkOrg.orgids = [];
+		// appInfo.checkOrg.orgnames = [];
+		// $("#inputOrgDiv").html('');
 		// 加载角色信息
 		loadOrgList();
-		$("#roleWin").window({
+		$("#orgWin").window({
 			title : "组织"
 		}).window("open");
 	});
-	$("#searchRoleBtn").on("click", function() {
-		app.myreload("#roleList");
-	});
-	$("#roleBtn").on("click", function() {
-		if (appInfo.checkRole.length == 0) {
-			showMsg("权限角色为空");
+	$("#orgBtn").on("click", function() {
+		if (appInfo.checkOrg.orgids.length == 0) {
+			showMsg("所选组织为空");
 			return;
 		}
-		$("#roleWin").window("close");
+		$("#orgWin").window("close");
 	});
 });
 function checkPhone(val) {
@@ -172,7 +174,7 @@ function formSubmit() {
 		showMsg("表单校验不通过");
 		return;
 	}
-	if (appInfo.checkRole.length == 0) {
+	if (appInfo.checkOrg.orgids.length == 0) {
 		showMsg("所属组织为空");
 		return;
 	}
@@ -191,7 +193,8 @@ function formSubmit() {
 	});
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
-	parms += "&orgIdsPut=" + appInfo.checkRole.join(",");
+	parms += "&orgIdsPut=" + appInfo.checkOrg.orgids.join(",");
+	parms += "&orgNamesPut=" + appInfo.checkOrg.orgnames.join(",");
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
 			try {
@@ -229,6 +232,7 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
+		height:580,
 		pagination : true,
 		idField : 'userid',
 		pagination : true,
@@ -350,7 +354,7 @@ function loadList() {
 
 function loadOrgList(id) {
 	var orgListUrl = top.window.urlBase + '/inner/orgInfo/list.do';
-	$('#roleList').treegrid(
+	$('#orgList').treegrid(
 			{
 				url : orgListUrl,
 				striped : true,
@@ -375,40 +379,23 @@ function loadOrgList(id) {
 					field : 'orgid',
 					width : 100,
 					align : "center"
-				}, {
-					title : '创建时间',
-					field : 'createtime',
-					width : 100,
-					align : "center"
-				}, {
-					title : '更新时间',
-					field : 'updatetime',
-					width : 100,
-					align : "center"
-				}, {
-					title : '创建者',
-					field : 'creator',
-					width : 100,
-					align : "center"
 				} ] ],
 				onBeforeExpand : function(row) {
-					$("#roleList").treegrid("options").url = orgListUrl
+					$("#orgList").treegrid("options").url = orgListUrl
 							+ "?parentId=" + row.orgid + "&_timer="
 							+ new Date().getTime();
 				},
 				onClickRow : function(rowData) {
-					var flag = true;
-					if (flag) {
-						if(appInfo.checkRole.length>0){
-							showMsg("只能选择一个组织");
-							return;
-						}
-						if (addRole(rowData.orgid)) {
-							initRolePut(rowData.orgid, rowData.orgname);
-						}
-						return;
 
+					if (appInfo.checkOrg.orgids.length > 0) {
+						showMsg("只能选择一个组织");
+						return;
 					}
+					if (addOrg(rowData.orgid, rowData.orgname)) {
+						initOrgPut(rowData.orgid, rowData.orgname);
+					}
+					return;
+
 				},
 				onLoadSuccess : function(row, data) {
 
@@ -417,8 +404,8 @@ function loadOrgList(id) {
 }
 
 // 删除功能
-function delRoleTr(id) {
-	delRole(id);
+function delOrgTr(id, name) {
+	delOrg(id, name);
 	$("#" + id).remove();
 
 }
@@ -437,38 +424,39 @@ Array.prototype.indexOf = function(obj) {
 	return -1;
 }
 
-function addRole(id) {
-
-	var idx = appInfo.checkRole.indexOf(id);//
+function addOrg(id, name) {
+	var idx = appInfo.checkOrg.orgids.indexOf(id);//
 	if (idx < 0) {
-		appInfo.checkRole.push(id);
+		appInfo.checkOrg.orgids.push(id);
+		appInfo.checkOrg.orgnames.push(name);
 		return true;
 	}
 	return false;
 }
-function delRole(id) {
+function delOrg(id, name) {
 
-	var idx = appInfo.checkRole.indexOf(id);//
+	var idx = appInfo.checkOrg.orgids.indexOf(id);//
 	if (idx > -1) {
-		appInfo.checkRole.remove(id);
+		appInfo.checkOrg.orgids.remove(id);
+		appInfo.checkOrg.orgnames.remove(name);
 	}
 }
 function initUser(user) {
-	appInfo.checkRole = user.orgidsStr.split(",");
-	var rolenames = user.orgidNamesStr.split(",");
+	appInfo.checkOrg.orgids = user.orgidsStr.split(",");
+	appInfo.checkOrg.orgnames = user.orgidNamesStr.split(",");
 	for (var i = 0; i < appInfo.checkRole.length; i++) {
 		if (appInfo.checkRole[i] != null && appInfo.checkRole[i] != '') {
-			initRolePut(appInfo.checkRole[i], rolenames[i]);
+			initOrgPut(appInfo.checkOrg.orgids[i], appInfo.checkOrg.orgnames[i]);
 		}
 	}
 }
-function initRolePut(roleid, rolename) {
-	$("#inputRoleDiv")
+function initOrgPut(orgid, orgname) {
+	$("#inputOrgDiv")
 			.append(
 					"<p id='"
-							+ roleid
+							+ orgid
 							+ "'>组织：<span>"
-							+ rolename
-							+ "</span>&nbsp;&nbsp;<a href='#' onclick=\"javascript:delRoleTr(\'"
-							+ roleid + "\')\">删除</a></p>");
+							+ orgname
+							+ "</span>&nbsp;&nbsp;<a href='#' onclick=\"javascript:delOrgTr(\'"
+							+ orgid + "\',\'" + orgname + "\')\">删除</a></p>");
 }

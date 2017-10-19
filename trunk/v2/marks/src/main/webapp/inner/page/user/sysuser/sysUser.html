@@ -64,32 +64,32 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 400px; height: 300px; padding: 10px;">
+		style="width: 500px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="userid" name="userid">
 			<table class="out-win-cls">
 				<tr>
-					<th>用户类型</th>
+					<th>用户角色</th>
 					<td><input
 						id="roleid" name="roleid" class="easyui-combobox"
-						data-options="required:true,valueField:'roleid',textField:'roleFullName',url:'/inner/sysRole/combo.do'"
-						style="width: 175px"></td>
+						data-options="required:true,valueField:'roleid',textField:'rolename',url:'/inner/sysRole/combo.do'"
+						style="width: 200px"></td>
 				</tr>
 				<tr>
 					<th>所属组织</th>
-					<td><a href="javascript:;" id="chooseRole">选择组织</a></td>
+					<td><a href="javascript:;" id="chooseOrg">选择组织</a></td>
 				</tr>
 				<tr>
 					<th>手机号码</th>
 					<td><input id="bind_mobile" name="bind_mobile"
 						class="easyui-numberbox"
-						data-options="required:true,min:10000000000,precision:0"></td>
+						data-options="required:true,min:10000000000,precision:0" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>用户名称</th>
 					<td><input id="username" name="username"
 						class="easyui-validatebox" data-options="required:true"
-						maxlength="50"></td>
+						maxlength="50" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>激活标识</th>
@@ -117,21 +117,21 @@
 				</tr>
 			</table>
 
-			<div id="roleWin" class="easyui-window"
+			<div id="orgWin" class="easyui-window"
 				data-options="modal:true,closed:true,
 		minimizable:false,
 		maximizable:false,
 		draggable:true,
 		collapsible:false,inline:false"
-				style="width: 800px; height: 500px; padding: 10px;">
-				<table id="roleList"></table>
+				style="width: 600px; height: 500px; padding: 10px;">
+				<table id="orgList"></table>
 				<div style="color:red">第一个所选组织为默认所属组织</div>
 				已选：
 				<div id="inputDiv" style="height: 80px;">
 					<!-- 公司：<input id="companyId" name="companyId" readonly="readonly"> -->
-					<div id="inputRoleDiv"></div>
+					<div id="inputOrgDiv"></div>
 					<div align="center">
-						<input type="button" id="roleBtn" name="roleBtn" value="确定" />
+						<input type="button" id="orgBtn" name="orgBtn" value="确定" />
 					</div>
 				</div>
 			</div>

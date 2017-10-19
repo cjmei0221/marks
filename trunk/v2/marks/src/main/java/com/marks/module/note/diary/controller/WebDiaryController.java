@@ -251,7 +251,7 @@ public class WebDiaryController extends SupportContorller {
 				sysUser.setUsername(mobile);
 				sysUser.setRoleid(companyId + "_" + Enums.UserType.VIP.getValue());
 				sysUser.setCreator(mobile);
-				String userid = sysUserService.save(sysUser, null);
+				String userid = sysUserService.save(sysUser);
 				sysUser.setUserid(userid);
 			} else {
 				if (sysUser.getActiveFlag() == Enums.SysUserUse.NOUSE.getValue()) {

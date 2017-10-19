@@ -6,11 +6,20 @@ public class SysUserOrg {
 
 	private String userid;
 	private String orgid;
+	private String orgname;
 	private Date createtime;
 	private Date updatetime;
 	private String creator;
 	private int isDefault;
 	
+	public String getOrgname() {
+		return orgname;
+	}
+
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
+	}
+
 	public int getIsDefault() {
 		return isDefault;
 	}

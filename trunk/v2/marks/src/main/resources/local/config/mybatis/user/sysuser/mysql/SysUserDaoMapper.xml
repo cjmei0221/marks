@@ -35,7 +35,9 @@
 		TOKEN,
 		ROLEID,
 		openid,
-		accountid
+		accountid,
+		defaultOrgid,
+		defaultOrgname
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -50,13 +52,17 @@
 		#{token:VARCHAR},
 		#{roleid:VARCHAR},
 		#{openid:VARCHAR},
-		#{accountid:VARCHAR}
+		#{accountid:VARCHAR},
+		#{defaultOrgid:VARCHAR},
+		#{defaultOrgname:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
 		UPDATE tb_user 
 		SET
+		defaultOrgid=#{defaultOrgid:VARCHAR},
+		defaultOrgname=#{defaultOrgname:VARCHAR},
 		USERNAME = #{username:VARCHAR},
 		ACTIVEFLAG =
 		#{activeFlag:NUMERIC},
@@ -184,14 +190,18 @@
 		ORGID,
 		CREATETIME,
 		UPDATETIME,
-		CREATOR
+		CREATOR,
+		orgname,
+		isDefault
 		)
 		VALUES(
 		#{userid:VARCHAR},
 		#{orgid:VARCHAR},
 		now(),
 		now(),
-		#{creator:VARCHAR}
+		#{creator:VARCHAR},
+		#{orgname:VARCHAR},
+		#{isDefault:NUMERIC}
 		)
 	</insert>
 	<update id="updateDefaultOrg">

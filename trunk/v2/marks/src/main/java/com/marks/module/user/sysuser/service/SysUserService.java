@@ -11,8 +11,9 @@ public interface SysUserService{
 
 	public SysUser findByUserid(String userid);
 
-	public String save(SysUser sysUser, String orgIdsPut);
-	public void update(SysUser sysUser,String orgIdsPut);
+	public String save(SysUser sysUser, String orgIdsPut, String orgNamesPut);
+
+	public void update(SysUser sysUser, String orgIdsPut, String orgNamesPut);
 	public void delete(String userid);
 	public List<SysUser> findAll();
 	public void deleteBatch(List<String> ids);
@@ -23,6 +24,10 @@ public interface SysUserService{
 	public void updateMobile(String userid, String newPhone);
 	public void updateActiveFlag(String userid, int flag);
 	public void updateSkin(String userid, int parseInt);
+
+	public String save(SysUser user);
+
+	public void update(SysUser user);
 	
 
 }
