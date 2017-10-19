@@ -24,7 +24,8 @@ function add() {
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
 	$('#userTypeTr').show();
-	$('#companyIdTr').show();
+	$('#showFlagTr').show();
+	$('#delFlagTr').show();
 }
 
 // 编辑
@@ -40,29 +41,47 @@ function edit() {
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
 		$('#userTypeTr').hide();
-		$('#companyIdTr').hide();
+		if(appInfo.selectedData.showFlag==0){
+			$('#showFlagTr').hide();
+		}else{
+			$('#showFlagTr').show();
+		}
+		if(appInfo.selectedData.delFlag==0){
+			$('#delFlagTr').hide();
+		}else{
+			$('#delFlagTr').show();
+		}
 	}
 }
 
 // 删除
 function del() {
-	if (isSelectedOne(appInfo.selectedId)) {
-		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
-			if (r) {
-				var parms = "roleid=" + appInfo.selectedId;
-				$.post(appInfo.deleteUrl, parms, function(data) {
-					if (data.retcode == "0") {
-						app.myreload("#tbList");
-						appInfo.selectedData = {};
-						appInfo.selectedId = -1;
-						showMsg("删除成功");
-					} else {
-						showMsg(data.retmsg);
-					}
-				});
-			}
-		});
+	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
 	}
+	if("system" == appInfo.selectedId){
+		showMsg("该角色不可删除");
+		return;
+	}
+	if (appInfo.selectedData.delFlag==0) {
+		showMsg("该角色不可删除");
+		return;
+	}
+	$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
+		if (r) {
+			var parms = "roleid=" + appInfo.selectedId;
+			$.post(appInfo.deleteUrl, parms, function(data) {
+				if (data.retcode == "0") {
+					app.myreload("#tbList");
+					appInfo.selectedData = {};
+					appInfo.selectedId = -1;
+					showMsg("删除成功");
+				} else {
+					showMsg(data.retmsg);
+				}
+			});
+		}
+	});
 }
 
 function addFunc() {
@@ -144,11 +163,6 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '组织名称',
-			field : 'companyName',
-			width : 100,
-			align : "center"
-		}, {
 			title : '英文缩写',
 			field : 'userType',
 			width : 100,
@@ -167,15 +181,26 @@ function loadList() {
 					return "L"+value;
 			}
 		}, {
-			title : '表单标识',
+			title : '用户维护标识',
 			field : 'showFlag',
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
 				if(value == 0){
-					return "否";
+					return "单独维护";
 				}
-				return "是";
+				return "统一维护";
+			}
+		}, {
+			title : '删除标识',
+			field : 'delFlag',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if(value == 0){
+					return "不可删除";
+				}
+				return "可删除";
 			}
 		}, {
 			title : '创建时间',

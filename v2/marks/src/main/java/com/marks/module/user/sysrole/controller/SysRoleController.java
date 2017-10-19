@@ -71,6 +71,7 @@ public class SysRoleController extends SupportContorller {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			SysRole sysRole = getModel(SysRole.class);
 			sysRole.setCreator(admin.getUserid());
+			sysRole.setCompanyId(admin.getCompanyId());
 			SysRole ori = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
 			if (ori == null) {
 				sysRole.setRoleid(sysRole.getCompanyId() + "_" + sysRole.getUserType());
@@ -96,7 +97,9 @@ public class SysRoleController extends SupportContorller {
 	public void updateSysRole(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			SysRole sysRole = getModel(SysRole.class);
+			sysRole.setCompanyId(admin.getCompanyId());
 			if ("system".equals(sysRole.getRoleid())) {
 				result.setMessage("此记录不可编辑!");
 				result.setCode(Code.CODE_FAIL);
@@ -135,6 +138,13 @@ public class SysRoleController extends SupportContorller {
 		Result result = new Result();
 		try {
 			SysRole sysRole = getModel(SysRole.class);
+			SysRole ori = sysRoleService.findById(sysRole.getRoleid());
+			if (ori != null && ori.getDelFlag() == 0) {
+				result.setMessage("该角色不可删除!");
+				result.setCode("3");
+				JsonUtil.output(response, result);
+				return;
+			}
 			if (sysRoleService.isDelete(sysRole.getRoleid())) {
 				sysRoleService.delete(sysRole.getRoleid());
 				result.setMessage("删除成功!");

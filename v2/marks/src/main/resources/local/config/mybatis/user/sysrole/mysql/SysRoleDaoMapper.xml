@@ -19,7 +19,8 @@
 		CREATOR,
 		ROLENAME,
 		CREATETIME,
-		COMPANYID
+		COMPANYID,
+		delFlag
 		)
 		VALUES(
 		#{roleid:VARCHAR},
@@ -30,17 +31,18 @@
 		#{creator:VARCHAR},
 		#{rolename:VARCHAR},
 		now(),
-		#{companyId:VARCHAR}
+		#{companyId:VARCHAR},
+		#{delFlag:NUMERIC}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.user.sysrole.pojo.SysRole">
 		UPDATE TB_SYS_ROLE
 		SET
+		delFlag=#{delFlag:NUMERIC},
 		USERTYPE
 		= #{userType:VARCHAR},
 		LVL=#{lvl:NUMERIC},
-		COMPANYID=#{companyId:VARCHAR},
 		showflag=#{showFlag:NUMERIC},
 		UPDATETIME =
 		now(),
