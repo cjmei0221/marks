@@ -81,7 +81,7 @@ public class Trace implements Serializable{
     *进货价
     *
     */
-    private String bidPrice;
+    private String stockPrice;
     /**
     *订单号
     *
@@ -278,11 +278,11 @@ public class Trace implements Serializable{
         this.nowPrice = nowPrice;
     }
 
-    public String getBidPrice(){
-        return bidPrice;
+    public String getStockPrice(){
+        return stockPrice;
     }
-    public void setBidPrice(String bidPrice){
-        this.bidPrice = bidPrice;
+    public void setStockPrice(String stockPrice){
+        this.stockPrice = stockPrice;
     }
 
     public String getOrderId(){
@@ -420,6 +420,6 @@ public class Trace implements Serializable{
 
 
 	public String toLog(){
-		return " - traceId:" +String.valueOf(traceId)+" - barcode:" +String.valueOf(barcode)+" - goodId:" +String.valueOf(goodId)+" - goodNo:" +String.valueOf(goodNo)+" - barNo:" +String.valueOf(barNo)+" - goodName:" +String.valueOf(goodName)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - stockStatus:" +String.valueOf(stockStatus)+" - cgNo:" +String.valueOf(cgNo)+" - price:" +String.valueOf(price)+" - vipPrice:" +String.valueOf(vipPrice)+" - salePrice:" +String.valueOf(salePrice)+" - nowPrice:" +String.valueOf(nowPrice)+" - bidPrice:" +String.valueOf(bidPrice)+" - orderId:" +String.valueOf(orderId)+" - orderGoodId:" +String.valueOf(orderGoodId)+" - isGift:" +String.valueOf(isGift)+" - oriTraceId:" +String.valueOf(oriTraceId)+" - companyId:" +String.valueOf(companyId)+" - orgid:" +String.valueOf(orgid)+" - orgname:" +String.valueOf(orgname)+" - typeId:" +String.valueOf(typeId)+" - typeName:" +String.valueOf(typeName)+" - brandId:" +String.valueOf(brandId)+" - brandName:" +String.valueOf(brandName)+" - productDate:" +String.valueOf(productDate)+" - supplierId:" +String.valueOf(supplierId)+" - supplierName:" +String.valueOf(supplierName)+" - userid:" +String.valueOf(userid)+" - username:" +String.valueOf(username)+" - mobile:" +String.valueOf(mobile)+" - stockInDate:" +String.valueOf(stockInDate)+" - endDate:" +String.valueOf(endDate);
+		return " - traceId:" +String.valueOf(traceId)+" - barcode:" +String.valueOf(barcode)+" - goodId:" +String.valueOf(goodId)+" - goodNo:" +String.valueOf(goodNo)+" - barNo:" +String.valueOf(barNo)+" - goodName:" +String.valueOf(goodName)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - stockStatus:" +String.valueOf(stockStatus)+" - cgNo:" +String.valueOf(cgNo)+" - price:" +String.valueOf(price)+" - vipPrice:" +String.valueOf(vipPrice)+" - salePrice:" +String.valueOf(salePrice)+" - nowPrice:" +String.valueOf(nowPrice)+" - stockPrice:" +String.valueOf(stockPrice)+" - orderId:" +String.valueOf(orderId)+" - orderGoodId:" +String.valueOf(orderGoodId)+" - isGift:" +String.valueOf(isGift)+" - oriTraceId:" +String.valueOf(oriTraceId)+" - companyId:" +String.valueOf(companyId)+" - orgid:" +String.valueOf(orgid)+" - orgname:" +String.valueOf(orgname)+" - typeId:" +String.valueOf(typeId)+" - typeName:" +String.valueOf(typeName)+" - brandId:" +String.valueOf(brandId)+" - brandName:" +String.valueOf(brandName)+" - productDate:" +String.valueOf(productDate)+" - supplierId:" +String.valueOf(supplierId)+" - supplierName:" +String.valueOf(supplierName)+" - userid:" +String.valueOf(userid)+" - username:" +String.valueOf(username)+" - mobile:" +String.valueOf(mobile)+" - stockInDate:" +String.valueOf(stockInDate)+" - endDate:" +String.valueOf(endDate);
 	}
 }

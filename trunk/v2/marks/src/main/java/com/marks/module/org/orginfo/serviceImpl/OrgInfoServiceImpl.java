@@ -42,7 +42,10 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Override
 	public void save(OrgInfo orgInfo) {
 		orgInfoDao.save(orgInfo);
-		updateOrgChildNum(orgInfo.getParentId());
+		if (orgInfo.getLvl() > 1) {
+			updateOrgChildNum(orgInfo.getParentId());
+		}
+
 	}
 
 	/**
@@ -51,8 +54,10 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Override
 	public void update(OrgInfo orgInfo) {
 		orgInfoDao.update(orgInfo);
-		orgInfoDao.updateMoreLvlName(orgInfo.getOrgid(), orgInfo.getOrgname(), orgInfo.getLvl());
-		updateOrgChildNum(orgInfo.getParentId());
+		if (orgInfo.getLvl() > 1) {
+			orgInfoDao.updateMoreLvlName(orgInfo.getOrgid(), orgInfo.getOrgname(), orgInfo.getLvl());
+			updateOrgChildNum(orgInfo.getParentId());
+		}
 	}
 
 	private void updateOrgChildNum(String orgid) {

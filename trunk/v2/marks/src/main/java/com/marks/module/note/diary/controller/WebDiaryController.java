@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.enums.Enums;
+import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
@@ -244,17 +244,17 @@ public class WebDiaryController extends SupportContorller {
 			SysUser sysUser = loginService.findById(companyId, mobile);
 			if (sysUser == null) {
 				sysUser = new SysUser();
-				sysUser.setActiveFlag(Enums.SysUserUse.USE.getValue());
+				sysUser.setActiveFlag(UserEnums.ActiveFlag.use.getValue());
 				sysUser.setBind_mobile(mobile);
 				sysUser.setCompanyId(companyId);
 				sysUser.setPassword(EncryptUtil.defaultPwd);
 				sysUser.setUsername(mobile);
-				sysUser.setRoleid(companyId + "_" + Enums.UserType.VIP.getValue());
+				sysUser.setRoleid(companyId + "_" + UserEnums.UserType.VIP.getValue());
 				sysUser.setCreator(mobile);
 				String userid = sysUserService.save(sysUser);
 				sysUser.setUserid(userid);
 			} else {
-				if (sysUser.getActiveFlag() == Enums.SysUserUse.NOUSE.getValue()) {
+				if (sysUser.getActiveFlag() == UserEnums.ActiveFlag.unuse.getValue()) {
 					result.setMessage("此手机号已禁用");
 					result.setCode("4001");
 					JsonUtil.output(response, result);

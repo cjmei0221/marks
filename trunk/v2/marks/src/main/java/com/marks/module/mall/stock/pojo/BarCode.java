@@ -63,25 +63,20 @@ public class BarCode implements Serializable{
     */
     private int stockStatus;
     /**
-    *类别ID
+    *机构ID
     *
     */
-    private String typeId;
+    private String orgid;
     /**
-    *类别
+    *机构名称
     *
     */
-    private String typeName;
+    private String orgname;
     /**
-    *品牌ID
+    *生产日期
     *
     */
-    private String brandId;
-    /**
-    *品牌
-    *
-    */
-    private String brandName;
+    private String productDate;
 
 
 
@@ -162,36 +157,29 @@ public class BarCode implements Serializable{
         this.stockStatus = stockStatus;
     }
 
-    public String getTypeId(){
-        return typeId;
+    public String getOrgid(){
+        return orgid;
     }
-    public void setTypeId(String typeId){
-        this.typeId = typeId;
-    }
-
-    public String getTypeName(){
-        return typeName;
-    }
-    public void setTypeName(String typeName){
-        this.typeName = typeName;
+    public void setOrgid(String orgid){
+        this.orgid = orgid;
     }
 
-    public String getBrandId(){
-        return brandId;
+    public String getOrgname(){
+        return orgname;
     }
-    public void setBrandId(String brandId){
-        this.brandId = brandId;
+    public void setOrgname(String orgname){
+        this.orgname = orgname;
     }
 
-    public String getBrandName(){
-        return brandName;
+    public String getProductDate(){
+        return productDate;
     }
-    public void setBrandName(String brandName){
-        this.brandName = brandName;
+    public void setProductDate(String productDate){
+        this.productDate = productDate;
     }
 
 
 	public String toLog(){
-		return " - barcode:" +String.valueOf(barcode)+" - companyId:" +String.valueOf(companyId)+" - goodId:" +String.valueOf(goodId)+" - goodNo:" +String.valueOf(goodNo)+" - barNo:" +String.valueOf(barNo)+" - goodName:" +String.valueOf(goodName)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - traceId:" +String.valueOf(traceId)+" - activeStatus:" +String.valueOf(activeStatus)+" - stockStatus:" +String.valueOf(stockStatus)+" - typeId:" +String.valueOf(typeId)+" - typeName:" +String.valueOf(typeName)+" - brandId:" +String.valueOf(brandId)+" - brandName:" +String.valueOf(brandName);
+		return " - barcode:" +String.valueOf(barcode)+" - companyId:" +String.valueOf(companyId)+" - goodId:" +String.valueOf(goodId)+" - goodNo:" +String.valueOf(goodNo)+" - barNo:" +String.valueOf(barNo)+" - goodName:" +String.valueOf(goodName)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - traceId:" +String.valueOf(traceId)+" - activeStatus:" +String.valueOf(activeStatus)+" - stockStatus:" +String.valueOf(stockStatus)+" - orgid:" +String.valueOf(orgid)+" - orgname:" +String.valueOf(orgname)+" - productDate:" +String.valueOf(productDate);
 	}
 }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.enums.Enums;
+import com.marks.common.enums.OrgEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
@@ -77,7 +77,7 @@ public class OrgInfoController extends SupportContorller {
 			if (ori == null) {
 				String orgId = orgInfoService.getOrgId();
 				orgInfo.setOrgid(orgId);
-				if (Enums.OrgType.company.getValue() == orgInfo.getOrgType()) {
+				if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 					orgInfo.setParentId("0");
 					orgInfo.setCompanyId(orgInfo.getOrgid());
 					orgInfo.setLvl(1);
@@ -149,14 +149,14 @@ public class OrgInfoController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
-			if (Enums.OrgType.company.getValue() != orgInfo.getOrgType() && ori.getChildnum() > 0
+			if (OrgEnums.OrgType.company.getValue() != orgInfo.getOrgType() && ori.getChildnum() > 0
 					&& !ori.getParentId().equals(orgInfo.getParentId())) {
 				result.setMessage("此记录下有子节点不能更换父节点!");
 				result.setCode(Code.CODE_FAIL);
 				JsonUtil.output(response, result);
 				return;
 			}
-			if (Enums.OrgType.company.getValue() == orgInfo.getOrgType()) {
+			if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 				orgInfo.setParentId("0");
 				orgInfo.setLvl(1);
 			} else {
@@ -336,7 +336,7 @@ public class OrgInfoController extends SupportContorller {
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
-			param.put("companyId", admin.getCompanyId());
+			param.put("companyId", null);
 			PojoDomain<OrgInfo> list = orgInfoService.framelist(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
