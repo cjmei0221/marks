@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl: top.window.urlBase + '/inner/barCode/list.do',//获取条码管理列表接口  BarCode
-	saveUrl: top.window.urlBase + '/inner/barCode/save.do',//保存新增条码管理接口
-	updateUrl: top.window.urlBase + '/inner/barCode/update.do',//编辑条码管理信息接口
-	deleteUrl: top.window.urlBase + '/inner/barCode/delete.do',//删除条码管理接口
+	listUrl: top.window.urlBase + '/inner/supplier/list.do',//获取供应商管理列表接口  Supplier
+	saveUrl: top.window.urlBase + '/inner/supplier/save.do',//保存新增供应商管理接口
+	updateUrl: top.window.urlBase + '/inner/supplier/update.do',//编辑供应商管理信息接口
+	deleteUrl: top.window.urlBase + '/inner/supplier/delete.do',//删除供应商管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam:{
@@ -42,7 +42,7 @@ var appInfo = {
 		
 			$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 				if (r) {
-					var parms = "barcode=" + appInfo.selectedId;
+					var parms = "orgid=" + appInfo.selectedId;
 					$.post(appInfo.deleteUrl, parms, function(data) {
 						if (data.retcode == '0') {
 							app.myreload("#tbList");
@@ -119,33 +119,28 @@ function loadList() {
 		collapsible : true,
 		fitColumns : true,
 		autoRowHeight:false,
-		idField : 'barcode',
+		idField : 'orgid',
 		height:580,
 		rownumbers : true,
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
-		columns : [ [                 {title:'条码',field:'barcode',width:100,align:"center",hidden:true },
-                {title:'公司ID',field:'companyId',width:100,align:"center"},
-                {title:'商品编码',field:'goodId',width:100,align:"center"},
-                {title:'商品条码',field:'goodNo',width:100,align:"center"},
-                {title:'国际条码',field:'barNo',width:100,align:"center"},
-                {title:'商品名称',field:'goodName',width:100,align:"center"},
-                {title:'创建时间',field:'createtime',width:100,align:"center"},
-                {title:'更新时间',field:'updatetime',width:100,align:"center"},
-                {title:'追踪码',field:'traceId',width:100,align:"center"},
-                {title:'激活状态',field:'activeStatus',width:100,align:"center"},
-                {title:'库存状态',field:'stockStatus',width:100,align:"center"},
-                {title:'机构ID',field:'orgid',width:100,align:"center"},
-                {title:'机构名称',field:'orgname',width:100,align:"center"},
-                {title:'生产日期',field:'productDate',width:100,align:"center"} ] ],
+		columns : [ [                 {title:'供应商编号',field:'orgid',width:100,align:"center",hidden:true },
+                {title:'供应商',field:'orgname',width:100,align:"center"},
+                {title:'区域编号',field:'areaId',width:100,align:"center"},
+                {title:'区域',field:'areaName',width:100,align:"center"},
+                {title:'公司编号',field:'companyId',width:100,align:"center"},
+                {title:'联系人',field:'linkman',width:100,align:"center"},
+                {title:'联系电话',field:'linkTel',width:100,align:"center"},
+                {title:'地址',field:'address',width:100,align:"center"},
+                {title:'启用标识',field:'status',width:100,align:"center"} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
 			loader(that, params, success, loadError);
 		},
 		onClickRow : function(rowIndex,rowData) {
-			appInfo.selectedId = rowData.barcode;
+			appInfo.selectedId = rowData.orgid;
 			appInfo.selectedData = rowData;
 		},
 		onDblClickRow : function(rowIndex, rowData) {

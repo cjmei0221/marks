@@ -22,6 +22,7 @@ function add() {
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
 	$("#orgid").removeAttr("readonly");
+	$("#useflag").combobox("setValue",1);
 }
 
 // 编辑
@@ -142,6 +143,16 @@ function loadList() {
 		}, {
 			title : '英文logo',
 			field : 'logoId',
+			width : 100,
+			align : "center"
+		}, {
+			title : '联系人',
+			field : 'linkman',
+			width : 100,
+			align : "center"
+		}, {
+			title : '联系电话',
+			field : 'linkTel',
 			width : 100,
 			align : "center"
 		}, {

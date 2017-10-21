@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>供应商管理</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>供应商管理</h1>
+	<p>供应商管理</p>
+	
+	<h2>供应商管理表  (TB_MALL_SUPPLIER)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ORGID</td><td>供应商编号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>ORGNAME</td><td>供应商</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>AREAID</td><td>区域编号</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>AREANAME</td><td>区域</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>COMPANYID</td><td>公司编号</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>LINKMAN</td><td>联系人</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>LINKTEL</td><td>联系电话</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>ADDRESS</td><td>地址</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>STATUS</td><td>启用标识</td><td>number</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (Supplier)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>orgid</td><td>供应商编号</td><td>String</td><td></td></tr><tr><td>2</td><td>orgname</td><td>供应商</td><td>String</td><td></td></tr><tr><td>3</td><td>areaId</td><td>区域编号</td><td>String</td><td></td></tr><tr><td>4</td><td>areaName</td><td>区域</td><td>String</td><td></td></tr><tr><td>5</td><td>companyId</td><td>公司编号</td><td>String</td><td></td></tr><tr><td>6</td><td>linkman</td><td>联系人</td><td>String</td><td></td></tr><tr><td>7</td><td>linkTel</td><td>联系电话</td><td>String</td><td></td></tr><tr><td>8</td><td>address</td><td>地址</td><td>String</td><td></td></tr><tr><td>9</td><td>status</td><td>启用标识</td><td>int</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (SupplierController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/supplier/findSupplierById</td><td>findSupplierById</td><td>查询供应商管理</td></tr><tr><td>2</td><td>/supplier/save</td><td>saveSupplier</td><td>保存供应商管理</td></tr><tr><td>3</td><td>/supplier/update</td><td>updateSupplier</td><td>更新供应商管理</td></tr><tr><td>4</td><td>/supplier/delete</td><td>deleteSupplierById</td><td>删除供应商管理</td></tr><tr><td>5</td><td>/supplier/findAllSupplier</td><td>findAllSupplier</td><td>查询全部供应商管理</td></tr><tr><td>6</td><td>/supplier/deleteIds</td><td>deleteSupplier</td><td>删除多个供应商管理</td></tr><tr><td>7</td><td>/supplier/list</td><td>list</td><td>列表查询供应商管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (SupplierService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询供应商管理</td></tr><tr><td>2</td><td>save</td><td>保存供应商管理</td></tr><tr><td>3</td><td>update</td><td>更新供应商管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除供应商管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部供应商管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个供应商管理</td></tr><tr><td>7</td><td>list</td><td>列表查询供应商管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(SupplierDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询供应商管理</td></tr><tr><td>2</td><td>save</td><td>保存供应商管理</td></tr><tr><td>3</td><td>update</td><td>更新供应商管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除供应商管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部供应商管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个供应商管理</td></tr><tr><td>7</td><td>list</td><td>列表查询供应商管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
