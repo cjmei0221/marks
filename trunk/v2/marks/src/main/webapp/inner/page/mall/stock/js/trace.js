@@ -140,7 +140,7 @@ function loadList() {
                 {title:'会员价',field:'vipPrice',width:100,align:"center"},
                 {title:'特价',field:'salePrice',width:100,align:"center"},
                 {title:'现价',field:'nowPrice',width:100,align:"center"},
-                {title:'进货价',field:'bidPrice',width:100,align:"center"},
+                {title:'进货价',field:'stockPrice',width:100,align:"center"},
                 {title:'订单号',field:'orderId',width:100,align:"center"},
                 {title:'订单商品号',field:'orderGoodId',width:100,align:"center"},
                 {title:'是否为赠品',field:'isGift',width:100,align:"center"},

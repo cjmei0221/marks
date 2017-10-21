@@ -1,12 +1,16 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/inner/goodInfo/list.do',// 获取商品管理列表接口 GoodInfo
+	listUrl : top.window.urlBase + '/inner/goodInfo/list.do',// 获取商品管理列表接口
+																// GoodInfo
 	saveUrl : top.window.urlBase + '/inner/goodInfo/save.do',// 保存新增商品管理接口
 	updateUrl : top.window.urlBase + '/inner/goodInfo/update.do',// 编辑商品管理信息接口
 	deleteUrl : top.window.urlBase + '/inner/goodInfo/delete.do',// 删除商品管理接口
-	goodImgListUrl : top.window.urlBase + '/inner/goodInfo/findGoodImgByGoodId.do',// 删除商品管理接口
-	onsaleUrl: top.window.urlBase + '/inner/goodSale/onsale.do',
-	typelistUrl:top.window.urlBase + '/inner/category/list.do',//获取品牌管理列表接口  Brand
-	brandlistUrl:top.window.urlBase + '/inner/brand/brandbox.do',//获取品牌管理列表接口  Brand
+	goodImgListUrl : top.window.urlBase
+			+ '/inner/goodInfo/findGoodImgByGoodId.do',// 删除商品管理接口
+	onsaleUrl : top.window.urlBase + '/inner/goodSale/onsale.do',
+	typelistUrl : top.window.urlBase + '/inner/category/list.do',// 获取品牌管理列表接口
+																	// Brand
+	brandlistUrl : top.window.urlBase + '/inner/brand/brandbox.do',// 获取品牌管理列表接口
+																	// Brand
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -17,7 +21,7 @@ var appInfo = {
 	formStatus : "new"
 };
 
-//新增
+// 新增
 function add() {
 	$("#remove").html("");
 	$("#editWin").window({
@@ -25,8 +29,8 @@ function add() {
 	}).window("open");
 	$('#ff').form('clear');
 	$("#weight_unit").val("Kg");
-	$("#goodType").combobox("setValue",0);
-	$("#stockManageType").combobox("setValue",0);
+	$("#goodType").combobox("setValue", 0);
+	$("#stockManageType").combobox("setValue", 0);
 	appInfo.formStatus = "new";
 	img.deleteImageDiv("addMainImg");
 	img.deleteImageDiv("addMainImageDiv");
@@ -43,7 +47,7 @@ function edit() {
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
 		img.deleteImageDiv("addMainImg");
-		img.editImage("addMainImg",appInfo.selectedData.imageUrl);
+		img.editImage("addMainImg", appInfo.selectedData.imageUrl);
 		loadImg(appInfo.selectedId);
 	}
 }
@@ -68,12 +72,12 @@ function del() {
 		});
 	}
 }
-//上下架
+// 上下架
 function onsaleBtn() {
 	if (isSelectedOne(appInfo.selectedId)) {
-		var cmsg="确定要上架吗？";
-		if(appInfo.selectedData.onsale_status==1){
-			cmsg="确定要下架吗？";
+		var cmsg = "确定要上架吗？";
+		if (appInfo.selectedData.onsale_status == 1) {
+			cmsg = "确定要下架吗？";
 		}
 		$.messager.confirm('确认', cmsg, function(r) {
 			if (r) {
@@ -93,7 +97,7 @@ function onsaleBtn() {
 	}
 }
 
-function importExcel(){
+function importExcel() {
 	$("#excelWin").window({
 		title : "导入Excel"
 	}).window("open");
@@ -101,7 +105,7 @@ function importExcel(){
 $(function() {
 	// 加载列表
 	loadList();
-//	excel.init();
+	// excel.init();
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
@@ -122,7 +126,7 @@ $(function() {
 	$("#imgBtnOk").on("click", function() {
 		$("#imageWin").window("close");
 	});
-	
+
 	$('#typeId').combotree(
 			{
 				url : appInfo.typelistUrl,
@@ -134,33 +138,35 @@ $(function() {
 							+ "?parentId=" + node.id + "&_timer="
 							+ new Date().getTime();
 				},
-				onClick:function(node){
+				onClick : function(node) {
 					$("#typeName").val(node.text);
 				}
 			});
-	$('#brandId').combobox(
-			{
-				url : appInfo.brandlistUrl+"?page_number=1&page_size=1000",
-				valueField : 'brandId',
-				textField : 'brandName'
-			});
+	$('#brandId').combobox({
+		url : appInfo.brandlistUrl + "?page_number=1&page_size=1000",
+		valueField : 'brandId',
+		textField : 'brandName',
+		onSelect : function(rec) {
+			$('#brandName').val(rec.brandName);
+		}
+	});
 });
 
-function formSubmitforExcel(){
+function formSubmitforExcel() {
 	excel.upload();
-	var fileName=$("#excelfileName").val();
-	if(fileName !=""){
-		
-	}else{
-		 $("#uploadInfo").html("还未上传文件");
+	var fileName = $("#excelfileName").val();
+	if (fileName != "") {
+
+	} else {
+		$("#uploadInfo").html("还未上传文件");
 	}
 }
-function loadImg(goodId,flag){
+function loadImg(goodId, flag) {
 	$.ajax({
 		url : appInfo.goodImgListUrl,
 		type : "post",
 		data : {
-			"goodId":goodId
+			"goodId" : goodId
 		},
 		dataType : "json",
 		success : function(data, status, xhr) {
@@ -169,15 +175,20 @@ function loadImg(goodId,flag){
 				img.deleteImageDiv("addDetailImageDiv");
 				img.deleteImageDiv("detailMainImg");
 				img.deleteImageDiv("detailDetailImg");
-				var list=data.goodImgList;
-				if(list.length>0){
-					for(var i=0;i<list.length;i++){
-						if(list[i].imgType==1){
-							img.editImage("addMainImageDiv", list[i].imgUrl,flag);
-							img.editImage("detailMainImg", list[i].imgUrl,flag);
-						}else if(list[i].imgType==2){
-							img.editImage("addDetailImageDiv", list[i].imgUrl,flag);
-							img.editImage("detailDetailImg", list[i].imgUrl,flag);
+				var list = data.goodImgList;
+				if (list.length > 0) {
+					for (var i = 0; i < list.length; i++) {
+						if (list[i].imgType == 1) {
+							img.editImage("addMainImageDiv", list[i].imgUrl,
+									flag);
+							img
+									.editImage("detailMainImg", list[i].imgUrl,
+											flag);
+						} else if (list[i].imgType == 2) {
+							img.editImage("addDetailImageDiv", list[i].imgUrl,
+									flag);
+							img.editImage("detailDetailImg", list[i].imgUrl,
+									flag);
 						}
 					}
 				}
@@ -191,7 +202,7 @@ function loadImg(goodId,flag){
 		}
 	});
 }
-function addImage(){
+function addImage() {
 	$("#imageWin").window({
 		title : "添加图片"
 	}).window("open");
@@ -204,24 +215,24 @@ function formSubmit() {
 		showMsg("表单校验不通过");
 		return;
 	}
-	var imageUrlPut=img.getImageVal("addMainImg");
-//	if(imageUrlPut ==''){
-//		showMsg("请添加列表图片");
-//		return;
-//	}
-	var addMainImagePut=img.getImageVal("addMainImageDiv");
-//	if(addMainImagePut ==''){
-//		showMsg("请主副图片");
-//		return;
-//	}
-	var addDetailImagePut=img.getImageVal("addDetailImageDiv");
-//	if(addDetailImagePut ==''){
-//		showMsg("请详情图片");
-//		return;
-//	}
+	var imageUrlPut = img.getImageVal("addMainImg");
+	// if(imageUrlPut ==''){
+	// showMsg("请添加列表图片");
+	// return;
+	// }
+	var addMainImagePut = img.getImageVal("addMainImageDiv");
+	// if(addMainImagePut ==''){
+	// showMsg("请主副图片");
+	// return;
+	// }
+	var addDetailImagePut = img.getImageVal("addDetailImageDiv");
+	// if(addDetailImagePut ==''){
+	// showMsg("请详情图片");
+	// return;
+	// }
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-	
+
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	parms += "&imageUrlPut=" + imageUrlPut;
@@ -247,11 +258,11 @@ function formSubmit() {
 		}
 	});
 }
-function showDetail(){
+function showDetail() {
 	$("#detailWin").window({
 		title : "详情"
 	}).window("open");
-	var info=appInfo.selectedData;
+	var info = appInfo.selectedData;
 	$("#sku_num_detail").html(info.sku_num);
 	$("#goodName_detail").html(info.goodName);
 	$("#goodPrice_detail").html(info.goodPrice);
@@ -263,181 +274,197 @@ function showDetail(){
 	$("#material_detail").html(info.material);
 	$("#description_detail").html(info.description);
 	$("#remark_detail").html(info.remark);
-	$("#weight_detail").html(info.weight+" "+info.weight_unit);
+	$("#weight_detail").html(info.weight + " " + info.weight_unit);
 	$("#detailListImg").html("");
-	img.editImage("detailListImg", info.imageUrl,1);
-	loadImg(info.goodId,1);
+	img.editImage("detailListImg", info.imageUrl, 1);
+	loadImg(info.goodId, 1);
 }
 function loadList() {
-	$('#tbList').datagrid({
-		url : appInfo.listUrl,
-		toolbar : "#tb",
-		rownumbers : true,
-		idField : 'goodId',
-		height : 580,
-		pagination : true,
-		pageNumber : appInfo.requestParam.page_number,
-		pageSize : appInfo.requestParam.page_size,
-		singleSelect : true,
-		columns : [ [ {
-			title : '上架状态',
-			field : 'onsale_status',
-			width : 80,
-			align : "center",
-			formatter : function(value, row, index) {
-				if(value==1){
-					return "<span style='color:green;'>上架</span>";
-				}else if(value==2){
-					return "<span style='color:red;'>未上架</span>";
-				}else if(value==3){
-					return "<span style='color:gray;'>下架</span>";
-				}
-				return '';
-			}
-		}, {
-			title : '商品主图',
-			field : 'imageUrl',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if(value==''){
-					return '';
-				}
-				return ' <img class="picUrl" src="'+value+'" style="width: 100px; height: 80px;" />';
-			}
-		}, {
-			title : '编码',
-			field : 'goodNo',
-			width : 100,
-			align : "center"
-		}, {
-			title : '条码',
-			field : 'barNo',
-			width : 100,
-			align : "center"
-		}, {
-			title : '商品名称',
-			field : 'goodName',
-			width : 100,
-			align : "center"
-		}, {
-			title : '类目',
-			field : 'typeName',
-			width : 100,
-			align : "center"
-		}, {
-			title : '品牌',
-			field : 'brandName',
-			width : 100,
-			align : "center"
-		}, {
-			title : '单位',
-			field : 'unit',
-			width : 100,
-			align : "center"
-		}, {
-			title : '规格',
-			field : 'unit',
-			width : 100,
-			align : "center"
-		}, {
-			title : '型号',
-			field : 'model',
-			width : 100,
-			align : "center"
-		}, {
-			title : '零售价',
-			field : 'price',
-			width : 100,
-			align : "center"
-		}, {
-			title : '会员价',
-			field : 'vipPrice',
-			width : 100,
-			align : "center"
-		}, {
-			title : '特价',
-			field : 'salePrice',
-			width : 100,
-			align : "center"
-		}, {
-			title : '最低价',
-			field : 'minPrice',
-			width : 100,
-			align : "center"
-		}, {
-			title : '商品类别',
-			field : 'goodType',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if(value==2){
-					return '赠品';
-				}else if(value==1){
-					return '商品&赠品';
-				}
-				return '商品';
-			}
-		}, {
-			title : '库存管理类别',
-			field : 'stockManageType',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if(value==1){
-					return '数量管理';
-				}
-				return '一瓶一码';
-			}
-		}, {
-			title : '重量',
-			field : 'model',
-			width : 100,
-			align : "center"
-		}, {
-			title : '材质',
-			field : 'material',
-			width : 100,
-			align : "center"
-		}, {
-			title : '产地',
-			field : 'madeIn',
-			width : 100,
-			align : "center"
-		}, {
-			title : '备注',
-			field : 'remark',
-			width : 100,
-			align : "center"
-		}, {
-			title : '特色描述',
-			field : 'description',
-			width : 100,
-			align : "center"
-		}, {
-			title : '更新时间',
-			field : 'updatetime',
-			width : 180,
-			align : "center"
-		} ] ],
-		loader : function(params, success, loadError) {
-			var that = $(this);
-			loader(that, params, success, loadError);
-		},
-		onClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.goodId;
-			appInfo.selectedData = rowData;
-		},
-		onDblClickRow:function(rowIndex, rowData){
-			appInfo.selectedId = rowData.goodId;
-			appInfo.selectedData = rowData;
-			edit();
-		},
-		onLoadSuccess : function(data) {
-			$("#tbList").datagrid('unselectAll');
-			appInfo.selectedData = {};
-		}
-	});
+	$('#tbList')
+			.datagrid(
+					{
+						url : appInfo.listUrl,
+						toolbar : "#tb",
+						rownumbers : true,
+						idField : 'goodId',
+						height : 580,
+						pagination : true,
+						pageNumber : appInfo.requestParam.page_number,
+						pageSize : appInfo.requestParam.page_size,
+						singleSelect : true,
+						columns : [ [
+								{
+									title : '上架状态',
+									field : 'onsale_status',
+									width : 80,
+									align : "center",
+									formatter : function(value, row, index) {
+										if (value == 1) {
+											return "<span style='color:green;'>上架</span>";
+										} else if (value == 2) {
+											return "<span style='color:red;'>未上架</span>";
+										} else if (value == 3) {
+											return "<span style='color:gray;'>下架</span>";
+										}
+										return '';
+									}
+								},
+								{
+									title : '商品主图',
+									field : 'imageUrl',
+									width : 100,
+									align : "center",
+									formatter : function(value, row, index) {
+										if (value == '') {
+											return '';
+										}
+										return ' <img class="picUrl" src="'
+												+ value
+												+ '" style="width: 100px; height: 80px;" />';
+									}
+								}, {
+									title : '编码',
+									field : 'goodNo',
+									width : 100,
+									align : "center"
+								}, {
+									title : '条码',
+									field : 'barNo',
+									width : 100,
+									align : "center"
+								}, {
+									title : '商品名称',
+									field : 'goodName',
+									width : 100,
+									align : "center"
+								}, {
+									title : '类目',
+									field : 'typeName',
+									width : 100,
+									align : "center"
+								}, {
+									title : '品牌',
+									field : 'brandName',
+									width : 100,
+									align : "center"
+								}, {
+									title : '单位',
+									field : 'unit',
+									width : 100,
+									align : "center"
+								}, {
+									title : '规格',
+									field : 'unit',
+									width : 100,
+									align : "center"
+								}, {
+									title : '型号',
+									field : 'model',
+									width : 100,
+									align : "center"
+								}, {
+									title : '零售价',
+									field : 'price',
+									width : 100,
+									align : "center"
+								}, {
+									title : '会员价',
+									field : 'vipPrice',
+									width : 100,
+									align : "center"
+								}, {
+									title : '特价',
+									field : 'salePrice',
+									width : 100,
+									align : "center"
+								}, {
+									title : '最低价',
+									field : 'minPrice',
+									width : 100,
+									align : "center"
+								}, {
+									title : '进货价',
+									field : 'stockPrice',
+									width : 100,
+									align : "center"
+								}, {
+									title : '供应商',
+									field : 'supplier',
+									width : 100,
+									align : "center"
+								}, {
+									title : '商品类别',
+									field : 'goodType',
+									width : 100,
+									align : "center",
+									formatter : function(value, row, index) {
+										if (value == 2) {
+											return '赠品';
+										} else if (value == 1) {
+											return '商品&赠品';
+										}
+										return '商品';
+									}
+								}, {
+									title : '库存管理类别',
+									field : 'stockManageType',
+									width : 100,
+									align : "center",
+									formatter : function(value, row, index) {
+										if (value == 1) {
+											return '数量管理';
+										}
+										return '一瓶一码';
+									}
+								}, {
+									title : '重量',
+									field : 'model',
+									width : 100,
+									align : "center"
+								}, {
+									title : '材质',
+									field : 'material',
+									width : 100,
+									align : "center"
+								}, {
+									title : '产地',
+									field : 'madeIn',
+									width : 100,
+									align : "center"
+								}, {
+									title : '备注',
+									field : 'remark',
+									width : 100,
+									align : "center"
+								}, {
+									title : '特色描述',
+									field : 'description',
+									width : 100,
+									align : "center"
+								}, {
+									title : '更新时间',
+									field : 'updatetime',
+									width : 180,
+									align : "center"
+								} ] ],
+						loader : function(params, success, loadError) {
+							var that = $(this);
+							loader(that, params, success, loadError);
+						},
+						onClickRow : function(rowIndex, rowData) {
+							appInfo.selectedId = rowData.goodId;
+							appInfo.selectedData = rowData;
+						},
+						onDblClickRow : function(rowIndex, rowData) {
+							appInfo.selectedId = rowData.goodId;
+							appInfo.selectedData = rowData;
+							edit();
+						},
+						onLoadSuccess : function(data) {
+							$("#tbList").datagrid('unselectAll');
+							appInfo.selectedData = {};
+						}
+					});
 	// 请求加载数据
 	function loader(that, params, success, loadError) {
 		var opts = that.datagrid("options");

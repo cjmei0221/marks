@@ -89,24 +89,38 @@
 
 				</tr>
 				<tr>
-					<th style="width: 120px; text-align: right;">零售价(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<th style="width: 120px; text-align: right;">零售价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="price" name="price" class="easyui-numberbox"
-						data-options="required:true" style="width: 200px;"></td>
-					<th style="width: 120px; text-align: right;">会员价(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						data-options="required:true,min:0,precision:2"
+						style="width: 200px;"></td>
+					<th style="width: 120px; text-align: right;">会员价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="vipPrice" name="vipPrice"
-						class="easyui-numberbox" data-options="required:true"
+						class="easyui-numberbox"
+						data-options="required:true,min:0,precision:2"
 						style="width: 200px;"></td>
 				</tr>
 				<tr>
-					<th style="width: 120px; text-align: right;">特价(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<th style="width: 120px; text-align: right;">特价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="salePrice" name="salePrice"
-						class="easyui-numberbox" data-options="required:true"
+						class="easyui-numberbox"
+						data-options="required:true,min:0,precision:2"
 						style="width: 200px;"></td>
-					<th style="width: 120px; text-align: right;">最低价(分)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<th style="width: 120px; text-align: right;">最低价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="minPrice" name="minPrice"
-						class="easyui-numberbox" data-options="required:true"
+						class="easyui-numberbox"
+						data-options="required:true,min:0,precision:2"
 						style="width: 200px;"></td>
-
+				</tr>
+				<tr>
+					<th style="width: 120px; text-align: right;">进货价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="stockPrice" name="stockPrice"
+						class="easyui-numberbox"
+						data-options="min:0,precision:2"
+						style="width: 200px;"></td>
+					<th style="width: 120px; text-align: right;">供应商&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="supplierId" name="supplierId"
+						class="easyui-combobox" style="width: 200px;"><input
+						id="supplier" name="supplier" type="hidden"></td>
 				</tr>
 				<tr>
 					<th style="width: 120px; text-align: right;">商品类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
@@ -124,6 +138,7 @@
 							<option value="1">数量管理</option>
 					</select></td>
 				</tr>
+				
 				<tr>
 					<th style="width: 120px; text-align: right;">单位&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="unit" name="unit" class="easyui-validatebox"

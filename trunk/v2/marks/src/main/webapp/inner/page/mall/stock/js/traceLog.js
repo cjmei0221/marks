@@ -142,7 +142,8 @@ function loadList() {
                 {title:'操作者',field:'operator',width:100,align:"center"},
                 {title:'公司ID',field:'companyId',width:100,align:"center"},
                 {title:'机构ID',field:'orgid',width:100,align:"center"},
-                {title:'机构名称',field:'orgname',width:100,align:"center"} ] ],
+                {title:'机构名称',field:'orgname',width:100,align:"center"},
+                {title:'备注',field:'remarks',width:100,align:"center"} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
 			loader(that, params, success, loadError);
