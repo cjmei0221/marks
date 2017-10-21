@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
-import com.marks.common.enums.Enums;
+import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
@@ -50,14 +50,14 @@ public class WebLoginController {
 				return;
 			}
 			//校验是否被禁用
-			if (Enums.SysUserUse.NOUSE.getValue() == loginUser.getActiveFlag()) {
+			if (UserEnums.ActiveFlag.unuse.getValue() == loginUser.getActiveFlag()) {
 				result.setCode("4002");
 				result.setMessage("用户被禁用");
 				JsonUtil.output(response, result);
 				return;
 			}
 			//校验是否未绑定
-			if (Enums.SysUserBindFlag.NOUSE.getValue()==loginUser.getBindFlag()) {
+			if (UserEnums.BindFlag.unbind.getValue() == loginUser.getBindFlag()) {
 				result.setCode("4003");
 				result.setMessage("未绑定");
 				JsonUtil.output(response, result);
@@ -127,13 +127,13 @@ public class WebLoginController {
 			
 			
 			if(sysUser !=null){
-				if(Enums.SysUserUse.NOUSE.getValue()==sysUser.getActiveFlag()){
+				if (UserEnums.ActiveFlag.unuse.getValue() == sysUser.getActiveFlag()) {
 					result.setCode("4002");
 					result.setMessage("此手机号已被禁用");
 					JsonUtil.output(response, result);
 					return;
 				}
-				if(Enums.SysUserBindFlag.USE.getValue()==sysUser.getBindFlag()){
+				if (UserEnums.BindFlag.unbind.getValue() == sysUser.getBindFlag()) {
 					result.setCode("4003");
 					result.setMessage("此手机号已被绑定");
 					JsonUtil.output(response, result);
@@ -141,14 +141,14 @@ public class WebLoginController {
 				}
 			}
 			SysUser user=new SysUser();
-			user.setActiveFlag(Enums.SysUserUse.USE.getValue());
+			user.setActiveFlag(UserEnums.ActiveFlag.use.getValue());
 			user.setBind_mobile(mobile);
-			user.setBindFlag(Enums.SysUserBindFlag.USE.getValue());
+			user.setBindFlag(UserEnums.BindFlag.bind.getValue());
 			user.setCompanyId(companyId);
 			user.setCreator(mobile);
 			user.setPassword(EncryptUtil.encryptPwd(password));
 			user.setUsername(mobile);
-			user.setRoleid(companyId + "_" + Enums.UserType.VIP.getValue());
+			user.setRoleid(companyId + "_" + UserEnums.UserType.VIP.getValue());
 			user.setOpenid(WxUtil.getInstance().getCurrentOpenid(request));
 			user.setAccountid(WxUtil.getInstance().getCurrentAccountid(request));
 			if(sysUser==null){

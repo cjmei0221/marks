@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.enums.Enums;
+import com.marks.common.enums.GoodEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
@@ -256,11 +256,11 @@ public class GoodInfoController extends SupportContorller {
 			String goodId=request.getParameter("goodId");
 			GoodInfo goodInfo =goodInfoService.findById(goodId);
 			if(null != goodInfo){
-				if(Enums.GoodOnsale.onsale.getValue()==goodInfo.getOnsale_status()){
-					goodInfoService.updateStatus(goodId, Enums.GoodOnsale.shelves.getValue());
+				if (GoodEnums.GoodOnsale.onsale.getValue() == goodInfo.getOnsale_status()) {
+					goodInfoService.updateStatus(goodId, GoodEnums.GoodOnsale.shelves.getValue());
 					result.setMessage("下架成功!");
 				}else{
-					goodInfoService.updateStatus(goodId, Enums.GoodOnsale.onsale.getValue());
+					goodInfoService.updateStatus(goodId, GoodEnums.GoodOnsale.onsale.getValue());
 					result.setMessage("上架成功!");
 				}
 				result.setCode(Code.CODE_SUCCESS);

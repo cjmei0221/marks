@@ -92,6 +92,11 @@ public class TraceLog implements Serializable{
     *
     */
     private String orgname;
+    /**
+    *备注
+    *
+    */
+    private String remarks;
 
 
 
@@ -214,8 +219,15 @@ public class TraceLog implements Serializable{
         this.orgname = orgname;
     }
 
+    public String getRemarks(){
+        return remarks;
+    }
+    public void setRemarks(String remarks){
+        this.remarks = remarks;
+    }
+
 
 	public String toLog(){
-		return " - id:" +String.valueOf(id)+" - traceId:" +String.valueOf(traceId)+" - barCode:" +String.valueOf(barCode)+" - goodId:" +String.valueOf(goodId)+" - goodNo:" +String.valueOf(goodNo)+" - barNo:" +String.valueOf(barNo)+" - goodName:" +String.valueOf(goodName)+" - createtime:" +String.valueOf(createtime)+" - typeId:" +String.valueOf(typeId)+" - typeName:" +String.valueOf(typeName)+" - brandId:" +String.valueOf(brandId)+" - brandName:" +String.valueOf(brandName)+" - stockStatus:" +String.valueOf(stockStatus)+" - operator:" +String.valueOf(operator)+" - companyId:" +String.valueOf(companyId)+" - orgid:" +String.valueOf(orgid)+" - orgname:" +String.valueOf(orgname);
+		return " - id:" +String.valueOf(id)+" - traceId:" +String.valueOf(traceId)+" - barCode:" +String.valueOf(barCode)+" - goodId:" +String.valueOf(goodId)+" - goodNo:" +String.valueOf(goodNo)+" - barNo:" +String.valueOf(barNo)+" - goodName:" +String.valueOf(goodName)+" - createtime:" +String.valueOf(createtime)+" - typeId:" +String.valueOf(typeId)+" - typeName:" +String.valueOf(typeName)+" - brandId:" +String.valueOf(brandId)+" - brandName:" +String.valueOf(brandName)+" - stockStatus:" +String.valueOf(stockStatus)+" - operator:" +String.valueOf(operator)+" - companyId:" +String.valueOf(companyId)+" - orgid:" +String.valueOf(orgid)+" - orgname:" +String.valueOf(orgname)+" - remarks:" +String.valueOf(remarks);
 	}
 }

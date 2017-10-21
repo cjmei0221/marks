@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.common.enums.Enums;
+import com.marks.common.enums.GoodEnums;
 import com.marks.common.util.IDUtil;
 import com.marks.module.mall.good.dao.GoodInfoDao;
 import com.marks.module.mall.good.pojo.GoodImg;
@@ -33,8 +33,8 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 	public void save(GoodInfo goodInfo, String addMainImagePut, String addDetailImagePut) {
 		goodInfoDao.save(goodInfo);
 		goodInfoDao.deleteGoodImg(goodInfo.getGoodId());
-		saveGoodImg(goodInfo.getGoodId(), addMainImagePut, Enums.GoodImgType.Main.getValue());
-		saveGoodImg(goodInfo.getGoodId(), addDetailImagePut, Enums.GoodImgType.Detail.getValue());
+		saveGoodImg(goodInfo.getGoodId(), addMainImagePut, GoodEnums.GoodImgType.Main.getValue());
+		saveGoodImg(goodInfo.getGoodId(), addDetailImagePut, GoodEnums.GoodImgType.Detail.getValue());
 	}
 
 	public void saveGoodImg(String goodId, String imgStr, int type) {
@@ -62,8 +62,8 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 	public void update(GoodInfo goodInfo, String addMainImagePut, String addDetailImagePut) {
 		goodInfoDao.update(goodInfo);
 		goodInfoDao.deleteGoodImg(goodInfo.getGoodId());
-		saveGoodImg(goodInfo.getGoodId(), addMainImagePut, Enums.GoodImgType.Main.getValue());
-		saveGoodImg(goodInfo.getGoodId(), addDetailImagePut, Enums.GoodImgType.Detail.getValue());
+		saveGoodImg(goodInfo.getGoodId(), addMainImagePut, GoodEnums.GoodImgType.Main.getValue());
+		saveGoodImg(goodInfo.getGoodId(), addDetailImagePut, GoodEnums.GoodImgType.Detail.getValue());
 	}
 
 	@Override

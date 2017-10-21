@@ -50,6 +50,8 @@ public class OrgInfo implements Serializable{
     private List<OrgInfo> children=new ArrayList<OrgInfo>();
     private int childnum;
     private String logoId;//logo的名称
+	private String linkman;// 联系人
+	private String linkTel;// 联系电话
     
    
     
@@ -75,6 +77,22 @@ public class OrgInfo implements Serializable{
 	private String address;
 
     
+	public String getLinkman() {
+		return linkman;
+	}
+
+	public void setLinkman(String linkman) {
+		this.linkman = linkman;
+	}
+
+	public String getLinkTel() {
+		return linkTel;
+	}
+
+	public void setLinkTel(String linkTel) {
+		this.linkTel = linkTel;
+	}
+
 	public String getAreaId() {
 		return areaId;
 	}

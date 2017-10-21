@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.enums.Enums;
+import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
@@ -214,7 +214,6 @@ public class SysUserController extends SupportContorller{
 			param.put("companyId", admin.getCompanyId());
 			param.put("sorgid", ssorgid);
 			param.put("s_role", s_role);
-			param.put("userType", Enums.UserType.SYS.getValue());
 			PojoDomain<SysUser> list = sysUserService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -333,9 +332,9 @@ public class SysUserController extends SupportContorller{
 			String userid=request.getParameter("userid");
 			SysUser su=sysUserService.findById(userid);
 			if(su !=null){
-				int flag=Enums.SysUserUse.USE.getValue();
-				if(Enums.SysUserUse.USE.getValue()==su.getActiveFlag()){
-					flag=Enums.SysUserUse.NOUSE.getValue();
+				int flag = UserEnums.ActiveFlag.use.getValue();
+				if (UserEnums.ActiveFlag.use.getValue() == su.getActiveFlag()) {
+					flag = UserEnums.ActiveFlag.unuse.getValue();
 				}
 				sysUserService.updateActiveFlag(userid,flag);
 				result.setMessage("resetPwd sysUser successs!");

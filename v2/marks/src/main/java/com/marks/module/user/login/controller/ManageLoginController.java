@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
-import com.marks.common.enums.Enums;
+import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
@@ -62,7 +62,7 @@ public class ManageLoginController {
 			JsonUtil.output(response, result);
 			return;
 		}
-		if (Enums.SysUserUse.NOUSE.getValue() == user.getActiveFlag()) {
+		if (UserEnums.ActiveFlag.unuse.getValue() == user.getActiveFlag()) {
 			result.setCode("4002");
 			result.setMessage("用户被禁用");
 			JsonUtil.output(response, result);
