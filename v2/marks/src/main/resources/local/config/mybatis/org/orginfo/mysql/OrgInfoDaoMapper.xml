@@ -39,7 +39,9 @@
 		lvl6Name,
 		areaId,
 		areaName,
-		address
+		address,
+		linkman,
+		linkTel
 		)
 		VALUES(
 		#{orgid:VARCHAR},
@@ -65,13 +67,17 @@
 		#{lvl6Name:VARCHAR},
 		#{areaId:VARCHAR},
 		#{areaName:VARCHAR},
-		#{address:VARCHAR}
+		#{address:VARCHAR},
+		#{linkman:VARCHAR},
+		#{linkTel:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.org.orginfo.pojo.OrgInfo">
 		UPDATE TB_ORG_INFO
 		SET
+		linkman=#{linkman:VARCHAR},
+		linkTel=#{linkTel:VARCHAR},
 		ORGNAME =
 		#{orgname:VARCHAR},
 		UPDATETIME = now(),

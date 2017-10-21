@@ -22,10 +22,9 @@
             TRACEID,
             ACTIVESTATUS,
             STOCKSTATUS,
-            TYPEID,
-            TYPENAME,
-            BRANDID,
-            BRANDNAME
+            ORGID,
+            ORGNAME,
+            PRODUCTDATE
 		)
 		VALUES(
 		#{info.barcode:VARCHAR},
@@ -39,10 +38,9 @@
             #{info.traceId:VARCHAR},
             #{info.activeStatus:NUMERIC},
             #{info.stockStatus:NUMERIC},
-            #{info.typeId:VARCHAR},
-            #{info.typeName:VARCHAR},
-            #{info.brandId:VARCHAR},
-            #{info.brandName:VARCHAR}			
+            #{info.orgid:VARCHAR},
+            #{info.orgname:VARCHAR},
+            #{info.productDate:VARCHAR}			
 			)
  	</insert>
  	
@@ -59,10 +57,9 @@
             TRACEID,
             ACTIVESTATUS,
             STOCKSTATUS,
-            TYPEID,
-            TYPENAME,
-            BRANDID,
-            BRANDNAME
+            ORGID,
+            ORGNAME,
+            PRODUCTDATE
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -79,10 +76,9 @@
             #{info.traceId:VARCHAR},
             #{info.activeStatus:NUMERIC},
             #{info.stockStatus:NUMERIC},
-            #{info.typeId:VARCHAR},
-            #{info.typeName:VARCHAR},
-            #{info.brandId:VARCHAR},
-            #{info.brandName:VARCHAR}			
+            #{info.orgid:VARCHAR},
+            #{info.orgname:VARCHAR},
+            #{info.productDate:VARCHAR}			
 			)
 		</foreach>
 	</insert>
@@ -100,10 +96,9 @@ COMPANYID = #{info.companyId:VARCHAR},
             TRACEID = #{info.traceId:VARCHAR},
             ACTIVESTATUS = #{info.activeStatus:NUMERIC},
             STOCKSTATUS = #{info.stockStatus:NUMERIC},
-            TYPEID = #{info.typeId:VARCHAR},
-            TYPENAME = #{info.typeName:VARCHAR},
-            BRANDID = #{info.brandId:VARCHAR},
-            BRANDNAME = #{info.brandName:VARCHAR}
+            ORGID = #{info.orgid:VARCHAR},
+            ORGNAME = #{info.orgname:VARCHAR},
+            PRODUCTDATE = #{info.productDate:VARCHAR}
 		WHERE
 			BARCODE = #{info.barcode}
  	</update>
@@ -134,10 +129,7 @@ COMPANYID = #{info.companyId:VARCHAR},
                             or t.BARNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
                             or t.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
                             or t.TRACEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TYPEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BRANDID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BRANDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
  )                        </if>
 
 					
