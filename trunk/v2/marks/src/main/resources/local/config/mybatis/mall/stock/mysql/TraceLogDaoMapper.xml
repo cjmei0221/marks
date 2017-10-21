@@ -27,7 +27,8 @@
             OPERATOR,
             COMPANYID,
             ORGID,
-            ORGNAME
+            ORGNAME,
+            REMARKS
 		)
 		VALUES(
 		#{info.id:VARCHAR},
@@ -46,7 +47,8 @@
             #{info.operator:VARCHAR},
             #{info.companyId:VARCHAR},
             #{info.orgid:VARCHAR},
-            #{info.orgname:VARCHAR}			
+            #{info.orgname:VARCHAR},
+            #{info.remarks:VARCHAR}			
 			)
  	</insert>
  	
@@ -68,7 +70,8 @@
             OPERATOR,
             COMPANYID,
             ORGID,
-            ORGNAME
+            ORGNAME,
+            REMARKS
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -90,7 +93,8 @@
             #{info.operator:VARCHAR},
             #{info.companyId:VARCHAR},
             #{info.orgid:VARCHAR},
-            #{info.orgname:VARCHAR}			
+            #{info.orgname:VARCHAR},
+            #{info.remarks:VARCHAR}			
 			)
 		</foreach>
 	</insert>
@@ -112,7 +116,8 @@ TRACEID = #{info.traceId:VARCHAR},
                 OPERATOR = #{info.operator:VARCHAR},
                 COMPANYID = #{info.companyId:VARCHAR},
                 ORGID = #{info.orgid:VARCHAR},
-                ORGNAME = #{info.orgname:VARCHAR}
+                ORGNAME = #{info.orgname:VARCHAR},
+                REMARKS = #{info.remarks:VARCHAR}
 		WHERE
 			ID = #{info.id}
  	</update>

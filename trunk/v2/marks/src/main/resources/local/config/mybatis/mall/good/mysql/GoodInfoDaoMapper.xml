@@ -46,7 +46,10 @@
 		typeId,
 		typeName,
 		goodType,
-		stockManageType
+		stockManageType,
+		stockPrice,
+		supplierId,
+		supplier
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -77,13 +80,19 @@
 		#{typeId:VARCHAR},
 		#{typeName:VARCHAR},
 		#{goodType:NUMERIC},
-		#{stockManageType:NUMERIC}
+		#{stockManageType:NUMERIC},
+		#{stockPrice:VARCHAR},
+		#{supplierId:VARCHAR},
+		#{supplier:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		UPDATE TB_MALL_GOOD_INFO
 		SET
+		supplierId=#{supplierId:VARCHAR},
+		supplier=#{supplier:VARCHAR},
+		stockPrice=#{stockPrice:VARCHAR},
 		goodType=#{goodType:NUMERIC},
 		stockManageType=#{stockManageType:NUMERIC},
 		GOODNAME = #{goodName:VARCHAR},
