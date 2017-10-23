@@ -190,8 +190,11 @@
 		tb_org_info p
 		group by p.parentid) p on t.orgid = p.pid
 		where 1=1 and
-		t.COMPANYID=#{companyId}
-		AND t.parentid =#{parentId}
+		t.COMPANYID=#{companyId} 
+		<if test="orgType !=null and orgType !=''">
+			and t.orgType=#{orgType}
+		</if>
+		AND t.parentid =#{parentId} 
 	</select>
 
 	<select id="getChildList" resultType="com.marks.module.org.orginfo.pojo.OrgInfo">

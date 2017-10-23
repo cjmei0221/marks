@@ -4,9 +4,8 @@ package com.marks.module.org.supplier.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.annotation.MapperScan;
-
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.org.supplier.pojo.Supplier;
@@ -24,7 +23,7 @@ public interface SupplierDao {
 
 	void delete(@Param("orgid") String orgid);
 
-	List<Supplier> findAll();
+	List<Supplier> findAll(@Param("companyId") String companyId);
 
 	void deleteBatch(@Param("list") List<String> list);
 

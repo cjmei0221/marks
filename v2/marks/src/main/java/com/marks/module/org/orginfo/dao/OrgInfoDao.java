@@ -27,7 +27,8 @@ public interface OrgInfoDao {
 
 	List<OrgInfo> list(PageBounds pageBounds, Map<String,Object> param);
 
-	List<OrgInfo> getTreeGridByParentId(@Param("parentId") String parentId, @Param("companyId") String companyId);
+	List<OrgInfo> getTreeGridByParentId(@Param("parentId") String parentId, @Param("companyId") String companyId,
+			@Param("orgType") String orgType);
 
 	List<OrgInfo> getChildList(@Param("orgid")String orgid);
 

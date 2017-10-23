@@ -3,17 +3,15 @@ package com.marks.module.org.supplier.serviceImpl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marks.module.org.supplier.pojo.Supplier;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.org.supplier.dao.SupplierDao;
+import com.marks.module.org.supplier.pojo.Supplier;
 import com.marks.module.org.supplier.service.SupplierService;
 
 @Service
@@ -70,8 +68,8 @@ public class SupplierServiceImpl implements SupplierService{
     *查找所有供应商管理
     */
     @Override
-    public List<Supplier> findAll(){
-        return supplierDao.findAll();   
+	public List<Supplier> findAll(String companyId) {
+		return supplierDao.findAll(companyId);
     }
     
     /**

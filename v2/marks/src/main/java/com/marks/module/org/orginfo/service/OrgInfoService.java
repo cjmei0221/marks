@@ -20,7 +20,7 @@ public interface OrgInfoService{
 	public PojoDomain<OrgInfo> framelist(int page_number, int page_size, Map<String, Object> param);
 	public List<OrgInfo> getChildList(String orgid);
 
-	public List<OrgInfo> listGrid(String parentid, String companyId);
+	public List<OrgInfo> listGrid(String parentid, String companyId, String orgType);
 	public List<OrgInfo> frameCombo(Map<String, Object> param);
 	/**
 	 * 获取机构ID
