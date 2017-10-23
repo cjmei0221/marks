@@ -378,6 +378,11 @@ function loadOrgList(id) {
 					field : 'orgid',
 					width : 100,
 					align : "center"
+				}, {
+					title : '组织类型',
+					field : 'orgTypeName',
+					width : 100,
+					align : "center"
 				} ] ],
 				onBeforeExpand : function(row) {
 					$("#orgList").treegrid("options").url = orgListUrl

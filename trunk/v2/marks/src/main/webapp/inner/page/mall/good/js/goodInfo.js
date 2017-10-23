@@ -11,6 +11,7 @@ var appInfo = {
 																	// Brand
 	brandlistUrl : top.window.urlBase + '/inner/brand/brandbox.do',// 获取品牌管理列表接口
 																	// Brand
+	supplierlistUrl : top.window.urlBase + '/inner/supplier/combobox.do',// 获取品牌管理列表接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -148,6 +149,14 @@ $(function() {
 		textField : 'brandName',
 		onSelect : function(rec) {
 			$('#brandName').val(rec.brandName);
+		}
+	});
+	$('#supplierId').combobox({
+		url : appInfo.supplierlistUrl + "?page_number=1&page_size=1000",
+		valueField : 'orgid',
+		textField : 'orgname',
+		onSelect : function(rec) {
+			$('#supplier').val(rec.orgname);
 		}
 	});
 });

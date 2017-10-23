@@ -290,6 +290,7 @@ public class OrgInfoController extends SupportContorller {
 
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		String parentId = request.getParameter("parentId");
+		String orgType = request.getParameter("orgType");
 		logger.info("list parentId:" + parentId);
 		String companyId = admin.getCompanyId();
 		List<OrgInfo> list = null;
@@ -304,7 +305,7 @@ public class OrgInfoController extends SupportContorller {
 			list.add(info);
 		} else {
 			logger.info("list parentId:" + parentId + " - " + admin.getCompanyId());
-			list = orgInfoService.listGrid(parentId, companyId);
+			list = orgInfoService.listGrid(parentId, companyId, orgType);
 		}
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 		return;

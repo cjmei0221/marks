@@ -151,13 +151,13 @@ function formSubmit() {
 function loadList() {
 	$('#tbList').treegrid(
 			{
-				url : appInfo.listUrl,
+				url : appInfo.listUrl+"?orgType=0",
 				toolbar : "#tb",
 				rownumbers : true,
 				idField : 'orgid',
 				treeField : 'orgname',
 				singleSelect : true,
-				queryParams : appInfo.requestParam,
+//				queryParams : appInfo.requestParam,
 				columns : [ [ {
 
 					title : '组织名称',
@@ -214,7 +214,7 @@ function loadList() {
 				} ] ],
 				onBeforeExpand : function(row) {
 					$("#tbList").treegrid("options").url = appInfo.listUrl
-							+ "?parentId=" + row.orgid + "&_timer="
+							+ "?parentId=" + row.orgid + "&orgType=0"+"&_timer="
 							+ new Date().getTime();
 				},
 				onClickRow : function(rowData) {

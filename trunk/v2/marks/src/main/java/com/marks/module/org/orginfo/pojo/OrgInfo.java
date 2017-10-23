@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.marks.common.enums.OrgEnums;
+
 public class OrgInfo implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -225,6 +227,9 @@ public class OrgInfo implements Serializable{
 		return orgType;
 	}
 
+	public String getOrgTypeName() {
+		return OrgEnums.OrgType.getByKey(orgType);
+	}
 	public void setOrgType(int orgType) {
 		this.orgType = orgType;
 	}
