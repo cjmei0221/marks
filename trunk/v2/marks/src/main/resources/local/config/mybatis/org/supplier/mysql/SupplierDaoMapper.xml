@@ -98,7 +98,7 @@
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.org.supplier.pojo.Supplier">
-		SELECT * FROM TB_ORG_SUPPLIER t where t.companyId=#{companyId}
+		SELECT * FROM TB_ORG_SUPPLIER t where t.companyId=#{companyId} and t.status=1
 	</select>
 
 	<delete id="deleteBatch" parameterType="java.util.List">

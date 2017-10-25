@@ -55,7 +55,16 @@ public class Brand implements Serializable{
 
     private String companyId;
     
+	private int status;
     
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public String getCompanyId() {
 		return companyId;
 	}
