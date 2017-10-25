@@ -114,8 +114,7 @@
 				<tr>
 					<th style="width: 120px; text-align: right;">进货价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="stockPrice" name="stockPrice"
-						class="easyui-numberbox"
-						data-options="min:0,precision:2"
+						class="easyui-numberbox" data-options="min:0,precision:2"
 						style="width: 200px;"></td>
 					<th style="width: 120px; text-align: right;">供应商&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="supplierId" name="supplierId"
@@ -138,7 +137,7 @@
 							<option value="1">数量管理</option>
 					</select></td>
 				</tr>
-				
+
 				<tr>
 					<th style="width: 120px; text-align: right;">单位&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="unit" name="unit" class="easyui-validatebox"
@@ -238,7 +237,43 @@
 			</tr>
 		</table>
 	</div>
+	<div id="barCodeWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 600px; height: 450px; padding: 10px;">
+		<div id="formBarDiv" align="center" style="width: 100%;">
+			<form id="barCodeff" name="barCodeff" method="post">
+				<input type="hidden" id="goodId" name="goodId">
+				<table>
+					
+					<tr>
+						<th style="width: 120px; text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="goodName" name="goodName"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px;" maxlength="150"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="nums" name="nums"
+							class="easyui-numberbox" data-options="required:true"
+							style="width: 200px;" maxlength="150"></td>
+					</tr>
 
+					<tr height="25px">
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center"> <a id="btnOKBarCode" name="btnOKBarCode"
+							href="javascript:void(0)" class="easyui-linkbutton"
+							style="width: 100px;" data-options="iconCls:'icon-save'">生成</a></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 	<div id="detailWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,

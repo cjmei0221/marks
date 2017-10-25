@@ -8,7 +8,7 @@
 			and (t.opername like '%${keyword}%'
 			or t.operid like '%${keyword}%')
 		</if>
-		order by t.sort
+		order by t.UPDATETIME desc
 	</select>
 	<insert id="save" parameterType="com.marks.module.system.sysmenu.pojo.SysOperate">
 		insert into tb_sys_operate
