@@ -21,6 +21,8 @@ public interface @{beanName}Dao {
 	void saveBatch(@Param("list") List<@{beanName}> list);
 
 	void update(@Param("info") @{beanName} @{BeanObject});
+	
+	void updateBatch(@Param("list") List<@{beanName}> list);
 
 	void delete(@Param("@{GetPkAttrName}") String @{GetPkAttrName});
 

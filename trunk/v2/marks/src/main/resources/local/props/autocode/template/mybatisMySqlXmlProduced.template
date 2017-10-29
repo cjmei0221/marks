@@ -38,6 +38,18 @@
 		WHERE
 			@{PKAttrName} = #{info.@{PKAttrValue}}
  	</update>
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE @{TableName} 
+		SET 
+			@{UpdateMothod}
+		WHERE
+			@{PKAttrName} = #{info.@{PKAttrValue}}
+		</foreach>
+
+	</update>
  	
  	<delete id="delete" parameterType="String">
  		DELETE FROM @{TableName} WHERE @{PKAttrName}=#{@{PKAttrValue}}
