@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.enums.StockEnums;
 import com.marks.common.util.Code;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.mall.good.pojo.GoodInfo;
 import com.marks.module.mall.good.service.GoodInfoService;
 import com.marks.module.mall.stock.pojo.BarCode;
+import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.service.BarCodeService;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -73,22 +71,29 @@ public class BarCodeController extends SupportContorller {
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-			BarCode reqVo = getModel(BarCode.class);
-			reqVo.setBarcode(IDUtil.getUUID());
-			reqVo.setActiveStatus(1);
+			BarCodeForm reqVo = getModel(BarCodeForm.class);
 			reqVo.setCompanyId(admin.getCompanyId());
 			reqVo.setOrgid(admin.getDefaultOrgid());
 			reqVo.setOrgname(admin.getDefaultOrgname());
-			GoodInfo good = goodInfoService.findById(reqVo.getGoodId());
-			reqVo.setBarNo(good.getBarNo());
-			reqVo.setGoodNo(good.getGoodNo());
-			reqVo.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
+			reqVo.setOperator(admin.getUsername());
+			reqVo.setOperatorId(admin.getUserid());
+			// reqVo.setBarNo(good.getBarNo());
+			// reqVo.setGoodNo(good.getGoodNo());
+			// reqVo.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
+			// reqVo.setBrandId(good.getBrandId());
+			// reqVo.setBrandName(good.getBrandName());
+			// reqVo.setPrice(good.getPrice());
+			// reqVo.setSalePrice(good.getSalePrice());
+			// reqVo.setVipPrice(good.getVipPrice());
+			// reqVo.setStockInDate(DateUtil.formatDate(new Date(),
+			// "yyyy-MM-dd"));
+			// reqVo.setSupplierId(good.getSupplierId());
+			// reqVo.setSupplierName(good.getSupplier());
+			// reqVo.setTypeId(good.getTypeId());
+			// reqVo.setTypeName(good.getTypeName());
+			logger.info("saveBarCode > param>" + reqVo.getGoodId());
 
-			logger.info("saveBarCode > param>" + reqVo.toLog());
-
-			barCodeService.save(reqVo);
-			result.setMessage("保存成功");
-			result.setCode(Code.CODE_SUCCESS);
+			result = barCodeService.save(reqVo);
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

@@ -1,17 +1,20 @@
 package com.marks.module.mall.stock.service;
 
 
-import com.marks.module.mall.stock.pojo.BarCode;
-
 import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
+import com.marks.module.mall.stock.pojo.BarCode;
+import com.marks.module.mall.stock.pojo.BarCodeForm;
 
 public interface BarCodeService{
 
 	public BarCode findById(String barcode);
-	public void save(BarCode barCode);
+
+	public Result save(BarCodeForm reqVo) throws Exception;
+
 	public void update(BarCode barCode);
 	public void delete(String barcode);
 	public List<BarCode> findAll();
