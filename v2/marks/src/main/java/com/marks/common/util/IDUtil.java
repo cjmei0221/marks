@@ -21,8 +21,18 @@ public class IDUtil {
 	 * 使用时间为主键
 	 * @return
 	 */
-	public static String getTimeID(){
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmss_S");
+	public static String getTimeID(String partten){
+		SimpleDateFormat sdf=new SimpleDateFormat(partten);
+		return sdf.format(new Date());
+	}
+
+	public static String getTimeID() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssS");
+		return sdf.format(new Date());
+	}
+
+	public static String getSecondID() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		return sdf.format(new Date());
 	}
 	/**
@@ -57,6 +67,10 @@ public class IDUtil {
 		Random random = new Random();
 		int s = random.nextInt(max) % (max - min + 1) + min;
 		return String.valueOf(s);
+	}
+
+	public static String getNumID() {
+		return IDUtil.getSecondID() + IDUtil.getID(3) + IDUtil.getRandom(100, 999);
 	}
 
 	/*public static void main(String[] args) {
