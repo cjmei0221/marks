@@ -1,7 +1,6 @@
 package com.marks.module.mall.stock.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Trace implements Serializable{
 
@@ -142,6 +141,10 @@ public class Trace implements Serializable{
     *
     */
     private String productDate;
+	/**
+	 * 到期日期
+	 */
+	private String expireDate;
     /**
     *供应商ID
     *
@@ -178,9 +181,15 @@ public class Trace implements Serializable{
     */
     private String endDate;
 
+	public String getExpireDate() {
+		return expireDate;
+	}
 
+	public void setExpireDate(String expireDate) {
+		this.expireDate = expireDate;
+	}
 
-    public String getTraceId(){
+	public String getTraceId() {
         return traceId;
     }
     public void setTraceId(String traceId){

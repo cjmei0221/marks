@@ -15,10 +15,7 @@ public class GoodInfo implements Serializable {
 	 * 商品名称 品牌+商品名称+规格+单位
 	 */
 	private String goodName;
-	/**
-	 * 商品零售价
-	 */
-	private String price;
+
 	/**
 	 * 商品单位
 	 */
@@ -66,6 +63,10 @@ public class GoodInfo implements Serializable {
 	private String goodNo;// 自编吗
 
 	private String barNo;// 条码
+	/**
+	 * 商品零售价
+	 */
+	private String price;
 
 	private String salePrice;// 特价
 
@@ -86,6 +87,38 @@ public class GoodInfo implements Serializable {
 	private int stockManageType;// 商品库存管理方式 0:一瓶一码 1:数量管理
 	private String supplierId;
 	private String supplier;
+
+	private int validDays;// 保质期 天
+
+	private int isWarnDays = 0;// 是否提醒保质期到期
+
+	private int beforeWarnDays = 15;// 提前天数
+
+
+
+	public int getValidDays() {
+		return validDays;
+	}
+
+	public void setValidDays(int validDays) {
+		this.validDays = validDays;
+	}
+
+	public int getIsWarnDays() {
+		return isWarnDays;
+	}
+
+	public void setIsWarnDays(int isWarnDays) {
+		this.isWarnDays = isWarnDays;
+	}
+
+	public int getBeforeWarnDays() {
+		return beforeWarnDays;
+	}
+
+	public void setBeforeWarnDays(int beforeWarnDays) {
+		this.beforeWarnDays = beforeWarnDays;
+	}
 
 	public String getSupplierId() {
 		return supplierId;

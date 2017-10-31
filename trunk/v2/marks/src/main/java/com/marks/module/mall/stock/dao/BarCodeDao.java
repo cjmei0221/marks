@@ -4,9 +4,8 @@ package com.marks.module.mall.stock.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.annotation.MapperScan;
-
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.mall.stock.pojo.BarCode;
@@ -29,4 +28,15 @@ public interface BarCodeDao {
 	void deleteBatch(@Param("list") List<String> list);
 
 	List<BarCode> list(PageBounds pageBounds, Map<String,Object> param);
+
+	String getMaxCode();
+
+	List<String> getInvalidCode();
+
+	/**
+	 * 批量更新
+	 * 
+	 * @param codelist
+	 */
+	void updateBatch(List<BarCode> codelist);
 }
