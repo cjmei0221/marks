@@ -162,6 +162,25 @@ public class DateUtil {
 		Date lastDate=getLastDayOfMonth(sDate1);
 		return parseDate(lastDate,formate);
 	}
+
+	/**
+	 * 获取几天之后
+	 * 
+	 * @param sDate1
+	 *            yyyy-MM-dd
+	 * @param days
+	 *            天数
+	 * @return
+	 * @throws ParseException
+	 */
+	public static String getAfterDateByDays(String sDate1, int days) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date1 = sdf.parse(sDate1);
+		Calendar c = Calendar.getInstance();
+		c.setTime(date1);
+		c.add(Calendar.DAY_OF_MONTH, days);
+		return sdf.format(c.getTime());
+	}
 	
 }
 
