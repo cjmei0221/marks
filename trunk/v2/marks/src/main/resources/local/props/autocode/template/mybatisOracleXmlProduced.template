@@ -35,10 +35,22 @@
  	<update id="update" parameterType="@{NameSpaceUrl}.@{beanName}">
  		UPDATE @{TableName} 
 		SET 
-@{UpdateMothod}
+			@{UpdateMothod}
 		WHERE
 			@{PKAttrName} = #{info.@{PKAttrValue}}
  	</update>
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE @{TableName} 
+		SET 
+			@{UpdateMothod}
+		WHERE
+			@{PKAttrName} = #{info.@{PKAttrValue}}
+		</foreach>
+
+	</update>
  	
  	<delete id="delete" parameterType="String">
  		DELETE FROM @{TableName} t WHERE t.@{PKAttrName}=#{@{PKAttrValue}}
