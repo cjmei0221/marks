@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>@{GetCaption}</title>
-<link rel="stylesheet" type="text/css" href="../nfb.css">
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
 </head>
 <body>
 	<h1>@{GetCaption}</h1>
