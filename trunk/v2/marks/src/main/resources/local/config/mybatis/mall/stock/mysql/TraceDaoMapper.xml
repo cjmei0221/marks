@@ -3,252 +3,260 @@
 
 <mapper namespace="com.marks.module.mall.stock.dao.TraceDao">
 
-    <select id="findById" resultType="com.marks.module.mall.stock.pojo.Trace">
-		SELECT * FROM TB_MALL_TRACE t where t.TRACEID = #{traceId}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.mall.stock.pojo.Trace">
-		<!--<selectKey keyProperty="traceId" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+	<select id="findById" resultType="com.marks.module.mall.stock.pojo.Trace">
+		SELECT * FROM TB_MALL_TRACE t
+		where t.TRACEID = #{traceId}
+	</select>
 
- 		INSERT INTO TB_MALL_TRACE (
-            TRACEID,
-            BARCODE,
-            GOODID,
-            GOODNO,
-            BARNO,
-            GOODNAME,
-            CREATETIME,
-            UPDATETIME,
-            STOCKSTATUS,
-            CGNO,
-            PRICE,
-            VIPPRICE,
-            SALEPRICE,
-            NOWPRICE,
-            STOCKPRICE,
-            ORDERID,
-            ORDERGOODID,
-            ISGIFT,
-            ORITRACEID,
-            COMPANYID,
-            ORGID,
-            ORGNAME,
-            TYPEID,
-            TYPENAME,
-            BRANDID,
-            BRANDNAME,
-            PRODUCTDATE,
-            SUPPLIERID,
-            SUPPLIERNAME,
-            USERID,
-            USERNAME,
-            MOBILE,
-            STOCKINDATE,
-            ENDDATE
+	<insert id="save" parameterType="com.marks.module.mall.stock.pojo.Trace">
+		<!--<selectKey keyProperty="traceId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_TRACE (
+		TRACEID,
+		BARCODE,
+		GOODID,
+		GOODNO,
+		BARNO,
+		GOODNAME,
+		CREATETIME,
+		UPDATETIME,
+		STOCKSTATUS,
+		CGNO,
+		PRICE,
+		VIPPRICE,
+		SALEPRICE,
+		NOWPRICE,
+		STOCKPRICE,
+		ORDERID,
+		ORDERGOODID,
+		ISGIFT,
+		ORITRACEID,
+		COMPANYID,
+		ORGID,
+		ORGNAME,
+		TYPEID,
+		TYPENAME,
+		BRANDID,
+		BRANDNAME,
+		PRODUCTDATE,
+		SUPPLIERID,
+		SUPPLIERNAME,
+		USERID,
+		USERNAME,
+		MOBILE,
+		STOCKINDATE,
+		ENDDATE,
+		expireDate
 		)
 		VALUES(
 		#{info.traceId:VARCHAR},
-            #{info.barcode:VARCHAR},
-            #{info.goodId:VARCHAR},
-            #{info.goodNo:VARCHAR},
-            #{info.barNo:VARCHAR},
-            #{info.goodName:VARCHAR},
-            now(),
-            now(),
-            #{info.stockStatus:NUMERIC},
-            #{info.cgNo:VARCHAR},
-            #{info.price:VARCHAR},
-            #{info.vipPrice:VARCHAR},
-            #{info.salePrice:VARCHAR},
-            #{info.nowPrice:VARCHAR},
-            #{info.stockPrice:VARCHAR},
-            #{info.orderId:VARCHAR},
-            #{info.orderGoodId:VARCHAR},
-            #{info.isGift:NUMERIC},
-            #{info.oriTraceId:VARCHAR},
-            #{info.companyId:VARCHAR},
-            #{info.orgid:VARCHAR},
-            #{info.orgname:VARCHAR},
-            #{info.typeId:VARCHAR},
-            #{info.typeName:VARCHAR},
-            #{info.brandId:VARCHAR},
-            #{info.brandName:VARCHAR},
-            #{info.productDate:VARCHAR},
-            #{info.supplierId:VARCHAR},
-            #{info.supplierName:VARCHAR},
-            #{info.userid:VARCHAR},
-            #{info.username:VARCHAR},
-            #{info.mobile:VARCHAR},
-            #{info.stockInDate:VARCHAR},
-            #{info.endDate:VARCHAR}			
-			)
- 	</insert>
- 	
- 	<insert id="saveBatch" parameterType="java.util.List">
+		#{info.barcode:VARCHAR},
+		#{info.goodId:VARCHAR},
+		#{info.goodNo:VARCHAR},
+		#{info.barNo:VARCHAR},
+		#{info.goodName:VARCHAR},
+		now(),
+		now(),
+		#{info.stockStatus:NUMERIC},
+		#{info.cgNo:VARCHAR},
+		#{info.price:VARCHAR},
+		#{info.vipPrice:VARCHAR},
+		#{info.salePrice:VARCHAR},
+		#{info.nowPrice:VARCHAR},
+		#{info.stockPrice:VARCHAR},
+		#{info.orderId:VARCHAR},
+		#{info.orderGoodId:VARCHAR},
+		#{info.isGift:NUMERIC},
+		#{info.oriTraceId:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.orgid:VARCHAR},
+		#{info.orgname:VARCHAR},
+		#{info.typeId:VARCHAR},
+		#{info.typeName:VARCHAR},
+		#{info.brandId:VARCHAR},
+		#{info.brandName:VARCHAR},
+		#{info.productDate:VARCHAR},
+		#{info.supplierId:VARCHAR},
+		#{info.supplierName:VARCHAR},
+		#{info.userid:VARCHAR},
+		#{info.username:VARCHAR},
+		#{info.mobile:VARCHAR},
+		#{info.stockInDate:VARCHAR},
+		#{info.endDate:VARCHAR},
+		#{info.expireDate:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
 		INSERT INTO TB_MALL_TRACE (
-			            TRACEID,
-            BARCODE,
-            GOODID,
-            GOODNO,
-            BARNO,
-            GOODNAME,
-            CREATETIME,
-            UPDATETIME,
-            STOCKSTATUS,
-            CGNO,
-            PRICE,
-            VIPPRICE,
-            SALEPRICE,
-            NOWPRICE,
-            STOCKPRICE,
-            ORDERID,
-            ORDERGOODID,
-            ISGIFT,
-            ORITRACEID,
-            COMPANYID,
-            ORGID,
-            ORGNAME,
-            TYPEID,
-            TYPENAME,
-            BRANDID,
-            BRANDNAME,
-            PRODUCTDATE,
-            SUPPLIERID,
-            SUPPLIERNAME,
-            USERID,
-            USERNAME,
-            MOBILE,
-            STOCKINDATE,
-            ENDDATE
+		TRACEID,
+		BARCODE,
+		GOODID,
+		GOODNO,
+		BARNO,
+		GOODNAME,
+		CREATETIME,
+		UPDATETIME,
+		STOCKSTATUS,
+		CGNO,
+		PRICE,
+		VIPPRICE,
+		SALEPRICE,
+		NOWPRICE,
+		STOCKPRICE,
+		ORDERID,
+		ORDERGOODID,
+		ISGIFT,
+		ORITRACEID,
+		COMPANYID,
+		ORGID,
+		ORGNAME,
+		TYPEID,
+		TYPENAME,
+		BRANDID,
+		BRANDNAME,
+		PRODUCTDATE,
+		SUPPLIERID,
+		SUPPLIERNAME,
+		USERID,
+		USERNAME,
+		MOBILE,
+		STOCKINDATE,
+		ENDDATE,
+		expireDate
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
 			separator=",">
 			(
-				#{info.traceId:VARCHAR},
-            #{info.barcode:VARCHAR},
-            #{info.goodId:VARCHAR},
-            #{info.goodNo:VARCHAR},
-            #{info.barNo:VARCHAR},
-            #{info.goodName:VARCHAR},
-            now(),
-            now(),
-            #{info.stockStatus:NUMERIC},
-            #{info.cgNo:VARCHAR},
-            #{info.price:VARCHAR},
-            #{info.vipPrice:VARCHAR},
-            #{info.salePrice:VARCHAR},
-            #{info.nowPrice:VARCHAR},
-            #{info.stockPrice:VARCHAR},
-            #{info.orderId:VARCHAR},
-            #{info.orderGoodId:VARCHAR},
-            #{info.isGift:NUMERIC},
-            #{info.oriTraceId:VARCHAR},
-            #{info.companyId:VARCHAR},
-            #{info.orgid:VARCHAR},
-            #{info.orgname:VARCHAR},
-            #{info.typeId:VARCHAR},
-            #{info.typeName:VARCHAR},
-            #{info.brandId:VARCHAR},
-            #{info.brandName:VARCHAR},
-            #{info.productDate:VARCHAR},
-            #{info.supplierId:VARCHAR},
-            #{info.supplierName:VARCHAR},
-            #{info.userid:VARCHAR},
-            #{info.username:VARCHAR},
-            #{info.mobile:VARCHAR},
-            #{info.stockInDate:VARCHAR},
-            #{info.endDate:VARCHAR}			
+			#{info.traceId:VARCHAR},
+			#{info.barcode:VARCHAR},
+			#{info.goodId:VARCHAR},
+			#{info.goodNo:VARCHAR},
+			#{info.barNo:VARCHAR},
+			#{info.goodName:VARCHAR},
+			now(),
+			now(),
+			#{info.stockStatus:NUMERIC},
+			#{info.cgNo:VARCHAR},
+			#{info.price:VARCHAR},
+			#{info.vipPrice:VARCHAR},
+			#{info.salePrice:VARCHAR},
+			#{info.nowPrice:VARCHAR},
+			#{info.stockPrice:VARCHAR},
+			#{info.orderId:VARCHAR},
+			#{info.orderGoodId:VARCHAR},
+			#{info.isGift:NUMERIC},
+			#{info.oriTraceId:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.orgid:VARCHAR},
+			#{info.orgname:VARCHAR},
+			#{info.typeId:VARCHAR},
+			#{info.typeName:VARCHAR},
+			#{info.brandId:VARCHAR},
+			#{info.brandName:VARCHAR},
+			#{info.productDate:VARCHAR},
+			#{info.supplierId:VARCHAR},
+			#{info.supplierName:VARCHAR},
+			#{info.userid:VARCHAR},
+			#{info.username:VARCHAR},
+			#{info.mobile:VARCHAR},
+			#{info.stockInDate:VARCHAR},
+			#{info.endDate:VARCHAR},
+			#{info.expireDate:VARCHAR}
 			)
 		</foreach>
 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.Trace">
- 		UPDATE TB_MALL_TRACE 
-		SET 
-BARCODE = #{info.barcode:VARCHAR},
-                GOODID = #{info.goodId:VARCHAR},
-                GOODNO = #{info.goodNo:VARCHAR},
-                BARNO = #{info.barNo:VARCHAR},
-                GOODNAME = #{info.goodName:VARCHAR},
-                UPDATETIME = now(),
-                STOCKSTATUS = #{info.stockStatus:NUMERIC},
-                CGNO = #{info.cgNo:VARCHAR},
-                PRICE = #{info.price:VARCHAR},
-                VIPPRICE = #{info.vipPrice:VARCHAR},
-                SALEPRICE = #{info.salePrice:VARCHAR},
-                NOWPRICE = #{info.nowPrice:VARCHAR},
-                STOCKPRICE = #{info.stockPrice:VARCHAR},
-                ORDERID = #{info.orderId:VARCHAR},
-                ORDERGOODID = #{info.orderGoodId:VARCHAR},
-                ISGIFT = #{info.isGift:NUMERIC},
-                ORITRACEID = #{info.oriTraceId:VARCHAR},
-                COMPANYID = #{info.companyId:VARCHAR},
-                ORGID = #{info.orgid:VARCHAR},
-                ORGNAME = #{info.orgname:VARCHAR},
-                TYPEID = #{info.typeId:VARCHAR},
-                TYPENAME = #{info.typeName:VARCHAR},
-                BRANDID = #{info.brandId:VARCHAR},
-                BRANDNAME = #{info.brandName:VARCHAR},
-                PRODUCTDATE = #{info.productDate:VARCHAR},
-                SUPPLIERID = #{info.supplierId:VARCHAR},
-                SUPPLIERNAME = #{info.supplierName:VARCHAR},
-                USERID = #{info.userid:VARCHAR},
-                USERNAME = #{info.username:VARCHAR},
-                MOBILE = #{info.mobile:VARCHAR},
-                STOCKINDATE = #{info.stockInDate:VARCHAR},
-                ENDDATE = #{info.endDate:VARCHAR}
-		WHERE
-			TRACEID = #{info.traceId}
- 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_MALL_TRACE WHERE TRACEID=#{traceId}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.mall.stock.pojo.Trace">
- 		SELECT * FROM TB_MALL_TRACE t
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_MALL_TRACE WHERE TRACEID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.mall.stock.pojo.Trace" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_MALL_TRACE t
-						WHERE 1=1
-                        <if test="keyword!=null and keyword!=''">
- and ( 2=1                             or t.TRACEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BARCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.GOODNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BARNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.CGNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.ORDERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.ORDERGOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TYPEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BRANDID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BRANDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.SUPPLIERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.SUPPLIERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
- )                        </if>
 
-						
-			    order by  t.UPDATETIME DESC		
- 	</select>
- 	
- 	
- 	
+	<update id="update" parameterType="com.marks.module.mall.stock.pojo.Trace">
+		UPDATE TB_MALL_TRACE
+		SET
+		BARCODE = #{info.barcode:VARCHAR},
+		GOODID = #{info.goodId:VARCHAR},
+		GOODNO = #{info.goodNo:VARCHAR},
+		BARNO = #{info.barNo:VARCHAR},
+		GOODNAME = #{info.goodName:VARCHAR},
+		UPDATETIME = now(),
+		STOCKSTATUS = #{info.stockStatus:NUMERIC},
+		CGNO = #{info.cgNo:VARCHAR},
+		PRICE = #{info.price:VARCHAR},
+		VIPPRICE = #{info.vipPrice:VARCHAR},
+		SALEPRICE = #{info.salePrice:VARCHAR},
+		NOWPRICE = #{info.nowPrice:VARCHAR},
+		STOCKPRICE = #{info.stockPrice:VARCHAR},
+		ORDERID = #{info.orderId:VARCHAR},
+		ORDERGOODID = #{info.orderGoodId:VARCHAR},
+		ISGIFT = #{info.isGift:NUMERIC},
+		ORITRACEID = #{info.oriTraceId:VARCHAR},
+		COMPANYID = #{info.companyId:VARCHAR},
+		ORGID = #{info.orgid:VARCHAR},
+		ORGNAME = #{info.orgname:VARCHAR},
+		TYPEID = #{info.typeId:VARCHAR},
+		TYPENAME = #{info.typeName:VARCHAR},
+		BRANDID = #{info.brandId:VARCHAR},
+		BRANDNAME = #{info.brandName:VARCHAR},
+		PRODUCTDATE = #{info.productDate:VARCHAR},
+		SUPPLIERID = #{info.supplierId:VARCHAR},
+		SUPPLIERNAME = #{info.supplierName:VARCHAR},
+		USERID = #{info.userid:VARCHAR},
+		USERNAME = #{info.username:VARCHAR},
+		MOBILE = #{info.mobile:VARCHAR},
+		STOCKINDATE = #{info.stockInDate:VARCHAR},
+		ENDDATE = #{info.endDate:VARCHAR}
+		WHERE
+		TRACEID = #{info.traceId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_MALL_TRACE WHERE TRACEID=#{traceId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.mall.stock.pojo.Trace">
+		SELECT * FROM TB_MALL_TRACE t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_TRACE WHERE TRACEID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.mall.stock.pojo.Trace"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_TRACE t
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.TRACEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BARCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GOODNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BARNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CGNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORDERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORDERGOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BRANDID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BRANDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.SUPPLIERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.SUPPLIERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
 </mapper>

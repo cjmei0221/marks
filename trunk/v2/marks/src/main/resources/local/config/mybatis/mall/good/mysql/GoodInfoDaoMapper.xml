@@ -49,7 +49,10 @@
 		stockManageType,
 		stockPrice,
 		supplierId,
-		supplier
+		supplier,
+		validDays,
+		isWarnDays,
+		beforeWarnDays
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -83,13 +86,19 @@
 		#{stockManageType:NUMERIC},
 		#{stockPrice:VARCHAR},
 		#{supplierId:VARCHAR},
-		#{supplier:VARCHAR}
+		#{supplier:VARCHAR},
+		#{validDays:NUMERIC},
+		#{isWarnDays:NUMERIC},
+		#{beforeWarnDays:NUMERIC}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		UPDATE TB_MALL_GOOD_INFO
 		SET
+		validDays=#{validDays:NUMERIC},
+		isWarnDays=#{isWarnDays:NUMERIC},
+		beforeWarnDays=#{beforeWarnDays:NUMERIC},
 		supplierId=#{supplierId:VARCHAR},
 		supplier=#{supplier:VARCHAR},
 		stockPrice=#{stockPrice:VARCHAR},
