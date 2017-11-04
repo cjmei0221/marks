@@ -7,9 +7,6 @@
 	<listener>
 		<listener-class>com.marks.module.core.listener.InitServletContextListener</listener-class>
 	</listener>
-	<listener>
-		<listener-class>net.bull.javamelody.SessionListener</listener-class>
-	</listener>
 	<!-- 分页插件清除缓存 -->
 	<listener>
 		<listener-class>com.github.miemiedev.mybatis.paginator.CleanupMybatisPaginatorListener</listener-class>
@@ -17,7 +14,6 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:net/bull/javamelody/monitoring-spring.xml ,
 			classpath:config/spring/applicationContext.xml,
 			classpath:config/spring/applicationContext_quartz.xml
 		</param-value>
@@ -28,14 +24,6 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>SaleFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter>
-		<filter-name>monitoring</filter-name>
-		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>monitoring</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter>

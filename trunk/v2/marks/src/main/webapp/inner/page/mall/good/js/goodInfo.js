@@ -32,6 +32,7 @@ function add() {
 	$('#ff').form('clear');
 	$("#weight_unit").val("Kg");
 	$("#goodType").combobox("setValue", 0);
+	$("#isWarnDays").combobox("setValue", 0);
 	$("#stockManageType").combobox("setValue", 0);
 	appInfo.formStatus = "new";
 	img.deleteImageDiv("addMainImg");
@@ -107,6 +108,7 @@ function barCode() {
 		title : "生产条码"
 	}).window("open");
 	$('#barCodeff').form('load', appInfo.selectedData);
+	$("#sendNums").numberbox("setValue",0);
 }
 
 function importExcel() {

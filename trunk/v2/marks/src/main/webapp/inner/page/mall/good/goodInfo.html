@@ -122,6 +122,21 @@
 						id="supplier" name="supplier" type="hidden"></td>
 				</tr>
 				<tr>
+					<th style="width: 120px; text-align: right;">保质期(天)&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="validDays" name="validDays"
+						class="easyui-numberbox" data-options="min:0,precision:0"
+						style="width: 200px;"></td>
+					<th style="width: 120px; text-align: right;">是否提醒&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><select id="isWarnDays" class="easyui-combobox"
+						name="isWarnDays" style="width: 100px;"
+						data-options="required:true">
+							<option value="0">不提醒</option>
+							<option value="1">提醒</option>
+					</select> <input id="beforeWarnDays" name="beforeWarnDays"
+						class="easyui-numberbox" data-options="min:0,precision:0"
+						style="width: 80px;">天</td>
+				</tr>
+				<tr>
 					<th style="width: 120px; text-align: right;">商品类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><select id="goodType" class="easyui-combobox"
 						name="goodType" style="width: 200px;" data-options="required:true">
@@ -248,27 +263,55 @@
 			<form id="barCodeff" name="barCodeff" method="post">
 				<input type="hidden" id="goodId" name="goodId">
 				<table>
-					
+
 					<tr>
 						<th style="width: 120px; text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="goodName" name="goodName"
-							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;" maxlength="150"></td>
+							class="easyui-validatebox" style="width: 200px;" maxlength="150"
+							readonly="readonly"></td>
 					</tr>
 					<tr>
-						<th style="width: 120px; text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="nums" name="nums"
+						<th style="width: 120px; text-align: right;">供应商&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="supplier" name="supplier"
+							class="easyui-validatebox" readonly="readonly"
+							style="width: 200px;">若供应商不对，请修改商品供应商</td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">采购单号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="cgNo" name="cgNo" class="easyui-validatebox"
+							style="width: 200px;"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">生产日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="productDate" name="productDate"
+							class="easyui-datebox" style="width: 200px;"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">进货均价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="stockPrice" name="stockPrice"
+							class="easyui-numberbox" data-options="min:0,precision:2"
+							style="width: 200px;"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">数量&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="nums" name="nums" class="easyui-numberbox"
+							data-options="required:true" style="width: 200px;"></td>
+					</tr>
+					<tr style="display:none;">
+						<th style="width: 120px; text-align: right;">赠送数量&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="sendNums" name="sendNums"
 							class="easyui-numberbox" data-options="required:true"
-							style="width: 200px;" maxlength="150"></td>
+							style="width: 200px;"></td>
 					</tr>
 
 					<tr height="25px">
 						<td colspan="2"></td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: center"> <a id="btnOKBarCode" name="btnOKBarCode"
-							href="javascript:void(0)" class="easyui-linkbutton"
-							style="width: 100px;" data-options="iconCls:'icon-save'">生成</a></td>
+						<td colspan="2" style="text-align: center"><a
+							id="btnOKBarCode" name="btnOKBarCode" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;"
+							data-options="iconCls:'icon-save'">生成</a></td>
 					</tr>
 				</table>
 			</form>
