@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ import com.marks.module.mall.stock.service.BarCodeService;
 @Service
 @Transactional
 public class BarCodeServiceImpl implements BarCodeService {
-
+	private static Logger logger = Logger.getLogger(BarCodeServiceImpl.class);
 	@Autowired
 	private BarCodeDao barCodeDao;
 	@Autowired
@@ -81,6 +82,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 				}
 				initcode = Long.parseLong(maxCode);
 			}
+			logger.info("save 条码信息：" + hasNums + " - " + initcode);
 			Trace vo = null;
 			BarCode code = null;
 			// 库存状态
@@ -95,7 +97,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 					updateFlag = true;
 					barCode = codeList.get(0);
 				} else {
-					barCode = String.valueOf(initcode + i);
+					barCode = String.valueOf(initcode + (i + 1));
 				}
 				String traceId = barCode + "_" + IDUtil.getSecondID() + IDUtil.getRandom(1000, 9999)
 						+ IDUtil.getRandom(1000, 9999);
@@ -105,7 +107,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 				code.setBarNo(good.getBarNo());
 				code.setCompanyId(info.getCompanyId());
 				code.setGoodId(info.getGoodId());
-				code.setGoodName(info.getCompanyId());
+				code.setGoodName(good.getGoodName());
 				code.setGoodNo(good.getGoodNo());
 				code.setOrgid(info.getOrgid());
 				code.setOrgname(info.getOrgname());
@@ -168,6 +170,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 				log.setTypeName(vo.getTypeName());
 				loglist.add(log);
 			}
+			logger.info("save 条码信息 updateFlag：" + updateFlag);
 			if (updateFlag) {
 				barCodeDao.updateBatch(codelist);
 			} else {

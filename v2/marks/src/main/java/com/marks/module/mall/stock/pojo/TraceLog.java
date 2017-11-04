@@ -1,7 +1,8 @@
 package com.marks.module.mall.stock.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import com.marks.common.enums.StockEnums;
 
 public class TraceLog implements Serializable{
 
@@ -187,6 +188,10 @@ public class TraceLog implements Serializable{
     public int getStockStatus(){
         return stockStatus;
     }
+
+	public String getStockStatusName() {
+		return StockEnums.StockStatus.getByKey(stockStatus);
+	}
     public void setStockStatus(int stockStatus){
         this.stockStatus = stockStatus;
     }

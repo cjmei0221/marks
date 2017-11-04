@@ -18,6 +18,7 @@
 		WHERE t.activeStatus = 0
 		AND datediff(
 		date_format(now(), '%Y-%m-%d'),substring(t.updatetime, 1, 10)) &gt; 30
+		order by t.barcode
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.stock.pojo.BarCode">
@@ -203,7 +204,7 @@
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_MALL_GOOD_BARCODE t
-		WHERE 1=1
+		WHERE 1=1 and t.companyId=#{companyId} and t.activeStatus=1
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1 or t.BARCODE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

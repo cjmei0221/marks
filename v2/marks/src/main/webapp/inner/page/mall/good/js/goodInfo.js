@@ -239,7 +239,7 @@ function formSubmitForBarCode() {
 		return;
 	}
 	var reqUrl = appInfo.batchSaveBarCodeUrl;
-	var parms = $("#ff").serialize();
+	var parms = $("#barCodeff").serialize();
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
 			try {
