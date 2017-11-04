@@ -2,6 +2,8 @@ package com.marks.module.mall.stock.pojo;
 
 import java.io.Serializable;
 
+import com.marks.common.enums.StockEnums;
+
 public class Trace implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -248,6 +250,10 @@ public class Trace implements Serializable{
     public int getStockStatus(){
         return stockStatus;
     }
+
+	public String getStockStatusName() {
+		return StockEnums.StockStatus.getByKey(stockStatus);
+	}
     public void setStockStatus(int stockStatus){
         this.stockStatus = stockStatus;
     }

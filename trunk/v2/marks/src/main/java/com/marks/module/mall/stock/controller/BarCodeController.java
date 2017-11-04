@@ -77,21 +77,7 @@ public class BarCodeController extends SupportContorller {
 			reqVo.setOrgname(admin.getDefaultOrgname());
 			reqVo.setOperator(admin.getUsername());
 			reqVo.setOperatorId(admin.getUserid());
-			// reqVo.setBarNo(good.getBarNo());
-			// reqVo.setGoodNo(good.getGoodNo());
-			// reqVo.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
-			// reqVo.setBrandId(good.getBrandId());
-			// reqVo.setBrandName(good.getBrandName());
-			// reqVo.setPrice(good.getPrice());
-			// reqVo.setSalePrice(good.getSalePrice());
-			// reqVo.setVipPrice(good.getVipPrice());
-			// reqVo.setStockInDate(DateUtil.formatDate(new Date(),
-			// "yyyy-MM-dd"));
-			// reqVo.setSupplierId(good.getSupplierId());
-			// reqVo.setSupplierName(good.getSupplier());
-			// reqVo.setTypeId(good.getTypeId());
-			// reqVo.setTypeName(good.getTypeName());
-			logger.info("saveBarCode > param>" + reqVo.getGoodId());
+			logger.info("saveBarCode > param>" + reqVo.getGoodId() + " - " + reqVo.getNums());
 
 			result = barCodeService.save(reqVo);
 
@@ -209,6 +195,7 @@ public class BarCodeController extends SupportContorller {
 			logger.info("list> param>" + page_number + "-" + page_size + "-" + keyword);
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<BarCode> list = barCodeService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
