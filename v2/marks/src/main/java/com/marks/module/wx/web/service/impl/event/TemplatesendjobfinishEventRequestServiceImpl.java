@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.wx.manage.template.service.ModuleMsgService;
+import com.marks.module.wx.manage.service.template.ModuleMsgService;
 import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.WechatResponse;
 import com.marks.module.wx.web.service.impl.normal.AbstractRequestService;

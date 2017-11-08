@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.marks.module.cache.CacheData;
 import com.marks.module.user.login.helper.WxUtil;
-import com.marks.module.wx.manage.base.pojo.WxAccount;
+import com.marks.module.wx.manage.entity.base.WxAccount;
 import com.marks.module.wx.web.message.MessageConverter;
 import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.WechatResponse;

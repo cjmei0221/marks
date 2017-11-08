@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.system.upload.util.FTPUtil;
-import com.marks.module.wx.manage.msg.dao.NewsItemDao;
-import com.marks.module.wx.manage.msg.pojo.NewsItem;
+import com.marks.module.wx.manage.dao.msg.NewsItemDao;
+import com.marks.module.wx.manage.entity.msg.NewsItem;
 import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.ArticleResponse;
 import com.marks.module.wx.web.message.response.WechatResponse;

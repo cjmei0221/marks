@@ -6,12 +6,12 @@ import java.util.concurrent.Executors;
 import org.apache.log4j.Logger;
 
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.wx.api.mp.user.entity.WxUser;
-import com.marks.module.wx.manage.wxchat.pojo.WxChatSession;
-import com.marks.module.wx.manage.wxchat.service.WxChatSessionService;
-import com.marks.module.wx.manage.wxuser.dao.WxUserDao;
-import com.marks.module.wx.manage.wxuser.service.WxUserService;
-import com.marks.module.wx.manage.wxutil.WxMpUtil;
+import com.marks.module.wx.api.wxInterface.mp.user.entity.WxUser;
+import com.marks.module.wx.manage.dao.user.WxUserDao;
+import com.marks.module.wx.manage.entity.chat.WxChatSession;
+import com.marks.module.wx.manage.service.chat.WxChatSessionService;
+import com.marks.module.wx.manage.service.user.WxUserService;
+import com.marks.module.wx.manage.util.WxMpUtil;
 
 public class WxhreadPool {
 	private static ExecutorService pool;
