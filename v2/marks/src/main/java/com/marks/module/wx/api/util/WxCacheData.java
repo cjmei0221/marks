@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.wx.api.mp.base.entity.AccessTokenVo;
-import com.marks.module.wx.api.mp.base.service.AccessTokenService;
-import com.marks.module.wx.api.mp.base.utils.WxfwConfig;
+import com.marks.module.wx.api.service.AccessTokenService;
+import com.marks.module.wx.api.wxInterface.mp.base.entity.AccessTokenVo;
+import com.marks.module.wx.api.wxInterface.mp.base.utils.WxfwConfig;
 
 public class WxCacheData {
 	private static final long expires_in = 6900 * 1000;
