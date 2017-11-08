@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.marks.module.wx.manage.base.pojo.WxAccount;
+import com.marks.module.wx.manage.entity.base.WxAccount;
 import com.marks.module.wx.web.mp.aes.WXBizMsgCrypt;
 
 public class MsgEncriptUtil {

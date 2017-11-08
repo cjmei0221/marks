@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.wx.api.mp.user.entity.WxUser;
-import com.marks.module.wx.manage.wxuser.service.WxUserService;
+import com.marks.module.wx.api.wxInterface.mp.user.entity.WxUser;
+import com.marks.module.wx.manage.service.user.WxUserService;
 import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.WechatResponse;
 import com.marks.module.wx.web.service.impl.normal.AbstractRequestService;

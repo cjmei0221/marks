@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.marks.module.cache.CacheData;
 import com.marks.module.core.common.SpringContextHolder;
+import com.marks.module.wx.manage.dao.chat.WxChatSessionDao;
+import com.marks.module.wx.manage.entity.chat.WxChatSession;
 import com.marks.module.wx.manage.enums.WXEnums;
-import com.marks.module.wx.manage.wxchat.dao.WxChatSessionDao;
-import com.marks.module.wx.manage.wxchat.pojo.WxChatSession;
 import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.WechatResponse;
 import com.marks.module.wx.web.threadPool.WxhreadPool;
