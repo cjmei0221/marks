@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.inner.wx.wxuser.dao.WxUserDao">
+
+	<select id="findById" resultType="com.marks.module.wx.api.mp.user.entity.WxUser">
+		SELECT * FROM TB_WX_USER wxuser
+		where wxuser.OPENID = #{openid} and wxuser.ACCOUNTID=#{accountid}
+	</select>
+
+	<select id="findWxUserListForDairy" resultType="com.marks.module.wx.api.mp.user.entity.WxUser">
+		SELECT * FROM
+		TB_WX_USER wxuser
+		where wxuser.DAIRYFLAG = 1
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.wx.api.mp.user.entity.WxUser">
+		INSERT INTO TB_WX_USER wxuser (
+		wxuser.OPENID,
+		wxuser.NICKNAME,
+		wxuser.GROUPID,
+		wxuser.COUNTRY,
+		wxuser.PROVINCE,
+		wxuser.CITY,
+		wxuser.SEX,
+		wxuser.IMAGEURL,
+		wxuser.LANGUAGE,
+		wxuser.ISSUBSCRIBE,
+		wxuser.SUBSCRIBETIME,
+		wxuser.UPDATETIME,
+		wxuser.ACCOUNTID,
+		wxuser.CREATETIME,
+		wxuser.USEFLAG,
+		wxuser.QRNO,
+		wxuser.REMARK
+		)
+		VALUES(
+		#{openid:VARCHAR},
+		#{nickname:VARCHAR},
+		#{groupid:NUMERIC},
+		#{country:VARCHAR},
+		#{province:VARCHAR},
+		#{city:VARCHAR},
+		#{sex:NUMERIC},
+		#{imageUrl:VARCHAR},
+		#{language:VARCHAR},
+		#{issubscribe:NUMERIC},
+		#{subscribetime:TIMESTAMP},
+		sysdate,
+		#{accountid:VARCHAR},
+		sysdate,
+		#{useflag:NUMERIC},
+		#{qrNo:VARCHAR},
+		#{remark:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.wx.api.mp.user.entity.WxUser">
+		UPDATE TB_WX_USER wxuser
+		SET
+		wxuser.NICKNAME = #{nickname:VARCHAR},
+		wxuser.GROUPID = #{groupid:NUMERIC},
+		wxuser.COUNTRY = #{country:VARCHAR},
+		wxuser.PROVINCE = #{province:VARCHAR},
+		wxuser.CITY = #{city:VARCHAR},
+		wxuser.SEX = #{sex:NUMERIC},
+		wxuser.IMAGEURL = #{imageUrl:VARCHAR},
+		wxuser.LANGUAGE = #{language:VARCHAR},
+		wxuser.ISSUBSCRIBE = #{issubscribe:NUMERIC},
+		wxuser.SUBSCRIBETIME = #{subscribetime:TIMESTAMP},
+		wxuser.UPDATETIME =sysdate,
+		wxuser.REMARK = #{remark:VARCHAR}
+		WHERE
+		wxuser.OPENID = #{openid} and wxuser.ACCOUNTID = #{accountid:VARCHAR}
+	</update>
+
+	<update id="udateDairyFlag">
+		UPDATE TB_WX_USER wxuser
+		SET
+		wxuser.DAIRYFLAG =
+		#{dairyFlag},
+		wxuser.UPDATETIME =sysdate
+		WHERE
+		wxuser.OPENID = #{openid}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_USER wxuser
+		WHERE wxuser.OPENID=#{openid}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.wx.api.mp.user.entity.WxUser">
+		SELECT * FROM TB_WX_USER
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_USER WHERE OPENID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.wx.api.mp.user.entity.WxUser"
+		parameterType="java.util.Map">
+		SELECT wxuser.*, wq.qrname
+		FROM TB_WX_USER wxuser
+		left join tb_wx_qrcode
+		wq on (wxuser.qrno = wq.qrno and wxuser.accountid=wq.accountid and
+		wq.QRTYPE='1')
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxuser.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and (
+			 wxuser.NICKNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wq.qrname LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxuser.COUNTRY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxuser.PROVINCE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxuser.CITY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+
+			or wxuser.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or wxuser.REMARK LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		<if test="s_issubscribe!=null and s_issubscribe!=''">
+		    and wxuser.ISSUBSCRIBE=#{s_issubscribe}
+		</if>
+		<if test="s_sex!=null and s_sex!=''">
+		    and wxuser.SEX=#{s_sex}
+		</if>
+		order by wxuser.SUBSCRIBETIME desc
+
+	</select>
+
+
+
+</mapper>
