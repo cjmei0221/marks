@@ -25,15 +25,17 @@ import com.marks.module.note.diary.pojo.Diary;
 import com.marks.module.note.diary.service.DiaryService;
 import com.marks.module.note.util.NoteConstants;
 import com.marks.module.system.upload.util.FTPUtil;
-import com.marks.module.wx.api.mp.user.entity.WxUser;
-import com.marks.module.wx.manage.template.util.TmpConstants;
-import com.marks.module.wx.manage.template.util.WxMsgUtil;
+import com.marks.module.wx.api.wxInterface.mp.user.entity.WxUser;
+import com.marks.module.wx.manage.service.template.TemplateMsgService;
+import com.marks.module.wx.manage.util.TmpConstants;
 
 @Service
 public class DiaryServiceImpl implements DiaryService {
 	private static Logger logger = Logger.getLogger(DiaryServiceImpl.class);
 	@Autowired
 	private DiaryDao diaryDao;
+	@Autowired
+	private TemplateMsgService templateMsgService;
 
 	@Override
 	public void pushDairyWxMsg(WxUser wxUser) {
@@ -45,7 +47,7 @@ public class DiaryServiceImpl implements DiaryService {
 		List<String> keywordList = new ArrayList<String>();
 		keywordList.add(wxUser.getNickname());
 		keywordList.add(sdf.format(new Date()));
-		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false, wxUser.getAccountid(),
+		templateMsgService.pushModuleMsgByKeywordList(false, wxUser.getAccountid(),
 				TmpConstants.wxtemplate_note_dairy,
 				openidList,
 				keywordList, note, null);

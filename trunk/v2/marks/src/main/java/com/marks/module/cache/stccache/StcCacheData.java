@@ -9,7 +9,7 @@ import com.marks.common.util.Constants;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.system.datadir.pojo.DataDir;
 import com.marks.module.system.sysconf.pojo.SysConf;
-import com.marks.module.wx.manage.base.pojo.WxAccount;
+import com.marks.module.wx.manage.entity.base.WxAccount;
 
 /**
  * 

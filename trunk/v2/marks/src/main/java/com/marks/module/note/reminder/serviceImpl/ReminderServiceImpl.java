@@ -19,15 +19,16 @@ import com.marks.module.note.diary.serviceImpl.DiaryServiceImpl;
 import com.marks.module.note.reminder.dao.ReminderDao;
 import com.marks.module.note.reminder.pojo.Reminder;
 import com.marks.module.note.reminder.service.ReminderService;
-import com.marks.module.wx.manage.template.util.TmpConstants;
-import com.marks.module.wx.manage.template.util.WxMsgUtil;
+import com.marks.module.wx.manage.service.template.TemplateMsgService;
+import com.marks.module.wx.manage.util.TmpConstants;
 
 @Service
 public class ReminderServiceImpl implements ReminderService {
 	private static Logger logger = Logger.getLogger(DiaryServiceImpl.class);
 	@Autowired
 	private ReminderDao reminderDao;
-
+	@Autowired
+	private TemplateMsgService templateMsgService;
 	/*
 	 * public ReminderDao getReminderDao() { return reminderDao; }
 	 * 
@@ -87,7 +88,7 @@ public class ReminderServiceImpl implements ReminderService {
 		}
 		List<String> openidList = new ArrayList<String>();
 		openidList.add(reminder.getOpenid());
-		WxMsgUtil.getInstance().pushModuleMsgByKeywordList(false, reminder.getAccountid(), templateId, openidList,
+		templateMsgService.pushModuleMsgByKeywordList(false, reminder.getAccountid(), templateId, openidList,
 				keywordList, reminder.getNickname(), null);
 		return result;
 	}

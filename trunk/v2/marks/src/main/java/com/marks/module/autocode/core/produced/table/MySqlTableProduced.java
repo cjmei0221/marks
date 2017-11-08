@@ -67,6 +67,9 @@ public class MySqlTableProduced implements DBProduced {
 			if (attrs.get(i).isPK()) {
 				sBuffer.append(BANK_VALUE_1).append(DEFAULT_PRIMARY);
 			}
+			// 添加注释
+			sBuffer.append(BANK_VALUE_1).append("comment").append(BANK_VALUE_1).append("'")
+					.append(attrs.get(i).getAttrDesc()).append(BANK_VALUE_1).append(attrs.get(i).getNote()).append("'");
 			if (i < attrs.size() - 1) {
 				sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
 			}

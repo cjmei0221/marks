@@ -26,6 +26,8 @@ public class OracleTableProduced implements DBProduced {
 		sBuffer.append(createTableName(beanName));
 		sBuffer.append(createFieldSql(autoBean));
 		sBuffer.append(ENTER_VALUE).append(RIGHT_PATEN);
+		// sBuffer.append(createFieldComment(autoBean)).append(ENTER_VALUE);
+		// logger.info("createTableSql>" + sBuffer.toString());
 
 		return sBuffer.toString();
 	}
@@ -41,12 +43,12 @@ public class OracleTableProduced implements DBProduced {
 
 	public String createFieldSql(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
-
+		
 		List<AutoAttr> attrs = autoBean.getAutoAttrs();
 		for (int i = 0; i < attrs.size(); i++) {
 			sBuffer.append(BANK_VALUE_4).append(attrs.get(i).getAttrName()).append(BANK_VALUE_1)
 					.append(attrs.get(i).getAttrType().getOracleType());
-			
+
 			if (!AttrType.Date.getMybatisType().equals(attrs.get(i).getAttrType().getMybatisType())) {
 				int size = attrs.get(i).getAttrSize();
 				if (AttrType.Integer.getMybatisType().equals(attrs.get(i).getAttrType().getMybatisType())) {
@@ -56,17 +58,18 @@ public class OracleTableProduced implements DBProduced {
 				}
 				sBuffer.append(LEFT_PATEN).append(size).append(RIGHT_PATEN);
 			}
-			
+
 			if (attrs.get(i).isPK()) {
 				sBuffer.append(BANK_VALUE_1).append(DEFAULT_PRIMARY);
 			}
 			if (i < attrs.size() - 1) {
 				sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
 			}
-		}
 
+		}
 		return sBuffer.toString();
 	}
+
 
 	// 判断表是否存在
 	public boolean existTable(AutoBean autoBean) {
@@ -101,9 +104,23 @@ public class OracleTableProduced implements DBProduced {
 			}
 
 			statement.executeUpdate(oracleTableProduced.createTableSql(autoBean));
+			createFieldComment(statement, autoBean);
 			logger.info(autoBean.getBeanName() + "表创建成功");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void createFieldComment(Statement statement, AutoBean autoBean) throws SQLException {
+
+		StringBuffer commentBuffer = null;
+		List<AutoAttr> attrs = autoBean.getAutoAttrs();
+		for (int i = 0; i < attrs.size(); i++) {
+			commentBuffer = new StringBuffer();
+			commentBuffer.append("comment on column ").append(autoBean.getTableName()).append(".")
+					.append(attrs.get(i).getAttrName()).append(" is ")
+					.append("'" + attrs.get(i).getAttrDesc() + " " + attrs.get(i).getNote() + "'");
+			statement.execute(commentBuffer.toString());
 		}
 	}
 

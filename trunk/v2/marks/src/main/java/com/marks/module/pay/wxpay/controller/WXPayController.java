@@ -36,7 +36,7 @@ import com.marks.module.pay.wxpay.pojo.WXPayRecord;
 import com.marks.module.pay.wxpay.pojo.WeixinPayRequestDomain;
 import com.marks.module.pay.wxpay.service.WXPayService;
 import com.marks.module.user.login.helper.WxUtil;
-import com.marks.module.wx.manage.base.pojo.WxAccount;
+import com.marks.module.wx.manage.entity.base.WxAccount;
 
 /**
  * 微信支付控制器

@@ -47,7 +47,7 @@ public class AutoCodeFactory {
 	}
 
 	public void createTable(AutoBean autoBean) {
-		String dialect = AutoConfig.jdbc_password;
+		String dialect = AutoConfig.jdbc_dialect;
 		if ("oracle".equals(dialect)) {
 			try {
 
