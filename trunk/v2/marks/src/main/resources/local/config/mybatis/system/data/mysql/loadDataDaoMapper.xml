@@ -12,7 +12,7 @@
 	</select>
 
 	<!-- 加载微信公众号信息 -->
-	<select id="loadWxAccount" resultType="com.marks.module.wx.manage.base.pojo.WxAccount">
+	<select id="loadWxAccount" resultType="com.marks.module.wx.manage.entity.base.WxAccount">
 		SELECT * FROM TB_WX_ACCOUNT
 	</select>
 	<select id="loadUrlList" resultType="String">
