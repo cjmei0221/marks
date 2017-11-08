@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.wx.manage.template.dao.WxTemplateDao">
+<mapper namespace="com.marks.module.wx.manage.dao.template.WxTemplateDao">
 
-	<select id="findById" resultType="com.marks.module.wx.manage.template.pojo.WxTemplate">
+	<select id="findById" resultType="com.marks.module.wx.manage.entity.template.WxTemplate">
 		SELECT * FROM TB_WX_TEMPLATE
 		wxtemplate where wxtemplate.YWTYPE = #{ywType} and
 		wxtemplate.ACCOUNTID=#{accountid}
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.wx.manage.template.pojo.WxTemplate">
+	<insert id="save" parameterType="com.marks.module.wx.manage.entity.template.WxTemplate">
 		INSERT INTO TB_WX_TEMPLATE (
 		YWTYPE,
 		ACCOUNTID,
@@ -40,7 +40,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.wx.manage.template.pojo.WxTemplate">
+	<update id="update" parameterType="com.marks.module.wx.manage.entity.template.WxTemplate">
 		UPDATE TB_WX_TEMPLATE
 		SET
 		ACCOUNTID = #{accountid:VARCHAR},
@@ -60,7 +60,7 @@
 		WHERE YWTYPE=#{ywType} and ACCOUNTID=#{accountid}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.wx.manage.template.pojo.WxTemplate">
+	<select id="findAll" resultType="com.marks.module.wx.manage.entity.template.WxTemplate">
 		SELECT * FROM TB_WX_TEMPLATE
 	</select>
 
@@ -72,7 +72,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.wx.manage.template.pojo.WxTemplate"
+	<select id="list" resultType="com.marks.module.wx.manage.entity.template.WxTemplate"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_TEMPLATE wxtemplate

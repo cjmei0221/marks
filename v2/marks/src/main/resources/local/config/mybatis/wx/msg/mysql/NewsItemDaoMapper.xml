@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.wx.manage.msg.dao.NewsItemDao">
+<mapper namespace="com.marks.module.wx.manage.dao.msg.NewsItemDao">
 
-	<select id="findById" resultType="com.marks.module.wx.manage.msg.pojo.NewsItem">
+	<select id="findById" resultType="com.marks.module.wx.manage.entity.msg.NewsItem">
 		SELECT * FROM
 		TB_WX_AUTO_REPLAY_NEWSITEM newsitem where newsitem.ID = #{id}
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.wx.manage.msg.pojo.NewsItem">
+	<insert id="save" parameterType="com.marks.module.wx.manage.entity.msg.NewsItem">
 		INSERT INTO TB_WX_AUTO_REPLAY_NEWSITEM  (
 		ID,
 		TITLE,
@@ -37,7 +37,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.wx.manage.msg.pojo.NewsItem">
+	<update id="update" parameterType="com.marks.module.wx.manage.entity.msg.NewsItem">
 		UPDATE
 		TB_WX_AUTO_REPLAY_NEWSITEM 
 		SET
@@ -57,7 +57,7 @@
 		TB_WX_AUTO_REPLAY_NEWSITEM  WHERE ID=#{id}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.wx.manage.msg.pojo.NewsItem">
+	<select id="findAll" resultType="com.marks.module.wx.manage.entity.msg.NewsItem">
 		SELECT * FROM
 		TB_WX_AUTO_REPLAY_NEWSITEM
 	</select>
@@ -70,7 +70,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.wx.manage.msg.pojo.NewsItem"
+	<select id="list" resultType="com.marks.module.wx.manage.entity.msg.NewsItem"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_AUTO_REPLAY_NEWSITEM newsitem
@@ -106,7 +106,7 @@
 		order by newsitem.UPDATETIME desc
 
 	</select>
-	<select id="getnewItems" resultType="com.marks.module.wx.manage.msg.pojo.NewsItem"
+	<select id="getnewItems" resultType="com.marks.module.wx.manage.entity.msg.NewsItem"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM
@@ -125,7 +125,7 @@
 	<select id="countNews" resultType="int">
 		select count(1) from tb_wx_auto_replay t where t.creplay like '%${newsId}%'
 	</select>
-	<select id="getNewsItemByIds" resultType="com.marks.module.wx.manage.msg.pojo.NewsItem">
+	<select id="getNewsItemByIds" resultType="com.marks.module.wx.manage.entity.msg.NewsItem">
 		select * from tb_wx_auto_replay_newsitem t where t.id in
 		<foreach collection="newsItemIds" item="id" open="("
 			separator="," close=")">

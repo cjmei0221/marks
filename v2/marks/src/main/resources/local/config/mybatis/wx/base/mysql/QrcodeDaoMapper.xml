@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.wx.manage.base.dao.QrcodeDao">
+<mapper namespace="com.marks.module.wx.manage.dao.base.QrcodeDao">
 
-	<select id="findById" resultType="com.marks.module.wx.manage.base.pojo.Qrcode">
+	<select id="findById" resultType="com.marks.module.wx.manage.entity.base.Qrcode">
 		SELECT * FROM TB_WX_QRCODE
 		qrcode where qrcode.ID = #{id}
 	</select>
 
-	<select id="findByQrNo" resultType="com.marks.module.wx.manage.base.pojo.Qrcode">
+	<select id="findByQrNo" resultType="com.marks.module.wx.manage.entity.base.Qrcode">
 		SELECT * FROM TB_WX_QRCODE
 		qrcode where qrcode.QRNO = #{qrNo} and qrcode.ACCOUNTID=#{accountid}
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.wx.manage.base.pojo.Qrcode">
+	<insert id="save" parameterType="com.marks.module.wx.manage.entity.base.Qrcode">
 		INSERT INTO TB_WX_QRCODE  (
 		ID,
 		QRNO,
@@ -45,7 +45,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.wx.manage.base.pojo.Qrcode">
+	<update id="update" parameterType="com.marks.module.wx.manage.entity.base.Qrcode">
 		UPDATE TB_WX_QRCODE 
 		SET
 		QRNAME = #{qrName:VARCHAR},
@@ -59,7 +59,7 @@
 		WHERE ID = #{id}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.wx.manage.base.pojo.Qrcode">
+	<select id="findAll" resultType="com.marks.module.wx.manage.entity.base.Qrcode">
 		SELECT * FROM TB_WX_QRCODE
 	</select>
 
@@ -71,7 +71,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.wx.manage.base.pojo.Qrcode"
+	<select id="list" resultType="com.marks.module.wx.manage.entity.base.Qrcode"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_QRCODE qrcode
