@@ -2,14 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.marks.module.user.login.dao.LoginDao">
 	<!-- 通过userid获取系统用户 -->
+	<select id="findById" resultType="com.marks.module.user.sysuser.pojo.SysUser">
+		SELECT
+		TSU.*,tsr.rolename,tsr.lvl roleLvl
+		FROM
+		tb_user tsu join TB_SYS_ROLE tsr on tsu.roleid=tsr.roleid
+		WHERE 1=1 and tsu.companyId=#{companyId}
+		and (tsu.USERID = #{id} or
+		tsu.bind_mobile=#{id})
+	</select>
 	<select id="getSysUserByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		SELECT
 		TSU.*
 		FROM
 		tb_user tsu
-		WHERE 1=1 and
-		(tsu.USERID = #{userid} or
-		tsu.bind_mobile=#{userid})
+		WHERE tsu.USERID = #{userid}
 	</select>
 	<select id="getSysUserByOpenidAndAccountid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		SELECT
@@ -17,7 +24,8 @@
 		FROM
 		tb_user tsu
 		WHERE
-		tsu.accountid=#{accountid} and tsu.openid=#{openid}
+		tsu.accountid=#{accountid} and
+		tsu.openid=#{openid}
 	</select>
 	<!-- 加载父级菜单 -->
 	<select id="getParentSysMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
@@ -79,8 +87,7 @@
 	<select id="getOrgidBySysUser" resultType="String">
 		SELECT T.Orgid
 		FROM tb_org_info T
-		CONNECT BY parentid = PRIOR orgid
-		START WITH orgid
+		where orgid
 		in
 		<foreach collection="orglist" item="ids" index="index" open="("
 			separator="," close=")">
@@ -88,8 +95,10 @@
 		</foreach>
 	</select>
 	<select id="getOrgInfoListByUserid" resultType="com.marks.module.org.orginfo.pojo.OrgInfo">
-		SELECT toi.*
-		FROM tb_user_org T join tb_org_info toi on t.orgid=toi.orgid
-		where t.userid=#{userid}
+		SELECT toi.*,T.isDefault
+		FROM
+		tb_user_org T join tb_org_info toi on t.orgid=toi.orgid
+		where
+		t.userid=#{userid}
 	</select>
 </mapper>
