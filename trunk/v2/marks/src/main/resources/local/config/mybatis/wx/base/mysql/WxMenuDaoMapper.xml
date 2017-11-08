@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.wx.manage.base.dao.WxMenuDao">
+<mapper namespace="com.marks.module.wx.manage.dao.base.WxMenuDao">
 
-	<select id="findById" resultType="com.marks.module.wx.manage.base.pojo.MyWxMenu">
+	<select id="findById" resultType="com.marks.module.wx.manage.entity.base.MyWxMenu">
 		SELECT * FROM TB_WX_MENU wxmenu
 		where wxmenu.ID = #{id}
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.wx.manage.base.pojo.MyWxMenu">
+	<insert id="save" parameterType="com.marks.module.wx.manage.entity.base.MyWxMenu">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">select
 			replace(uuid(),'-','')
 		</selectKey>
@@ -45,7 +45,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.wx.manage.base.pojo.MyWxMenu">
+	<update id="update" parameterType="com.marks.module.wx.manage.entity.base.MyWxMenu">
 		UPDATE TB_WX_MENU 
 		SET
 		PARENT_ID = #{parent_id:VARCHAR},
@@ -66,7 +66,7 @@
 		WHERE wxmenu.ID=#{id}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.wx.manage.base.pojo.MyWxMenu">
+	<select id="findAll" resultType="com.marks.module.wx.manage.entity.base.MyWxMenu">
 		SELECT * FROM TB_WX_MENU
 	</select>
 
@@ -78,7 +78,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.wx.manage.base.pojo.MyWxMenu"
+	<select id="list" resultType="com.marks.module.wx.manage.entity.base.MyWxMenu"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_MENU wxmenu
@@ -108,7 +108,7 @@
 			)
 		</if>
 	</select>
-	<select id="getParentMenu" resultType="com.marks.module.wx.manage.base.pojo.MyWxMenu">
+	<select id="getParentMenu" resultType="com.marks.module.wx.manage.entity.base.MyWxMenu">
 		SELECT menu.*,(case
 		when cnum is null then
 		'open'
@@ -139,15 +139,15 @@
 		order by menu.menutype,menu.updatetime desc
 	</select>
 
-	<select id="getWxMenuList" resultType="com.marks.module.wx.manage.base.pojo.MyWxMenu">
+	<select id="getWxMenuList" resultType="com.marks.module.wx.manage.entity.base.MyWxMenu">
 		select * from tb_wx_menu t
 		order by t.sort
 	</select>
-	<select id="getWxMenuListByAccountId" resultType="com.marks.module.wx.manage.base.pojo.MyWxMenu">
+	<select id="getWxMenuListByAccountId" resultType="com.marks.module.wx.manage.entity.base.MyWxMenu">
 		select * from tb_wx_menu t where t.accountid=#{accountid}
 		order by t.sort
 	</select>
-	<select id="getChildWxMenuList" resultType="com.marks.module.wx.manage.base.pojo.MyWxMenu">
+	<select id="getChildWxMenuList" resultType="com.marks.module.wx.manage.entity.base.MyWxMenu">
 		select * from tb_wx_menu t where t.PARENT_ID=#{parent_id}
 	</select>
 </mapper>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.wx.manage.base.dao.WxAccountDao">
+<mapper namespace="com.marks.module.wx.manage.dao.base.WxAccountDao">
 
-	<select id="findById" resultType="com.marks.module.wx.manage.base.pojo.WxAccount">
+	<select id="findById" resultType="com.marks.module.wx.manage.entity.base.WxAccount">
 		SELECT * FROM TB_WX_ACCOUNT
 		wxaccount where wxaccount.ACCOUNTID = #{accountId}
 	</select>
 
-	<insert id="save" parameterType="com.marks.module.wx.manage.base.pojo.WxAccount">
+	<insert id="save" parameterType="com.marks.module.wx.manage.entity.base.WxAccount">
 		INSERT INTO TB_WX_ACCOUNT
 		(
 		ACCOUNTID,
@@ -50,7 +50,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.marks.module.wx.manage.base.pojo.WxAccount">
+	<update id="update" parameterType="com.marks.module.wx.manage.entity.base.WxAccount">
 		UPDATE TB_WX_ACCOUNT
 		SET
 		URL =
@@ -87,7 +87,7 @@
 		WHERE ACCOUNTID=#{accountId}
 	</delete>
 
-	<select id="findAll" resultType="com.marks.module.wx.manage.base.pojo.WxAccount">
+	<select id="findAll" resultType="com.marks.module.wx.manage.entity.base.WxAccount">
 		SELECT * FROM TB_WX_ACCOUNT
 	</select>
 
@@ -99,7 +99,7 @@
 		</foreach>
 	</delete>
 
-	<select id="list" resultType="com.marks.module.wx.manage.base.pojo.WxAccount"
+	<select id="list" resultType="com.marks.module.wx.manage.entity.base.WxAccount"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_ACCOUNT wxaccount
@@ -126,7 +126,7 @@
 
 	</select>
 
-	<select id="getWxfwhaoList" resultType="com.marks.module.wx.manage.base.pojo.WxAccount">
+	<select id="getWxfwhaoList" resultType="com.marks.module.wx.manage.entity.base.WxAccount">
 		SELECT *
 		FROM
 		TB_WX_ACCOUNT wxaccount

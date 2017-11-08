@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.marks.module.wx.manage.msg.dao.WxAutoReplayDao">
+<mapper namespace="com.marks.module.wx.manage.dao.msg.WxAutoReplayDao">
 
 	<select id="findById"
-		resultType="com.marks.module.wx.manage.msg.pojo.WxAutoReplay">
+		resultType="com.marks.module.wx.manage.entity.msg.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
 		wxautoreplay where
 		wxautoreplay.CTYPE = #{ctype:VARCHAR}
@@ -18,7 +18,7 @@
 	</select>
 
 	<select id="findByCkey"
-		resultType="com.marks.module.wx.manage.msg.pojo.WxAutoReplay">
+		resultType="com.marks.module.wx.manage.entity.msg.WxAutoReplay">
 		SELECT * FROM
 		TB_WX_AUTO_REPLAY
 		wxautoreplay where
@@ -29,7 +29,7 @@
 	</select>
 
 	<insert id="save"
-		parameterType="com.marks.module.wx.manage.msg.pojo.WxAutoReplay">
+		parameterType="com.marks.module.wx.manage.entity.msg.WxAutoReplay">
 		<selectKey keyProperty="ctype" resultType="String" order="BEFORE">select
 			replace(uuid(),'-','')</selectKey>
 		INSERT INTO TB_WX_AUTO_REPLAY (
@@ -69,7 +69,7 @@
 	</insert>
 
 	<update id="update"
-		parameterType="com.marks.module.wx.manage.msg.pojo.WxAutoReplay">
+		parameterType="com.marks.module.wx.manage.entity.msg.WxAutoReplay">
 		UPDATE TB_WX_AUTO_REPLAY
 		SET
 		itemType=#{itemType:NUMERIC},
@@ -96,7 +96,7 @@
 	</delete>
 
 	<select id="findAll"
-		resultType="com.marks.module.wx.manage.msg.pojo.WxAutoReplay">
+		resultType="com.marks.module.wx.manage.entity.msg.WxAutoReplay">
 		SELECT * FROM TB_WX_AUTO_REPLAY
 	</select>
 
@@ -109,7 +109,7 @@
 	</delete>
 
 	<select id="list"
-		resultType="com.marks.module.wx.manage.msg.pojo.WxAutoReplay"
+		resultType="com.marks.module.wx.manage.entity.msg.WxAutoReplay"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM TB_WX_AUTO_REPLAY wxautoreplay
@@ -151,7 +151,7 @@
 
 	<!-- 加载系统参数 -->
 	<select id="getWxAutoReplayByKey"
-		resultType="com.marks.module.wx.manage.msg.pojo.WxAutoReplay">
+		resultType="com.marks.module.wx.manage.entity.msg.WxAutoReplay">
 		select * from
 		tb_wx_auto_replay t where
 		t.accountid=#{accountId} and instr(t.CKEY,#{ckey})
