@@ -7,7 +7,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.system.syslog.service.SysLogService;
-import com.marks.module.wx.manage.template.service.ModuleMsgService;
+import com.marks.module.wx.manage.service.template.ModuleMsgService;
 
 /**
  * 将基础数据加载到缓存中
