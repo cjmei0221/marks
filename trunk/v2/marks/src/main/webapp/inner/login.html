@@ -237,7 +237,7 @@ input:-webkit-autofill {
 .southDiv {
 	text-align: center;
 	background-color: #b9b9b9;
-	height:30px;
+	height: 30px;
 	line-height: 28px;
 }
 
@@ -332,7 +332,9 @@ input:-webkit-autofill {
 </style>
 </head>
 <body class="easyui-layout" style="min-width: 800px;">
-	<div data-options="region:'north'" class="topHeadr">管理平台</div>
+	<div data-options="region:'north'">
+		<span class="topHeadr">管理平台</span>
+	</div>
 	<!-- 中间部分 -->
 	<div data-options="region:'center'">
 		<div class="centerLogin">
@@ -380,91 +382,89 @@ input:-webkit-autofill {
 		</div>
 	</div>
 	<!-- 底部 -->
-	<div data-options="region:'south'" class="southDiv">
-		管理平台
-	</div>
+	<div data-options="region:'south'" class="southDiv">管理平台</div>
 
-<script type="text/javascript">
-	var appLogin = {
-		urlLogin : top.window.urlBase + "/inner/login.do"
-	};
+	<script type="text/javascript">
+		var appLogin = {
+			urlLogin : top.window.urlBase + "/inner/login.do"
+		};
 
-	function checkParams() {
-		var checkflag = true;
-		var errorMsg = "";
-		//检验用户ID
-		var useridPut = $("#userid").val();
-		//非空判断
-		if (useridPut == null || useridPut == '') {
-			errorMsg += "<p class='tipMsgCls'>用户名为空</p>";
-			checkflag = false;
-		}
-		//校验密码
-		var passwordPut = $("#password").val();
-		//非空判断
-		if (passwordPut == null || passwordPut == '') {
-			errorMsg += "<p class='tipMsgCls'>密码为空</p>";
-			checkflag = false;
-		} else {
-			//密码长短判断
-			if (passwordPut.length < 6) {
-				errorMsg += "<p class='tipMsgCls'>密码长度错误</p>";
+		function checkParams() {
+			var checkflag = true;
+			var errorMsg = "";
+			//检验用户ID
+			var useridPut = $("#userid").val();
+			//非空判断
+			if (useridPut == null || useridPut == '') {
+				errorMsg += "<p class='tipMsgCls'>用户名为空</p>";
 				checkflag = false;
 			}
+			//校验密码
+			var passwordPut = $("#password").val();
+			//非空判断
+			if (passwordPut == null || passwordPut == '') {
+				errorMsg += "<p class='tipMsgCls'>密码为空</p>";
+				checkflag = false;
+			} else {
+				//密码长短判断
+				if (passwordPut.length < 6) {
+					errorMsg += "<p class='tipMsgCls'>密码长度错误</p>";
+					checkflag = false;
+				}
+			}
+			if (!checkflag) {
+				$.messager.alert('系统提示', errorMsg);
+			}
+			return checkflag;
 		}
-		if (!checkflag) {
-			$.messager.alert('系统提示', errorMsg);
-		}
-		return checkflag;
-	}
 
-	function login(e) {
-		try {
-			e.preventDefault();
-			e.stopPropagation();
-		} catch (e00) {
+		function login(e) {
+			try {
+				e.preventDefault();
+				e.stopPropagation();
+			} catch (e00) {
 
-		}
-		
-		if (checkParams()) {
-			var p = {
-				userid : $("#userid").val(),
-				pwd : Encrypt($("#password").val())
 			}
 
-			$.ajax({
-				url : appLogin.urlLogin,
-				data : p,
-				type : "post",
-				success : function(data, status, xhr) {
-					if (typeof data === "string") {
-						data = $.parseJSON(data);
-					}
-					if (data.retcode == "0") {
-						location.replace("index.html");
-					} else {
-						$.messager.alert("系统提示", data.retmsg);
-						return;
-					}
-				},
-				error : function(xhr) {
-
+			if (checkParams()) {
+				var p = {
+					userid : $("#userid").val(),
+					pwd : Encrypt($("#password").val())
 				}
-			});
-		}
-		return;
-	}
-	$("#username,#password").on("keypress", function(e) {
-		if (e.keyCode == 13) {
-			login(e);
-		}
-	})
-	$(function() {
-		document.getElementById("userid").focus();
-		//input内显示的字符
-		$('input, textarea').placeholder();
 
-	});
-</script>
+				$.ajax({
+					url : appLogin.urlLogin,
+					data : p,
+					type : "post",
+					success : function(data, status, xhr) {
+						if (typeof data === "string") {
+							data = $.parseJSON(data);
+						}
+						if (data.retcode == "0") {
+							location.replace("index.html");
+						} else {
+							$.messager.alert("系统提示", data.retmsg);
+							return;
+						}
+					},
+					error : function(xhr) {
+
+					}
+				});
+			}
+			return;
+		}
+		$("#username,#password").on("keypress", function(e) {
+			if (e.keyCode == 13) {
+				login(e);
+			}
+		})
+		$(function() {
+			document.getElementById("userid").focus();
+			//input内显示的字符
+			$('input, textarea').placeholder();
+
+		});
+	</script>
 </body>
 </html>

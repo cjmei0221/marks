@@ -101,16 +101,16 @@
   color: #444;
 }
 .menu-content {
-  background: #ffffff;
+  background: #eceadf;
 }
 .menu-item {
   border-color: transparent;
   _border-color: #fafafa;
 }
 .menu-active {
-  border-color: #b7d2ff;
-  color: #000000;
-  background: #eaf2ff;
+  border-color: #654b24;
+  color: #ffffff;
+  background: #654b24;
 }
 .menu-active-disabled {
   border-color: transparent;

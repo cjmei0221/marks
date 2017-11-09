@@ -132,29 +132,28 @@
   border: 1px dotted red;
 }
 .tree-editor {
-  border: 1px solid #95B8E7;
+  border: 1px solid #ccc;
   font-size: 12px;
-  line-height: 16px;
-  padding: 0 4px;
-  margin: 0;
+  height: 14px !important;
+  height: 18px;
+  line-height: 14px;
+  padding: 1px 2px;
   width: 80px;
-  outline-style: none;
-  vertical-align: top;
   position: absolute;
   top: 0;
 }
 .tree-node-proxy {
-  background-color: #ffffff;
-  color: #000000;
-  border-color: #95B8E7;
+  background-color: #eceadf;
+  color: #1f1f1f;
+  border-color: #cbc7bd;
 }
 .tree-node-hover {
-  background: #eaf2ff;
-  color: #000000;
+  background: #654b24;
+  color: #ffffff;
 }
 .tree-node-selected {
-  background: #ffe48d;
-  color: #000000;
+  background: #b83400;
+  color: #ffffff;
 }
 .tree-node-hidden {
   display: none;

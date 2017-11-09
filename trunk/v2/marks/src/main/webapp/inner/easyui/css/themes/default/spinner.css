@@ -1,5 +1,22 @@
+.spinner {
+  display: inline-block;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.spinner .spinner-text {
+  font-size: 12px;
+  border: 0px;
+  margin: 0;
+  padding: 0 2px;
+  vertical-align: baseline;
+}
 .spinner-arrow {
-  background-color: #E0ECFF;
+  background-color: #f8f7f6;
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
@@ -19,11 +36,11 @@
   height: 10px;
   width: 100%;
   height: 50%;
-  color: #444;
+  color: #654b24;
   outline-style: none;
 }
 .spinner-arrow-hover {
-  background-color: #eaf2ff;
+  background-color: #654b24;
   opacity: 1.0;
   filter: alpha(opacity=100);
 }
@@ -31,13 +48,13 @@
 .spinner-arrow-down:hover {
   opacity: 1.0;
   filter: alpha(opacity=100);
-  background-color: #eaf2ff;
+  background-color: #654b24;
 }
 .textbox-icon-disabled .spinner-arrow-up:hover,
 .textbox-icon-disabled .spinner-arrow-down:hover {
   opacity: 0.6;
   filter: alpha(opacity=60);
-  background-color: #E0ECFF;
+  background-color: #f8f7f6;
   cursor: default;
 }
 .spinner .textbox-icon-disabled {
@@ -50,9 +67,6 @@
 .spinner-arrow-down {
   background: url('images/spinner_arrows.png') no-repeat -15px center;
 }
-.spinner-button-up {
-  background: url('images/spinner_arrows.png') no-repeat -32px center;
-}
-.spinner-button-down {
-  background: url('images/spinner_arrows.png') no-repeat -48px center;
+.spinner {
+  border-color: #cbc7bd;
 }

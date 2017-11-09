@@ -90,12 +90,12 @@
   background: url('images/slider_handle.png') no-repeat;
 }
 .slider-inner {
-  border-color: #95B8E7;
-  background: #E0ECFF;
+  border-color: #cbc7bd;
+  background: #f8f7f6;
 }
 .slider-rule span {
-  border-color: #95B8E7;
+  border-color: #cbc7bd;
 }
 .slider-rulelabel span {
-  color: #000000;
+  color: #1f1f1f;
 }
