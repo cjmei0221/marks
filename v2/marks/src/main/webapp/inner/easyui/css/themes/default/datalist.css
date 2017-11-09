@@ -47,7 +47,7 @@
   display: block;
   position: relative;
   cursor: pointer;
-  color: #000000;
+  color: #1f1f1f;
   text-decoration: none;
   overflow: hidden;
   margin: -2px -4px;
@@ -87,8 +87,8 @@
   border-color: #ccc;
 }
 .m-list li>a:hover {
-  background: #eaf2ff;
-  color: #000000;
+  background: #654b24;
+  color: #ffffff;
 }
 .m-list .m-list-group {
   padding: 0 4px;

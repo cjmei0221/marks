@@ -20,13 +20,13 @@
   border-radius: 5px 0 0 5px;
 }
 .progressbar {
-  border-color: #95B8E7;
+  border-color: #cbc7bd;
 }
 .progressbar-text {
-  color: #000000;
+  color: #1f1f1f;
   font-size: 12px;
 }
 .progressbar-value .progressbar-text {
-  background-color: #ffe48d;
-  color: #000000;
+  background-color: #b83400;
+  color: #ffffff;
 }
