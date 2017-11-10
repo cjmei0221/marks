@@ -136,7 +136,7 @@ function loadList() {
 			appInfo.selectedData = rowData;
 		},
 		onDblClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.id;
+			appInfo.selectedId = rowData.@{PKAttrValue};
 			appInfo.selectedData = rowData;
 			edit();
 		},
