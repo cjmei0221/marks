@@ -21,6 +21,8 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.base.pojo.Brand;
 import com.marks.module.mall.base.service.BrandService;
+import com.marks.module.mall.good.pojo.GoodInfo;
+import com.marks.module.mall.good.service.GoodInfoService;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
@@ -35,6 +37,9 @@ public class BrandController extends SupportContorller {
 
 	@Autowired
 	private BrandService brandService;
+
+	@Autowired
+	private GoodInfoService goodInfoService;
 
 	@Override
 	public Logger getLogger() {
@@ -139,7 +144,13 @@ public class BrandController extends SupportContorller {
 			Brand reqVo = getModel(Brand.class);
 
 			logger.info("deleteBrandById > param>" + reqVo.getBrandId());
-
+			List<GoodInfo> glist = goodInfoService.listGoodByBrandId(reqVo.getTypeId());
+			if (null != glist && glist.size() > 0) {
+				result.setMessage("有关联商品，不能删除！");
+				result.setCode(Code.CODE_FAIL);
+				JsonUtil.output(response, result);
+				return;
+			}
 			brandService.delete(reqVo.getBrandId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);

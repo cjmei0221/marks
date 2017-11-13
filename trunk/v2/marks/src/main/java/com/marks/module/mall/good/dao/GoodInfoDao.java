@@ -37,4 +37,20 @@ public interface GoodInfoDao {
 	List<GoodImg> getGoodImgByGoodId(@Param("goodId") String goodId);
 
 	void onSale(@Param("goodId")String goodId, @Param("state")int state);
+
+	/**
+	 * 通过类型查询商品
+	 * 
+	 * @param typeId
+	 * @return
+	 */
+	List<GoodInfo> listGoodByTypeId(@Param("typeId") String typeId);
+
+	/**
+	 * 通过品牌查询商品
+	 * 
+	 * @param typeId
+	 * @return
+	 */
+	List<GoodInfo> listGoodByBrandId(@Param("brandId") String brandId);
 }

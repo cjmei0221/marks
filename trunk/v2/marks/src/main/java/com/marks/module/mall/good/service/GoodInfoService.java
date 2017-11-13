@@ -22,4 +22,14 @@ public interface GoodInfoService{
 	public List<GoodImg> findGoodImgByGoodId(String goodId);
 
 	public void updateStatus(String goodId, int value);
+
+	public List<GoodInfo> listGoodByTypeId(String typeId);
+
+	/**
+	 * 查询品牌下的商品
+	 * 
+	 * @param typeId
+	 * @return
+	 */
+	public List<GoodInfo> listGoodByBrandId(String brandId);
 }
