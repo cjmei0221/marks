@@ -14,6 +14,16 @@
 		goodinfo where goodinfo.goodNo = #{goodNo}
 		and goodinfo.companyId=#{companyId}
 	</select>
+	<select id="listGoodByTypeId" resultType="com.marks.module.mall.good.pojo.GoodInfo">
+		SELECT * FROM
+		TB_MALL_GOOD_INFO
+		goodinfo where goodinfo.typeId = #{typeId}
+	</select>
+	<select id="listGoodByBrandId" resultType="com.marks.module.mall.good.pojo.GoodInfo">
+		SELECT * FROM
+		TB_MALL_GOOD_INFO
+		goodinfo where goodinfo.BRANDID = #{brandId}
+	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		INSERT INTO TB_MALL_GOOD_INFO
