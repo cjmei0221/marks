@@ -13,7 +13,6 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.module.mall.base.dao.CategoryDao;
 import com.marks.module.mall.base.pojo.Category;
 import com.marks.module.mall.base.service.CategoryService;
-import com.marks.module.org.area.pojo.Area;
 
 @Service
 @Transactional
@@ -96,8 +95,7 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public List<Area> treeGrid(String companyId, String parentId) {
+	public List<Category> treeGrid(String companyId, String parentId) {
 		return categoryDao.getTreeGridByParentId(companyId, parentId);
 	}
-	
 }

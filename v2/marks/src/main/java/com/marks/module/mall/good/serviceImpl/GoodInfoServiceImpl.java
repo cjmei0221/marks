@@ -118,5 +118,14 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 		goodInfoDao.onSale(goodId,state);
 	}
 
+	@Override
+	public List<GoodInfo> listGoodByTypeId(String typeId) {
+		return goodInfoDao.listGoodByTypeId(typeId);
+	}
+
+	@Override
+	public List<GoodInfo> listGoodByBrandId(String brandId) {
+		return goodInfoDao.listGoodByBrandId(brandId);
+	}
 	
 }

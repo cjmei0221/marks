@@ -9,7 +9,6 @@ import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.mall.base.pojo.Category;
-import com.marks.module.org.area.pojo.Area;
 
 @MapperScan
 public interface CategoryDao {
@@ -34,5 +33,5 @@ public interface CategoryDao {
 
 	void updateParentName(@Param("typeId") String cId, @Param("typeName") String cName);
 
-	List<Area> getTreeGridByParentId(@Param("companyId") String companyId, @Param("parentId") String parentId);
+	List<Category> getTreeGridByParentId(@Param("companyId") String companyId, @Param("parentId") String parentId);
 }
