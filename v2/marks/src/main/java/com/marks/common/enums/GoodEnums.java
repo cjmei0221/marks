@@ -79,4 +79,39 @@ public class GoodEnums {
 			return status;
 		}
 	}
+
+	public enum GoodTagType {
+		brand(0, "品牌"), // 系统用户
+		priceGroup(1, "价格段");// 会员
+
+		private int status;
+		private String name;
+
+		private GoodTagType(int status, String name) {
+			this.status = status;
+			this.name = name;
+		}
+
+		public static String getByKey(int status) {
+			switch (status) {
+			case 0: {
+				return GoodTagType.brand.getName();
+			}
+			case 1: {
+				return GoodTagType.priceGroup.getName();
+			}
+			default: {
+				return "";
+			}
+			}
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getValue() {
+			return status;
+		}
+	}
 }
