@@ -222,7 +222,7 @@
 		#{goodId:VARCHAR},
 		#{imgType:NUMERIC},
 		#{imgUrl:VARCHAR},
-		sysdate,
+		now(),
 		#{sort:NUMERIC},
 		#{imgName:VARCHAR}
 		)
