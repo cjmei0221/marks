@@ -41,6 +41,11 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/jsp/" p:suffix=".jsp" />
+	<!-- 上传文件大小限制 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
 
 	<!--配置拦截器, 多个拦截器,顺序执行 -->
 	<mvc:interceptors>
@@ -48,8 +53,7 @@
 		<mvc:interceptor>
 			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
 			<mvc:mapping path="/inner/*/*" />
-			<bean
-				class="com.marks.module.core.interceptor.PopedomInterceptor"></bean>
+			<bean class="com.marks.module.core.interceptor.PopedomInterceptor"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
