@@ -2,6 +2,8 @@ package com.marks.module.system.upload.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
@@ -32,100 +36,64 @@ public class ImageUploadController {
 	private static final Logger LOG = Logger.getLogger(ImageUploadController.class);
 	private static final long serialVersionUID = 1L;
 	@Autowired
-    private MyImageService  myImageService;
-   
-	@RequestMapping("/inner/fileUpload/image")
-	public void upload(HttpServletRequest req, HttpServletResponse resp) {
+	private MyImageService myImageService;
+	
+	@RequestMapping("/inner/fileUpload/img")
+	public void upload2(@RequestParam(value = "file_upload", required = false) MultipartFile file,
+			HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		result.setCode(Code.CODE_SUCCESS);
+		InputStream ins = null;
+		FileOutputStream fos = null;
 		try {
-			String image = req.getParameter("image");
+			String id = "I_" + IDUtil.getDateID() + "_" + IDUtil.getRandom(100, 999) + IDUtil.getRandom(100, 999);
+			String ImagePath = UploadUtil.getUploadPath(request);
+			LOG.info("upload2 >" + file);
+			LOG.info("upload2 >" + file.getOriginalFilename());
+			String[] s = file.getOriginalFilename().split("\\.");
+			String picName = id + "." + s[s.length - 1];
+			File targetfile = new File(ImagePath, picName);
+			ins = file.getInputStream();
+			fos = new FileOutputStream(targetfile);
 
-			// 只允许jpg
+			byte b[] = new byte[1024];
+			int temp = 0;
 
-			String header = "data:image/jpeg;base64,";
-			String header2 = "data:image/png;base64,";
-			
-			String fileType="";
-			
-			boolean isSupport=false;
-			
-			if(image.indexOf(header)>=0){
-				isSupport=true;
-				fileType=".jpg";
-				// 去掉头部
-				image = image.substring(header.length());
-			}
-			
-			if(image.indexOf(header2)>=0){
-				isSupport=true;
-				fileType=".png";
-				// 去掉头部
-				image = image.substring(header.length()-1);
-			}
-			
-			if (!isSupport) {
-
-				result.setCode("1");
-				result.setMessage("只支持jpg,png图片");
-				JsonUtil.output(resp, result);
-				return;
-
+			while ((temp = ins.read(b)) != -1) {
+				fos.write(b, 0, temp);
 			}
 
-			
+			fos.flush();
 
-			
-
-			// 写入磁盘
-
-			boolean success = false;
-
-			BASE64Decoder decoder = new BASE64Decoder();
-
-			try {
-
-				byte[] decodedBytes = decoder.decodeBuffer(image);
-				String commPath = UploadUtil.getUploadPath(req);
-				String id="U"+IDUtil.getTimeID();
-				String picName = id+ fileType;
-				//String imgFilePath = "D://uploadimage";
-				File saveFile = new File(commPath + picName);
-				FileOutputStream out = new FileOutputStream(saveFile);
-
-				out.write(decodedBytes);
-
-				out.close();
-
-				success = true;
-				result.getData().put("imgId", id);
-				result.getData().put("fileUrl", picName);
-				FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
-						FTPUtil.ftpFileDirectory, picName, saveFile, "");
-				SysUser admin = ManageUtil.getCurrentUserInfo(req);
-				MyImage img=new MyImage();
-				img.setPicId(id);
-				img.setCreator(admin.getUserid());
-				img.setPicName(picName);
-				img.setPicUrl(FTPUtil.ftp_url + picName);
-				myImageService.save(img);
-			} catch (Exception e) {
-
-				success = false;
-
-				LOG.error(e.getMessage(),e);
-				result.setCode(Code.CODE_FAIL);
-				result.setMessage("系统错误");
-
-			}
-
+			result.getData().put("imgId", id);
+			result.getData().put("fileUrl", picName);
+			FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
+					FTPUtil.ftpFileDirectory, picName, targetfile, "");
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			MyImage img = new MyImage();
+			img.setPicId(id);
+			img.setCreator(admin.getUserid());
+			img.setPicName(picName);
+			img.setPicUrl(FTPUtil.ftp_url + picName);
+			myImageService.save(img);
 		} catch (Exception e) {
-			LOG.error(e.getMessage(),e);
+			LOG.error(e.getMessage(), e);
 			result.setCode(Code.CODE_FAIL);
 			result.setMessage("系统错误");
+		} finally {
+			try {
+				if (fos != null) {
+					fos.close();
+				}
+				if (ins != null) {
+					ins.close();
+				}
+			} catch (IOException e) {
+
+			}
 		}
-		
-		JsonUtil.output(resp, result);
+
+		JsonUtil.output(response, result);
 	}
 
 }
