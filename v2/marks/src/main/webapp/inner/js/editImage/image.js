@@ -2,7 +2,8 @@ var img = {
 	idDiv : "addMainImg",
 	imgNum : 1,
 	pageNum : 1,
-	pageSize : 12
+	pageSize : 12,
+	checkImgUrl:top.window.urlBase + "/inner/images/checked.jpg"
 };
 $(function() {
 	$("#upload_form  .l-btn-text").html("请选择");
@@ -48,7 +49,7 @@ function loadImageList(pageNum, pageSize) {
 								list[i].picId);
 						showDiv.append(imgDiv);
 						for (var j = 0; j < imgArr.length; j++) {
-							if (list[i].picName == imgArr[j]) {
+							if (list[i].picUrl == imgArr[j]) {
 								initImage(list[i].picId, 1);
 							}
 						}
@@ -95,9 +96,9 @@ img.editImage = function editImage(eInput, fileUrl, flag) {
 
 	var showDiv = $("#" + eInput);
 	var imgDiv = showImage(fileUrl);
-	if (flag == 1) {
-		imgDiv = showImageOnlyRead(fileUrl);
-	}
+//	if (flag == 1) {
+//		imgDiv = showImageOnlyRead(fileUrl);
+//	}
 	showDiv.append(imgDiv);
 }
 
@@ -132,7 +133,7 @@ function showImage(imgUrl) {
 			+ '" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 155px;display:none;" readonly="readonly"><br/>'
 			+ '<img class="imageUrl" src="' + (imgUrl)
 			+ '" style="width: 160px; height: 100px;" /> <br/>'
-			+ '<input type="button" onclick="deleteImage(this);" value="删除"/>'
+//			+ '<input type="button" onclick="deleteImage(this);" value="删除"/>'
 			+ '</span>';
 	return str;
 }
@@ -147,7 +148,7 @@ function checkImage(eInput) {
 			alert("只能上传" + img.imgNum + "张图片");
 			return;
 		}
-		$(eInput).attr("src", top.window.urlBase + "/inner/images/checked.jpg");
+		$(eInput).attr("src", img.checkImgUrl);
 		showDiv.children('.flagVal').val("0");
 		img.editImage(img.idDiv, picUrl);
 	} else {
@@ -170,7 +171,7 @@ function initImage(picId, flag) {
 	var picUrl = showDiv.children('.imageUrlInput').val();
 	var imgInput = showDiv.children('.imageUrl');
 	if (flag == 1) {
-		imgInput.attr("src", top.window.urlBase + "/images/checked.jpg");
+		imgInput.attr("src", img.checkImgUrl);
 		showDiv.children('.flagVal').val("0");
 		// img.editImage(img.idDiv, picUrl);
 	}
