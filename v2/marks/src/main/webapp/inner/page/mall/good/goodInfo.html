@@ -384,18 +384,24 @@
 		</table>
 	</div>
 
-	<div id="imageListWin" class="easyui-window"
+		<div id="imageListWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 650px; height: 450px; padding: 10px;">
-		<a class="uploadImage" href="#"> <input type="file"
-			onchange="selectImage(this);" />上传图片
-		</a>
+		style="width: 800px; height: 600px; padding: 10px;">
+		<div>
+			<form id="upload_form" enctype="multipart/form-data"
+				action="/inner/fileUpload/img.do" method="post">
+				<input class="easyui-filebox" style="width: 500px" id="file_upload"
+					name="file_upload" /><input type="button" value="  上传  "
+					onclick="uploadPic()"
+					style="width: 100px; height: 30px; margin-left: 10px; background-color: indianred;">
+			</form>
+		</div>
 		<div id="pgNation" class="easyui-pagination"
-			style="border: 1px solid #ccc;"
+			style="border: 1px solid #ccc;margin-top: 10px;"
 			data-options="
     		onSelectPage: function(pageNumber, pageSize){
     			loadImageList(pageNumber,pageSize);
@@ -442,16 +448,6 @@
 			</form>
 		</div>
 	</div>
-
 </body>
-<script type="text/html" id="imageDiv">
-<span>
-	<input name="imageUrl" class="easyui-validatebox" data-options="required:true" placeholder="图片访问路径" style="width: 200px;" readonly="readonly"> 
-	<input type="file" onchange="selectImage(this);"> <br/>
-	<img class="imageUrl" src="" style="width: 160px; height: 100px;display:none;" /> <br/>
-	<input type="button" onclick="deleteImage(this);" value="删除" style="display:none;"/>
-</span>
-	
-</script>
 <script src="js/goodInfo.js"></script>
 </html>

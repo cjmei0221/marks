@@ -111,18 +111,25 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 650px; height: 450px; padding: 10px;">
-		<a class="uploadImage" href="#"> <input type="file"
-				onchange="selectImage(this);" />上传图片
-		</a>
-		<div id="pgNation" class="easyui-pagination" style="border: 1px solid #ccc;"
+		style="width: 800px; height: 600px; padding: 10px;">
+		<div>
+			<form id="upload_form" enctype="multipart/form-data"
+				action="/inner/fileUpload/img.do" method="post">
+				<input class="easyui-filebox" style="width: 500px" id="file_upload"
+					name="file_upload" /><input type="button" value="  上传  "
+					onclick="uploadPic()"
+					style="width: 100px; height: 30px; margin-left: 10px; background-color: indianred;">
+			</form>
+		</div>
+		<div id="pgNation" class="easyui-pagination"
+			style="border: 1px solid #ccc;margin-top: 10px;"
 			data-options="
     		onSelectPage: function(pageNumber, pageSize){
     			loadImageList(pageNumber,pageSize);
     	}">
 		</div>
 
-		<div id="content" class="easyui-panel" style="padding: 10px;">		
+		<div id="content" class="easyui-panel" style="padding: 10px;">
 			<div id="ImgList"></div>
 		</div>
 
