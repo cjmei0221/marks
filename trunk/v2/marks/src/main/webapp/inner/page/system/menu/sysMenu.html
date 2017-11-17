@@ -45,26 +45,45 @@
 			<input type="hidden" id="menuid" name="menuid">
 			<table class="out-win-cls">
 				<tr>
-					<th>菜单名称</th>
-					<td><input id="menuitemPut" name="menuitemPut"
-						class="easyui-validatebox" data-options="required:true"
-						maxlength="60" style="width:300px;"></td>
+					<th>菜单类型</th>
+					<td><select id="lvl" class="easyui-combobox" name="lvl"
+						style="width: 200px;" data-options="required:true">
+							<option value="1">一级菜单</option>
+							<option value="2">二级菜单</option>
+							<option value="3">三级菜单</option>
+					</select></td>
+				</tr>
+				<tr id="lvl1MenuidTr" style="display: none;">
+					<th>一级菜单</th>
+					<td><input id="lvl1Menuid" name="lvl1Menuid"
+						style="width: 260px;" class="easyui-combobox"
+						data-options="valueField:'menuid',textField:'menuitem',url:'/inner/sysMenu/parentMenu.do?parentId=0',onSelect: function(rec){
+    var url = '/inner/sysMenu/parentMenu.do?parentId='+rec.menuid;
+    $('#lvl2Menuid').combobox('reload', url);
+    }"></td>
+				</tr>
+				<tr id="lvl2MenuidTr" style="display: none;">
+					<th>二级菜单</th>
+					<td><input id="lvl2Menuid" name="lvl2Menuid"
+						style="width: 260px;" class="easyui-combobox"
+						data-options="valueField:'menuid',textField:'menuitem',url:'/inner/sysMenu/parentMenu.do?parentId='"></td>
 				</tr>
 				<tr>
-					<th>父菜单</th>
-					<td><input id="parentidPut" name="parentidPut" style="width:200px;"
-						class="easyui-combobox" data-options="required:true,valueField:'menuid',textField:'menuitem',url:'/inner/sysMenu/parentMenu.do'"></td>
+					<th>菜单名称</th>
+					<td><input id="menuitem" name="menuitem"
+						class="easyui-validatebox" data-options="required:true"
+						maxlength="60" style="width: 300px;"></td>
 				</tr>
 				<tr>
 					<th>链接URL</th>
-					<td><input id="urlPut" name="urlPut" style="width:400px;"
+					<td><input id="urlPut" name="urlPut" style="width: 400px;"
 						class="easyui-validatebox" data-options="required:true" value="#">
 					</td>
 				</tr>
 				<tr>
 					<th>排序</th>
 					<td><input id="sortPut" name="sortPut" type="text"
-						class="easyui-numberbox" value="150" style="width:200px;"
+						class="easyui-numberbox" value="150" style="width: 200px;"
 						data-options="required:true,max:999,min:0,precision:0"></td>
 				</tr>
 				<tr>
@@ -121,6 +140,5 @@
 	</div>
 
 </body>
-<script type="text/javascript"
-	src="sysMenu.js"></script>
+<script type="text/javascript" src="sysMenu.js"></script>
 </html>
