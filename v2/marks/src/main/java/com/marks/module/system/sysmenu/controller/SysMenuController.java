@@ -15,6 +15,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
+import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.system.sysmenu.pojo.SysFunc;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
@@ -33,7 +34,7 @@ import net.sf.json.JSONArray;
  * @Copyright (c) 2016, marks All Rights Reserved.
  */
 @Controller
-public class SysMenuController {
+public class SysMenuController extends SupportContorller {
 	private final static Logger log = Logger.getLogger(SysMenuController.class);
 	@Autowired
 	private SysMenuService sysMenuService;
@@ -51,11 +52,16 @@ public class SysMenuController {
 	@RequestMapping("/inner/sysMenu/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		List<SysMenu> list=sysMenuService.getSysMenuList();
+		String parentId = request.getParameter("parentId");
+		if (null == parentId || "".equals(parentId)) {
+			parentId = "0";
+		}
+		List<SysMenu> list = sysMenuService.listTree(parentId);
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		result.getData().put("menuList", list);
-		JsonUtil.output(response, result);
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+		return;
 	}
 	/**
 	 * 父菜单下拉框
@@ -70,11 +76,11 @@ public class SysMenuController {
 	@RequestMapping("/inner/sysMenu/parentMenu")
 	public void parentMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		List<SysMenu> returnlist=sysMenuService.getParentSysMenuList();
-		SysMenu p=new SysMenu();
-		p.setMenuid("0");
-		p.setMenuitem("一级菜单选项");
-		returnlist.add(p);
+		String parentId = request.getParameter("parentId");
+		if (parentId == null || "".equals(parentId)) {
+			return;
+		}
+		List<SysMenu> returnlist = sysMenuService.getChildListByParentid(parentId);
 		JsonUtil.output(response, JSONArray.fromObject(returnlist).toString());
 	}
 	
@@ -95,26 +101,24 @@ public class SysMenuController {
 		result.setMessage("sucess");
 		String formStatus=request.getParameter("formStatus");
 		SysUser user = ManageUtil.getCurrentUserInfo(request);
+		SysMenu sm = getModel(SysMenu.class);
+		if (sm.getLvl() == 1) {
+			sm.setParentid("0");
+		} else if (sm.getLvl() == 2) {
+			sm.setParentid(sm.getLvl1Menuid());
+		} else if (sm.getLvl() == 3) {
+			sm.setParentid(sm.getLvl2Menuid());
+		}
 		if("new".equals(formStatus)){
-			SysMenu sm=new SysMenu();
-			sm.setMenuid(IDUtil.getTimeID());
-			sm.setMenuitem(request.getParameter("menuitemPut"));
-			sm.setParentid(request.getParameter("parentidPut"));
-			sm.setSort(Integer.parseInt(request.getParameter("sortPut")));
-			sm.setUrl(request.getParameter("urlPut"));
+			sm.setMenuid(IDUtil.getDateID() + "-" + IDUtil.getID(8));
 			sm.setCreatetime(new Date());
 			sm.setCreator(user.getUsername());
 			sm.setUpdatetime(new Date());
 			sysMenuService.save(sm);
 			result.getData().put("menu", sm);
-		}else{//修改
-			String menuid=request.getParameter("menuid");
-			SysMenu sm=sysMenuService.getSysMenuByMenuid(menuid);
-			if(null !=sm){
-				sm.setMenuitem(request.getParameter("menuitemPut"));
-				sm.setParentid(request.getParameter("parentidPut"));
-				sm.setSort(Integer.parseInt(request.getParameter("sortPut")));
-				sm.setUrl(request.getParameter("urlPut"));
+		} else {// 修改
+			SysMenu old = sysMenuService.getSysMenuByMenuid(sm.getMenuid());
+			if (null != old) {
 				sm.setCreator(user.getUsername());
 				sm.setUpdatetime(new Date());
 				sysMenuService.update(sm);
@@ -232,5 +236,10 @@ public class SysMenuController {
 			result.setMessage("系统错误");
 		}
 		JsonUtil.output(response, result);
+	}
+
+	@Override
+	public Logger getLogger() {
+		return log;
 	}
 }

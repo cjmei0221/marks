@@ -83,4 +83,8 @@ public interface SysMenuService {
 	 */
 	List<SysOperate> getSysOperateList();
 
+	List<SysMenu> getChildListByParentid(String parentId);
+
+	List<SysMenu> listTree(String parentId);
+
 }
