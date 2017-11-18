@@ -105,4 +105,16 @@ public class SysMenuServiceImpl implements SysMenuService{
 	public List<SysOperate> getSysOperateList() {
 		return sysMenuDao.getSysOperateList();
 	}
+
+	@Override
+	public List<SysMenu> getChildListByParentid(String parentId) {
+		List<SysMenu> list = sysMenuDao.getChildListByParentid(parentId);
+		return list;
+	}
+
+	@Override
+	public List<SysMenu> listTree(String parentId) {
+		return sysMenuDao.listTree(parentId);
+	}
+
 }

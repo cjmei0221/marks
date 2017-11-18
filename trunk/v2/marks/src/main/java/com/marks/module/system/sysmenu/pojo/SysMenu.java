@@ -18,6 +18,42 @@ public class SysMenu {
 	
 	private List<SysFunc> oper_list=new ArrayList<SysFunc>();
 	
+	private int lvl;// 级别
+	private String lvl1Menuid;
+	private String lvl2Menuid;
+	private String state = "open";
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public int getLvl() {
+		return lvl;
+	}
+
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
+
+	public String getLvl1Menuid() {
+		return lvl1Menuid;
+	}
+
+	public void setLvl1Menuid(String lvl1Menuid) {
+		this.lvl1Menuid = lvl1Menuid;
+	}
+
+	public String getLvl2Menuid() {
+		return lvl2Menuid;
+	}
+
+	public void setLvl2Menuid(String lvl2Menuid) {
+		this.lvl2Menuid = lvl2Menuid;
+	}
 	public String getMenuid() {
 		return menuid;
 	}

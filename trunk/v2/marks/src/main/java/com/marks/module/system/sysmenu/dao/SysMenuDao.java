@@ -43,4 +43,6 @@ public interface SysMenuDao {
 
 	List<SysOperate> getSysOperateList();
 
+	List<SysMenu> listTree(@Param("parentId") String parentId);
+
 }

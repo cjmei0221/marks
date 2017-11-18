@@ -18,7 +18,10 @@
 		SORT,
 		CREATETIME,
 		UPDATETIME,
-		CREATOR
+		CREATOR,
+		lvl,
+		lvl1Menuid,
+		lvl2Menuid
 		)
 		VALUES
 		(
@@ -29,13 +32,20 @@
 		#{sm.sort:INTEGER},
 		now(),
 		now(),
-		#{sm.creator:VARCHAR}
+		#{sm.creator:VARCHAR},
+		#{sm.lvl:INTEGER},
+		#{sm.lvl1Menuid:VARCHAR},
+		#{sm.lvl2Menuid:VARCHAR}
 		)
 	</insert>
 	<update id="update" parameterType="com.marks.module.system.sysmenu.pojo.SysMenu"
 		flushCache="true">
 		UPDATE TB_SYS_MENU
-		SET PARENTID =
+		SET 
+		lvl=#{sm.lvl:INTEGER},
+		lvl1Menuid=#{sm.lvl1Menuid:VARCHAR},
+		lvl2Menuid=#{sm.lvl2Menuid:VARCHAR},
+		PARENTID =
 		#{sm.parentid:VARCHAR},
 		MENUITEM = #{sm.menuitem:VARCHAR},
 		URL =
@@ -65,7 +75,23 @@
 	</select>
 	<select id="getChildListByParentid" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
 		SELECT * FROM
-		TB_SYS_MENU t where t.PARENTID=#{menuid}
+		TB_SYS_MENU t where t.PARENTID=#{menuid} order by t.sort
+	</select>
+	<select id="listTree" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
+		select t.*,
+		(case
+		when cnum is null then
+		'open'
+		else
+		'closed'
+		end) state
+		from tb_sys_menu t
+		left join (select count(1) cnum, p.parentid pid
+		from
+		tb_sys_menu p
+		group by p.parentid) p on t.menuid = p.pid
+		where 1=1 and
+		 t.parentid =#{parentId}  ORDER BY t.SORT
 	</select>
 
 	<delete id="deletSysRolecUrlByFuncid" parameterType="String">
