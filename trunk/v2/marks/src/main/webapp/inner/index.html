@@ -47,46 +47,60 @@
 	top: 0px;
 }
 
-.loginout a div {
+.loginout {
 	text-decoration: none;
 	color: white;
 	text-align: center;
-	height: 50px;
-	padding-top: 20px;
 	font-size: 13px;
+	background-color: #b83401;
+	width: 53px;
 }
 
 .sysName {
-	position: relative;
-	left: 21px;
-	top: 9px;
 	font-size: 20px;
 	font-weight: 600;
 	font-family: "宋体";
 	color: #cc2222;
+}
+
+.my-title-cls {
+	color: purple;
+	width: 100px;
+	height: 35px;
+	font-size: 14px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.my-title-selected {
+	background-color: #b83401;
+	color: white;
 }
 </style>
 </head>
 <body class="easyui-layout">
 
 	<div data-options="region:'north'" style="height: 50px">
-		<div id="idx-header">
-			<!-- <img src="images/logo.png"
-				style="width: 146px; position: relative; left: 30px; top: 7px" /> -->
-			<span class="sysName">管理平台</span>
-			<div style="right: 150px; position: absolute; top: 20px;"
-				id="loginUserName"></div>
-			<div class="loginout" id="logout">
-				<a href="#"><div>退出</div></a>
-			</div>
-		</div>
+		<table style="width: 100%; height: 100%;">
+			<tr>
+				<td width="12%" valign="center" align="center"><span
+					class="sysName">管理平台</span></td>
+				<td width="80%" valign="center"><div id="parentMenu">
+						<div class="my-title-cls my-title-selected">测试管理1</div>
+						<div class="my-title-cls my-title-selected" onclick="">测试管理2</div>
+					</div></td>
+				<td valign="center" align="center" width="53px" id="logout"
+					class="loginout"><div>退出</div></td>
+				<td width="20px"></td>
+			</tr>
+		</table>
 	</div>
 	<div data-options="region:'south',split:false"
 		style="height: 20px; text-align: center;">管理平台</div>
 	<div
 		data-options="region:'west',split:false,hideCollapsedContent:false,collapsed:false"
 		title="功能菜单" style="width: 150px; overflow-x: hidden;">
-
 		<div id="menuControl" class="easyui-accordion"
 			data-options="multiple:false,fit:true,animate:false"
 			style="width: 150px;"></div>
@@ -97,7 +111,8 @@
 			data-options="tabWidth:100,tools:'#tab-tools',fit:true"
 			style="width: 100%; height: 100%;">
 			<div title="欢迎" style="padding: 10px">
-				<div class="welcometop" style="text-align:center;margin-top:30px;">
+				<div class="welcometop"
+					style="text-align: center; margin-top: 30px;">
 					<img src="images/welcome.jpg" width="80%" height="500px;">
 				</div>
 			</div>
@@ -114,7 +129,8 @@
 	<script type="text/javascript">
 		var appInfo = {
 			menuUrl : top.window.urlBase + "/inner/sys/menu.do",
-			logoutUrl : top.window.urlBase + "/inner/logout.do"
+			logoutUrl : top.window.urlBase + "/inner/logout.do",
+			menuList : []
 		}
 		//添加面板
 		/* var index = 0;
@@ -150,51 +166,100 @@
 		}
 		//加载菜单
 		function loadMenu() {
-			$
-					.ajax({
-						type : "GET",
-						url : appInfo.menuUrl,
-						success : function(data) {
-							checkLogin(data);
-							if (data.retcode == "0") {
-								//赋值登录用户信息
-								$("#loginUserName").html(
-										data.loginUser.username);
-								//封装菜单
-								$('#menuControl').empty(); //清空menuControl里面的所有内容
-								var mlist = data.menuList;
-								if (mlist.length > 0) {
-									var checkItem = false;
-									for (var i = 0; i < mlist.length; i++) {
-										if (i == 0) {
-											checkItem = true;
-										} else {
-											checkItem = false;
-										}
-										var childHtml = "";
-										var childList = mlist[i].children;
-										for (var j = 0; j < childList.length; j++) {
-											childHtml += '<p id="'
-													+ childList[j].menuid
-													+ '" class="menuCls" onclick="addPanel(\''
-													+ childList[j].menuid
-													+ '\',\''
-													+ childList[j].menuitem
-													+ '\',\''
-													+ childList[j].url
-													+ '\')">'
-													+ childList[j].menuitem
-													+ '</p>';
-										}
-										addAccordionPanel(checkItem,
-												mlist[i].menuitem, childHtml);
-									}
-								}
-							}
+			$.ajax({
+				type : "GET",
+				url : appInfo.menuUrl,
+				success : function(data) {
+					checkLogin(data);
+					if (data.retcode == "0") {
+						//赋值登录用户信息
+						$("#loginUserName").html(data.loginUser.username);
+						appInfo.menuList = data.menuList;
+						if (appInfo.menuList.length > 0) {
+							console.log(appInfo.menuList[0].menuid);
+							initParentMenu();
+							initMenu(appInfo.menuList[0].menuid);
 						}
-					});
+					}
+				}
+			});
 		}
+		function initParentMenu() {
+			var htmlArr = [];
+			var datalist = appInfo.menuList;
+			if (datalist.length > 0) {
+				$("#parentMenu").html('');
+				for (var i = 0; i < datalist.length; i++) {
+					if (i == 0) {
+						var htmlStr = '<div class="my-title-cls my-title-selected" onclick="selectParentMenu(this,\''
+								+ datalist[i].menuid
+								+ '\')">'
+								+ datalist[i].menuitem + '</div>';
+						htmlArr.push(htmlStr);
+					} else {
+						var htmlStr = '<div class="my-title-cls" onclick="selectParentMenu(this,\''
+								+ datalist[i].menuid
+								+ '\')">'
+								+ datalist[i].menuitem + '</div>';
+						htmlArr.push(htmlStr);
+					}
 
+				}
+				$("#parentMenu").html(htmlArr.join(''));
+			}
+		}
+		function selectParentMenu(ele, parentId) {
+			$(ele).addClass("my-title-selected");
+			$(ele).siblings().removeClass("my-title-selected");
+			initMenu(parentId);
+		}
+		function initMenu(parentId) {
+			var datalist = appInfo.menuList;
+			var mlist = [];
+			if (datalist.length > 0) {
+				for (var i = 0; i < datalist.length; i++) {
+					if (datalist[i].menuid == parentId) {
+						mlist = datalist[i].children;
+					}
+				}
+			}
+			//封装菜单
+			var pnl = $("#menuControl").accordion("panels");
+			var titles = '';
+			if (pnl) {
+				$.each(pnl, function(i) {
+					var title = pnl[i].panel("options").title;
+					titles += title + ',';
+				})
+			}
+			var arr_title = new Array();
+			arr_title = titles.split(",");
+			for (i = 0; i < arr_title.length; i++) {
+				if (arr_title[i] != "") {
+					$('#menuControl').accordion("remove", arr_title[i]);
+				}
+			}
+			if (mlist.length > 0) {
+				var checkItem = false;
+				for (var i = 0; i < mlist.length; i++) {
+					if (i == 0) {
+						checkItem = true;
+					} else {
+						checkItem = false;
+					}
+					var childHtml = "";
+					var childList = mlist[i].children;
+					for (var j = 0; j < childList.length; j++) {
+						childHtml += '<p class="menuCls" onclick="addPanel(\''
+								+ childList[j].menuid + '\',\''
+								+ childList[j].menuitem + '\',\''
+								+ childList[j].url + '\')">'
+								+ childList[j].menuitem + '</p>';
+					}
+					addAccordionPanel(checkItem, mlist[i].menuitem, childHtml);
+				}
+			}
+		}
 		//退出相应函数
 		function logoutFunc() {
 			$.ajax({
