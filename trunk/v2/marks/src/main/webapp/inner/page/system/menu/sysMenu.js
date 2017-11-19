@@ -304,7 +304,6 @@ function loadList() {
 					field : 'url',
 					width : 350
 				}, {
-
 					title : '菜单类型',
 					field : 'lvl',
 					width : 100,
