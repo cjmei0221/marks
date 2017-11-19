@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.httpclient.util.DateUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -135,7 +134,7 @@ public class DiaryServiceImpl implements DiaryService {
 					//写入文件
 					sb.append("===========================================");
 					sb.append(System.getProperty("line.separator"));
-					sb.append(DateUtil.formatDate(info.getCreatetime(), "yyyy-MM-dd HH:mm:ss"));
+					sb.append(info.getCreatetime());
 					sb.append(System.getProperty("line.separator"));
 					sb.append(System.getProperty("line.separator"));
 					sb.append(info.getTitle());

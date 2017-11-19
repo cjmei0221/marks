@@ -1,7 +1,6 @@
 package com.marks.module.note.reminder.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Reminder implements Serializable{
 
@@ -42,11 +41,11 @@ public class Reminder implements Serializable{
     /**
     *创建时间
     */
-    private Date createtime;
+	private String createtime;
     /**
     *更新时间
     */
-    private Date updatetime;
+	private String updatetime;
     /**
     *创建者
     */
@@ -154,17 +153,19 @@ public class Reminder implements Serializable{
         this.is_before = is_before;
     }
 
-    public Date getCreatetime(){
+	public String getCreatetime() {
         return createtime;
     }
-    public void setCreatetime(Date createtime){
+
+	public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 
-    public Date getUpdatetime(){
+	public String getUpdatetime() {
         return updatetime;
     }
-    public void setUpdatetime(Date updatetime){
+
+	public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime;
     }
 
