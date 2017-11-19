@@ -30,7 +30,7 @@ public class SysLogFilter implements Filter {
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) arg0;
-		LOG.info("accessURI=" + request.getRequestURI());
+		LOG.info("sessionId : " + request.getSession().getId() + " - url : " + request.getRequestURI());
 		// 获取访问url
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 		SysUser user = null;
