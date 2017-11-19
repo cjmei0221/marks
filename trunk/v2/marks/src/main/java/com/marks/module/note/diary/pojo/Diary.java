@@ -2,7 +2,6 @@ package com.marks.module.note.diary.pojo;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Diary implements Serializable {
 
@@ -15,7 +14,7 @@ public class Diary implements Serializable {
 	/**
 	 * 更新时间
 	 */
-	private Date updatetime;
+	private String updatetime;
 	/**
 	 * 正文
 	 */
@@ -31,7 +30,7 @@ public class Diary implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private Date createtime;
+	private String createtime;
 
 	private String mobile;
 
@@ -43,19 +42,19 @@ public class Diary implements Serializable {
 		this.mobile = mobile;
 	}
 
-	public Date getUpdatetime() {
+	public String getUpdatetime() {
 		return updatetime;
 	}
 
-	public void setUpdatetime(Date updatetime) {
+	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;
 	}
 
-	public Date getCreatetime() {
+	public String getCreatetime() {
 		return createtime;
 	}
 
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
 

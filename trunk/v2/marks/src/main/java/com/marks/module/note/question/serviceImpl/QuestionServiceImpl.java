@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.httpclient.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -124,7 +123,7 @@ public class QuestionServiceImpl implements QuestionService{
 					sb.append(info.getQuestion());
 					sb.append(System.getProperty("line.separator"));
 					sb.append(System.getProperty("line.separator"));
-					sb.append(DateUtil.formatDate(info.getCreatetime(), "yyyy-MM-dd HH:mm:ss")+" - "+info.getLvlName()+" - "+info.getLabels());
+					sb.append(info.getCreatetime() + " - " + info.getLvlName() + " - " + info.getLabels());
 					sb.append(System.getProperty("line.separator"));
 					sb.append("---------------------");
 					sb.append(System.getProperty("line.separator"));
