@@ -1,7 +1,6 @@
 package com.marks.module.note.diary.pojo;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 
 public class Diary implements Serializable {
 
@@ -90,8 +89,7 @@ public class Diary implements Serializable {
 		this.title = title;
 	}
 	public String getCreateDate() {
-		SimpleDateFormat sdf=new SimpleDateFormat("YYYY-MM-dd");
-		return sdf.format(createtime);
+		return createtime.substring(0, 10);
 	}
 	public String getShortContent(){
         return content==null?"":content.split("<br/>")[0];

@@ -57,12 +57,13 @@ public class WebLoginController {
 				return;
 			}
 			//校验是否未绑定
-			if (UserEnums.BindFlag.unbind.getValue() == loginUser.getBindFlag()) {
-				result.setCode("4003");
-				result.setMessage("未绑定");
-				JsonUtil.output(response, result);
-				return;
-			}
+			// if (UserEnums.BindFlag.unbind.getValue() ==
+			// loginUser.getBindFlag()) {
+			// result.setCode("4003");
+			// result.setMessage("未绑定");
+			// JsonUtil.output(response, result);
+			// return;
+			// }
 			//校验密码
 			String password = EncryptUtil.encryptPwd(pwd);
 			if (!password.equals(loginUser.getPassword())) {

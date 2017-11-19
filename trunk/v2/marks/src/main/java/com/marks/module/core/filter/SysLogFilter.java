@@ -17,7 +17,6 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
 import com.marks.module.system.syslog.pojo.SysLog;
-import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.login.helper.WebUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -66,7 +65,7 @@ public class SysLogFilter implements Filter {
 				log.setUrl(url);
 				
 				log.setSource(source);
-				SysLogThreadPool.saveSysLog(false,log);
+				// SysLogThreadPool.saveSysLog(false,log);
 			}
 		} catch (Exception e) {
 			LOG.error("Exception:", e);
