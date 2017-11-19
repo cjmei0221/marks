@@ -44,14 +44,14 @@
 	</filter-mapping>
 
 	<!-- 记录系统日志过滤器 -->
-	<!-- <filter>
+	<filter>
 		<filter-name>SysLogFilter</filter-name>
-		<filter-class>com.marks.module.sys.filter.SysLogFilter</filter-class>
+		<filter-class>com.marks.module.core.filter.SysLogFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>SysLogFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping> 
 	<filter>
 		<filter-name>paramsFilter</filter-name>
 		<filter-class>com.marks.module.core.filter.ParamsFilter</filter-class>
@@ -85,6 +85,10 @@
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jpeg</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
