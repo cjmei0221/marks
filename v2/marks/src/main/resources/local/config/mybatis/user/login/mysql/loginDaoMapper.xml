@@ -29,16 +29,17 @@
 	</select>
 	<!-- 加载父级菜单 -->
 	<select id="getParentSysMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
-		SELECT DISTINCT
+		SELECT 
 		VSRM.MENUID,
 		VSRM.MENUITEM,
 		VSRM.PARENTID,
 		VSRM.URL,
-		vsrm.nsort
+		vsrm.sort,
+		vsrm.lvl
 		FROM
-		VIEW_SYS_ROLE_MENU vsrm
+		tb_sys_menu vsrm
 		WHERE
-		vsrm.PARENTID = '0' order by vsrm.nsort
+		vsrm.lvl !=3 order by VSRM.PARENTID,vsrm.sort
 	</select>
 
 	<select id="getChildMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
@@ -54,7 +55,7 @@
 		<if test="roleId != null and roleId !=''">
 			AND VSRM.ROLEID =#{roleId}
 		</if>
-		and vsrm.PARENTID != '0' order by vsrm.nsort
+		and vsrm.lvl=3 order by vsrm.nsort
 	</select>
 	<select id="getSysOperate" resultType="com.marks.module.system.sysmenu.pojo.SysOperate">
 		SELECT distinct
