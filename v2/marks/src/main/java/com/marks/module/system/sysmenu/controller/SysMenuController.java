@@ -110,7 +110,7 @@ public class SysMenuController extends SupportContorller {
 			sm.setParentid(sm.getLvl2Menuid());
 		}
 		if("new".equals(formStatus)){
-			sm.setMenuid(IDUtil.getDateID() + "-" + IDUtil.getID(8));
+			sm.setMenuid("M_" + IDUtil.getDateID() + "_" + IDUtil.getID(8));
 			sm.setCreatetime(new Date());
 			sm.setCreator(user.getUsername());
 			sm.setUpdatetime(new Date());
