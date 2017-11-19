@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>理财</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>理财</h1>
+	<p>理财计划</p>
+	
+	<h2>理财表  (TB_ASSET_PLAN)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>PLANID</td><td>编号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>PLANNAME</td><td>名称</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>USERID</td><td>用户编号</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>USERNAME</td><td>用户名称</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>MOBILE</td><td>手机号</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>INVESTAMOUNT</td><td>投入金额</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>STATUS</td><td>状态</td><td>number</td><td>0:未执行 1：执行中 2:结束</td></tr><tr><td>8</td><td>NOWAMOUNT</td><td>现有金额</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>DIFFER</td><td>差额</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (AssetPlan)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>planId</td><td>编号</td><td>String</td><td></td></tr><tr><td>2</td><td>planName</td><td>名称</td><td>String</td><td></td></tr><tr><td>3</td><td>userid</td><td>用户编号</td><td>String</td><td></td></tr><tr><td>4</td><td>username</td><td>用户名称</td><td>String</td><td></td></tr><tr><td>5</td><td>mobile</td><td>手机号</td><td>String</td><td></td></tr><tr><td>6</td><td>investAmount</td><td>投入金额</td><td>String</td><td></td></tr><tr><td>7</td><td>status</td><td>状态</td><td>int</td><td>0:未执行 1：执行中 2:结束</td></tr><tr><td>8</td><td>nowAmount</td><td>现有金额</td><td>String</td><td></td></tr><tr><td>9</td><td>differ</td><td>差额</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (AssetPlanController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/assetPlan/findAssetPlanById</td><td>findAssetPlanById</td><td>查询理财</td></tr><tr><td>2</td><td>/assetPlan/save</td><td>saveAssetPlan</td><td>保存理财</td></tr><tr><td>3</td><td>/assetPlan/update</td><td>updateAssetPlan</td><td>更新理财</td></tr><tr><td>4</td><td>/assetPlan/delete</td><td>deleteAssetPlanById</td><td>删除理财</td></tr><tr><td>5</td><td>/assetPlan/findAllAssetPlan</td><td>findAllAssetPlan</td><td>查询全部理财</td></tr><tr><td>6</td><td>/assetPlan/deleteIds</td><td>deleteAssetPlan</td><td>删除多个理财</td></tr><tr><td>7</td><td>/assetPlan/list</td><td>list</td><td>列表查询理财</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (AssetPlanService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询理财</td></tr><tr><td>2</td><td>save</td><td>保存理财</td></tr><tr><td>3</td><td>update</td><td>更新理财</td></tr><tr><td>4</td><td>deleteById</td><td>删除理财</td></tr><tr><td>5</td><td>findAll</td><td>查询全部理财</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个理财</td></tr><tr><td>7</td><td>list</td><td>列表查询理财</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(AssetPlanDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询理财</td></tr><tr><td>2</td><td>save</td><td>保存理财</td></tr><tr><td>3</td><td>update</td><td>更新理财</td></tr><tr><td>4</td><td>deleteById</td><td>删除理财</td></tr><tr><td>5</td><td>findAll</td><td>查询全部理财</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个理财</td></tr><tr><td>7</td><td>list</td><td>列表查询理财</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
