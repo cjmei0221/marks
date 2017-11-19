@@ -27,7 +27,7 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Result result = new Result();
-		log.info("sessionId:"+request.getSession().getId());
+		log.info("sessionId : " + request.getSession().getId() + " - url : " + request.getRequestURI());
 		SysUser loginUser = ManageUtil.getCurrentUserInfo(request);
 		if (null == loginUser) {
 			result.setCode("-1000");

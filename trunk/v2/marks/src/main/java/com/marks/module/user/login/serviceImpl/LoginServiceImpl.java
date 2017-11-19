@@ -44,18 +44,40 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public List<SysMenu> getSysMenuOfSysUser(SysUser user) {
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
-
+		List<SysMenu> lvl2Menu = new ArrayList<SysMenu>();
 		List<SysMenu> child = loginDao.getChildMenu(user.getRoleid());
 		if (null != child && child.size() > 0) {
+			List<SysMenu> lvl1List = new ArrayList<SysMenu>();
+			List<SysMenu> lvl2List = new ArrayList<SysMenu>();
 			List<SysMenu> parentMenu = loginDao.getParentSysMenu();
 			for (SysMenu pm : parentMenu) {
+				if (pm.getLvl() == 1) {
+					lvl1List.add(pm);
+				} else if (pm.getLvl() == 2) {
+					lvl2List.add(pm);
+				}
+			}
+			for (SysMenu pm : lvl2List) {
 				for (SysMenu cm : child) {
 					if (pm.getMenuid().equals(cm.getParentid())) {
 						pm.addChildren(cm);
 					}
 				}
 				if (pm.getChildren().size() > 0) {
-					returnMenu.add(pm);
+					lvl2Menu.add(pm);
+				}
+			}
+			// 封装一级菜单
+			if (lvl2Menu.size() > 0) {
+				for (SysMenu pm : lvl1List) {
+					for (SysMenu cm : lvl2Menu) {
+						if (pm.getMenuid().equals(cm.getParentid())) {
+							pm.addChildren(cm);
+						}
+					}
+					if (pm.getChildren().size() > 0) {
+						returnMenu.add(pm);
+					}
 				}
 			}
 		}
