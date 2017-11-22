@@ -46,6 +46,8 @@ function add(){
 	$('#tableName').removeAttr("readonly");
 	$('#isAutoTr').hide();
 	$('#isAuto').combobox("setValue",1);
+	$('#is_auth').combobox("setValue",1);
+	$('#is_createtable').combobox("setValue",0);
 	initAttrList();
 }
 
