@@ -81,6 +81,20 @@ public class PojoProduced extends AbstractCodeProduced {
 		return sBuffer.toString();
 	}
 
+	public String producedInitValue(AutoBean autoBean) {
+		StringBuffer sBuffer = new StringBuffer();
+		for (AutoAttr autoAttr : autoBean.getAutoAttrs()) {
+			if (createTime.equals(autoAttr.getAttrName().toLowerCase())
+					|| updateTime.equals(autoAttr.getAttrName().toLowerCase())) {
+				sBuffer.append(BANK_VALUE_4).append("this.").append(autoAttr.getAttrName()).append("=")
+						.append("DateUtil.getCurrDateStr()")
+						.append(SEMI_VALUE).append(ENTER_VALUE);
+			}
+		}
+
+		return sBuffer.toString();
+	}
+
 	/**
 	 * 生成getset方法列表
 	 * 

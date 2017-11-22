@@ -11,9 +11,9 @@ import com.marks.common.domain.PojoDomain;
 public interface AssetPlanService{
 
 	public AssetPlan findById(String planId);
-	public void save(AssetPlan assetPlan);
-	public void update(AssetPlan assetPlan);
-	public void delete(String planId);
+	public void save(AssetPlan info);
+	public void update(AssetPlan info);
+	public void delete(String id);
 	public List<AssetPlan> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<AssetPlan> list(int page_number, int page_size,Map<String,Object> param);

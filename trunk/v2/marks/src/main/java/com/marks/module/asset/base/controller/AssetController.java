@@ -50,12 +50,12 @@ public class AssetController extends SupportContorller{
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    Asset reqVo = getModel(Asset.class);
+		    Asset info = getModel(Asset.class);
 		    
-		    logger.info("findAssetById > param>"+reqVo.getIdNo());
+		    logger.info("findAssetById > param>"+info.getIdNo());
 		    
-			Asset info = assetService.findById(reqVo.getIdNo());
-			result.getData().put("info",info);
+			Asset vo = assetService.findById(info.getIdNo());
+			result.getData().put("info",vo);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -75,18 +75,18 @@ public class AssetController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	Asset reqVo = getModel(Asset.class);
-	        reqVo.setIdNo(IDUtil.getUUID());
+	    	Asset info = getModel(Asset.class);
+	        info.setIdNo(IDUtil.getUUID());
 	 		
-	 		logger.info("saveAsset > param>"+reqVo.toLog());
+	 		logger.info("saveAsset > param>"+info.toLog());
 	 
 			 Asset ori=null;
-	 		if(reqVo.getIdNo() != null){
-	 			ori=assetService.findById(reqVo.getIdNo());
+	 		if(info.getIdNo() != null){
+	 			ori=assetService.findById(info.getIdNo());
 	 		}
 	 		
 	 		if(ori==null){
-	 			assetService.save(reqVo);
+	 			assetService.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -110,16 +110,16 @@ public class AssetController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-		    Asset reqVo = getModel(Asset.class);
+		    Asset info = getModel(Asset.class);
 		    
-		    logger.info(" updateAsset> param>"+reqVo.toLog());
+		    logger.info(" updateAsset> param>"+info.toLog());
 		    
-		    Asset ori=assetService.findById(reqVo.getIdNo());
+		    Asset ori=assetService.findById(info.getIdNo());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	assetService.update(reqVo);
+		    	assetService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -139,11 +139,11 @@ public class AssetController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-		   	Asset reqVo = getModel(Asset.class);
+		   	Asset info = getModel(Asset.class);
 		   	
-		   	logger.info("deleteAssetById > param>"+reqVo.getIdNo());
+		   	logger.info("deleteAssetById > param>"+info.getIdNo());
 		   	
-			assetService.delete(reqVo.getIdNo());
+			assetService.delete(info.getIdNo());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -221,9 +221,6 @@ public class AssetController extends SupportContorller{
 				page_size = 200;
 			}
 			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
-			}
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);

@@ -1,11 +1,13 @@
 package com.marks.module.asset.base.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
+import com.marks.common.util.date.DateUtil;
 
 public class AssetLog implements Serializable{
 
     private static final long serialVersionUID = 1L;
+    
+   
 
     /**
     *主键
@@ -88,6 +90,12 @@ public class AssetLog implements Serializable{
     */
     private String idName;
 
+
+ public AssetLog(){
+    this.createtime=DateUtil.getCurrDateStr();
+    this.updatetime=DateUtil.getCurrDateStr();
+
+    }
 
 
     public String getId(){

@@ -1,11 +1,13 @@
 package com.marks.module.asset.manage.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
+import com.marks.common.util.date.DateUtil;
 
 public class AssetPlan implements Serializable{
 
     private static final long serialVersionUID = 1L;
+    
+   
 
     /**
     *编号
@@ -48,11 +50,27 @@ public class AssetPlan implements Serializable{
     */
     private String nowAmount;
     /**
-    *差额
+    *收益
     *
     */
     private String differ;
+    /**
+    *创建时间
+    *
+    */
+    private String createtime;
+    /**
+    *更新时间
+    *
+    */
+    private String updatetime;
 
+
+ public AssetPlan(){
+    this.createtime=DateUtil.getCurrDateStr();
+    this.updatetime=DateUtil.getCurrDateStr();
+
+    }
 
 
     public String getPlanId(){
@@ -118,8 +136,22 @@ public class AssetPlan implements Serializable{
         this.differ = differ;
     }
 
+    public String getCreatetime(){
+        return createtime;
+    }
+    public void setCreatetime(String createtime){
+        this.createtime = createtime;
+    }
+
+    public String getUpdatetime(){
+        return updatetime;
+    }
+    public void setUpdatetime(String updatetime){
+        this.updatetime = updatetime;
+    }
+
 
 	public String toLog(){
-		return " - planId:" +String.valueOf(planId)+" - planName:" +String.valueOf(planName)+" - userid:" +String.valueOf(userid)+" - username:" +String.valueOf(username)+" - mobile:" +String.valueOf(mobile)+" - investAmount:" +String.valueOf(investAmount)+" - status:" +String.valueOf(status)+" - nowAmount:" +String.valueOf(nowAmount)+" - differ:" +String.valueOf(differ);
+		return " - planId:" +String.valueOf(planId)+" - planName:" +String.valueOf(planName)+" - userid:" +String.valueOf(userid)+" - username:" +String.valueOf(username)+" - mobile:" +String.valueOf(mobile)+" - investAmount:" +String.valueOf(investAmount)+" - status:" +String.valueOf(status)+" - nowAmount:" +String.valueOf(nowAmount)+" - differ:" +String.valueOf(differ)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime);
 	}
 }

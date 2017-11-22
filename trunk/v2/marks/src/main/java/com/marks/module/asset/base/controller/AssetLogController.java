@@ -50,12 +50,12 @@ public class AssetLogController extends SupportContorller{
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    AssetLog reqVo = getModel(AssetLog.class);
+		    AssetLog info = getModel(AssetLog.class);
 		    
-		    logger.info("findAssetLogById > param>"+reqVo.getId());
+		    logger.info("findAssetLogById > param>"+info.getId());
 		    
-			AssetLog info = assetLogService.findById(reqVo.getId());
-			result.getData().put("info",info);
+			AssetLog vo = assetLogService.findById(info.getId());
+			result.getData().put("info",vo);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -75,18 +75,18 @@ public class AssetLogController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	AssetLog reqVo = getModel(AssetLog.class);
-	        reqVo.setId(IDUtil.getUUID());
+	    	AssetLog info = getModel(AssetLog.class);
+	        info.setId(IDUtil.getUUID());
 	 		
-	 		logger.info("saveAssetLog > param>"+reqVo.toLog());
+	 		logger.info("saveAssetLog > param>"+info.toLog());
 	 
 			 AssetLog ori=null;
-	 		if(reqVo.getId() != null){
-	 			ori=assetLogService.findById(reqVo.getId());
+	 		if(info.getId() != null){
+	 			ori=assetLogService.findById(info.getId());
 	 		}
 	 		
 	 		if(ori==null){
-	 			assetLogService.save(reqVo);
+	 			assetLogService.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -110,16 +110,16 @@ public class AssetLogController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-		    AssetLog reqVo = getModel(AssetLog.class);
+		    AssetLog info = getModel(AssetLog.class);
 		    
-		    logger.info(" updateAssetLog> param>"+reqVo.toLog());
+		    logger.info(" updateAssetLog> param>"+info.toLog());
 		    
-		    AssetLog ori=assetLogService.findById(reqVo.getId());
+		    AssetLog ori=assetLogService.findById(info.getId());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	assetLogService.update(reqVo);
+		    	assetLogService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -139,11 +139,11 @@ public class AssetLogController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-		   	AssetLog reqVo = getModel(AssetLog.class);
+		   	AssetLog info = getModel(AssetLog.class);
 		   	
-		   	logger.info("deleteAssetLogById > param>"+reqVo.getId());
+		   	logger.info("deleteAssetLogById > param>"+info.getId());
 		   	
-			assetLogService.delete(reqVo.getId());
+			assetLogService.delete(info.getId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -221,9 +221,6 @@ public class AssetLogController extends SupportContorller{
 				page_size = 200;
 			}
 			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
-			}
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);

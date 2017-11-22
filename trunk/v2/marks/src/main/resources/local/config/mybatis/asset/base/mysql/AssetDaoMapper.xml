@@ -29,8 +29,8 @@
             #{info.userid:VARCHAR},
             #{info.username:VARCHAR},
             #{info.mobile:VARCHAR},
-            now(),
-            now(),
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR},
             #{info.paySort:NUMERIC},
             #{info.idName:VARCHAR}			
 			)
@@ -59,8 +59,8 @@
             #{info.userid:VARCHAR},
             #{info.username:VARCHAR},
             #{info.mobile:VARCHAR},
-            now(),
-            now(),
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR},
             #{info.paySort:NUMERIC},
             #{info.idName:VARCHAR}			
 			)
@@ -75,7 +75,7 @@ IDTYPE = #{info.idType:VARCHAR},
                 USERID = #{info.userid:VARCHAR},
                 USERNAME = #{info.username:VARCHAR},
                 MOBILE = #{info.mobile:VARCHAR},
-                UPDATETIME = now(),
+                UPDATETIME = #{info.updatetime:VARCHAR},
                 PAYSORT = #{info.paySort:NUMERIC},
                 IDNAME = #{info.idName:VARCHAR}
 		WHERE
@@ -92,7 +92,7 @@ IDTYPE = #{info.idType:VARCHAR},
                 USERID = #{info.userid:VARCHAR},
                 USERNAME = #{info.username:VARCHAR},
                 MOBILE = #{info.mobile:VARCHAR},
-                UPDATETIME = now(),
+                UPDATETIME = #{info.updatetime:VARCHAR},
                 PAYSORT = #{info.paySort:NUMERIC},
                 IDNAME = #{info.idName:VARCHAR}
 		WHERE

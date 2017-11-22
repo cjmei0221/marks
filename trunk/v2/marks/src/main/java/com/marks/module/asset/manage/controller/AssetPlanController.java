@@ -50,12 +50,12 @@ public class AssetPlanController extends SupportContorller{
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    AssetPlan reqVo = getModel(AssetPlan.class);
+		    AssetPlan info = getModel(AssetPlan.class);
 		    
-		    logger.info("findAssetPlanById > param>"+reqVo.getPlanId());
+		    logger.info("findAssetPlanById > param>"+info.getPlanId());
 		    
-			AssetPlan info = assetPlanService.findById(reqVo.getPlanId());
-			result.getData().put("info",info);
+			AssetPlan vo = assetPlanService.findById(info.getPlanId());
+			result.getData().put("info",vo);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -75,18 +75,18 @@ public class AssetPlanController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	AssetPlan reqVo = getModel(AssetPlan.class);
-	        reqVo.setPlanId(IDUtil.getUUID());
+	    	AssetPlan info = getModel(AssetPlan.class);
+	        info.setPlanId(IDUtil.getUUID());
 	 		
-	 		logger.info("saveAssetPlan > param>"+reqVo.toLog());
+	 		logger.info("saveAssetPlan > param>"+info.toLog());
 	 
 			 AssetPlan ori=null;
-	 		if(reqVo.getPlanId() != null){
-	 			ori=assetPlanService.findById(reqVo.getPlanId());
+	 		if(info.getPlanId() != null){
+	 			ori=assetPlanService.findById(info.getPlanId());
 	 		}
 	 		
 	 		if(ori==null){
-	 			assetPlanService.save(reqVo);
+	 			assetPlanService.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -110,16 +110,16 @@ public class AssetPlanController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-		    AssetPlan reqVo = getModel(AssetPlan.class);
+		    AssetPlan info = getModel(AssetPlan.class);
 		    
-		    logger.info(" updateAssetPlan> param>"+reqVo.toLog());
+		    logger.info(" updateAssetPlan> param>"+info.toLog());
 		    
-		    AssetPlan ori=assetPlanService.findById(reqVo.getPlanId());
+		    AssetPlan ori=assetPlanService.findById(info.getPlanId());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	assetPlanService.update(reqVo);
+		    	assetPlanService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -139,11 +139,11 @@ public class AssetPlanController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-		   	AssetPlan reqVo = getModel(AssetPlan.class);
+		   	AssetPlan info = getModel(AssetPlan.class);
 		   	
-		   	logger.info("deleteAssetPlanById > param>"+reqVo.getPlanId());
+		   	logger.info("deleteAssetPlanById > param>"+info.getPlanId());
 		   	
-			assetPlanService.delete(reqVo.getPlanId());
+			assetPlanService.delete(info.getPlanId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -221,9 +221,6 @@ public class AssetPlanController extends SupportContorller{
 				page_size = 200;
 			}
 			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
-			}
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
