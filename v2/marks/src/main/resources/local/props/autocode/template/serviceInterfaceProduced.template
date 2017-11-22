@@ -11,9 +11,9 @@ import com.marks.common.domain.PojoDomain;
 public interface @{beanName}Service{
 
 	public @{beanName} findById(@{GetIdAttrType} @{GetIdAttrValue});
-	public void save(@{beanName} @{GetBeanObject});
-	public void update(@{beanName} @{GetBeanObject});
-	public void delete(@{GetIdAttrType} @{GetIdAttrValue});
+	public void save(@{beanName} info);
+	public void update(@{beanName} info);
+	public void delete(@{GetIdAttrType} id);
 	public List<@{beanName}> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<@{beanName}> list(int page_number, int page_size,Map<String,Object> param);
