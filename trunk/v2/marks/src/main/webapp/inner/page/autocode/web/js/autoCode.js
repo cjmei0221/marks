@@ -22,9 +22,9 @@ var appInfo = {
 	}, {
 		"id" : "Integer",
 		"text" : "Integer"
-	}, {
-		"id" : "Date",
-		"text" : "Date"
+//	}, {
+//		"id" : "Date",
+//		"text" : "Date"
 	} ],
 	attrIsQuerydata : [ {
 		"id" : "YES",

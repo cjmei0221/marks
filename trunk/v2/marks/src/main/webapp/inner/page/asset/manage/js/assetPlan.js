@@ -134,7 +134,9 @@ function loadList() {
                 {title:'投入金额',field:'investAmount',width:100,align:"center"},
                 {title:'状态',field:'status',width:100,align:"center"},
                 {title:'现有金额',field:'nowAmount',width:100,align:"center"},
-                {title:'差额',field:'differ',width:100,align:"center"} ] ],
+                {title:'收益',field:'differ',width:100,align:"center"},
+                {title:'创建时间',field:'createtime',width:100,align:"center"},
+                {title:'更新时间',field:'updatetime',width:100,align:"center"} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
 			loader(that, params, success, loadError);

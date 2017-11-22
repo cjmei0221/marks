@@ -50,12 +50,12 @@ public class @{beanName}Controller extends SupportContorller{
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    @{beanName} reqVo = getModel(@{beanName}.class);
+		    @{beanName} info = getModel(@{beanName}.class);
 		    
-		    logger.info("find@{beanName}ById > param>"+reqVo.get@{GetIdAttrName}());
+		    logger.info("find@{beanName}ById > param>"+info.get@{GetIdAttrName}());
 		    
-			@{beanName} info = @{BeanObject}Service.findById(reqVo.get@{GetIdAttrName}());
-			result.getData().put("info",info);
+			@{beanName} vo = @{BeanObject}Service.findById(info.get@{GetIdAttrName}());
+			result.getData().put("info",vo);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -75,18 +75,18 @@ public class @{beanName}Controller extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	@{beanName} reqVo = getModel(@{beanName}.class);
-	        reqVo.set@{GetIdAttrName}(IDUtil.getUUID());
+	    	@{beanName} info = getModel(@{beanName}.class);
+	        info.set@{GetIdAttrName}(IDUtil.getUUID());
 	 		
-	 		logger.info("save@{beanName} > param>"+reqVo.toLog());
+	 		logger.info("save@{beanName} > param>"+info.toLog());
 	 
 			 @{beanName} ori=null;
-	 		if(reqVo.get@{GetIdAttrName}() != null){
-	 			ori=@{BeanObject}Service.findById(reqVo.get@{GetIdAttrName}());
+	 		if(info.get@{GetIdAttrName}() != null){
+	 			ori=@{BeanObject}Service.findById(info.get@{GetIdAttrName}());
 	 		}
 	 		
 	 		if(ori==null){
-	 			@{BeanObject}Service.save(reqVo);
+	 			@{BeanObject}Service.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -110,16 +110,16 @@ public class @{beanName}Controller extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-		    @{beanName} reqVo = getModel(@{beanName}.class);
+		    @{beanName} info = getModel(@{beanName}.class);
 		    
-		    logger.info(" update@{beanName}> param>"+reqVo.toLog());
+		    logger.info(" update@{beanName}> param>"+info.toLog());
 		    
-		    @{beanName} ori=@{BeanObject}Service.findById(reqVo.get@{GetIdAttrName}());
+		    @{beanName} ori=@{BeanObject}Service.findById(info.get@{GetIdAttrName}());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	@{BeanObject}Service.update(reqVo);
+		    	@{BeanObject}Service.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -139,11 +139,11 @@ public class @{beanName}Controller extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-		   	@{beanName} reqVo = getModel(@{beanName}.class);
+		   	@{beanName} info = getModel(@{beanName}.class);
 		   	
-		   	logger.info("delete@{beanName}ById > param>"+reqVo.get@{GetIdAttrName}());
+		   	logger.info("delete@{beanName}ById > param>"+info.get@{GetIdAttrName}());
 		   	
-			@{BeanObject}Service.delete(reqVo.get@{GetIdAttrName}());
+			@{BeanObject}Service.delete(info.get@{GetIdAttrName}());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -221,9 +221,6 @@ public class @{beanName}Controller extends SupportContorller{
 				page_size = 200;
 			}
 			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
-			}
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);

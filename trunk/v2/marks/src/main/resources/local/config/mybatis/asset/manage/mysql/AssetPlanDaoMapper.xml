@@ -19,7 +19,9 @@
             INVESTAMOUNT,
             STATUS,
             NOWAMOUNT,
-            DIFFER
+            DIFFER,
+            CREATETIME,
+            UPDATETIME
 		)
 		VALUES(
 		#{info.planId:VARCHAR},
@@ -30,7 +32,9 @@
             #{info.investAmount:VARCHAR},
             #{info.status:NUMERIC},
             #{info.nowAmount:VARCHAR},
-            #{info.differ:VARCHAR}			
+            #{info.differ:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR}			
 			)
  	</insert>
  	
@@ -44,7 +48,9 @@
             INVESTAMOUNT,
             STATUS,
             NOWAMOUNT,
-            DIFFER
+            DIFFER,
+            CREATETIME,
+            UPDATETIME
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -58,7 +64,9 @@
             #{info.investAmount:VARCHAR},
             #{info.status:NUMERIC},
             #{info.nowAmount:VARCHAR},
-            #{info.differ:VARCHAR}			
+            #{info.differ:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR}			
 			)
 		</foreach>
 	</insert>
@@ -73,7 +81,8 @@ PLANNAME = #{info.planName:VARCHAR},
                 INVESTAMOUNT = #{info.investAmount:VARCHAR},
                 STATUS = #{info.status:NUMERIC},
                 NOWAMOUNT = #{info.nowAmount:VARCHAR},
-                DIFFER = #{info.differ:VARCHAR}
+                DIFFER = #{info.differ:VARCHAR},
+                UPDATETIME = #{info.updatetime:VARCHAR}
 		WHERE
 			PLANID = #{info.planId}
  	</update>
@@ -90,7 +99,8 @@ PLANNAME = #{info.planName:VARCHAR},
                 INVESTAMOUNT = #{info.investAmount:VARCHAR},
                 STATUS = #{info.status:NUMERIC},
                 NOWAMOUNT = #{info.nowAmount:VARCHAR},
-                DIFFER = #{info.differ:VARCHAR}
+                DIFFER = #{info.differ:VARCHAR},
+                UPDATETIME = #{info.updatetime:VARCHAR}
 		WHERE
 			PLANID = #{info.planId}
 		</foreach>
@@ -126,7 +136,7 @@ PLANNAME = #{info.planName:VARCHAR},
  )                        </if>
 
 						
-					
+			    order by  t.UPDATETIME DESC		
  	</select>
  	
  	
