@@ -49,19 +49,21 @@ public class AuthUtil {
 			smP.setMenuitem(autoBean.getModuleDesc());
 			smP.setParentid("0");
 			smP.setSort(12);
+			smP.setLvl(1);
 			smP.setUrl("#");
 			sysMenuService.save(smP);
 		}
 		SysMenu smP2 = sysMenuService.getSysMenuByMenuid(lvl2Menuid);
 		if (smP2 == null) {
-			smP = new SysMenu();
-			smP.setMenuid(lvl2Menuid);
-			smP.setMenuitem(autoBean.getModuleDesc());
-			smP.setParentid(lvl1Menuid);
-			smP.setLvl1Menuid(lvl1Menuid);
-			smP.setSort(12);
-			smP.setUrl("#");
-			sysMenuService.save(smP);
+			smP2 = new SysMenu();
+			smP2.setMenuid(lvl2Menuid);
+			smP2.setMenuitem(autoBean.getModuleDesc());
+			smP2.setParentid(lvl1Menuid);
+			smP2.setLvl1Menuid(lvl1Menuid);
+			smP2.setLvl(2);
+			smP2.setSort(12);
+			smP2.setUrl("#");
+			sysMenuService.save(smP2);
 		}
 		SysMenu sm = sysMenuService.getSysMenuByMenuid(menuId);
 		if (sm == null) {
@@ -71,6 +73,7 @@ public class AuthUtil {
 			sm.setParentid(lvl2Menuid);
 			sm.setLvl1Menuid(lvl1Menuid);
 			sm.setLvl2Menuid(lvl2Menuid);
+			sm.setLvl(3);
 			sm.setSort(100);
 			sm.setUrl(menuUrl);
 
