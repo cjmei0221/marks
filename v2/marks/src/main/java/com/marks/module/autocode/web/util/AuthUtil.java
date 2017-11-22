@@ -39,7 +39,7 @@ public class AuthUtil {
 		String deleteurl = "/inner/" + autoBeanName + "/delete";
 		String[] arr = autoBean.getParentPackage().split("\\.");
 		String lvl1Menuid = "M_" + arr[0];
-		String lvl2Menuid = "M_" + arr[0] + arr[1];
+		String lvl2Menuid = "M_" + arr[0] + "_" + arr[1];
 		String menuId = lvl2Menuid + "_" + autoBeanName;
 		SysMenu smP = sysMenuService.getSysMenuByMenuid(lvl1Menuid);
 
