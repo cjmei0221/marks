@@ -11,8 +11,8 @@ import com.marks.common.domain.PojoDomain;
 public interface AssetLogService{
 
 	public AssetLog findById(String id);
-	public void save(AssetLog assetLog);
-	public void update(AssetLog assetLog);
+	public void save(AssetLog info);
+	public void update(AssetLog info);
 	public void delete(String id);
 	public List<AssetLog> findAll();
 	public void deleteBatch(List<String> ids);

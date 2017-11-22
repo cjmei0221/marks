@@ -183,19 +183,14 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		for (int i = 0; i < autoAttrs.size(); i++) {
 			AutoAttr autoAttr = autoAttrs.get(i);
 			sBuffer.append(BANK_VALUE_4).append(BANK_VALUE_4).append(BANK_VALUE_4);
-			if (createTime.equals(autoAttr.getAttrName().toLowerCase())
-					|| updateTime.equals(autoAttr.getAttrName().toLowerCase())) {
-				sBuffer.append("sysdate");
-				sBuffer.append(COMMA_VALUE).append(ENTER_VALUE);
+
+			sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS);
+			sBuffer.append("info").append(DOT_VALUE).append(autoAttr.getAttrName());
+			sBuffer.append(COlON_VALUE).append(autoAttr.getAttrType().getMybatisType());
+			if (i == autoAttrs.size() - 1) {
+				sBuffer.append(RIGHT_BRACKETS).append(ENTER_VALUE);
 			} else {
-				sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS);
-				sBuffer.append("info").append(DOT_VALUE).append(autoAttr.getAttrName());
-				sBuffer.append(COlON_VALUE).append(autoAttr.getAttrType().getMybatisType());
-				if (i == autoAttrs.size() - 1) {
-					sBuffer.append(RIGHT_BRACKETS).append(ENTER_VALUE);
-				} else {
-					sBuffer.append(RIGHT_BRACKETS).append(COMMA_VALUE).append(ENTER_VALUE);
-				}
+				sBuffer.append(RIGHT_BRACKETS).append(COMMA_VALUE).append(ENTER_VALUE);
 			}
 
 		}
@@ -267,13 +262,10 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 
 		// sBuffer.append(BANK_VALUE_4).append(autoBean.getDefaultTableOtherName()).append(DOT_VALUE);
 		sBuffer.append(attrName.toUpperCase()).append(BANK_VALUE_1).append(EQUAL_VALUE).append(BANK_VALUE_1);
-		if (updateTime.equals(attrName.toLowerCase())) {
-			sBuffer.append("sysdate");
-		} else {
-			sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS).append("info").append(DOT_VALUE).append(attrName)
-					.append(COlON_VALUE).append(type)
-					.append(RIGHT_BRACKETS);
-		}
+
+		sBuffer.append(DEFAULT_POUND).append(LEFT_BRACKETS).append("info").append(DOT_VALUE).append(attrName)
+				.append(COlON_VALUE).append(type).append(RIGHT_BRACKETS);
+
 		return sBuffer.toString();
 	}
 
@@ -285,8 +277,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 			String attrName = autoAttrs.get(i).getAttrName();
 			if (updateTime.equals(attrName.toLowerCase())) {
 				sBuffer.append(BANK_VALUE_4).append("order by ").append(BANK_VALUE_1);
-				sBuffer.append("t").append(DOT_VALUE).append(attrName.toUpperCase())
-						.append(BANK_VALUE_1);
+				sBuffer.append("t").append(DOT_VALUE).append(attrName.toUpperCase()).append(BANK_VALUE_1);
 				sBuffer.append("DESC");
 			}
 		}
@@ -375,8 +366,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 
 	public String producedDaoInterfacePackageUrl(AutoBean autoBean) {
 		StringBuffer sBuffer = new StringBuffer();
-		sBuffer.append(autoBean.getDefaultPackageUrl())
-				.append(DOT_VALUE).append(autoBean.getDefaultDao());
+		sBuffer.append(autoBean.getDefaultPackageUrl()).append(DOT_VALUE).append(autoBean.getDefaultDao());
 		return sBuffer.toString();
 	}
 }
