@@ -59,6 +59,8 @@ public class MoneyUtil {
 		BigDecimal bigDecimal2 = new BigDecimal(addValue);
 		// 减法
 		BigDecimal bigDecimalMultiply = bigDecimal.multiply(bigDecimal2);
+		int scale = 2;// 保留2位小数
+		bigDecimalMultiply = bigDecimalMultiply.setScale(scale, BigDecimal.ROUND_HALF_UP);
 		return bigDecimalMultiply.toString();
 	}
 
