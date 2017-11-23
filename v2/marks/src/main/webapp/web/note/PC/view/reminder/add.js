@@ -26,8 +26,7 @@ $(function() {
 		}
 		$('#remindDate').val(dateTime);
 		$('#remindDate').datepicker({
-			startDate : dateTime,
-			size : "small"
+			startDate : dateTime
 		});
 		appInfo.formStatus = "add";
 		getID();
