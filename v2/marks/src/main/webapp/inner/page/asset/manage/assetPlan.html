@@ -23,16 +23,21 @@
 <script type="text/javascript" src="/inner/js/sysmsg.js"></script>
 <script type="text/javascript" src="/inner/js/tool.js"></script>
 </head>
-	
-	<body>
-	
+
+<body>
+
 	<div id="mainPanel">
-		<p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p>
+		<p class="nav-header-cls">
+			<span style="color: red;">双击可编辑</span>
+		</p>
 		<div id="tb" style="padding: 5px 0;">
-		<table>
+			<table>
 				<tr>
-					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="编号/名称/用户编号/用户名称/手机号"/></td>
-					<td><a id="doSearch" href="javascript:void(0)" class="easyui-linkbutton menuBtnCls" data-options="iconCls:'icon-search'">查询</a></td>
+					<td><input type="text" id="keyword" name="keyword"
+						style="width: 260px;" placeholder="编号/名称/用户编号/用户名称/手机号" /></td>
+					<td><a id="doSearch" href="javascript:void(0)"
+						class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-search'">查询</a></td>
 				</tr>
 			</table>
 			<div>
@@ -42,7 +47,7 @@
 		<table id="tbList">
 		</table>
 	</div>
-	
+
 	<div id="editWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
@@ -51,27 +56,73 @@
 		collapsible:false"
 		style="width: 600px; height: 450px; padding: 10px;">
 		<div align="center" style="width: 100%;">
-		<form id="ff" name="ff" method="post">
-			<input type="hidden"  id="planId" name="planId">
-			<table>
-				<tr><th style="width: 120px;text-align: right;">名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="planName" name="planName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">用户编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="userid" name="userid" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">用户名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="username" name="username" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">手机号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="mobile" name="mobile" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">投入金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="investAmount" name="investAmount" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">状态&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="status" name="status" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">现有金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="nowAmount" name="nowAmount" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">收益&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="differ" name="differ" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr>
-				<tr height="25px"><td colspan="2"></td></tr>
-				<tr>
-					<td colspan="2" style="text-align: center">
-							<a id="btnCancel"
-							name="btnCancel" href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;"
+			<form id="ff" name="ff" method="post">
+				<input type="hidden" id="planId" name="planId">
+				<table>
+					<tr>
+						<th style="width: 120px; text-align: right;">名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="planName" name="planName"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">用户编号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="userid" name="userid"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">用户名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="username" name="username"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">手机号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="mobile" name="mobile"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">投入金额&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="investAmount" name="investAmount"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">状态&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="status" name="status" class="easyui-numberbox"
+							data-options="required:true" style="width: 200px;"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">现有金额&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="nowAmount" name="nowAmount"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px;" maxlength="20"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">收益&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="differ" name="differ"
+							class="easyui-validatebox" data-options="required:true"
+							style="width: 200px;" maxlength="20"></td>
+					</tr>
+					<tr height="25px">
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center"><a id="btnCancel"
+							name="btnCancel" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;"
 							data-options="iconCls:'icon-cancel'">取消</a>
-							&nbsp;&nbsp;&nbsp;&nbsp;
-							<a id="btnOK"
-							name="btnOK" href="javascript:void(0)"  class="easyui-linkbutton" style="width:100px;"
-							data-options="iconCls:'icon-save'">保存</a>
-						</td>
-				</tr>
-			</table>
-		</form>
+							&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+							href="javascript:void(0)" class="easyui-linkbutton"
+							style="width: 100px;" data-options="iconCls:'icon-save'">保存</a></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</div>
-	
+
 </body>
 <script src="js/assetPlan.js"></script>
 </html>

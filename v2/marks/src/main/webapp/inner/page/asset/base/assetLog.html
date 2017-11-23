@@ -23,16 +23,21 @@
 <script type="text/javascript" src="/inner/js/sysmsg.js"></script>
 <script type="text/javascript" src="/inner/js/tool.js"></script>
 </head>
-	
-	<body>
-	
+
+<body>
+
 	<div id="mainPanel">
-		<p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p>
+		<p class="nav-header-cls">
+			<span style="color: red;">双击可编辑</span>
+		</p>
 		<div id="tb" style="padding: 5px 0;">
-		<table>
+			<table>
 				<tr>
-					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="用户ID/用户名称/手机号码/交易类型/交易名称/支付方/收款方/年份/月份/账户名称"/></td>
-					<td><a id="doSearch" href="javascript:void(0)" class="easyui-linkbutton menuBtnCls" data-options="iconCls:'icon-search'">查询</a></td>
+					<td><input type="text" id="keyword" name="keyword"
+						style="width: 260px;" placeholder="支付方/收款方/年份/月份/账户名称" /></td>
+					<td><a id="doSearch" href="javascript:void(0)"
+						class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-search'">查询</a></td>
 				</tr>
 			</table>
 			<div>
@@ -42,36 +47,78 @@
 		<table id="tbList">
 		</table>
 	</div>
-	
+
 	<div id="editWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 600px; height: 450px; padding: 10px;">
+		style="width: 500px; height: 350px; padding: 10px;">
 		<div align="center" style="width: 100%;">
-		<form id="ff" name="ff" method="post">
-			<input type="hidden"  id="id" name="id">
-			<table>
-				<tr><th style="width: 120px;text-align: right;">用户ID&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="userid" name="userid" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">用户名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="username" name="username" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">手机号码&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="mobile" name="mobile" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">交易类型&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="tranType" name="tranType" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">交易项目编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="itemType" name="itemType" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">交易名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="itemName" name="itemName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">支付方&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="fromer" name="fromer" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">收款方&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="toer" name="toer" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">交易时间&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="tranTime" name="tranTime" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">年份&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="tranYear" name="tranYear" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">月份&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="tranMonth" name="tranMonth" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">账号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="idNo" name="idNo" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">账户名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="idName" name="idName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr>
-				<tr height="25px"><td colspan="2"></td></tr>
-				<tr>
-					<td colspan="2" style="text-align: center">
-							<a id="btnCancel"
-							name="btnCancel" href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;"
+			<form id="ff" name="ff" method="post">
+				<input type="hidden" id="id" name="id">
+				<table>
+					<tr>
+						<th style="width: 120px; text-align: right;">项目类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><select id="itemType" class="easyui-combobox"
+							name="itemType" style="width: 200px;">
+								<option value="type0">日常</option>
+								<option value="type1">服装</option>
+								<option value="type2">电子产品</option>
+								<option value="type3">化妆品</option>
+								<option value="type4">读书</option>
+						</select></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">交易时间&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="tranTime" name="tranTime"
+							class="easyui-datebox" data-options="required:true"
+							style="width: 200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">交易类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><select id="tranType" class="easyui-combobox"
+							name="tranType" style="width: 200px;">
+								<option value="1">收入</option>
+								<option value="0">支出</option>
+						</select></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">交易金额&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="tranAmount" name="tranAmount"
+							class="easyui-numberbox"
+							data-options="required:true,min:0,precision:2"
+							style="width: 200px;"></td>
+					</tr>
+
+					<tr id="fromerTr" style="display:none;">
+						<th style="width: 120px; text-align: right;">支付方&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="fromer" name="fromer"
+							class="easyui-validatebox" style="width: 200px;" maxlength="150"></td>
+					</tr>
+					<tr id="toerTr">
+						<th style="width: 120px; text-align: right;">收款方&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="toer" name="toer" class="easyui-validatebox"
+							style="width: 200px;" maxlength="150"></td>
+					</tr>
+					<tr height="25px">
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center"><a id="btnCancel"
+							name="btnCancel" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;"
 							data-options="iconCls:'icon-cancel'">取消</a>
-							&nbsp;&nbsp;&nbsp;&nbsp;
-							<a id="btnOK"
-							name="btnOK" href="javascript:void(0)"  class="easyui-linkbutton" style="width:100px;"
-							data-options="iconCls:'icon-save'">保存</a>
-						</td>
-				</tr>
-			</table>
-		</form>
+							&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+							href="javascript:void(0)" class="easyui-linkbutton"
+							style="width: 100px;" data-options="iconCls:'icon-save'">保存</a></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</div>
-	
+
 </body>
 <script src="js/assetLog.js"></script>
 </html>

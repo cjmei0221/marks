@@ -3,177 +3,178 @@
 
 <mapper namespace="com.marks.module.asset.base.dao.AssetLogDao">
 
-    <select id="findById" resultType="com.marks.module.asset.base.pojo.AssetLog">
-		SELECT * FROM TB_ASSET_LOG t where t.ID = #{id}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.asset.base.pojo.AssetLog">
-		<!--<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+	<select id="findById" resultType="com.marks.module.asset.base.pojo.AssetLog">
+		SELECT * FROM TB_ASSET_LOG t
+		where t.ID = #{id}
+	</select>
 
- 		INSERT INTO TB_ASSET_LOG (
-            ID,
-            USERID,
-            USERNAME,
-            MOBILE,
-            TRANTYPE,
-            ITEMTYPE,
-            ITEMNAME,
-            FROMER,
-            TOER,
-            CREATETIME,
-            UPDATETIME,
-            TRANTIME,
-            TRANYEAR,
-            TRANMONTH,
-            IDNO,
-            IDNAME
+	<insert id="save" parameterType="com.marks.module.asset.base.pojo.AssetLog">
+		<!--<selectKey keyProperty="id" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_ASSET_LOG (
+		ID,
+		USERID,
+		USERNAME,
+		MOBILE,
+		TRANTYPE,
+		ITEMTYPE,
+		ITEMNAME,
+		FROMER,
+		TOER,
+		CREATETIME,
+		UPDATETIME,
+		TRANTIME,
+		TRANYEAR,
+		TRANMONTH,
+		IDNO,
+		IDNAME,
+		tranAmount
 		)
 		VALUES(
 		#{info.id:VARCHAR},
-            #{info.userid:VARCHAR},
-            #{info.username:VARCHAR},
-            #{info.mobile:VARCHAR},
-            #{info.tranType:NUMERIC},
-            #{info.itemType:VARCHAR},
-            #{info.itemName:VARCHAR},
-            #{info.fromer:VARCHAR},
-            #{info.toer:VARCHAR},
-            #{info.createtime:VARCHAR},
-            #{info.updatetime:VARCHAR},
-            #{info.tranTime:VARCHAR},
-            #{info.tranYear:VARCHAR},
-            #{info.tranMonth:VARCHAR},
-            #{info.idNo:VARCHAR},
-            #{info.idName:VARCHAR}			
-			)
- 	</insert>
- 	
- 	<insert id="saveBatch" parameterType="java.util.List">
+		#{info.userid:VARCHAR},
+		#{info.username:VARCHAR},
+		#{info.mobile:VARCHAR},
+		#{info.tranType:NUMERIC},
+		#{info.itemType:VARCHAR},
+		#{info.itemName:VARCHAR},
+		#{info.fromer:VARCHAR},
+		#{info.toer:VARCHAR},
+		#{info.createtime:VARCHAR},
+		#{info.updatetime:VARCHAR},
+		#{info.tranTime:VARCHAR},
+		#{info.tranYear:VARCHAR},
+		#{info.tranMonth:VARCHAR},
+		#{info.idNo:VARCHAR},
+		#{info.idName:VARCHAR},
+		#{info.tranAmount:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
 		INSERT INTO TB_ASSET_LOG (
-			            ID,
-            USERID,
-            USERNAME,
-            MOBILE,
-            TRANTYPE,
-            ITEMTYPE,
-            ITEMNAME,
-            FROMER,
-            TOER,
-            CREATETIME,
-            UPDATETIME,
-            TRANTIME,
-            TRANYEAR,
-            TRANMONTH,
-            IDNO,
-            IDNAME
+		ID,
+		USERID,
+		USERNAME,
+		MOBILE,
+		TRANTYPE,
+		ITEMTYPE,
+		ITEMNAME,
+		FROMER,
+		TOER,
+		CREATETIME,
+		UPDATETIME,
+		TRANTIME,
+		TRANYEAR,
+		TRANMONTH,
+		IDNO,
+		IDNAME,
+		tranAmount
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
 			separator=",">
 			(
-				#{info.id:VARCHAR},
-            #{info.userid:VARCHAR},
-            #{info.username:VARCHAR},
-            #{info.mobile:VARCHAR},
-            #{info.tranType:NUMERIC},
-            #{info.itemType:VARCHAR},
-            #{info.itemName:VARCHAR},
-            #{info.fromer:VARCHAR},
-            #{info.toer:VARCHAR},
-            #{info.createtime:VARCHAR},
-            #{info.updatetime:VARCHAR},
-            #{info.tranTime:VARCHAR},
-            #{info.tranYear:VARCHAR},
-            #{info.tranMonth:VARCHAR},
-            #{info.idNo:VARCHAR},
-            #{info.idName:VARCHAR}			
+			#{info.id:VARCHAR},
+			#{info.userid:VARCHAR},
+			#{info.username:VARCHAR},
+			#{info.mobile:VARCHAR},
+			#{info.tranType:NUMERIC},
+			#{info.itemType:VARCHAR},
+			#{info.itemName:VARCHAR},
+			#{info.fromer:VARCHAR},
+			#{info.toer:VARCHAR},
+			#{info.createtime:VARCHAR},
+			#{info.updatetime:VARCHAR},
+			#{info.tranTime:VARCHAR},
+			#{info.tranYear:VARCHAR},
+			#{info.tranMonth:VARCHAR},
+			#{info.idNo:VARCHAR},
+			#{info.idName:VARCHAR},
+			#{info.tranAmount:VARCHAR}
 			)
 		</foreach>
 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.asset.base.pojo.AssetLog">
- 		UPDATE TB_ASSET_LOG 
-		SET 
-USERID = #{info.userid:VARCHAR},
-                USERNAME = #{info.username:VARCHAR},
-                MOBILE = #{info.mobile:VARCHAR},
-                TRANTYPE = #{info.tranType:NUMERIC},
-                ITEMTYPE = #{info.itemType:VARCHAR},
-                ITEMNAME = #{info.itemName:VARCHAR},
-                FROMER = #{info.fromer:VARCHAR},
-                TOER = #{info.toer:VARCHAR},
-                UPDATETIME = #{info.updatetime:VARCHAR},
-                TRANTIME = #{info.tranTime:VARCHAR},
-                TRANYEAR = #{info.tranYear:VARCHAR},
-                TRANMONTH = #{info.tranMonth:VARCHAR},
-                IDNO = #{info.idNo:VARCHAR},
-                IDNAME = #{info.idName:VARCHAR}
+
+	<update id="update" parameterType="com.marks.module.asset.base.pojo.AssetLog">
+		UPDATE TB_ASSET_LOG
+		SET
+		tranAmount=#{info.tranAmount:VARCHAR},
+		TRANTYPE = #{info.tranType:NUMERIC},
+		ITEMTYPE = #{info.itemType:VARCHAR},
+		ITEMNAME = #{info.itemName:VARCHAR},
+		FROMER = #{info.fromer:VARCHAR},
+		TOER = #{info.toer:VARCHAR},
+		UPDATETIME = #{info.updatetime:VARCHAR},
+		TRANTIME = #{info.tranTime:VARCHAR},
+		TRANYEAR = #{info.tranYear:VARCHAR},
+		TRANMONTH = #{info.tranMonth:VARCHAR},
+		IDNO = #{info.idNo:VARCHAR},
+		IDNAME = #{info.idName:VARCHAR}
 		WHERE
-			ID = #{info.id}
- 	</update>
- 	<update id="updateBatch" parameterType="List">
+		ID = #{info.id}
+	</update>
+	<update id="updateBatch" parameterType="List">
 
 		<foreach collection="list" item="info" index="index"
 			separator=";">
-			UPDATE TB_ASSET_LOG 
-		SET 
+			UPDATE TB_ASSET_LOG
+			SET
 			USERID = #{info.userid:VARCHAR},
-                USERNAME = #{info.username:VARCHAR},
-                MOBILE = #{info.mobile:VARCHAR},
-                TRANTYPE = #{info.tranType:NUMERIC},
-                ITEMTYPE = #{info.itemType:VARCHAR},
-                ITEMNAME = #{info.itemName:VARCHAR},
-                FROMER = #{info.fromer:VARCHAR},
-                TOER = #{info.toer:VARCHAR},
-                UPDATETIME = #{info.updatetime:VARCHAR},
-                TRANTIME = #{info.tranTime:VARCHAR},
-                TRANYEAR = #{info.tranYear:VARCHAR},
-                TRANMONTH = #{info.tranMonth:VARCHAR},
-                IDNO = #{info.idNo:VARCHAR},
-                IDNAME = #{info.idName:VARCHAR}
-		WHERE
+			USERNAME = #{info.username:VARCHAR},
+			MOBILE = #{info.mobile:VARCHAR},
+			TRANTYPE = #{info.tranType:NUMERIC},
+			ITEMTYPE = #{info.itemType:VARCHAR},
+			ITEMNAME = #{info.itemName:VARCHAR},
+			FROMER = #{info.fromer:VARCHAR},
+			TOER = #{info.toer:VARCHAR},
+			UPDATETIME = #{info.updatetime:VARCHAR},
+			TRANTIME = #{info.tranTime:VARCHAR},
+			TRANYEAR = #{info.tranYear:VARCHAR},
+			TRANMONTH = #{info.tranMonth:VARCHAR},
+			IDNO = #{info.idNo:VARCHAR},
+			IDNAME = #{info.idName:VARCHAR}
+			WHERE
 			ID = #{info.id}
 		</foreach>
 
 	</update>
- 	
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_ASSET_LOG WHERE ID=#{id}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.asset.base.pojo.AssetLog">
- 		SELECT * FROM TB_ASSET_LOG t
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_ASSET_LOG WHERE ID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.asset.base.pojo.AssetLog" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_ASSET_LOG t
-						WHERE 1=1
-                        <if test="keyword!=null and keyword!=''">
- and ( 2=1                             or t.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TRANTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.ITEMNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.FROMER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TOER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TRANYEAR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TRANMONTH LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.IDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
- )                        </if>
 
-						
-			    order by  t.UPDATETIME DESC		
- 	</select>
- 	
- 	
- 	
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_ASSET_LOG WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.asset.base.pojo.AssetLog">
+		SELECT * FROM TB_ASSET_LOG t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_ASSET_LOG WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.asset.base.pojo.AssetLog"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_ASSET_LOG t
+		WHERE 1=1 and t.USERID=#{userid}
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 
+			or t.ITEMNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.FROMER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TOER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TRANYEAR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TRANMONTH LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.IDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
 </mapper>
