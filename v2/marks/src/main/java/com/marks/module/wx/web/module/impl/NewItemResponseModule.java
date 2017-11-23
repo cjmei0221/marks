@@ -3,6 +3,8 @@ package com.marks.module.wx.web.module.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.wx.manage.dao.msg.NewsItemDao;
 import com.marks.module.wx.manage.entity.msg.NewsItem;
@@ -20,7 +22,7 @@ public class NewItemResponseModule extends Module {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public WechatResponse syncRequest(WechatRequest requestMessage)throws Exception {
+	public WechatResponse syncRequest(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
 		WechatResponse wechatResponse = new WechatResponse(requestMessage);
 		try {
 			String content = requestMessage.getContent();

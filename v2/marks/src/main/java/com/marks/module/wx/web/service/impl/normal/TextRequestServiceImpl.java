@@ -79,11 +79,11 @@ public class TextRequestServiceImpl extends AbstractRequestService {
 		}
 		msg.setSessionFlag(WXEnums.SessionType.AUTO.getValue());
 		WxhreadPool.saveWxChatMsg(msg);
-		WechatResponse resp=handle(requestMessage, requestMessage.getContent());
+		WechatResponse resp = handle(request, requestMessage, requestMessage.getContent());
 		if(null != resp){
 			return resp;
 		}
-		return handle(requestMessage, WxConstants.defaultReplay);
+		return handle(request, requestMessage, WxConstants.defaultReplay);
 		
 	}
 }

@@ -37,7 +37,7 @@ public class ClickEventRequestServiceImpl extends AbstractRequestService {
 	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage) throws Exception {
 		logger.info("ClickEventRequestServiceImpl deal start eventkey > "+requestMessage.getEventKey());
 		WxhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
-		return handle(requestMessage,requestMessage.getEventKey());
+		return handle(request, requestMessage, requestMessage.getEventKey());
 	}
 	
 }

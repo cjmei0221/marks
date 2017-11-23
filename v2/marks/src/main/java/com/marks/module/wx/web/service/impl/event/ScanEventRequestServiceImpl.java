@@ -26,7 +26,7 @@ public class ScanEventRequestServiceImpl extends AbstractRequestService {
 		logger.info("ScanEventRequestServiceImpl deal start");
 		WxhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 
-		return handle(requestMessage, WxConstants.SubscribeReplay);
+		return handle(request, requestMessage, WxConstants.SubscribeReplay);
 	}
 
 }
