@@ -3,17 +3,15 @@ package com.marks.module.asset.base.serviceImpl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marks.module.asset.base.pojo.AssetLog;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.asset.base.dao.AssetLogDao;
+import com.marks.module.asset.base.pojo.AssetLog;
 import com.marks.module.asset.base.service.AssetLogService;
 
 @Service
@@ -47,6 +45,8 @@ public class AssetLogServiceImpl implements AssetLogService{
     */
     @Override
     public void save(AssetLog info){
+		info.setTranYear(info.getTranTime().substring(0, 4));
+		info.setTranMonth(info.getTranTime().substring(5, 7));
         assetLogDao.save(info);
     }
     
@@ -55,6 +55,8 @@ public class AssetLogServiceImpl implements AssetLogService{
     */
     @Override
     public void update(AssetLog info){
+		info.setTranYear(info.getTranTime().substring(0, 4));
+		info.setTranMonth(info.getTranTime().substring(5, 7));
         assetLogDao.update(info);
     }
     

@@ -60,6 +60,12 @@ tool.reqUrl={
 		reminder_add:tool.baseUrl+"/web/reminder/save.do",
 		reminder_update:tool.baseUrl+"/web/reminder/update.do",
 		reminder_detail:tool.baseUrl+"/web/reminder/findReminderById.do",
+		
+		assetlog_list:tool.baseUrl+"/web/assetLog/list.do",
+		assetlog_add:tool.baseUrl+"/web/assetLog/save.do",
+		assetlog_update:tool.baseUrl+"/web/assetLog/update.do",
+		assetlog_detail:tool.baseUrl+"/web/assetLog/findById.do",
+
 		bind:tool.baseUrl+"/web/bind.do",
 		getVIPInfo:tool.baseUrl+"/web/vipInfo/findVipInfoById.do",
 		changeMobile:tool.baseUrl+"/web/sysUser/changeMobile.do",
@@ -97,3 +103,20 @@ function splitStrToP(str){
 	} 
 	return retStr;
 }
+function toMoney(x) {    
+    var f = parseFloat(x);    
+    if (isNaN(f)) {    
+        return "";    
+    }    
+    var f = Math.round(x*100)/100;    
+    var s = f.toString();    
+    var rs = s.indexOf('.');    
+    if (rs < 0) {    
+        rs = s.length;    
+        s += '.';    
+    }    
+    while (s.length <= rs + 2) {    
+        s += '0';    
+    }    
+    return s;    
+}  
