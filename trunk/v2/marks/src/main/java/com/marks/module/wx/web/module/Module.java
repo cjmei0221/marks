@@ -2,6 +2,8 @@ package com.marks.module.wx.web.module;
 
 import java.io.Serializable;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.WechatResponse;
 
@@ -22,7 +24,8 @@ public abstract class Module implements Serializable{
 	 * @param requestMessage
 	 * @return
 	 */
-	public abstract WechatResponse syncRequest(WechatRequest requestMessage) throws Exception;
+	public abstract WechatResponse syncRequest(HttpServletRequest request, WechatRequest requestMessage)
+			throws Exception;
 	
 	protected String exception;	
 

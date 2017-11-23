@@ -2,6 +2,8 @@ package com.marks.module.wx.web.service.impl.normal;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 import com.marks.module.core.common.SpringContextHolder;
@@ -9,7 +11,6 @@ import com.marks.module.wx.manage.dao.msg.WxAutoReplayDao;
 import com.marks.module.wx.manage.entity.msg.WxAutoReplay;
 import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.WechatResponse;
-import com.marks.module.wx.web.module.ModuleController;
 import com.marks.module.wx.web.service.RequestService;
 import com.marks.module.wx.web.service.impl.ReplyHelper;
 
@@ -33,7 +34,8 @@ public abstract class AbstractRequestService implements RequestService {
 	 * @return
 	 * @throws Exception
 	 */
-	public WechatResponse handle(WechatRequest requestMessage, String key) throws Exception {
+	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage, String key)
+			throws Exception {
 		WechatResponse responseMessage = null;
 		WxAutoReplayDao wxAutoReplayDao = (WxAutoReplayDao) SpringContextHolder.getBean(WxAutoReplayDao.class);
 		List<WxAutoReplay> replyList = wxAutoReplayDao.getWxAutoReplayByKey(key.toLowerCase(),requestMessage.getAccountId());
@@ -62,21 +64,9 @@ public abstract class AbstractRequestService implements RequestService {
 		}
 
 		if (isEquels) {
-			return ReplyHelper.getInstance().replay(requestMessage, reply, null);
+			return ReplyHelper.getInstance().replay(request, requestMessage, reply, null);
 		}
 
 		return responseMessage;
-	}
-
-	/**
-	 * 业务组件处理
-	 * 
-	 * @param requestMessage
-	 * @param content
-	 * @return
-	 */
-	private WechatResponse moduleProcess(WechatRequest requestMessage, String content) {
-		logger.info("Module path:" + content);
-		return ModuleController.moduleHandle(content, requestMessage);
 	}
 }

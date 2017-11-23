@@ -65,6 +65,6 @@ public class SubscribeEventRequestServiceImpl extends AbstractRequestService {
 		
 		WxhreadPool.updateWxUser(user);
 		
-		return handle(requestMessage, WxConstants.SubscribeReplay);
+		return handle(request, requestMessage, WxConstants.SubscribeReplay);
 	}
 }

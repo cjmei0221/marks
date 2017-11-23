@@ -1,5 +1,7 @@
 package com.marks.module.wx.web.module.impl;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.WechatResponse;
 import com.marks.module.wx.web.module.Module;
@@ -17,7 +19,7 @@ public class TextResponseModule extends Module{
 	private static final long serialVersionUID = 1000L;
 
 	@Override
-	public WechatResponse syncRequest(WechatRequest requestMessage) {
+	public WechatResponse syncRequest(HttpServletRequest request, WechatRequest requestMessage) {
 		WechatResponse textResponseMessage = new WechatResponse(requestMessage);
 		textResponseMessage.setContent(requestMessage.getContent());
 		return textResponseMessage;

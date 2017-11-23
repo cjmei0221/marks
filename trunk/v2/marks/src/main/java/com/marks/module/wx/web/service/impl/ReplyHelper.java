@@ -3,6 +3,8 @@ package com.marks.module.wx.web.service.impl;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 import com.marks.module.wx.manage.entity.msg.WxAutoReplay;
@@ -24,7 +26,9 @@ public class ReplyHelper {
 		}
 		return util;
 	}
-	public WechatResponse replay(WechatRequest requestMessage, WxAutoReplay reply,Map<String,String> replaceParams){
+
+	public WechatResponse replay(HttpServletRequest request, WechatRequest requestMessage, WxAutoReplay reply,
+			Map<String, String> replaceParams) {
 		WechatResponse responseMessage = null;
 		responseMessage = new WechatResponse(requestMessage);
 		if(null ==reply.getCreplay() || "".equals(reply.getCreplay())){
@@ -35,7 +39,7 @@ public class ReplyHelper {
 			content =  reply.getCreplay();
 			responseMessage = NewsHelper.returnNews(requestMessage, content, replaceParams);
 		} else if (WxConstants.weixin_replay_type_module.equals(reply.getReplayType())) {
-			responseMessage = moduleProcess(requestMessage, content);
+			responseMessage = moduleProcess(request, requestMessage, content);
 		} else {
 			// 替换首行／尾行／链接中的参数
 			if (null != replaceParams && replaceParams.size() > 0) {
@@ -54,8 +58,8 @@ public class ReplyHelper {
 	 * @param content
 	 * @return
 	 */
-	private WechatResponse moduleProcess(WechatRequest requestMessage, String content) {
+	private WechatResponse moduleProcess(HttpServletRequest request, WechatRequest requestMessage, String content) {
 		logger.info("Module path:" + content);
-		return ModuleController.moduleHandle(content, requestMessage);
+		return ModuleController.moduleHandle(request, content, requestMessage);
 	}
 }

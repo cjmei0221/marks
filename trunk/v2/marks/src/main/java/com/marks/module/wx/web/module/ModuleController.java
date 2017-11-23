@@ -1,5 +1,7 @@
 package com.marks.module.wx.web.module;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 import com.marks.module.wx.web.message.request.WechatRequest;
@@ -22,7 +24,8 @@ public class ModuleController {
 	 * @param requestMessage
 	 * @return
 	 */
-	public static WechatResponse moduleHandle(String module_path,WechatRequest requestMessage){
+	public static WechatResponse moduleHandle(HttpServletRequest request, String module_path,
+			WechatRequest requestMessage) {
 		Module module =null;
 		WechatResponse responseMessage=new WechatResponse(requestMessage);
 		try {
@@ -30,7 +33,7 @@ public class ModuleController {
 			//采用反射创建具体的业务逻辑模块实例对象，调用同步请求消息处理
 			Class c=Class.forName(module_path);
 			module=(Module)c.newInstance();
-			responseMessage=module.syncRequest(requestMessage);
+			responseMessage = module.syncRequest(request, requestMessage);
 			logger.info("returnMsg>>"+responseMessage.getContent() );
 		} catch (Exception e) {
 			logger.info("Exception:",e);			
