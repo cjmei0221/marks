@@ -97,17 +97,16 @@ public class MoneyUtil {
 		if (null == value2 || "".equals(value2)) {
 			value2 = "0";
 		}
-		double v1 = Double.parseDouble(value1);
-		double v2 = Double.parseDouble(value2);
-		if (v1 >= v2) {
+		BigDecimal bigDecimal = new BigDecimal(value1);
+		BigDecimal bigDecimal2 = new BigDecimal(value2);
+		if (bigDecimal.compareTo(bigDecimal2) >= 0) {
 			return true;
 		}
 		return false;
 	}
 
 	public static void main(String[] args) {
-		double d1 = 0.01d;
-		double d2 = 0.09d;
-		System.out.println(d1 + d2);
+
+		System.out.println(MoneyUtil.compare("0.01", "0.012"));
 	}
 }
