@@ -73,7 +73,11 @@ public class MoneyUtil {
 		if (null == oriValue || "".equals(oriValue)) {
 			oriValue = "0.00";
 		}
-		if (null == addValue || "".equals(addValue) || "0".equals(addValue)) {
+		if (null == addValue || "".equals(addValue)) {
+			addValue = "1";
+		}
+		Double d = Double.parseDouble(addValue);
+		if (d == 0) {
 			addValue = "1";
 		}
 		BigDecimal bigDecimal = new BigDecimal(oriValue);
