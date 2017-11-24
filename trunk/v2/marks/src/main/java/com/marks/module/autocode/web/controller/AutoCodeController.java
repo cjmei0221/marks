@@ -72,7 +72,7 @@ public class AutoCodeController extends SupportContorller{
 		Result result = new Result();
 		try {
 	    	AutoCode autoCode = getModel(AutoCode.class);
-			autoCode.setIdNo("AC_" + IDUtil.getDateID() + IDUtil.getID(6));
+			autoCode.setIdNo("AC_" + IDUtil.getDateID() + "_" + IDUtil.getID(6));
 	 //     autoCode.setTableName(IDUtil.getTimeID());
 	    	 String attrList = request.getParameter("attrListPut");
 			autoCodeService.save(autoCode,attrList);
