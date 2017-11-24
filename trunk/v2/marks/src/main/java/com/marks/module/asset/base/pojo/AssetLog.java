@@ -90,10 +90,20 @@ public class AssetLog implements Serializable {
 
 	private String tranAmount;
 
+	private String remarks;
+
 	public AssetLog() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
 
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	public String getTranAmount() {
