@@ -34,7 +34,7 @@ var appInfo = {
 		"text" : "NO"
 	} ],
 	attrReqParam : {
-		tableName : ""
+		idNo : ""
 	}
 };
 function add(){
@@ -43,7 +43,6 @@ function add(){
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
-	$('#tableName').removeAttr("readonly");
 	$('#isAutoTr').hide();
 	$('#isAuto').combobox("setValue",1);
 	$('#is_auth').combobox("setValue",1);
@@ -59,7 +58,6 @@ function edit(){
 		$('#isAutoTr').show();
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
-		$('#tableName').attr("readonly", "readonly");
 		if(appInfo.selectedData.isAuto==0){
 			$('#isAutoTr').hide();
 		}
@@ -71,7 +69,7 @@ function del(){
 	if (isSelectedOne(appInfo.selectedId)) {
 		$.messager.confirm('确认', '确认要删除该记录吗?', function(r) {
 			if (r) {
-				var parms = "tableName=" + appInfo.selectedId;
+				var parms = "idNo=" + appInfo.selectedId;
 				$.post(appInfo.deleteUrl, parms, function(data) {
 					if (data.retcode == "0") {
 						app.myreload("#tbList");
@@ -90,7 +88,7 @@ function introBtn(){
 	if (isSelectedOne(appInfo.selectedId)) {
 		$.messager.confirm('确认', '确认要说明文档吗?', function(r) {
 			if (r) {
-				var parms = "tableName=" + appInfo.selectedId;
+				var parms = "idNo=" + appInfo.selectedId;
 				$.post(appInfo.autocodeIntroFileUrl, parms, function(data) {
 					if (data.retcode == "0") {
 						showMsg("刷新后起效");
@@ -110,7 +108,7 @@ function autoCodeBtn(){
 		}
 		$.messager.confirm('确认', '确认要生成记录吗?', function(r) {
 			if (r) {
-				var parms = "tableName=" + appInfo.selectedId;
+				var parms = "idNo=" + appInfo.selectedId;
 				$.post(appInfo.autoCodeUrl, parms, function(data) {
 					if (data.retcode == "0") {
 						showMsg("重新编译后起效");
@@ -213,12 +211,18 @@ function loadList() {
 						collapsible : true,
 						fitColumns : true,
 						pagination : true,
-						idField : 'tableName',
+						idField : 'idNo',
 						pagination : true,
 						pageNumber : appInfo.requestParam.page_number,
 						pageSize : appInfo.requestParam.page_size,
 						singleSelect : true,
 						columns : [ [
+								{
+									title : '编号',
+									field : 'idNo',
+									width : 100,
+									align : "center"
+								},
 								{
 									title : '表名称',
 									field : 'tableName',
@@ -297,7 +301,7 @@ function loadList() {
 							loader(that, params, success, loadError);
 						},
 						onClickRow : function(rowIndex, rowData) {
-							appInfo.selectedId = rowData.tableName;
+							appInfo.selectedId = rowData.idNo;
 							appInfo.selectedData = rowData;
 						},
 						onLoadSuccess : function(data) {
@@ -451,7 +455,7 @@ function initAttrList() {
 	function attrloader(that, params, success, loadError) {
 		var opts = that.datagrid("options");
 
-		appInfo.attrReqParam.tableName = $("#tableName").val();
+		appInfo.attrReqParam.idNo = $("#idNo").val();
 		$.ajax({
 			url : opts.url,
 			type : "get",
