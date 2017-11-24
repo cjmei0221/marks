@@ -29,7 +29,8 @@
 		TRANMONTH,
 		IDNO,
 		IDNAME,
-		tranAmount
+		tranAmount,
+		remarks
 		)
 		VALUES(
 		#{info.id:VARCHAR},
@@ -48,7 +49,8 @@
 		#{info.tranMonth:VARCHAR},
 		#{info.idNo:VARCHAR},
 		#{info.idName:VARCHAR},
-		#{info.tranAmount:VARCHAR}
+		#{info.tranAmount:VARCHAR},
+		#{info.remarks:VARCHAR}
 		)
 	</insert>
 
@@ -70,7 +72,8 @@
 		TRANMONTH,
 		IDNO,
 		IDNAME,
-		tranAmount
+		tranAmount,
+		remarks
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -92,7 +95,8 @@
 			#{info.tranMonth:VARCHAR},
 			#{info.idNo:VARCHAR},
 			#{info.idName:VARCHAR},
-			#{info.tranAmount:VARCHAR}
+			#{info.tranAmount:VARCHAR},
+			#{info.remarks:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -100,6 +104,7 @@
 	<update id="update" parameterType="com.marks.module.asset.base.pojo.AssetLog">
 		UPDATE TB_ASSET_LOG
 		SET
+		remarks=#{info.remarks:VARCHAR},
 		tranAmount=#{info.tranAmount:VARCHAR},
 		TRANTYPE = #{info.tranType:NUMERIC},
 		ITEMTYPE = #{info.itemType:VARCHAR},
