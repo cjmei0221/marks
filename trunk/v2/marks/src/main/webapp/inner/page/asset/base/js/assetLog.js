@@ -183,6 +183,11 @@ function loadList() {
 			field : 'fromer',
 			width : 100,
 			align : "center"
+		}, {
+			title : '备注',
+			field : 'remarks',
+			width : 150,
+			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
 			var that = $(this);
