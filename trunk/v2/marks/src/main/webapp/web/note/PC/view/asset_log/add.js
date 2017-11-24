@@ -27,6 +27,7 @@ function getDetail() {
 				$("#c_tranAmount").val(vo.tranAmount);
 				$("#c_fromer").val(vo.fromer);
 				$("#c_toer").val(vo.toer);
+				$("#c_remarks").val(vo.remarks);
 				$("input[name='c_itemType'][value=" + vo.itemType + "]").attr(
 						"checked", "checked");
 				$("input[name='c_tranType'][value=" + vo.tranType + "]").attr(
@@ -65,7 +66,8 @@ function submitForm() {
 			itemType : $('input[name="c_itemType"]:checked').val(),
 			fromer : $("#c_fromer").val(),
 			toer : $("#c_toer").val(),
-			tranAmount : $("#c_tranAmount").val()
+			tranAmount : $("#c_tranAmount").val(),
+			remarks:$("#c_remarks").val()
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
