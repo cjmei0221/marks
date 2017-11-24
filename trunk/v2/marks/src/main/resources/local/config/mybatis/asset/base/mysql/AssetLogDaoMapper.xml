@@ -177,7 +177,7 @@
 			or t.IDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-		order by t.UPDATETIME DESC
+		order by t.TRANTIME DESC
 	</select>
 
 
