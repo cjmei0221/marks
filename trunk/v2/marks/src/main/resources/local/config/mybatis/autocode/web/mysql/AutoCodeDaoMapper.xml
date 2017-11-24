@@ -5,7 +5,7 @@
 
 	<select id="findById" resultType="com.marks.module.autocode.web.pojo.AutoCode">
 		SELECT * FROM tb_autocode_bean
-		autocode where autocode.TABLENAME = #{tableName}
+		autocode where autocode.idNo = #{idNo}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.autocode.web.pojo.AutoCode">
@@ -19,7 +19,8 @@
 		CREATETIME,
 		UPDATETIME,
 		PARENTPACKAGE,
-		DESCRIPTION
+		DESCRIPTION,
+		idNo
 		)
 		VALUES(
 		#{tableName:VARCHAR},
@@ -30,7 +31,8 @@
 		now(),
 		now(),
 		#{parentPackage:VARCHAR},
-		#{description:VARCHAR}
+		#{description:VARCHAR},
+		#{idNo:VARCHAR}
 		)
 	</insert>
 
@@ -44,15 +46,16 @@
 		UPDATETIME=now(),
 		PARENTPACKAGE=#{parentPackage:VARCHAR},
 		DESCRIPTION=#{description:VARCHAR},
-		ISAUTO=#{isAuto:INTEGER}
-		WHERE
+		ISAUTO=#{isAuto:INTEGER},
 		TABLENAME =
-		#{tableName}
+		#{tableName:VARCHAR}
+		WHERE
+		idNo=#{idNo:VARCHAR}
 	</update>
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM tb_autocode_bean
-		 WHERE TABLENAME=#{tableName}
+		WHERE idNo=#{idNo}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.autocode.web.pojo.AutoCode">
@@ -85,15 +88,14 @@
 	</select>
 
 
-	<select id="attrList"
-		resultType="com.marks.module.autocode.web.pojo.AutoCodeAttr"
+	<select id="attrList" resultType="com.marks.module.autocode.web.pojo.AutoCodeAttr"
 		parameterType="java.util.Map">
 		SELECT *
 		FROM tb_autocode_attr autocode
 		WHERE 1=1
 
 		and
-		autocode.TABLENAME =#{tableName}
+		autocode.idNo =#{idNo}
 		order by autocode.ISPK
 		desc,autocode.SORT
 
@@ -102,11 +104,10 @@
 	<delete id="deleteAttr" flushCache="true">
 		delete from tb_autocode_attr
 		where
-		tablename=#{tableName}
+		idNo=#{idNo}
 	</delete>
 
-	<insert id="saveAttr"
-		parameterType="com.marks.module.autocode.web.pojo.AutoCodeAttr">
+	<insert id="saveAttr" parameterType="com.marks.module.autocode.web.pojo.AutoCodeAttr">
 		insert into tb_autocode_attr
 		(
 		ATTRNAME,
@@ -115,7 +116,7 @@
 		SEQ,
 		ATTRSIZE,
 		ATTRDESC,
-		TABLENAME,
+		idNo,
 		SORT,
 		NOTE,
 		ISQUERY
@@ -128,7 +129,7 @@
 		#{seq:VARCHAR},
 		#{attrSize:INTEGER},
 		#{attrDesc:VARCHAR},
-		#{tableName:VARCHAR},
+		#{idNo:VARCHAR},
 		#{sort:INTEGER},
 		#{note:VARCHAR},
 		#{isQuery:INTEGER}
