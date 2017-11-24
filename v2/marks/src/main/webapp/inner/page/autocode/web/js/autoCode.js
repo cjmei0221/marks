@@ -220,14 +220,13 @@ function loadList() {
 								{
 									title : '编号',
 									field : 'idNo',
-									width : 100,
+									width : 150,
 									align : "center"
 								},
 								{
 									title : '表名称',
 									field : 'tableName',
-									width : 100,
-									align : "center"
+									width : 100
 								},
 								{
 									title : '实体类名称',
@@ -290,11 +289,6 @@ function loadList() {
 											return "否";
 										}
 									}
-								}, {
-									title : '创建时间',
-									field : 'createtime',
-									width : 100,
-									align : "center"
 								} ] ],
 						loader : function(params, success, loadError) {
 							var that = $(this);
