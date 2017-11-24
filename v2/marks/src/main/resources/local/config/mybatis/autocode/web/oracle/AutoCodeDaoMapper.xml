@@ -5,21 +5,22 @@
 
 	<select id="findById" resultType="com.marks.module.autocode.web.pojo.AutoCode">
 		SELECT * FROM tb_autocode_bean
-		autocode where autocode.TABLENAME = #{tableName}
+		autocode where autocode.idNo = #{idNo}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.autocode.web.pojo.AutoCode">
 		INSERT INTO tb_autocode_bean
-		autocode (
-		autocode.TABLENAME,
-		autocode.BEANNAME,
-		autocode.MODULEDESC,
-		autocode.IS_CREATETABLE,
-		autocode.IS_AUTH,
-		autocode.CREATETIME,
-		autocode.UPDATETIME,
-		autocode.PARENTPACKAGE,
-		autocode.DESCRIPTION
+		(
+		TABLENAME,
+		BEANNAME,
+		MODULEDESC,
+		IS_CREATETABLE,
+		IS_AUTH,
+		CREATETIME,
+		UPDATETIME,
+		PARENTPACKAGE,
+		DESCRIPTION,
+		idNo
 		)
 		VALUES(
 		#{tableName:VARCHAR},
@@ -27,32 +28,34 @@
 		#{moduleDesc:VARCHAR},
 		#{is_createtable:INTEGER},
 		#{is_auth:INTEGER},
-		sysdate,
-		sysdate,
+		now(),
+		now(),
 		#{parentPackage:VARCHAR},
-		#{description:VARCHAR}
+		#{description:VARCHAR},
+		#{idNo:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.autocode.web.pojo.AutoCode">
 		UPDATE tb_autocode_bean
-		autocode
 		SET
-		autocode.BEANNAME = #{beanName:VARCHAR},
-		autocode.MODULEDESC = #{moduleDesc:VARCHAR},
-		autocode.IS_CREATETABLE=#{is_createtable:INTEGER},
-		autocode.IS_AUTH=#{is_auth:INTEGER},
-		autocode.UPDATETIME=sysdate,
-		autocode.PARENTPACKAGE=#{parentPackage:VARCHAR},
-		autocode.DESCRIPTION=#{description:VARCHAR},
-		autocode.ISAUTO=#{isAuto:INTEGER}
+		BEANNAME = #{beanName:VARCHAR},
+		MODULEDESC = #{moduleDesc:VARCHAR},
+		IS_CREATETABLE=#{is_createtable:INTEGER},
+		IS_AUTH=#{is_auth:INTEGER},
+		UPDATETIME=now(),
+		PARENTPACKAGE=#{parentPackage:VARCHAR},
+		DESCRIPTION=#{description:VARCHAR},
+		ISAUTO=#{isAuto:INTEGER},
+		TABLENAME =
+		#{tableName:VARCHAR}
 		WHERE
-		autocode.TABLENAME = #{tableName}
+		idNo=#{idNo:VARCHAR}
 	</update>
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM tb_autocode_bean
-		autocode WHERE autocode.TABLENAME=#{tableName}
+		WHERE idNo=#{idNo}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.autocode.web.pojo.AutoCode">
@@ -92,15 +95,16 @@
 		WHERE 1=1
 
 		and
-		autocode.TABLENAME =#{tableName}
+		autocode.idNo =#{idNo}
 		order by autocode.ISPK
 		desc,autocode.SORT
 
 
 	</select>
 	<delete id="deleteAttr" flushCache="true">
-		delete from tb_autocode_attr where
-		tablename=#{tableName}
+		delete from tb_autocode_attr
+		where
+		idNo=#{idNo}
 	</delete>
 
 	<insert id="saveAttr" parameterType="com.marks.module.autocode.web.pojo.AutoCodeAttr">
@@ -112,7 +116,7 @@
 		SEQ,
 		ATTRSIZE,
 		ATTRDESC,
-		TABLENAME,
+		idNo,
 		SORT,
 		NOTE,
 		ISQUERY
@@ -125,7 +129,7 @@
 		#{seq:VARCHAR},
 		#{attrSize:INTEGER},
 		#{attrDesc:VARCHAR},
-		#{tableName:VARCHAR},
+		#{idNo:VARCHAR},
 		#{sort:INTEGER},
 		#{note:VARCHAR},
 		#{isQuery:INTEGER}
