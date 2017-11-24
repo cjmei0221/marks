@@ -13,13 +13,13 @@ import com.marks.module.autocode.web.pojo.AutoCodeAttr;
 @MapperScan
 public interface AutoCodeDao {
 
-	AutoCode findById(String tableName);
+	AutoCode findById(String idNo);
 
 	void save(AutoCode autoCode);
 
 	void update(AutoCode autoCode);
 
-	void delete(String tableName);
+	void delete(String idNo);
 
 	List<AutoCode> findAll();
 
@@ -29,7 +29,7 @@ public interface AutoCodeDao {
 
 	List<AutoCodeAttr> attrList(Map<String, Object> param);
 
-	void deleteAttr(String tableName);
+	void deleteAttr(String idNo);
 
 	void saveAttr(AutoCodeAttr info);
 }

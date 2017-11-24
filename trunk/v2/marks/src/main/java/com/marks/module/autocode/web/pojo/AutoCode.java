@@ -10,6 +10,7 @@ public class AutoCode implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+	private String idNo;// 主键
     /**
     *表名称
     */
@@ -37,7 +38,15 @@ public class AutoCode implements Serializable{
     
     private int isAuto;//是否可再生成代码 0：可以 1：不可以
 
-    public int getIsAuto() {
+	public String getIdNo() {
+		return idNo;
+	}
+
+	public void setIdNo(String idNo) {
+		this.idNo = idNo;
+	}
+
+	public int getIsAuto() {
 		return isAuto;
 	}
 	public void setIsAuto(int isAuto) {

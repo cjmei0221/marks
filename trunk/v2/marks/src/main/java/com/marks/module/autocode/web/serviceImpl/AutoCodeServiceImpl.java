@@ -35,7 +35,7 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 	@Override
 	public void save(AutoCode autoCode, String attrList) {
 		autoCodeDao.save(autoCode);
-		saveAttr(autoCode.getTableName(), attrList);
+		saveAttr(autoCode.getIdNo(), attrList);
 	}
 
 	/**
@@ -44,12 +44,12 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 	@Override
 	public void update(AutoCode autoCode, String attrList) {
 		autoCodeDao.update(autoCode);
-		saveAttr(autoCode.getTableName(), attrList);
+		saveAttr(autoCode.getIdNo(), attrList);
 	}
 
-	private void saveAttr(String tableName, String attrList) {
+	private void saveAttr(String idNo, String attrList) {
 		// 关联商品数组
-		autoCodeDao.deleteAttr(tableName);
+		autoCodeDao.deleteAttr(idNo);
 		String[] goods = attrList.split(",");
 		AutoCodeAttr info = null;
 		if (null != goods && goods.length > 0) {
@@ -66,7 +66,8 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 						info.setAttrName(infos[0].trim());
 						info.setAttrSize(Integer.parseInt(infos[2]));
 						info.setAttrType(infos[1]);
-						info.setTableName(tableName);
+						info.setIdNo(idNo);
+						;
 						info.setSort(i);
 						if (infos.length > 4) {
 							info.setNote(infos[4]);
@@ -97,9 +98,9 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 	 * 删除自动生成代码记录
 	 */
 	@Override
-	public void delete(String tableName) {
-		autoCodeDao.delete(tableName);
-		autoCodeDao.deleteAttr(tableName);
+	public void delete(String idNo) {
+		autoCodeDao.delete(idNo);
+		autoCodeDao.deleteAttr(idNo);
 	}
 
 	/**
@@ -158,11 +159,11 @@ public class AutoCodeServiceImpl implements AutoCodeService {
 	}
 
 	@Override
-	public AutoCode findDetailById(String tableName) {
-		AutoCode info = autoCodeDao.findById(tableName);
+	public AutoCode findDetailById(String idNo) {
+		AutoCode info = autoCodeDao.findById(idNo);
 		if (info != null) {
 			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("tableName", tableName);
+			param.put("idNo", info.getIdNo());
 			List<AutoCodeAttr> list = autoCodeDao.attrList(param);
 			info.setAttrList(list);
 			return info;

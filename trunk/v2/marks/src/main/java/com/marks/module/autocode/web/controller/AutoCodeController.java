@@ -17,6 +17,7 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.autocode.core.produced.introduction.introduction.IntroductionPageProduced;
 import com.marks.module.autocode.core.produced.pojo.AttrType;
@@ -50,7 +51,7 @@ public class AutoCodeController extends SupportContorller{
         Result result = new Result();
 		try {
 		    AutoCode autoCode = getModel(AutoCode.class);
-			AutoCode requestAutoCode = autoCodeService.findById(autoCode.getTableName());
+			AutoCode requestAutoCode = autoCodeService.findById(autoCode.getIdNo());
 			result.getData().put("autoCode",requestAutoCode);
 			result.setMessage("findById autoCode successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -71,6 +72,7 @@ public class AutoCodeController extends SupportContorller{
 		Result result = new Result();
 		try {
 	    	AutoCode autoCode = getModel(AutoCode.class);
+			autoCode.setIdNo("AC_" + IDUtil.getDateID() + IDUtil.getID(6));
 	 //     autoCode.setTableName(IDUtil.getTimeID());
 	    	 String attrList = request.getParameter("attrListPut");
 			autoCodeService.save(autoCode,attrList);
@@ -114,7 +116,7 @@ public class AutoCodeController extends SupportContorller{
 		Result result = new Result();
 		try {
 		   	AutoCode autoCode = getModel(AutoCode.class);
-			autoCodeService.delete(autoCode.getTableName());
+			autoCodeService.delete(autoCode.getIdNo());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -153,7 +155,7 @@ public class AutoCodeController extends SupportContorller{
 			HttpServletResponse response){
 		Result result = new Result();
 		try {
-			String id = request.getParameter("tableName");
+			String id = request.getParameter("idNo");
 			String[] ids = id.split(",");
 			List<String> idList = new ArrayList<String>();
 			for(int i=0;i<ids.length;i++){
@@ -212,11 +214,11 @@ public class AutoCodeController extends SupportContorller{
 			int page_size = 1000;
 			AutoCode autoCode = getModel(AutoCode.class);
 			Map<String,Object> param=new HashMap<String,Object>();
-			String tableName=autoCode.getTableName();
-			if(autoCode.getTableName()==null || "".equals(autoCode.getTableName())){
-				tableName="";
+			String idNo = autoCode.getIdNo();
+			if (autoCode.getIdNo() == null || "".equals(autoCode.getIdNo())) {
+				idNo = "";
 			}
-			param.put("tableName", tableName);
+			param.put("idNo", idNo);
 			PojoDomain<AutoCodeAttr> list = autoCodeService.attrList(page_number, page_size, param);
 			result.getData().put("attrlist", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -241,8 +243,8 @@ public class AutoCodeController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			String tableName=request.getParameter("tableName");
-			AutoCode info=autoCodeService.findDetailById(tableName);
+			String idNo = request.getParameter("idNo");
+			AutoCode info = autoCodeService.findDetailById(idNo);
 			if(info==null){
 				result.setMessage("该表记录不存在");
 				result.setCode("3");
@@ -280,8 +282,8 @@ public class AutoCodeController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			String tableName=request.getParameter("tableName");
-			AutoCode info=autoCodeService.findDetailById(tableName);
+			String idNo = request.getParameter("idNo");
+			AutoCode info = autoCodeService.findDetailById(idNo);
 			if(info==null){
 				result.setMessage("该表记录不存在");
 				result.setCode("3");
