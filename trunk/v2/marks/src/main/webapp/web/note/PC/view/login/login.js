@@ -34,7 +34,7 @@ function summitForm() {
 		success : function(data) {
 			if (data.retcode == "0") {
 				if(ele=="owner" || ele == null || ele =='undefined'){
-					ele="gains";
+					ele="asset_log";
 				}
 				location.href = '../' + ele + '/list.html?' + "_t="
 						+ new Date().getTime();
