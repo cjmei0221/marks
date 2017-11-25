@@ -15,23 +15,12 @@ public class StockEnums {
 		}
 
 		public static String getByKey(int status) {
-			switch (status) {
-			case 1: {
-				return StockStatus.stockIn.getName();
+			for (StockStatus c : StockStatus.values()) {
+				if (c.getValue() == status) {
+					return c.getName();
+				}
 			}
-			case 2: {
-				return StockStatus.stockOut.getName();
-			}
-			case 3: {
-				return StockStatus.transferIn.getName();
-			}
-			case 4: {
-				return StockStatus.transferOut.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 
 		public String getName() {

@@ -18,26 +18,12 @@ public class AssetEnums {
 		}
 
 		public static String getByKey(String status) {
-			switch (status) {
-			case "type0": {
-				return ItemType.type0.getName();
+			for (ItemType c : ItemType.values()) {
+				if (c.getValue().equals(status)) {
+					return c.name;
+				}
 			}
-			case "type1": {
-				return ItemType.type1.getName();
-			}
-			case "type2": {
-				return ItemType.type2.getName();
-			}
-			case "type3": {
-				return ItemType.type3.getName();
-			}
-			case "type4": {
-				return ItemType.type4.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 
 		public String getName() {

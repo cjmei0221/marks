@@ -33,17 +33,12 @@ public class NoteEnums {
 		}
 
 		public static String getByKey(int status) {
-			switch (status) {
-			case 0: {
-				return DairyUse.NOUSE.getName();
+			for (DairyUse c : DairyUse.values()) {
+				if (c.getValue() == status) {
+					return c.getName();
+				}
 			}
-			case 1: {
-				return DairyUse.USE.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 	}
 }
