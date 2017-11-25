@@ -229,7 +229,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-		order by t.TRANTIME DESC
+		order by t.TRANTIME DESC,t.UPDATETIME DESC
 	</select>
 
 	<select id="listCount" resultType="com.marks.module.asset.base.pojo.AssetLogCount"
