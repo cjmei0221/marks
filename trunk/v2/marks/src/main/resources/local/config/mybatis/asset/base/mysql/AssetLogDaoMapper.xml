@@ -174,8 +174,12 @@
 
 	<select id="countAmount" resultType="com.marks.module.asset.base.pojo.AssetLogCount"
 		parameterType="java.util.Map">
-		SELECT t.tranYear as itemName,sum(case when t.tranType=0 then t.tranAmount else 0.00 end) outAmount
-		FROM TB_ASSET_LOG t
+		SELECT concat_ws('年',t.tranYear,t.tranMonth) AS itemName,
+		sum(CASE WHEN
+		t.tranType = 0 THEN t.tranAmount ELSE 0.00 END)
+		outAmount
+		FROM
+		TB_ASSET_LOG t
 		WHERE 1=1 and t.USERID=#{userid}
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1
@@ -197,7 +201,8 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-		group by t.userid,t.tranYear
+		GROUP BY t.userid, t.tranYear,t.tranMonth
+		order by t.tranYear DESC,t.tranMonth DESC LIMIT 12
 	</select>
 	<select id="list" resultType="com.marks.module.asset.base.pojo.AssetLog"
 		parameterType="java.util.Map">
@@ -235,15 +240,23 @@
 		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
 		from tb_asset_log t group by t.tranYear
 		union
-		select concat_ws('.',t.tranYear,t.tranMonth) as itemName,
-		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
-		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
-		from tb_asset_log t group by t.tranYear,t.tranMonth
+		select
+		concat_ws('.',t.tranYear,t.tranMonth) as itemName,
+		sum(case WHEN
+		t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
+		sum(case WHEN
+		t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
+		from
+		tb_asset_log t group by t.tranYear,t.tranMonth
 		union
-		select concat_ws('-',t.tranYear,t.itemName) as itemName,
-		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
-		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
-		from tb_asset_log t group by t.tranYear,t.itemName
+		select
+		concat_ws('-',t.tranYear,t.itemName) as itemName,
+		sum(case WHEN
+		t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
+		sum(case WHEN
+		t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
+		from
+		tb_asset_log t group by t.tranYear,t.itemName
 		) t2
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
