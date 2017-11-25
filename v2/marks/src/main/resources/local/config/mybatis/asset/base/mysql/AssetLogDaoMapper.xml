@@ -106,13 +106,17 @@
 		SET
 		remarks=#{info.remarks:VARCHAR},
 		tranAmount=#{info.tranAmount:VARCHAR},
-		TRANTYPE = #{info.tranType:NUMERIC},
+		TRANTYPE =
+		#{info.tranType:NUMERIC},
 		ITEMTYPE = #{info.itemType:VARCHAR},
-		ITEMNAME = #{info.itemName:VARCHAR},
+		ITEMNAME
+		= #{info.itemName:VARCHAR},
 		FROMER = #{info.fromer:VARCHAR},
-		TOER = #{info.toer:VARCHAR},
+		TOER =
+		#{info.toer:VARCHAR},
 		UPDATETIME = #{info.updatetime:VARCHAR},
-		TRANTIME = #{info.tranTime:VARCHAR},
+		TRANTIME
+		= #{info.tranTime:VARCHAR},
 		TRANYEAR = #{info.tranYear:VARCHAR},
 		TRANMONTH = #{info.tranMonth:VARCHAR},
 		IDNO = #{info.idNo:VARCHAR},
@@ -130,16 +134,21 @@
 			USERNAME = #{info.username:VARCHAR},
 			MOBILE = #{info.mobile:VARCHAR},
 			TRANTYPE = #{info.tranType:NUMERIC},
-			ITEMTYPE = #{info.itemType:VARCHAR},
+			ITEMTYPE =
+			#{info.itemType:VARCHAR},
 			ITEMNAME = #{info.itemName:VARCHAR},
-			FROMER = #{info.fromer:VARCHAR},
+			FROMER =
+			#{info.fromer:VARCHAR},
 			TOER = #{info.toer:VARCHAR},
-			UPDATETIME = #{info.updatetime:VARCHAR},
+			UPDATETIME =
+			#{info.updatetime:VARCHAR},
 			TRANTIME = #{info.tranTime:VARCHAR},
 			TRANYEAR = #{info.tranYear:VARCHAR},
-			TRANMONTH = #{info.tranMonth:VARCHAR},
+			TRANMONTH =
+			#{info.tranMonth:VARCHAR},
 			IDNO = #{info.idNo:VARCHAR},
-			IDNAME = #{info.idName:VARCHAR}
+			IDNAME =
+			#{info.idName:VARCHAR}
 			WHERE
 			ID = #{info.id}
 		</foreach>
@@ -147,7 +156,8 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_ASSET_LOG WHERE ID=#{id}
+		DELETE FROM TB_ASSET_LOG WHERE
+		ID=#{id}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.asset.base.pojo.AssetLog">
@@ -168,18 +178,48 @@
 		FROM TB_ASSET_LOG t
 		WHERE 1=1 and t.USERID=#{userid}
 		<if test="keyword!=null and keyword!=''">
-			and ( 2=1 
-			or t.ITEMNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.FROMER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.TOER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.TRANYEAR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.TRANMONTH LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.IDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			and ( 2=1
+			or t.ITEMNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			t.FROMER LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TOER
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TRANYEAR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TRANMONTH LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.IDNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 		order by t.TRANTIME DESC
 	</select>
 
+	<select id="listCount" resultType="com.marks.module.asset.base.pojo.AssetLogCount"
+		parameterType="java.util.Map">
+		select t2.* from (
+		select t.tranYear as itemName,
+		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
+		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
+		from tb_asset_log t where t.userid=#{userid} group by t.tranYear
+		union
+		select concat_ws('-',t.tranYear,t.tranMonth) as itemName,
+		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
+		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
+		from tb_asset_log t  where t.userid=#{userid} group by t.tranYear,t.tranMonth
+		) t2 
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1
+			or t2.itemName LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		ORDER BY t2.itemName desc
+	</select>
 
 
 </mapper>

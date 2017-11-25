@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.mall.pay.dao.PayAcctDao">
+
+    <select id="findById" resultType="com.marks.module.mall.pay.pojo.PayAcct">
+		SELECT * FROM TB_PAY_ACCT t where t.ID = #{id}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.mall.pay.pojo.PayAcct">
+		<!--<selectKey keyProperty="id" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>-->
+
+ 		INSERT INTO TB_PAY_ACCT  (
+            ID,
+            COMPANYID,
+            PAYTYPECODE,
+            PAYTYPE,
+            MCH_ID,
+            KEY1,
+            KEY2,
+            MCH_NAME,
+            KEYSTOREPATH,
+            ACCOUNTID,
+            CREATETIME,
+            UPDATETIME,
+            PAYTYPEID
+		)
+		VALUES(
+		#{info.id:VARCHAR},
+            #{info.companyId:VARCHAR},
+            #{info.payTypeCode:VARCHAR},
+            #{info.payType:VARCHAR},
+            #{info.mch_id:VARCHAR},
+            #{info.key1:VARCHAR},
+            #{info.key2:VARCHAR},
+            #{info.mch_name:VARCHAR},
+            #{info.keyStorePath:VARCHAR},
+            #{info.accountId:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR},
+            #{info.payTypeId:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_PAY_ACCT (
+			            ID,
+            COMPANYID,
+            PAYTYPECODE,
+            PAYTYPE,
+            MCH_ID,
+            KEY1,
+            KEY2,
+            MCH_NAME,
+            KEYSTOREPATH,
+            ACCOUNTID,
+            CREATETIME,
+            UPDATETIME,
+            PAYTYPEID
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.id:VARCHAR},
+            #{info.companyId:VARCHAR},
+            #{info.payTypeCode:VARCHAR},
+            #{info.payType:VARCHAR},
+            #{info.mch_id:VARCHAR},
+            #{info.key1:VARCHAR},
+            #{info.key2:VARCHAR},
+            #{info.mch_name:VARCHAR},
+            #{info.keyStorePath:VARCHAR},
+            #{info.accountId:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR},
+            #{info.payTypeId:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	
+ 	<update id="update" parameterType="com.marks.module.mall.pay.pojo.PayAcct">
+ 		UPDATE TB_PAY_ACCT 
+		SET 
+			COMPANYID = #{info.companyId:VARCHAR},
+            PAYTYPECODE = #{info.payTypeCode:VARCHAR},
+            PAYTYPE = #{info.payType:VARCHAR},
+            MCH_ID = #{info.mch_id:VARCHAR},
+            KEY1 = #{info.key1:VARCHAR},
+            KEY2 = #{info.key2:VARCHAR},
+            MCH_NAME = #{info.mch_name:VARCHAR},
+            KEYSTOREPATH = #{info.keyStorePath:VARCHAR},
+            ACCOUNTID = #{info.accountId:VARCHAR},
+            UPDATETIME = #{info.updatetime:VARCHAR},
+            PAYTYPEID = #{info.payTypeId:VARCHAR}
+		WHERE
+			ID = #{info.id}
+ 	</update>
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_PAY_ACCT 
+		SET 
+			COMPANYID = #{info.companyId:VARCHAR},
+            PAYTYPECODE = #{info.payTypeCode:VARCHAR},
+            PAYTYPE = #{info.payType:VARCHAR},
+            MCH_ID = #{info.mch_id:VARCHAR},
+            KEY1 = #{info.key1:VARCHAR},
+            KEY2 = #{info.key2:VARCHAR},
+            MCH_NAME = #{info.mch_name:VARCHAR},
+            KEYSTOREPATH = #{info.keyStorePath:VARCHAR},
+            ACCOUNTID = #{info.accountId:VARCHAR},
+            UPDATETIME = #{info.updatetime:VARCHAR},
+            PAYTYPEID = #{info.payTypeId:VARCHAR}
+		WHERE
+			ID = #{info.id}
+		</foreach>
+
+	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_PAY_ACCT t WHERE t.ID=#{id}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.mall.pay.pojo.PayAcct">
+ 		SELECT * FROM TB_PAY_ACCT t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_PAY_ACCT WHERE ID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.mall.pay.pojo.PayAcct" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_PAY_ACCT t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.PAYTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.MCH_ID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.MCH_NAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+					
+			    order by  t.UPDATETIME DESC				
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>
