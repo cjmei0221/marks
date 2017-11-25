@@ -47,7 +47,7 @@ function getlist() {
 				var countList=data.countList;
 				var arrCount = [];
 				for(var i=0;i<countList.length;i++){
-					arrCount.push("<span>"+countList[i].itemName+"</span> 年 <span>"+toMoney(countList[i].outAmount)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+					arrCount.push("<span>"+countList[i].itemName+"月</span> <span>"+toMoney(countList[i].outAmount)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 				}
 				$("#countList").html(arrCount.join(''));
 				var dairyList = data.list;
