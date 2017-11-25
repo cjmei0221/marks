@@ -1,6 +1,7 @@
 package com.marks.module.asset.base.controller.web;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -171,6 +172,8 @@ public class WebAssetLogController extends SupportContorller {
 			param.put("keyword", keyword);
 			param.put("userid", admin.getUserid());
 			PojoDomain<AssetLog> list = assetLogService.list(page_number, page_size, param);
+			List<AssetLogCount> countList = assetLogService.countAmount(param);
+			result.getData().put("countList", countList);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());

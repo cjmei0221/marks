@@ -43,6 +43,13 @@ function getlist() {
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
+				$("#totalAmount").html(toMoney(data.totalAmount));
+				var countList=data.countList;
+				var arrCount = [];
+				for(var i=0;i<countList.length;i++){
+					arrCount.push("<span>"+countList[i].itemName+"</span> 年 <span>"+toMoney(countList[i].outAmount)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+				}
+				$("#countList").html(arrCount.join(''));
 				var dairyList = data.list;
 				var pageTotal = data.page_total;
 				appInfo.pageTotal=pageTotal;

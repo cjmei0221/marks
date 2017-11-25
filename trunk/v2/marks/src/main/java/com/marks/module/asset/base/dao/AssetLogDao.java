@@ -33,4 +33,6 @@ public interface AssetLogDao {
 	List<AssetLog> list(PageBounds pageBounds, Map<String,Object> param);
 
 	List<AssetLogCount> listCount(PageBounds pageBounds, Map<String, Object> param);
+
+	List<AssetLogCount> countAmount(Map<String, Object> param);
 }

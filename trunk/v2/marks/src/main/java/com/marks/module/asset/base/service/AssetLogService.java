@@ -27,4 +27,12 @@ public interface AssetLogService{
 	 * @return
 	 */
 	public PojoDomain<AssetLogCount> listCount(int page_number, int page_size, Map<String, Object> param);
+
+	/**
+	 * 查询支出总额
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public List<AssetLogCount> countAmount(Map<String, Object> param);
 }
