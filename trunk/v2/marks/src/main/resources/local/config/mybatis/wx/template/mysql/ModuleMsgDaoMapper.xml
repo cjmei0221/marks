@@ -46,29 +46,17 @@
 	<update id="update" parameterType="com.marks.module.wx.manage.entity.template.ModuleMsg">
 		UPDATE TB_WX_MODULE_MSG
 		SET
-		ACCOUNTID = #{accountid:VARCHAR},
-		TEMPLATE_ID = #{template_id:VARCHAR},
-		TOUSER =
-		#{touser:VARCHAR},
-		URL = #{url:VARCHAR},
-		DATA =
-		#{data:VARCHAR},
-		NEEDFLAG = #{needFlag:NUMERIC},
+		
 		SENDFLAG = #{sendFlag:NUMERIC},
 		SENDTIMES =
 		#{sendTimes:NUMERIC},
-		CREATETIME = #{createtime:TIMESTAMP},
 		SENDTIME = #{sendtime:TIMESTAMP},
 		MSGID =
 		#{msgId:VARCHAR},
 		PUSH_CODE = #{push_code:VARCHAR},
-		PUSH_MSG = #{push_msg:VARCHAR},
-		RESULTCODE =
-		#{resultCode:VARCHAR},
-		RESULTMSG = #{resultMsg:VARCHAR},
-		NOTE = #{note:VARCHAR}
+		PUSH_MSG = #{push_msg:VARCHAR}
 		WHERE
-		modulemsg.ID = #{id}
+		ID = #{id}
 	</update>
 
 	<delete id="delete" parameterType="String">

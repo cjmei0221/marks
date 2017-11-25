@@ -47,29 +47,16 @@
 		UPDATE TB_WX_MODULE_MSG
 		modulemsg
 		SET
-		modulemsg.ACCOUNTID = #{accountid:VARCHAR},
-		modulemsg.TEMPLATE_ID = #{template_id:VARCHAR},
-		modulemsg.TOUSER =
-		#{touser:VARCHAR},
-		modulemsg.URL = #{url:VARCHAR},
-		modulemsg.DATA =
-		#{data:VARCHAR},
-		modulemsg.NEEDFLAG = #{needFlag:NUMERIC},
 		modulemsg.SENDFLAG = #{sendFlag:NUMERIC},
 		modulemsg.SENDTIMES =
 		#{sendTimes:NUMERIC},
-		modulemsg.CREATETIME = #{createtime:TIMESTAMP},
 		modulemsg.SENDTIME = #{sendtime:TIMESTAMP},
 		modulemsg.MSGID =
 		#{msgId:VARCHAR},
 		modulemsg.PUSH_CODE = #{push_code:VARCHAR},
-		modulemsg.PUSH_MSG = #{push_msg:VARCHAR},
-		modulemsg.RESULTCODE =
-		#{resultCode:VARCHAR},
-		modulemsg.RESULTMSG = #{resultMsg:VARCHAR},
-		modulemsg.NOTE = #{note:VARCHAR}
+		modulemsg.PUSH_MSG = #{push_msg:VARCHAR}
 		WHERE
-		modulemsg.ID = #{id}
+		ID = #{id}
 	</update>
 
 	<delete id="delete" parameterType="String">
