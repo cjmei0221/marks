@@ -34,23 +34,12 @@ public class OrgEnums {
 		}
 
 		public static String getByKey(int status) {
-			switch (status) {
-			case 0: {
-				return OrgType.common.getName();
+			for (OrgType c : OrgType.values()) {
+				if (c.getValue() == status) {
+					return c.getName();
+				}
 			}
-			case 1: {
-				return OrgType.company.getName();
-			}
-			case 2: {
-				return OrgType.supplier.getName();
-			}
-			case 3: {
-				return OrgType.shop.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 	}
 }

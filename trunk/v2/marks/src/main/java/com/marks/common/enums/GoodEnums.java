@@ -20,17 +20,12 @@ public class GoodEnums {
 		}
 
 		public static String getByKey(int status) {
-			switch (status) {
-			case 1: {
-				return GoodImgType.Main.getName();
+			for (GoodImgType c : GoodImgType.values()) {
+				if (c.getValue() == status) {
+					return c.name;
+				}
 			}
-			case 2: {
-				return GoodImgType.Detail.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 
 		public String getName() {
@@ -55,20 +50,12 @@ public class GoodEnums {
 		}
 
 		public static String getByKey(int status) {
-			switch (status) {
-			case 1: {
-				return GoodOnsale.onsale.getName();
+			for (GoodOnsale c : GoodOnsale.values()) {
+				if (c.getValue() == status) {
+					return c.name;
+				}
 			}
-			case 2: {
-				return GoodOnsale.init.getName();
-			}
-			case 3: {
-				return GoodOnsale.shelves.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 
 		public String getName() {
@@ -93,17 +80,12 @@ public class GoodEnums {
 		}
 
 		public static String getByKey(int status) {
-			switch (status) {
-			case 0: {
-				return GoodTagType.brand.getName();
+			for (GoodTagType c : GoodTagType.values()) {
+				if (c.getValue() == status) {
+					return c.name;
+				}
 			}
-			case 1: {
-				return GoodTagType.priceGroup.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 
 		public String getName() {

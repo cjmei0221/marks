@@ -27,17 +27,12 @@ public class UserEnums {
 		}
 
 		public static String getByKey(int status) {
-			switch (status) {
-			case 0: {
-				return BindFlag.unbind.getName();
+			for (BindFlag c : BindFlag.values()) {
+				if (c.getValue() == status) {
+					return c.getName();
+				}
 			}
-			case 1: {
-				return BindFlag.bind.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 	}
 
@@ -66,17 +61,12 @@ public class UserEnums {
 		}
 
 		public static String getByKey(int status) {
-			switch (status) {
-			case 0: {
-				return ActiveFlag.unuse.getName();
+			for (ActiveFlag c : ActiveFlag.values()) {
+				if (c.getValue() == status) {
+					return c.getName();
+				}
 			}
-			case 1: {
-				return ActiveFlag.use.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 	}
 
@@ -105,17 +95,12 @@ public class UserEnums {
 		}
 
 		public static String getByKey(String status) {
-			switch (status) {
-			case "SYS": {
-				return UserType.SYS.getName();
+			for (UserType c : UserType.values()) {
+				if (c.getValue().equals(status)) {
+					return c.getName();
+				}
 			}
-			case "VIP": {
-				return UserType.VIP.getName();
-			}
-			default: {
-				return "";
-			}
-			}
+			return "";
 		}
 	}
 }
