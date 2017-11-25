@@ -109,5 +109,10 @@ public class AssetLogServiceImpl implements AssetLogService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+
+	@Override
+	public List<AssetLogCount> countAmount(Map<String, Object> param) {
+		return assetLogDao.countAmount(param);
+	}
 	
 }
