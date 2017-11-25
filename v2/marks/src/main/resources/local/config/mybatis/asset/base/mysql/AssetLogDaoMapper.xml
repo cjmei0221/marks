@@ -201,15 +201,20 @@
 	<select id="listCount" resultType="com.marks.module.asset.base.pojo.AssetLogCount"
 		parameterType="java.util.Map">
 		select t2.* from (
-		select t.tranYear as itemName,
+		select  concat_ws('',t.tranYear,"年") as itemName,
 		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
 		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
-		from tb_asset_log t where t.userid=#{userid} group by t.tranYear
+		from tb_asset_log t group by t.tranYear
 		union
-		select concat_ws('-',t.tranYear,t.tranMonth) as itemName,
+		select concat_ws('.',t.tranYear,t.tranMonth) as itemName,
 		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
 		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
-		from tb_asset_log t  where t.userid=#{userid} group by t.tranYear,t.tranMonth
+		from tb_asset_log t   group by t.tranYear,t.tranMonth
+		union
+		select concat_ws('-',t.tranYear,t.itemName)  as itemName,
+		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
+		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
+		from tb_asset_log t   group by  t.tranYear,t.itemName
 		) t2 
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
