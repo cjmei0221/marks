@@ -4,12 +4,12 @@ package com.marks.module.asset.base.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.annotation.MapperScan;
-
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.asset.base.pojo.AssetLog;
+import com.marks.module.asset.base.pojo.AssetLogCount;
 
 @MapperScan
 public interface AssetLogDao {
@@ -31,4 +31,6 @@ public interface AssetLogDao {
 	void deleteBatch(@Param("list") List<String> list);
 
 	List<AssetLog> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<AssetLogCount> listCount(PageBounds pageBounds, Map<String, Object> param);
 }

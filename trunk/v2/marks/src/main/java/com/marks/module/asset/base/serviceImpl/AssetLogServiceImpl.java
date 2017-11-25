@@ -12,6 +12,7 @@ import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.asset.base.dao.AssetLogDao;
 import com.marks.module.asset.base.pojo.AssetLog;
+import com.marks.module.asset.base.pojo.AssetLogCount;
 import com.marks.module.asset.base.service.AssetLogService;
 
 @Service
@@ -89,6 +90,19 @@ public class AssetLogServiceImpl implements AssetLogService{
 		PageBounds pageBounds = new PageBounds(page_number, page_size);
 		List<AssetLog> list = assetLogDao.list(pageBounds,param);
 		PageList<AssetLog> pageList = (PageList<AssetLog>)list; 
+		pojoDomain.setPojolist(list);
+		pojoDomain.setPage_number(page_number);
+		pojoDomain.setPage_size(page_size);
+		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
+		return pojoDomain;
+	}
+
+	@Override
+	public PojoDomain<AssetLogCount> listCount(int page_number, int page_size, Map<String, Object> param) {
+		PojoDomain<AssetLogCount> pojoDomain = new PojoDomain<AssetLogCount>();
+		PageBounds pageBounds = new PageBounds(page_number, page_size);
+		List<AssetLogCount> list = assetLogDao.listCount(pageBounds, param);
+		PageList<AssetLogCount> pageList = (PageList<AssetLogCount>) list;
 		pojoDomain.setPojolist(list);
 		pojoDomain.setPage_number(page_number);
 		pojoDomain.setPage_size(page_size);
