@@ -145,7 +145,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 			getflag = true;
 		}
 		// 开发者角色可以配置所有的功能
-		if ("system".equals(admin.getRoleid())) {
+		if ("developer".equals(admin.getRoleid())) {
 			getflag = true;
 			loginUserRoleId=null;
 		}
