@@ -31,7 +31,7 @@ function add() {
 // 编辑
 function edit() {
 	if (isSelectedOne(appInfo.selectedId)) {
-		if("system" == appInfo.selectedId){
+		if("developer" == appInfo.selectedId){
 			showMsg("此记录不可编辑");
 			return;
 		}
@@ -57,10 +57,6 @@ function edit() {
 // 删除
 function del() {
 	if (!isSelectedOne(appInfo.selectedId)) {
-		return;
-	}
-	if("system" == appInfo.selectedId){
-		showMsg("该角色不可删除");
 		return;
 	}
 	if (appInfo.selectedData.delFlag==0) {

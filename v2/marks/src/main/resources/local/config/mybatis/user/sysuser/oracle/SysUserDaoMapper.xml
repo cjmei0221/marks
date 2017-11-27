@@ -154,7 +154,7 @@
 		</if>
 		) orgtb on sysuser.userid =
 		orgtb.userid
-		WHERE 1=1 and sysuser.userid !='system'
+		WHERE 1=1 and sysuser.userid !='developer'
 		<if test="companyId !=null and companyId != ''">
 			and sysuser.COMPANYID = #{companyId}
 		</if>

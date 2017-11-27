@@ -100,7 +100,7 @@ public class SysRoleController extends SupportContorller {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			SysRole sysRole = getModel(SysRole.class);
 			sysRole.setCompanyId(admin.getCompanyId());
-			if ("system".equals(sysRole.getRoleid())) {
+			if ("developer".equals(sysRole.getRoleid())) {
 				result.setMessage("此记录不可编辑!");
 				result.setCode(Code.CODE_FAIL);
 				JsonUtil.output(response, result);
@@ -296,6 +296,9 @@ public class SysRoleController extends SupportContorller {
 		int lvl = admin.getRoleLvl();
 		List<TreeVo> list = new ArrayList<TreeVo>();
 		TreeVo vo = null;
+		if (lvl == 0) {
+			lvl = lvl + 1;
+		}
 		for (int i = lvl; i < 10; i++) {
 			vo = new TreeVo();
 			vo.setId(i + "");
