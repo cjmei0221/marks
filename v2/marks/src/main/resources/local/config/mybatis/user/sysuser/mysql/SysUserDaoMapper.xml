@@ -138,7 +138,7 @@
 		FROM tb_user sysuser
 		join tb_sys_role tsr on (
 		sysuser.roleid = tsr.roleid and tsr.showflag=1)
-		join (select
+		left join (select
 		tsuo.userid, GROUP_CONCAT(toi.orgid) orgidsStr,
 		GROUP_CONCAT(toi.orgname) orgidNamesStr
 		from tb_user_org tsuo
