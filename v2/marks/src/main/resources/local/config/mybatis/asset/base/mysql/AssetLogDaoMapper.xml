@@ -174,7 +174,7 @@
 
 	<select id="countAmount" resultType="com.marks.module.asset.base.pojo.AssetLogCount"
 		parameterType="java.util.Map">
-		SELECT concat_ws('年',t.tranYear,t.tranMonth) AS itemName,
+		SELECT concat_ws('',t.tranYear,'年',t.tranMonth,'月') AS itemName,
 		sum(CASE WHEN
 		t.tranType = 0 THEN t.tranAmount ELSE 0.00 END)
 		outAmount
