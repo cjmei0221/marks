@@ -28,4 +28,11 @@ public interface OrgInfoService{
 	 */
 	public String getOrgId();
 
+	/**
+	 * 获取公司编号
+	 * 
+	 * @return
+	 */
+	public String getCompanyId();
+
 }
