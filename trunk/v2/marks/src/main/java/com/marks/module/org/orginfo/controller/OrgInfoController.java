@@ -18,6 +18,7 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.OrgEnums;
 import com.marks.common.util.Code;
+import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
@@ -291,8 +292,15 @@ public class OrgInfoController extends SupportContorller {
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		String parentId = request.getParameter("parentId");
 		String orgType = request.getParameter("orgType");
+		String roleId = request.getParameter("roleId");
 		logger.info("list parentId:" + parentId);
 		String companyId = admin.getCompanyId();
+		if (Constants.default_roleId.equals(admin.getRoleid()) && null != roleId && !"".equals(roleId)
+				&& roleId.indexOf("_") > 0) {
+			logger.info("list roleId:" + roleId);
+			companyId = roleId.split("_")[0];
+		}
+		logger.info("list companyId:" + companyId);
 		List<OrgInfo> list = null;
 
 		// 根节点加载
@@ -359,6 +367,9 @@ public class OrgInfoController extends SupportContorller {
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();
 		String companyId = admin.getCompanyId();
+		if (Constants.default_roleId.equals(admin.getRoleid())) {
+			companyId = "";
+		}
 		param.put("companyId", companyId);
 		List<OrgInfo> list = orgInfoService.frameCombo(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());

@@ -53,8 +53,8 @@ public class SysUserServiceImpl implements SysUserService {
 	 * 根據手機號查詢用戶信息
 	 */
 	@Override
-	public SysUser findByMobile(String bind_mobile) {
-		return sysUserDao.findByMobile(bind_mobile);
+	public SysUser findByMobile(String companyId, String bind_mobile) {
+		return sysUserDao.findByMobile(companyId, bind_mobile);
 	}
 
 	@Override
