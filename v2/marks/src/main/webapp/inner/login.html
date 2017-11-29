@@ -20,7 +20,7 @@
 <script type="text/javascript" src="js/encrypt/aes.js"></script>
 <script type="text/javascript" src="js/encrypt/mode-ecb.js"></script>
 <script type="text/javascript" src="js/encrypt/aes_u.js"></script>
-
+<script type="text/javascript" src="js/cookie.js"></script>
 <style type="text/css">
 #ff1 * {
 	font-size: 12pt;
@@ -452,6 +452,7 @@ input:-webkit-autofill {
 							data = $.parseJSON(data);
 						}
 						if (data.retcode == "0") {
+							coke.setCookie("mCompanyId",$("#companyId").val());
 							location.replace("index.html");
 						} else {
 							$.messager.alert("系统提示", data.retmsg);
@@ -479,7 +480,10 @@ input:-webkit-autofill {
 			document.getElementById("userid").focus();
 			//input内显示的字符
 			$('input, textarea').placeholder();
-			if (companyId != null && companyId != '' && companyId.indexOf("html")<0) {
+			if (companyId != null && companyId != '' && companyId !='undefined' && companyId.indexOf("html")<0) {
+				$("#companyId").val(companyId);
+			}else{
+				companyId=coke.getCookie("mCompanyId");
 				$("#companyId").val(companyId);
 			}
 		});

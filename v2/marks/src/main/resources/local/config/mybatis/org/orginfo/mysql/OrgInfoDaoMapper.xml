@@ -10,7 +10,12 @@
 	<select id="getOrgId" resultType="String">
 		SELECT max(t.orgid) FROM
 		TB_ORG_INFO
-		t
+		t where t.ORGTYPE !=1
+	</select>
+	<select id="getCompanyId" resultType="String">
+		SELECT max(t.orgid) FROM
+		TB_ORG_INFO
+		t where t.ORGTYPE=1
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.org.orginfo.pojo.OrgInfo">
@@ -189,12 +194,13 @@
 		from
 		tb_org_info p
 		group by p.parentid) p on t.orgid = p.pid
-		where 1=1 and
-		t.COMPANYID=#{companyId} 
+		where 1=1
+		and
+		t.COMPANYID=#{companyId}
 		<if test="orgType !=null and orgType !=''">
 			and t.orgType=#{orgType}
 		</if>
-		AND t.parentid =#{parentId} 
+		AND t.parentid =#{parentId}
 	</select>
 
 	<select id="getChildList" resultType="com.marks.module.org.orginfo.pojo.OrgInfo">
