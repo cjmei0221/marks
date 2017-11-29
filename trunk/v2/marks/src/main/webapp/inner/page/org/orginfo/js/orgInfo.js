@@ -167,7 +167,7 @@ function loadList() {
 				}, {
 					title : '组织ID',
 					field : 'orgid',
-					width : 100,
+					width : 150,
 					align : "center"
 				}, {
 					title : '英文logo',
