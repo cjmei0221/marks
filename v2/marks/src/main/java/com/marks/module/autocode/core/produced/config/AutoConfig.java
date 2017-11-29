@@ -1,5 +1,7 @@
 package com.marks.module.autocode.core.produced.config;
 
+import com.marks.common.util.Constants;
+
 public class AutoConfig {
 
 	private static AutoConfig util=null;
@@ -45,7 +47,7 @@ public class AutoConfig {
 
 	public static String FILE_SPRING_SRC=AutoCodePropsUtil.getProperty("FILE_SPRING_SRC");
 	public static String SPRING_NAME=AutoCodePropsUtil.getProperty("spring_base_path");
-	public static String role_id=AutoCodePropsUtil.getProperty("role_id");
+	public static String role_id = Constants.default_roleId;
 	
 	public String getRootPath(){  
 		String type=AutoCodePropsUtil.getProperty("bushu_type");
