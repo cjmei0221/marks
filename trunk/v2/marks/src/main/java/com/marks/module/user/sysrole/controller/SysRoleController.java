@@ -19,6 +19,7 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.domain.TreeVo;
 import com.marks.common.util.Code;
+import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
@@ -100,7 +101,7 @@ public class SysRoleController extends SupportContorller {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			SysRole sysRole = getModel(SysRole.class);
 			sysRole.setCompanyId(admin.getCompanyId());
-			if ("developer".equals(sysRole.getRoleid())) {
+			if (Constants.default_roleId.equals(sysRole.getRoleid())) {
 				result.setMessage("此记录不可编辑!");
 				result.setCode(Code.CODE_FAIL);
 				JsonUtil.output(response, result);
@@ -226,11 +227,16 @@ public class SysRoleController extends SupportContorller {
 			if (keyword == null) {
 				keyword = "";
 			}
+			String loginUserRoleId = admin.getRoleid();
+			if (Constants.default_roleId.equals(admin.getRoleid())) {
+				loginUserRoleId = "";
+			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("s_lvl", s_lvl);
 			param.put("companyId", admin.getCompanyId());
 			param.put("lvl", admin.getRoleLvl());
+			param.put("loginUserRoleId", loginUserRoleId);
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

@@ -95,6 +95,9 @@
 		<if test="companyId !=null and companyId != ''">
 			and sysrole.COMPANYID = #{companyId}
 		</if>
+		<if test="loginUserRoleId !=null and loginUserRoleId != ''">
+			and sysrole.ROLEID != #{loginUserRoleId}
+		</if>
 		<if test="keyword!=null and keyword!=''">
 			and ( sysrole.ROLEID
 			LIKE

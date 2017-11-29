@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.util.Constants;
 import com.marks.module.system.sysmenu.pojo.SysFunc;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.user.login.dao.LoginDao;
@@ -145,7 +146,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 			getflag = true;
 		}
 		// 开发者角色可以配置所有的功能
-		if ("developer".equals(loginUserRoleId)) {
+		if (Constants.default_roleId.equals(loginUserRoleId)) {
 			getflag = true;
 			loginUserRoleId=null;
 		}
