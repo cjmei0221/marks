@@ -40,4 +40,6 @@ public interface OrgInfoDao {
 
 	String getOrgId();
 
+	String getCompanyId();
+
 }

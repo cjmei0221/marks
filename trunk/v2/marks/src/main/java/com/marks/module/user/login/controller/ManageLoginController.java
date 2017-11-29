@@ -117,6 +117,7 @@ public class ManageLoginController {
 		Result result = new Result();
 		SysUser user = ManageUtil.getCurrentUserInfo(request);
 		if (user != null) {
+			result.getData().put("companyId", user.getCompanyId());
 			ManageUtil.setCurrentUserInfo(request, null);
 			// 保存日志
 			SysLog log = new SysLog();
@@ -135,7 +136,7 @@ public class ManageLoginController {
 		}
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
-		result.getData().put("companyId", user.getCompanyId());
+
 		JsonUtil.output(response, result);
 	}
 

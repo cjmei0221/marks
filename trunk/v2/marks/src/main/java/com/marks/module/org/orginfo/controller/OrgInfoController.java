@@ -76,13 +76,15 @@ public class OrgInfoController extends SupportContorller {
 			}
 
 			if (ori == null) {
-				String orgId = orgInfoService.getOrgId();
-				orgInfo.setOrgid(orgId);
 				if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
+					String orgId = orgInfoService.getCompanyId();
+					orgInfo.setOrgid(orgId);
 					orgInfo.setParentId("0");
 					orgInfo.setCompanyId(orgInfo.getOrgid());
 					orgInfo.setLvl(1);
 				} else {
+					String orgId = orgInfoService.getOrgId();
+					orgInfo.setOrgid(orgId);
 					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
 					orgInfo.setLvl(parentVo.getLvl() + 1);
 					orgInfo.setCompanyId(parentVo.getCompanyId());
