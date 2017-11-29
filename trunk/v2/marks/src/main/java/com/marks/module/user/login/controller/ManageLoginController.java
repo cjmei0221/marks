@@ -6,8 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
@@ -35,8 +37,10 @@ import com.marks.module.user.sysuser.pojo.SysUser;
  */
 @Controller
 public class ManageLoginController {
+	private static Logger logger = Logger.getLogger(ManageLoginController.class);
 	@Autowired
 	private LoginService loginService;
+
 	/**
 	 * 登录 queryDepartmentList:描述 <br/>
 	 *
@@ -131,6 +135,7 @@ public class ManageLoginController {
 		}
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
+		result.getData().put("companyId", user.getCompanyId());
 		JsonUtil.output(response, result);
 	}
 
@@ -145,15 +150,40 @@ public class ManageLoginController {
 		result.getData().put("loginUser", user);
 		JsonUtil.output(response, result);
 	}
+
 	@RequestMapping("/inner/sys/menuOperate")
 	public void menuOperate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
 		SysUser user = ManageUtil.getCurrentUserInfo(request);
-		String menuid=request.getParameter("menuid");
-		List<SysOperate> list=loginService.getSysOperate(menuid,user);
+		String menuid = request.getParameter("menuid");
+		List<SysOperate> list = loginService.getSysOperate(menuid, user);
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		result.getData().put("operList", list);
 		JsonUtil.output(response, result);
+	}
+
+	/**
+	 * 登陆转换
+	 * 
+	 * @param accountid
+	 * @param pageUrl
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/inner/{companyId}")
+	public void login1(@PathVariable String companyId, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("login companyId > " + companyId);
+		String url = "/inner/login.html";
+
+		try {
+			// response.sendRedirect(url);
+			request.setAttribute("companyId", companyId);
+			request.getRequestDispatcher(url).forward(request, response);
+
+		} catch (Exception e) {
+
+		}
+
 	}
 }

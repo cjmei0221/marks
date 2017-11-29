@@ -4,6 +4,14 @@ window.nfb = {};
 window.urlBase = "";
 app = {};
 
+app.getUrlParams = function(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null)
+		return unescape(r[2]);
+	return null;
+}
+
 function setupAjax(){
 	$.ajaxSetup({cache:false
 		,timeout:30000

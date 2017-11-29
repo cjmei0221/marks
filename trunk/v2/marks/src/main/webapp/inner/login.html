@@ -338,7 +338,7 @@ input:-webkit-autofill {
 	<!-- 中间部分 -->
 	<div data-options="region:'center'">
 		<div class="centerLogin">
-			<img src="images/banner.jpg" width="100%" height="600px">
+			<img src="images/banner.jpg" width="100%" height="500px">
 			<div class="form_wrapper">
 				<form id="loginForm" name="ff1" method="post">
 					<div class="form_content">
@@ -471,10 +471,17 @@ input:-webkit-autofill {
 			}
 		})
 		$(function() {
+			var r = window.location;
+			r=r+"";
+			var strs = new Array(); //定义一数组 
+			strs = r.split("/");
+			var companyId = strs[strs.length-1];
 			document.getElementById("userid").focus();
 			//input内显示的字符
 			$('input, textarea').placeholder();
-
+			if (companyId != null && companyId != '' && companyId.indexOf("html")<0) {
+				$("#companyId").val(companyId);
+			}
 		});
 	</script>
 </body>
