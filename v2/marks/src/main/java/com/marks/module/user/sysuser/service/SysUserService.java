@@ -18,7 +18,7 @@ public interface SysUserService{
 	public List<SysUser> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<SysUser> list(int page_number, int page_size,Map<String,Object> param);
-	public SysUser findByMobile(String bind_mobile);
+	public SysUser findByMobile(String companyId, String bind_mobile);
 	public SysUser findById(String userid);
 	public void updatePwd(String userid,String pwd);
 	public void updateMobile(String userid, String newPhone);

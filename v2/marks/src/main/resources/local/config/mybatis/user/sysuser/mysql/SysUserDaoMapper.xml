@@ -19,7 +19,7 @@
 
 	<select id="findByMobile" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		select * from tb_user t
-		where t.bind_mobile=#{mobile}
+		where t.bind_mobile=#{mobile} and t.COMPANYID=#{companyId}
 	</select>
 	<insert id="save" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
 		INSERT INTO tb_user

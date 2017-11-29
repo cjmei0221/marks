@@ -32,7 +32,7 @@ function add() {
 	appInfo.checkOrg.orgids = [];
 	appInfo.checkOrg.orgnames = [];
 	$("#roleid").combobox("reload");
-	$("#inputRoleDiv").html('');
+	$("#inputOrgDiv").html("");
 	$("#bind_mobile").numberbox({
 		disabled : false
 	});
@@ -49,7 +49,7 @@ function edit() {
 		$('#ff').form('load', appInfo.selectedData);
 		appInfo.checkOrg.orgids = [];
 		appInfo.checkOrg.orgnames = [];
-		$("#inputRoleDiv").html('');
+		$("#inputOrgDiv").html("");
 		initUser(appInfo.selectedData);
 		notEdit();
 	}
@@ -112,42 +112,11 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
-	//
-	// $("#roleid").combobox({
-	// onChange : function(newValue, oldValue) {
-	// if (newValue != oldValue) {
-	// $.ajax({
-	// url : appInfo.roleUrl,
-	// type : "get",
-	// data : {
-	// "roleid" : newValue
-	// },
-	// dataType : "json",
-	// success : function(data, status, xhr) {
-	// if (data.retcode == "0") {
-	// $("#companyId").val(data.sysRole.companyId);
-	// appInfo.checkRole = [];
-	// $("#inputRoleDiv").html('');
-	// // 加载角色信息
-	// loadRoleList(data.sysRole.companyId);
-	// }
-	// }
-	// });
-	// }
-	// }
-	// });
 
 	$("#chooseOrg").on("click", function() {
-		// var roleId = $("#roleid").combobox("getValue")
-		// if (roleId == '') {
-		// showMsg("请先选择用户类型");
-		// return;
-		// }
-		// appInfo.checkOrg.orgids = [];
-		// appInfo.checkOrg.orgnames = [];
-		// $("#inputOrgDiv").html('');
-		// 加载角色信息
-		loadOrgList();
+		// 加载组织信息
+		var roleId = $("#roleid").combobox("getValue");
+		loadOrgList(roleId);
 		$("#orgWin").window({
 			title : "组织"
 		}).window("open");
@@ -232,7 +201,7 @@ function loadList() {
 		animate : true,
 		collapsible : true,
 		fitColumns : true,
-		height:580,
+		height : 580,
 		pagination : true,
 		idField : 'userid',
 		pagination : true,
@@ -352,7 +321,7 @@ function loadList() {
 }
 
 function loadOrgList(id) {
-	var orgListUrl = top.window.urlBase + '/inner/orgInfo/list.do';
+	var orgListUrl = top.window.urlBase + '/inner/orgInfo/list.do?roleId=' + id;
 	$('#orgList').treegrid(
 			{
 				url : orgListUrl,
@@ -386,7 +355,7 @@ function loadOrgList(id) {
 				} ] ],
 				onBeforeExpand : function(row) {
 					$("#orgList").treegrid("options").url = orgListUrl
-							+ "?parentId=" + row.orgid + "&_timer="
+							+ "&parentId=" + row.orgid + "&_timer="
 							+ new Date().getTime();
 				},
 				onClickRow : function(rowData) {
@@ -448,13 +417,16 @@ function delOrg(id, name) {
 function initUser(user) {
 	appInfo.checkOrg.orgids = user.orgidsStr.split(",");
 	appInfo.checkOrg.orgnames = user.orgidNamesStr.split(",");
-	for (var i = 0; i < appInfo.checkRole.length; i++) {
-		if (appInfo.checkRole[i] != null && appInfo.checkRole[i] != '') {
+	for (var i = 0; i < appInfo.checkOrg.orgids.length; i++) {
+		console.log("1 - " + appInfo.checkOrg.orgids[i]);
+		if (appInfo.checkOrg.orgids[i] != null
+				&& appInfo.checkOrg.orgids[i] != '') {
 			initOrgPut(appInfo.checkOrg.orgids[i], appInfo.checkOrg.orgnames[i]);
 		}
 	}
 }
 function initOrgPut(orgid, orgname) {
+	console.log(orgid + " - " + orgname);
 	$("#inputOrgDiv")
 			.append(
 					"<p id='"

@@ -1,5 +1,6 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/inner/sysRole/list.do',// 获取角色管理列表接口 SysRole
+	listUrl : top.window.urlBase + '/inner/sysRole/list.do',// 获取角色管理列表接口
+															// SysRole
 	saveUrl : top.window.urlBase + '/inner/sysRole/save.do',// 保存新增角色管理接口
 	updateUrl : top.window.urlBase + '/inner/sysRole/update.do',// 编辑角色管理信息接口
 	deleteUrl : top.window.urlBase + '/inner/sysRole/delete.do',// 删除角色管理接口
@@ -13,10 +14,11 @@ var appInfo = {
 		keyword : "",
 		s_lvl : ""
 	},
-	formStatus : "new"
+	formStatus : "new",
+	isShowCompany : 0
 };
 
-//新增
+// 新增
 function add() {
 	$("#editWin").window({
 		title : "新增"
@@ -26,12 +28,17 @@ function add() {
 	$('#userTypeTr').show();
 	$('#showFlagTr').show();
 	$('#delFlagTr').show();
+	if(appInfo.isShowCompany==1){
+		$("#companyIdTr").show();
+	}else{
+		$("#companyIdTr").hide();
+	}
 }
 
 // 编辑
 function edit() {
 	if (isSelectedOne(appInfo.selectedId)) {
-		if("developer" == appInfo.selectedId){
+		if ("developer" == appInfo.selectedId) {
 			showMsg("此记录不可编辑");
 			return;
 		}
@@ -41,15 +48,20 @@ function edit() {
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
 		$('#userTypeTr').hide();
-		if(appInfo.selectedData.showFlag==0){
+		if (appInfo.selectedData.showFlag == 0) {
 			$('#showFlagTr').hide();
-		}else{
+		} else {
 			$('#showFlagTr').show();
 		}
-		if(appInfo.selectedData.delFlag==0){
+		if (appInfo.selectedData.delFlag == 0) {
 			$('#delFlagTr').hide();
-		}else{
+		} else {
 			$('#delFlagTr').show();
+		}
+		if(appInfo.isShowCompany==1){
+			$("#companyIdTr").show();
+		}else{
+			$("#companyIdTr").hide();
 		}
 	}
 }
@@ -59,7 +71,7 @@ function del() {
 	if (!isSelectedOne(appInfo.selectedId)) {
 		return;
 	}
-	if (appInfo.selectedData.delFlag==0) {
+	if (appInfo.selectedData.delFlag == 0) {
 		showMsg("该角色不可删除");
 		return;
 	}
@@ -100,7 +112,6 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
-	
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
@@ -169,12 +180,17 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '组织',
+			field : 'companyName',
+			width : 100,
+			align : "center"
+		}, {
 			title : '级别',
 			field : 'lvl',
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-					return "L"+value;
+				return "L" + value;
 			}
 		}, {
 			title : '用户维护标识',
@@ -182,7 +198,7 @@ function loadList() {
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-				if(value == 0){
+				if (value == 0) {
 					return "单独维护";
 				}
 				return "统一维护";
@@ -193,7 +209,7 @@ function loadList() {
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-				if(value == 0){
+				if (value == 0) {
 					return "不可删除";
 				}
 				return "可删除";
@@ -242,6 +258,7 @@ function loadList() {
 			success : function(data, status, xhr) {
 				checkLogin(data);
 				if (data.retcode == "0") {
+					appInfo.isShowCompany=data.isShowCompany;
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({

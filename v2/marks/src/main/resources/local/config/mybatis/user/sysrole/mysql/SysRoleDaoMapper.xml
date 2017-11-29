@@ -82,7 +82,7 @@
 		</if>
 		and sysrole.lvl &gt;= #{lvl}
 		and sysrole.SHOWFLAG=1
-		ORDER BY sysrole.lvl
+		ORDER BY sysrole.COMPANYID,sysrole.lvl
 	</select>
 
 	<select id="list" resultType="com.marks.module.user.sysrole.pojo.SysRole"
@@ -124,7 +124,7 @@
 		</if>
 		and sysrole.lvl &gt;= #{lvl}
 
-		ORDER BY sysrole.UPDATETIME desc
+		ORDER BY sysrole.COMPANYID,sysrole.UPDATETIME desc
 
 	</select>
 
