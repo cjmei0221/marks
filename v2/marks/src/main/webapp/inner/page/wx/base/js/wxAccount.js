@@ -23,6 +23,8 @@ function add() {
 	appInfo.formStatus = "new";
 	$("#urlTr").hide();
 	$("#accountId").removeAttr("readonly");
+	$("#accttype").combobox("setValue",0);
+	$("#is_service").combobox("setValue",0);
 }
 
 // 编辑
@@ -182,21 +184,21 @@ function loadList() {
 			field : 'authdomain',
 			width : 100,
 			align : "center"
-		}, {
-			title : '上下文',
-			field : 'server_context',
-			width : 100,
-			align : "center"
+		// }, {
+		// title : '上下文',
+		// field : 'server_context',
+		// width : 100,
+		// align : "center"
 		}, {
 			title : '微信号',
 			field : 'wx_acctno',
 			width : 100,
 			align : "center"
-		}, {
-			title : '机构',
-			field : 'orgname',
-			width : 100,
-			align : "center"
+		// }, {
+		// title : '机构',
+		// field : 'orgname',
+		// width : 100,
+		// align : "center"
 		}, {
 			title : '是否提供服务',
 			field : 'is_service',

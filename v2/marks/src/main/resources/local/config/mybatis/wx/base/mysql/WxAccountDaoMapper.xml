@@ -7,6 +7,9 @@
 		SELECT * FROM TB_WX_ACCOUNT
 		wxaccount where wxaccount.ACCOUNTID = #{accountId}
 	</select>
+	<select id="getAccountId" resultType="String">
+		SELECT max(t.accountid) FROM TB_WX_ACCOUNT t
+	</select>
 
 	<insert id="save" parameterType="com.marks.module.wx.manage.entity.base.WxAccount">
 		INSERT INTO TB_WX_ACCOUNT
@@ -75,8 +78,7 @@
 		#{appid:VARCHAR},
 		APPSECRET = #{appsecret:VARCHAR},
 		authdomain =
-		#{authdomain:VARCHAR},
-		COMPANYID=#{companyId:VARCHAR}
+		#{authdomain:VARCHAR}
 		WHERE
 		ACCOUNTID =
 		#{accountId}
