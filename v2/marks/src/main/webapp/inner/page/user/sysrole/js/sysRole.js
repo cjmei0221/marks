@@ -168,11 +168,11 @@ function loadList() {
 			field : 'rolename',
 			width : 100,
 			align : "center"
-		}, {
-			title : '组织',
-			field : 'companyName',
-			width : 100,
-			align : "center"
+//		}, {
+//			title : '组织',
+//			field : 'companyName',
+//			width : 100,
+//			align : "center"
 		}, {
 			title : '级别',
 			field : 'lvl',
