@@ -18,7 +18,6 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
-import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.core.controller.SupportContorller;
@@ -69,9 +68,6 @@ public class SysUserController extends SupportContorller{
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 	    	SysUser sysUser = getModel(SysUser.class);
 			String companyId = admin.getCompanyId();
-			if (Constants.default_roleId.equals(admin.getRoleid()) && sysUser.getRoleid().indexOf("_") > 0) {
-				companyId = sysUser.getRoleid().split("_")[0];
-			}
 	 //     sysUser.setUserid(IDUtil.getTimeID());
 			SysUser ori = sysUserService.findByMobile(companyId, sysUser.getBind_mobile());
 	 		if(ori==null){
@@ -215,9 +211,6 @@ public class SysUserController extends SupportContorller{
 				keyword="";
 			}
 			String companyId = admin.getCompanyId();
-			if (Constants.default_roleId.equals(admin.getRoleid())) {
-				companyId = "";
-			}
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
 			param.put("orgid", admin.getQueryOrgid());
