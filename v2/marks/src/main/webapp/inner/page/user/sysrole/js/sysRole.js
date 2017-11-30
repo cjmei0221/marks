@@ -14,8 +14,7 @@ var appInfo = {
 		keyword : "",
 		s_lvl : ""
 	},
-	formStatus : "new",
-	isShowCompany : 0
+	formStatus : "new"
 };
 
 // 新增
@@ -28,11 +27,6 @@ function add() {
 	$('#userTypeTr').show();
 	$('#showFlagTr').show();
 	$('#delFlagTr').show();
-	if(appInfo.isShowCompany==1){
-		$("#companyIdTr").show();
-	}else{
-		$("#companyIdTr").hide();
-	}
 }
 
 // 编辑
@@ -57,11 +51,6 @@ function edit() {
 			$('#delFlagTr').hide();
 		} else {
 			$('#delFlagTr').show();
-		}
-		if(appInfo.isShowCompany==1){
-			$("#companyIdTr").show();
-		}else{
-			$("#companyIdTr").hide();
 		}
 	}
 }
@@ -258,7 +247,6 @@ function loadList() {
 			success : function(data, status, xhr) {
 				checkLogin(data);
 				if (data.retcode == "0") {
-					appInfo.isShowCompany=data.isShowCompany;
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({
