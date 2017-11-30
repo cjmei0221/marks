@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
+import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
@@ -55,6 +56,7 @@ public class ManageLoginController {
 		Result result = new Result();
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
+		// String companyId = request.getParameter("companyId");
 		String companyId = RunModel.getInstance().getCompanyId();
 		/**
 		 * 如果登陆用为system，则拥有所有权限除了业务权限
@@ -66,24 +68,30 @@ public class ManageLoginController {
 			JsonUtil.output(response, result);
 			return;
 		}
-		if (UserEnums.ActiveFlag.unuse.getValue() == user.getActiveFlag()) {
-			result.setCode("4002");
-			result.setMessage("用户被禁用");
-			JsonUtil.output(response, result);
-			return;
-		}
 		String password = EncryptUtil.encryptPwd(pwd);
-
 		if (!password.equals(user.getPassword())) {
 			result.setCode("4003");
 			result.setMessage("密码错误");
 			JsonUtil.output(response, result);
 			return;
 		}
-
+		if (null == user.getRolename() || "".equals(user.getRolename())) {
+			result.setCode("4005");
+			result.setMessage("您无权限登陆");
+			JsonUtil.output(response, result);
+			return;
+		}
+		if (UserEnums.ActiveFlag.unuse.getValue() == user.getActiveFlag()) {
+			result.setCode("4002");
+			result.setMessage("用户被禁用");
+			JsonUtil.output(response, result);
+			return;
+		}
+		if (Constants.default_roleId.equals(user.getRoleid())) {
+			user.setCompanyId(companyId);
+		}
 		List<String> list = loginService.getUrlByUserid(user.getUserid());
 		user.setUserUrlList(list);
-
 		result.setCode("0");
 		result.setMessage("success");
 		user.setLoginTime(new Date());
@@ -92,7 +100,6 @@ public class ManageLoginController {
 		if (user.getCompanyId().equals(user.getDefaultOrgid())) {
 			user.setQueryOrgid(null);
 		}
-
 		ManageUtil.setCurrentUserInfo(request, user);
 		// 保存日志
 		SysLog log = new SysLog();

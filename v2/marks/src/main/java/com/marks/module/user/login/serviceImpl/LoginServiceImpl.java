@@ -18,18 +18,24 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private LoginDao loginDao;
 
-	/*public void setLoginDao(LoginDao loginDao) {
-		this.loginDao = loginDao;
-	}*/
+	/*
+	 * public void setLoginDao(LoginDao loginDao) { this.loginDao = loginDao; }
+	 */
 
 	@Override
 	public SysUser findById(String companyId, String userid) {
-		SysUser user = loginDao.findById(companyId, userid);
-
-		return user;
+		List<SysUser> userList = loginDao.listById(userid);
+		if (null != userList && userList.size() == 1) {
+			return userList.get(0);
+		} else if (null != userList && userList.size() > 1) {
+			for (SysUser u : userList) {
+				if (u.getCompanyId().equals(companyId)) {
+					return u;
+				}
+			}
+		}
+		return null;
 	}
-	
-	
 
 	@Override
 	public List<String> getUrlByUserid(String userid) {
@@ -102,11 +108,9 @@ public class LoginServiceImpl implements LoginService {
 		return loginDao.getOrgInfoListByUserid(userid);
 	}
 
-
-
 	@Override
 	public SysUser getSysUserByOpenidAndAccountid(String accountid, String openid) {
-		return loginDao.getSysUserByOpenidAndAccountid(accountid,openid);
+		return loginDao.getSysUserByOpenidAndAccountid(accountid, openid);
 	}
 
 }

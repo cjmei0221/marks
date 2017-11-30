@@ -49,4 +49,6 @@ public interface LoginDao {
 
 	SysUser getSysUserByUserid(@Param("userid") String userid);
 
+	List<SysUser> listById(@Param("id") String id);
+
 }

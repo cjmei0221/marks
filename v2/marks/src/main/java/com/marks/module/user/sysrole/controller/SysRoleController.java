@@ -73,10 +73,6 @@ public class SysRoleController extends SupportContorller {
 			SysRole sysRole = getModel(SysRole.class);
 			sysRole.setCreator(admin.getUserid());
 			String companyId = admin.getCompanyId();
-			if (Constants.default_roleId.equals(admin.getRoleid()) && null != sysRole.getCompanyId()
-					&& !"".equals(admin.getCompanyId())) {
-				companyId = sysRole.getCompanyId();
-			}
 			sysRole.setCompanyId(companyId);
 			SysRole ori = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
 			if (ori == null) {
@@ -234,13 +230,9 @@ public class SysRoleController extends SupportContorller {
 			}
 			String loginUserRoleId = admin.getRoleid();
 			String companyId = admin.getCompanyId();
-			int isShowCompany = 0;
 			if (Constants.default_roleId.equals(admin.getRoleid())) {
 				loginUserRoleId = "";
-				companyId = "";
-				isShowCompany = 1;
 			}
-
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("s_lvl", s_lvl);
@@ -249,7 +241,6 @@ public class SysRoleController extends SupportContorller {
 			param.put("loginUserRoleId", loginUserRoleId);
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
-			result.getData().put("isShowCompany", isShowCompany);
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());
 			result.setPageTotal(list.getPage_total());
@@ -330,9 +321,6 @@ public class SysRoleController extends SupportContorller {
 		SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		Map<String, Object> param = new HashMap<String, Object>();
 		String companyId = admin.getCompanyId();
-		if (Constants.default_roleId.equals(admin.getRoleid())) {
-			companyId = "";
-		}
 		param.put("companyId", companyId);
 		param.put("lvl", admin.getRoleLvl());
 		List<SysRole> list = sysRoleService.getUserlist(param);

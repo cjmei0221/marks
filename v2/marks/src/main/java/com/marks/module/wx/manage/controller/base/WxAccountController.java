@@ -82,7 +82,7 @@ public class WxAccountController extends SupportContorller{
 	 			wxAccount.setUrl(getUrl(wxAccount));
 //	 			OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
 //	 			wxAccount.setCompanyId(info.getCompanyId());
-	 			wxAccount.setCompanyId(wxAccount.getOrgid());
+				wxAccount.setCompanyId(admin.getCompanyId());
 	 			wxAccountService.save(wxAccount);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
