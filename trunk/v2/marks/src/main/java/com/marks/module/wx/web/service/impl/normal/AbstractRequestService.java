@@ -13,6 +13,7 @@ import com.marks.module.wx.web.message.request.WechatRequest;
 import com.marks.module.wx.web.message.response.WechatResponse;
 import com.marks.module.wx.web.service.RequestService;
 import com.marks.module.wx.web.service.impl.ReplyHelper;
+import com.marks.module.wx.web.util.WxConstants;
 
 /**
  * 请求消息对象分发接口的抽象类实现 核心功能：提供统一请求消息处理
@@ -61,8 +62,16 @@ public abstract class AbstractRequestService implements RequestService {
 				responseMessage.setContent(sb.toString());
 				return responseMessage;
 			}
+		} else {
+			// 如果回复为空，则给默认设置
+			if (reply == null) {
+				reply = new WxAutoReplay();
+				if (WxConstants.SubscribeReplay.equals(key.toLowerCase())) {
+					reply.setReplayType(WxConstants.weixin_replay_type_text);
+					reply.setCreplay("欢迎关注我的公众号");
+				}
+			}
 		}
-
 		if (isEquels) {
 			return ReplyHelper.getInstance().replay(request, requestMessage, reply, null);
 		}
