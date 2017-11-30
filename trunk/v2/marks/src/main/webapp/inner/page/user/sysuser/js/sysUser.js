@@ -115,8 +115,7 @@ $(function() {
 
 	$("#chooseOrg").on("click", function() {
 		// 加载组织信息
-		var roleId = $("#roleid").combobox("getValue");
-		loadOrgList(roleId);
+		loadOrgList("");
 		$("#orgWin").window({
 			title : "组织"
 		}).window("open");
@@ -321,7 +320,7 @@ function loadList() {
 }
 
 function loadOrgList(id) {
-	var orgListUrl = top.window.urlBase + '/inner/orgInfo/list.do?roleId=' + id;
+	var orgListUrl = top.window.urlBase + '/inner/orgInfo/list.do?companyId='+id;
 	$('#orgList').treegrid(
 			{
 				url : orgListUrl,
