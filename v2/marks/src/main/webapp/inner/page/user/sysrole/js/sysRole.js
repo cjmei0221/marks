@@ -321,7 +321,6 @@ function funcList(roleId) {
 							title : '操作',
 							field : 'operate',
 							width : 350,
-							editor : "checkbox",
 							formatter : function(value, row, index) {
 								var str = "";
 								var funcList = row.oper_list;
@@ -344,7 +343,7 @@ function funcList(roleId) {
 							funcloader(that, params, success, loadError);
 						},
 						onClickRow : function(rowIndex, rowData) {
-							$("#tbFuncList").treegrid("beginEdit", rowIndex);
+//							$("#tbFuncList").treegrid("beginEdit", rowIndex);
 						},
 						onLoadSuccess : function(data) {
 
