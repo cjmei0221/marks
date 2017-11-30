@@ -6,8 +6,20 @@
 		SELECT
 		TSU.*,tsr.rolename,tsr.lvl roleLvl
 		FROM
-		tb_user tsu join TB_SYS_ROLE tsr on tsu.roleid=tsr.roleid
+		tb_user tsu left join TB_SYS_ROLE tsr
+		on tsu.roleid=tsr.roleid
 		WHERE 1=1 and tsu.companyId=#{companyId}
+		and
+		(tsu.USERID = #{id} or
+		tsu.bind_mobile=#{id})
+	</select>
+	<select id="listById" resultType="com.marks.module.user.sysuser.pojo.SysUser">
+		SELECT
+		TSU.*,tsr.rolename,tsr.lvl roleLvl
+		FROM
+		tb_user tsu left join TB_SYS_ROLE tsr
+		on tsu.roleid=tsr.roleid
+		WHERE 1=1
 		and (tsu.USERID = #{id} or
 		tsu.bind_mobile=#{id})
 	</select>
@@ -29,7 +41,7 @@
 	</select>
 	<!-- 加载父级菜单 -->
 	<select id="getParentSysMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
-		SELECT 
+		SELECT
 		VSRM.MENUID,
 		VSRM.MENUITEM,
 		VSRM.PARENTID,
@@ -96,9 +108,11 @@
 		</foreach>
 	</select>
 	<select id="getOrgInfoListByUserid" resultType="com.marks.module.org.orginfo.pojo.OrgInfo">
-		SELECT toi.*,T.isDefault
+		SELECT
+		toi.*,T.isDefault
 		FROM
-		tb_user_org T join tb_org_info toi on t.orgid=toi.orgid
+		tb_user_org T join tb_org_info toi on
+		t.orgid=toi.orgid
 		where
 		t.userid=#{userid}
 	</select>
