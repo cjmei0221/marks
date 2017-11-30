@@ -27,6 +27,8 @@ function add() {
 	$('#userTypeTr').show();
 	$('#showFlagTr').show();
 	$('#delFlagTr').show();
+	$("#showFlag").combobox("setValue",1);
+	$("#delFlag").combobox("setValue",1);
 }
 
 // 编辑

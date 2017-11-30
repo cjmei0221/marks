@@ -28,4 +28,6 @@ public interface WxAccountDao {
 	List<WxAccount> getWxfwhaoList(Map<String, Object> param);
 
 	List<String> getAccountIdsByLoginUser(Map<String, Object> param);
+
+	String getAccountId();
 }

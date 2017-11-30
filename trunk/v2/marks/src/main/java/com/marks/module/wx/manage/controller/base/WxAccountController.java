@@ -108,6 +108,7 @@ public class WxAccountController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 		    WxAccount wxAccount = getModel(WxAccount.class);
 		    WxAccount ori=wxAccountService.findById(wxAccount.getAccountId());
 		    if(ori == null){
@@ -118,7 +119,7 @@ public class WxAccountController extends SupportContorller{
 		    	wxAccount.setUrl(getUrl(wxAccount));
 		    	/*OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
 	 			wxAccount.setCompanyId(info.getCompanyId());*/
-		    	wxAccount.setCompanyId(wxAccount.getOrgid());
+				wxAccount.setCompanyId(admin.getCompanyId());
 		    	wxAccountService.update(wxAccount);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);

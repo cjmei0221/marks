@@ -36,7 +36,7 @@
 						class="easyui-linkbutton menuBtnCls"
 						data-options="iconCls:'icon-search'">查询</a></td>
 				</tr>
-				
+
 			</table>
 			<div>
 				<span id="operateBtns"></span>
@@ -55,11 +55,10 @@
 		style="width: 400px; height: 450px; padding: 10px; margin: 10px;">
 		<form id="ff" name="ff" method="post">
 			<table class="out-win-cls">
-				<tr>
+				<tr style="display: none;">
 					<th>公众号ID</th>
 					<td><input id="accountId" name="accountId"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;"></td>
+						class="easyui-validatebox" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>公众号名称</th>
@@ -116,10 +115,10 @@
 					<td><input id="authdomain" name="authdomain"
 						class="easyui-validatebox" style="width: 200px;"></td>
 				</tr>
-				<tr>
+				<tr style="display:none;">
 					<th>上下文</th>
 					<td><input id="server_context" name="server_context"
-						class="easyui-validatebox" value="/" style="width: 200px;"></td>
+						class="easyui-validatebox" value="" style="width: 200px;"></td>
 				</tr>
 
 				<tr>
@@ -130,7 +129,7 @@
 							<option value="0">不提供</option>
 					</select></td>
 				</tr>
-				<tr id="urlTr">
+				<tr style="display:none;" >
 					<th>回调路径</th>
 					<td id="urlTd"></td>
 				</tr>
