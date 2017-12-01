@@ -66,6 +66,6 @@ function summitForm() {
 // 刷新图片
 function changeImg() {
 	var timestamp = (new Date()).valueOf();
-	var reqSrc = tool.reqUrl.getValidateCode + "?width=70&height=25&tamp="+timestamp;
+	var reqSrc = tool.reqUrl.getValidateCode + "?width=60&height=25&tamp="+timestamp;
 	$("#imgObj").attr("src",  reqSrc);
 }
