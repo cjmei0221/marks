@@ -56,7 +56,9 @@ public class IDUtil {
 	 * @return
 	 */
 	public static String getID(int size){
-		String idStr=System.currentTimeMillis()+"";
+		String str = System.currentTimeMillis() + "";
+		String idStr = System.currentTimeMillis() + "" + IDUtil.getRandom(1000, 9999)
+				+ str.substring(str.length() - 4, str.length());
 		if(size>idStr.length()){
 			size=idStr.length();
 		}
