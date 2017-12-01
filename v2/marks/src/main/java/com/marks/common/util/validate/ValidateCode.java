@@ -24,6 +24,8 @@ public class ValidateCode {
 	private int lineCount = 150;
 	// 验证码
 	private String code = null;
+	// 前后宽度
+	private int space = 5;
 	// 验证码图片Buffer
 	private BufferedImage buffImg = null;
 
@@ -71,7 +73,7 @@ public class ValidateCode {
 		int x = 0, fontHeight = 0, codeY = 0;
 		int red = 0, green = 0, blue = 0;
 
-		x = width / (codeCount + 2);// 每个字符的宽度(左右各空出一个字符)
+		x = (width - 2 * space) / codeCount;// 每个字符的宽度(左右各空出一个字符)
 		fontHeight = height - 2;// 字体的高度
 		codeY = height - 4;
 
@@ -108,6 +110,7 @@ public class ValidateCode {
 		// randomCode记录随机产生的验证码
 		StringBuffer randomCode = new StringBuffer();
 		// 随机产生codeCount个字符的验证码。
+		int tempX = space;
 		for (int i = 0; i < codeCount; i++) {
 			String strRand = String.valueOf(codeSequence[random.nextInt(codeSequence.length)]);
 			// 产生随机的颜色值，让输出的每个字符的颜色值都将不同。
@@ -115,7 +118,8 @@ public class ValidateCode {
 			green = random.nextInt(255);
 			blue = random.nextInt(255);
 			g.setColor(new Color(red, green, blue));
-			g.drawString(strRand, (i + 1) * x, codeY);
+			g.drawString(strRand, tempX, codeY);
+			tempX = tempX + x;
 			// 将产生的四个随机数组合在一起。
 			randomCode.append(strRand);
 		}
