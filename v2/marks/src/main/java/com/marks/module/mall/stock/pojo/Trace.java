@@ -59,9 +59,9 @@ public class Trace implements Serializable{
     */
     private String cgNo;
     /**
-    *零售价
-    *
-    */
+	 * 原价
+	 *
+	 */
     private String price;
     /**
     *会员价
@@ -69,9 +69,9 @@ public class Trace implements Serializable{
     */
     private String vipPrice;
     /**
-    *特价
-    *
-    */
+	 * 售价
+	 *
+	 */
     private String salePrice;
     /**
     *现价
