@@ -64,11 +64,11 @@ public class GoodInfo implements Serializable {
 
 	private String barNo;// 条码
 	/**
-	 * 商品零售价
+	 * 商品原价
 	 */
 	private String price;
 
-	private String salePrice;// 特价
+	private String salePrice;// 售价
 
 	private String minPrice;// 最低价
 
