@@ -89,10 +89,12 @@
 
 				</tr>
 				<tr>
-					<th style="width: 120px; text-align: right;">零售价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-					<td><input id="price" name="price" class="easyui-numberbox"
+					<th style="width: 120px; text-align: right;">售价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="salePrice" name="salePrice"
+						class="easyui-numberbox"
 						data-options="required:true,min:0,precision:2"
 						style="width: 200px;"></td>
+
 					<th style="width: 120px; text-align: right;">会员价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="vipPrice" name="vipPrice"
 						class="easyui-numberbox"
@@ -100,9 +102,8 @@
 						style="width: 200px;"></td>
 				</tr>
 				<tr>
-					<th style="width: 120px; text-align: right;">特价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-					<td><input id="salePrice" name="salePrice"
-						class="easyui-numberbox"
+					<th style="width: 120px; text-align: right;">原价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+					<td><input id="price" name="price" class="easyui-numberbox"
 						data-options="required:true,min:0,precision:2"
 						style="width: 200px;"></td>
 					<th style="width: 120px; text-align: right;">最低价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
@@ -297,7 +298,7 @@
 						<td><input id="nums" name="nums" class="easyui-numberbox"
 							data-options="required:true" style="width: 200px;"></td>
 					</tr>
-					<tr style="display:none;">
+					<tr style="display: none;">
 						<th style="width: 120px; text-align: right;">赠送数量&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="sendNums" name="sendNums"
 							class="easyui-numberbox" data-options="required:true"
@@ -384,7 +385,7 @@
 		</table>
 	</div>
 
-		<div id="imageListWin" class="easyui-window"
+	<div id="imageListWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
 		maximizable:false,
@@ -401,7 +402,7 @@
 			</form>
 		</div>
 		<div id="pgNation" class="easyui-pagination"
-			style="border: 1px solid #ccc;margin-top: 10px;"
+			style="border: 1px solid #ccc; margin-top: 10px;"
 			data-options="
     		onSelectPage: function(pageNumber, pageSize){
     			loadImageList(pageNumber,pageSize);

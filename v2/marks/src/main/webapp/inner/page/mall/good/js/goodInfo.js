@@ -108,7 +108,7 @@ function barCode() {
 		title : "生产条码"
 	}).window("open");
 	$('#barCodeff').form('load', appInfo.selectedData);
-	$("#sendNums").numberbox("setValue",0);
+	$("#sendNums").numberbox("setValue", 0);
 }
 
 function importExcel() {
@@ -413,8 +413,8 @@ function loadList() {
 									width : 100,
 									align : "center"
 								}, {
-									title : '零售价',
-									field : 'price',
+									title : '售价',
+									field : 'salePrice',
 									width : 100,
 									align : "center"
 								}, {
@@ -423,13 +423,13 @@ function loadList() {
 									width : 100,
 									align : "center"
 								}, {
-									title : '特价',
-									field : 'salePrice',
+									title : '最低价',
+									field : 'minPrice',
 									width : 100,
 									align : "center"
 								}, {
-									title : '最低价',
-									field : 'minPrice',
+									title : '原价',
+									field : 'price',
 									width : 100,
 									align : "center"
 								}, {
