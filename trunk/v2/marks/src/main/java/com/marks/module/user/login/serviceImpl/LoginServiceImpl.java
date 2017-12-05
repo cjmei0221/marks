@@ -70,7 +70,7 @@ public class LoginServiceImpl implements LoginService {
 				SysMenu useLvl1 = new SysMenu();
 				useLvl1.setLvl(1);
 				useLvl1.setMenuid("userlvl1");
-				useLvl1.setMenuitem("个性");
+				useLvl1.setMenuitem("个人");
 				useLvl1.setParentid("0");
 				useLvl1.setUrl("#");
 				// 常用二级菜单
