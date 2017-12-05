@@ -62,6 +62,7 @@ class SysLogThread implements Runnable{
 				if(null != logc && logc.size()>0){
 					log.setMenuname(logc.get(0).getMenuname());
 					log.setOpername(logc.get(0).getOpername());
+					log.setMenuid(logc.get(0).getMenuid());
 					sysLogDao.saveSysLog(log);
 				}
 				return;

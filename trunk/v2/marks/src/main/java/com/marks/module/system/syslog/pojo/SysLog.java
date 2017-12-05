@@ -19,8 +19,16 @@ public class SysLog {
 	private String ip;
 	
 	private String url;
+	private String menuid;// 菜单ID
 	
 	
+	public String getMenuid() {
+		return menuid;
+	}
+
+	public void setMenuid(String menuid) {
+		this.menuid = menuid;
+	}
 	public int getSource() {
 		return source;
 	}
