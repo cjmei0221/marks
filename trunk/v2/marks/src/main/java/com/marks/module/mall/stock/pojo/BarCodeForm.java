@@ -32,6 +32,45 @@ public class BarCodeForm {
 	private String operatorId;
 	private String operator;
 
+	private int stockManageType;// 库存管理方式
+
+	private String supplierId2;// 供应商编号
+	private String supplier2;// 供应商
+
+	private String batchId;// 批次号
+
+	public String getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(String batchId) {
+		this.batchId = batchId;
+	}
+
+	public int getStockManageType() {
+		return stockManageType;
+	}
+
+	public void setStockManageType(int stockManageType) {
+		this.stockManageType = stockManageType;
+	}
+
+	public String getSupplierId2() {
+		return supplierId2;
+	}
+
+	public void setSupplierId2(String supplierId2) {
+		this.supplierId2 = supplierId2;
+	}
+
+	public String getSupplier2() {
+		return supplier2;
+	}
+
+	public void setSupplier2(String supplier2) {
+		this.supplier2 = supplier2;
+	}
+
 	public String getOperatorId() {
 		return operatorId;
 	}
