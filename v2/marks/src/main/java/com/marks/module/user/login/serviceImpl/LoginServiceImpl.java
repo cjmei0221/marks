@@ -1,6 +1,8 @@
 package com.marks.module.user.login.serviceImpl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,40 @@ public class LoginServiceImpl implements LoginService {
 		List<SysMenu> lvl2Menu = new ArrayList<SysMenu>();
 		List<SysMenu> child = loginDao.getChildMenu(user.getRoleid());
 		if (null != child && child.size() > 0) {
+			Calendar c = Calendar.getInstance();
+			c.add(Calendar.MONTH, -3);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String before3Month = sdf.format(c.getTime());
+			// 常用菜单
+			List<SysMenu> useMenuList = loginDao.getMenuListByLog(user.getUserid(), before3Month);
+			if (null != useMenuList && useMenuList.size() > 0) {
+				if (useMenuList.size() > 8) {
+					useMenuList = useMenuList.subList(0, 8);
+				}
+
+				// 常用一级菜单
+				SysMenu useLvl1 = new SysMenu();
+				useLvl1.setLvl(1);
+				useLvl1.setMenuid("userlvl1");
+				useLvl1.setMenuitem("个性");
+				useLvl1.setParentid("0");
+				useLvl1.setUrl("#");
+				// 常用二级菜单
+				SysMenu useLvl2 = new SysMenu();
+				useLvl2.setLvl(2);
+				useLvl2.setMenuid("userlvl2");
+				useLvl2.setMenuitem("常用");
+				useLvl2.setParentid(useLvl1.getMenuid());
+				useLvl2.setUrl("#");
+				useLvl1.addChildren(useLvl2);
+				// 常用三级菜单
+				for (SysMenu sm : useMenuList) {
+					sm.setParentid(useLvl2.getMenuid());
+				}
+				useLvl2.setChildren(useMenuList);
+				returnMenu.add(useLvl1);
+			}
+
 			List<SysMenu> lvl1List = new ArrayList<SysMenu>();
 			List<SysMenu> lvl2List = new ArrayList<SysMenu>();
 			List<SysMenu> parentMenu = loginDao.getParentSysMenu();
