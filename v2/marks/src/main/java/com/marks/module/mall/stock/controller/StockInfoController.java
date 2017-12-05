@@ -1,6 +1,8 @@
 package com.marks.module.mall.stock.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,24 +16,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.util.Code;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
+import com.marks.common.util.IDUtil;
+import com.marks.common.util.Code;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.mall.stock.pojo.Trace;
-import com.marks.module.mall.stock.service.TraceService;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
+import com.marks.module.mall.stock.pojo.StockInfo;
+import com.marks.module.mall.stock.service.StockInfoService;
+
  /**
-	 * 追踪码管理: 追踪码管理
+	 * 库存管理: 库存管理
 	 */
 @Controller
-public class TraceController extends SupportContorller{
-    private static Logger logger = Logger.getLogger( TraceController.class);
+public class StockInfoController extends SupportContorller{
+    private static Logger logger = Logger.getLogger( StockInfoController.class);
     
     @Autowired
-    private TraceService  traceService;
+    private StockInfoService  stockInfoService;
    
 
     @Override
@@ -40,19 +43,19 @@ public class TraceController extends SupportContorller{
 	}
 
     /**
-	 * 查询追踪码管理
+	 * 查询库存管理
 	 */
-    @RequestMapping("/inner/trace/findById")
-    public void findTraceById(HttpServletRequest request,
+    @RequestMapping("/inner/stockInfo/findById")
+    public void findStockInfoById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    Trace reqVo = getModel(Trace.class);
+		    StockInfo info = getModel(StockInfo.class);
 		    
-		    logger.info("findTraceById > param>"+reqVo.getTraceId());
+		    logger.info("findStockInfoById > param>"+info.getStockId());
 		    
-			Trace info = traceService.findById(reqVo.getTraceId());
-			result.getData().put("info",info);
+			StockInfo vo = stockInfoService.findById(info.getStockId());
+			result.getData().put("info",vo);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -64,32 +67,32 @@ public class TraceController extends SupportContorller{
     }
     
     /**
-	 * 保存追踪码管理
+	 * 保存库存管理
 	 */
-    @RequestMapping("/inner/trace/save")
-    public void saveTrace(HttpServletRequest request,
+    @RequestMapping("/inner/stockInfo/save")
+    public void saveStockInfo(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	Trace reqVo = getModel(Trace.class);
-	        reqVo.setTraceId(IDUtil.getUUID());
+	    	StockInfo info = getModel(StockInfo.class);
+	        info.setStockId(IDUtil.getUUID());
 	 		
-	 		logger.info("saveTrace > param>"+reqVo.toLog());
+	 		logger.info("saveStockInfo > param>"+info.toLog());
 	 
-			// Trace ori=null;
-			// if(reqVo.getTraceId() != null){
-			// ori=traceService.findById(reqVo.getTraceId());
-			// }
+			 StockInfo ori=null;
+	 		if(info.getStockId() != null){
+	 			ori=stockInfoService.findById(info.getStockId());
+	 		}
 	 		
-			// if(ori==null){
-	 			traceService.save(reqVo);
+	 		if(ori==null){
+	 			stockInfoService.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
-			// }else{
-			// result.setMessage("此记录已存在");
-			// result.setCode(Code.CODE_FAIL);
-			// }
+	 		}else{
+	    		result.setMessage("此记录已存在");
+				result.setCode(Code.CODE_FAIL);
+	    	}
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			result.setMessage("保存失败，请联系管理员！");
@@ -99,24 +102,24 @@ public class TraceController extends SupportContorller{
 	}
 	
 	/**
-	 * 更改追踪码管理
+	 * 更改库存管理
 	 */
-    @RequestMapping("/inner/trace/update")
-    public void updateTrace(HttpServletRequest request,
+    @RequestMapping("/inner/stockInfo/update")
+    public void updateStockInfo(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-		    Trace reqVo = getModel(Trace.class);
+		    StockInfo info = getModel(StockInfo.class);
 		    
-		    logger.info(" updateTrace> param>"+reqVo.toLog());
+		    logger.info(" updateStockInfo> param>"+info.toLog());
 		    
-		    Trace ori=traceService.findById(reqVo.getTraceId());
+		    StockInfo ori=stockInfoService.findById(info.getStockId());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-		    	traceService.update(reqVo);
+		    	stockInfoService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -129,18 +132,18 @@ public class TraceController extends SupportContorller{
 	}
 	
 	/**
-	 * 删除追踪码管理
+	 * 删除库存管理
 	 */
-    @RequestMapping("/inner/trace/delete")
-    public void deleteTraceById(HttpServletRequest request,
+    @RequestMapping("/inner/stockInfo/delete")
+    public void deleteStockInfoById(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-		   	Trace reqVo = getModel(Trace.class);
+		   	StockInfo info = getModel(StockInfo.class);
 		   	
-		   	logger.info("deleteTraceById > param>"+reqVo.getTraceId());
+		   	logger.info("deleteStockInfoById > param>"+info.getStockId());
 		   	
-			traceService.delete(reqVo.getTraceId());
+			stockInfoService.delete(info.getStockId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -152,35 +155,38 @@ public class TraceController extends SupportContorller{
 	}
 	
 	/**
-	 * 查询全部追踪码管理
+	 * 查询全部库存管理
 	 */
 
-    /*@RequestMapping("/inner/trace/findAllTrace")
-    public void findAllTrace(HttpServletRequest request,
+    /*
+    @RequestMapping("/inner/stockInfo/findAllStockInfo")
+    public void findAllStockInfo(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			List<Trace> allList = traceService.findAll();
+			List<StockInfo> allList = stockInfoService.findAll();
 			result.getData().put("allList",allList);
-			result.setMessage("findAll trace successs!");
+			result.setMessage("findAll stockInfo successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("findAll trace fail!");
+			result.setMessage("findAll stockInfo fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-	} */
+	} 
+	*/
 	
 	/**
-	 * 删除多个追踪码管理
+	 * 删除多个库存管理
 	 */
-	/*@RequestMapping("/inner/trace/deleteIds")
-	public void deleteTrace(HttpServletRequest request,
+	/*
+	@RequestMapping("/inner/stockInfo/deleteIds")
+	public void deleteStockInfo(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
 		try {
-			String id = request.getParameter("traceId");
+			String id = request.getParameter("stockId");
 			logger.info("delete batch> param>"+id);
 			String[] ids = id.split(",");
 			List<String> idList = new ArrayList<String>();
@@ -188,7 +194,7 @@ public class TraceController extends SupportContorller{
 				idList.add(ids[i]);
 			}
 			if(idList.size()>0){
-				traceService.deleteBatch(idList);
+				stockInfoService.deleteBatch(idList);
 				result.setMessage("删除成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			}else{
@@ -198,16 +204,17 @@ public class TraceController extends SupportContorller{
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("delete trace fail!");
+			result.setMessage("delete stockInfo fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
-	}*/
+	}
+	*/
 	
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/inner/trace/list")
+	@RequestMapping("/inner/stockInfo/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
@@ -218,24 +225,20 @@ public class TraceController extends SupportContorller{
 				page_size = 200;
 			}
 			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
-			}
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("companyId", admin.getCompanyId());
-			PojoDomain<Trace> list = traceService.list(page_number, page_size, param);
+			PojoDomain<StockInfo> list = stockInfoService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());
 			result.setPageTotal(list.getPage_total());
 			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find trace successs!");
+			result.setMessage("find stockInfo successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("find trace fail!");
+			result.setMessage("find stockInfo fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
