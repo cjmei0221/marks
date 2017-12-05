@@ -47,7 +47,8 @@
 		MOBILE,
 		STOCKINDATE,
 		ENDDATE,
-		expireDate
+		expireDate,
+		batchId
 		)
 		VALUES(
 		#{info.traceId:VARCHAR},
@@ -84,7 +85,8 @@
 		#{info.mobile:VARCHAR},
 		#{info.stockInDate:VARCHAR},
 		#{info.endDate:VARCHAR},
-		#{info.expireDate:VARCHAR}
+		#{info.expireDate:VARCHAR},
+		#{info.batchId:VARCHAR}
 		)
 	</insert>
 
@@ -124,7 +126,8 @@
 		MOBILE,
 		STOCKINDATE,
 		ENDDATE,
-		expireDate
+		expireDate,
+		batchId
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -164,7 +167,8 @@
 			#{info.mobile:VARCHAR},
 			#{info.stockInDate:VARCHAR},
 			#{info.endDate:VARCHAR},
-			#{info.expireDate:VARCHAR}
+			#{info.expireDate:VARCHAR},
+			#{info.batchId:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -172,45 +176,24 @@
 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.Trace">
 		UPDATE TB_MALL_TRACE
 		SET
-		BARCODE = #{info.barcode:VARCHAR},
-		GOODID = #{info.goodId:VARCHAR},
-		GOODNO = #{info.goodNo:VARCHAR},
-		BARNO = #{info.barNo:VARCHAR},
-		GOODNAME = #{info.goodName:VARCHAR},
+		
 		UPDATETIME = now(),
 		STOCKSTATUS =
 		#{info.stockStatus:NUMERIC},
 		CGNO = #{info.cgNo:VARCHAR},
-		PRICE =
-		#{info.price:VARCHAR},
-		VIPPRICE = #{info.vipPrice:VARCHAR},
-		SALEPRICE =
-		#{info.salePrice:VARCHAR},
 		NOWPRICE = #{info.nowPrice:VARCHAR},
-		STOCKPRICE = #{info.stockPrice:VARCHAR},
 		ORDERID =
 		#{info.orderId:VARCHAR},
 		ORDERGOODID = #{info.orderGoodId:VARCHAR},
 		ISGIFT = #{info.isGift:NUMERIC},
 		ORITRACEID =
 		#{info.oriTraceId:VARCHAR},
-		COMPANYID = #{info.companyId:VARCHAR},
 		ORGID = #{info.orgid:VARCHAR},
 		ORGNAME = #{info.orgname:VARCHAR},
-		TYPEID = #{info.typeId:VARCHAR},
-		TYPENAME = #{info.typeName:VARCHAR},
-		BRANDID = #{info.brandId:VARCHAR},
-		BRANDNAME =
-		#{info.brandName:VARCHAR},
-		PRODUCTDATE = #{info.productDate:VARCHAR},
-		SUPPLIERID = #{info.supplierId:VARCHAR},
-		SUPPLIERNAME =
-		#{info.supplierName:VARCHAR},
 		USERID = #{info.userid:VARCHAR},
 		USERNAME
 		= #{info.username:VARCHAR},
 		MOBILE = #{info.mobile:VARCHAR},
-		STOCKINDATE = #{info.stockInDate:VARCHAR},
 		ENDDATE =
 		#{info.endDate:VARCHAR}
 		WHERE

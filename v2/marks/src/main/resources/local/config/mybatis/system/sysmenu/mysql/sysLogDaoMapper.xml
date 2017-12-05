@@ -11,7 +11,8 @@
 		SELECT
 		SM.MENUITEM
 		menuname,
-		soper.OPERNAME
+		soper.OPERNAME,
+		sm.menuid
 		FROM
 		TB_SYS_FUNC sf
 		JOIN TB_SYS_MENU sm ON
@@ -33,7 +34,8 @@
 		retain1,
 		retain2,
 		retain3,
-		SOURCE
+		SOURCE,
+		menuid
 		)
 		VALUES
 		(
@@ -47,7 +49,8 @@
 		#{log.retain1:VARCHAR},
 		#{log.retain2:VARCHAR},
 		#{log.retain3:VARCHAR},
-		#{log.source:INTEGER}
+		#{log.source:INTEGER},
+		#{log.menuid:VARCHAR}
 		)
 	</insert>
 

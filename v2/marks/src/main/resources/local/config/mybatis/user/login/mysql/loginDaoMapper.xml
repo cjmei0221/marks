@@ -53,6 +53,22 @@
 		WHERE
 		vsrm.lvl !=3 order by VSRM.PARENTID,vsrm.sort
 	</select>
+	
+	<select id="getMenuListByLog" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
+		SELECT menu.*, t2.nums
+		FROM tb_sys_menu menu
+		JOIN
+		( SELECT count(t.menuid) nums, t.menuid
+		FROM
+		tb_sys_log t
+		WHERE date_format(t.createtime,'yyyy-MM-dd')
+		&gt;=#{before3Month}
+		AND t.menuid IS NOT NULL
+		AND t.userid = #{userid}
+		GROUP BY t.menuid) t2
+		ON t2.menuid = menu.menuid
+		ORDER BY t2.nums DESC
+	</select>
 
 	<select id="getChildMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
 		SELECT DISTINCT
