@@ -12,7 +12,6 @@ var appInfo = {
 	brandlistUrl : top.window.urlBase + '/inner/brand/brandbox.do',// 获取品牌管理列表接口
 	// Brand
 	supplierlistUrl : top.window.urlBase + '/inner/supplier/combobox.do',// 获取品牌管理列表接口
-	batchSaveBarCodeUrl : top.window.urlBase + '/inner/barCode/batchSave.do',// 获取品牌管理列表接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -100,18 +99,6 @@ function onsaleBtn() {
 	}
 }
 
-function stockIn() {
-	if (!isSelectedOne(appInfo.selectedId)) {
-		return;
-	}
-	$("#barCodeWin").window({
-		title : "生产条码"
-	}).window("open");
-	$('#barCodeff').form('load', appInfo.selectedData);
-	$("#sendNums").numberbox("setValue", 0);
-	$("#supplierId2").combobox("setValue",appInfo.selectedData.supplierId);
-	$("#supplier2").combobox("setValue",appInfo.selectedData.supplier);
-}
 
 function importExcel() {
 	$("#excelWin").window({
@@ -136,10 +123,7 @@ $(function() {
 	$("#btnOK").on("click", function() {
 		formSubmit();
 	});
-	// 生产条码
-	$("#btnOKBarCode").on("click", function() {
-		formSubmitForBarCode();
-	});
+	
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
@@ -176,14 +160,6 @@ $(function() {
 		textField : 'orgname',
 		onSelect : function(rec) {
 			$('#supplier').val(rec.orgname);
-		}
-	});
-	$('#supplierId2').combobox({
-		url : appInfo.supplierlistUrl + "?page_number=1&page_size=1000",
-		valueField : 'orgid',
-		textField : 'orgname',
-		onSelect : function(rec) {
-			$('#supplier2').val(rec.orgname);
 		}
 	});
 });
@@ -242,31 +218,6 @@ function addImage() {
 	$("#imageWin").window({
 		title : "添加图片"
 	}).window("open");
-}
-function formSubmitForBarCode() {
-	if (!$('#barCodeff').form('validate')) {
-		showMsg("表单校验不通过");
-		return;
-	}
-	var reqUrl = appInfo.batchSaveBarCodeUrl;
-	var parms = $("#barCodeff").serialize();
-	$.post(reqUrl, parms, function(data) {
-		if (typeof data === 'string') {
-			try {
-				data = $.parseJSON(data);
-			} catch (e0) {
-				showMsg("json格式错误");
-				return;
-			}
-		}
-		if (data.retcode == "0") {
-			$("#barCodeWin").window("close");
-			app.myreload("#tbList");
-			showMsg("保存成功");
-		} else {
-			showMsg(data.retmsg);
-		}
-	});
 }
 /**
  * 保存菜单
