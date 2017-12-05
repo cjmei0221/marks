@@ -93,13 +93,14 @@ img.deleteImageDiv = function deleteImageDiv(eInput) {
 }
 
 img.editImage = function editImage(eInput, fileUrl, flag) {
-
-	var showDiv = $("#" + eInput);
-	var imgDiv = showImage(fileUrl);
-//	if (flag == 1) {
-//		imgDiv = showImageOnlyRead(fileUrl);
-//	}
-	showDiv.append(imgDiv);
+	if(null !=fileUrl && fileUrl.length>4){
+		var showDiv = $("#" + eInput);
+		var imgDiv = showImage(fileUrl);
+//		if (flag == 1) {
+//			imgDiv = showImageOnlyRead(fileUrl);
+//		}
+		showDiv.append(imgDiv);
+	}
 }
 
 img.getImageVal = function getImageVal(eInput) {

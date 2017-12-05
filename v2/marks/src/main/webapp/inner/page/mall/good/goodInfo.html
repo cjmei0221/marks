@@ -272,10 +272,19 @@
 							readonly="readonly"></td>
 					</tr>
 					<tr>
+						<th style="width: 120px; text-align: right;">库存管理方式&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><select id="stockManageType" class="easyui-combobox"
+							name="stockManageType" style="width: 200px;"
+							data-options="required:true">
+								<option value="0">一瓶一码</option>
+								<option value="1">数量管理</option>
+						</select></td>
+					</tr>
+					<tr>
 						<th style="width: 120px; text-align: right;">供应商&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-						<td><input id="supplier" name="supplier"
-							class="easyui-validatebox" readonly="readonly"
-							style="width: 200px;">若供应商不对，请修改商品供应商</td>
+						<td><input id="supplierId2" name="supplierId2"
+							class="easyui-combobox" style="width: 200px;"><input
+							id="supplier2" name="supplier2" type="hidden"></td>
 					</tr>
 					<tr>
 						<th style="width: 120px; text-align: right;">采购单号&nbsp;&nbsp;:&nbsp;&nbsp;</th>

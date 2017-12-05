@@ -100,7 +100,7 @@ function onsaleBtn() {
 	}
 }
 
-function barCode() {
+function stockIn() {
 	if (!isSelectedOne(appInfo.selectedId)) {
 		return;
 	}
@@ -109,6 +109,8 @@ function barCode() {
 	}).window("open");
 	$('#barCodeff').form('load', appInfo.selectedData);
 	$("#sendNums").numberbox("setValue", 0);
+	$("#supplierId2").combobox("setValue",appInfo.selectedData.supplierId);
+	$("#supplier2").combobox("setValue",appInfo.selectedData.supplier);
 }
 
 function importExcel() {
@@ -174,6 +176,14 @@ $(function() {
 		textField : 'orgname',
 		onSelect : function(rec) {
 			$('#supplier').val(rec.orgname);
+		}
+	});
+	$('#supplierId2').combobox({
+		url : appInfo.supplierlistUrl + "?page_number=1&page_size=1000",
+		valueField : 'orgid',
+		textField : 'orgname',
+		onSelect : function(rec) {
+			$('#supplier2').val(rec.orgname);
 		}
 	});
 });
@@ -251,6 +261,7 @@ function formSubmitForBarCode() {
 		}
 		if (data.retcode == "0") {
 			$("#barCodeWin").window("close");
+			app.myreload("#tbList");
 			showMsg("保存成功");
 		} else {
 			showMsg(data.retmsg);
