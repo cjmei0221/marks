@@ -35,4 +35,6 @@ public interface AssetLogDao {
 	List<AssetLogCount> listCount(PageBounds pageBounds, Map<String, Object> param);
 
 	List<AssetLogCount> countAmount(Map<String, Object> param);
+
+	List<AssetLogCount> listDayCount(PageBounds pageBounds, Map<String, Object> param);
 }
