@@ -173,4 +173,18 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		orgId = "" + (num + 1);
 		return orgId;
 	}
+
+	@Override
+	public PojoDomain<OrgInfo> listByOrgType(int page_number, int page_size, Map<String, Object> param) {
+		PojoDomain<OrgInfo> pojoDomain = new PojoDomain<OrgInfo>();
+		PageBounds pageBounds = new PageBounds(page_number, page_size);
+		List<OrgInfo> list = orgInfoDao.listByOrgType(pageBounds, param);
+		PageList<OrgInfo> pageList = (PageList<OrgInfo>) list;
+		pojoDomain.setPojolist(list);
+		pojoDomain.setPage_number(page_number);
+		pojoDomain.setPage_size(page_size);
+		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
+		return pojoDomain;
+	}
+
 }

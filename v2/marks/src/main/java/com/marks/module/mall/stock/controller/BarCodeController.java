@@ -19,7 +19,6 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.good.service.GoodInfoService;
 import com.marks.module.mall.stock.pojo.BarCode;
-import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.service.BarCodeService;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -58,32 +57,6 @@ public class BarCodeController extends SupportContorller {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("查询失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-
-	/**
-	 * 保存条码管理
-	 */
-	@RequestMapping("/inner/barCode/batchSave")
-	public void saveBarCode(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-			BarCodeForm reqVo = getModel(BarCodeForm.class);
-			reqVo.setCompanyId(admin.getCompanyId());
-			reqVo.setOrgid(admin.getDefaultOrgid());
-			reqVo.setOrgname(admin.getDefaultOrgname());
-			reqVo.setOperator(admin.getUsername());
-			reqVo.setOperatorId(admin.getUserid());
-			logger.info("saveBarCode > param>" + reqVo.getGoodId() + " - " + reqVo.getNums());
-
-			result = barCodeService.save(reqVo);
-
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("保存失败，请联系管理员！");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);

@@ -42,4 +42,6 @@ public interface OrgInfoDao {
 
 	String getCompanyId();
 
+	List<OrgInfo> listByOrgType(PageBounds pageBounds, Map<String, Object> param);
+
 }
