@@ -111,6 +111,9 @@ public class IStringUtil {
 
 	/**** 将乱码格式转为UTF-8的编码字符显示 ****/
 	public static String getUTF8(String str) {
+		if (null == str || "".equals(str)) {
+			return str;
+		}
 		str = str + "";
 		try {
 			if (str.equals(new String(str.getBytes("iso8859-1"), "iso8859-1"))) {
