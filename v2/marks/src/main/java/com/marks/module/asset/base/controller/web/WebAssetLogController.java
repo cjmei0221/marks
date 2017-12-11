@@ -190,7 +190,7 @@ public class WebAssetLogController extends SupportContorller {
 	}
 
 	/**
-	 * jqGrid多种条件查询
+	 * 年统计
 	 */
 	@RequestMapping("/web/assetLog/listCount")
 	public void listCount(HttpServletRequest request, HttpServletResponse response) {
@@ -208,6 +208,40 @@ public class WebAssetLogController extends SupportContorller {
 			param.put("keyword", keyword);
 			param.put("userid", admin.getUserid());
 			PojoDomain<AssetLogCount> list = assetLogService.listCount(page_number, page_size, param);
+			result.getData().put("list", list.getPojolist());
+			result.setPageNumber(list.getPage_number());
+			result.setPageSize(list.getPage_size());
+			result.setPageTotal(list.getPage_total());
+			result.setTotalCount(list.getTotal_count());
+			result.setMessage("find assetLog successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("find assetLog fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+
+	/**
+	 * 日统计
+	 */
+	@RequestMapping("/web/assetLog/listDayCount")
+	public void listDayCount(HttpServletRequest request, HttpServletResponse response) {
+		PaginationResult result = new PaginationResult();
+		try {
+			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			int page_number = Integer.parseInt(request.getParameter("page_number"));
+			int page_size = Integer.parseInt(request.getParameter("page_size"));
+			if (page_size > 200) {
+				page_size = 200;
+			}
+			String keyword = request.getParameter("keyword");
+			logger.info("list> param>" + page_number + "-" + page_size + "-" + keyword);
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("keyword", keyword);
+			param.put("userid", admin.getUserid());
+			PojoDomain<AssetLogCount> list = assetLogService.listDayCount(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());

@@ -111,6 +111,19 @@ public class AssetLogServiceImpl implements AssetLogService{
 	}
 
 	@Override
+	public PojoDomain<AssetLogCount> listDayCount(int page_number, int page_size, Map<String, Object> param) {
+		PojoDomain<AssetLogCount> pojoDomain = new PojoDomain<AssetLogCount>();
+		PageBounds pageBounds = new PageBounds(page_number, page_size);
+		List<AssetLogCount> list = assetLogDao.listDayCount(pageBounds, param);
+		PageList<AssetLogCount> pageList = (PageList<AssetLogCount>) list;
+		pojoDomain.setPojolist(list);
+		pojoDomain.setPage_number(page_number);
+		pojoDomain.setPage_size(page_size);
+		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
+		return pojoDomain;
+	}
+
+	@Override
 	public List<AssetLogCount> countAmount(Map<String, Object> param) {
 		return assetLogDao.countAmount(param);
 	}
