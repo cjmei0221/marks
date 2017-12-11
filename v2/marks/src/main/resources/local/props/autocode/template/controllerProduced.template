@@ -17,6 +17,7 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
+import com.marks.common.util.string.IStringUtil;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
 import com.marks.module.core.controller.SupportContorller;
@@ -224,7 +225,7 @@ public class @{beanName}Controller extends SupportContorller{
 			if (page_size > 200) {
 				page_size = 200;
 			}
-			String keyword=request.getParameter("keyword");
+			String keyword=IStringUtil.getUTF8(request.getParameter("keyword"));
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
