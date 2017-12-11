@@ -23,16 +23,18 @@
 <script type="text/javascript" src="/inner/js/sysmsg.js"></script>
 <script type="text/javascript" src="/inner/js/tool.js"></script>
 </head>
-	
-	<body>
-	
+
+<body>
+
 	<div id="mainPanel">
-		<p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p>
 		<div id="tb" style="padding: 5px 0;">
-		<table>
+			<table>
 				<tr>
-					<td><input type="text" id="keyword" name="keyword" style="width:260px;" placeholder="批次号/商品名称/商品编号/国际条码/创建时间/更新时间/更新者/备注"/></td>
-					<td><a id="doSearch" href="javascript:void(0)" class="easyui-linkbutton menuBtnCls" data-options="iconCls:'icon-search'">查询</a></td>
+					<td><input type="text" id="keyword" name="keyword"
+						style="width: 260px;" placeholder="批次号/商品名称/商品编号/国际条码/备注" /></td>
+					<td><a id="doSearch" href="javascript:void(0)"
+						class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-search'">查询</a></td>
 				</tr>
 			</table>
 			<div>
@@ -42,36 +44,82 @@
 		<table id="tbList">
 		</table>
 	</div>
-	
-	<div id="editWin" class="easyui-window"
+
+	<div id="barCodeWin" class="easyui-window"
 		data-options="modal:true,closed:true,
 		minimizable:false,
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
 		style="width: 600px; height: 450px; padding: 10px;">
-		<div align="center" style="width: 100%;">
-		<form id="ff" name="ff" method="post">
-			<input type="hidden"  id="batchId" name="batchId">
-			<table>
-				<tr><th style="width: 120px;text-align: right;">公司编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="companyId" name="companyId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">机构编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="orgId" name="orgId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">机构名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="orgName" name="orgName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">数量&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="nums" name="nums" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="amount" name="amount" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">商品编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="goodId" name="goodId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="goodName" name="goodName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="250"></td></tr><tr><th style="width: 120px;text-align: right;">商品编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="goodNo" name="goodNo" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">国际条码&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="barNo" name="barNo" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">库存管理方式&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="stockType" name="stockType" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">业务类型&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="ywCode" name="ywCode" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">进货价&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="stockPrice" name="stockPrice" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">生产日期&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="productDate" name="productDate" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">到期日期&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="expireDate" name="expireDate" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">供应商编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="supplierId" name="supplierId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">供应商&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="supplierName" name="supplierName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">更新者&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="updater" name="updater" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">备注&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="remarks" name="remarks" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="250"></td></tr>
-				<tr height="25px"><td colspan="2"></td></tr>
-				<tr>
-					<td colspan="2" style="text-align: center">
-							<a id="btnCancel"
-							name="btnCancel" href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;"
-							data-options="iconCls:'icon-cancel'">取消</a>
-							&nbsp;&nbsp;&nbsp;&nbsp;
-							<a id="btnOK"
-							name="btnOK" href="javascript:void(0)"  class="easyui-linkbutton" style="width:100px;"
-							data-options="iconCls:'icon-save'">保存</a>
-						</td>
-				</tr>
-			</table>
-		</form>
+		<div id="formBarDiv" align="center" style="width: 100%;">
+			<form id="barCodeff" name="barCodeff" method="post">
+				<input type="hidden" id="goodId" name="goodId">
+				<table>
+
+					<tr>
+						<th style="width: 120px; text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="goodName" name="goodName"
+							class="easyui-validatebox" style="width: 200px;" maxlength="150"
+							readonly="readonly"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">库存管理方式&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><select id="stockManageType" class="easyui-combobox"
+							name="stockManageType" style="width: 200px;"
+							data-options="required:true">
+								<option value="0">一瓶一码</option>
+								<option value="1">数量管理</option>
+						</select></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">供应商&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="supplierId2" name="supplierId2"
+							class="easyui-combobox" style="width: 200px;"><input
+							id="supplier2" name="supplier2" type="hidden"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">采购单号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="cgNo" name="cgNo" class="easyui-validatebox"
+							style="width: 200px;"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">生产日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="productDate" name="productDate"
+							class="easyui-datebox" style="width: 200px;"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">进货均价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="stockPrice" name="stockPrice"
+							class="easyui-numberbox" data-options="min:0,precision:2"
+							style="width: 200px;"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">数量&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="nums" name="nums" class="easyui-numberbox"
+							data-options="required:true" style="width: 200px;"></td>
+					</tr>
+					<tr style="display: none;">
+						<th style="width: 120px; text-align: right;">赠送数量&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="sendNums" name="sendNums"
+							class="easyui-numberbox" data-options="required:true"
+							style="width: 200px;"></td>
+					</tr>
+
+					<tr height="25px">
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center"><a
+							id="btnOKBarCode" name="btnOKBarCode" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;"
+							data-options="iconCls:'icon-save'">生成</a></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</div>
-	
+
 </body>
 <script src="js/stockBatch.js"></script>
 </html>
