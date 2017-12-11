@@ -66,6 +66,7 @@ tool.reqUrl={
 		assetlog_update:tool.baseUrl+"/web/assetLog/update.do",
 		assetlog_detail:tool.baseUrl+"/web/assetLog/findById.do",
 		assetCount_list:tool.baseUrl+"/web/assetLog/listCount.do",
+		assetDay_list:tool.baseUrl+"/web/assetLog/listDayCount.do",
 		
 		bind:tool.baseUrl+"/web/bind.do",
 		getVIPInfo:tool.baseUrl+"/web/vipInfo/findVipInfoById.do",
