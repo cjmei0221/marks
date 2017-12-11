@@ -173,6 +173,9 @@ public class WebAssetLogController extends SupportContorller {
 			param.put("userid", admin.getUserid());
 			PojoDomain<AssetLog> list = assetLogService.list(page_number, page_size, param);
 			List<AssetLogCount> countList = assetLogService.countAmount(param);
+			param.put("keyword", null);
+			PojoDomain<AssetLogCount> daylist = assetLogService.listDayCount(1, 7, param);
+			result.getData().put("countDayList", daylist.getPojolist());
 			result.getData().put("countList", countList);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
