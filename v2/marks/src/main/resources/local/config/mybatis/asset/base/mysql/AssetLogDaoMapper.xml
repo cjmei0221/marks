@@ -267,6 +267,31 @@
 		</if>
 		ORDER BY t2.itemName desc
 	</select>
-
-
+	
+	<select id="listDayCount" resultType="com.marks.module.asset.base.pojo.AssetLogCount"
+		parameterType="java.util.Map">
+		select t2.* from (
+		select t.tranTime as itemName,
+		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
+		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
+		from tb_asset_log t group by t.tranTime
+		<!-- union
+		select
+		concat_ws('.',t.tranTime,t.itemName) as itemName,
+		sum(case WHEN
+		t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
+		sum(case WHEN
+		t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
+		from
+		tb_asset_log t group by t.tranTime,t.itemName -->
+		) t2
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1
+			or t2.itemName LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		ORDER BY t2.itemName desc
+	</select>
 </mapper>

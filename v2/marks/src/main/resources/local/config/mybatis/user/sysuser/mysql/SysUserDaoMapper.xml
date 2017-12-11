@@ -81,7 +81,7 @@
 		USERID
 		= #{userid}
 	</update>
-	<update id="updatetPwd" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
+	<update id="updatePwd" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
 		UPDATE tb_user
 		SET
 		PASSWORD
