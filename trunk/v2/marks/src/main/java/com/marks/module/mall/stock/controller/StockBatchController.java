@@ -1,8 +1,6 @@
 package com.marks.module.mall.stock.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.util.JsonUtil;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
+import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
-import com.marks.module.user.sysuser.pojo.SysUser;
-
+import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.pojo.StockBatch;
 import com.marks.module.mall.stock.service.StockBatchService;
+import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.sysuser.pojo.SysUser;
 
  /**
 	 * 库存批次: 库存批次
@@ -67,7 +64,7 @@ public class StockBatchController extends SupportContorller{
     }
     
     /**
-	 * 保存库存批次
+	 * 首次入库
 	 */
     @RequestMapping("/inner/stockBatch/save")
     public void saveStockBatch(HttpServletRequest request,
@@ -75,24 +72,15 @@ public class StockBatchController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	StockBatch info = getModel(StockBatch.class);
-	        info.setBatchId(IDUtil.getUUID());
-	 		
-	 		logger.info("saveStockBatch > param>"+info.toLog());
-	 
-			 StockBatch ori=null;
-	 		if(info.getBatchId() != null){
-	 			ori=stockBatchService.findById(info.getBatchId());
-	 		}
-	 		
-	 		if(ori==null){
-	 			stockBatchService.save(info);
-	 			result.setMessage("保存成功");
-				result.setCode(Code.CODE_SUCCESS);
-	 		}else{
-	    		result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
-	    	}
+			BarCodeForm reqVo = getModel(BarCodeForm.class);
+			reqVo.setCompanyId(admin.getCompanyId());
+			reqVo.setOrgid(admin.getDefaultOrgid());
+			reqVo.setOrgname(admin.getDefaultOrgname());
+			reqVo.setOperator(admin.getUsername());
+			reqVo.setOperatorId(admin.getUserid());
+			logger.info("saveBarCode > param>" + reqVo.getGoodId() + " - " + reqVo.getNums());
+
+			result = stockBatchService.saveFirstStockIn(reqVo);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			result.setMessage("保存失败，请联系管理员！");

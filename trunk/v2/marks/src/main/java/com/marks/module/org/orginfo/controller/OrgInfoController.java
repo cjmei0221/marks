@@ -19,6 +19,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.enums.OrgEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
+import com.marks.common.util.string.IStringUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
@@ -81,7 +82,7 @@ public class OrgInfoController extends SupportContorller {
 					orgInfo.setParentId("0");
 					orgInfo.setCompanyId(orgInfo.getOrgid());
 					orgInfo.setLvl(1);
-				} else {
+				} else if (OrgEnums.OrgType.common.getValue() == orgInfo.getOrgType()) {
 					String orgId = orgInfoService.getOrgId();
 					orgInfo.setOrgid(orgId);
 					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
@@ -119,6 +120,14 @@ public class OrgInfoController extends SupportContorller {
 						orgInfo.setLvl6Id(orgInfo.getOrgid());
 						orgInfo.setLvl6Name(orgInfo.getOrgname());
 					}
+				} else {
+					String orgId = orgInfoService.getOrgId();
+					orgInfo.setOrgid(orgId);
+					orgInfo.setCompanyId(admin.getCompanyId());
+					orgInfo.setLvl(2);
+					orgInfo.setLvl2Id(orgInfo.getOrgid());
+					orgInfo.setLvl2Name(orgInfo.getOrgname());
+					orgInfo.setParentId(admin.getCompanyId());
 				}
 				orgInfo.setCreator(admin.getUserid());
 				orgInfoService.save(orgInfo);
@@ -143,6 +152,7 @@ public class OrgInfoController extends SupportContorller {
 	public void updateOrgInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			OrgInfo orgInfo = getModel(OrgInfo.class);
 			OrgInfo ori = orgInfoService.findById(orgInfo.getOrgid());
 			if (ori == null) {
@@ -161,7 +171,7 @@ public class OrgInfoController extends SupportContorller {
 			if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 				orgInfo.setParentId("0");
 				orgInfo.setLvl(1);
-			} else {
+			} else if (OrgEnums.OrgType.common.getValue() == orgInfo.getOrgType()) {
 				OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
 				orgInfo.setLvl(parentVo.getLvl() + 1);
 
@@ -196,6 +206,11 @@ public class OrgInfoController extends SupportContorller {
 					orgInfo.setLvl6Id(orgInfo.getOrgid());
 					orgInfo.setLvl6Name(orgInfo.getOrgname());
 				}
+			} else {
+				orgInfo.setLvl(2);
+				orgInfo.setLvl2Id(orgInfo.getOrgid());
+				orgInfo.setLvl2Name(orgInfo.getOrgname());
+				orgInfo.setParentId(admin.getCompanyId());
 			}
 			orgInfoService.update(orgInfo);
 			result.setMessage("更新成功!");
@@ -365,5 +380,41 @@ public class OrgInfoController extends SupportContorller {
 		param.put("companyId", companyId);
 		List<OrgInfo> list = orgInfoService.frameCombo(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+	}
+
+	/**
+	 * 根据不同的机构类型查询组织
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/inner/orgInfo/listByOrgType")
+	public void listByOrgType(HttpServletRequest request, HttpServletResponse response) {
+		PaginationResult result = new PaginationResult();
+		try {
+			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			int page_number = Integer.parseInt(request.getParameter("page_number"));
+			int page_size = Integer.parseInt(request.getParameter("page_size"));
+			String keyword = IStringUtil.getUTF8(request.getParameter("keyword"));
+			String orgType = request.getParameter("orgType");
+
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("keyword", keyword);
+			param.put("companyId", admin.getCompanyId());
+			param.put("orgType", orgType);
+			PojoDomain<OrgInfo> list = orgInfoService.listByOrgType(page_number, page_size, param);
+			result.getData().put("list", list.getPojolist());
+			result.setPageNumber(list.getPage_number());
+			result.setPageSize(list.getPage_size());
+			result.setPageTotal(list.getPage_total());
+			result.setTotalCount(list.getTotal_count());
+			result.setMessage("find sysRole successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("find sysRole fail!");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
 	}
 }
