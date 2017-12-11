@@ -8,10 +8,11 @@ public class OrgEnums {
 	 *
 	 */
 	public enum OrgType {
+		storehouse(4, "仓库"), // 公司
 		shop(3, "门店"), // 公司
 		supplier(2, "供应商"), // 公司
 		company(1, "公司"), // 公司
-		common(0, "组织");// 普通
+		common(0, "部门");// 普通
 
 		private int status;
 		private String name;
