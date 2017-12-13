@@ -1,6 +1,6 @@
 var appInfo = {
 	listUrl : top.window.urlBase + '/inner/sysRole/list.do',// 获取角色管理列表接口
-															// SysRole
+	// SysRole
 	saveUrl : top.window.urlBase + '/inner/sysRole/save.do',// 保存新增角色管理接口
 	updateUrl : top.window.urlBase + '/inner/sysRole/update.do',// 编辑角色管理信息接口
 	deleteUrl : top.window.urlBase + '/inner/sysRole/delete.do',// 删除角色管理接口
@@ -14,7 +14,8 @@ var appInfo = {
 		keyword : "",
 		s_lvl : ""
 	},
-	formStatus : "new"
+	formStatus : "new",
+	isDeveloper : 0
 };
 
 // 新增
@@ -27,8 +28,13 @@ function add() {
 	$('#userTypeTr').show();
 	$('#showFlagTr').show();
 	$('#delFlagTr').show();
-	$("#showFlag").combobox("setValue",1);
-	$("#delFlag").combobox("setValue",1);
+	$("#showFlag").combobox("setValue", 1);
+	$("#delFlag").combobox("setValue", 1);
+	if(appInfo.isDeveloper==1){
+		$('#showFlagTr').show();
+	}else{
+		$('#showFlagTr').hide();
+	}
 }
 
 // 编辑
@@ -44,10 +50,14 @@ function edit() {
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
 		$('#userTypeTr').hide();
-		if (appInfo.selectedData.showFlag == 0) {
+		if(appInfo.isDeveloper==1){
+			if (appInfo.selectedData.showFlag == 0) {
+				$('#showFlagTr').hide();
+			} else {
+				$('#showFlagTr').show();
+			}
+		}else{
 			$('#showFlagTr').hide();
-		} else {
-			$('#showFlagTr').show();
 		}
 		if (appInfo.selectedData.delFlag == 0) {
 			$('#delFlagTr').hide();
@@ -95,7 +105,12 @@ function addFunc() {
 $(function() {
 	// 加载列表
 	loadList();
-
+	
+	if(appInfo.isDeveloper==1){
+		$("#tbList").datagrid("showColumn","showFlag");
+	}else{
+		$("#tbList").datagrid("hideColumn","showFlag");
+	}
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
@@ -170,11 +185,11 @@ function loadList() {
 			field : 'rolename',
 			width : 100,
 			align : "center"
-//		}, {
-//			title : '组织',
-//			field : 'companyName',
-//			width : 100,
-//			align : "center"
+		// }, {
+		// title : '组织',
+		// field : 'companyName',
+		// width : 100,
+		// align : "center"
 		}, {
 			title : '级别',
 			field : 'lvl',
@@ -230,6 +245,11 @@ function loadList() {
 			appInfo.selectedData = rowData;
 		},
 		onLoadSuccess : function(data) {
+			if(appInfo.isDeveloper==1){
+				$("#tbList").datagrid("showColumn","showFlag");
+			}else{
+				$("#tbList").datagrid("hideColumn","showFlag");
+			}
 			$("#tbList").datagrid('unselectAll');
 			appInfo.selectedData = {};
 		}
@@ -249,6 +269,7 @@ function loadList() {
 			success : function(data, status, xhr) {
 				checkLogin(data);
 				if (data.retcode == "0") {
+					appInfo.isDeveloper=data.isDeveloper;
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({
@@ -345,7 +366,7 @@ function funcList(roleId) {
 							funcloader(that, params, success, loadError);
 						},
 						onClickRow : function(rowIndex, rowData) {
-//							$("#tbFuncList").treegrid("beginEdit", rowIndex);
+							// $("#tbFuncList").treegrid("beginEdit", rowIndex);
 						},
 						onLoadSuccess : function(data) {
 
