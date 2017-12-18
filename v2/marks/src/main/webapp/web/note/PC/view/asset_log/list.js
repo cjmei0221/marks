@@ -43,13 +43,21 @@ function getlist() {
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
-				$("#totalAmount").html(toMoney(data.totalAmount));
+				//月统计
 				var countList=data.countList;
 				var arrCount = [];
 				for(var i=0;i<countList.length;i++){
-					arrCount.push("<span>"+countList[i].itemName+"</span> <span>"+toMoney(countList[i].outAmount)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+					arrCount.push("<span>"+countList[i].itemName+"</span> <span>&#65509;"+toMoney(countList[i].outAmount)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 				}
 				$("#countList").html(arrCount.join(''));
+				//日统计
+				var countDayList=data.countDayList;
+				var arrDayCount = [];
+				for(var i=0;i<countDayList.length;i++){
+					arrDayCount.push("<span>"+countDayList[i].itemName+"</span> <span>&#65509;"+toMoney(countDayList[i].outAmount)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+				}
+				$("#countDayList").html(arrDayCount.join(''));
+				//日志
 				var dairyList = data.list;
 				var pageTotal = data.page_total;
 				appInfo.pageTotal=pageTotal;

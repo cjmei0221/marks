@@ -12,6 +12,9 @@ $(function() {
 		getID();
 		$("#c_tranTime").val(initTime());
 	}
+	$('#c_tranTime').datepicker().on("hide", function(e) {
+		submitForm();
+	});
 });
 function getDetail() {
 	$.ajax({
@@ -32,6 +35,11 @@ function getDetail() {
 						"checked", "checked");
 				$("input[name='c_tranType'][value=" + vo.tranType + "]").attr(
 						"checked", "checked");
+				$("label").removeClass("checked");
+				$("input[name='c_itemType'][value=" + vo.itemType + "]")
+						.parent().addClass("checked");
+				$("input[name='c_tranType'][value=" + vo.tranType + "]")
+						.parent().addClass("checked");
 			} else {
 				msg.info("加载失败【" + data.retcode + "】");
 			}
@@ -67,7 +75,7 @@ function submitForm() {
 			fromer : $("#c_fromer").val(),
 			toer : $("#c_toer").val(),
 			tranAmount : $("#c_tranAmount").val(),
-			remarks:$("#c_remarks").val()
+			remarks : $("#c_remarks").val()
 		},
 		success : function(data) {
 			if (data.retcode == "0") {

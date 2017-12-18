@@ -22,19 +22,48 @@
 						<div class="controls">
 							<label data-toggle="radio" class="radio-pretty inline checked L3">
 								<input type="radio" checked="checked" name="c_itemType"
-								value="type0" onblur="submitForm()"><span>日常</span>
+								value="type0" onclick="submitForm()"><span>日常</span>
 							</label> <label data-toggle="radio" class="radio-pretty inline L2">
 								<input type="radio" name="c_itemType" value="type1"
-								onblur="submitForm()"><span>服装</span>
+								onclick="submitForm()"><span>服装</span>
 							</label> <label data-toggle="radio" class="radio-pretty inline L2">
 								<input type="radio" name="c_itemType" value="type2"
-								onblur="submitForm()"><span>电子产品</span>
+								onclick="submitForm()"><span>电子产品</span>
 							</label> <label data-toggle="radio" class="radio-pretty inline L2">
 								<input type="radio" name="c_itemType" value="type3"
-								onblur="submitForm()"><span>化妆品</span>
-							</label> <label data-toggle="radio" class="radio-pretty inline L2">
+								onclick="submitForm()"><span>化妆品</span>
+							</label> 
+							<label data-toggle="radio" class="radio-pretty inline L2">
 								<input type="radio" name="c_itemType" value="type4"
-								onblur="submitForm()"><span>读书</span>
+								onclick="submitForm()"><span>读书</span>
+							</label>
+							<label data-toggle="radio" class="radio-pretty inline L2">
+								<input type="radio" name="c_itemType" value="type5"
+								onclick="submitForm()"><span>话费</span>
+							</label>
+							<label data-toggle="radio" class="radio-pretty inline L2">
+								<input type="radio" name="c_itemType" value="type6"
+								onclick="submitForm()"><span>出行</span>
+							</label>
+							<label data-toggle="radio" class="radio-pretty inline L2">
+								<input type="radio" name="c_itemType" value="type7"
+								onclick="submitForm()"><span>工资</span>
+							</label>
+							<label data-toggle="radio" class="radio-pretty inline L2">
+								<input type="radio" name="c_itemType" value="type8"
+								onclick="submitForm()"><span>差旅</span>
+							</label>
+							<label data-toggle="radio" class="radio-pretty inline L2">
+								<input type="radio" name="c_itemType" value="type9"
+								onclick="submitForm()"><span>理财</span>
+							</label>
+							<label data-toggle="radio" class="radio-pretty inline L2">
+								<input type="radio" name="c_itemType" value="type10"
+								onclick="submitForm()"><span>人情</span>
+							</label>
+							<label data-toggle="radio" class="radio-pretty inline L2">
+								<input type="radio" name="c_itemType" value="type100"
+								onclick="submitForm()"><span>其他</span>
 							</label>
 						</div>
 					</div>
@@ -42,18 +71,17 @@
 						<div class="controls">
 							<input type="text" id="c_tranTime" name="c_tranTime"
 								class="input-xlarge cm-input" placeholder="交易日期"
-								style="width: 100%; height: 35px;" data-toggle="datepicker"
-								onblur="submitForm()">
+								style="width: 100%; height: 35px;" data-toggle="datepicker">
 						</div>
 					</div>
 					<div class="control-group" style="width: 100%;">
 						<div class="controls">
 							<label data-toggle="radio" class="radio-pretty inline checked L3">
 								<input type="radio" checked="checked" name="c_tranType"
-								value="0" onblur="submitForm()"><span>支出</span>
+								value="0" onclick="submitForm()"><span>支出</span>
 							</label> <label data-toggle="radio" class="radio-pretty inline L2">
 								<input type="radio" name="c_tranType" value="1"
-								onblur="submitForm()"><span>收入</span>
+								onclick="submitForm()"><span>收入</span>
 							</label>
 						</div>
 					</div>
@@ -63,7 +91,7 @@
 								class="input-xlarge cm-input" placeholder="交易金额"
 								style="width: 100%; height: 35px;" onblur="submitForm()">
 						</div>
-					</div>	
+					</div>
 					<div class="control-group" style="width: 100%;">
 						<div class="controls">
 							<input type="text" id="c_toer" name="c_toer"

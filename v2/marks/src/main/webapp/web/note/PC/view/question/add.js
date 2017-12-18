@@ -29,7 +29,7 @@ function getDetail(){
 				$("input[name='c_lvl'][value="+vo.lvl+"]").attr("checked","checked"); 
 				
 				$("label").removeClass("checked");
-				$("."+vo.lvl).addClass("checked"); 
+				$("input[name='c_lvl'][value="+vo.lvl+"]").parent().addClass("checked"); 
 			}else{
 				msg.info("加载失败【"+data.retcode+"】");
 			}

@@ -30,7 +30,7 @@ function getDetail(){
 				$("input[name='c_lvl'][value="+vo.isComplete+"]").attr("checked","checked"); 
 				
 				$("label").removeClass("checked");
-				$("."+vo.isComplete).addClass("checked"); 
+				$("input[name='c_lvl'][value="+vo.isComplete+"]").parent().addClass("checked"); 
 			}else{
 				msg.info("加载失败【"+data.retcode+"】");
 			}
