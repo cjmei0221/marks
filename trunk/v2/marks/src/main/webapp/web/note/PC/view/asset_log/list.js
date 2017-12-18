@@ -72,7 +72,9 @@ function getlist() {
 						o.tranType="支出";
 						o.tranAmount='-'+o.tranAmount;
 					}else{
-						o.tranType="收入";
+//						o.tranType="收入";
+						o.tranType='<span style="color:gold;">收入</span>';
+						o.tranAmount='<span style="color:gold;">'+o.tranAmount+'</span>';
 					}
 					arr.push(tool.fillTemplate($("#trDivTmp").html(), o));
 					index++;
