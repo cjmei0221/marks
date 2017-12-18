@@ -60,10 +60,10 @@ public class EncryptUtil {
 		return AESUtil.decryptDef(src);
 	}
 	public static void main(String[] args) throws Exception {
-		String key=IDUtil.getDateID()+IDUtil.getDateID();
-		System.out.println(key);
-		System.out.println(AESUtil2.aesEncrypt("111111", key));
+		String key = "2017121300043659";
+		String src = "LS10012|U9947036";
+		System.out.println(AESUtil2.aesEncrypt(src, key));
 		
-		System.out.println(EncryptUtil.decrypt(EncryptUtil.encryptPwd("bTAKua+7TtXXvXxrIZdSJQ==")).length());
+		// System.out.println(EncryptUtil.decrypt(EncryptUtil.encryptPwd("bTAKua+7TtXXvXxrIZdSJQ==")).length());
 	}
 }
