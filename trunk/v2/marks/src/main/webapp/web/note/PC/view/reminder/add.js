@@ -32,6 +32,9 @@ $(function() {
 		getID();
 		$("#createtime").html(initTime());
 	}
+	$('#remindDate').datepicker().on("hide", function(e) {
+		submitForm();
+	});
 });
 
 function getDetail() {
