@@ -1,6 +1,8 @@
 package com.marks.module.asset.base.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.domain.TreeVo;
 import com.marks.common.enums.AssetEnums;
+import com.marks.common.enums.AssetEnums.ItemType;
 import com.marks.common.util.Code;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
@@ -23,6 +27,8 @@ import com.marks.module.asset.base.service.AssetLogService;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
+
+import net.sf.json.JSONArray;
 
 /**
  * 记账: 记录日常交易等
@@ -213,6 +219,19 @@ public class AssetLogController extends SupportContorller {
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
+	}
+
+	@RequestMapping("/inner/assetLogItemType")
+	public void combo(HttpServletRequest request, HttpServletResponse response) {
+		List<TreeVo> list = new ArrayList<TreeVo>();
+		TreeVo vo = null;
+		for (ItemType c : AssetEnums.ItemType.values()) {
+			vo = new TreeVo();
+			vo.setId(c.getValue());
+			vo.setText(c.getName());
+			list.add(vo);
+		}
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 
 }
