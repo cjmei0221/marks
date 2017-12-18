@@ -7,7 +7,14 @@ public class AssetEnums {
 		type1("type1", "服装"), //
 		type2("type2", "电子产品"), //
 		type3("type3", "化妆品"), //
-		type4("type4", "读书");// 会员
+		type4("type4", "读书"), //
+		type5("type5", "话费"), //
+		type6("type6", "出行"), //
+		type7("type7", "工资"), //
+		type8("type8", "差旅"), //
+		type9("type9", "理财"), //
+		type10("type10", "人情"), //
+		type11("type100", "其他");// 会员
 
 		private String status;
 		private String name;
