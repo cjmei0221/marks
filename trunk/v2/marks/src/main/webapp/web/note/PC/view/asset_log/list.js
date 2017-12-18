@@ -70,6 +70,7 @@ function getlist() {
 					o.idx=index;
 					if(o.tranType==0){
 						o.tranType="支出";
+						o.tranAmount='-'+o.tranAmount;
 					}else{
 						o.tranType="收入";
 					}
