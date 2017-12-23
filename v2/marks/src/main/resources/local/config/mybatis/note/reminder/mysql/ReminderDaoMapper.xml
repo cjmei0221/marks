@@ -95,7 +95,7 @@
 
 
 
-			or to_char(reminder.CREATETIME,'yyyy-MM-dd') LIKE
+			or left(reminder.CREATETIME,10) LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
 			or reminder.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

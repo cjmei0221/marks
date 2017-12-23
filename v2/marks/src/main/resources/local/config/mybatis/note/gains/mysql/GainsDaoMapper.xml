@@ -86,7 +86,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or gains.LABELS LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or to_char(gains.CREATETIME,'yyyyMMdd') LIKE
+			or left(gains.CREATETIME,10) LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			
 			)
