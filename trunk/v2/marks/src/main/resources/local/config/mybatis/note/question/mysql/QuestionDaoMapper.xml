@@ -93,7 +93,7 @@
 			or question.LABELS LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			to_char(question.CREATETIME,'yyyyMMdd') LIKE
+			left(question.CREATETIME,10) LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>

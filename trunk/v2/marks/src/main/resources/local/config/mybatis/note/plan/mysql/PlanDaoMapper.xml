@@ -73,7 +73,7 @@
 			or plan.COMPLETETXT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or
-			to_char(plan.CREATETIME,'yyyyMMdd') LIKE
+			left(plan.CREATETIME,10) LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or plan.MOBILE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
