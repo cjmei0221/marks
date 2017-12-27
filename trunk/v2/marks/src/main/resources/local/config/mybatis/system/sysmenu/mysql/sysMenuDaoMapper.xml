@@ -21,7 +21,8 @@
 		CREATOR,
 		lvl,
 		lvl1Menuid,
-		lvl2Menuid
+		lvl2Menuid,
+		status
 		)
 		VALUES
 		(
@@ -35,7 +36,8 @@
 		#{sm.creator:VARCHAR},
 		#{sm.lvl:INTEGER},
 		#{sm.lvl1Menuid:VARCHAR},
-		#{sm.lvl2Menuid:VARCHAR}
+		#{sm.lvl2Menuid:VARCHAR},
+		1
 		)
 	</insert>
 	<update id="update" parameterType="com.marks.module.system.sysmenu.pojo.SysMenu"
@@ -53,7 +55,8 @@
 		SORT = #{sm.sort:INTEGER},
 		UPDATETIME =
 		now(),
-		CREATOR = #{sm.creator:VARCHAR}
+		CREATOR = #{sm.creator:VARCHAR},
+		status=#{sm.status:INTEGER}
 		WHERE
 		MENUID = #{sm.menuid:VARCHAR}
 	</update>
