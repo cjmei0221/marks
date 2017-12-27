@@ -23,6 +23,16 @@ public class SysMenu {
 	private String lvl2Menuid;
 	private String state = "open";
 
+	private int status = 1;// 禁用 1:启用 2:禁用
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public String getState() {
 		return state;
 	}
