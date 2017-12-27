@@ -76,29 +76,33 @@
 		VSRM.MENUITEM,
 		VSRM.PARENTID,
 		VSRM.URL,
-		vsrm.nsort
+		vsrm.sort
 		FROM
-		VIEW_SYS_ROLE_MENU vsrm
+		tb_sys_menu vsrm
+		left join tb_sys_func tsf on vsrm.menuid=tsf.menuid
+		left join tb_sys_role_func tsrf on tsrf.funcid=tsf.funcid
 		WHERE 1=1
 		<if test="roleId != null and roleId !=''">
-			AND VSRM.ROLEID =#{roleId}
+			AND tsrf.ROLEID =#{roleId}
 		</if>
-		and vsrm.lvl=3 order by vsrm.nsort
+		and vsrm.lvl=3 order by vsrm.sort
 	</select>
 	<select id="getSysOperate" resultType="com.marks.module.system.sysmenu.pojo.SysOperate">
 		SELECT distinct
-		VSRF.OPERID,
-		VSRF.OPERNAME,
-		VSRF.PICICON,
-		vsrf.sort
+		tso.OPERID,
+		tso.OPERNAME,
+		tso.PICICON,
+		tso.sort
 		FROM
-		VIEW_SYS_ROLE_FUNC vsrf where 1=1
+		TB_SYS_FUNC tsf JOIN TB_SYS_OPERATE  tso on tsf.operid=tso.operid
+		left join tb_sys_role_func tsrfn on tsf.funcid=tsrfn.funcid
+		where 1=1
 		<if test="roleId != null and roleId !=''">
-			AND vsrf.ROLEID =#{roleId}
+			AND tsrfn.ROLEID =#{roleId}
 		</if>
-		AND VSRF.MENUID =
+		AND tsf.MENUID =
 		#{menuid}
-		order by vsrf.sort
+		order by tso.sort
 	</select>
 
 	<select id="getUrlByUserid" resultType="String">

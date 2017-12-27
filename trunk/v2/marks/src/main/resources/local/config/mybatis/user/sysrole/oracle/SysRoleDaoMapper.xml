@@ -165,24 +165,25 @@
 	</delete>
 	<select id="getFuncList" resultType="com.marks.module.system.sysmenu.pojo.SysFunc">
 		SELECT distinct
-		VSRF.OPERID,
-		VSRF.OPERNAME,
-		vsrf.sort,
-		vsrf.MENUID,
-		vsrf.FUNCID,
+		tso.OPERID,
+		tso.OPERNAME,
+		tso.sort,
+		tsf.MENUID,
+		tsf.FUNCID,
 		t2.state
 		FROM
-		VIEW_SYS_ROLE_FUNC vsrf
+		TB_SYS_FUNC tsf JOIN TB_SYS_OPERATE  tso on tsf.operid=tso.operid
+		left join tb_sys_role_func tsrfn on tsf.funcid=tsrfn.funcid
 		left join (select
 		DISTINCT tsrf.funcid, 'checked' state
 		from tb_sys_role_func tsrf where
 		tsrf.roleid=#{roleId:VARCHAR}
-		) t2 on t2.funcid = vsrf.funcid
+		) t2 on t2.funcid = tsf.funcid
 		where 1=1
 		<if test="loginUserRoleId != null">
-			AND vsrf.ROLEID =#{loginUserRoleId}
+			AND tsrfn.ROLEID =#{loginUserRoleId}
 		</if>
-		order by vsrf.sort
+		order by tso.sort
 	</select>
 	<select id="findByUserTypeAndCompanyId" resultType="com.marks.module.user.sysrole.pojo.SysRole">
 		select * from
