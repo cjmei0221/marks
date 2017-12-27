@@ -82,7 +82,7 @@ public class TemplateMsgServiceImpl implements TemplateMsgService {
 		Result result = new Result();
 		if (null != openidList && openidList.size() > 0) {
 			WxTemplate temp = wxTemplateDao.findById(tempType, accountid);
-			if (null != temp) {
+			if (null != temp && temp.getStatus() == 1) {
 				String firstMsg = temp.getFirst_content();
 				String remarkMsg = temp.getRemark_content();
 				String detailUrl = temp.getDetailUrl();
