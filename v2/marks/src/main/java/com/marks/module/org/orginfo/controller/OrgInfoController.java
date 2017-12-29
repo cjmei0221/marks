@@ -126,6 +126,9 @@ public class OrgInfoController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
+			if ("top".equals(orgInfo.getParentId())) {
+				orgInfo.setParentId(admin.getCompanyId());
+			}
 			orgInfoService.update(orgInfo);
 			result.setMessage("更新成功!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -229,16 +232,10 @@ public class OrgInfoController extends SupportContorller {
 
 		// 根节点加载
 		if (parentId == null || "".equals(parentId)) {
-			OrgInfo info = orgInfoService.findById(companyId);
-			if (info.getChildnum() > 0) {
-				info.setState("closed");
-			}
-			list = new ArrayList<OrgInfo>();
-			list.add(info);
-		} else {
-			logger.info("list parentId:" + parentId + " - " + admin.getCompanyId());
-			list = orgInfoService.listGrid(parentId, companyId, orgType);
+			parentId = admin.getCompanyId();
 		}
+		logger.info("list parentId:" + parentId + " - " + admin.getCompanyId());
+		list = orgInfoService.listGrid(parentId, companyId, orgType);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 		return;
 	}
