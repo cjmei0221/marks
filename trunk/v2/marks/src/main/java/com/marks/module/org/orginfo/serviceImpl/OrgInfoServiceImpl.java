@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.enums.OrgEnums;
 import com.marks.common.util.IDUtil;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
@@ -42,6 +43,47 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	 */
 	@Override
 	public void save(OrgInfo orgInfo) {
+		if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
+			orgInfo.setParentId("0");
+			orgInfo.setCompanyId(orgInfo.getOrgid());
+			orgInfo.setLvl(1);
+		} else {
+			OrgInfo parentVo = this.findById(orgInfo.getParentId());
+			orgInfo.setLvl(parentVo.getLvl() + 1);
+			orgInfo.setCompanyId(parentVo.getCompanyId());
+
+			orgInfo.setLvl2Id(parentVo.getLvl2Id());
+			orgInfo.setLvl2Name(parentVo.getLvl2Name());
+
+			orgInfo.setLvl3Id(parentVo.getLvl3Id());
+			orgInfo.setLvl3Name(parentVo.getLvl3Name());
+
+			orgInfo.setLvl4Id(parentVo.getLvl4Id());
+			orgInfo.setLvl4Name(parentVo.getLvl4Name());
+
+			orgInfo.setLvl5Id(parentVo.getLvl5Id());
+			orgInfo.setLvl5Name(parentVo.getLvl5Name());
+
+			orgInfo.setLvl6Id(parentVo.getLvl6Id());
+			orgInfo.setLvl6Name(parentVo.getLvl6Name());
+
+			if (orgInfo.getLvl() == 2) {
+				orgInfo.setLvl2Id(orgInfo.getOrgid());
+				orgInfo.setLvl2Name(orgInfo.getOrgname());
+			} else if (orgInfo.getLvl() == 3) {
+				orgInfo.setLvl3Id(orgInfo.getOrgid());
+				orgInfo.setLvl3Name(orgInfo.getOrgname());
+			} else if (orgInfo.getLvl() == 4) {
+				orgInfo.setLvl4Id(orgInfo.getOrgid());
+				orgInfo.setLvl4Name(orgInfo.getOrgname());
+			} else if (orgInfo.getLvl() == 5) {
+				orgInfo.setLvl5Id(orgInfo.getOrgid());
+				orgInfo.setLvl5Name(orgInfo.getOrgname());
+			} else if (orgInfo.getLvl() == 6) {
+				orgInfo.setLvl6Id(orgInfo.getOrgid());
+				orgInfo.setLvl6Name(orgInfo.getOrgname());
+			}
+		}
 		orgInfoDao.save(orgInfo);
 		if (orgInfo.getLvl() > 1) {
 			updateOrgChildNum(orgInfo.getParentId());
@@ -54,6 +96,45 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	 */
 	@Override
 	public void update(OrgInfo orgInfo) {
+		if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
+			orgInfo.setParentId("0");
+			orgInfo.setLvl(1);
+		} else if (OrgEnums.OrgType.common.getValue() == orgInfo.getOrgType()) {
+			OrgInfo parentVo = this.findById(orgInfo.getParentId());
+			orgInfo.setLvl(parentVo.getLvl() + 1);
+
+			orgInfo.setLvl2Id(parentVo.getLvl2Id());
+			orgInfo.setLvl2Name(parentVo.getLvl2Name());
+
+			orgInfo.setLvl3Id(parentVo.getLvl3Id());
+			orgInfo.setLvl3Name(parentVo.getLvl3Name());
+
+			orgInfo.setLvl4Id(parentVo.getLvl4Id());
+			orgInfo.setLvl4Name(parentVo.getLvl4Name());
+
+			orgInfo.setLvl5Id(parentVo.getLvl5Id());
+			orgInfo.setLvl5Name(parentVo.getLvl5Name());
+
+			orgInfo.setLvl6Id(parentVo.getLvl6Id());
+			orgInfo.setLvl6Name(parentVo.getLvl6Name());
+
+			if (orgInfo.getLvl() == 2) {
+				orgInfo.setLvl2Id(orgInfo.getOrgid());
+				orgInfo.setLvl2Name(orgInfo.getOrgname());
+			} else if (orgInfo.getLvl() == 3) {
+				orgInfo.setLvl3Id(orgInfo.getOrgid());
+				orgInfo.setLvl3Name(orgInfo.getOrgname());
+			} else if (orgInfo.getLvl() == 4) {
+				orgInfo.setLvl4Id(orgInfo.getOrgid());
+				orgInfo.setLvl4Name(orgInfo.getOrgname());
+			} else if (orgInfo.getLvl() == 5) {
+				orgInfo.setLvl5Id(orgInfo.getOrgid());
+				orgInfo.setLvl5Name(orgInfo.getOrgname());
+			} else if (orgInfo.getLvl() == 6) {
+				orgInfo.setLvl6Id(orgInfo.getOrgid());
+				orgInfo.setLvl6Name(orgInfo.getOrgname());
+			}
+		}
 		orgInfoDao.update(orgInfo);
 		if (orgInfo.getLvl() > 1) {
 			orgInfoDao.updateMoreLvlName(orgInfo.getOrgid(), orgInfo.getOrgname(), orgInfo.getLvl());

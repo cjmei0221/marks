@@ -79,56 +79,14 @@ public class OrgInfoController extends SupportContorller {
 				if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 					String orgId = orgInfoService.getCompanyId();
 					orgInfo.setOrgid(orgId);
-					orgInfo.setParentId("0");
-					orgInfo.setCompanyId(orgInfo.getOrgid());
-					orgInfo.setLvl(1);
-				} else if (OrgEnums.OrgType.common.getValue() == orgInfo.getOrgType()) {
-					String orgId = orgInfoService.getOrgId();
-					orgInfo.setOrgid(orgId);
-					OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
-					orgInfo.setLvl(parentVo.getLvl() + 1);
-					orgInfo.setCompanyId(parentVo.getCompanyId());
-
-					orgInfo.setLvl2Id(parentVo.getLvl2Id());
-					orgInfo.setLvl2Name(parentVo.getLvl2Name());
-
-					orgInfo.setLvl3Id(parentVo.getLvl3Id());
-					orgInfo.setLvl3Name(parentVo.getLvl3Name());
-
-					orgInfo.setLvl4Id(parentVo.getLvl4Id());
-					orgInfo.setLvl4Name(parentVo.getLvl4Name());
-
-					orgInfo.setLvl5Id(parentVo.getLvl5Id());
-					orgInfo.setLvl5Name(parentVo.getLvl5Name());
-
-					orgInfo.setLvl6Id(parentVo.getLvl6Id());
-					orgInfo.setLvl6Name(parentVo.getLvl6Name());
-
-					if (orgInfo.getLvl() == 2) {
-						orgInfo.setLvl2Id(orgInfo.getOrgid());
-						orgInfo.setLvl2Name(orgInfo.getOrgname());
-					} else if (orgInfo.getLvl() == 3) {
-						orgInfo.setLvl3Id(orgInfo.getOrgid());
-						orgInfo.setLvl3Name(orgInfo.getOrgname());
-					} else if (orgInfo.getLvl() == 4) {
-						orgInfo.setLvl4Id(orgInfo.getOrgid());
-						orgInfo.setLvl4Name(orgInfo.getOrgname());
-					} else if (orgInfo.getLvl() == 5) {
-						orgInfo.setLvl5Id(orgInfo.getOrgid());
-						orgInfo.setLvl5Name(orgInfo.getOrgname());
-					} else if (orgInfo.getLvl() == 6) {
-						orgInfo.setLvl6Id(orgInfo.getOrgid());
-						orgInfo.setLvl6Name(orgInfo.getOrgname());
-					}
 				} else {
+					if ("top".equals(orgInfo.getParentId())) {
+						orgInfo.setParentId(admin.getCompanyId());
+					}
 					String orgId = orgInfoService.getOrgId();
 					orgInfo.setOrgid(orgId);
-					orgInfo.setCompanyId(admin.getCompanyId());
-					orgInfo.setLvl(2);
-					orgInfo.setLvl2Id(orgInfo.getOrgid());
-					orgInfo.setLvl2Name(orgInfo.getOrgname());
-					orgInfo.setParentId(admin.getCompanyId());
 				}
+				orgInfo.setCompanyId(admin.getCompanyId());
 				orgInfo.setCreator(admin.getUserid());
 				orgInfoService.save(orgInfo);
 				result.setMessage("保存成功");
@@ -167,50 +125,6 @@ public class OrgInfoController extends SupportContorller {
 				result.setCode(Code.CODE_FAIL);
 				JsonUtil.output(response, result);
 				return;
-			}
-			if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
-				orgInfo.setParentId("0");
-				orgInfo.setLvl(1);
-			} else if (OrgEnums.OrgType.common.getValue() == orgInfo.getOrgType()) {
-				OrgInfo parentVo = orgInfoService.findById(orgInfo.getParentId());
-				orgInfo.setLvl(parentVo.getLvl() + 1);
-
-				orgInfo.setLvl2Id(parentVo.getLvl2Id());
-				orgInfo.setLvl2Name(parentVo.getLvl2Name());
-
-				orgInfo.setLvl3Id(parentVo.getLvl3Id());
-				orgInfo.setLvl3Name(parentVo.getLvl3Name());
-
-				orgInfo.setLvl4Id(parentVo.getLvl4Id());
-				orgInfo.setLvl4Name(parentVo.getLvl4Name());
-
-				orgInfo.setLvl5Id(parentVo.getLvl5Id());
-				orgInfo.setLvl5Name(parentVo.getLvl5Name());
-
-				orgInfo.setLvl6Id(parentVo.getLvl6Id());
-				orgInfo.setLvl6Name(parentVo.getLvl6Name());
-
-				if (orgInfo.getLvl() == 2) {
-					orgInfo.setLvl2Id(orgInfo.getOrgid());
-					orgInfo.setLvl2Name(orgInfo.getOrgname());
-				} else if (orgInfo.getLvl() == 3) {
-					orgInfo.setLvl3Id(orgInfo.getOrgid());
-					orgInfo.setLvl3Name(orgInfo.getOrgname());
-				} else if (orgInfo.getLvl() == 4) {
-					orgInfo.setLvl4Id(orgInfo.getOrgid());
-					orgInfo.setLvl4Name(orgInfo.getOrgname());
-				} else if (orgInfo.getLvl() == 5) {
-					orgInfo.setLvl5Id(orgInfo.getOrgid());
-					orgInfo.setLvl5Name(orgInfo.getOrgname());
-				} else if (orgInfo.getLvl() == 6) {
-					orgInfo.setLvl6Id(orgInfo.getOrgid());
-					orgInfo.setLvl6Name(orgInfo.getOrgname());
-				}
-			} else {
-				orgInfo.setLvl(2);
-				orgInfo.setLvl2Id(orgInfo.getOrgid());
-				orgInfo.setLvl2Name(orgInfo.getOrgname());
-				orgInfo.setParentId(admin.getCompanyId());
 			}
 			orgInfoService.update(orgInfo);
 			result.setMessage("更新成功!");
