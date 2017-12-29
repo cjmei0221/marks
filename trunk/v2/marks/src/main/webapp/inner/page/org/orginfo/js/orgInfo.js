@@ -1,11 +1,11 @@
 var appInfo = {
 	listUrl : top.window.urlBase + '/inner/orgInfo/list.do',// 获取机构管理列表接口
-															// OrgInfo
+	// OrgInfo
 	saveUrl : top.window.urlBase + '/inner/orgInfo/save.do',// 保存新增机构管理接口
 	updateUrl : top.window.urlBase + '/inner/orgInfo/update.do',// 编辑机构管理信息接口
 	deleteUrl : top.window.urlBase + '/inner/orgInfo/delete.do',// 删除机构管理接口
 	arealistUrl : top.window.urlBase + '/inner/area/list.do',// 获取机构管理列表接口
-																// OrgInfo
+	// OrgInfo
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -17,16 +17,13 @@ var appInfo = {
 
 // 新增
 function add() {
-	if (isSelectedOne(appInfo.selectedId)) {
-		$("#editWin").window({
-			title : "新增"
-		}).window("open");
-		$('#ff').form('clear');
-		appInfo.formStatus = "new";
-		$("#parentName").val(appInfo.selectedData.orgname);
-		$("#parentId").val(appInfo.selectedId);
-		$("#orgid").removeAttr("readonly");
-	}
+	$("#editWin").window({
+		title : "新增"
+	}).window("open");
+	$('#ff').form('clear');
+	appInfo.formStatus = "new";
+	$("#parentId").val("top");
+	$("#orgid").removeAttr("readonly");
 }
 
 // 编辑
@@ -105,7 +102,7 @@ $(function() {
 							+ "?parentId=" + node.id + "&_timer="
 							+ new Date().getTime();
 				},
-				onClick:function(node){
+				onClick : function(node) {
 					$("#areaName").val(node.text);
 				}
 			});
@@ -151,13 +148,13 @@ function formSubmit() {
 function loadList() {
 	$('#tbList').treegrid(
 			{
-				url : appInfo.listUrl+"?orgType=0",
+				url : appInfo.listUrl + "?orgType=0",
 				toolbar : "#tb",
 				rownumbers : true,
 				idField : 'orgid',
 				treeField : 'orgname',
 				singleSelect : true,
-//				queryParams : appInfo.requestParam,
+				// queryParams : appInfo.requestParam,
 				columns : [ [ {
 
 					title : '组织名称',
@@ -168,11 +165,6 @@ function loadList() {
 					title : '组织ID',
 					field : 'orgid',
 					width : 150,
-					align : "center"
-				}, {
-					title : '英文logo',
-					field : 'logoId',
-					width : 100,
 					align : "center"
 				}, {
 					title : '区域',
@@ -214,8 +206,8 @@ function loadList() {
 				} ] ],
 				onBeforeExpand : function(row) {
 					$("#tbList").treegrid("options").url = appInfo.listUrl
-							+ "?parentId=" + row.orgid + "&orgType=0"+"&_timer="
-							+ new Date().getTime();
+							+ "?parentId=" + row.orgid + "&orgType=0"
+							+ "&_timer=" + new Date().getTime();
 				},
 				onClickRow : function(rowData) {
 					appInfo.selectedId = rowData.orgid;
