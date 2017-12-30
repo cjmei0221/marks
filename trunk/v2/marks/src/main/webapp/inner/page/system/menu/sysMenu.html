@@ -86,6 +86,14 @@
 						class="easyui-numberbox" value="150" style="width: 200px;"
 						data-options="required:true,max:999,min:0,precision:0"></td>
 				</tr>
+				<tr id="statusTr" style="display:none;">
+					<th>启禁用</th>
+					<td><select id="status" class="easyui-combobox" name="status"
+						style="width: 200px;">
+							<option value="0">禁用</option>
+							<option value="1">启用</option>
+					</select></td>
+				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"><input
 						type="button" id="btnCancel" name="btnCancel" value=" 取 消 " />

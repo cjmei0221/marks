@@ -1,6 +1,7 @@
 package com.marks.module.work.base.pojo;
 
 import java.io.Serializable;
+
 import com.marks.common.util.date.DateUtil;
 
 public class WorkType implements Serializable{
@@ -70,10 +71,15 @@ public class WorkType implements Serializable{
     */
     private String linkUrl;
     /**
-    *是否需要审核
+    *系统处理
+    *0:系统处理 1:自行处理
+    */
+	private int isAuto;
+    /**
+    *类名
     *
     */
-    private int isCheck;
+    private String classType;
 
 
  public WorkType(){
@@ -167,15 +173,23 @@ public class WorkType implements Serializable{
         this.linkUrl = linkUrl;
     }
 
-    public int getIsCheck(){
-        return isCheck;
+	public int getIsAuto() {
+        return isAuto;
     }
-    public void setIsCheck(int isCheck){
-        this.isCheck = isCheck;
+
+	public void setIsAuto(int isAuto) {
+        this.isAuto = isAuto;
+    }
+
+    public String getClassType(){
+        return classType;
+    }
+    public void setClassType(String classType){
+        this.classType = classType;
     }
 
 
 	public String toLog(){
-		return " - typeId:" +String.valueOf(typeId)+" - typeName:" +String.valueOf(typeName)+" - companyId:" +String.valueOf(companyId)+" - typeCode:" +String.valueOf(typeCode)+" - dbscheme:" +String.valueOf(dbscheme)+" - tbName:" +String.valueOf(tbName)+" - idField:" +String.valueOf(idField)+" - checkField:" +String.valueOf(checkField)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - updater:" +String.valueOf(updater)+" - linkUrl:" +String.valueOf(linkUrl)+" - isCheck:" +String.valueOf(isCheck);
+		return " - typeId:" +String.valueOf(typeId)+" - typeName:" +String.valueOf(typeName)+" - companyId:" +String.valueOf(companyId)+" - typeCode:" +String.valueOf(typeCode)+" - dbscheme:" +String.valueOf(dbscheme)+" - tbName:" +String.valueOf(tbName)+" - idField:" +String.valueOf(idField)+" - checkField:" +String.valueOf(checkField)+" - createtime:" +String.valueOf(createtime)+" - updatetime:" +String.valueOf(updatetime)+" - updater:" +String.valueOf(updater)+" - linkUrl:" +String.valueOf(linkUrl)+" - isAuto:" +String.valueOf(isAuto)+" - classType:" +String.valueOf(classType);
 	}
 }

@@ -23,7 +23,8 @@
             UPDATETIME,
             UPDATER,
             LINKURL,
-            ISCHECK
+            ISAUTO,
+            CLASSTYPE
 		)
 		VALUES(
 		#{info.typeId:VARCHAR},
@@ -38,7 +39,8 @@
             #{info.updatetime:VARCHAR},
             #{info.updater:VARCHAR},
             #{info.linkUrl:VARCHAR},
-            #{info.isCheck:NUMERIC}			
+            #{info.isAuto:VARCHAR},
+            #{info.classType:VARCHAR}			
 			)
  	</insert>
  	
@@ -56,7 +58,8 @@
             UPDATETIME,
             UPDATER,
             LINKURL,
-            ISCHECK
+            ISAUTO,
+            CLASSTYPE
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -74,7 +77,8 @@
             #{info.updatetime:VARCHAR},
             #{info.updater:VARCHAR},
             #{info.linkUrl:VARCHAR},
-            #{info.isCheck:NUMERIC}			
+            #{info.isAuto:VARCHAR},
+            #{info.classType:VARCHAR}			
 			)
 		</foreach>
 	</insert>
@@ -93,7 +97,8 @@
             UPDATETIME = #{info.updatetime:VARCHAR},
             UPDATER = #{info.updater:VARCHAR},
             LINKURL = #{info.linkUrl:VARCHAR},
-            ISCHECK = #{info.isCheck:NUMERIC}
+            ISAUTO = #{info.isAuto:VARCHAR},
+            CLASSTYPE = #{info.classType:VARCHAR}
 		WHERE
 			TYPEID = #{info.typeId}
  	</update>
@@ -113,7 +118,8 @@
             UPDATETIME = #{info.updatetime:VARCHAR},
             UPDATER = #{info.updater:VARCHAR},
             LINKURL = #{info.linkUrl:VARCHAR},
-            ISCHECK = #{info.isCheck:NUMERIC}
+            ISAUTO = #{info.isAuto:VARCHAR},
+            CLASSTYPE = #{info.classType:VARCHAR}
 		WHERE
 			TYPEID = #{info.typeId}
 		</foreach>
