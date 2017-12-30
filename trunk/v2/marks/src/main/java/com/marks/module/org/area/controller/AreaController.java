@@ -243,7 +243,7 @@ public class AreaController extends SupportContorller {
 		List<Area> list = null;
 		// 根节点加载
 		if (parentId == null || "".equals(parentId)) {
-			parentId = companyId;
+			parentId = "0";
 		}
 		list = areaService.treeGrid(companyId, parentId);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
