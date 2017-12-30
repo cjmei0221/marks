@@ -23,6 +23,7 @@ function add() {
 	appInfo.selectedId = -1;
 	$("#lvl1Menuid").combobox("reload");
 	$("#lvl").combobox("setValue", 1);
+	$("#status").combobox("setValue", 1);
 }
 // 编辑
 
@@ -35,6 +36,11 @@ function edit() {
 		}).window("open");
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
+		if (appInfo.selectedId == '1' || appInfo.selectedId == '2') {
+			$("#statusTr").hide();
+		} else {
+			$("#statusTr").show();
+		}
 	}
 }
 // 删除
@@ -159,12 +165,15 @@ $(function() {
 			$("#lvl1Menuid").combobox("clear");
 			var lvlVal = rec.value;
 			if (lvlVal == 1) {
+				$("#statusTr").hide();
 				$("#lvl1MenuidTr").hide();
 				$("#lvl2MenuidTr").hide();
 			} else if (lvlVal == 2) {
+				$("#statusTr").show();
 				$("#lvl1MenuidTr").show();
 				$("#lvl2MenuidTr").hide();
 			} else if (lvlVal == 3) {
+				$("#statusTr").show();
 				$("#lvl1MenuidTr").show();
 				$("#lvl2MenuidTr").show();
 			}
@@ -199,7 +208,8 @@ function submitFuncForm() {
 	var url = appInfo.addFuncurl;
 	var parms = $("#funcff").serialize();
 	parms += "&menuid=" + appInfo.selectedId;
-	$.post(
+	$
+			.post(
 					url,
 					parms,
 					function(data) {
@@ -311,7 +321,7 @@ function loadList() {
 					formatter : function(value, row, index) {
 						if (value == 1) {
 							return "一级菜单";
-						} else if(value==2){
+						} else if (value == 2) {
 							return "二级菜单";
 						} else if (value == 3) {
 							return "三级菜单";
@@ -322,6 +332,19 @@ function loadList() {
 					title : '排序',
 					field : 'sort',
 					width : 60
+				}, {
+					title : '启禁用',
+					field : 'status',
+					width : 100,
+					align : "center",
+					formatter : function(value, row, index) {
+						if (value == 1) {
+							return "启用";
+						} else if (value == 0) {
+							return "禁用";
+						}
+						return "";
+					}
 				} ] ],
 				onBeforeExpand : function(row) {
 					$("#tbList").treegrid("options").url = appInfo.listUrl

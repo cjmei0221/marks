@@ -1,8 +1,6 @@
 package com.marks.module.work.base.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.string.IStringUtil;
-import com.marks.common.util.IDUtil;
-import com.marks.common.util.Code;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
-
 import com.marks.module.work.base.pojo.WorkType;
 import com.marks.module.work.base.service.WorkTypeService;
 
@@ -77,7 +73,8 @@ public class WorkTypeController extends SupportContorller{
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 	    	WorkType info = getModel(WorkType.class);
-	        info.setTypeId(IDUtil.getUUID());
+			info.setCompanyId(admin.getCompanyId());
+			info.setTypeId(info.getCompanyId() + "_" + info.getTypeCode());
 	 		
 	 		logger.info("saveWorkType > param>"+info.toLog());
 	 
@@ -87,6 +84,7 @@ public class WorkTypeController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
+				info.setUpdater(admin.getUserid() + " - " + admin.getUsername());
 	 			workTypeService.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -120,6 +118,7 @@ public class WorkTypeController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
+				info.setUpdater(admin.getUserid() + " - " + admin.getUsername());
 		    	workTypeService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
