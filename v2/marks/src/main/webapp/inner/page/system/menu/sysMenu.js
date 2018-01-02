@@ -296,9 +296,12 @@ function loadList() {
 	$('#tbList').treegrid(
 			{
 				url : appInfo.listUrl,
+				toolbar : "#tb",
 				rownumbers : true,
+				height:580,
 				idField : 'menuid',
 				treeField : 'menuitem',
+				singleSelect : true,
 				frozenColumns : [ [ {
 					title : '菜单ID',
 					field : 'menuid',
