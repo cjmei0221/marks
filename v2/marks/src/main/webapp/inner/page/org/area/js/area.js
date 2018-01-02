@@ -150,6 +150,7 @@ function loadList() {
 				rownumbers : true,
 				idField : 'areaId',
 				treeField : 'areaName',
+				height:580,
 				singleSelect : true,
 				queryParams : appInfo.requestParam,
 				columns : [ [ {
