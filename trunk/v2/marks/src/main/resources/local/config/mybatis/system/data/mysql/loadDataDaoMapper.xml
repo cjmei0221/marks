@@ -16,6 +16,6 @@
 		SELECT * FROM TB_WX_ACCOUNT
 	</select>
 	<select id="loadUrlList" resultType="String">
-		SELECT distinct t.url FROM tb_SYS_FUNC t
+		SELECT distinct t.url FROM tb_SYS_FUNC t join tb_sys_menu menu on t.menuid=menu.menuid and menu.status=1
 	</select>
 </mapper>
