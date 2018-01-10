@@ -66,8 +66,6 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or syslog.USERNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or to_char(syslog.CREATETIME,'yyyy-mm-dd') LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or syslog.IP LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or syslog.MENUNAME LIKE
@@ -84,6 +82,6 @@
 		order by syslog.CREATETIME desc
 	</select>
 	<delete id="deleteData" flushCache="true">
-		delete from tb_sys_log where to_char(createtime,'yyyy-MM-dd') &lt; #{clearDate}
+		delete from tb_sys_log where date_format(createtime,'%Y-%m-%d') &lt; #{clearDate}
 	</delete>
 </mapper>

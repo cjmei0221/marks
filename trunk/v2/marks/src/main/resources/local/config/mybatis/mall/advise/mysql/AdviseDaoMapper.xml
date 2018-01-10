@@ -76,10 +76,6 @@
 			and ( advise.CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
 			or advise.LABEL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
-			or to_char(advise.CREATETIME,'yyyyMMdd') LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
 			or advise.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
 			or advise.MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

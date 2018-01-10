@@ -93,9 +93,6 @@
 			or modulemsg.DATA LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			
-			or to_char(modulemsg.CREATETIME,'yyyy-MM-dd')
-			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			
 			or modulemsg.MSGID
 			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 		
@@ -116,7 +113,7 @@
 	</select>
 
 	<delete id="deleteData" flushCache="true">
-		delete from tb_wx_module_msg where to_char(createtime,'yyyy-MM-dd') &lt; #{clearDate} 
+		delete from tb_wx_module_msg where date_format(createtime,'%Y-%m-%d') &lt; #{clearDate} 
 	</delete>
 	
 	<select id="getNeedPustMsg" resultType="com.marks.module.wx.manage.entity.template.ModuleMsg">

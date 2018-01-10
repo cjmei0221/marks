@@ -99,10 +99,6 @@
 			and ( wxchatsession.SESSION_ID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 
-			or
-			to_char(wxchatsession.CREATETIME,'yyyy-MM-dd') LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-
 			or wxchatsession.C_CONTENT
 			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

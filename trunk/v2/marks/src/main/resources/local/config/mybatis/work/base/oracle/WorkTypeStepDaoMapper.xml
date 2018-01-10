@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.work.base.dao.WorkTypeStepDao">
+
+    <select id="findById" resultType="com.marks.module.work.base.pojo.WorkTypeStep">
+		SELECT * FROM TB_WORK_TYPE_STEP t where t.STEPID = #{stepId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.work.base.pojo.WorkTypeStep">
+		<!--<selectKey keyProperty="stepId" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>-->
+
+ 		INSERT INTO TB_WORK_TYPE_STEP  (
+            STEPID,
+            STEP,
+            COMPANYID,
+            STEPNAME,
+            ROLEID,
+            CREATETIME,
+            UPDATETIME,
+            UPDATER,
+            TYPEID,
+            ISCHECKOK,
+            ROLENAME
+		)
+		VALUES(
+		#{info.stepId:VARCHAR},
+            #{info.step:NUMERIC},
+            #{info.companyId:VARCHAR},
+            #{info.stepName:VARCHAR},
+            #{info.roleId:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR},
+            #{info.updater:VARCHAR},
+            #{info.typeId:VARCHAR},
+            #{info.isCheckOk:NUMERIC},
+            #{info.roleName:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_WORK_TYPE_STEP (
+			            STEPID,
+            STEP,
+            COMPANYID,
+            STEPNAME,
+            ROLEID,
+            CREATETIME,
+            UPDATETIME,
+            UPDATER,
+            TYPEID,
+            ISCHECKOK,
+            ROLENAME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.stepId:VARCHAR},
+            #{info.step:NUMERIC},
+            #{info.companyId:VARCHAR},
+            #{info.stepName:VARCHAR},
+            #{info.roleId:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR},
+            #{info.updater:VARCHAR},
+            #{info.typeId:VARCHAR},
+            #{info.isCheckOk:NUMERIC},
+            #{info.roleName:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	
+ 	<update id="update" parameterType="com.marks.module.work.base.pojo.WorkTypeStep">
+ 		UPDATE TB_WORK_TYPE_STEP 
+		SET 
+			STEP = #{info.step:NUMERIC},
+            COMPANYID = #{info.companyId:VARCHAR},
+            STEPNAME = #{info.stepName:VARCHAR},
+            ROLEID = #{info.roleId:VARCHAR},
+            UPDATETIME = #{info.updatetime:VARCHAR},
+            UPDATER = #{info.updater:VARCHAR},
+            TYPEID = #{info.typeId:VARCHAR},
+            ISCHECKOK = #{info.isCheckOk:NUMERIC},
+            ROLENAME = #{info.roleName:VARCHAR}
+		WHERE
+			STEPID = #{info.stepId}
+ 	</update>
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_WORK_TYPE_STEP 
+		SET 
+			STEP = #{info.step:NUMERIC},
+            COMPANYID = #{info.companyId:VARCHAR},
+            STEPNAME = #{info.stepName:VARCHAR},
+            ROLEID = #{info.roleId:VARCHAR},
+            UPDATETIME = #{info.updatetime:VARCHAR},
+            UPDATER = #{info.updater:VARCHAR},
+            TYPEID = #{info.typeId:VARCHAR},
+            ISCHECKOK = #{info.isCheckOk:NUMERIC},
+            ROLENAME = #{info.roleName:VARCHAR}
+		WHERE
+			STEPID = #{info.stepId}
+		</foreach>
+
+	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_WORK_TYPE_STEP t WHERE t.STEPID=#{stepId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.work.base.pojo.WorkTypeStep">
+ 		SELECT * FROM TB_WORK_TYPE_STEP t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_WORK_TYPE_STEP WHERE STEPID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.work.base.pojo.WorkTypeStep" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_WORK_TYPE_STEP t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.STEPNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+					
+			    order by  t.UPDATETIME DESC				
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

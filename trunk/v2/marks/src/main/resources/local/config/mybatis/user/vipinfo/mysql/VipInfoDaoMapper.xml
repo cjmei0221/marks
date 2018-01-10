@@ -96,12 +96,6 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or vipinfo.SIGNATURE LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or
-			to_char(su.CREATETIME,'yyyymmdd') LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or
-			to_char(su.bind_mobile,'yyyymmdd') LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 		order by su.updatetime desc
