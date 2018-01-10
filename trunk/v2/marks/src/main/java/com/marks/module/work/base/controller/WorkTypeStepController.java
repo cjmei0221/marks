@@ -20,18 +20,18 @@ import com.marks.common.util.string.IStringUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.ManageUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
-import com.marks.module.work.base.pojo.WorkType;
-import com.marks.module.work.base.service.WorkTypeService;
+import com.marks.module.work.base.pojo.WorkTypeStep;
+import com.marks.module.work.base.service.WorkTypeStepService;
 
  /**
-	 * 工作类型: 工作流类型
+	 * 工作流步骤配置: 工作流步骤配置
 	 */
 @Controller
-public class WorkTypeController extends SupportContorller{
-    private static Logger logger = Logger.getLogger( WorkTypeController.class);
+public class WorkTypeStepController extends SupportContorller{
+    private static Logger logger = Logger.getLogger( WorkTypeStepController.class);
     
     @Autowired
-    private WorkTypeService  workTypeService;
+    private WorkTypeStepService  workTypeStepService;
    
 
     @Override
@@ -40,18 +40,18 @@ public class WorkTypeController extends SupportContorller{
 	}
 
     /**
-	 * 查询工作类型
+	 * 查询工作流步骤配置
 	 */
-    @RequestMapping("/inner/workType/findById")
-    public void findWorkTypeById(HttpServletRequest request,
+    @RequestMapping("/inner/workTypeStep/findById")
+    public void findWorkTypeStepById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    WorkType info = getModel(WorkType.class);
+		    WorkTypeStep info = getModel(WorkTypeStep.class);
 		    
-		    logger.info("findWorkTypeById > param>"+info.getTypeId());
+		    logger.info("findWorkTypeStepById > param>"+info.getStepId());
 		    
-			WorkType vo = workTypeService.findById(info.getTypeId());
+			WorkTypeStep vo = workTypeStepService.findById(info.getStepId());
 			result.getData().put("info",vo);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -64,28 +64,29 @@ public class WorkTypeController extends SupportContorller{
     }
     
     /**
-	 * 保存工作类型
+	 * 保存工作流步骤配置
 	 */
-    @RequestMapping("/inner/workType/save")
-    public void saveWorkType(HttpServletRequest request,
+    @RequestMapping("/inner/workTypeStep/save")
+    public void saveWorkTypeStep(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	WorkType info = getModel(WorkType.class);
-			info.setCompanyId(admin.getCompanyId());
-			info.setTypeId(info.getTypeCode());
+	    	WorkTypeStep info = getModel(WorkTypeStep.class);
+			info.setTypeId(request.getParameter("i_typeId"));
+			info.setStepId(info.getTypeId() + info.getStep());
 	 		
-	 		logger.info("saveWorkType > param>"+info.toLog());
+	 		logger.info("saveWorkTypeStep > param>"+info.toLog());
 	 
-			 WorkType ori=null;
-	 		if(info.getTypeId() != null){
-	 			ori=workTypeService.findById(info.getTypeId());
+			 WorkTypeStep ori=null;
+	 		if(info.getStepId() != null){
+	 			ori=workTypeStepService.findById(info.getStepId());
 	 		}
 	 		
 	 		if(ori==null){
+				info.setCompanyId(admin.getCompanyId());
 				info.setUpdater(admin.getUserid() + " - " + admin.getUsername());
-	 			workTypeService.save(info);
+	 			workTypeStepService.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -101,25 +102,24 @@ public class WorkTypeController extends SupportContorller{
 	}
 	
 	/**
-	 * 更改工作类型
+	 * 更改工作流步骤配置
 	 */
-    @RequestMapping("/inner/workType/update")
-    public void updateWorkType(HttpServletRequest request,
+    @RequestMapping("/inner/workTypeStep/update")
+    public void updateWorkTypeStep(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-		    WorkType info = getModel(WorkType.class);
+		    WorkTypeStep info = getModel(WorkTypeStep.class);
 		    
-		    logger.info(" updateWorkType> param>"+info.toLog());
+		    logger.info(" updateWorkTypeStep> param>"+info.toLog());
 		    
-		    WorkType ori=workTypeService.findById(info.getTypeId());
+		    WorkTypeStep ori=workTypeStepService.findById(info.getStepId());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-				info.setUpdater(admin.getUserid() + " - " + admin.getUsername());
-		    	workTypeService.update(info);
+		    	workTypeStepService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -132,18 +132,18 @@ public class WorkTypeController extends SupportContorller{
 	}
 	
 	/**
-	 * 删除工作类型
+	 * 删除工作流步骤配置
 	 */
-    @RequestMapping("/inner/workType/delete")
-    public void deleteWorkTypeById(HttpServletRequest request,
+    @RequestMapping("/inner/workTypeStep/delete")
+    public void deleteWorkTypeStepById(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-		   	WorkType info = getModel(WorkType.class);
+		   	WorkTypeStep info = getModel(WorkTypeStep.class);
 		   	
-		   	logger.info("deleteWorkTypeById > param>"+info.getTypeId());
+		   	logger.info("deleteWorkTypeStepById > param>"+info.getStepId());
 		   	
-			workTypeService.delete(info.getTypeId());
+			workTypeStepService.delete(info.getStepId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -155,22 +155,22 @@ public class WorkTypeController extends SupportContorller{
 	}
 	
 	/**
-	 * 查询全部工作类型
+	 * 查询全部工作流步骤配置
 	 */
 
     /*
-    @RequestMapping("/inner/workType/findAllWorkType")
-    public void findAllWorkType(HttpServletRequest request,
+    @RequestMapping("/inner/workTypeStep/findAllWorkTypeStep")
+    public void findAllWorkTypeStep(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			List<WorkType> allList = workTypeService.findAll();
+			List<WorkTypeStep> allList = workTypeStepService.findAll();
 			result.getData().put("allList",allList);
-			result.setMessage("findAll workType successs!");
+			result.setMessage("findAll workTypeStep successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("findAll workType fail!");
+			result.setMessage("findAll workTypeStep fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
@@ -178,15 +178,15 @@ public class WorkTypeController extends SupportContorller{
 	*/
 	
 	/**
-	 * 删除多个工作类型
+	 * 删除多个工作流步骤配置
 	 */
 	/*
-	@RequestMapping("/inner/workType/deleteIds")
-	public void deleteWorkType(HttpServletRequest request,
+	@RequestMapping("/inner/workTypeStep/deleteIds")
+	public void deleteWorkTypeStep(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
 		try {
-			String id = request.getParameter("typeId");
+			String id = request.getParameter("stepId");
 			logger.info("delete batch> param>"+id);
 			String[] ids = id.split(",");
 			List<String> idList = new ArrayList<String>();
@@ -194,7 +194,7 @@ public class WorkTypeController extends SupportContorller{
 				idList.add(ids[i]);
 			}
 			if(idList.size()>0){
-				workTypeService.deleteBatch(idList);
+				workTypeStepService.deleteBatch(idList);
 				result.setMessage("删除成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			}else{
@@ -204,7 +204,7 @@ public class WorkTypeController extends SupportContorller{
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("delete workType fail!");
+			result.setMessage("delete workTypeStep fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
@@ -214,7 +214,7 @@ public class WorkTypeController extends SupportContorller{
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/inner/workType/list")
+	@RequestMapping("/inner/workTypeStep/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
@@ -228,17 +228,17 @@ public class WorkTypeController extends SupportContorller{
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			PojoDomain<WorkType> list = workTypeService.list(page_number, page_size, param);
+			PojoDomain<WorkTypeStep> list = workTypeStepService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());
 			result.setPageTotal(list.getPage_total());
 			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find workType successs!");
+			result.setMessage("find workTypeStep successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("find workType fail!");
+			result.setMessage("find workTypeStep fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
