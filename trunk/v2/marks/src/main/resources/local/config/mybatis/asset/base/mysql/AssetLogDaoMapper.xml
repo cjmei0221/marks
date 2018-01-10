@@ -271,19 +271,10 @@
 	<select id="listDayCount" resultType="com.marks.module.asset.base.pojo.AssetLogCount"
 		parameterType="java.util.Map">
 		select t2.* from (
-		select t.USERID,t.tranTime as itemName,
+		select t.USERID,concat_ws('-',t.tranYear,t.tranMonth,t.itemName) as itemName,
 		sum(case WHEN t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
 		sum(case WHEN t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
-		from tb_asset_log t group by t.USERID,t.tranTime
-		<!-- union
-		select
-		concat_ws('.',t.tranTime,t.itemName) as itemName,
-		sum(case WHEN
-		t.tranType=0 THEN t.tranAmount else 0 end) as outAmount,
-		sum(case WHEN
-		t.tranType=1 THEN t.tranAmount else 0 end) as inAmount
-		from
-		tb_asset_log t group by t.tranTime,t.itemName -->
+		from tb_asset_log t group by t.USERID,t.tranYear,t.tranMonth,t.itemName
 		) t2
 		WHERE 1=1 and t2.USERID=#{userid}
 		<if test="keyword!=null and keyword!=''">
@@ -292,6 +283,6 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-		ORDER BY t2.itemName desc
+		ORDER BY t2.itemName
 	</select>
 </mapper>
