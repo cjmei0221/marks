@@ -283,6 +283,6 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-		ORDER BY t2.itemName
+		ORDER BY t2.itemName desc
 	</select>
 </mapper>
