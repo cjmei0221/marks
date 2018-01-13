@@ -1,6 +1,5 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/inner/workInfo/listByUserId.do',// 获取工作步骤列表接口
-																		// WorkStep
+	listUrl : top.window.urlBase + '/inner/workInfo/listByUserId.do',// 获取工作步骤列表接口																	// WorkStep
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -11,7 +10,14 @@ var appInfo = {
 	formStatus : "new"
 };
 // -----------------权限控制功能 start---------------
-
+function showInfo(){
+	$("#editWin").window({
+		title : "资料"
+	}).window("open");
+	var path = top.window.urlBase + appInfo.selectedData.pageUrl;
+    var strHtml = "<iframe style='width:100%;height:99%;' frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
+    $("#postShow").append(strHtml);
+}
 // -----------------权限控制功能 end---------------
 $(function() {
 	// 加载列表
@@ -82,13 +88,13 @@ function loadList() {
 			loader(that, params, success, loadError);
 		},
 		onClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.stepId;
+			appInfo.selectedId = rowData.workId;
 			appInfo.selectedData = rowData;
 		},
 		onDblClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.stepId;
+			appInfo.selectedId = rowData.workId;
 			appInfo.selectedData = rowData;
-			edit();
+			showInfo();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');
