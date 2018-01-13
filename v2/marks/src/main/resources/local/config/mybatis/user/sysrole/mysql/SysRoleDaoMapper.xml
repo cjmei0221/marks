@@ -12,7 +12,7 @@
 		INSERT INTO TB_SYS_ROLE
 		(
 		ROLEID,
-		USERTYPE,
+		ROLETYPE,
 		LVL,
 		showflag,
 		UPDATETIME,
@@ -20,11 +20,13 @@
 		ROLENAME,
 		CREATETIME,
 		COMPANYID,
-		delFlag
+		delFlag,
+		orgId,
+		orgName
 		)
 		VALUES(
 		#{roleid:VARCHAR},
-		#{userType:VARCHAR},
+		#{roleType:VARCHAR},
 		#{lvl:NUMERIC},
 		#{showFlag:NUMERIC},
 		now(),
@@ -32,16 +34,20 @@
 		#{rolename:VARCHAR},
 		now(),
 		#{companyId:VARCHAR},
-		#{delFlag:NUMERIC}
+		#{delFlag:NUMERIC},
+		#{orgId:VARCHAR},
+		#{orgName:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.user.sysrole.pojo.SysRole">
 		UPDATE TB_SYS_ROLE
 		SET
+		orgId=#{orgId:VARCHAR},
+		orgName=#{orgName:VARCHAR},
 		delFlag=#{delFlag:NUMERIC},
-		USERTYPE
-		= #{userType:VARCHAR},
+		roleType
+		= #{roleType:VARCHAR},
 		LVL=#{lvl:NUMERIC},
 		showflag=#{showFlag:NUMERIC},
 		UPDATETIME =
@@ -87,10 +93,8 @@
 
 	<select id="list" resultType="com.marks.module.user.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
-		SELECT sysrole.*,o.orgname companyName
-		FROM TB_SYS_ROLE sysrole left
-		join
-		tb_org_info o on sysrole.companyId=o.orgid
+		SELECT sysrole.*
+		FROM TB_SYS_ROLE sysrole
 		WHERE 1=1
 		<if test="companyId !=null and companyId != ''">
 			and sysrole.COMPANYID = #{companyId}
@@ -198,7 +202,7 @@
 	</select>
 	<select id="findByUserTypeAndCompanyId" resultType="com.marks.module.user.sysrole.pojo.SysRole">
 		select * from
-		tb_sys_role t where t.roleid=#{roleid} and
+		tb_sys_role t where t.roleType=#{roleType} and
 		t.companyid=#{companyId}
 	</select>
 	<select id="countUserByRoleid" resultType="int">

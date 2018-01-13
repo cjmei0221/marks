@@ -9,11 +9,9 @@
 		t.userid=#{userid}
 	</select>
 	<select id="findByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
-		select distinct
-		u.*,
-		tsr.rolename
+		select
+		u.*
 		from tb_user u
-		join tb_sys_role tsr on u.roleid = tsr.roleid
 		where u.USERID =#{userid}
 	</select>
 
@@ -37,8 +35,22 @@
 		ROLEID,
 		openid,
 		accountid,
-		defaultOrgid,
-		defaultOrgname
+		userCode,
+		roleName,
+		roleType,
+		roleLvl,
+		orgId,
+		orgName,
+		orgType,
+		orgCategory,
+		parentOrgId,
+		parentOrgName,
+		gender,
+		birthday,
+		signature,
+		idNumber,
+		email,
+		entryDate
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -51,19 +63,46 @@
 		#{creator:VARCHAR},
 		#{companyId:VARCHAR},
 		#{token:VARCHAR},
-		#{roleid:VARCHAR},
+		#{roleId:VARCHAR},
 		#{openid:VARCHAR},
 		#{accountid:VARCHAR},
-		#{defaultOrgid:VARCHAR},
-		#{defaultOrgname:VARCHAR}
+		#{userCode:VARCHAR},
+		#{roleName:VARCHAR},
+		#{roleType:VARCHAR},
+		#{roleLvl:NUMERIC},
+		#{orgId:VARCHAR},
+		#{orgName:VARCHAR},
+		#{orgType:NUMERIC},
+		#{orgCategory:NUMERIC},
+		#{parentOrgId:VARCHAR},
+		#{parentOrgName:VARCHAR},
+		#{gender:NUMERIC},
+		#{birthday:VARCHAR},
+		#{signature:VARCHAR},
+		#{idNumber:VARCHAR},
+		#{email:VARCHAR},
+		#{entryDate:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
 		UPDATE tb_user
 		SET
-		defaultOrgid=#{defaultOrgid:VARCHAR},
-		defaultOrgname=#{defaultOrgname:VARCHAR},
+		gender=#{gender:NUMERIC},
+		birthday=#{birthday:VARCHAR},
+		signature=#{signature:VARCHAR},
+		idNumber=#{idNumber:VARCHAR},
+		email=#{email:VARCHAR},
+		entryDate=#{entryDate:VARCHAR},
+		roleName=#{roleName:VARCHAR},
+		roleType=#{roleType:VARCHAR},
+		roleLvl=#{roleLvl:NUMERIC},
+		orgId=#{orgId:VARCHAR},
+		orgName=#{orgName:VARCHAR},
+		orgType=#{orgType:NUMERIC},
+		orgCategory=#{orgCategory:NUMERIC},
+		parentOrgId=#{parentOrgId:VARCHAR},
+		parentOrgName=#{parentOrgName:VARCHAR},
 		USERNAME =
 		#{username:VARCHAR},
 		ACTIVEFLAG =
@@ -76,7 +115,7 @@
 		openid
 		= #{openid:VARCHAR},
 		accountid = #{accountid:VARCHAR},
-		ROLEID=#{roleid:VARCHAR}
+		ROLEID=#{roleId:VARCHAR}
 		WHERE
 		USERID
 		= #{userid}
@@ -85,7 +124,8 @@
 		UPDATE tb_user
 		SET
 		PASSWORD
-		= #{password:VARCHAR},
+		=
+		#{password:VARCHAR},
 		UPDATETIME = now()
 		WHERE
 		USERID
@@ -131,26 +171,19 @@
 
 	<select id="list" resultType="com.marks.module.user.sysuser.pojo.SysUser"
 		parameterType="java.util.Map">
-		SELECT distinct sysuser.*,
-		tsr.rolename,
-		orgtb.orgidsStr,
-		orgtb.orgidNamesStr
+		SELECT  sysuser.*
 		FROM tb_user sysuser
 		join tb_sys_role tsr on (
-		sysuser.roleid = tsr.roleid and tsr.showflag=1)
-		left join (select
-		tsuo.userid, GROUP_CONCAT(toi.orgid) orgidsStr,
-		GROUP_CONCAT(toi.orgname) orgidNamesStr
-		from tb_user_org tsuo
-		join
-		tb_org_info toi on
-		tsuo.orgid = toi.orgid group by tsuo.userid
-		) orgtb
-		on sysuser.userid =
-		orgtb.userid
+		sysuser.roleid = tsr.roleid)
 		WHERE 1=1 and sysuser.hideFlag =0
 		<if test="companyId !=null and companyId != ''">
 			and sysuser.COMPANYID = #{companyId}
+		</if>
+		<if test="roleType !=null and roleType != ''">
+			and sysuser.roleType = #{roleType}
+		</if>
+		<if test="roleType == null or roleType == ''">
+			 and tsr.showflag=1
 		</if>
 		<if test="keyword!=null and keyword!=''">
 			and (
@@ -181,7 +214,7 @@
 			)
 		</if>
 		<if test="sorgid !=null and sorgid != ''">
-			and orgtb.orgidsStr like '%${sorgid}%'
+			and sysuser.orgid like '%${sorgid}%'
 		</if>
 		<if test="s_role !=null and s_role != ''">
 			and sysuser.roleid like '%${s_role}%'
@@ -189,38 +222,48 @@
 		order by sysuser.UPDATETIME desc
 	</select>
 
-	<delete id="deleteSysUserOrg" parameterType="String">
+	<delete id="deleteSysUserOrgRole" parameterType="String">
 		DELETE FROM
-		tb_user_org WHERE USERID=#{userid}
+		TB_USER_ORG_ROLE WHERE USERID=#{userid} and ORGID=#{orgid}
 	</delete>
-	<insert id="saveSysUserOrg" parameterType="com.marks.module.user.sysuser.pojo.SysUserOrg">
+	<delete id="deleteSysUserOrgRoleByUserid" parameterType="String">
+		DELETE
+		FROM
+		TB_USER_ORG_ROLE WHERE USERID=#{userid}
+	</delete>
+	<insert id="saveSysUserOrgRole" parameterType="com.marks.module.user.sysuser.pojo.SysUserOrgRole">
 		INSERT INTO
-		tb_user_org (
+		TB_USER_ORG_ROLE (
 		USERID,
+		companyId,
 		ORGID,
-		CREATETIME,
-		UPDATETIME,
-		CREATOR,
-		orgname,
-		isDefault
+		orgName,
+		orgType,
+		orgCategory,
+		parentOrgId,
+		parentOrgName,
+		roleId,
+		roleName,
+		roleType,
+		roleLvl,
+		UPDATETIME
 		)
 		VALUES(
 		#{userid:VARCHAR},
-		#{orgid:VARCHAR},
-		now(),
-		now(),
-		#{creator:VARCHAR},
-		#{orgname:VARCHAR},
-		#{isDefault:NUMERIC}
+		#{companyId:VARCHAR},
+		#{orgId:VARCHAR},
+		#{orgName:VARCHAR},
+		#{orgType:NUMERIC},
+		#{orgCategory:NUMERIC},
+		#{parentOrgId:VARCHAR},
+		#{parentOrgName:VARCHAR},
+		#{roleId:VARCHAR},
+		#{roleName:VARCHAR},
+		#{roleType:VARCHAR},
+		#{roleLvl:NUMERIC},
+		now()
 		)
 	</insert>
-	<update id="updateDefaultOrg">
-		UPDATE tb_user_org
-		SET
-		isDefault =1
-		WHERE
-		USERID=#{userid} and orgid=#{orgid}
-	</update>
 	<update id="updateSkin" flushCache="true">
 		update tb_user set
 		skin=#{skin},UPDATETIME=now() where userid=#{userid}
