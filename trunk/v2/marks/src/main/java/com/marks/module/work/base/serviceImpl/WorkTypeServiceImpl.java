@@ -3,17 +3,16 @@ package com.marks.module.work.base.serviceImpl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marks.module.work.base.pojo.WorkType;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.work.base.dao.WorkTypeDao;
+import com.marks.module.work.base.dao.WorkTypeStepDao;
+import com.marks.module.work.base.pojo.WorkType;
 import com.marks.module.work.base.service.WorkTypeService;
 
 @Service
@@ -22,6 +21,8 @@ public class WorkTypeServiceImpl implements WorkTypeService{
 
 	@Autowired
 	private WorkTypeDao workTypeDao;
+	@Autowired
+	private WorkTypeStepDao workTypeStepDao;
    
 /**
     private WorkTypeDao workTypeDao;
@@ -63,7 +64,8 @@ public class WorkTypeServiceImpl implements WorkTypeService{
     */
     @Override
     public void delete(String id){
-        workTypeDao.delete(id);       
+		workTypeDao.delete(id);
+		workTypeStepDao.deleteByTypeId(id);
     }
     
     /**

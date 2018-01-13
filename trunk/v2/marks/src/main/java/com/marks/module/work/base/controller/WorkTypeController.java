@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.enums.Enums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.string.IStringUtil;
@@ -74,7 +75,7 @@ public class WorkTypeController extends SupportContorller{
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 	    	WorkType info = getModel(WorkType.class);
 			info.setCompanyId(admin.getCompanyId());
-			info.setTypeId(info.getTypeCode());
+			info.setTypeId(admin.getCompanyId() + "_" + info.getTypeCode());
 	 		
 	 		logger.info("saveWorkType > param>"+info.toLog());
 	 
@@ -85,6 +86,7 @@ public class WorkTypeController extends SupportContorller{
 	 		
 	 		if(ori==null){
 				info.setUpdater(admin.getUserid() + " - " + admin.getUsername());
+				info.setStatus(Enums.Status.Unable.getValue());
 	 			workTypeService.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -119,6 +121,7 @@ public class WorkTypeController extends SupportContorller{
 				result.setCode(Code.CODE_FAIL);
 		    }else{
 				info.setUpdater(admin.getUserid() + " - " + admin.getUsername());
+				info.setStatus(ori.getStatus());
 		    	workTypeService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);

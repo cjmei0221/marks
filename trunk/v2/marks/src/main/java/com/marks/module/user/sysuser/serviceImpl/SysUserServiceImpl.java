@@ -10,10 +10,13 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.util.IDUtil;
+import com.marks.module.org.orginfo.dao.OrgInfoDao;
+import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.user.sysrole.dao.SysRoleDao;
+import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysuser.dao.SysUserDao;
 import com.marks.module.user.sysuser.pojo.SysUser;
-import com.marks.module.user.sysuser.pojo.SysUserOrg;
+import com.marks.module.user.sysuser.pojo.SysUserOrgRole;
 import com.marks.module.user.sysuser.service.SysUserService;
 
 @Service
@@ -21,25 +24,10 @@ public class SysUserServiceImpl implements SysUserService {
 
 	@Autowired
 	private SysUserDao sysUserDao;
-
-	public SysUserDao getSysUserDao() {
-		return sysUserDao;
-	}
-
-	public void setSysUserDao(SysUserDao sysUserDao) {
-		this.sysUserDao = sysUserDao;
-	}
-
 	@Autowired
 	private SysRoleDao sysRoleDao;
-
-	public SysRoleDao getSysRoleDao() {
-		return sysRoleDao;
-	}
-
-	public void setSysRoleDao(SysRoleDao sysRoleDao) {
-		this.sysRoleDao = sysRoleDao;
-	}
+	@Autowired
+	private OrgInfoDao orgInfoDao;
 
 	/**
 	 * 根据ID查找用户管理
@@ -66,16 +54,12 @@ public class SysUserServiceImpl implements SysUserService {
 	 * 保存用户管理
 	 */
 	@Override
-	public String save(SysUser sysUser, String orgIdsPut, String orgNamesPut) {
-		String userid = "U" + IDUtil.getDateID() + "_" + IDUtil.getRandom(100, 999) + IDUtil.getRandom(100, 999);
+	public String save(SysUser sysUser) {
+		String userCode = IDUtil.getRandom(1000, 9999) + IDUtil.getRandom(1000, 9999);
+		String userid = "U" + IDUtil.getDateID() + "_" + userCode;
 		sysUser.setUserid(userid);
-		if (null != orgIdsPut && !"".equals(orgIdsPut)) {
-			SysUserOrg uorg = saveSysUserOrg(sysUser.getUserid(), orgIdsPut, orgNamesPut, sysUser.getCreator());
-			if (null != uorg) {
-				sysUser.setDefaultOrgid(uorg.getOrgid());
-				sysUser.setDefaultOrgname(uorg.getOrgname());
-			}
-		}
+		sysUser.setUserCode(userCode);
+		saveSysUserOrgRole(sysUser);
 		sysUserDao.save(sysUser);
 		return userid;
 	}
@@ -84,55 +68,46 @@ public class SysUserServiceImpl implements SysUserService {
 	 * 更新用户管理
 	 */
 	@Override
-	public void update(SysUser sysUser, String orgIdsPut, String orgNamesPut) {
-		if (null != orgIdsPut && !"".equals(orgIdsPut)) {
-			SysUserOrg uorg = saveSysUserOrg(sysUser.getUserid(), orgIdsPut, orgNamesPut, sysUser.getCreator());
-			if (null != uorg) {
-				sysUser.setDefaultOrgid(uorg.getOrgid());
-				sysUser.setDefaultOrgname(uorg.getOrgname());
-			}
-		}
+	public void update(SysUser sysUser) {
+		saveSysUserOrgRole(sysUser);
 		sysUserDao.update(sysUser);
 	}
 
-	@Override
-	public String save(SysUser user) {
-		String userid = save(user, user.getDefaultOrgid(), user.getDefaultOrgname());
-		return userid;
+	private void saveSysUserOrgRole(SysUser sysUser) {
+		sysUserDao.deleteSysUserOrgRole(sysUser.getUserid(), sysUser.getOrgId());
+		SysRole role = sysRoleDao.findById(sysUser.getRoleId());
+		SysUserOrgRole su = new SysUserOrgRole();
+		su.setUserid(sysUser.getUserid());
+		su.setCompanyId(sysUser.getCompanyId());
+		if (role != null) {
+			sysUser.setRoleId(role.getRoleid());
+			sysUser.setRoleLvl(role.getLvl());
+			sysUser.setRoleName(role.getRolename());
+			sysUser.setRoleType(role.getRoleType());
+			su.setRoleId(sysUser.getRoleId());
+			su.setRoleLvl(sysUser.getRoleLvl());
+			su.setRoleName(sysUser.getRoleName());
+			su.setRoleType(sysUser.getRoleType());
+		}
+		if (null != sysUser.getOrgId()) {
+			OrgInfo info = orgInfoDao.findById(sysUser.getOrgId());
+			if (info != null) {
+				sysUser.setParentOrgId(info.getParentId());
+				sysUser.setParentOrgName(info.getParentName());
+				sysUser.setOrgCategory(info.getOrgCategory());
+				sysUser.setOrgId(info.getOrgid());
+				sysUser.setOrgName(info.getOrgname());
+				sysUser.setOrgType(info.getOrgType());
+				su.setOrgCategory(sysUser.getOrgCategory());
+				su.setOrgId(sysUser.getOrgId());
+				su.setOrgName(sysUser.getOrgName());
+				su.setOrgType(sysUser.getOrgType());
+				su.setParentOrgId(sysUser.getParentOrgId());
+				su.setParentOrgName(sysUser.getParentOrgName());
+			}
+		}
+		sysUserDao.saveSysUserOrgRole(su);
 	}
-
-	@Override
-	public void update(SysUser user) {
-		update(user, user.getDefaultOrgid(), user.getDefaultOrgname());
-	}
-
-	private SysUserOrg saveSysUserOrg(String userid, String orgIdsPut, String orgNamesPut, String creator) {
-    	sysUserDao.deleteSysUserOrg(userid);
-    	SysUserOrg su=null;
-    	String[] arr=orgIdsPut.split(",");
-		String[] nameArr = orgNamesPut.split(",");
-		int count = 0;
-		SysUserOrg returnOrg=null;
-		for (int i = 0; i < arr.length; i++) {
-			String id = arr[i];
-			String name = nameArr[i];
-    		if(id !=null && !"".equals(id)){
-				count++;
-				
-    			su=new SysUserOrg();
-        		su.setOrgid(id);
-        		su.setUserid(userid);
-        		su.setCreator(creator);
-				su.setOrgname(name);
-        		if (count == 1) {
-					su.setIsDefault(1);
-        			returnOrg=su;
-				}
-				sysUserDao.saveSysUserOrg(su);
-    		}
-    	}
-		return returnOrg;
-    }
 
 	@Override
 	public void updatePwd(String userid, String pwd) {
@@ -149,7 +124,7 @@ public class SysUserServiceImpl implements SysUserService {
 	 */
 	@Override
 	public void delete(String userid) {
-		sysUserDao.deleteSysUserOrg(userid);
+		sysUserDao.deleteSysUserOrgRoleByUserid(userid);
 		sysUserDao.delete(userid);
 	}
 

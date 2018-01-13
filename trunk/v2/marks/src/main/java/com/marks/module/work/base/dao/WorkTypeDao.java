@@ -4,9 +4,8 @@ package com.marks.module.work.base.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.annotation.MapperScan;
-
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.work.base.pojo.WorkType;
@@ -21,8 +20,6 @@ public interface WorkTypeDao {
 	void saveBatch(@Param("list") List<WorkType> list);
 
 	void update(@Param("info") WorkType workType);
-	
-	void updateBatch(@Param("list") List<WorkType> list);
 
 	void delete(@Param("typeId") String typeId);
 

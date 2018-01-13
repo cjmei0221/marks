@@ -1,7 +1,6 @@
 package com.marks.module.org.orginfo.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,8 @@ public class OrgInfo implements Serializable{
     *机构ID
     */
     private String orgid;
+
+	private int orgCategory;// 机构类型
     /**
     *创建者
     */
@@ -26,11 +27,11 @@ public class OrgInfo implements Serializable{
     /**
     *创建时间
     */
-    private Timestamp createtime;
+	private String createtime;
     /**
     *更新时间
     */
-    private Timestamp updatetime;
+	private String updatetime;
     /**
     *启用标识
     */
@@ -78,7 +79,16 @@ public class OrgInfo implements Serializable{
 	private String areaName;
 	private String address;
 
+
     
+	public int getOrgCategory() {
+		return orgCategory;
+	}
+
+	public void setOrgCategory(int orgCategory) {
+		this.orgCategory = orgCategory;
+	}
+
 	public String getLinkman() {
 		return linkman;
 	}
@@ -271,16 +281,18 @@ public class OrgInfo implements Serializable{
     }
 
     public String getCreatetime(){
-        return createtime==null?"":createtime.toLocaleString();
+		return createtime;
     }
-    public void setCreatetime(Timestamp createtime){
+
+	public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 
     public String getUpdatetime(){
-        return updatetime==null?"":updatetime.toLocaleString();
+		return updatetime;
     }
-    public void setUpdatetime(Timestamp updatetime){
+
+	public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime;
     }
 

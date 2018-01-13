@@ -1,6 +1,5 @@
 package com.marks.module.org.orginfo.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,6 +85,7 @@ public class OrgInfoController extends SupportContorller {
 					String orgId = orgInfoService.getOrgId();
 					orgInfo.setOrgid(orgId);
 				}
+				orgInfo.setOrgCategory(OrgEnums.OrgCategory.company.getValue());
 				orgInfo.setCompanyId(admin.getCompanyId());
 				orgInfo.setCreator(admin.getUserid());
 				orgInfoService.save(orgInfo);
@@ -162,55 +162,6 @@ public class OrgInfoController extends SupportContorller {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("删除失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-
-	/**
-	 * 查询全部机构管理
-	 */
-	@RequestMapping("/inner/orgInfo/findAllOrgInfo")
-	public void findAllOrgInfo(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			List<OrgInfo> orgInfoList = orgInfoService.findAll();
-			result.getData().put("orgInfoList", orgInfoList);
-			result.setMessage("findAll orgInfo successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("findAll orgInfo fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-
-	/**
-	 * 删除多个机构管理
-	 */
-	@RequestMapping("/inner/orgInfo/deleteIds")
-	public void deleteOrgInfo(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			String id = request.getParameter("orgid");
-			String[] ids = id.split(",");
-			List<String> idList = new ArrayList<String>();
-			for (int i = 0; i < ids.length; i++) {
-				idList.add(ids[i]);
-			}
-			if (idList.size() > 0) {
-				orgInfoService.deleteBatch(idList);
-				result.setMessage("删除成功!");
-				result.setCode(Code.CODE_SUCCESS);
-			} else {
-				result.setMessage("删除失败，请联系管理员!");
-				result.setCode(Code.CODE_FAIL);
-			}
-
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("delete orgInfo fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);

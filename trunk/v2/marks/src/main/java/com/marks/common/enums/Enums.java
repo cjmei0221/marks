@@ -1,15 +1,15 @@
 package com.marks.common.enums;
 
-public class UserEnums {
+public class Enums {
 
-	public enum Gender {
-		bind(1, "绑定"), // 绑定
-		unbind(0, "未绑定");// 未绑定
+	public enum Status {
+		Enable(1, "启用"), // 绑定
+		Unable(0, "禁用");// 未绑定
 
 		private int status;
 		private String name;
 
-		private Gender(int status, String name) {
+		private Status(int status, String name) {
 			this.status = status;
 			this.name = name;
 		}
@@ -27,7 +27,7 @@ public class UserEnums {
 		}
 
 		public static String getByKey(int status) {
-			for (Gender c : Gender.values()) {
+			for (Status c : Status.values()) {
 				if (c.getValue() == status) {
 					return c.getName();
 				}
@@ -35,14 +35,22 @@ public class UserEnums {
 			return "";
 		}
 	}
-	public enum UserType {
-		SYS("SYS", "系统用户"), // 系统用户
-		VIP("VIP", "会员");// 会员
 
-		private String status;
+	public enum CheckStatus {
+		noCheck(0, "未审核"), //
+		checking(3, "审核中"), //
+		checkFail(2, "审核失败"), //
+		checkOk(1, "审核成功"), //
+		free(6, "不用审核"), //
+		edit(5, "编辑中"),//
+		apply(7, "申请"),//
+		end(8, "结束"),//
+		;
+
+		private int status;
 		private String name;
 
-		private UserType(String status, String name) {
+		private CheckStatus(int status, String name) {
 			this.status = status;
 			this.name = name;
 		}
@@ -55,17 +63,18 @@ public class UserEnums {
 			return name;
 		}
 
-		public String getValue() {
+		public int getValue() {
 			return status;
 		}
 
-		public static String getByKey(String status) {
-			for (UserType c : UserType.values()) {
-				if (c.getValue().equals(status)) {
+		public static String getByKey(int status) {
+			for (CheckStatus c : CheckStatus.values()) {
+				if (c.getValue() == status) {
 					return c.getName();
 				}
 			}
 			return "";
 		}
 	}
+
 }

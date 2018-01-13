@@ -137,7 +137,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public List<SysMenu> funcList(SysUser admin,String roleId) {
-		String loginUserRoleId = admin.getRoleid();
+		String loginUserRoleId = admin.getRoleId();
 		boolean getflag = false;// 请求数据标识
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
 

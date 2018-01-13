@@ -1,6 +1,5 @@
 package com.marks.module.user.login.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
-import com.marks.common.enums.UserEnums;
+import com.marks.common.enums.Enums;
 import com.marks.common.util.Code;
 import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
@@ -75,29 +74,22 @@ public class ManageLoginController {
 			JsonUtil.output(response, result);
 			return;
 		}
-		if (null == user.getRolename() || "".equals(user.getRolename())) {
-			result.setCode("4005");
-			result.setMessage("您无权限登陆");
-			JsonUtil.output(response, result);
-			return;
-		}
-		if (UserEnums.ActiveFlag.unuse.getValue() == user.getActiveFlag()) {
+		if (Enums.Status.Unable.getValue() == user.getActiveFlag()) {
 			result.setCode("4002");
 			result.setMessage("用户被禁用");
 			JsonUtil.output(response, result);
 			return;
 		}
-		if (Constants.default_roleId.equals(user.getRoleid())) {
+		if (Constants.default_roleId.equals(user.getRoleId())) {
 			user.setCompanyId(companyId);
 		}
 		List<String> list = loginService.getUrlByUserid(user.getUserid());
 		user.setUserUrlList(list);
 		result.setCode("0");
 		result.setMessage("success");
-		user.setLoginTime(new Date());
 		user.setPassword("");
-		user.setQueryOrgid(user.getDefaultOrgid());
-		if (user.getCompanyId().equals(user.getDefaultOrgid())) {
+		user.setQueryOrgid(user.getOrgId());
+		if (user.getCompanyId().equals(user.getOrgId())) {
 			user.setQueryOrgid(null);
 		}
 		ManageUtil.setCurrentUserInfo(request, user);

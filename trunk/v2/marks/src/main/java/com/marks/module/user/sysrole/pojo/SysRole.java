@@ -31,8 +31,6 @@ public class SysRole implements Serializable{
 
     private String companyId;
     
-    
-    private String companyName;
     /**
      * 级别
      */
@@ -40,13 +38,33 @@ public class SysRole implements Serializable{
     /**
      * 用户类型
      */
-    private String userType;
+	private String roleType;
     /**
      * 是否用户下拉组件 显示  0：不显示 1：显示
      */
     private int showFlag=1;
 
 	private int delFlag = 1;
+
+	private String orgId;
+
+	private String orgName;
+
+	public String getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
+	}
+
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
 
 	public int getDelFlag() {
 		return delFlag;
@@ -62,12 +80,15 @@ public class SysRole implements Serializable{
 	public void setShowFlag(int showFlag) {
 		this.showFlag = showFlag;
 	}
-	public String getUserType() {
-		return userType;
+
+	public String getRoleType() {
+		return roleType;
 	}
-	public void setUserType(String userType) {
-		this.userType = userType;
+
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
 	}
+
 	public int getLvl() {
 		return lvl;
 	}
@@ -80,14 +101,6 @@ public class SysRole implements Serializable{
     public void setRoleid(String roleid){
         this.roleid = roleid;
     }
-
-    public String getCompanyName() {
-		return companyName;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	
 
     public Date getUpdatetime() {
 		return updatetime;
@@ -124,6 +137,6 @@ public class SysRole implements Serializable{
 	}
 	
 	public String getRoleFullName() {
-		return this.getRolename()+" ( "+this.getCompanyName()+" )";
+		return this.getRolename();
 	}
 }

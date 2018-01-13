@@ -1,4 +1,4 @@
-package com.marks.module.user.login.controller;
+package com.marks.module.user.login.controller.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
+import com.marks.common.enums.Enums;
 import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
@@ -50,7 +51,7 @@ public class WebLoginController {
 				return;
 			}
 			//校验是否被禁用
-			if (UserEnums.ActiveFlag.unuse.getValue() == loginUser.getActiveFlag()) {
+			if (Enums.Status.Unable.getValue() == loginUser.getActiveFlag()) {
 				result.setCode("4002");
 				result.setMessage("用户被禁用");
 				JsonUtil.output(response, result);
@@ -128,13 +129,13 @@ public class WebLoginController {
 			
 			
 			if(sysUser !=null){
-				if (UserEnums.ActiveFlag.unuse.getValue() == sysUser.getActiveFlag()) {
+				if (Enums.Status.Unable.getValue() == sysUser.getActiveFlag()) {
 					result.setCode("4002");
 					result.setMessage("此手机号已被禁用");
 					JsonUtil.output(response, result);
 					return;
 				}
-				if (UserEnums.BindFlag.unbind.getValue() == sysUser.getBindFlag()) {
+				if (Enums.Status.Unable.getValue() == sysUser.getBindFlag()) {
 					result.setCode("4003");
 					result.setMessage("此手机号已被绑定");
 					JsonUtil.output(response, result);
@@ -142,14 +143,14 @@ public class WebLoginController {
 				}
 			}
 			SysUser user=new SysUser();
-			user.setActiveFlag(UserEnums.ActiveFlag.use.getValue());
+			user.setActiveFlag(Enums.Status.Enable.getValue());
 			user.setBind_mobile(mobile);
-			user.setBindFlag(UserEnums.BindFlag.bind.getValue());
+			user.setBindFlag(Enums.Status.Enable.getValue());
 			user.setCompanyId(companyId);
 			user.setCreator(mobile);
 			user.setPassword(EncryptUtil.encryptPwd(password));
 			user.setUsername(mobile);
-			user.setRoleid(companyId + "_" + UserEnums.UserType.VIP.getValue());
+			user.setRoleId(companyId + "_" + UserEnums.UserType.VIP.getValue());
 			user.setOpenid(WxUtil.getInstance().getCurrentOpenid(request));
 			user.setAccountid(WxUtil.getInstance().getCurrentAccountid(request));
 			if(sysUser==null){

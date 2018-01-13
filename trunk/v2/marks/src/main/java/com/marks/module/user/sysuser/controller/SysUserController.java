@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.enums.UserEnums;
+import com.marks.common.enums.Enums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
@@ -71,14 +71,11 @@ public class SysUserController extends SupportContorller{
 	 //     sysUser.setUserid(IDUtil.getTimeID());
 			SysUser ori = sysUserService.findByMobile(companyId, sysUser.getBind_mobile());
 	 		if(ori==null){
-
 	 			//密码处理
-	 			String orgIdsPut=request.getParameter("orgIdsPut");
-				String orgNamesPut = request.getParameter("orgNamesPut");
 	 			sysUser.setPassword(EncryptUtil.defaultPwd);
 	 			sysUser.setCreator(admin.getUserid());
 				sysUser.setCompanyId(companyId);
-				sysUserService.save(sysUser, orgIdsPut, orgNamesPut);
+				sysUserService.save(sysUser);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -111,7 +108,7 @@ public class SysUserController extends SupportContorller{
 	 			String orgIdsPut=request.getParameter("orgIdsPut");
 				String orgNamesPut = request.getParameter("orgNamesPut");
 				sysUser.setCompanyId(admin.getCompanyId());
-				sysUserService.update(sysUser, orgIdsPut, orgNamesPut);
+				sysUserService.update(sysUser);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -207,6 +204,8 @@ public class SysUserController extends SupportContorller{
 			String keyword=request.getParameter("keyword");
 			String ssorgid=request.getParameter("ssorgid");
 			String s_role=request.getParameter("s_role");
+			String roleType = request.getParameter("roleType");
+			String showflag = request.getParameter("showflag");
 			if(keyword==null){
 				keyword="";
 			}
@@ -217,6 +216,8 @@ public class SysUserController extends SupportContorller{
 			param.put("companyId", companyId);
 			param.put("sorgid", ssorgid);
 			param.put("s_role", s_role);
+			param.put("roleType", roleType);
+			param.put("showflag", showflag);
 			PojoDomain<SysUser> list = sysUserService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -335,9 +336,9 @@ public class SysUserController extends SupportContorller{
 			String userid=request.getParameter("userid");
 			SysUser su=sysUserService.findById(userid);
 			if(su !=null){
-				int flag = UserEnums.ActiveFlag.use.getValue();
-				if (UserEnums.ActiveFlag.use.getValue() == su.getActiveFlag()) {
-					flag = UserEnums.ActiveFlag.unuse.getValue();
+				int flag = Enums.Status.Enable.getValue();
+				if (Enums.Status.Enable.getValue() == su.getActiveFlag()) {
+					flag = Enums.Status.Unable.getValue();
 				}
 				sysUserService.updateActiveFlag(userid,flag);
 				result.setMessage("resetPwd sysUser successs!");

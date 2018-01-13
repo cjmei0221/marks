@@ -5,24 +5,26 @@ import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
-
 public class IDUtil {
-	
+
 	/**
 	 * 使用UUID作为主键
+	 * 
 	 * @return
 	 */
-	public static String getUUID(){
-		UUID uuid=UUID.randomUUID();
-		String id=uuid.toString().replace("-", "").toUpperCase();
+	public static String getUUID() {
+		UUID uuid = UUID.randomUUID();
+		String id = uuid.toString().replace("-", "").toUpperCase();
 		return id;
 	}
+
 	/**
 	 * 使用时间为主键
+	 * 
 	 * @return
 	 */
-	public static String getTimeID(String partten){
-		SimpleDateFormat sdf=new SimpleDateFormat(partten);
+	public static String getTimeID(String partten) {
+		SimpleDateFormat sdf = new SimpleDateFormat(partten);
 		return sdf.format(new Date());
 	}
 
@@ -35,36 +37,55 @@ public class IDUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		return sdf.format(new Date());
 	}
+
 	/**
 	 * 获取年月日作为ID
+	 * 
 	 * @return
 	 */
-	public static String getDateID(){
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+	public static String getDateID() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		return sdf.format(new Date());
 	}
+
 	/**
 	 * 使用时间为主键
+	 * 
 	 * @return
 	 */
-	public static String getDateSID(){
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_S");
+	public static String getDateSID() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_S");
 		return sdf.format(new Date());
 	}
+
 	/**
 	 * 使用时间为主键
+	 * 
 	 * @return
 	 */
-	public static String getID(int size){
+	public static String getID(int size) {
 		String str = System.currentTimeMillis() + "";
 		String idStr = System.currentTimeMillis() + "" + IDUtil.getRandom(1000, 9999)
 				+ str.substring(str.length() - 4, str.length());
-		if(size>idStr.length()){
-			size=idStr.length();
+		if (size > idStr.length()) {
+			size = idStr.length();
 		}
-		return idStr.substring(idStr.length()-size, idStr.length());
+		return idStr.substring(idStr.length() - size, idStr.length());
 	}
-	
+
+	/**
+	 * 使用时间为主键
+	 * 
+	 * @return
+	 */
+	public static String getIdNo() {
+		String str = System.currentTimeMillis() + "";
+		String date = IDUtil.getDateID();
+		String idStr = date.substring(0, 4) + "_" + date.substring(4) + "_" + IDUtil.getRandom(1000, 9999) + "_"
+				+ str.substring(str.length() - 4, str.length());
+		return idStr;
+	}
+
 	public static String getRandom(int min, int max) {
 		Random random = new Random();
 		int s = random.nextInt(max) % (max - min + 1) + min;
@@ -75,7 +96,8 @@ public class IDUtil {
 		return IDUtil.getSecondID() + IDUtil.getID(3) + IDUtil.getRandom(100, 999);
 	}
 
-	/*public static void main(String[] args) {
-		System.out.println(IDUtil.getTimeID());
-	}*/
+	public static void main(String[] args) {
+		System.out.println(IDUtil.getIdNo());
+	}
+
 }

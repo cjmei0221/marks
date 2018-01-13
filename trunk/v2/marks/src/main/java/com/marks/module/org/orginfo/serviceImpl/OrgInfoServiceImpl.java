@@ -51,6 +51,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 			OrgInfo parentVo = this.findById(orgInfo.getParentId());
 			orgInfo.setLvl(parentVo.getLvl() + 1);
 			orgInfo.setCompanyId(parentVo.getCompanyId());
+			orgInfo.setParentName(parentVo.getOrgname());
 
 			orgInfo.setLvl2Id(parentVo.getLvl2Id());
 			orgInfo.setLvl2Name(parentVo.getLvl2Name());
@@ -101,6 +102,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 			orgInfo.setLvl(1);
 		} else if (OrgEnums.OrgType.common.getValue() == orgInfo.getOrgType()) {
 			OrgInfo parentVo = this.findById(orgInfo.getParentId());
+			orgInfo.setParentName(parentVo.getOrgname());
 			orgInfo.setLvl(parentVo.getLvl() + 1);
 
 			orgInfo.setLvl2Id(parentVo.getLvl2Id());

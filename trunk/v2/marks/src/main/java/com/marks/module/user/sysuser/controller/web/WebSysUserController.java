@@ -1,4 +1,4 @@
-package com.marks.module.user.sysuser.controller;
+package com.marks.module.user.sysuser.controller.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,18 +12,40 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
+import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.WebUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.user.sysuser.service.SysUserService;
 
 @Controller
-public class WebSysUserController {
+public class WebSysUserController extends SupportContorller {
 	private static Logger logger = Logger.getLogger(WebSysUserController.class);
 	@Autowired
 	private SysUserService sysUserService;
 	@Autowired
 	private LoginService loginService;
+
+	/**
+	 * 查询用户管理
+	 */
+	@RequestMapping("/web/sysUser/findSysUserById")
+	public void findSysUserById(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
+			SysUser requestSysUser = sysUserService.findByUserid(loginUser.getUserid());
+			result.getData().put("info", requestSysUser);
+			result.setMessage("findById sysUser successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+
 	/**
 	 * 更改密码
 	 */
@@ -51,6 +73,7 @@ public class WebSysUserController {
 		}
 		JsonUtil.output(response, result);
 	}
+
 	/**
 	 * 更改密码
 	 */
@@ -97,6 +120,41 @@ public class WebSysUserController {
 		}
 		JsonUtil.output(response, result);
 	}
-	
-	
+
+	/**
+	 * 更改用户管理
+	 */
+	@RequestMapping("/web/sysUser/update")
+	public void updateSysUser(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
+			SysUser info = getModel(SysUser.class);
+			SysUser ori = sysUserService.findById(loginUser.getUserid());
+			if (ori == null) {
+				result.setMessage("此记录已删除!");
+				result.setCode(Code.CODE_FAIL);
+			} else {
+				ori.setGender(info.getGender());
+				ori.setBirthday(info.getBirthday());
+				ori.setSignature(info.getSignature());
+				ori.setUsername(info.getUsername());
+				ori.setEmail(info.getEmail());
+				sysUserService.update(ori);
+				result.setMessage("更新成功!");
+				result.setCode(Code.CODE_SUCCESS);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("更新失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+
+	@Override
+	public Logger getLogger() {
+		return logger;
+	}
+
 }

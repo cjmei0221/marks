@@ -1,6 +1,5 @@
 package com.marks.module.quartz.wx.thread.pool;
 
-import java.sql.Timestamp;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -8,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.marks.common.domain.JsonResult;
 import com.marks.common.util.center.SysCode;
+import com.marks.common.util.date.DateUtil;
 import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.wx.api.wxInterface.mp.msg.wxservice.SendMsgUtils;
 import com.marks.module.wx.manage.entity.template.ModuleMsg;
@@ -113,7 +113,7 @@ class PushModuleMsgThread implements Runnable {
 		             }
 		             msg.setSendFlag(isSend);
 		             msg.setMsgId(msgid);
-		             msg.setSendtime(new Timestamp(System.currentTimeMillis()));
+				msg.setSendtime(DateUtil.getCurrDateStr());
 		             msg.setPush_code(result.getErrorCode());
 		             msg.setPush_msg(result.getErrorMsg());
 		             msg.setSendTimes((msg.getSendTimes()+1));
