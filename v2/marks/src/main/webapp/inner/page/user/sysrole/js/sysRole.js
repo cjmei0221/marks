@@ -30,9 +30,9 @@ function add() {
 	$('#delFlagTr').show();
 	$("#showFlag").combobox("setValue", 1);
 	$("#delFlag").combobox("setValue", 1);
-	if(appInfo.isDeveloper==1){
+	if (appInfo.isDeveloper == 1) {
 		$('#showFlagTr').show();
-	}else{
+	} else {
 		$('#showFlagTr').hide();
 	}
 }
@@ -50,19 +50,16 @@ function edit() {
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
 		$('#userTypeTr').hide();
-		if(appInfo.isDeveloper==1){
-			if (appInfo.selectedData.showFlag == 0) {
-				$('#showFlagTr').hide();
-			} else {
-				$('#showFlagTr').show();
-			}
-		}else{
-			$('#showFlagTr').hide();
-		}
-		if (appInfo.selectedData.delFlag == 0) {
-			$('#delFlagTr').hide();
-		} else {
+		if (appInfo.isDeveloper == 1) {
+			$('#showFlagTr').show();
 			$('#delFlagTr').show();
+		} else {
+			$('#showFlagTr').hide();
+			if (appInfo.selectedData.delFlag == 0) {
+				$('#delFlagTr').hide();
+			} else {
+				$('#delFlagTr').show();
+			}
 		}
 	}
 }
@@ -105,11 +102,11 @@ function addFunc() {
 $(function() {
 	// 加载列表
 	loadList();
-	
-	if(appInfo.isDeveloper==1){
-		$("#tbList").datagrid("showColumn","showFlag");
-	}else{
-		$("#tbList").datagrid("hideColumn","showFlag");
+
+	if (appInfo.isDeveloper == 1) {
+		$("#tbList").datagrid("showColumn", "showFlag");
+	} else {
+		$("#tbList").datagrid("hideColumn", "showFlag");
 	}
 	// 搜索
 	$("#doSearch").on("click", function(e) {
@@ -176,8 +173,8 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '英文缩写',
-			field : 'userType',
+			title : '编号',
+			field : 'roleType',
 			width : 100,
 			align : "center"
 		}, {
@@ -245,10 +242,10 @@ function loadList() {
 			appInfo.selectedData = rowData;
 		},
 		onLoadSuccess : function(data) {
-			if(appInfo.isDeveloper==1){
-				$("#tbList").datagrid("showColumn","showFlag");
-			}else{
-				$("#tbList").datagrid("hideColumn","showFlag");
+			if (appInfo.isDeveloper == 1) {
+				$("#tbList").datagrid("showColumn", "showFlag");
+			} else {
+				$("#tbList").datagrid("hideColumn", "showFlag");
 			}
 			$("#tbList").datagrid('unselectAll');
 			appInfo.selectedData = {};
@@ -269,7 +266,7 @@ function loadList() {
 			success : function(data, status, xhr) {
 				checkLogin(data);
 				if (data.retcode == "0") {
-					appInfo.isDeveloper=data.isDeveloper;
+					appInfo.isDeveloper = data.isDeveloper;
 					var list = data.list;
 					that.data().datagrid["cache"] = data;
 					success({

@@ -159,10 +159,10 @@ function formSubmit() {
 	$("#bind_mobile").numberbox({
 		disabled : false
 	});
+	alert(appInfo.checkOrg.orgids[0]);
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
-	parms += "&orgIdsPut=" + appInfo.checkOrg.orgids.join(",");
-	parms += "&orgNamesPut=" + appInfo.checkOrg.orgnames.join(",");
+	parms += "&orgId=" + appInfo.checkOrg.orgids[0]+"";
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
 			try {
@@ -209,7 +209,7 @@ function loadList() {
 		singleSelect : true,
 		columns : [ [ {
 			title : '用户ID',
-			field : 'userid',
+			field : 'userCode',
 			width : 120
 		}, {
 			title : '绑定手机',
@@ -235,12 +235,12 @@ function loadList() {
 			}
 		}, {
 			title : '用户类型',
-			field : 'rolename',
+			field : 'roleName',
 			width : 100,
 			align : "center"
 		}, {
 			title : '所属组织',
-			field : 'orgidNamesStr',
+			field : 'orgName',
 			width : 100,
 			align : "center"
 		}, {

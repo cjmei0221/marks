@@ -103,6 +103,16 @@
 						<td><input id="checkField" name="checkField"
 							class="easyui-validatebox" style="width: 300px;" maxlength="50"></td>
 					</tr>
+					<tr class="autoDiv" style="display: none;">
+						<th style="width: 120px; text-align: right;">审核人编号字段&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="checkerIdField" name="checkerIdField"
+							class="easyui-validatebox" style="width: 300px;" maxlength="50"></td>
+					</tr>
+					<tr class="autoDiv" style="display: none;">
+						<th style="width: 120px; text-align: right;">审核人字段&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="checkerField" name="checkerField"
+							class="easyui-validatebox" style="width: 300px;" maxlength="50"></td>
+					</tr>
 					<tr class="noAutoDiv" style="display: none;">
 						<th style="width: 120px; text-align: right;">类名&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="classType" name="classType"
@@ -124,7 +134,33 @@
 			</form>
 		</div>
 	</div>
-
+	<div id="stepWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 600px; height: 450px; padding: 10px 0px;">
+		<div align="center" style="width: 100%;">
+			<input type="hidden" id="stepTypeId" name="stepTypeId">
+			<div align="left">
+				<table>
+					<tr>
+						<td><select id="status" class="easyui-combobox" name="status"
+							style="width: 200px;" data-options="required:true">
+								<option value="0">禁用</option>
+								<option value="1">启用</option>
+						</select></td>
+						<td><a id="saveStep" href="javascript:void(0)"
+							class="easyui-linkbutton menuBtnCls"
+							data-options="iconCls:'icon-search'">保存</a></td>
+					</tr>
+				</table>
+			</div>
+			<table id="dg">
+			</table>
+		</div>
+	</div>
 </body>
 <script src="js/workType.js"></script>
 </html>
