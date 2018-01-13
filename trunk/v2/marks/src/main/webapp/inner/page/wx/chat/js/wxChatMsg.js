@@ -177,9 +177,7 @@ function loadList() {
 											return  "<span style='color:blue;' onclick=\"javascript:replayFunc('"+row.session_id+"')\">人工服务</span>"
 										} else {
 											return  "<span style='color:green;' onclick=\"javascript:replayFunc('"+row.session_id+"')\">"+value+"</span>"
-//											return value;
 										}
-
 									}
 								} ] ],
 						loader : function(params, success, loadError) {

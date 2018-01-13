@@ -1,8 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/inner/vipInfo/list.do',// 获取会员信息列表接口 VipInfo
-	saveUrl : top.window.urlBase + '/inner/vipInfo/save.do',// 保存新增会员信息接口
-	updateUrl : top.window.urlBase + '/inner/vipInfo/update.do',// 编辑会员信息信息接口
-	deleteUrl : top.window.urlBase + '/inner/vipInfo/delete.do',// 删除会员信息接口
+	listUrl : top.window.urlBase + '/inner/sysUser/list.do',// 获取会员信息列表接口 VipInfo
+	saveUrl : top.window.urlBase + '/inner/sysUser/save.do',// 保存新增会员信息接口
+	updateUrl : top.window.urlBase + '/inner/sysUser/update.do',// 编辑会员信息信息接口
+	deleteUrl : top.window.urlBase + '/inner/sysUser/delete.do',// 删除会员信息接口
 	resetPwdUrl : top.window.urlBase + '/inner/sysUser/resetPwd.do',// 删除用户管理接口
 	activeUrl : top.window.urlBase + '/inner/sysUser/updateActiveFlag.do',// 删除用户管理接口
 	selectedId : -1,
@@ -10,7 +10,8 @@ var appInfo = {
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		roleType:"VIP"
 	},
 	formStatus : "new"
 };
@@ -163,17 +164,17 @@ function loadList() {
 		singleSelect : true,
 		columns : [ [ {
 			title : 'USERID',
-			field : 'userid',
+			field : 'userCode',
 			width : 100,
 			align : "center"
 		}, {
-			title : '绑定手机号',
+			title : '手机号',
 			field : 'bind_mobile',
 			width : 100,
 			align : "center"
 		}, {
 			title : '真实姓名',
-			field : 'realname',
+			field : 'username',
 			width : 100,
 			align : "center"
 		}, {
@@ -223,11 +224,11 @@ function loadList() {
 			field : 'email',
 			width : 150,
 			align : "center"
-		/*}, {
+		}, {
 			title : '签名',
 			field : 'signature',
 			width : 200,
-			align : "center"*/
+			align : "center"
 		}, {
 			title : '创建时间',
 			field : 'createtime',
