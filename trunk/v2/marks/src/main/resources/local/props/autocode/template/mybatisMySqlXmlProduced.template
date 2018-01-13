@@ -38,6 +38,7 @@
 		WHERE
 			@{PKAttrName} = #{info.@{PKAttrValue}}
  	</update>
+ 	<!--
  	<update id="updateBatch" parameterType="List">
 
 		<foreach collection="list" item="info" index="index"
@@ -50,7 +51,7 @@
 		</foreach>
 
 	</update>
- 	
+ 	-->
  	<delete id="delete" parameterType="String">
  		DELETE FROM @{TableName} WHERE @{PKAttrName}=#{@{PKAttrValue}}
  	</delete>
