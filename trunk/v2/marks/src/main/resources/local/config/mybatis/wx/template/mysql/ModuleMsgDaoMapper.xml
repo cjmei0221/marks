@@ -21,6 +21,7 @@
 		NEEDFLAG,
 		SENDFLAG,
 		SENDTIMES,
+		SENDTIME,
 		CREATETIME,
 		NOTE,
 		CREATE_STAMP,
@@ -36,6 +37,7 @@
 		#{needFlag:NUMERIC},
 		#{sendFlag:NUMERIC},
 		#{sendTimes:NUMERIC},
+		#{sendtime:VARCHAR},
 		now(),
 		#{note:VARCHAR},
 		#{create_stamp:NUMERIC},
@@ -50,7 +52,7 @@
 		SENDFLAG = #{sendFlag:NUMERIC},
 		SENDTIMES =
 		#{sendTimes:NUMERIC},
-		SENDTIME = #{sendtime:TIMESTAMP},
+		SENDTIME = #{sendtime:VARCHAR},
 		MSGID =
 		#{msgId:VARCHAR},
 		PUSH_CODE = #{push_code:VARCHAR},
@@ -123,7 +125,7 @@
 		update tb_wx_module_msg
    			set resultcode = #{resultCode:VARCHAR}, 
    			resultmsg = #{status:VARCHAR}, 
-   			resulttime = #{createtime:TIMESTAMP}
+   			resulttime = #{createtime:VARCHAR}
  		where accountid =#{accountid:VARCHAR}
    			and msgid = #{msgId:VARCHAR}
 	</update>

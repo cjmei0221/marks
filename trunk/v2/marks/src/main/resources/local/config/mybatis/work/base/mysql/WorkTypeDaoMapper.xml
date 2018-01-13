@@ -26,7 +26,10 @@
 		UPDATER,
 		LINKURL,
 		ISAUTO,
-		CLASSTYPE
+		CLASSTYPE,
+		checkerField,
+		checkerIdField,
+		status
 		)
 		VALUES(
 		#{info.typeId:VARCHAR},
@@ -42,7 +45,10 @@
 		#{info.updater:VARCHAR},
 		#{info.linkUrl:VARCHAR},
 		#{info.isAuto:INTEGER},
-		#{info.classType:VARCHAR}
+		#{info.classType:VARCHAR},
+		#{info.checkerField:VARCHAR},
+		#{info.checkerIdField:VARCHAR},
+		#{info.status:INTEGER}
 		)
 	</insert>
 
@@ -61,7 +67,10 @@
 		UPDATER,
 		LINKURL,
 		ISAUTO,
-		CLASSTYPE
+		CLASSTYPE,
+		checkerField,
+		checkerIdField,
+		status
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -80,7 +89,10 @@
 			#{info.updater:VARCHAR},
 			#{info.linkUrl:VARCHAR},
 			#{info.isAuto:INTEGER},
-			#{info.classType:VARCHAR}
+			#{info.classType:VARCHAR},
+			#{info.checkerField:VARCHAR},
+			#{info.checkerIdField:VARCHAR},
+			#{info.status:INTEGER}
 			)
 		</foreach>
 	</insert>
@@ -88,45 +100,30 @@
 	<update id="update" parameterType="com.marks.module.work.base.pojo.WorkType">
 		UPDATE TB_WORK_TYPE
 		SET
+		checkerField=#{info.checkerField:VARCHAR},
+		checkerIdField=#{info.checkerIdField:VARCHAR},
+		status=#{info.status:INTEGER},
 		TYPENAME = #{info.typeName:VARCHAR},
-		DBSCHEME = #{info.dbscheme:VARCHAR},
+		DBSCHEME =
+		#{info.dbscheme:VARCHAR},
 		TBNAME = #{info.tbName:VARCHAR},
-		IDFIELD = #{info.idField:VARCHAR},
+		IDFIELD =
+		#{info.idField:VARCHAR},
 		CHECKFIELD = #{info.checkField:VARCHAR},
 		UPDATETIME = #{info.updatetime:VARCHAR},
-		UPDATER = #{info.updater:VARCHAR},
+		UPDATER =
+		#{info.updater:VARCHAR},
 		LINKURL = #{info.linkUrl:VARCHAR},
-		ISAUTO = #{info.isAuto:INTEGER},
+		ISAUTO =
+		#{info.isAuto:INTEGER},
 		CLASSTYPE = #{info.classType:VARCHAR}
 		WHERE
 		TYPEID = #{info.typeId}
 	</update>
-	<update id="updateBatch" parameterType="List">
-
-		<foreach collection="list" item="info" index="index"
-			separator=";">
-			UPDATE TB_WORK_TYPE
-			SET
-			TYPENAME = #{info.typeName:VARCHAR},
-			COMPANYID = #{info.companyId:VARCHAR},
-			TYPECODE = #{info.typeCode:VARCHAR},
-			DBSCHEME = #{info.dbscheme:VARCHAR},
-			TBNAME = #{info.tbName:VARCHAR},
-			IDFIELD = #{info.idField:VARCHAR},
-			CHECKFIELD = #{info.checkField:VARCHAR},
-			UPDATETIME = #{info.updatetime:VARCHAR},
-			UPDATER = #{info.updater:VARCHAR},
-			LINKURL = #{info.linkUrl:VARCHAR},
-			ISAUTO = #{info.isAuto:INTEGER},
-			CLASSTYPE = #{info.classType:VARCHAR}
-			WHERE
-			TYPEID = #{info.typeId}
-		</foreach>
-
-	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_WORK_TYPE WHERE TYPEID=#{typeId}
+		DELETE FROM TB_WORK_TYPE WHERE
+		TYPEID=#{typeId}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.work.base.pojo.WorkType">
@@ -147,8 +144,10 @@
 		FROM TB_WORK_TYPE t
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
-			and ( 2=1 or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.TYPECODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			and ( 2=1 or t.TYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPECODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 

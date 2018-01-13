@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.work.info.dao.WorkInfoDao">
+
+    <select id="findById" resultType="com.marks.module.work.info.pojo.WorkInfo">
+		SELECT * FROM TB_WORK t where t.WORKID = #{workId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.work.info.pojo.WorkInfo">
+		<!--<selectKey keyProperty="workId" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>-->
+
+ 		INSERT INTO TB_WORK  (
+            WORKID,
+            COMPANYID,
+            IDNO,
+            APPLYMANID,
+            APPLYMAN,
+            TYPEID,
+            TYPENAME,
+            STEPID,
+            STEPNAME,
+            CREATETIME,
+            NEXTUSERID,
+            NEXTUSERNAME,
+            OPERATORSTATUS,
+            UPDATETIME,
+            CURRUSERID,
+            CURRUSERNAME,
+            PAGEURL,
+            CURRROLEID,
+            NEXTROLEID,
+            CURRROLENAME,
+            NEXTROLENAME,
+            APPLYORGID,
+            APPLYORGNAME
+		)
+		VALUES(
+		#{info.workId:VARCHAR},
+            #{info.companyId:VARCHAR},
+            #{info.idNo:VARCHAR},
+            #{info.applyManId:VARCHAR},
+            #{info.applyMan:VARCHAR},
+            #{info.typeId:VARCHAR},
+            #{info.typeName:VARCHAR},
+            #{info.stepId:VARCHAR},
+            #{info.stepName:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.nextUserid:VARCHAR},
+            #{info.nextUsername:VARCHAR},
+            #{info.operatorStatus:NUMERIC},
+            #{info.updatetime:VARCHAR},
+            #{info.currUserid:VARCHAR},
+            #{info.currUsername:VARCHAR},
+            #{info.pageUrl:VARCHAR},
+            #{info.currRoleid:VARCHAR},
+            #{info.nextRoleid:VARCHAR},
+            #{info.currRolename:VARCHAR},
+            #{info.nextRolename:VARCHAR},
+            #{info.applyOrgId:VARCHAR},
+            #{info.applyOrgName:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_WORK (
+			            WORKID,
+            COMPANYID,
+            IDNO,
+            APPLYMANID,
+            APPLYMAN,
+            TYPEID,
+            TYPENAME,
+            STEPID,
+            STEPNAME,
+            CREATETIME,
+            NEXTUSERID,
+            NEXTUSERNAME,
+            OPERATORSTATUS,
+            UPDATETIME,
+            CURRUSERID,
+            CURRUSERNAME,
+            PAGEURL,
+            CURRROLEID,
+            NEXTROLEID,
+            CURRROLENAME,
+            NEXTROLENAME,
+            APPLYORGID,
+            APPLYORGNAME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.workId:VARCHAR},
+            #{info.companyId:VARCHAR},
+            #{info.idNo:VARCHAR},
+            #{info.applyManId:VARCHAR},
+            #{info.applyMan:VARCHAR},
+            #{info.typeId:VARCHAR},
+            #{info.typeName:VARCHAR},
+            #{info.stepId:VARCHAR},
+            #{info.stepName:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.nextUserid:VARCHAR},
+            #{info.nextUsername:VARCHAR},
+            #{info.operatorStatus:NUMERIC},
+            #{info.updatetime:VARCHAR},
+            #{info.currUserid:VARCHAR},
+            #{info.currUsername:VARCHAR},
+            #{info.pageUrl:VARCHAR},
+            #{info.currRoleid:VARCHAR},
+            #{info.nextRoleid:VARCHAR},
+            #{info.currRolename:VARCHAR},
+            #{info.nextRolename:VARCHAR},
+            #{info.applyOrgId:VARCHAR},
+            #{info.applyOrgName:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	
+ 	<update id="update" parameterType="com.marks.module.work.info.pojo.WorkInfo">
+ 		UPDATE TB_WORK 
+		SET 
+			COMPANYID = #{info.companyId:VARCHAR},
+            IDNO = #{info.idNo:VARCHAR},
+            APPLYMANID = #{info.applyManId:VARCHAR},
+            APPLYMAN = #{info.applyMan:VARCHAR},
+            TYPEID = #{info.typeId:VARCHAR},
+            TYPENAME = #{info.typeName:VARCHAR},
+            STEPID = #{info.stepId:VARCHAR},
+            STEPNAME = #{info.stepName:VARCHAR},
+            NEXTUSERID = #{info.nextUserid:VARCHAR},
+            NEXTUSERNAME = #{info.nextUsername:VARCHAR},
+            OPERATORSTATUS = #{info.operatorStatus:NUMERIC},
+            UPDATETIME = #{info.updatetime:VARCHAR},
+            CURRUSERID = #{info.currUserid:VARCHAR},
+            CURRUSERNAME = #{info.currUsername:VARCHAR},
+            PAGEURL = #{info.pageUrl:VARCHAR},
+            CURRROLEID = #{info.currRoleid:VARCHAR},
+            NEXTROLEID = #{info.nextRoleid:VARCHAR},
+            CURRROLENAME = #{info.currRolename:VARCHAR},
+            NEXTROLENAME = #{info.nextRolename:VARCHAR},
+            APPLYORGID = #{info.applyOrgId:VARCHAR},
+            APPLYORGNAME = #{info.applyOrgName:VARCHAR}
+		WHERE
+			WORKID = #{info.workId}
+ 	</update>
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_WORK 
+		SET 
+			COMPANYID = #{info.companyId:VARCHAR},
+            IDNO = #{info.idNo:VARCHAR},
+            APPLYMANID = #{info.applyManId:VARCHAR},
+            APPLYMAN = #{info.applyMan:VARCHAR},
+            TYPEID = #{info.typeId:VARCHAR},
+            TYPENAME = #{info.typeName:VARCHAR},
+            STEPID = #{info.stepId:VARCHAR},
+            STEPNAME = #{info.stepName:VARCHAR},
+            NEXTUSERID = #{info.nextUserid:VARCHAR},
+            NEXTUSERNAME = #{info.nextUsername:VARCHAR},
+            OPERATORSTATUS = #{info.operatorStatus:NUMERIC},
+            UPDATETIME = #{info.updatetime:VARCHAR},
+            CURRUSERID = #{info.currUserid:VARCHAR},
+            CURRUSERNAME = #{info.currUsername:VARCHAR},
+            PAGEURL = #{info.pageUrl:VARCHAR},
+            CURRROLEID = #{info.currRoleid:VARCHAR},
+            NEXTROLEID = #{info.nextRoleid:VARCHAR},
+            CURRROLENAME = #{info.currRolename:VARCHAR},
+            NEXTROLENAME = #{info.nextRolename:VARCHAR},
+            APPLYORGID = #{info.applyOrgId:VARCHAR},
+            APPLYORGNAME = #{info.applyOrgName:VARCHAR}
+		WHERE
+			WORKID = #{info.workId}
+		</foreach>
+
+	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_WORK t WHERE t.WORKID=#{workId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.work.info.pojo.WorkInfo">
+ 		SELECT * FROM TB_WORK t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_WORK WHERE WORKID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.work.info.pojo.WorkInfo" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_WORK t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.WORKID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.APPLYMAN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.PAGEURL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CURRROLEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.NEXTROLEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CURRROLENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.NEXTROLENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.APPLYORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.APPLYORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+					
+			    order by  t.UPDATETIME DESC				
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

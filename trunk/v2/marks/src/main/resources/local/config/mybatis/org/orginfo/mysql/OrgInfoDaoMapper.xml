@@ -28,6 +28,7 @@
 		UPDATETIME,
 		USEFLAG,
 		PARENTID,
+		parentName,
 		LVL,
 		COMPANYID,
 		ORGTYPE,
@@ -46,7 +47,8 @@
 		areaName,
 		address,
 		linkman,
-		linkTel
+		linkTel,
+		orgCategory
 		)
 		VALUES(
 		#{orgid:VARCHAR},
@@ -56,6 +58,7 @@
 		now(),
 		#{useflag:NUMERIC},
 		#{parentId:VARCHAR},
+		#{parentName:VARCHAR},
 		#{lvl:NUMERIC},
 		#{companyId:VARCHAR},
 		#{orgType:VARCHAR},
@@ -74,7 +77,8 @@
 		#{areaName:VARCHAR},
 		#{address:VARCHAR},
 		#{linkman:VARCHAR},
-		#{linkTel:VARCHAR}
+		#{linkTel:VARCHAR},
+		#{orgCategory:NUMERIC}
 		)
 	</insert>
 
@@ -89,6 +93,7 @@
 		USEFLAG =
 		#{useflag:NUMERIC},
 		PARENTID=#{parentId:VARCHAR},
+		parentName=#{parentName:VARCHAR},
 		LVL=#{lvl:NUMERIC},
 		ORGTYPE=#{orgType:VARCHAR},
 		LOGOID=#{logoId:VARCHAR},
