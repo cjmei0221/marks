@@ -14,11 +14,11 @@ function loadInfo() {
 		type : 'POST',
 		success : function(data) {
 			if (data.retcode == "0") {
-				var vo=data.vipInfo;
+				var vo=data.info;
 				$("#stypeType").val(vo.skin);
-				$("#c_name").val(vo.realname);
-				$("#c_gender").val(vo.gender==''?"1":vo.gender);
-				$("#c_birthdate").val(vo.birthdate);
+				$("#c_name").val(vo.username);
+				$("#c_gender").val(vo.gender);
+				$("#c_birthdate").val(vo.birthday);
 				$("#c_email").val(vo.email);
 				$("#c_signature").val(vo.signature);
 			}
@@ -92,9 +92,9 @@ function editInfo(editFlag) {
 		url : tool.reqUrl.vipInfo_save,
 		type : 'POST',
 		data : {
-			realname : $("#c_name").val(),
+			username : $("#c_name").val(),
 			gender:$("#c_gender").val(),
-			birthdate:$("#c_birthdate").val(),
+			birthday:$("#c_birthdate").val(),
 			email:$("#c_email").val(),
 			signature:$("#c_signature").val()
 		},
