@@ -22,7 +22,7 @@ public interface @{beanName}Dao {
 
 	void update(@Param("info") @{beanName} @{BeanObject});
 	
-	void updateBatch(@Param("list") List<@{beanName}> list);
+//	void updateBatch(@Param("list") List<@{beanName}> list);
 
 	void delete(@Param("@{GetPkAttrName}") String @{GetPkAttrName});
 
