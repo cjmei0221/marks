@@ -69,9 +69,9 @@ tool.reqUrl={
 		assetDay_list:tool.baseUrl+"/web/assetLog/listDayCount.do",
 		
 		bind:tool.baseUrl+"/web/bind.do",
-		getVIPInfo:tool.baseUrl+"/web/vipInfo/findVipInfoById.do",
+		getVIPInfo:tool.baseUrl+"/web/sysUser/findSysUserById.do",
 		changeMobile:tool.baseUrl+"/web/sysUser/changeMobile.do",
-		vipInfo_save:tool.baseUrl+"/web/vipInfo/save.do",
+		vipInfo_save:tool.baseUrl+"/web/sysUser/update.do",
 		getWxSign: '/web/jssdkConfig.do', //获取微信签名
 		mall_orderDetail:'/web/orderDetail.do',
 		unionPay: '/web/unionpay/pay.do', //银联支付接口
