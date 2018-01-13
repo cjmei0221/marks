@@ -74,8 +74,8 @@ public class StockBatchController extends SupportContorller{
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
 			BarCodeForm reqVo = getModel(BarCodeForm.class);
 			reqVo.setCompanyId(admin.getCompanyId());
-			reqVo.setOrgid(admin.getDefaultOrgid());
-			reqVo.setOrgname(admin.getDefaultOrgname());
+			reqVo.setOrgid(admin.getOrgId());
+			reqVo.setOrgname(admin.getOrgName());
 			reqVo.setOperator(admin.getUsername());
 			reqVo.setOperatorId(admin.getUserid());
 			logger.info("saveBarCode > param>" + reqVo.getGoodId() + " - " + reqVo.getNums());

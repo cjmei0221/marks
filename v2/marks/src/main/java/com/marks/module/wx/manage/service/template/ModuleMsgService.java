@@ -1,6 +1,5 @@
 package com.marks.module.wx.manage.service.template;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +26,5 @@ public interface ModuleMsgService {
 
 	public void pustWxbModuleMsg();
 
-	public void updateResultForModuleMsg(String accountId, String msgID, Timestamp time, String status);
+	public void updateResultForModuleMsg(String accountId, String msgID, String time, String status);
 }

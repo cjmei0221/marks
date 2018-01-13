@@ -72,27 +72,10 @@ public class WorkTypeStepController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-	    	WorkTypeStep info = getModel(WorkTypeStep.class);
-			info.setTypeId(request.getParameter("i_typeId"));
-			info.setStepId(info.getTypeId() + info.getStep());
-	 		
-	 		logger.info("saveWorkTypeStep > param>"+info.toLog());
-	 
-			 WorkTypeStep ori=null;
-	 		if(info.getStepId() != null){
-	 			ori=workTypeStepService.findById(info.getStepId());
-	 		}
-	 		
-	 		if(ori==null){
-				info.setCompanyId(admin.getCompanyId());
-				info.setUpdater(admin.getUserid() + " - " + admin.getUsername());
-	 			workTypeStepService.save(info);
-	 			result.setMessage("保存成功");
-				result.setCode(Code.CODE_SUCCESS);
-	 		}else{
-	    		result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
-	    	}
+			String status = request.getParameter("status");
+			String typeId = request.getParameter("typeId");
+			String listArr = request.getParameter("list");
+			workTypeStepService.saveStep(typeId, status, listArr);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			result.setMessage("保存失败，请联系管理员！");
@@ -219,15 +202,15 @@ public class WorkTypeStepController extends SupportContorller{
        PaginationResult result = new PaginationResult();
 		try {
 			SysUser admin = ManageUtil.getCurrentUserInfo(request);
-			int page_number = Integer.parseInt(request.getParameter("page_number"));
-			int page_size = Integer.parseInt(request.getParameter("page_size"));
+			int page_number = 1;
+			int page_size = 200;
 			if (page_size > 200) {
 				page_size = 200;
 			}
-			String keyword=IStringUtil.getUTF8(request.getParameter("keyword"));
+			String keyword = IStringUtil.getUTF8(request.getParameter("typeId"));
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
-			param.put("keyword", keyword);
+			param.put("typeId", keyword);
 			PojoDomain<WorkTypeStep> list = workTypeStepService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.marks.common.util.date.DateUtil;
 import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.wx.manage.service.template.ModuleMsgService;
 import com.marks.module.wx.web.message.request.WechatRequest;
@@ -43,7 +44,8 @@ public class TemplatesendjobfinishEventRequestServiceImpl extends AbstractReques
 		ModuleMsgService moduleMsgService=(ModuleMsgService) SpringContextHolder.getBean(ModuleMsgService.class);
 		String createtimeStr=requestMessage.getCreateTime();
 		Timestamp time=new Timestamp(Long.parseLong(createtimeStr)*1000);
-		moduleMsgService.updateResultForModuleMsg(requestMessage.getAccountId(),requestMessage.getMsgID(),time,requestMessage.getStatus());
+		moduleMsgService.updateResultForModuleMsg(requestMessage.getAccountId(), requestMessage.getMsgID(),
+				DateUtil.getCurrDateStr(), requestMessage.getStatus());
 		WxhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 		return null;
 	}

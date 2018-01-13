@@ -1,6 +1,5 @@
 package com.marks.module.wx.manage.serviceImpl.template;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -126,7 +125,7 @@ public class ModuleMsgServiceImpl implements ModuleMsgService {
 	}
 
 	@Override
-	public void updateResultForModuleMsg(String accountId, String msgID, Timestamp time, String status) {
+	public void updateResultForModuleMsg(String accountId, String msgID, String time, String status) {
 		String resultCode="0";
 		if(status.indexOf("success")>=0){
 			resultCode="1";

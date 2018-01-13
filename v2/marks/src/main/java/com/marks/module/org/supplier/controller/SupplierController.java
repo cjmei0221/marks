@@ -98,6 +98,7 @@ public class SupplierController extends SupportContorller {
 			org.setOrgType(OrgEnums.OrgType.supplier.getValue());
 			org.setParentId(admin.getCompanyId());
 			org.setUseflag(reqVo.getStatus());
+			org.setOrgCategory(OrgEnums.OrgCategory.supplier.getValue());
 			orgInfoService.save(org);
 			supplierService.save(reqVo);
 			result.setMessage("保存成功");

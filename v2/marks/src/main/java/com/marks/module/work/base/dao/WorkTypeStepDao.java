@@ -4,9 +4,8 @@ package com.marks.module.work.base.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.annotation.MapperScan;
-
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.work.base.pojo.WorkTypeStep;
@@ -31,4 +30,8 @@ public interface WorkTypeStepDao {
 	void deleteBatch(@Param("list") List<String> list);
 
 	List<WorkTypeStep> list(PageBounds pageBounds, Map<String,Object> param);
+
+	void deleteByTypeId(@Param("typeId") String typeId);
+
+	List<WorkTypeStep> listByTypeId(@Param("typeId") String typeId);
 }

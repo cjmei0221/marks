@@ -53,7 +53,7 @@ public class LoginServiceImpl implements LoginService {
 	public List<SysMenu> getSysMenuOfSysUser(SysUser user) {
 		List<SysMenu> returnMenu = new ArrayList<SysMenu>();
 		List<SysMenu> lvl2Menu = new ArrayList<SysMenu>();
-		List<SysMenu> child = loginDao.getChildMenu(user.getRoleid());
+		List<SysMenu> child = loginDao.getChildMenu(user.getRoleId());
 		if (null != child && child.size() > 0) {
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.MONTH, -3);
@@ -129,7 +129,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List<SysOperate> getSysOperate(String menuid, SysUser user) {
-		List<SysOperate> list = loginDao.getSysOperate(menuid, user.getRoleid());
+		List<SysOperate> list = loginDao.getSysOperate(menuid, user.getRoleId());
 		return list;
 	}
 

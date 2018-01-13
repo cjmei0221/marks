@@ -8,7 +8,7 @@ import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.user.sysuser.pojo.SysUser;
-import com.marks.module.user.sysuser.pojo.SysUserOrg;
+import com.marks.module.user.sysuser.pojo.SysUserOrgRole;
 
 @MapperScan
 public interface SysUserDao {
@@ -35,14 +35,15 @@ public interface SysUserDao {
 
 	void updateMobile(@Param("userid") String userid, @Param("newPhone") String newPhone);
 
-	void deleteSysUserOrg(@Param("userid") String userid);
+	void deleteSysUserOrgRole(@Param("userid") String userid, @Param("orgid") String orgid);
 
-	void saveSysUserOrg(SysUserOrg su);
+	void deleteSysUserOrgRoleByUserid(@Param("userid") String userid);
+
+	void saveSysUserOrgRole(SysUserOrgRole su);
 
 	void updateActiveFlag(@Param("userid") String userid, @Param("flag") int flag);
 
 	void updateSkin(@Param("userid") String userid, @Param("skin") int skin);
 
-	void updateDefaultOrg(@Param("userid") String userid, @Param("orgid") String orgid);
 
 }

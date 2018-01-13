@@ -13,6 +13,8 @@ public class SysUser implements Serializable {
 	 * 用户ID
 	 */
 	private String userid;
+
+	private String userCode;
 	/**
 	 * 用户名称
 	 */
@@ -49,38 +51,128 @@ public class SysUser implements Serializable {
 	 * 口令
 	 */
 	private String token;
-	
+
 	private String openid;
 	private String accountid;
-	
+
 	private int skin;
 
 	private int hideFlag = 0;// 隐藏标识 1:隐藏
 
-	/**
-	 * 上次登录时间
-	 */
-	private Date lastLoginTime;
-
 	private List<String> userUrlList = new ArrayList<String>();
-
-	private Date loginTime;
 
 	private String companyId;
 	/**
 	 * 用户ID
 	 */
-	private String roleid;
-	private String rolename;
+	private String roleId;
+	private String roleName;
+	private String roleType;
 	private int roleLvl;
-	
-	private String defaultOrgid;
-	private String defaultOrgname;
 
-	private String orgidsStr;
-	private String orgidNamesStr;
+	private String orgId;
+	private String orgName;
+	private int orgType;
+	private int orgCategory;
+	private String parentOrgId;
+	private String parentOrgName;
 
 	private String queryOrgid;// 查询字段
+
+	private int gender;// 性别
+	private String birthday;// 生日
+	private String signature;// 签名
+	private String idNumber;// 身份证
+	private String email;// Email
+	private String entryDate;// 入职日期
+
+	public int getGender() {
+		return gender;
+	}
+
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEntryDate() {
+		return entryDate;
+	}
+
+	public void setEntryDate(String entryDate) {
+		this.entryDate = entryDate;
+	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
+	public String getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
+	}
+
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public int getOrgType() {
+		return orgType;
+	}
+
+	public void setOrgType(int orgType) {
+		this.orgType = orgType;
+	}
+
+	public int getOrgCategory() {
+		return orgCategory;
+	}
+
+	public void setOrgCategory(int orgCategory) {
+		this.orgCategory = orgCategory;
+	}
 
 	public int getHideFlag() {
 		return hideFlag;
@@ -88,22 +180,6 @@ public class SysUser implements Serializable {
 
 	public void setHideFlag(int hideFlag) {
 		this.hideFlag = hideFlag;
-	}
-
-	public String getOrgidsStr() {
-		return orgidsStr;
-	}
-
-	public void setOrgidsStr(String orgidsStr) {
-		this.orgidsStr = orgidsStr;
-	}
-
-	public String getOrgidNamesStr() {
-		return orgidNamesStr;
-	}
-
-	public void setOrgidNamesStr(String orgidNamesStr) {
-		this.orgidNamesStr = orgidNamesStr;
 	}
 
 	public int getRoleLvl() {
@@ -121,23 +197,6 @@ public class SysUser implements Serializable {
 	public void setQueryOrgid(String queryOrgid) {
 		this.queryOrgid = queryOrgid;
 	}
-
-	public String getDefaultOrgid() {
-		return defaultOrgid;
-	}
-
-	public void setDefaultOrgid(String defaultOrgid) {
-		this.defaultOrgid = defaultOrgid;
-	}
-
-	public String getDefaultOrgname() {
-		return defaultOrgname;
-	}
-
-	public void setDefaultOrgname(String defaultOrgname) {
-		this.defaultOrgname = defaultOrgname;
-	}
-	
 
 	public String getOpenid() {
 		return openid;
@@ -234,13 +293,6 @@ public class SysUser implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public Date getLastLoginTime() {
-		return lastLoginTime;
-	}
-
-	public void setLastLoginTime(Date lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
 
 	public List<String> getUserUrlList() {
 		return userUrlList;
@@ -248,15 +300,6 @@ public class SysUser implements Serializable {
 
 	public void setUserUrlList(List<String> userUrlList) {
 		this.userUrlList = userUrlList;
-	}
-
-
-	public Date getLoginTime() {
-		return loginTime;
-	}
-
-	public void setLoginTime(Date loginTime) {
-		this.loginTime = loginTime;
 	}
 
 	public String getCompanyId() {
@@ -275,20 +318,44 @@ public class SysUser implements Serializable {
 		this.bindFlag = bindFlag;
 	}
 
-	public String getRoleid() {
-		return roleid;
+	public String getRoleId() {
+		return roleId;
 	}
 
-	public void setRoleid(String roleid) {
-		this.roleid = roleid;
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 
-	public String getRolename() {
-		return rolename;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setRolename(String rolename) {
-		this.rolename = rolename;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getRoleType() {
+		return roleType;
+	}
+
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
+	}
+
+	public String getParentOrgId() {
+		return parentOrgId;
+	}
+
+	public void setParentOrgId(String parentOrgId) {
+		this.parentOrgId = parentOrgId;
+	}
+
+	public String getParentOrgName() {
+		return parentOrgName;
+	}
+
+	public void setParentOrgName(String parentOrgName) {
+		this.parentOrgName = parentOrgName;
 	}
 
 }

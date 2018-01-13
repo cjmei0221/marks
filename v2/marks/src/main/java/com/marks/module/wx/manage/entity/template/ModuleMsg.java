@@ -1,7 +1,6 @@
 package com.marks.module.wx.manage.entity.template;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class ModuleMsg implements Serializable {
 
@@ -48,11 +47,11 @@ public class ModuleMsg implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private Date createtime;
+	private String createtime;
 	/**
 	 * 发送时间
 	 */
-	private Date sendtime;
+	private String sendtime;
 	/**
 	 * 消息ID
 	 */
@@ -74,7 +73,7 @@ public class ModuleMsg implements Serializable {
 	 */
 	private String resultMsg;
 
-	private Date resultTime;
+	private String resultTime;
 	/**
 	 * 备注
 	 */
@@ -99,11 +98,11 @@ public class ModuleMsg implements Serializable {
 		this.create_stamp = create_stamp;
 	}
 
-	public Date getResultTime() {
+	public String getResultTime() {
 		return resultTime;
 	}
 
-	public void setResultTime(Date resultTime) {
+	public void setResultTime(String resultTime) {
 		this.resultTime = resultTime;
 	}
 
@@ -179,19 +178,19 @@ public class ModuleMsg implements Serializable {
 		this.sendTimes = sendTimes;
 	}
 
-	public Date getCreatetime() {
+	public String getCreatetime() {
 		return createtime;
 	}
 
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
 
-	public Date getSendtime() {
+	public String getSendtime() {
 		return sendtime;
 	}
 
-	public void setSendtime(Date sendtime) {
+	public void setSendtime(String sendtime) {
 		this.sendtime = sendtime;
 	}
 

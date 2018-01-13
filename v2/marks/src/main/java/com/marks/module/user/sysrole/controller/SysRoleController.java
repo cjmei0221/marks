@@ -73,9 +73,9 @@ public class SysRoleController extends SupportContorller {
 			sysRole.setCreator(admin.getUserid());
 			String companyId = admin.getCompanyId();
 			sysRole.setCompanyId(companyId);
-			SysRole ori = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
+			SysRole ori = sysRoleService.findByUserTypeAndCompanyId(sysRole.getRoleType(), sysRole.getCompanyId());
 			if (ori == null) {
-				sysRole.setRoleid(sysRole.getCompanyId() + "_" + sysRole.getUserType());
+				sysRole.setRoleid(sysRole.getCompanyId() + "_" + sysRole.getRoleType());
 				sysRoleService.save(sysRole);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -114,7 +114,7 @@ public class SysRoleController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
-			SysRole ori2 = sysRoleService.findByUserTypeAndCompanyId(sysRole.getUserType(), sysRole.getCompanyId());
+			SysRole ori2 = sysRoleService.findByUserTypeAndCompanyId(sysRole.getRoleType(), sysRole.getCompanyId());
 			if (ori2 != null && !ori2.getRoleid().equals(sysRole.getRoleid())) {
 				result.setMessage("此记录已存在!");
 				result.setCode(Code.CODE_FAIL);
@@ -227,10 +227,10 @@ public class SysRoleController extends SupportContorller {
 			if (keyword == null) {
 				keyword = "";
 			}
-			String loginUserRoleId = admin.getRoleid();
+			String loginUserRoleId = admin.getRoleId();
 			String companyId = admin.getCompanyId();
 			int isDeveloper = 0;
-			if (Constants.default_roleId.equals(admin.getRoleid())) {
+			if (Constants.default_roleId.equals(admin.getRoleId())) {
 				loginUserRoleId = "";
 				isDeveloper = 1;
 			}

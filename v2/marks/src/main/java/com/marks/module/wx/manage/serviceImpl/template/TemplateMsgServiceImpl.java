@@ -1,7 +1,6 @@
 package com.marks.module.wx.manage.serviceImpl.template;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.marks.common.domain.JsonResult;
 import com.marks.common.domain.Result;
 import com.marks.common.util.center.SysCode;
+import com.marks.common.util.date.DateUtil;
 import com.marks.module.wx.api.wxInterface.mp.msg.wxservice.SendMsgUtils;
 import com.marks.module.wx.manage.dao.template.ModuleMsgDao;
 import com.marks.module.wx.manage.dao.template.WxTemplateDao;
@@ -104,7 +104,7 @@ public class TemplateMsgServiceImpl implements TemplateMsgService {
 				for (String openid : openidList) {
 					mmsg = new ModuleMsg();
 					mmsg.setAccountid(accountid);
-					mmsg.setCreatetime(new Date());
+					mmsg.setCreatetime(DateUtil.getCurrDateStr());
 					mmsg.setData(wxMsg.toJsonStringByKey());
 					mmsg.setNote(note + " " + temp.getTemplate_name());
 					mmsg.setTemplate_id(temp.getTemplate_id());
@@ -173,7 +173,7 @@ public class TemplateMsgServiceImpl implements TemplateMsgService {
 		msg.setPush_code(result.getErrorCode());
 		msg.setPush_msg(result.getErrorMsg());
 		msg.setSendTimes(1);
-
+		msg.setSendtime(DateUtil.getCurrDateStr());
 		msg.setAccountid(accountid);
 		msg.setData(data);
 		msg.setNeedFlag(1);
