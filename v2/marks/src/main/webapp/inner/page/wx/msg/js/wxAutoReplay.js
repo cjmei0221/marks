@@ -34,13 +34,13 @@ function add() {
 
 // 编辑
 function edit() {
+	$('#newsList').combobox("clear");
+	$('#newsList').combobox('reload');
 	if (isSelectedOne(appInfo.selectedId)) {
 		$("#editWin").window({
 			title : "编辑"
 		}).window("open");
 		appInfo.formStatus = "edit";
-		$('#newsList').combobox('reload');
-		$('#newsList').combobox("clear");
 		$('#ff').form('load', appInfo.selectedData);
 		if (appInfo.selectedData.delFlag == 0) {
 			$("#ckey").attr('readonly', 'readonly');
@@ -104,7 +104,7 @@ $(function() {
 		onChange : function(newValue, oldValue) {
 			if (newValue == 'NEWS') {
 				$("#creplayTr").hide();
-				$("#newsListTr").show();
+				$("#newsListTr").show();			
 				$("#creplay").attr("readonly","readonly");
 			} else {
 				$("#creplayTr").show();
@@ -127,8 +127,6 @@ $(function() {
 					$("#newsTxt").val('');
 					return;
 				}
-				$("#creplay").val(vals);
-				$("#newsTxt").val($('#newsList').combobox("getText"));
 			}
 		}
 	})
@@ -140,6 +138,21 @@ function formSubmit() {
 	if (!$('#ff').form('validate')) {
 		showMsg("表单校验不通过");
 		return;
+	}
+	var replayType=$("#replayType").combobox("getValue");
+	if(replayType=='NEWS'){
+		var vals = $("#newsList").combobox("getValues");
+		if (vals != null && vals != undefined) {
+			if(vals.length>5){
+				showMsg("只能选择5个图文");
+				$('#newsList').combobox("clear");
+				$("#creplay").val('');
+				$("#newsTxt").val('');
+				return;
+			}
+		}
+		$("#creplay").val(vals);
+		$("#newsTxt").val($('#newsList').combobox("getText"));
 	}
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
