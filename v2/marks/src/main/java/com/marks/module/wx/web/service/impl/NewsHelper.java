@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import com.marks.module.core.common.SpringContextHolder;
-import com.marks.module.system.upload.util.FTPUtil;
 import com.marks.module.wx.manage.dao.msg.NewsItemDao;
 import com.marks.module.wx.manage.entity.msg.NewsItem;
 import com.marks.module.wx.web.message.request.WechatRequest;
@@ -33,7 +32,7 @@ public class NewsHelper {
 				for (NewsItem item : newsItems) {
 					vo = new ArticleResponse();
 					vo.setDescription(item.getDescription());
-					vo.setPicUrl(FTPUtil.ftp_url + item.getPicUrl());
+					vo.setPicUrl(item.getPicUrl());
 					vo.setTitle(item.getTitle());
 					String url = item.getUrl();
 					if (null != replaceParams && replaceParams.size() > 0) {
