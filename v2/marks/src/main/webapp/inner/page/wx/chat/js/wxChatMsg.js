@@ -139,15 +139,12 @@ function loadList() {
 					{
 						url : appInfo.listUrl,
 						toolbar : "#tb",
-						autoRowHeight : true,
-						fitColumns : true,
-						showFooter : true,
+						idField : 'session_id',
+						height : 580,
+						rownumbers : false,
 						pagination : true,
-						pageNumber : 1,
-						pageSize : 10,
-						singleSelect : true,
-						rownumbers : true,
-						nowrap : false,
+						pageNumber : appInfo.requestParam.page_number,
+						pageSize : appInfo.requestParam.page_size,
 						singleSelect : true,
 						columns : [ [
 								{
