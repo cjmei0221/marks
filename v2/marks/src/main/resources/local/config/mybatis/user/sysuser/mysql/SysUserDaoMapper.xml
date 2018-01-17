@@ -113,7 +113,8 @@
 		#{companyId:VARCHAR},
 		TOKEN = #{token:VARCHAR},
 		openid
-		= #{openid:VARCHAR},
+		=
+		#{openid:VARCHAR},
 		accountid = #{accountid:VARCHAR},
 		ROLEID=#{roleId:VARCHAR}
 		WHERE
@@ -171,7 +172,7 @@
 
 	<select id="list" resultType="com.marks.module.user.sysuser.pojo.SysUser"
 		parameterType="java.util.Map">
-		SELECT  sysuser.*
+		SELECT sysuser.*
 		FROM tb_user sysuser
 		join tb_sys_role tsr on (
 		sysuser.roleid = tsr.roleid)
@@ -183,7 +184,7 @@
 			and sysuser.roleType = #{roleType}
 		</if>
 		<if test="roleType == null or roleType == ''">
-			 and tsr.showflag=1
+			and tsr.showflag=1
 		</if>
 		<if test="keyword!=null and keyword!=''">
 			and (
