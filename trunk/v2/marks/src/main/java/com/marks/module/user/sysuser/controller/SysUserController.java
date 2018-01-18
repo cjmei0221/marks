@@ -212,7 +212,7 @@ public class SysUserController extends SupportContorller{
 			String companyId = admin.getCompanyId();
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			param.put("orgid", admin.getQueryOrgid());
+			param.put("orgid", admin.getOrgId());
 			param.put("companyId", companyId);
 			param.put("sorgid", ssorgid);
 			param.put("s_role", s_role);

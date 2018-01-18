@@ -77,8 +77,6 @@ public class SysUser implements Serializable {
 	private String parentOrgId;
 	private String parentOrgName;
 
-	private String queryOrgid;// 查询字段
-
 	private int gender;// 性别
 	private String birthday;// 生日
 	private String signature;// 签名
@@ -188,14 +186,6 @@ public class SysUser implements Serializable {
 
 	public void setRoleLvl(int roleLvl) {
 		this.roleLvl = roleLvl;
-	}
-
-	public String getQueryOrgid() {
-		return queryOrgid;
-	}
-
-	public void setQueryOrgid(String queryOrgid) {
-		this.queryOrgid = queryOrgid;
 	}
 
 	public String getOpenid() {
