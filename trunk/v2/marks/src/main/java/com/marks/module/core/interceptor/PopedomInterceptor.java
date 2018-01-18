@@ -12,7 +12,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.cache.CacheData;
 import com.marks.module.core.filter.RequestRegex;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 public class PopedomInterceptor extends HandlerInterceptorAdapter {
@@ -27,7 +27,7 @@ public class PopedomInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Result result = new Result();
-		SysUser loginUser = ManageUtil.getCurrentUserInfo(request);
+		SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 		if (null == loginUser) {
 			result.setCode("-1000");
 			result.setMessage("未登录用户不可以访问此地址[" + request.getRequestURI() + "]");

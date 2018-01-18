@@ -22,7 +22,7 @@ import com.marks.common.util.string.IStringUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -66,7 +66,7 @@ public class OrgInfoController extends SupportContorller {
 	public void saveOrgInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			OrgInfo orgInfo = getModel(OrgInfo.class);
 			// orgInfo.setOrgid(IDUtil.getTimeID());
 			OrgInfo ori = null;
@@ -110,7 +110,7 @@ public class OrgInfoController extends SupportContorller {
 	public void updateOrgInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			OrgInfo orgInfo = getModel(OrgInfo.class);
 			OrgInfo ori = orgInfoService.findById(orgInfo.getOrgid());
 			if (ori == null) {
@@ -173,7 +173,7 @@ public class OrgInfoController extends SupportContorller {
 	@RequestMapping("/inner/orgInfo/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 
-		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		String parentId = request.getParameter("parentId");
 		String orgType = request.getParameter("orgType");
 		logger.info("list parentId:" + parentId);
@@ -196,7 +196,7 @@ public class OrgInfoController extends SupportContorller {
 	 */
 	@RequestMapping("/inner/orgInfo/tree")
 	public void tree(HttpServletRequest request, HttpServletResponse response) {
-		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		List<OrgInfo> list = orgInfoService.list(admin);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
@@ -208,7 +208,7 @@ public class OrgInfoController extends SupportContorller {
 	public void framelist(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");
@@ -236,7 +236,7 @@ public class OrgInfoController extends SupportContorller {
 
 	@RequestMapping("/inner/orgInfo/combo")
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
-		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		Map<String, Object> param = new HashMap<String, Object>();
 		String companyId = admin.getCompanyId();
 		param.put("companyId", companyId);
@@ -254,7 +254,7 @@ public class OrgInfoController extends SupportContorller {
 	public void listByOrgType(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = IStringUtil.getUTF8(request.getParameter("keyword"));

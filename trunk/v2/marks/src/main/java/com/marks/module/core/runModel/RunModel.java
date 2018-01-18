@@ -16,9 +16,7 @@ public class RunModel {
 	private String default_companyId = PropsUtil.getProperty("default_companyId");// 与微信对接
 																				// N：测试
 																				// Y:对接
-	private String default_wxaccountId = PropsUtil.getProperty("default_wxaccountId");// 与微信对接
-																					// N：测试
-																					// Y:对接
+	private String testOpenid = PropsUtil.getProperty("test_openid");// 与微信对接
 	private static RunModel util = null;
 
 	public static RunModel getInstance() {
@@ -41,7 +39,7 @@ public class RunModel {
 	}
 
 	public String getWxAccountId() {
-		return default_wxaccountId;
+		return default_companyId;
 	}
 
 	public static void main(String[] args) {
@@ -54,5 +52,9 @@ public class RunModel {
 		for (Object str : arr) {
 			System.out.print(str + " ");
 		}
+	}
+
+	public String getTestOpenid() {
+		return testOpenid;
 	}
 }

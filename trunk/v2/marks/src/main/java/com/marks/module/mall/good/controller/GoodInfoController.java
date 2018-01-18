@@ -24,7 +24,7 @@ import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.good.pojo.GoodImg;
 import com.marks.module.mall.good.pojo.GoodInfo;
 import com.marks.module.mall.good.service.GoodInfoService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 @Controller
@@ -83,7 +83,7 @@ public class GoodInfoController extends SupportContorller {
 	public void saveGoodInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			GoodInfo goodInfo = getModel(GoodInfo.class);
 			
 			GoodInfo old = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyId(), goodInfo.getGoodNo());
@@ -117,7 +117,7 @@ public class GoodInfoController extends SupportContorller {
 	public void updateGoodInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			GoodInfo goodInfo = getModel(GoodInfo.class);
 			GoodInfo ori = goodInfoService.findById(goodInfo.getGoodId());
 			if (ori == null) {
@@ -221,7 +221,7 @@ public class GoodInfoController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");

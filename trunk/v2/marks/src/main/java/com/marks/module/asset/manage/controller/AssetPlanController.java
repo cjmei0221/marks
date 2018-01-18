@@ -20,7 +20,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import com.marks.module.asset.manage.pojo.AssetPlan;
@@ -74,7 +74,7 @@ public class AssetPlanController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	AssetPlan info = getModel(AssetPlan.class);
 	        info.setPlanId(IDUtil.getUUID());
 	 		
@@ -109,7 +109,7 @@ public class AssetPlanController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    AssetPlan info = getModel(AssetPlan.class);
 		    
 		    logger.info(" updateAssetPlan> param>"+info.toLog());
@@ -214,7 +214,7 @@ public class AssetPlanController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {

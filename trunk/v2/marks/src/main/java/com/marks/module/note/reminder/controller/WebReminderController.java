@@ -21,7 +21,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.note.reminder.pojo.Reminder;
 import com.marks.module.note.reminder.service.ReminderService;
-import com.marks.module.user.login.helper.WebUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
  /**
@@ -72,7 +72,7 @@ public class WebReminderController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Reminder reminder = getModel(Reminder.class);
 	 		logger.info("saveReminder > param>"+reminder.toLog());
 	 
@@ -105,7 +105,7 @@ public class WebReminderController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    Reminder reminder = getModel(Reminder.class);
 		    
 		    logger.info(" updateReminder> param>"+reminder.toLog());
@@ -209,7 +209,7 @@ public class WebReminderController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");

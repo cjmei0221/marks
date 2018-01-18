@@ -23,7 +23,7 @@ import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
@@ -92,7 +92,7 @@ public class ManageLoginController {
 		if (user.getCompanyId().equals(user.getOrgId())) {
 			user.setQueryOrgid(null);
 		}
-		ManageUtil.setCurrentUserInfo(request, user);
+		LoginUtil.getInstance().setCurrentUser(request, user);
 		// 保存日志
 		SysLog log = new SysLog();
 		log.setUserid(user.getUserid());
@@ -114,10 +114,10 @@ public class ManageLoginController {
 	@RequestMapping("/inner/logout")
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = ManageUtil.getCurrentUserInfo(request);
+		SysUser user = LoginUtil.getInstance().getCurrentUser(request);
 		if (user != null) {
 			result.getData().put("companyId", user.getCompanyId());
-			ManageUtil.setCurrentUserInfo(request, null);
+			LoginUtil.getInstance().setCurrentUser(request, null);
 			// 保存日志
 			SysLog log = new SysLog();
 			log.setUserid(user.getUserid());
@@ -142,7 +142,7 @@ public class ManageLoginController {
 	@RequestMapping("/inner/sys/menu")
 	public void sysMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = ManageUtil.getCurrentUserInfo(request);
+		SysUser user = LoginUtil.getInstance().getCurrentUser(request);
 		List<SysMenu> list = loginService.getSysMenuOfSysUser(user);
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
@@ -154,7 +154,7 @@ public class ManageLoginController {
 	@RequestMapping("/inner/sys/menuOperate")
 	public void menuOperate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Result result = new Result();
-		SysUser user = ManageUtil.getCurrentUserInfo(request);
+		SysUser user = LoginUtil.getInstance().getCurrentUser(request);
 		String menuid = request.getParameter("menuid");
 		List<SysOperate> list = loginService.getSysOperate(menuid, user);
 		result.setCode(Code.CODE_SUCCESS);

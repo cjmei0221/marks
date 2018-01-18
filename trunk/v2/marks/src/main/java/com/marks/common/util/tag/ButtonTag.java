@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.marks.module.core.common.SpringContextHolder;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
@@ -29,7 +29,7 @@ public class ButtonTag extends TagSupport{
 		try {
 			JspWriter out = pageContext.getOut();
 			HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-			SysUser user = ManageUtil.getCurrentUserInfo(request);
+			SysUser user = LoginUtil.getInstance().getCurrentUser(request);
 			String menuid=request.getParameter("menuid");
 			if(user!=null){
 				List<SysOperate> list=loginService.getSysOperate(menuid,user);

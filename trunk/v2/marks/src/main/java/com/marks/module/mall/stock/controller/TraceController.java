@@ -20,7 +20,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.stock.pojo.Trace;
 import com.marks.module.mall.stock.service.TraceService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
  /**
@@ -71,7 +71,7 @@ public class TraceController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Trace reqVo = getModel(Trace.class);
 	        reqVo.setTraceId(IDUtil.getUUID());
 	 		
@@ -106,7 +106,7 @@ public class TraceController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    Trace reqVo = getModel(Trace.class);
 		    
 		    logger.info(" updateTrace> param>"+reqVo.toLog());
@@ -211,7 +211,7 @@ public class TraceController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {

@@ -18,7 +18,7 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.string.IStringUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.work.base.pojo.WorkTypeStep;
 import com.marks.module.work.base.service.WorkTypeStepService;
@@ -71,7 +71,7 @@ public class WorkTypeStepController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String status = request.getParameter("status");
 			String typeId = request.getParameter("typeId");
 			String listArr = request.getParameter("list");
@@ -92,7 +92,7 @@ public class WorkTypeStepController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    WorkTypeStep info = getModel(WorkTypeStep.class);
 		    
 		    logger.info(" updateWorkTypeStep> param>"+info.toLog());
@@ -201,7 +201,7 @@ public class WorkTypeStepController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = 1;
 			int page_size = 200;
 			if (page_size > 200) {

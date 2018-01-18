@@ -13,7 +13,7 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.WebUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.user.sysuser.service.SysUserService;
@@ -33,7 +33,7 @@ public class WebSysUserController extends SupportContorller {
 	public void findSysUserById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser requestSysUser = sysUserService.findByUserid(loginUser.getUserid());
 			result.getData().put("info", requestSysUser);
 			result.setMessage("findById sysUser successs!");
@@ -57,7 +57,7 @@ public class WebSysUserController extends SupportContorller {
 			result.setCode(Code.CODE_SUCCESS);
 			String mobile = request.getParameter("mobile");
 			String pwd = request.getParameter("password");
-			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser user = loginService.findSysUserByUserid(loginUser.getUserid());
 			String password = EncryptUtil.encryptPwd(pwd);
 			if (password.equals(user.getPassword())) {
@@ -85,7 +85,7 @@ public class WebSysUserController extends SupportContorller {
 			result.setCode(Code.CODE_SUCCESS);
 			String oldPwd = request.getParameter("oldPwd");
 			String newPwd = request.getParameter("newPwd");
-			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser user = loginService.findSysUserByUserid(loginUser.getUserid());
 			String password = EncryptUtil.encryptPwd(oldPwd);
 			if (password.equals(user.getPassword())) {
@@ -112,7 +112,7 @@ public class WebSysUserController extends SupportContorller {
 			result.setMessage("findById diary successs!");
 			result.setCode(Code.CODE_SUCCESS);
 			String skin = request.getParameter("skin");
-			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			sysUserService.updateSkin(loginUser.getUserid(), Integer.parseInt(skin));
 		} catch (Exception e) {
 			result.setMessage("查询失败，请联系管理员！");
@@ -128,7 +128,7 @@ public class WebSysUserController extends SupportContorller {
 	public void updateSysUser(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser info = getModel(SysUser.class);
 			SysUser ori = sysUserService.findById(loginUser.getUserid());
 			if (ori == null) {

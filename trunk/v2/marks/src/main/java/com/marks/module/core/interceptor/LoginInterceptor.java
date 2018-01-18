@@ -8,7 +8,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.user.login.helper.WebUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
@@ -23,7 +23,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Result result = new Result();
-		SysUser loginUser = WebUtil.getInstance().getCurrentUser(request);
+		SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 		if (null != loginUser) {
 			log.info("loginUser > userid: " + loginUser.getUserid() + " - mobile:" + loginUser.getBind_mobile());
 			return true;

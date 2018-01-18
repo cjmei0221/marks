@@ -20,7 +20,7 @@ import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.pojo.StockBatch;
 import com.marks.module.mall.stock.service.StockBatchService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
  /**
@@ -71,7 +71,7 @@ public class StockBatchController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			BarCodeForm reqVo = getModel(BarCodeForm.class);
 			reqVo.setCompanyId(admin.getCompanyId());
 			reqVo.setOrgid(admin.getOrgId());
@@ -97,7 +97,7 @@ public class StockBatchController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    StockBatch info = getModel(StockBatch.class);
 		    
 		    logger.info(" updateStockBatch> param>"+info.toLog());
@@ -206,7 +206,7 @@ public class StockBatchController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {

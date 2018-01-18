@@ -23,7 +23,7 @@ import com.marks.module.system.myimage.pojo.MyImage;
 import com.marks.module.system.myimage.service.MyImageService;
 import com.marks.module.system.upload.util.FTPUtil;
 import com.marks.module.system.upload.util.UploadUtil;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import sun.misc.BASE64Decoder;
@@ -69,7 +69,7 @@ public class ImageUploadController {
 			result.getData().put("fileUrl", picName);
 			FTPUtil.getInstance().uploadFTPImageInput(FTPUtil.ip, FTPUtil.login_name, FTPUtil.password,
 					FTPUtil.ftpFileDirectory, picName, targetfile, "");
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			MyImage img = new MyImage();
 			img.setPicId(id);
 			img.setCreator(admin.getUserid());

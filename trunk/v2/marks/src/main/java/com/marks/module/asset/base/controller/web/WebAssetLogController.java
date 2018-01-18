@@ -22,7 +22,7 @@ import com.marks.module.asset.base.pojo.AssetLog;
 import com.marks.module.asset.base.pojo.AssetLogCount;
 import com.marks.module.asset.base.service.AssetLogService;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.WebUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 /**
@@ -70,7 +70,7 @@ public class WebAssetLogController extends SupportContorller {
 	public void saveAssetLog(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			AssetLog info = getModel(AssetLog.class);
 			logger.info("saveAssetLog > param>" + info.toLog());
 			AssetLog ori = null;
@@ -106,7 +106,7 @@ public class WebAssetLogController extends SupportContorller {
 	public void updateAssetLog(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			AssetLog info = getModel(AssetLog.class);
 
 			logger.info(" updateAssetLog> param>" + info.toLog());
@@ -160,7 +160,7 @@ public class WebAssetLogController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {
@@ -199,7 +199,7 @@ public class WebAssetLogController extends SupportContorller {
 	public void listCount(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {
@@ -233,7 +233,7 @@ public class WebAssetLogController extends SupportContorller {
 	public void listDayCount(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {
