@@ -21,7 +21,7 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.user.sysuser.service.SysUserService;
 
@@ -65,7 +65,7 @@ public class SysUserController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	SysUser sysUser = getModel(SysUser.class);
 			String companyId = admin.getCompanyId();
 	 //     sysUser.setUserid(IDUtil.getTimeID());
@@ -98,7 +98,7 @@ public class SysUserController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    SysUser sysUser = getModel(SysUser.class);
 			SysUser ori = sysUserService.findById(sysUser.getUserid());
 		    if(ori == null){
@@ -198,7 +198,7 @@ public class SysUserController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");
@@ -273,7 +273,7 @@ public class SysUserController extends SupportContorller{
 		try {
 			String newPwd=request.getParameter("newPwd");
 			String oldPwd=request.getParameter("oldPwd");
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser su=sysUserService.findById(admin.getUserid());
 			if(su.getPassword().equals(EncryptUtil.encryptPwd(oldPwd))){
 				admin.setPassword(EncryptUtil.encryptPwd(newPwd));
@@ -301,7 +301,7 @@ public class SysUserController extends SupportContorller{
 		try {
 			String newPhone=request.getParameter("newPhone");
 			String newPwd=request.getParameter("newPwd");
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser su=sysUserService.findById(admin.getUserid());
 			if(su.getPassword().equals(EncryptUtil.encryptPwd(newPwd))){
 				SysUser sUser = sysUserService.findByMobile(admin.getCompanyId(), newPhone);

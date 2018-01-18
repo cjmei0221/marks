@@ -22,7 +22,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.note.diary.pojo.Diary;
 import com.marks.module.note.diary.service.DiaryService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 @Controller
@@ -67,7 +67,7 @@ public class DiaryController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Diary diary = getModel(Diary.class);
 	    	diary.setId(IDUtil.getUUID());
 	    	diary.setCreator(admin.getUserid());
@@ -181,7 +181,7 @@ public class DiaryController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			Map<String,Object> param=new HashMap<String,Object>();

@@ -22,7 +22,7 @@ import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysrole.service.SysRoleService;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -68,7 +68,7 @@ public class SysRoleController extends SupportContorller {
 	public void saveSysRole(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			SysRole sysRole = getModel(SysRole.class);
 			sysRole.setCreator(admin.getUserid());
 			String companyId = admin.getCompanyId();
@@ -98,7 +98,7 @@ public class SysRoleController extends SupportContorller {
 	public void updateSysRole(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			SysRole sysRole = getModel(SysRole.class);
 			sysRole.setCompanyId(admin.getCompanyId());
 			if (Constants.default_roleId.equals(sysRole.getRoleid())) {
@@ -219,7 +219,7 @@ public class SysRoleController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");
@@ -261,7 +261,7 @@ public class SysRoleController extends SupportContorller {
 	public void funclist(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String roleId = request.getParameter("roleId");
 			List<SysMenu> list = sysRoleService.funcList(admin, roleId);
 			result.getData().put("funcList", list);
@@ -279,7 +279,7 @@ public class SysRoleController extends SupportContorller {
 	public void funcSave(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String roleId = request.getParameter("roleId");
 			String[] funcIds = request.getParameterValues("funcId");
 
@@ -302,7 +302,7 @@ public class SysRoleController extends SupportContorller {
 
 	@RequestMapping("/inner/sysRole/lvl")
 	public void combox(HttpServletRequest request, HttpServletResponse response) {
-		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		int lvl = admin.getRoleLvl();
 		List<TreeVo> list = new ArrayList<TreeVo>();
 		TreeVo vo = null;
@@ -320,7 +320,7 @@ public class SysRoleController extends SupportContorller {
 
 	@RequestMapping("/inner/sysRole/combo")
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
-		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		Map<String, Object> param = new HashMap<String, Object>();
 		String companyId = admin.getCompanyId();
 		param.put("companyId", companyId);

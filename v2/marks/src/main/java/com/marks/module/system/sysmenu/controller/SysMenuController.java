@@ -20,7 +20,7 @@ import com.marks.module.system.sysmenu.pojo.SysFunc;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.system.sysmenu.service.SysMenuService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -100,7 +100,7 @@ public class SysMenuController extends SupportContorller {
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("sucess");
 		String formStatus=request.getParameter("formStatus");
-		SysUser user = ManageUtil.getCurrentUserInfo(request);
+		SysUser user = LoginUtil.getInstance().getCurrentUser(request);
 		SysMenu sm = getModel(SysMenu.class);
 		if (sm.getLvl() == 1) {
 			sm.setParentid("0");
@@ -223,7 +223,7 @@ public class SysMenuController extends SupportContorller {
 					result.setCode("2");
 					result.setMessage("此功能已存在");
 				} else {
-					SysUser user = ManageUtil.getCurrentUserInfo(request);
+					SysUser user = LoginUtil.getInstance().getCurrentUser(request);
 					SysOperate oper = sysMenuService.saveFunc(operid, menuid,url);
 					oper.setCreator(user.getUsername());
 					result.setCode(Code.CODE_SUCCESS);

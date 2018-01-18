@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.module.core.runModel.RunModel;
-import com.marks.module.user.login.helper.WebUtil;
-import com.marks.module.user.login.helper.WxUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.web.config.PageConfigUtil;
@@ -127,22 +126,22 @@ public class WxAuthController {
 	 */
 	private boolean checkSession(HttpServletRequest request, boolean flag, String newOpenid, String accountid) {
 		if (flag) {
-			WxUtil.getInstance().setCurrentOpenid(request, newOpenid);
-			WxUtil.getInstance().setCurrentAccountid(request, accountid);
+			LoginUtil.getInstance().setCurrentOpenid(request, newOpenid);
+			LoginUtil.getInstance().setCurrentAccountid(request, accountid);
 			SysUser loginUser = loginService.getSysUserByOpenidAndAccountid(accountid,newOpenid);
 			if (null == loginUser) {
 				return false;
 			}
-			WebUtil.getInstance().setCurrentUser(request, loginUser);
+			LoginUtil.getInstance().setCurrentUser(request, loginUser);
 			return false;
 		} else {
-			String openid = WxUtil.getInstance().getCurrentOpenid(request);
+			String openid = LoginUtil.getInstance().getCurrentOpenid(request);
 			
 			logger.info("session>>openid>>" + openid);
 			if (openid != null && openid.length() > 5) {
 				SysUser loginUser = loginService.getSysUserByOpenidAndAccountid(accountid,openid);
 				if (null != loginUser) {
-					WebUtil.getInstance().setCurrentUser(request, loginUser);
+					LoginUtil.getInstance().setCurrentUser(request, loginUser);
 				}
 				return true;
 			}

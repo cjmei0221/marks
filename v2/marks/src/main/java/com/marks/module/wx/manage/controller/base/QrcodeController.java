@@ -21,7 +21,7 @@ import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.qrImage.QrcodeUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.manage.entity.base.Qrcode;
 import com.marks.module.wx.manage.service.base.QrcodeService;
@@ -66,7 +66,7 @@ public class QrcodeController extends SupportContorller {
 	public void saveQrcode(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Qrcode qrcode = getModel(Qrcode.class);
 			qrcode.setId(IDUtil.getTimeID());
 			Qrcode ori = null;
@@ -240,7 +240,7 @@ public class QrcodeController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");

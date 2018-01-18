@@ -8,7 +8,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.JsonUtil;
-import com.marks.module.user.login.helper.WxUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 
 public class WxUserInterceptor extends HandlerInterceptorAdapter {
 	private static Logger log= Logger.getLogger(WxUserInterceptor.class);
@@ -27,7 +27,7 @@ public class WxUserInterceptor extends HandlerInterceptorAdapter {
 		if(null !=device && "PC".equals(device)){
 			return true;
 		}
-		String openid = WxUtil.getInstance().getCurrentOpenid(request);
+		String openid = LoginUtil.getInstance().getCurrentOpenid(request);
 		if (null != openid && openid.length()>5) {
 			log.info("wxUser > openid:"+openid);
 			return true;

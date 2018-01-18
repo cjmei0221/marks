@@ -25,7 +25,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.asset.base.pojo.AssetLog;
 import com.marks.module.asset.base.service.AssetLogService;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -75,7 +75,7 @@ public class AssetLogController extends SupportContorller {
 	public void saveAssetLog(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			AssetLog info = getModel(AssetLog.class);
 			info.setId("I_" + IDUtil.getDateID() + "_" + IDUtil.getID(8));
 
@@ -105,7 +105,7 @@ public class AssetLogController extends SupportContorller {
 	public void updateAssetLog(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			AssetLog info = getModel(AssetLog.class);
 
 			logger.info(" updateAssetLog> param>" + info.toLog());
@@ -194,7 +194,7 @@ public class AssetLogController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {

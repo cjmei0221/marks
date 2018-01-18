@@ -27,7 +27,7 @@ import com.marks.module.core.runModel.RunModel;
 import com.marks.module.note.diary.pojo.Diary;
 import com.marks.module.note.diary.service.DiaryService;
 import com.marks.module.system.upload.util.UploadUtil;
-import com.marks.module.user.login.helper.WebUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.user.sysuser.service.SysUserService;
@@ -93,7 +93,7 @@ public class WebDiaryController extends SupportContorller {
 	public void saveDiary(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Diary diary = getModel(Diary.class);
 			// diary.setID(IDUtil.getTimeID());
 			diary.setCreator(admin.getUserid());
@@ -208,7 +208,7 @@ public class WebDiaryController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			Map<String, Object> param = new HashMap<String, Object>();
@@ -285,7 +285,7 @@ public class WebDiaryController extends SupportContorller {
 	public void export(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = WebUtil.getInstance().getCurrentUser(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Map<String, Object> param = new HashMap<String, Object>();
 			String keyword = request.getParameter("keyword");
 			param.put("userid", admin.getUserid());

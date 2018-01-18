@@ -35,7 +35,7 @@ import com.marks.module.pay.wxpay.pojo.PayNotice;
 import com.marks.module.pay.wxpay.pojo.WXPayRecord;
 import com.marks.module.pay.wxpay.pojo.WeixinPayRequestDomain;
 import com.marks.module.pay.wxpay.service.WXPayService;
-import com.marks.module.user.login.helper.WxUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.wx.manage.entity.base.WxAccount;
 
 /**
@@ -128,7 +128,7 @@ public class WXPayController extends SupportContorller{
 	public void preorder(HttpServletRequest request,
 			HttpServletResponse response) {
 		String orderId=request.getParameter("orderId");
-		String accountId = WxUtil.getInstance().getCurrentAccountid(request);
+		String accountId = LoginUtil.getInstance().getCurrentAccountid(request);
 		WxAccount wa = CacheData.getWxAccount(accountId);
 		String txnAmt = NumberUtil.formatNum(3452, "0");
 		Result result = new Result();
@@ -137,7 +137,7 @@ public class WXPayController extends SupportContorller{
 		String mch_id = WxPayPropUtil.getValueByAccountId(accountId, WxConfig.mch_id);
 		String key = WxPayPropUtil.getValueByAccountId(accountId, WxConfig.key);
 		String nonce_str = IDUtil.getUUID();	
-		String openid = WxUtil.getInstance().getCurrentOpenid(request);
+		String openid = LoginUtil.getInstance().getCurrentOpenid(request);
 		String trade_type = request.getParameter("trade_type");//取值如下：JSAPI，NATIVE，APP	
 		String body = request.getParameter("body");// 商品描述
 		String total_fee = txnAmt;//订单总金额，只能为整数 单位分

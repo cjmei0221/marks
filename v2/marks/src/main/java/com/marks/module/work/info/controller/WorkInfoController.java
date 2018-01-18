@@ -19,7 +19,7 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.date.DateUtil;
 import com.marks.common.util.string.IStringUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.work.info.pojo.WorkInfo;
 import com.marks.module.work.info.pojo.WorkStep;
@@ -70,7 +70,7 @@ public class WorkInfoController extends SupportContorller {
 	public void saveWorkInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			WorkStep info = getModel(WorkStep.class);
 			info.setCompanyId(admin.getCompanyId());
 			info.setEndTime(DateUtil.getCurrDateStr());
@@ -122,7 +122,7 @@ public class WorkInfoController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			int flag = 1;
@@ -159,7 +159,7 @@ public class WorkInfoController extends SupportContorller {
 	public void listByUserId(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {

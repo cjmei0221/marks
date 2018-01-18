@@ -23,7 +23,7 @@ import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
 import com.marks.module.org.supplier.pojo.Supplier;
 import com.marks.module.org.supplier.service.SupplierService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -75,7 +75,7 @@ public class SupplierController extends SupportContorller {
 	public void saveSupplier(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Supplier reqVo = getModel(Supplier.class);
 			reqVo.setCompanyId(admin.getCompanyId());
 			String orgid = orgInfoService.getOrgId();
@@ -119,7 +119,7 @@ public class SupplierController extends SupportContorller {
 	public void updateSupplier(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Supplier reqVo = getModel(Supplier.class);
 			reqVo.setCompanyId(admin.getCompanyId());
 			logger.info(" updateSupplier> param>" + reqVo.toLog());
@@ -200,7 +200,7 @@ public class SupplierController extends SupportContorller {
 	public void findAllBrand(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 
-		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		List<Supplier> allList = supplierService.findAll(admin.getCompanyId());
 
 		JsonUtil.output(response, JSONArray.fromObject(allList).toString());
@@ -244,7 +244,7 @@ public class SupplierController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {

@@ -20,7 +20,7 @@ import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.good.service.GoodInfoService;
 import com.marks.module.mall.stock.pojo.BarCode;
 import com.marks.module.mall.stock.service.BarCodeService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 /**
@@ -69,7 +69,7 @@ public class BarCodeController extends SupportContorller {
 	public void updateBarCode(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			BarCode reqVo = getModel(BarCode.class);
 
 			logger.info(" updateBarCode> param>" + reqVo.toLog());
@@ -155,7 +155,7 @@ public class BarCodeController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {

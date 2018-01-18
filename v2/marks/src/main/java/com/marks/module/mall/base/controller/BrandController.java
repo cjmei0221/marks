@@ -23,7 +23,7 @@ import com.marks.module.mall.base.pojo.Brand;
 import com.marks.module.mall.base.service.BrandService;
 import com.marks.module.mall.good.pojo.GoodInfo;
 import com.marks.module.mall.good.service.GoodInfoService;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 import net.sf.json.JSONArray;
@@ -76,7 +76,7 @@ public class BrandController extends SupportContorller {
 	public void saveBrand(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Brand reqVo = getModel(Brand.class);
 			reqVo.setBrandId("B" + IDUtil.getDateID() + IDUtil.getID(4));
 
@@ -112,7 +112,7 @@ public class BrandController extends SupportContorller {
 	public void updateBrand(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Brand reqVo = getModel(Brand.class);
 
 			logger.info(" updateBrand> param>" + reqVo.toLog());
@@ -170,7 +170,7 @@ public class BrandController extends SupportContorller {
 	public void findAllBrand(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 
-		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		String typeId = request.getParameter("typeId");
 		List<Brand> allList = brandService.findListByTypeId(admin.getCompanyId(), typeId);
 
@@ -203,7 +203,7 @@ public class BrandController extends SupportContorller {
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			if (page_size > 200) {

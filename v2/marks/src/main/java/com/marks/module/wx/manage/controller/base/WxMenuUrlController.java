@@ -19,7 +19,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.manage.entity.base.WxMenuUrl;
 import com.marks.module.wx.manage.service.base.WxMenuUrlService;
@@ -66,7 +66,7 @@ public class WxMenuUrlController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	WxMenuUrl wxMenuUrl = getModel(WxMenuUrl.class);
 	 //     wxMenuUrl.setId(IDUtil.getTimeID());
 			 WxMenuUrl ori=null;
@@ -99,7 +99,7 @@ public class WxMenuUrlController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    WxMenuUrl wxMenuUrl = getModel(WxMenuUrl.class);
 		    WxMenuUrl ori=wxMenuUrlService.findById(wxMenuUrl.getId());
 		    if(ori == null){
@@ -196,7 +196,7 @@ public class WxMenuUrlController extends SupportContorller{
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword=request.getParameter("keyword");

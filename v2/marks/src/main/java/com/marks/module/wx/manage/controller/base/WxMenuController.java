@@ -17,7 +17,7 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.ManageUtil;
+import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.manage.entity.base.MyWxMenu;
 import com.marks.module.wx.manage.service.base.WxMenuService;
@@ -64,7 +64,7 @@ public class WxMenuController extends SupportContorller {
 	public void saveWxMenu(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			MyWxMenu wxMenu = getModel(MyWxMenu.class);
 			// wxMenu.setId(IDUtil.getTimeID());
 			if(wxMenu.getLvl() !=0){
@@ -91,7 +91,7 @@ public class WxMenuController extends SupportContorller {
 	public void updateWxMenu(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			SysUser admin = ManageUtil.getCurrentUserInfo(request);
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			MyWxMenu wxMenu = getModel(MyWxMenu.class);
 			MyWxMenu ori = wxMenuService.findById(wxMenu.getId());
 			if (ori == null) {
@@ -196,7 +196,7 @@ public class WxMenuController extends SupportContorller {
 	@RequestMapping("/inner/wxMenu/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) {
 
-		SysUser admin = ManageUtil.getCurrentUserInfo(request);
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		String parentId = request.getParameter("parentId");
 		if (parentId == null || "".equals(parentId)) {
 			parentId = "0";
