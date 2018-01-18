@@ -88,10 +88,6 @@ public class ManageLoginController {
 		result.setCode("0");
 		result.setMessage("success");
 		user.setPassword("");
-		user.setQueryOrgid(user.getOrgId());
-		if (user.getCompanyId().equals(user.getOrgId())) {
-			user.setQueryOrgid(null);
-		}
 		LoginUtil.getInstance().setCurrentUser(request, user);
 		// 保存日志
 		SysLog log = new SysLog();
