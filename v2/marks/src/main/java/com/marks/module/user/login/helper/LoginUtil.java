@@ -23,7 +23,9 @@ public class LoginUtil {
 	}
 
 	public void setCurrentUser(HttpServletRequest request, SysUser user) {
-		user.setPassword("");
+		if (null != user) {
+			user.setPassword("");
+		}
 		request.getSession().setAttribute("cSysUser", user);
 	}
 
