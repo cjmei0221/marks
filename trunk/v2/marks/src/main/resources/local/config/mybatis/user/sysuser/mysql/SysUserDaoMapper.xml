@@ -112,9 +112,7 @@
 		COMPANYID =
 		#{companyId:VARCHAR},
 		TOKEN = #{token:VARCHAR},
-		openid
-		=
-		#{openid:VARCHAR},
+		openid=#{openid:VARCHAR},
 		accountid = #{accountid:VARCHAR},
 		ROLEID=#{roleId:VARCHAR}
 		WHERE
