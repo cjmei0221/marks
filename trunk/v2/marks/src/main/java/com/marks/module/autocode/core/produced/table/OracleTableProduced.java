@@ -122,6 +122,10 @@ public class OracleTableProduced implements DBProduced {
 					.append("'" + attrs.get(i).getAttrDesc() + " " + attrs.get(i).getNote() + "'");
 			statement.execute(commentBuffer.toString());
 		}
+		commentBuffer = new StringBuffer();
+		commentBuffer.append("comment on table ").append(autoBean.getTableName()).append(" is ")
+				.append("'" + autoBean.getModuleDesc() + " " + autoBean.getDescription() + "'");
+		statement.execute(commentBuffer.toString());
 	}
 
 }
