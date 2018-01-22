@@ -42,6 +42,7 @@ public class MySqlTableProduced implements DBProduced {
 		sBuffer.append(createTableName(beanName));
 		sBuffer.append(createFieldSql(autoBean));
 		sBuffer.append(ENTER_VALUE).append(RIGHT_PATEN);
+		sBuffer.append(" comment='" + autoBean.getModuleDesc() + autoBean.getDescription() + "'");
 		return sBuffer.toString();
 	}
 
