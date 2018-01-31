@@ -20,10 +20,16 @@ public class WorkInfo implements Serializable {
 	 */
 	private String companyId;
 	/**
-	 * 主键
+	 * 业务编号
 	 *
 	 */
 	private String idNo;
+
+	/**
+	 * 业务名称
+	 *
+	 */
+	private String idName;
 	/**
 	 * 申请人编号
 	 *
@@ -132,6 +138,14 @@ public class WorkInfo implements Serializable {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
 
+	}
+
+	public String getIdName() {
+		return idName;
+	}
+
+	public void setIdName(String idName) {
+		this.idName = idName;
 	}
 
 	public String getOperatorStatusName() {

@@ -39,8 +39,8 @@ public class Enums {
 	public enum CheckStatus {
 		noCheck(0, "未审核"), //
 		checking(3, "审核中"), //
-		checkFail(2, "审核失败"), //
-		checkOk(1, "审核成功"), //
+		checkFail(2, "审核不通过"), //
+		checkOk(1, "审核通过"), //
 		free(6, "不用审核"), //
 		edit(5, "编辑中"),//
 		apply(7, "申请"),//

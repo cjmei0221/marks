@@ -1,4 +1,4 @@
-package com.marks.module.work.base.service;
+package com.marks.module.work.info.service;
 
 
 import java.util.Map;

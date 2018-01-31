@@ -22,12 +22,12 @@ import com.marks.module.work.base.dao.WorkTypeDao;
 import com.marks.module.work.base.dao.WorkTypeStepDao;
 import com.marks.module.work.base.pojo.WorkType;
 import com.marks.module.work.base.pojo.WorkTypeStep;
-import com.marks.module.work.base.service.CheckService;
 import com.marks.module.work.info.dao.WorkInfoDao;
 import com.marks.module.work.info.dao.WorkStepDao;
 import com.marks.module.work.info.pojo.WorkFlow;
 import com.marks.module.work.info.pojo.WorkInfo;
 import com.marks.module.work.info.pojo.WorkStep;
+import com.marks.module.work.info.service.CheckService;
 import com.marks.module.work.info.service.WorkInfoService;
 
 @Service
@@ -82,6 +82,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		info.setCompanyId(flow.getCompanyId());
 		info.setTypeCode(flow.getTypeCode());
 		info.setIdNo(flow.getIdNo());
+		info.setIdName(flow.getIdName());
 		SysUser user = sysUserDao.findByUserid(info.getApplyManId());
 		WorkTypeStep typeStep = list.get(0);
 		info.setCompanyId(type.getCompanyId());
@@ -121,9 +122,13 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		step.setStepName("申请");
 		step.setWrokId(info.getWorkId());
 		workStepDao.save(step);
+		noticeNextCheckMan(info);
 		return true;
 	}
 
+	/**
+	 * 审核
+	 */
 	@Override
 	public void saveWorkStep(WorkStep info) {
 		WorkInfo work = workInfoDao.findById(info.getWrokId());
@@ -138,6 +143,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		info.setStepName(currStep.getStepName());
 		int next = work.getNextStep() + 1;
 		WorkTypeStep nextStep = workTypeStepDao.findById(work.getCompanyId() + "_" + work.getTypeCode() + "_" + next);
+
 		if (null != null) {
 			work.setNextRoleid(nextStep.getRoleId());
 			work.setNextRolename(nextStep.getRoleName());
@@ -188,7 +194,34 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 					service.approveOk(params);
 				}
 			}
+			noticeRepMan(work, info);
+
+			return;
 		}
+		// 继续审核
+		noticeNextCheckMan(work);
+
+	}
+
+	/**
+	 * 通知审核人去审核
+	 * 
+	 * @param work
+	 */
+	private void noticeNextCheckMan(WorkInfo work) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * 通知请求人
+	 * 
+	 * @param work
+	 * @param info
+	 */
+	private void noticeRepMan(WorkInfo work, WorkStep info) {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
