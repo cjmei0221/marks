@@ -6,17 +6,21 @@ public class WorkFlow implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
 	/**
 	 * 公司编号
 	 *
 	 */
 	private String companyId;
 	/**
-	 * 主键
+	 * 业务编号
 	 *
 	 */
 	private String idNo;
+	/**
+	 * 业务名称
+	 *
+	 */
+	private String idName;
 	/**
 	 * 申请人编号
 	 *
@@ -35,6 +39,14 @@ public class WorkFlow implements Serializable {
 
 	public WorkFlow() {
 
+	}
+
+	public String getIdName() {
+		return idName;
+	}
+
+	public void setIdName(String idName) {
+		this.idName = idName;
 	}
 
 	public String getCompanyId() {

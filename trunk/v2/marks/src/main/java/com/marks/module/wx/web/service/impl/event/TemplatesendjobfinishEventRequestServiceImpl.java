@@ -1,7 +1,5 @@
 package com.marks.module.wx.web.service.impl.event;
 
-import java.sql.Timestamp;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -42,8 +40,6 @@ public class TemplatesendjobfinishEventRequestServiceImpl extends AbstractReques
 	public WechatResponse handle(HttpServletRequest request,WechatRequest requestMessage) throws Exception {
 		logger.info("TemplatesendjobfinishEventRequestServiceImpl deal start  > msgId: "+requestMessage.getMsgID()+" - result: "+requestMessage.getStatus());
 		ModuleMsgService moduleMsgService=(ModuleMsgService) SpringContextHolder.getBean(ModuleMsgService.class);
-		String createtimeStr=requestMessage.getCreateTime();
-		Timestamp time=new Timestamp(Long.parseLong(createtimeStr)*1000);
 		moduleMsgService.updateResultForModuleMsg(requestMessage.getAccountId(), requestMessage.getMsgID(),
 				DateUtil.getCurrDateStr(), requestMessage.getStatus());
 		WxhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
