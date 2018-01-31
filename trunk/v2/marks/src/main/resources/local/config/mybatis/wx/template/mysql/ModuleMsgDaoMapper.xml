@@ -25,7 +25,11 @@
 		CREATETIME,
 		NOTE,
 		CREATE_STAMP,
-		companyId
+		companyId,
+		MSGID,
+		SENDTIME,
+		PUSH_CODE,
+		PUSH_MSG
 		)
 		VALUES(
 		#{id:VARCHAR},
@@ -41,7 +45,11 @@
 		now(),
 		#{note:VARCHAR},
 		#{create_stamp:NUMERIC},
-		#{companyId:VARCHAR}
+		#{companyId:VARCHAR},
+		#{msgId:VARCHAR},
+		#{sendtime:TIMESTAMP},
+		#{push_code:VARCHAR},
+		#{push_msg:VARCHAR}
 		)
 	</insert>
 
@@ -126,7 +134,6 @@
    			set resultcode = #{resultCode:VARCHAR}, 
    			resultmsg = #{status:VARCHAR}, 
    			resulttime = #{createtime:VARCHAR}
- 		where accountid =#{accountid:VARCHAR}
-   			and msgid = #{msgId:VARCHAR}
+ 		where msgid = #{msgId:VARCHAR}
 	</update>
 </mapper>
