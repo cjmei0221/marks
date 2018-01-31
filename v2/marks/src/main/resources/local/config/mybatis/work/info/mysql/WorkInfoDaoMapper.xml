@@ -36,7 +36,8 @@
 		NEXTROLENAME,
 		APPLYORGID,
 		APPLYORGNAME,
-		nextStep
+		nextStep,
+		idName
 		)
 		VALUES(
 		#{info.workId:VARCHAR},
@@ -62,7 +63,8 @@
 		#{info.nextRolename:VARCHAR},
 		#{info.applyOrgId:VARCHAR},
 		#{info.applyOrgName:VARCHAR},
-		#{info.nextStep:NUMERIC}
+		#{info.nextStep:NUMERIC},
+		#{info.idName:VARCHAR}
 		)
 	</insert>
 
@@ -91,7 +93,8 @@
 		NEXTROLENAME,
 		APPLYORGID,
 		APPLYORGNAME,
-		nextStep
+		nextStep,
+		idName
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -120,7 +123,8 @@
 			#{info.nextRolename:VARCHAR},
 			#{info.applyOrgId:VARCHAR},
 			#{info.applyOrgName:VARCHAR},
-			#{info.nextStep:NUMERIC}
+			#{info.nextStep:NUMERIC},
+			#{info.idName:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -182,10 +186,10 @@
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1 or t.WORKID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			
+
 			or t.TYPENAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			
+
 			)
 		</if>
 		order by t.UPDATETIME DESC
@@ -203,7 +207,8 @@
 	<select id="listByUserId" resultType="com.marks.module.work.info.pojo.WorkInfo"
 		parameterType="java.util.Map">
 		SELECT distinct t.*
-		FROM TB_WORK t JOIN TB_WORK_STEP s on t.workId=s.wrokId
+		FROM TB_WORK t JOIN TB_WORK_STEP s on
+		t.workId=s.wrokId
 		WHERE 1=1 and s.operatorId=#{userid}
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1 or t.WORKID LIKE

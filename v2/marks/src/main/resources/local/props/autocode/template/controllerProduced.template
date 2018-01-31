@@ -213,7 +213,7 @@ public class @{beanName}Controller extends SupportContorller{
 	*/
 	
 	/**
-	 * jqGrid多种条件查询
+	 * 列表查询
 	 */
 	@RequestMapping("/inner/@{BeanObject}/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
