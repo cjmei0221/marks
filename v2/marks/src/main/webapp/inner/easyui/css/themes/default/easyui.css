@@ -321,12 +321,13 @@
 }
 .l-btn-text {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: middle;
   width: auto;
   line-height: 24px;
-  font-size: 12px;
+  font-size: 14px;
   padding: 0;
   margin: 0 4px;
+  color:white;
 }
 .l-btn-icon {
   display: inline-block;
@@ -429,25 +430,27 @@
   width: 32px;
 }
 .l-btn {
+  line-height:35px;
   color: #654b24;
   background: #f8f7f6;
   background-repeat: repeat-x;
-  border: 1px solid #cbc7bd;
-  background: -webkit-linear-gradient(top,#f8f7f6 0,#f8f7f6 100%);
+  /* border: 1px solid #cbc7bd; */
+ /*  background: -webkit-linear-gradient(top,#f8f7f6 0,#f8f7f6 100%);
   background: -moz-linear-gradient(top,#f8f7f6 0,#f8f7f6 100%);
   background: -o-linear-gradient(top,#f8f7f6 0,#f8f7f6 100%);
-  background: linear-gradient(to bottom,#f8f7f6 0,#f8f7f6 100%);
+  background: linear-gradient(to bottom,#f8f7f6 0,#f8f7f6 100%); */
+  background-color: burlywood;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f8f7f6,endColorstr=#f8f7f6,GradientType=0);
-  -moz-border-radius: 5px 5px 5px 5px;
+  /* -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px; */
 }
 .l-btn:hover {
-  background: #654b24;
+ /*  background: #654b24;
   color: #ffffff;
   border: 1px solid #654b24;
-  filter: none;
+  filter: none; */
 }
 .l-btn-plain {
   background: transparent;
