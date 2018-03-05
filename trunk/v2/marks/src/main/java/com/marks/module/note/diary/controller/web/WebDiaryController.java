@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.enums.ChannelEnums;
 import com.marks.common.enums.Enums;
 import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
@@ -252,6 +253,7 @@ public class WebDiaryController extends SupportContorller {
 				sysUser.setUsername(mobile);
 				sysUser.setRoleId(companyId + "_" + UserEnums.UserType.VIP.getValue());
 				sysUser.setCreator(mobile);
+				sysUser.setChannelId(ChannelEnums.Channel.web.getValue());
 				String userid = sysUserService.save(sysUser);
 				sysUser.setUserid(userid);
 			} else {

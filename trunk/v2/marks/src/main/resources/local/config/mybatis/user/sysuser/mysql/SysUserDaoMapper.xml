@@ -50,7 +50,9 @@
 		signature,
 		idNumber,
 		email,
-		entryDate
+		entryDate,
+		channelId,
+		channel
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -81,7 +83,9 @@
 		#{signature:VARCHAR},
 		#{idNumber:VARCHAR},
 		#{email:VARCHAR},
-		#{entryDate:VARCHAR}
+		#{entryDate:VARCHAR},
+		#{channelId:VARCHAR},
+		#{channel:VARCHAR}
 		)
 	</insert>
 

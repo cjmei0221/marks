@@ -55,8 +55,8 @@ public class SysUserServiceImpl implements SysUserService {
 	 */
 	@Override
 	public String save(SysUser sysUser) {
-		String userCode = IDUtil.getRandom(1000, 9999) + IDUtil.getRandom(1000, 9999);
-		String userid = "U" + IDUtil.getDateID() + "_" + userCode;
+		String userCode = IDUtil.getID(6);
+		String userid = IDUtil.getDateID().substring(0, 6) + userCode;
 		sysUser.setUserid(userid);
 		sysUser.setUserCode(userCode);
 		saveSysUserOrgRole(sysUser);
