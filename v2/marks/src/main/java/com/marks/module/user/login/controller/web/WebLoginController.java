@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
+import com.marks.common.enums.ChannelEnums;
 import com.marks.common.enums.Enums;
 import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
@@ -153,6 +154,7 @@ public class WebLoginController {
 			user.setOpenid(LoginUtil.getInstance().getCurrentOpenid(request));
 			user.setAccountid(LoginUtil.getInstance().getCurrentAccountid(request));
 			if(sysUser==null){
+				user.setChannelId(ChannelEnums.Channel.web.getValue());
 				sysUserService.save(user);
 			}else{
 				sysUserService.update(user);

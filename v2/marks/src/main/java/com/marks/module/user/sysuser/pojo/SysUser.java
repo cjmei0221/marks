@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.marks.common.enums.ChannelEnums;
+
 public class SysUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -83,6 +85,22 @@ public class SysUser implements Serializable {
 	private String idNumber;// 身份证
 	private String email;// Email
 	private String entryDate;// 入职日期
+
+	private String channelId;// 渠道
+
+	private String channel;// 渠道
+
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
+	public String getChannel() {
+		return ChannelEnums.Channel.getByKey(channelId);
+	}
 
 	public int getGender() {
 		return gender;

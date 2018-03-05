@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.enums.ChannelEnums;
 import com.marks.common.enums.Enums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
@@ -75,6 +76,7 @@ public class SysUserController extends SupportContorller{
 	 			sysUser.setPassword(EncryptUtil.defaultPwd);
 	 			sysUser.setCreator(admin.getUserid());
 				sysUser.setCompanyId(companyId);
+				sysUser.setChannelId(ChannelEnums.Channel.manage.getValue());
 				sysUserService.save(sysUser);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
