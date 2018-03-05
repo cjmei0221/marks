@@ -18,7 +18,6 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.GoodEnums;
 import com.marks.common.util.Code;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.good.pojo.GoodImg;
@@ -91,7 +90,7 @@ public class GoodInfoController extends SupportContorller {
 				result.setMessage("此商品编码已存在");
 				result.setCode("4001");
 			}else{
-				goodInfo.setGoodId("P" + IDUtil.getDateID() + IDUtil.getRandom(100, 999) + IDUtil.getRandom(100, 999));
+				goodInfo.setGoodId(goodInfo.getGoodNo());
 				goodInfo.setCompanyId(admin.getCompanyId());
 				goodInfo.setCreator(admin.getUserid() + " - " + admin.getUsername());
 				goodInfo.setUpdater(admin.getUserid() + " - " + admin.getUsername());

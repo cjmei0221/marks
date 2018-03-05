@@ -54,7 +54,7 @@ public class StockEnums {
 		}
 
 		public static String getByKey(int status) {
-			for (StockStatus c : StockStatus.values()) {
+			for (YwCode c : YwCode.values()) {
 				if (c.getValue() == status) {
 					return c.getName();
 				}

@@ -24,7 +24,7 @@ function stockIn() {
 	$('#barCodeff').form('load', appInfo.selectedData);
 	$("#sendNums").numberbox("setValue", 0);
 	$("#supplierId2").combobox("setValue", appInfo.selectedData.supplierId);
-	$("#supplier2").combobox("setValue", appInfo.selectedData.supplier);
+	$("#supplier2").val(appInfo.selectedData.supplier);
 }
 
 // -----------------权限控制功能 end---------------
@@ -84,12 +84,6 @@ function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
 		toolbar : "#tb",
-		striped : true,
-		nowrap : true,
-		animate : true,
-		collapsible : true,
-		fitColumns : true,
-		autoRowHeight : false,
 		idField : 'batchId',
 		height : 580,
 		rownumbers : true,
@@ -100,13 +94,7 @@ function loadList() {
 		columns : [ [ {
 			title : '批次号',
 			field : 'batchId',
-			width : 100,
-			align : "center",
-			hidden : true
-		}, {
-			title : '公司编号',
-			field : 'companyId',
-			width : 100,
+			width : 200,
 			align : "center"
 		}, {
 			title : '机构编号',
@@ -128,16 +116,7 @@ function loadList() {
 			field : 'amount',
 			width : 100,
 			align : "center"
-		}, {
-			title : '商品编号',
-			field : 'goodId',
-			width : 100,
-			align : "center"
-		}, {
-			title : '商品名称',
-			field : 'goodName',
-			width : 100,
-			align : "center"
+		
 		}, {
 			title : '商品编号',
 			field : 'goodNo',
@@ -149,13 +128,18 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '商品名称',
+			field : 'goodName',
+			width : 200,
+			align : "center"
+		}, {
 			title : '库存管理方式',
-			field : 'stockType',
+			field : 'stockTypeName',
 			width : 100,
 			align : "center"
 		}, {
 			title : '业务类型',
-			field : 'ywCode',
+			field : 'ywCodeName',
 			width : 100,
 			align : "center"
 		}, {
@@ -176,32 +160,27 @@ function loadList() {
 		}, {
 			title : '供应商编号',
 			field : 'supplierId',
-			width : 100,
+			width : 120,
 			align : "center"
 		}, {
 			title : '供应商',
 			field : 'supplierName',
-			width : 100,
+			width : 150,
 			align : "center"
 		}, {
 			title : '创建时间',
 			field : 'createtime',
-			width : 100,
+			width : 180,
 			align : "center"
 		}, {
 			title : '更新时间',
 			field : 'updatetime',
-			width : 100,
-			align : "center"
-		}, {
-			title : '更新者',
-			field : 'updater',
-			width : 100,
+			width : 180,
 			align : "center"
 		}, {
 			title : '备注',
 			field : 'remarks',
-			width : 100,
+			width : 200,
 			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {

@@ -182,7 +182,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			good.setSupplierId(info.getSupplierId2());
 			goodInfoDao.update(good);
 
-			// 数量管理
+			// 一品一码
 			if (StockEnums.StockManageType.simple.getValue() == info.getStockManageType()) {
 				info.setBatchId(batchId);
 				barCodeService.saveBarCode(info, good);

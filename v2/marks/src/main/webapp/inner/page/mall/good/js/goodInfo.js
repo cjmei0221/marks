@@ -32,7 +32,7 @@ function add() {
 	$("#weight_unit").val("Kg");
 	$("#goodType").combobox("setValue", 0);
 	$("#isWarnDays").combobox("setValue", 0);
-	$("#stockManageType").combobox("setValue", 0);
+	$("#stockManageType").combobox("setValue", 1);
 	appInfo.formStatus = "new";
 	img.deleteImageDiv("addMainImg");
 	img.deleteImageDiv("addMainImageDiv");
@@ -99,6 +99,18 @@ function onsaleBtn() {
 	}
 }
 
+//-----------------权限控制功能 start---------------
+function stockIn() {
+	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
+	}
+	$("#stockWin").window({
+		title : "首次入库"
+	}).window("open");
+	var path = top.window.urlBase + '/inner/page/mall/stock/stockIn.html?goodId='+appInfo.selectedId;
+    var strHtml = "<iframe width='100%' height='280px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
+    $("#postShow").html(strHtml);
+}
 
 function importExcel() {
 	$("#excelWin").window({

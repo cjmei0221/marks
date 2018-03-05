@@ -20,7 +20,7 @@ function edit() {
 	$("#wrokId").val(appInfo.selectedId);
 	var path = top.window.urlBase + appInfo.selectedData.pageUrl;
     var strHtml = "<iframe width='100%' height='280px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
-    $("#postShow").append(strHtml);
+    $("#postShow").html(strHtml);
 }// -----------------权限控制功能 end---------------
 $(function() {
 	// 加载列表
