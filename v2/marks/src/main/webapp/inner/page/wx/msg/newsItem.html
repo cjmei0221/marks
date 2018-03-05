@@ -95,10 +95,13 @@
 						style="width: 200px;"></td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: center"><input
-						type="button" id="btnOK" name="btnOK" value=" 保 存 " />
-						&nbsp;&nbsp;&nbsp; <input type="button" id="btnCancel"
-						name="btnCancel" value=" 取 消 " /></td>
+					<td colspan="2" style="text-align: center"><a id="btnCancel"
+						name="btnCancel" href="javascript:void(0)"
+						class="easyui-linkbutton" style="width: 100px;"
+						data-options="iconCls:'icon-cancel'">取消</a>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+						href="javascript:void(0)" class="easyui-linkbutton"
+						style="width: 100px;" data-options="iconCls:'icon-save'">保存</a></td>
 				</tr>
 			</table>
 		</form>
@@ -122,7 +125,7 @@
 			</form>
 		</div>
 		<div id="pgNation" class="easyui-pagination"
-			style="border: 1px solid #ccc;margin-top: 10px;"
+			style="border: 1px solid #ccc; margin-top: 10px;"
 			data-options="
     		onSelectPage: function(pageNumber, pageSize){
     			loadImageList(pageNumber,pageSize);
