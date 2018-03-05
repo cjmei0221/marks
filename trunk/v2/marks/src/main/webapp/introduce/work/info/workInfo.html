@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>工作流查询</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>工作流查询</h1>
+	<p>工作流查询</p>
+	
+	<h2>工作流查询表  (TB_WORK)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>WORKID</td><td>工作编号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>COMPANYID</td><td>公司编号</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>IDNO</td><td>主键</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>APPLYMANID</td><td>申请人编号</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>APPLYMAN</td><td>申请人</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>TYPEID</td><td>类型编号</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>TYPENAME</td><td>类型名称</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>STEPID</td><td>当前步骤编号</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>STEPNAME</td><td>步骤名称</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>NEXTUSERID</td><td>下一步编号</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>NEXTUSERNAME</td><td>下一步名称</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>OPERATORSTATUS</td><td>操作状态</td><td>number</td><td></td></tr><tr><td>14</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>CURRUSERID</td><td>当前操作人编号</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>CURRUSERNAME</td><td>当前操作人</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>PAGEURL</td><td>页面路径</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>CURRROLEID</td><td>当前角色编号</td><td>varchar2</td><td></td></tr><tr><td>19</td><td>NEXTROLEID</td><td>下一步角色编号</td><td>varchar2</td><td></td></tr><tr><td>20</td><td>CURRROLENAME</td><td>当前角色</td><td>varchar2</td><td></td></tr><tr><td>21</td><td>NEXTROLENAME</td><td>下一步角色</td><td>varchar2</td><td></td></tr><tr><td>22</td><td>APPLYORGID</td><td>申请人所属机构编号</td><td>varchar2</td><td></td></tr><tr><td>23</td><td>APPLYORGNAME</td><td>申请人所属机构</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (WorkInfo)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>workId</td><td>工作编号</td><td>String</td><td></td></tr><tr><td>2</td><td>companyId</td><td>公司编号</td><td>String</td><td></td></tr><tr><td>3</td><td>idNo</td><td>主键</td><td>String</td><td></td></tr><tr><td>4</td><td>applyManId</td><td>申请人编号</td><td>String</td><td></td></tr><tr><td>5</td><td>applyMan</td><td>申请人</td><td>String</td><td></td></tr><tr><td>6</td><td>typeId</td><td>类型编号</td><td>String</td><td></td></tr><tr><td>7</td><td>typeName</td><td>类型名称</td><td>String</td><td></td></tr><tr><td>8</td><td>stepId</td><td>当前步骤编号</td><td>String</td><td></td></tr><tr><td>9</td><td>stepName</td><td>步骤名称</td><td>String</td><td></td></tr><tr><td>10</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>11</td><td>nextUserid</td><td>下一步编号</td><td>String</td><td></td></tr><tr><td>12</td><td>nextUsername</td><td>下一步名称</td><td>String</td><td></td></tr><tr><td>13</td><td>operatorStatus</td><td>操作状态</td><td>int</td><td></td></tr><tr><td>14</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr><tr><td>15</td><td>currUserid</td><td>当前操作人编号</td><td>String</td><td></td></tr><tr><td>16</td><td>currUsername</td><td>当前操作人</td><td>String</td><td></td></tr><tr><td>17</td><td>pageUrl</td><td>页面路径</td><td>String</td><td></td></tr><tr><td>18</td><td>currRoleid</td><td>当前角色编号</td><td>String</td><td></td></tr><tr><td>19</td><td>nextRoleid</td><td>下一步角色编号</td><td>String</td><td></td></tr><tr><td>20</td><td>currRolename</td><td>当前角色</td><td>String</td><td></td></tr><tr><td>21</td><td>nextRolename</td><td>下一步角色</td><td>String</td><td></td></tr><tr><td>22</td><td>applyOrgId</td><td>申请人所属机构编号</td><td>String</td><td></td></tr><tr><td>23</td><td>applyOrgName</td><td>申请人所属机构</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (WorkInfoController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/workInfo/findWorkInfoById</td><td>findWorkInfoById</td><td>查询工作流查询</td></tr><tr><td>2</td><td>/workInfo/save</td><td>saveWorkInfo</td><td>保存工作流查询</td></tr><tr><td>3</td><td>/workInfo/update</td><td>updateWorkInfo</td><td>更新工作流查询</td></tr><tr><td>4</td><td>/workInfo/delete</td><td>deleteWorkInfoById</td><td>删除工作流查询</td></tr><tr><td>5</td><td>/workInfo/findAllWorkInfo</td><td>findAllWorkInfo</td><td>查询全部工作流查询</td></tr><tr><td>6</td><td>/workInfo/deleteIds</td><td>deleteWorkInfo</td><td>删除多个工作流查询</td></tr><tr><td>7</td><td>/workInfo/list</td><td>list</td><td>列表查询工作流查询</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (WorkInfoService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询工作流查询</td></tr><tr><td>2</td><td>save</td><td>保存工作流查询</td></tr><tr><td>3</td><td>update</td><td>更新工作流查询</td></tr><tr><td>4</td><td>deleteById</td><td>删除工作流查询</td></tr><tr><td>5</td><td>findAll</td><td>查询全部工作流查询</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个工作流查询</td></tr><tr><td>7</td><td>list</td><td>列表查询工作流查询</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(WorkInfoDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询工作流查询</td></tr><tr><td>2</td><td>save</td><td>保存工作流查询</td></tr><tr><td>3</td><td>update</td><td>更新工作流查询</td></tr><tr><td>4</td><td>deleteById</td><td>删除工作流查询</td></tr><tr><td>5</td><td>findAll</td><td>查询全部工作流查询</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个工作流查询</td></tr><tr><td>7</td><td>list</td><td>列表查询工作流查询</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
