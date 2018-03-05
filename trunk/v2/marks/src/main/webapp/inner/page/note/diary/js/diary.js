@@ -125,6 +125,7 @@ function loadList() {
 		collapsible : true,
 		fitColumns : true,
 		pagination : true,
+		height:520,
 		idField : 'id',
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
