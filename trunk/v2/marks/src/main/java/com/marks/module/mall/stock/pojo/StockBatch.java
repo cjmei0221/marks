@@ -2,6 +2,7 @@ package com.marks.module.mall.stock.pojo;
 
 import java.io.Serializable;
 
+import com.marks.common.enums.StockEnums;
 import com.marks.common.util.date.DateUtil;
 
 public class StockBatch implements Serializable {
@@ -63,11 +64,22 @@ public class StockBatch implements Serializable {
 	 *
 	 */
 	private int stockType;
+
+	/**
+	 * 库存管理方式
+	 *
+	 */
+	private String stockTypeName;
 	/**
 	 * 业务类型
 	 *
 	 */
 	private int ywCode;
+	/**
+	 * 业务类型
+	 *
+	 */
+	private String ywCodeName;
 	/**
 	 * 进货价
 	 *
@@ -138,6 +150,14 @@ public class StockBatch implements Serializable {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
 
+	}
+
+	public String getStockTypeName() {
+		return StockEnums.StockManageType.getByKey(stockType);
+	}
+
+	public String getYwCodeName() {
+		return StockEnums.YwCode.getByKey(ywCode);
 	}
 
 	public String getBatchId() {
