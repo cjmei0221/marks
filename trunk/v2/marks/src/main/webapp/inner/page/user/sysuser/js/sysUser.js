@@ -146,9 +146,7 @@ function formSubmit() {
 		showMsg("所属组织为空");
 		return;
 	}
-	console.log($("#bind_mobile").val());
 	var phoneVar = checkPhone($("#bind_mobile").val());
-	console.log(phoneVar);
 	if (!phoneVar) {
 		showMsg("手机号码格式有误，请重填");
 		return;
@@ -159,7 +157,6 @@ function formSubmit() {
 	$("#bind_mobile").numberbox({
 		disabled : false
 	});
-	alert(appInfo.checkOrg.orgids[0]);
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	parms += "&orgId=" + appInfo.checkOrg.orgids[0]+"";
@@ -208,7 +205,7 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '用户ID',
+			title : '用户编号',
 			field : 'userCode',
 			width : 120
 		}, {
