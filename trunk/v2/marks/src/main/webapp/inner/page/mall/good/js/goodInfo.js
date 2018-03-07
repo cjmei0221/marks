@@ -378,7 +378,7 @@ function loadList() {
 									align : "center"
 								}, {
 									title : '规格',
-									field : 'unit',
+									field : 'rank',
 									width : 100,
 									align : "center"
 								}, {
