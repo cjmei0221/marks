@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- OrderInfo.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>管理平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="format-detection" content="telephone=no, email=no" />
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/inner/css/base.css">
+<script type="text/javascript" src="/inner/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/inner/js/base-config.js"></script>
+<script type="text/javascript" src="/inner/js/sysmsg.js"></script>
+<script type="text/javascript" src="/inner/js/tool.js"></script>
+</head>
+	
+	<body>
+	
+	<div id="mainPanel">
+		<!-- <p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p> -->
+		<div id="tb" style="padding: 5px 0;">
+		<table>
+				<tr>
+					<td><input type="text" id="keyword" name="keyword" style="width: 400px; height: 30px;" placeholder="订单编号/机构名称/区域编号/区域名称/年份/月份/季度/下单时间/收银日期/备注/支付方式编号/支付方式名称/现金金额/微信金额/支付宝金额/其他金额/创建时间/更新时间/业务编号/业务名称/积分抵扣金额/收银员编号/收银员名称/导购员编号/导购员名称/会员编号/会员名称/会员手机号/收货手机号/收货人/收货地址"/></td>
+					<td><a id="doSearch" href="javascript:void(0)" class="easyui-linkbutton menuBtnCls" data-options="iconCls:'icon-search'">查询</a></td>
+				</tr>
+			</table>
+			<div>
+				<span id="operateBtns"></span>
+			</div>
+		</div>
+		<table id="tbList">
+		</table>
+	</div>
+	
+	<div id="editWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 600px; height: 450px; padding: 10px;">
+		<div align="center" style="width: 100%;">
+		<form id="ff" name="ff" method="post">
+			<input type="hidden"  id="orderId" name="orderId">
+			<table>
+				<tr><th style="width: 120px;text-align: right;">订单状态&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="orderStatus" name="orderStatus" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">公司编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="companyId" name="companyId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">机构编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="orgId" name="orgId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">机构名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="orgName" name="orgName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">区域编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="areaId" name="areaId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">区域名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="areaName" name="areaName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">年份&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="i_year" name="i_year" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">月份&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="i_month" name="i_month" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">季度&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="i_season" name="i_season" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">下单时间&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="commitTime" name="commitTime" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="30"></td></tr><tr><th style="width: 120px;text-align: right;">收银日期&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="cashDate" name="cashDate" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">应付金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="payableAmt" name="payableAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">实付金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="payAmt" name="payAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">促销总额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="saleAmt" name="saleAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">折扣总额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="discountAmt" name="discountAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">满减总额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="fullCutAmt" name="fullCutAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">优惠券金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="couponAmt" name="couponAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">抹零金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="malingAmt" name="malingAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">议价总额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="simpleDiscountAmt" name="simpleDiscountAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">备注&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="remarks" name="remarks" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="255"></td></tr><tr><th style="width: 120px;text-align: right;">支付方式编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="payTypeCode" name="payTypeCode" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">支付方式名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="payTypeName" name="payTypeName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="100"></td></tr><tr><th style="width: 120px;text-align: right;">现金金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="cashAmt" name="cashAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">微信金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="wxAmt" name="wxAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">支付宝金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="alipayAmt" name="alipayAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">其他金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="otherAmt" name="otherAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">支付状态&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="payStatus" name="payStatus" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">业务编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="cashType" name="cashType" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">业务名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="cashTypeName" name="cashTypeName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">积分抵扣金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="pointAmt" name="pointAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">积分&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="point" name="point" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">收银员编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="cashManId" name="cashManId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">收银员名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="cashMan" name="cashMan" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">导购员编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="guiderId" name="guiderId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">导购员名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="guiderName" name="guiderName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">会员编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="vipId" name="vipId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">会员名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="vipName" name="vipName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">会员手机号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="vipMobile" name="vipMobile" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">收货手机号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="receiveTel" name="receiveTel" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">收货人&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="receiver" name="receiver" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">收货地址&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="receiveAddr" name="receiveAddr" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">订单状态名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="orderStatusName" name="orderStatusName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="100"></td></tr><tr><th style="width: 120px;text-align: right;">进货金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="costAmt" name="costAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">数量&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="nums" name="nums" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr>
+				<tr height="25px"><td colspan="2"></td></tr>
+				<tr>
+					<td colspan="2" style="text-align: center">
+							<a id="btnCancel"
+							name="btnCancel" href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;"
+							data-options="iconCls:'icon-cancel'">取消</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<a id="btnOK"
+							name="btnOK" href="javascript:void(0)"  class="easyui-linkbutton" style="width:100px;"
+							data-options="iconCls:'icon-save'">保存</a>
+						</td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	
+</body>
+<script src="js/orderInfo.js"></script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- OrderGood.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>管理平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="format-detection" content="telephone=no, email=no" />
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/inner/css/base.css">
+<script type="text/javascript" src="/inner/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/inner/js/base-config.js"></script>
+<script type="text/javascript" src="/inner/js/sysmsg.js"></script>
+<script type="text/javascript" src="/inner/js/tool.js"></script>
+</head>
+	
+	<body>
+	
+	<div id="mainPanel">
+		<!-- <p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p> -->
+		<div id="tb" style="padding: 5px 0;">
+		<table>
+				<tr>
+					<td><input type="text" id="keyword" name="keyword" style="width: 400px; height: 30px;" placeholder="订单商品编号/订单编号/商品编号/商品名称/商品条码/单位/规格/类别编号/类别名称/品牌编号/品牌名称/应付金额/实付金额/现金金额/微信金额/支付宝金额/其他金额/促销金额/折扣金额/满减金额/优惠券金额/积分抵扣金额/抹零金额/议价金额"/></td>
+					<td><a id="doSearch" href="javascript:void(0)" class="easyui-linkbutton menuBtnCls" data-options="iconCls:'icon-search'">查询</a></td>
+				</tr>
+			</table>
+			<div>
+				<span id="operateBtns"></span>
+			</div>
+		</div>
+		<table id="tbList">
+		</table>
+	</div>
+	
+	<div id="editWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 600px; height: 450px; padding: 10px;">
+		<div align="center" style="width: 100%;">
+		<form id="ff" name="ff" method="post">
+			<input type="hidden"  id="orderGoodId" name="orderGoodId">
+			<table>
+				<tr><th style="width: 120px;text-align: right;">订单编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="orderId" name="orderId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">商品系统编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="goodId" name="goodId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">商品编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="goodNo" name="goodNo" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="goodName" name="goodName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="255"></td></tr><tr><th style="width: 120px;text-align: right;">商品条码&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="barNo" name="barNo" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">列表图片&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="picUrl" name="picUrl" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="255"></td></tr><tr><th style="width: 120px;text-align: right;">单位&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="unit" name="unit" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">规格&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="rank" name="rank" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">类别编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="typeId" name="typeId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">类别名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="typeName" name="typeName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">品牌编号&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="brandId" name="brandId" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">品牌名称&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="brandName" name="brandName" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="150"></td></tr><tr><th style="width: 120px;text-align: right;">数量&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="nums" name="nums" class="easyui-numberbox" data-options="required:true" style="width: 200px;" ></td></tr><tr><th style="width: 120px;text-align: right;">售价&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="salePrice" name="salePrice" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">现价&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="nowPrice" name="nowPrice" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">应付金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="payableAmt" name="payableAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">实付金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="payAmt" name="payAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">现金金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="cashAmt" name="cashAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">微信金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="wxAmt" name="wxAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">支付宝金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="alipayAmt" name="alipayAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">其他金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="otherAmt" name="otherAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="20"></td></tr><tr><th style="width: 120px;text-align: right;">促销金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="saleAmt" name="saleAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">折扣金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="discountAmt" name="discountAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">满减金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="fullCutAmt" name="fullCutAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">优惠券金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="couponAmt" name="couponAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">积分抵扣金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="pointAmt" name="pointAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">抹零金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="mlAmt" name="mlAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">议价金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="simpleDiscountAmt" name="simpleDiscountAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">进货金额&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="costAmt" name="costAmt" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="50"></td></tr><tr><th style="width: 120px;text-align: right;">进货价&nbsp;&nbsp;:&nbsp;&nbsp;</th><td><input id="costPrice" name="costPrice" class="easyui-validatebox" data-options="required:true" style="width: 200px;" maxlength="30"></td></tr>
+				<tr height="25px"><td colspan="2"></td></tr>
+				<tr>
+					<td colspan="2" style="text-align: center">
+							<a id="btnCancel"
+							name="btnCancel" href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;"
+							data-options="iconCls:'icon-cancel'">取消</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<a id="btnOK"
+							name="btnOK" href="javascript:void(0)"  class="easyui-linkbutton" style="width:100px;"
+							data-options="iconCls:'icon-save'">保存</a>
+						</td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	
+</body>
+<script src="js/orderGood.js"></script>
+</html>

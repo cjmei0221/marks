@@ -36,7 +36,10 @@
 		GIFTNUMS,
 		GIFTAMOUNT,
 		TOTALNUMS,
-		TOTALAMOUNT
+		TOTALAMOUNT,
+		goodNo,
+		barNo,
+		goodName
 		)
 		VALUES(
 		#{info.stockId:VARCHAR},
@@ -57,7 +60,10 @@
 		#{info.giftNums:NUMERIC},
 		#{info.giftAmount:VARCHAR},
 		#{info.totalNums:NUMERIC},
-		#{info.totalAmount:VARCHAR}
+		#{info.totalAmount:VARCHAR},
+		#{info.goodNo:VARCHAR},
+		#{info.barNo:VARCHAR},
+		#{info.goodName:VARCHAR}
 		)
 	</insert>
 
@@ -81,7 +87,10 @@
 		GIFTNUMS,
 		GIFTAMOUNT,
 		TOTALNUMS,
-		TOTALAMOUNT
+		TOTALAMOUNT,
+		goodNo,
+		barNo,
+		goodName
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -105,7 +114,10 @@
 			#{info.giftNums:NUMERIC},
 			#{info.giftAmount:VARCHAR},
 			#{info.totalNums:NUMERIC},
-			#{info.totalAmount:VARCHAR}
+			#{info.totalAmount:VARCHAR},
+			#{info.goodNo:VARCHAR},
+			#{info.barNo:VARCHAR},
+			#{info.goodName:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -113,21 +125,31 @@
 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.StockInfo">
 		UPDATE TB_MALL_STOCK
 		SET
+		goodNo=#{info.goodNo:VARCHAR},
+		barNo=#{info.barNo:VARCHAR},
+		goodName=#{info.goodName:VARCHAR},
 		STOCKNUMS = #{info.stockNums:NUMERIC},
-		STOCKAMOUNT = #{info.stockAmount:VARCHAR},
+		STOCKAMOUNT =
+		#{info.stockAmount:VARCHAR},
 		UPDATETIME = #{info.updatetime:VARCHAR},
 		SECONDNUMS = #{info.secondNums:NUMERIC},
-		SECONDAMOUNT = #{info.secondAmount:VARCHAR},
+		SECONDAMOUNT =
+		#{info.secondAmount:VARCHAR},
 		HOLDNUMS = #{info.holdNums:NUMERIC},
 		HOLDAMOUNT = #{info.holdAmount:VARCHAR},
-		SCRAPNUMS = #{info.scrapNums:NUMERIC},
+		SCRAPNUMS =
+		#{info.scrapNums:NUMERIC},
 		SCRAPAMOUNT = #{info.scrapAmount:VARCHAR},
 		GIFTNUMS = #{info.giftNums:NUMERIC},
-		GIFTAMOUNT = #{info.giftAmount:VARCHAR},
+		GIFTAMOUNT =
+		#{info.giftAmount:VARCHAR},
 		TOTALNUMS = #{info.totalNums:NUMERIC},
-		TOTALAMOUNT = #{info.totalAmount:VARCHAR}
+		TOTALAMOUNT = #{info.totalAmount:VARCHAR},
+		saleNums = #{info.saleNums:NUMERIC},
+		saleAmt = #{info.saleAmt:VARCHAR}
 		WHERE
-		STOCKID = #{info.stockId}
+		STOCKID =
+		#{info.stockId}
 	</update>
 	<update id="updateBatch" parameterType="List">
 
@@ -135,31 +157,40 @@
 			separator=";">
 			UPDATE TB_MALL_STOCK
 			SET
-			COMPANYID = #{info.companyId:VARCHAR},
+			COMPANYID =
+			#{info.companyId:VARCHAR},
 			ORGID = #{info.orgId:VARCHAR},
-			ORGNAME = #{info.orgName:VARCHAR},
+			ORGNAME =
+			#{info.orgName:VARCHAR},
 			GOODID = #{info.goodId:VARCHAR},
-			STOCKNUMS = #{info.stockNums:NUMERIC},
+			STOCKNUMS =
+			#{info.stockNums:NUMERIC},
 			STOCKAMOUNT = #{info.stockAmount:VARCHAR},
 			UPDATETIME = #{info.updatetime:VARCHAR},
-			SECONDNUMS = #{info.secondNums:NUMERIC},
-			SECONDAMOUNT = #{info.secondAmount:VARCHAR},
+			SECONDNUMS =
+			#{info.secondNums:NUMERIC},
+			SECONDAMOUNT =
+			#{info.secondAmount:VARCHAR},
 			HOLDNUMS = #{info.holdNums:NUMERIC},
 			HOLDAMOUNT = #{info.holdAmount:VARCHAR},
-			SCRAPNUMS = #{info.scrapNums:VARCHAR},
+			SCRAPNUMS =
+			#{info.scrapNums:VARCHAR},
 			SCRAPAMOUNT = #{info.scrapAmount:VARCHAR},
 			GIFTNUMS = #{info.giftNums:VARCHAR},
-			GIFTAMOUNT = #{info.giftAmount:VARCHAR},
+			GIFTAMOUNT =
+			#{info.giftAmount:VARCHAR},
 			TOTALNUMS = #{info.totalNums:VARCHAR},
 			TOTALAMOUNT = #{info.totalAmount:VARCHAR}
 			WHERE
-			STOCKID = #{info.stockId}
+			STOCKID =
+			#{info.stockId}
 		</foreach>
 
 	</update>
 
 	<delete id="delete" parameterType="String">
-		DELETE FROM TB_MALL_STOCK WHERE STOCKID=#{stockId}
+		DELETE FROM TB_MALL_STOCK
+		WHERE STOCKID=#{stockId}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.mall.stock.pojo.StockInfo">
@@ -176,20 +207,20 @@
 
 	<select id="list" resultType="com.marks.module.mall.stock.pojo.StockInfo"
 		parameterType="java.util.Map">
-		SELECT *
-		FROM TB_MALL_STOCK t
+		SELECT t.*
+		FROM TB_MALL_STOCK t 
 		WHERE 1=1
 		<if test="keyword!=null and keyword!=''">
-			and ( 2=1 or t.STOCKID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			and ( 2=1 or t.STOCKID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORGID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORGNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 
 
 		order by t.UPDATETIME DESC
 	</select>
-
-
-
 </mapper>

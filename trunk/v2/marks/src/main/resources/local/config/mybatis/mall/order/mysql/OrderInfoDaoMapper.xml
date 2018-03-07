@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.mall.order.dao.OrderInfoDao">
+
+	<select id="findById" resultType="com.marks.module.mall.order.pojo.OrderInfo">
+		SELECT * FROM
+		TB_MALL_ORDER_INFO t where t.ORDERID = #{orderId}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.mall.order.pojo.OrderInfo">
+		<!--<selectKey keyProperty="orderId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_ORDER_INFO (
+		ORDERID,
+		ORDERSTATUS,
+		COMPANYID,
+		ORGID,
+		ORGNAME,
+		AREAID,
+		AREANAME,
+		I_YEAR,
+		I_MONTH,
+		I_SEASON,
+		COMMITTIME,
+		CASHDATE,
+		PAYABLEAMT,
+		PAYAMT,
+		SALEAMT,
+		DISCOUNTAMT,
+		FULLCUTAMT,
+		COUPONAMT,
+		MALINGAMT,
+		SIMPLEDISCOUNTAMT,
+		REMARKS,
+		PAYTYPECODE,
+		PAYTYPENAME,
+		CASHAMT,
+		WXAMT,
+		ALIPAYAMT,
+		OTHERAMT,
+		CREATETIME,
+		UPDATETIME,
+		PAYSTATUS,
+		CASHTYPE,
+		CASHTYPENAME,
+		POINTAMT,
+		POINT,
+		CASHMANID,
+		CASHMAN,
+		GUIDERID,
+		GUIDERNAME,
+		VIPID,
+		VIPNAME,
+		VIPMOBILE,
+		RECEIVETEL,
+		RECEIVER,
+		RECEIVEADDR,
+		ORDERSTATUSNAME,
+		COSTAMT,
+		NUMS,
+		oriPriceAmt,
+		countAmt
+		)
+		VALUES(
+		#{info.orderId:VARCHAR},
+		#{info.orderStatus:NUMERIC},
+		#{info.companyId:VARCHAR},
+		#{info.orgId:VARCHAR},
+		#{info.orgName:VARCHAR},
+		#{info.areaId:VARCHAR},
+		#{info.areaName:VARCHAR},
+		#{info.i_year:VARCHAR},
+		#{info.i_month:VARCHAR},
+		#{info.i_season:VARCHAR},
+		#{info.commitTime:VARCHAR},
+		#{info.cashDate:VARCHAR},
+		#{info.payableAmt:VARCHAR},
+		#{info.payAmt:VARCHAR},
+		#{info.saleAmt:VARCHAR},
+		#{info.discountAmt:VARCHAR},
+		#{info.fullCutAmt:VARCHAR},
+		#{info.couponAmt:VARCHAR},
+		#{info.malingAmt:VARCHAR},
+		#{info.simpleDiscountAmt:VARCHAR},
+		#{info.remarks:VARCHAR},
+		#{info.payTypeCode:VARCHAR},
+		#{info.payTypeName:VARCHAR},
+		#{info.cashAmt:VARCHAR},
+		#{info.wxAmt:VARCHAR},
+		#{info.alipayAmt:VARCHAR},
+		#{info.otherAmt:VARCHAR},
+		#{info.createtime:VARCHAR},
+		#{info.updatetime:VARCHAR},
+		#{info.payStatus:NUMERIC},
+		#{info.cashType:VARCHAR},
+		#{info.cashTypeName:VARCHAR},
+		#{info.pointAmt:VARCHAR},
+		#{info.point:NUMERIC},
+		#{info.cashManId:VARCHAR},
+		#{info.cashMan:VARCHAR},
+		#{info.guiderId:VARCHAR},
+		#{info.guiderName:VARCHAR},
+		#{info.vipId:VARCHAR},
+		#{info.vipName:VARCHAR},
+		#{info.vipMobile:VARCHAR},
+		#{info.receiveTel:VARCHAR},
+		#{info.receiver:VARCHAR},
+		#{info.receiveAddr:VARCHAR},
+		#{info.orderStatusName:VARCHAR},
+		#{info.costAmt:VARCHAR},
+		#{info.nums:NUMERIC},
+		#{info.oriPriceAmt:VARCHAR},
+		#{info.countAmt:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_ORDER_INFO (
+		ORDERID,
+		ORDERSTATUS,
+		COMPANYID,
+		ORGID,
+		ORGNAME,
+		AREAID,
+		AREANAME,
+		I_YEAR,
+		I_MONTH,
+		I_SEASON,
+		COMMITTIME,
+		CASHDATE,
+		PAYABLEAMT,
+		PAYAMT,
+		SALEAMT,
+		DISCOUNTAMT,
+		FULLCUTAMT,
+		COUPONAMT,
+		MALINGAMT,
+		SIMPLEDISCOUNTAMT,
+		REMARKS,
+		PAYTYPECODE,
+		PAYTYPENAME,
+		CASHAMT,
+		WXAMT,
+		ALIPAYAMT,
+		OTHERAMT,
+		CREATETIME,
+		UPDATETIME,
+		PAYSTATUS,
+		CASHTYPE,
+		CASHTYPENAME,
+		POINTAMT,
+		POINT,
+		CASHMANID,
+		CASHMAN,
+		GUIDERID,
+		GUIDERNAME,
+		VIPID,
+		VIPNAME,
+		VIPMOBILE,
+		RECEIVETEL,
+		RECEIVER,
+		RECEIVEADDR,
+		ORDERSTATUSNAME,
+		COSTAMT,
+		NUMS,
+		oriPriceAmt,
+		countAmt
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.orderId:VARCHAR},
+			#{info.orderStatus:NUMERIC},
+			#{info.companyId:VARCHAR},
+			#{info.orgId:VARCHAR},
+			#{info.orgName:VARCHAR},
+			#{info.areaId:VARCHAR},
+			#{info.areaName:VARCHAR},
+			#{info.i_year:VARCHAR},
+			#{info.i_month:VARCHAR},
+			#{info.i_season:VARCHAR},
+			#{info.commitTime:VARCHAR},
+			#{info.cashDate:VARCHAR},
+			#{info.payableAmt:VARCHAR},
+			#{info.payAmt:VARCHAR},
+			#{info.saleAmt:VARCHAR},
+			#{info.discountAmt:VARCHAR},
+			#{info.fullCutAmt:VARCHAR},
+			#{info.couponAmt:VARCHAR},
+			#{info.malingAmt:VARCHAR},
+			#{info.simpleDiscountAmt:VARCHAR},
+			#{info.remarks:VARCHAR},
+			#{info.payTypeCode:VARCHAR},
+			#{info.payTypeName:VARCHAR},
+			#{info.cashAmt:VARCHAR},
+			#{info.wxAmt:VARCHAR},
+			#{info.alipayAmt:VARCHAR},
+			#{info.otherAmt:VARCHAR},
+			#{info.createtime:VARCHAR},
+			#{info.updatetime:VARCHAR},
+			#{info.payStatus:NUMERIC},
+			#{info.cashType:VARCHAR},
+			#{info.cashTypeName:VARCHAR},
+			#{info.pointAmt:VARCHAR},
+			#{info.point:NUMERIC},
+			#{info.cashManId:VARCHAR},
+			#{info.cashMan:VARCHAR},
+			#{info.guiderId:VARCHAR},
+			#{info.guiderName:VARCHAR},
+			#{info.vipId:VARCHAR},
+			#{info.vipName:VARCHAR},
+			#{info.vipMobile:VARCHAR},
+			#{info.receiveTel:VARCHAR},
+			#{info.receiver:VARCHAR},
+			#{info.receiveAddr:VARCHAR},
+			#{info.orderStatusName:VARCHAR},
+			#{info.costAmt:VARCHAR},
+			#{info.nums:NUMERIC},
+			#{info.oriPriceAmt:VARCHAR},
+			#{info.countAmt:VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.mall.order.pojo.OrderInfo">
+		UPDATE TB_MALL_ORDER_INFO
+		SET
+		ORDERSTATUS = #{info.orderStatus:NUMERIC},
+		
+		PAYAMT = #{info.payAmt:VARCHAR},
+		SALEAMT = #{info.saleAmt:VARCHAR},
+		DISCOUNTAMT = #{info.discountAmt:VARCHAR},
+		FULLCUTAMT = #{info.fullCutAmt:VARCHAR},
+		COUPONAMT = #{info.couponAmt:VARCHAR},
+		MALINGAMT = #{info.malingAmt:VARCHAR},
+		SIMPLEDISCOUNTAMT = #{info.simpleDiscountAmt:VARCHAR},
+		REMARKS = #{info.remarks:VARCHAR},
+		PAYTYPECODE = #{info.payTypeCode:VARCHAR},
+		PAYTYPENAME = #{info.payTypeName:VARCHAR},
+		CASHAMT = #{info.cashAmt:VARCHAR},
+		WXAMT = #{info.wxAmt:VARCHAR},
+		ALIPAYAMT = #{info.alipayAmt:VARCHAR},
+		OTHERAMT = #{info.otherAmt:VARCHAR},
+		UPDATETIME = #{info.updatetime:VARCHAR},
+		PAYSTATUS = #{info.payStatus:NUMERIC},
+		CASHTYPE = #{info.cashType:VARCHAR},
+		CASHTYPENAME = #{info.cashTypeName:VARCHAR},
+		POINTAMT = #{info.pointAmt:VARCHAR},
+		POINT = #{info.point:NUMERIC},
+		CASHMANID = #{info.cashManId:VARCHAR},
+		CASHMAN = #{info.cashMan:VARCHAR},
+		GUIDERID = #{info.guiderId:VARCHAR},
+		GUIDERNAME = #{info.guiderName:VARCHAR},
+		VIPID = #{info.vipId:VARCHAR},
+		VIPNAME = #{info.vipName:VARCHAR},
+		VIPMOBILE = #{info.vipMobile:VARCHAR},
+		RECEIVETEL = #{info.receiveTel:VARCHAR},
+		RECEIVER = #{info.receiver:VARCHAR},
+		RECEIVEADDR = #{info.receiveAddr:VARCHAR},
+		ORDERSTATUSNAME = #{info.orderStatusName:VARCHAR}
+		
+		WHERE
+		ORDERID = #{info.orderId}
+	</update>
+	<!-- <update id="updateBatch" parameterType="List"> <foreach collection="list" 
+		item="info" index="index" separator=";"> UPDATE TB_MALL_ORDER_INFO SET ORDERSTATUS 
+		= #{info.orderStatus:NUMERIC}, COMPANYID = #{info.companyId:VARCHAR}, ORGID 
+		= #{info.orgId:VARCHAR}, ORGNAME = #{info.orgName:VARCHAR}, AREAID = #{info.areaId:VARCHAR}, 
+		AREANAME = #{info.areaName:VARCHAR}, I_YEAR = #{info.i_year:VARCHAR}, I_MONTH 
+		= #{info.i_month:VARCHAR}, I_SEASON = #{info.i_season:VARCHAR}, COMMITTIME 
+		= #{info.commitTime:VARCHAR}, CASHDATE = #{info.cashDate:VARCHAR}, PAYABLEAMT 
+		= #{info.payableAmt:VARCHAR}, PAYAMT = #{info.payAmt:VARCHAR}, SALEAMT = 
+		#{info.saleAmt:VARCHAR}, DISCOUNTAMT = #{info.discountAmt:VARCHAR}, FULLCUTAMT 
+		= #{info.fullCutAmt:VARCHAR}, COUPONAMT = #{info.couponAmt:VARCHAR}, MALINGAMT 
+		= #{info.malingAmt:VARCHAR}, SIMPLEDISCOUNTAMT = #{info.simpleDiscountAmt:VARCHAR}, 
+		REMARKS = #{info.remarks:VARCHAR}, PAYTYPECODE = #{info.payTypeCode:VARCHAR}, 
+		PAYTYPENAME = #{info.payTypeName:VARCHAR}, CASHAMT = #{info.cashAmt:VARCHAR}, 
+		WXAMT = #{info.wxAmt:VARCHAR}, ALIPAYAMT = #{info.alipayAmt:VARCHAR}, OTHERAMT 
+		= #{info.otherAmt:VARCHAR}, UPDATETIME = #{info.updatetime:VARCHAR}, PAYSTATUS 
+		= #{info.payStatus:NUMERIC}, CASHTYPE = #{info.cashType:VARCHAR}, CASHTYPENAME 
+		= #{info.cashTypeName:VARCHAR}, POINTAMT = #{info.pointAmt:VARCHAR}, POINT 
+		= #{info.point:NUMERIC}, CASHMANID = #{info.cashManId:VARCHAR}, CASHMAN = 
+		#{info.cashMan:VARCHAR}, GUIDERID = #{info.guiderId:VARCHAR}, GUIDERNAME 
+		= #{info.guiderName:VARCHAR}, VIPID = #{info.vipId:VARCHAR}, VIPNAME = #{info.vipName:VARCHAR}, 
+		VIPMOBILE = #{info.vipMobile:VARCHAR}, RECEIVETEL = #{info.receiveTel:VARCHAR}, 
+		RECEIVER = #{info.receiver:VARCHAR}, RECEIVEADDR = #{info.receiveAddr:VARCHAR}, 
+		ORDERSTATUSNAME = #{info.orderStatusName:VARCHAR}, COSTAMT = #{info.costAmt:VARCHAR}, 
+		NUMS = #{info.nums:NUMERIC} WHERE ORDERID = #{info.orderId} </foreach> </update> -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_MALL_ORDER_INFO WHERE ORDERID=#{orderId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.mall.order.pojo.OrderInfo">
+		SELECT * FROM TB_MALL_ORDER_INFO t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_ORDER_INFO WHERE ORDERID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.mall.order.pojo.OrderInfo"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_ORDER_INFO t
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.ORDERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.AREAID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.AREANAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.I_YEAR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.I_MONTH LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.I_SEASON LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.COMMITTIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CASHDATE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.REMARKS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PAYTYPECODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PAYTYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CASHAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.WXAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ALIPAYAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.OTHERAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CASHTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CASHTYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.POINTAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CASHMANID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CASHMAN LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GUIDERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GUIDERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.VIPID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.VIPNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.VIPMOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.RECEIVETEL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.RECEIVER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.RECEIVEADDR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

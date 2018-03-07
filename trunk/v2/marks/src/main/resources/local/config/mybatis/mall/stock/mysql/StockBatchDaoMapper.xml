@@ -35,7 +35,9 @@
 		UPDATER,
 		REMARKS,
 		saleNums,
-		saleAmount
+		saleAmount,
+		balNums,
+		balAmt
 		)
 		VALUES(
 		#{info.batchId:VARCHAR},
@@ -60,7 +62,9 @@
 		#{info.updater:VARCHAR},
 		#{info.remarks:VARCHAR},
 		#{info.saleNums:NUMERIC},
-		#{info.saleAmount:VARCHAR}
+		#{info.saleAmount:VARCHAR},
+		#{info.balNums:VARCHAR},
+		#{info.balAmt:VARCHAR}
 		)
 	</insert>
 
@@ -88,7 +92,9 @@
 		UPDATER,
 		REMARKS,
 		saleNums,
-		saleAmount
+		saleAmount,
+		balNums,
+		balAmt
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -116,7 +122,9 @@
 			#{info.updater:VARCHAR},
 			#{info.remarks:VARCHAR},
 			#{info.saleNums:NUMERIC},
-			#{info.saleAmount:VARCHAR}
+			#{info.saleAmount:VARCHAR},
+			#{info.balNums:VARCHAR},
+			#{info.balAmt:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -124,6 +132,8 @@
 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.StockBatch">
 		UPDATE TB_MALL_STOCK_BATCH
 		SET
+		balNums=#{info.balNums:VARCHAR},
+		balAmt=#{info.balAmt:VARCHAR},
 		saleNums=#{info.saleNums:NUMERIC},
 		saleAmount=#{info.saleAmount:VARCHAR},
 		UPDATETIME =
@@ -145,7 +155,8 @@
 			UPDATETIME =
 			#{info.updatetime:VARCHAR},
 			UPDATER = #{info.updater:VARCHAR},
-			REMARKS =
+			REMARKS
+			=
 			#{info.remarks:VARCHAR}
 			WHERE
 			BATCHID = #{info.batchId}
@@ -199,7 +210,9 @@
 
 		order by t.UPDATETIME DESC
 	</select>
-
+	<select id="getStockBatchByGoodIdAndOrgId" resultType="com.marks.module.mall.stock.pojo.StockBatch">
+		select * from tb_mall_stock_batch t where t.orgid=#{orgId} and t.balNums &gt; 0 and t.goodId=#{goodId} order by t.createtime
+	</select>
 
 
 </mapper>
