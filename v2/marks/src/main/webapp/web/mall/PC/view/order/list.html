@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title>收银</title>
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/marks.css">
+</head>
+<body>
+	<div id="app">
+		<div id="cmHead"></div>
+		<div class='container'>
+			<div style="text-align: center;">
+				<div class="grid-demo">
+					<div class="sui-row-fluid">
+						<table>
+							<tr>
+								<td style="padding: 0px 20px;">
+									<table>
+										<tr>
+											<td align="right">商品条码</td>
+											<td><input type="text" id="goodNo" placeholder="商品条码"
+												class="input-xxlarge" style="width: 300px; height: 30px;"></td>
+										</tr>
+										<tr>
+											<td align="right">会员手机号码</td>
+											<td><input type="text" id="vipMobile" placeholder="会员手机号码"
+												class="input-xxlarge" style="width: 300px; height: 30px;" onblur="checkVip();"></td>
+										</tr>
+
+									</table>
+								</td>
+								<td align="right" style="padding: 10px;"><a
+									href="javascript:void(0);"
+									class="sui-btn btn-xlarge btn-info"
+									style="line-height: 50px; vertical-align: middle;" onclick="checkGood();">确定</a></td>
+								<td style="padding: 10px;"><a href="javascript:void(0);"
+									class="sui-btn btn-xlarge btn-success"
+									style="line-height: 50px; vertical-align: middle;" onclick="summitOrder();">付款</a></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="grid-demo">
+					<div class="sui-row-fluid">
+						<div class="span3">
+							<table style="padding-top: 30px;">
+
+								<tr>
+									<td align="right">会员姓名：</td>
+									<td align="left"><span id="vipName"></span></td>
+								</tr>
+								<tr>
+									<td align="right">会员手机号码：</td>
+									<td align="left"><span id="vipTel"></span></td>
+								</tr>
+								<tr>
+									<td align="right">数量：</td>
+									<td align="left"><span id="totalNums"></span></td>
+								</tr>
+								<tr>
+									<td align="right">应收金额：</td>
+									<td align="left"><span id="totalPayableAmt"></span></td>
+								</tr>
+								<tr>
+									<td align="right">实付金额：</td>
+									<td align="left"><input type="text" id="payAmtPut" placeholder="实付金额"
+												class="input-xxlarge" style="width: 100px; height: 30px;"></td>
+								</tr>
+							</table>
+						</div>
+						<div class="span8">
+							<table class="sui-table table-zebra">
+								<thead>
+									<tr>
+										<th width="12%">条码</th>
+										<th width="10%">商品名称</th>
+										<th width="15%">原价</th>
+										<th width="15%">售价</th>
+										<th width="10%">数量</th>
+										<th width="10%">金额</th>
+										<th width="16%">备注</th>
+									</tr>
+								</thead>
+								<tbody id="trDiv">
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<script type='text/javascript' src='../../js/my-config.js'
+	charset='utf-8'></script>
+<script type="text/javascript" src="../../js/showMsg.js"></script>
+<script type='text/javascript' src='../../../../common/tool.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../header.js' charset='utf-8'></script>
+<script type="text/javascript" src="./list.js"></script>
+<script type="text/html" id="trDivTmp">
+<tr id="{goodNo}">
+<td><input type="text" value="{goodNo}" class="cls-goodNo" readonly="readonly"></td>
+<td>{goodName}</td>
+<td>{salePrice}</td>
+<td>{nowPrice}</td>
+<td><input type="text" value="{nums}" class="cls-nums" onblur="checkNums({goodNo});"></td>
+<td><input type="text" value="{payableAmt}" class="cls-payableAmt" onblur="checkPayableAmt({goodNo});"></td>
+<td>{remarks}</td>
+</tr>
+</script>
+</html>
