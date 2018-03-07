@@ -112,7 +112,7 @@ function formSubmit(){
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
-		toolbar : "#tb",
+//		toolbar : "#tb",
 		striped:true,
 		nowrap:true,
 		animate : true,
