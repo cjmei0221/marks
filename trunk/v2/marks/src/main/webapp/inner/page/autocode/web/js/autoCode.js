@@ -395,7 +395,8 @@ function initAttrList() {
 				options : {
 					data : appInfo.attrtypedata,
 					valueField : "id",
-					textField : "text"
+					textField : "text",
+					panelHeight : 'auto'
 				}
 			}
 		}, {
@@ -413,7 +414,8 @@ function initAttrList() {
 				options : {
 					data : appInfo.attrIsQuerydata,
 					valueField : "id",
-					textField : "text"
+					textField : "text",
+					panelHeight : 'auto'
 				}
 			}
 		}, {
