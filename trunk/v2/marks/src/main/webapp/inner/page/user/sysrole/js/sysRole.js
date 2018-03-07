@@ -309,6 +309,30 @@ function saveFuncList(roleId) {
 		}
 	});
 }
+
+//全选按钮
+function getAll(row){
+	if(row.children.length > 0){
+		 for(var i = 0 ; i < row.children.length; i++){
+			 if(row.children[i].oper_list.length>0){
+				 for (var j = 0; j < row.children[i].oper_list.length; j++) {
+					 if($("#"+row.menuid).is(':checked')){
+						 $("#" + row.children[i].oper_list[j].funcid + "").prop('checked',true);
+					 }else{
+						 $("#" + row.children[i].oper_list[j].funcid + "").prop('checked',false);
+					 }
+					
+				 }
+			 }
+		 }
+		 
+	}else if(row.oper_list.length > 0){
+		for(var i = 0 ; i < row.oper_list.length; i++){
+			$("#" + row.oper_list[i].funcid + "").prop('checked',true);
+		 }
+	}
+}
+
 function funcList(roleId) {
 	$('#tbFuncList')
 			.treegrid(
@@ -343,10 +367,16 @@ function funcList(roleId) {
 							width : 350,
 							formatter : function(value, row, index) {
 								var str = "";
+								if(row.children.length>0){
+									str = '<label><input type="checkbox" name="" checked="checked"  id="'+row.menuid+'" onclick=getAll('+JSON.stringify(row)+') '
+									+'/>'
+									+ '全选'
+									+ ' </label>';
+								}
 								var funcList = row.oper_list;
 								if (funcList.length > 0) {
 									for (var i = 0; i < funcList.length; i++) {
-										str += '<label><input name="funcId" type="checkbox" value="'
+										str += '<label><input name="funcId" type="checkbox" id="'+funcList[i].funcid+'" value="'
 												+ funcList[i].funcid
 												+ '" '
 												+ funcList[i].state
@@ -365,8 +395,23 @@ function funcList(roleId) {
 						onClickRow : function(rowIndex, rowData) {
 							// $("#tbFuncList").treegrid("beginEdit", rowIndex);
 						},
-						onLoadSuccess : function(data) {
-
+						onLoadSuccess : function(row, data) {
+							var list = data.rows;
+							for (var i = 0; i < list.length; i++) {
+								if(list[i].children.length > 0 ){
+									for(var j = 0; j< list[i].children.length; j++){
+										if(list[i].children[j].oper_list.length > 0){
+											for(var k = 0; k< list[i].children[j].oper_list.length; k++){
+												if(!list[i].children[j].oper_list[k].state){
+													$("#"+list[i].menuid).prop("checked",false);
+													break;
+												}
+											}
+											
+										}
+									}
+								}
+							}
 						}
 					});
 	// 请求加载数据
