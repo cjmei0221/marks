@@ -27,19 +27,21 @@
 										</tr>
 										<tr>
 											<td align="right">会员手机号码</td>
-											<td><input type="text" id="vipMobile" placeholder="会员手机号码"
-												class="input-xxlarge" style="width: 300px; height: 30px;" onblur="checkVip();"></td>
+											<td><input type="text" id="vipMobile"
+												placeholder="会员手机号码" class="input-xxlarge"
+												style="width: 300px; height: 30px;" onblur="checkVip();"></td>
 										</tr>
 
 									</table>
 								</td>
 								<td align="right" style="padding: 10px;"><a
-									href="javascript:void(0);"
-									class="sui-btn btn-xlarge btn-info"
-									style="line-height: 50px; vertical-align: middle;" onclick="checkGood();">确定</a></td>
+									href="javascript:void(0);" class="sui-btn btn-xlarge btn-info"
+									style="line-height: 50px; vertical-align: middle;"
+									onclick="checkGood();">确定</a></td>
 								<td style="padding: 10px;"><a href="javascript:void(0);"
 									class="sui-btn btn-xlarge btn-success"
-									style="line-height: 50px; vertical-align: middle;" onclick="summitOrder();">付款</a></td>
+									style="line-height: 50px; vertical-align: middle;"
+									onclick="toPay();">付款</a></td>
 							</tr>
 						</table>
 					</div>
@@ -67,8 +69,9 @@
 								</tr>
 								<tr>
 									<td align="right">实付金额：</td>
-									<td align="left"><input type="text" id="payAmtPut" placeholder="实付金额"
-												class="input-xxlarge" style="width: 100px; height: 30px;"></td>
+									<td align="left"><input type="text" id="payAmtPut"
+										placeholder="实付金额" class="input-xxlarge"
+										style="width: 100px; height: 30px;"></td>
 								</tr>
 							</table>
 						</div>
@@ -93,6 +96,39 @@
 					</div>
 				</div>
 
+			</div>
+		</div>
+	</div>
+
+	<div id="payModal" tabindex="-1" role="dialog" data-hasfoot="false"
+		class="sui-modal hide fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" data-dismiss="modal" aria-hidden="true"
+						class="sui-close">×</button>
+					<h4 id="myModalLabel" class="modal-title">收款</h4>
+				</div>
+				<div class="modal-body">
+					<table>
+						<tr>
+							<td align="right">应收金额：</td>
+							<td align="left"><span id="pay_payableAmt"></span></td>
+						</tr>
+						<tr>
+							<td align="right">实付金额：</td>
+							<td align="left"><input type="text" id="pay_payAmt"
+								placeholder="实付金额" class="input-xxlarge"
+								style="width: 200px; height: 30px;"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="payOk"
+						class="sui-btn btn-primary btn-large" onclick="payOk();">确定</button>
+					<button type="button" id="payCancel"
+						class="sui-btn btn-default btn-large" onclick="payCancel();">取消</button>
+				</div>
 			</div>
 		</div>
 	</div>
