@@ -78,6 +78,10 @@ tool.reqUrl={
 	    aliPay: '/web/alipay/payHtml.do', //支付宝支付接口
 	    wxPay: '/web/WXPay/preorder.do', //微信支付接口
 	    downWxImg:"/web/js/media.do",
+	    
+	    findGoodInfoById:tool.baseUrl+"/web/orderGood/findById.do",
+	    findVipInfoById:tool.baseUrl+"/web/sysUser/findById.do",
+	    summitOrderUrl:tool.baseUrl+"/web/orderInfo/save.do",
 		
 }
 
