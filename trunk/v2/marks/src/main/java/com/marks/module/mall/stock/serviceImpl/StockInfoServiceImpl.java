@@ -68,6 +68,9 @@ public class StockInfoServiceImpl implements StockInfoService{
 			ori.setTotalAmount(MoneyUtil.add(ori.getGiftAmount(), ori.getHoldAmount()));
 			ori.setTotalAmount(MoneyUtil.add(ori.getTotalAmount(), ori.getStockAmount()));
 			ori.setTotalNums(ori.getGiftNums() + ori.getHoldNums() + ori.getStockNums());
+			ori.setSaleAmt(MoneyUtil.add(ori.getSaleAmt(), info.getSaleAmt()));
+			ori.setSaleNums(ori.getSaleNums() + info.getSaleNums());
+
 			ori.setUpdatetime(info.getUpdatetime());
 			stockInfoDao.update(ori);
 		}

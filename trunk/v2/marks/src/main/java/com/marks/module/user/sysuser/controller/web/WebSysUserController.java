@@ -13,6 +13,7 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.core.controller.SupportContorller;
+import com.marks.module.core.runModel.RunModel;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -35,6 +36,27 @@ public class WebSysUserController extends SupportContorller {
 		try {
 			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser requestSysUser = sysUserService.findByUserid(loginUser.getUserid());
+			result.getData().put("info", requestSysUser);
+			result.setMessage("findById sysUser successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+
+	/**
+	 * 查询用户管理
+	 */
+	@RequestMapping("/web/sysUser/findById")
+	public void findById(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			String mobile = request.getParameter("mobile");
+			String companyId = RunModel.getInstance().getCompanyId();
+			SysUser requestSysUser = sysUserService.findByMobile(companyId, mobile);
 			result.getData().put("info", requestSysUser);
 			result.setMessage("findById sysUser successs!");
 			result.setCode(Code.CODE_SUCCESS);

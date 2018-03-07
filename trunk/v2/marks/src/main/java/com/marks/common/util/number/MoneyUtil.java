@@ -53,7 +53,10 @@ public class MoneyUtil {
 	 */
 	public static String multiply(String oriValue, String addValue) {
 		if (null == oriValue || "".equals(oriValue)) {
-			return oriValue;
+			return "0.00";
+		}
+		if (null == addValue || "".equals(addValue)) {
+			return "0.00";
 		}
 		BigDecimal bigDecimal = new BigDecimal(oriValue);
 		BigDecimal bigDecimal2 = new BigDecimal(addValue);
