@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>订单商品</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>订单商品</h1>
+	<p>订单商品</p>
+	
+	<h2>订单商品表  (TB_MALL_ORDER_GOOD)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ORDERGOODID</td><td>订单商品编号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>ORDERID</td><td>订单编号</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>GOODID</td><td>商品系统编号</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>GOODNO</td><td>商品编号</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>GOODNAME</td><td>商品名称</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>BARNO</td><td>商品条码</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>PICURL</td><td>列表图片</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>UNIT</td><td>单位</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>RANK</td><td>规格</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>TYPEID</td><td>类别编号</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>TYPENAME</td><td>类别名称</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>BRANDID</td><td>品牌编号</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>BRANDNAME</td><td>品牌名称</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>NUMS</td><td>数量</td><td>number</td><td></td></tr><tr><td>15</td><td>SALEPRICE</td><td>售价</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>NOWPRICE</td><td>现价</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>PAYABLEAMT</td><td>应付金额</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>PAYAMT</td><td>实付金额</td><td>varchar2</td><td></td></tr><tr><td>19</td><td>CASHAMT</td><td>现金金额</td><td>varchar2</td><td></td></tr><tr><td>20</td><td>WXAMT</td><td>微信金额</td><td>varchar2</td><td></td></tr><tr><td>21</td><td>ALIPAYAMT</td><td>支付宝金额</td><td>varchar2</td><td></td></tr><tr><td>22</td><td>OTHERAMT</td><td>其他金额</td><td>varchar2</td><td></td></tr><tr><td>23</td><td>SALEAMT</td><td>促销金额</td><td>varchar2</td><td></td></tr><tr><td>24</td><td>DISCOUNTAMT</td><td>折扣金额</td><td>varchar2</td><td></td></tr><tr><td>25</td><td>FULLCUTAMT</td><td>满减金额</td><td>varchar2</td><td></td></tr><tr><td>26</td><td>COUPONAMT</td><td>优惠券金额</td><td>varchar2</td><td></td></tr><tr><td>27</td><td>POINTAMT</td><td>积分抵扣金额</td><td>varchar2</td><td></td></tr><tr><td>28</td><td>MLAMT</td><td>抹零金额</td><td>varchar2</td><td></td></tr><tr><td>29</td><td>SIMPLEDISCOUNTAMT</td><td>议价金额</td><td>varchar2</td><td></td></tr><tr><td>30</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>31</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr><tr><td>32</td><td>COSTAMT</td><td>进货金额</td><td>varchar2</td><td></td></tr><tr><td>33</td><td>COSTPRICE</td><td>进货价</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (OrderGood)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>orderGoodId</td><td>订单商品编号</td><td>String</td><td></td></tr><tr><td>2</td><td>orderId</td><td>订单编号</td><td>String</td><td></td></tr><tr><td>3</td><td>goodId</td><td>商品系统编号</td><td>String</td><td></td></tr><tr><td>4</td><td>goodNo</td><td>商品编号</td><td>String</td><td></td></tr><tr><td>5</td><td>goodName</td><td>商品名称</td><td>String</td><td></td></tr><tr><td>6</td><td>barNo</td><td>商品条码</td><td>String</td><td></td></tr><tr><td>7</td><td>picUrl</td><td>列表图片</td><td>String</td><td></td></tr><tr><td>8</td><td>unit</td><td>单位</td><td>String</td><td></td></tr><tr><td>9</td><td>rank</td><td>规格</td><td>String</td><td></td></tr><tr><td>10</td><td>typeId</td><td>类别编号</td><td>String</td><td></td></tr><tr><td>11</td><td>typeName</td><td>类别名称</td><td>String</td><td></td></tr><tr><td>12</td><td>brandId</td><td>品牌编号</td><td>String</td><td></td></tr><tr><td>13</td><td>brandName</td><td>品牌名称</td><td>String</td><td></td></tr><tr><td>14</td><td>nums</td><td>数量</td><td>int</td><td></td></tr><tr><td>15</td><td>salePrice</td><td>售价</td><td>String</td><td></td></tr><tr><td>16</td><td>nowPrice</td><td>现价</td><td>String</td><td></td></tr><tr><td>17</td><td>payableAmt</td><td>应付金额</td><td>String</td><td></td></tr><tr><td>18</td><td>payAmt</td><td>实付金额</td><td>String</td><td></td></tr><tr><td>19</td><td>cashAmt</td><td>现金金额</td><td>String</td><td></td></tr><tr><td>20</td><td>wxAmt</td><td>微信金额</td><td>String</td><td></td></tr><tr><td>21</td><td>alipayAmt</td><td>支付宝金额</td><td>String</td><td></td></tr><tr><td>22</td><td>otherAmt</td><td>其他金额</td><td>String</td><td></td></tr><tr><td>23</td><td>saleAmt</td><td>促销金额</td><td>String</td><td></td></tr><tr><td>24</td><td>discountAmt</td><td>折扣金额</td><td>String</td><td></td></tr><tr><td>25</td><td>fullCutAmt</td><td>满减金额</td><td>String</td><td></td></tr><tr><td>26</td><td>couponAmt</td><td>优惠券金额</td><td>String</td><td></td></tr><tr><td>27</td><td>pointAmt</td><td>积分抵扣金额</td><td>String</td><td></td></tr><tr><td>28</td><td>mlAmt</td><td>抹零金额</td><td>String</td><td></td></tr><tr><td>29</td><td>simpleDiscountAmt</td><td>议价金额</td><td>String</td><td></td></tr><tr><td>30</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>31</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr><tr><td>32</td><td>costAmt</td><td>进货金额</td><td>String</td><td></td></tr><tr><td>33</td><td>costPrice</td><td>进货价</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (OrderGoodController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/orderGood/findOrderGoodById</td><td>findOrderGoodById</td><td>查询订单商品</td></tr><tr><td>2</td><td>/orderGood/save</td><td>saveOrderGood</td><td>保存订单商品</td></tr><tr><td>3</td><td>/orderGood/update</td><td>updateOrderGood</td><td>更新订单商品</td></tr><tr><td>4</td><td>/orderGood/delete</td><td>deleteOrderGoodById</td><td>删除订单商品</td></tr><tr><td>5</td><td>/orderGood/findAllOrderGood</td><td>findAllOrderGood</td><td>查询全部订单商品</td></tr><tr><td>6</td><td>/orderGood/deleteIds</td><td>deleteOrderGood</td><td>删除多个订单商品</td></tr><tr><td>7</td><td>/orderGood/list</td><td>list</td><td>列表查询订单商品</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (OrderGoodService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询订单商品</td></tr><tr><td>2</td><td>save</td><td>保存订单商品</td></tr><tr><td>3</td><td>update</td><td>更新订单商品</td></tr><tr><td>4</td><td>deleteById</td><td>删除订单商品</td></tr><tr><td>5</td><td>findAll</td><td>查询全部订单商品</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个订单商品</td></tr><tr><td>7</td><td>list</td><td>列表查询订单商品</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(OrderGoodDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询订单商品</td></tr><tr><td>2</td><td>save</td><td>保存订单商品</td></tr><tr><td>3</td><td>update</td><td>更新订单商品</td></tr><tr><td>4</td><td>deleteById</td><td>删除订单商品</td></tr><tr><td>5</td><td>findAll</td><td>查询全部订单商品</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个订单商品</td></tr><tr><td>7</td><td>list</td><td>列表查询订单商品</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

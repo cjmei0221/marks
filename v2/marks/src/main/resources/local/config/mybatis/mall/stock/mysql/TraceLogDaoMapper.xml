@@ -33,7 +33,9 @@
 		REMARKS,
 		batchId,
 		operateCode,
-		operate
+		operate,
+		nums,
+		amount
 		)
 		VALUES(
 		#{info.id:VARCHAR},
@@ -56,7 +58,9 @@
 		#{info.remarks:VARCHAR},
 		#{info.batchId:VARCHAR},
 		#{info.operateCode:VARCHAR},
-		#{info.operate:VARCHAR}
+		#{info.operate:VARCHAR},
+		#{info.nums:NUMERIC},
+		#{info.amount:VARCHAR}
 		)
 	</insert>
 
@@ -82,7 +86,9 @@
 		REMARKS,
 		batchId,
 		operateCode,
-		operate
+		operate,
+		nums,
+		amount
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -108,7 +114,9 @@
 			#{info.remarks:VARCHAR},
 			#{info.batchId:VARCHAR},
 			#{info.operateCode:VARCHAR},
-			#{info.operate:VARCHAR}
+			#{info.operate:VARCHAR},
+			#{info.nums:NUMERIC},
+			#{info.amount:VARCHAR}
 			)
 		</foreach>
 	</insert>
