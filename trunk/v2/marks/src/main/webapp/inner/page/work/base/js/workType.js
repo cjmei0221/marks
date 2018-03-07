@@ -10,6 +10,7 @@ var appInfo = {
 	selectedId : -1,
 	selectedData : {},
 	roleListData : [],
+	ywTypeData:[],
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
@@ -126,6 +127,11 @@ $(function() {
 		endEdit();
 		saveStep();
 	});
+	appInfo.ywTypeData=[
+		{"value":0,"text":"仅用户角色"},
+		{"value":1,"text":"按机构类型"},
+		{"value":2,"text":"按机构等级"}
+	]
 });
 function saveStep() {
 	var attrList = [];
@@ -353,9 +359,27 @@ function loadItemList(typeId) {
 				options : {
 					data : appInfo.roleListData,
 					valueField : "roleid",
-					textField : "rolename"
+					textField : "rolename",
+					panelHeight : 'auto'
 				}
 			}
+		}, {
+			field : 'ywType',
+			title : '类型',
+			width : 150,
+			editor : {
+				type : 'combobox',
+				options : {
+					data : appInfo.ywTypeData,
+					valueField : "value",
+					textField : "text",
+					panelHeight : 'auto'
+				}
+			}
+		}, {
+			field : 'orgId',
+			title : '机构',
+			width : 150
 		}, {
 			field : 'stepId',
 			title : '步骤',
