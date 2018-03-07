@@ -31,7 +31,7 @@ function add() {
 	appInfo.formStatus = "new";
 	appInfo.checkOrg.orgids = [];
 	appInfo.checkOrg.orgnames = [];
-	$("#roleid").combobox("reload");
+	$("#roleType").combobox("reload");
 	$("#inputOrgDiv").html("");
 	$("#bind_mobile").numberbox({
 		disabled : false
@@ -45,7 +45,7 @@ function edit() {
 			title : "编辑"
 		}).window("open");
 		appInfo.formStatus = "edit";
-		$("#roleid").combobox("reload");
+		$("#roleType").combobox("reload");
 		$('#ff').form('load', appInfo.selectedData);
 		appInfo.checkOrg.orgids = [];
 		appInfo.checkOrg.orgnames = [];
