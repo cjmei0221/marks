@@ -23,6 +23,7 @@ function add() {
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
+	$("#roleType").val("VIP");
 }
 
 // 编辑
@@ -183,9 +184,9 @@ function loadList() {
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-				if (value == 1) {
+				if (value == 2) {
 					return "女";
-				} else if(value == 2){
+				} else if(value == 1){
 					return "男";
 				}
 				return "未知";
@@ -216,7 +217,7 @@ function loadList() {
 			}
 		}, {
 			title : '生日',
-			field : 'birthdate',
+			field : 'birthday',
 			width : 100,
 			align : "center"
 		}, {
