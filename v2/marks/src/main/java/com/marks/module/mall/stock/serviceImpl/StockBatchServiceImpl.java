@@ -1,5 +1,6 @@
 package com.marks.module.mall.stock.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import com.marks.common.util.date.DateUtil;
 import com.marks.common.util.number.MoneyUtil;
 import com.marks.module.mall.good.dao.GoodInfoDao;
 import com.marks.module.mall.good.pojo.GoodInfo;
+import com.marks.module.mall.order.pojo.OrderGood;
 import com.marks.module.mall.stock.dao.StockBatchDao;
 import com.marks.module.mall.stock.dao.TraceLogDao;
 import com.marks.module.mall.stock.pojo.BarCodeForm;
@@ -127,6 +129,9 @@ public class StockBatchServiceImpl implements StockBatchService {
 			stock.setOrgName(info.getOrgname());
 			stock.setStockAmount(MoneyUtil.multiply(info.getStockPrice(), String.valueOf(info.getNums())));
 			stock.setStockNums(info.getNums());
+			stock.setBarNo(good.getBarNo());
+			stock.setGoodNo(good.getGoodNo());
+			stock.setGoodName(good.getGoodName());
 			stockInfoService.save(stock);
 			// 保存批次
 			StockBatch b = new StockBatch();
@@ -151,6 +156,8 @@ public class StockBatchServiceImpl implements StockBatchService {
 			if (good.getValidDays() > 0) {
 				b.setExpireDate(DateUtil.getAfterDateByDays(info.getProductDate(), good.getValidDays()));
 			}
+			b.setBalAmt(b.getAmount());
+			b.setBalNums(b.getNums());
 			stockBatchDao.save(b);
 			TraceLog log = new TraceLog();
 			log.setTraceId(batchId);
@@ -191,5 +198,101 @@ public class StockBatchServiceImpl implements StockBatchService {
 		return result;
 	}
 
+	@Override
+	public List<StockBatch> getStockBatchByGoodIdAndNums(String orgId, OrderGood good) {
+		List<StockBatch> list = stockBatchDao.getStockBatchByGoodIdAndOrgId(orgId, good.getGoodId());
+		List<StockBatch> returnList = null;
+		if (null != list && list.size() > 0) {
+			String costAmt = "";
+			returnList = new ArrayList<StockBatch>();
+			int nums = good.getNums();
+			for (int i = 0; i < list.size(); i++) {
+				StockBatch batch = list.get(i);
+				String salePrice = MoneyUtil.divide(good.getPayAmt(), String.valueOf(nums));
+				if (nums - batch.getBalNums() <= 0) {
+					batch.setTranNums(nums);
+					batch.setTranAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), batch.getStockPrice()));
+					batch.setTranSaleAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), salePrice));
 
+					costAmt = MoneyUtil.add(costAmt, batch.getTranAmt());
+
+					batch.setBalAmt(MoneyUtil.subtract(batch.getBalAmt(), batch.getTranAmt()));
+					batch.setBalNums(batch.getBalNums() - batch.getTranNums());
+					batch.setSaleNums(batch.getSaleNums() + batch.getTranNums());
+					batch.setSaleAmount(MoneyUtil.add(batch.getSaleAmount(), batch.getTranSaleAmt()));
+					returnList.add(batch);
+					break;
+				} else {
+					nums = nums - batch.getBalNums();
+					batch.setTranNums(batch.getBalNums());
+					batch.setTranAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), batch.getStockPrice()));
+					batch.setTranSaleAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), salePrice));
+
+					costAmt = MoneyUtil.add(costAmt, batch.getTranAmt());
+					batch.setBalAmt("0.00");
+					batch.setBalNums(0);
+					batch.setSaleNums(batch.getSaleNums() + batch.getTranNums());
+					batch.setSaleAmount(MoneyUtil.add(batch.getSaleAmount(), batch.getTranSaleAmt()));
+					returnList.add(batch);
+				}
+			}
+			for (StockBatch batch : returnList) {
+				batch.setCostPrice(MoneyUtil.divide(costAmt, String.valueOf(nums)));
+				batch.setTypeId(good.getTypeId());
+				batch.setTypeName(good.getTypeName());
+				batch.setBrandId(good.getBrandId());
+				batch.setBrandName(good.getBrandName());
+			}
+		}
+		return returnList;
+	}
+
+	@Override
+	public void updateSaleOut(List<StockBatch> stockList) {
+		for (StockBatch batch : stockList) {
+			dealStock(batch);
+		}
+	}
+
+	public void dealStock(StockBatch info) {
+		// 减少库存
+		StockInfo stock = new StockInfo();
+		stock.setCompanyId(info.getCompanyId());
+		stock.setGoodId(info.getGoodId());
+		stock.setOrgId(info.getOrgId());
+		stock.setOrgName(info.getOrgName());
+		stock.setStockAmount("-" + info.getTranAmt());
+		stock.setStockNums(-info.getTranNums());
+		stock.setSaleNums(info.getTranNums());
+		stock.setSaleAmt(info.getTranSaleAmt());
+		stockInfoService.save(stock);
+		// 更新库存批次
+		stockBatchDao.update(info);
+		/*
+		 * 保存日志
+		 */
+		TraceLog log = new TraceLog();
+		log.setTraceId(info.getBatchId());
+		log.setBatchId(info.getBatchId());
+		log.setOperateCode(StockEnums.OperateCode.batch.getValue());
+		log.setOperate(StockEnums.OperateCode.batch.getName());
+		log.setBarNo(info.getBarNo());
+		log.setBrandId(info.getBrandId());
+		log.setBrandName(info.getBrandName());
+		log.setCompanyId(info.getCompanyId());
+		log.setGoodId(info.getGoodId());
+		log.setGoodName(info.getGoodName());
+		log.setGoodNo(info.getGoodNo());
+		log.setId(IDUtil.getUUID());
+		log.setOperator("");
+		log.setOrgid(info.getOrgId());
+		log.setOrgname(info.getOrgName());
+		log.setRemarks(StockEnums.StockStatus.stockOut.getName());
+		log.setStockStatus(StockEnums.StockStatus.stockOut.getValue());
+		log.setTypeId(info.getTypeId());
+		log.setTypeName(info.getTypeName());
+		log.setAmount(info.getTranAmt());
+		log.setNums(info.getTranNums());
+		traceLogDao.save(log);
+	}
 }

@@ -4,9 +4,8 @@ package com.marks.module.mall.stock.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.annotation.MapperScan;
-
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.marks.module.mall.stock.pojo.StockBatch;
@@ -31,4 +30,6 @@ public interface StockBatchDao {
 	void deleteBatch(@Param("list") List<String> list);
 
 	List<StockBatch> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<StockBatch> getStockBatchByGoodIdAndOrgId(@Param("orgId") String orgId, @Param("goodId") String goodId);
 }

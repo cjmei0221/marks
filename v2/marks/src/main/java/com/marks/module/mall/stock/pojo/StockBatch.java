@@ -130,6 +130,117 @@ public class StockBatch implements Serializable {
 
 	private String saleAmount;// 售出金额
 
+	private String balAmt;// 剩余金额
+
+	private int balNums;// 剩余数量
+
+	private int tranNums;// 交易数量
+	private String tranAmt;// 交易金额
+	private String tranSaleAmt;// 交易售出金额
+
+	/**
+	 * 品类ID
+	 *
+	 */
+	private String typeId;
+	/**
+	 * 品类
+	 *
+	 */
+	private String typeName;
+	/**
+	 * 品牌ID
+	 *
+	 */
+	private String brandId;
+	/**
+	 * 品牌
+	 *
+	 */
+	private String brandName;
+
+	private String costPrice;// 均价
+
+	public String getCostPrice() {
+		return costPrice;
+	}
+
+	public void setCostPrice(String costPrice) {
+		this.costPrice = costPrice;
+	}
+
+	public String getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	public String getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(String brandId) {
+		this.brandId = brandId;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getTranSaleAmt() {
+		return tranSaleAmt;
+	}
+
+	public void setTranSaleAmt(String tranSaleAmt) {
+		this.tranSaleAmt = tranSaleAmt;
+	}
+
+	public int getTranNums() {
+		return tranNums;
+	}
+
+	public void setTranNums(int tranNums) {
+		this.tranNums = tranNums;
+	}
+
+	public String getTranAmt() {
+		return tranAmt;
+	}
+
+	public void setTranAmt(String tranAmt) {
+		this.tranAmt = tranAmt;
+	}
+
+	public String getBalAmt() {
+		return balAmt;
+	}
+
+	public void setBalAmt(String balAmt) {
+		this.balAmt = balAmt;
+	}
+
+	public int getBalNums() {
+		return balNums;
+	}
+
+	public void setBalNums(int balNums) {
+		this.balNums = balNums;
+	}
+
 	public int getSaleNums() {
 		return saleNums;
 	}
