@@ -29,6 +29,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		} else {
 			result.setCode("-100");
+			result.setMessage("会话失效，请重新登陆访问。");
 			JsonUtil.output(response, result);
 			return false;
 		}

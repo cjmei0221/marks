@@ -74,7 +74,7 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	private void saveSysUserOrgRole(SysUser sysUser) {
-		sysUserDao.deleteSysUserOrgRole(sysUser.getUserid(), sysUser.getOrgId());
+		sysUserDao.deleteSysUserOrgRoleByUserid(sysUser.getUserid());
 		SysRole role = sysRoleDao.findById(sysUser.getRoleId());
 		SysUserOrgRole su = new SysUserOrgRole();
 		su.setUserid(sysUser.getUserid());

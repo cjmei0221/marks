@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
+import com.marks.common.enums.ChannelEnums;
+import com.marks.common.enums.Enums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
@@ -165,6 +167,39 @@ public class WebSysUserController extends SupportContorller {
 				sysUserService.update(ori);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("更新失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+
+	/**
+	 * 更改用户管理
+	 */
+	@RequestMapping("/web/sysUser/saveVipInfo")
+	public void save(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
+			SysUser info = getModel(SysUser.class);
+			SysUser ori = sysUserService.findByMobile(loginUser.getCompanyId(), info.getBind_mobile());
+			if (ori == null) {
+				// 密码处理
+				info.setPassword(EncryptUtil.defaultPwd);
+				info.setCreator(loginUser.getUserid());
+				info.setCompanyId(loginUser.getCompanyId());
+				info.setChannelId(ChannelEnums.Channel.web.getValue());
+				info.setRoleId(info.getCompanyId() + "_VIP");
+				info.setActiveFlag(Enums.Status.Enable.getValue());
+				sysUserService.save(info);
+				result.setMessage("保存成功");
+				result.setCode(Code.CODE_SUCCESS);
+			} else {
+				result.setMessage("此记录已存在");
+				result.setCode(Code.CODE_FAIL);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

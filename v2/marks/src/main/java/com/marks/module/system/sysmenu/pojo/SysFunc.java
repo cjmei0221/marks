@@ -83,8 +83,9 @@ public class SysFunc {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof SysMenu)
+		if (obj instanceof SysFunc) {
 			return funcid.equals(((SysFunc) obj).funcid);
+		}
 		else
 			return false;
 	}

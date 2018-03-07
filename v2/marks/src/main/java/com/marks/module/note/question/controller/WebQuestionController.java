@@ -67,13 +67,14 @@ public class WebQuestionController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String userid = admin == null ? "" : admin.getUserid();
+			String mobile = admin == null ? "" : admin.getBind_mobile();
 			Question question = getModel(Question.class);
 			// question.setId(IDUtil.getTimeID());
 
 			question.setLvlName(CacheData.getDatadirValue("question_level", question.getLvl()));
 			question.setCreator(userid);
 			question.setUpdater(userid);
-			question.setMobile(admin.getBind_mobile());
+			question.setMobile(mobile);
 			Question old = questionService.findById(question.getId());
 			if (old == null) {
 				questionService.save(question);

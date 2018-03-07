@@ -67,13 +67,14 @@ public class WebGainsController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String userid = admin == null ? "" : admin.getUserid();
+			String mobile = admin == null ? "" : admin.getBind_mobile();
 			Gains gains = getModel(Gains.class);
 			// gains.setId(IDUtil.getTimeID());
 
 			gains.setLvlName(CacheData.getDatadirValue("gains_level", gains.getLvl()));
 			gains.setCreator(userid);
 			gains.setUpdater(userid);
-			gains.setMobile(admin.getBind_mobile());
+			gains.setMobile(mobile);
 			Gains old = gainsService.findById(gains.getId());
 			if (old == null) {
 				gainsService.save(gains);

@@ -33,6 +33,7 @@ public class WxUserInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		} else {
 			result.setCode("-101");
+			result.setMessage("微信会话失效，请关闭重新访问。");
 			JsonUtil.output(response, result);
 			return false;
 		}
