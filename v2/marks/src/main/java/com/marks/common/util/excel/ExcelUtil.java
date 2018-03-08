@@ -59,6 +59,7 @@ public class ExcelUtil {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 生成一个表格
 		HSSFSheet sheet = workbook.createSheet(title);
+		workbook.setPrintArea(0, 0, headers.length, 0, dataset.size());
 		// 设置表格默认列宽度为15个字节
 		sheet.setDefaultColumnWidth((int) 15);
 		// 生成一个样式
@@ -95,7 +96,7 @@ public class ExcelUtil {
 		font2.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
 		// 把字体应用到当前的样式
 		style2.setFont(font2);
-
+		HSSFFont font3 = workbook.createFont();
 		// 产生表格标题行
 		HSSFRow row = sheet.createRow(0);
 		for (int i = 0; i < headers.length; i++) {
@@ -142,7 +143,6 @@ public class ExcelUtil {
 							cell.setCellValue(Double.parseDouble(textValue));
 						} else {
 							HSSFRichTextString richString = new HSSFRichTextString(textValue);
-							HSSFFont font3 = workbook.createFont();
 							// font3.setColor(HSSFColor.BLUE.index);
 							richString.applyFont(font3);
 							cell.setCellValue(richString);
@@ -254,7 +254,7 @@ public class ExcelUtil {
 		font2.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
 		// 把字体应用到当前的样式
 		style2.setFont(font2);
-
+		HSSFFont font3 = workbook.createFont();
 		// 产生表格标题行
 		HSSFRow row = sheet.createRow(0);
 		for (int i = 0; i < headers.length; i++) {
@@ -301,7 +301,6 @@ public class ExcelUtil {
 							cell.setCellValue(Double.parseDouble(textValue));
 						} else {
 							HSSFRichTextString richString = new HSSFRichTextString(textValue);
-							HSSFFont font3 = workbook.createFont();
 							// font3.setColor(HSSFColor.BLUE.index);
 							richString.applyFont(font3);
 							cell.setCellValue(richString);
