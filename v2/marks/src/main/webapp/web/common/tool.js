@@ -82,6 +82,7 @@ tool.reqUrl={
 	    findGoodInfoById:tool.baseUrl+"/web/orderGood/findById.do",
 	    findVipInfoById:tool.baseUrl+"/web/sysUser/findById.do",
 	    summitOrderUrl:tool.baseUrl+"/web/orderInfo/save.do",
+	    saveVipInfo:tool.baseUrl+"/web/sysUser/saveVipInfo.do",
 		
 }
 
