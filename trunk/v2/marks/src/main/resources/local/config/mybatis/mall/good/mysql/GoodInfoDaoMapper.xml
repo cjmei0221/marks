@@ -203,7 +203,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-		order by goodinfo.onsale_status,goodinfo.UPDATETIME desc
+		order by goodinfo.CREATETIME desc
 	</select>
 
 	<insert id="saveGoodImg" parameterType="com.marks.module.mall.good.pojo.GoodImg">

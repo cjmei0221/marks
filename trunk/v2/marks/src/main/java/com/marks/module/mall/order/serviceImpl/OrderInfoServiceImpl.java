@@ -1,5 +1,6 @@
 package com.marks.module.mall.order.serviceImpl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -171,6 +172,9 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 			good.setSaleAmt(MoneyUtil.subtract(good.getCountAmt(), good.getPayAmt()));
 			good.setGoodManDiscountAmt(MoneyUtil.subtract(good.getCountAmt(), good.getPayableAmt()));
 			good.setSimpleDiscountAmt(MoneyUtil.add(good.getSimpleDiscountAmt(), good.getGoodManDiscountAmt()));
+			BigDecimal payRate = new BigDecimal(rate);
+			payRate = payRate.setScale(6, BigDecimal.ROUND_HALF_UP);
+			good.setPayRate(payRate.toString());
 			stock(info.getOrgId(), good, stockList);
 			costAmt = MoneyUtil.add(costAmt, good.getCostAmt());
 			saleAmt = MoneyUtil.add(saleAmt, good.getSaleAmt());
