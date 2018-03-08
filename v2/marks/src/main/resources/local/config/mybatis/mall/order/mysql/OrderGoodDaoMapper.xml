@@ -52,7 +52,8 @@
 		COSTPRICE,
 		remarks,
 		countAmt,
-		oriPriceAmt
+		oriPriceAmt,
+		payRate
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -90,7 +91,8 @@
 		#{info.costPrice:VARCHAR},
 		#{info.remarks:VARCHAR},
 		#{info.countAmt:VARCHAR},
-		#{info.oriPriceAmt:VARCHAR}
+		#{info.oriPriceAmt:VARCHAR},
+		#{info.payRate:VARCHAR}
 		)
 	</insert>
 
@@ -131,7 +133,8 @@
 		COSTPRICE,
 		remarks,
 		countAmt,
-		oriPriceAmt
+		oriPriceAmt,
+		payRate
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -172,7 +175,8 @@
 			#{info.costPrice:VARCHAR},
 			#{info.remarks:VARCHAR},
 			#{info.countAmt:VARCHAR},
-			#{info.oriPriceAmt:VARCHAR}
+			#{info.oriPriceAmt:VARCHAR},
+			#{info.payRate:VARCHAR}
 			)
 		</foreach>
 	</insert>

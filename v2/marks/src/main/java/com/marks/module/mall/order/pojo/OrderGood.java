@@ -191,10 +191,20 @@ public class OrderGood implements Serializable {
 	 */
 	private String goodManDiscountAmt;
 
+	private String payRate;// 占比
+
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
 
+	}
+
+	public String getPayRate() {
+		return payRate;
+	}
+
+	public void setPayRate(String payRate) {
+		this.payRate = payRate;
 	}
 
 	public String getGoodManDiscountAmt() {
