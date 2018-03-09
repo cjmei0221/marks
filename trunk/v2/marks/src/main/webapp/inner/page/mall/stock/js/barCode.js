@@ -140,11 +140,16 @@ function loadList() {
 			title : '商品名称',
 			field : 'goodName',
 			width : 100,
-			align : "center"
+			align : "center"		
 		}, {
 			title : '追踪码',
 			field : 'traceId',
 			width : 250,
+			align : "center"
+		}, {
+			title : '批次码',
+			field : 'batchId',
+			width : 100,
 			align : "center"
 //		}, {
 //			title : '激活状态',

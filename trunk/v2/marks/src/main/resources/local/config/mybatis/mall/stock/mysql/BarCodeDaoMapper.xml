@@ -5,16 +5,16 @@
 
 	<select id="findById" resultType="com.marks.module.mall.stock.pojo.BarCode">
 		SELECT * FROM
-		TB_MALL_GOOD_BARCODE t where t.BARCODE = #{barcode}
+		TB_MALL_TRACE_BARCODE t where t.BARCODE = #{barcode}
 	</select>
 	<select id="getMaxCode" resultType="String">
 		SELECT max(t.barcode) FROM
-		TB_MALL_GOOD_BARCODE t
+		TB_MALL_TRACE_BARCODE t
 	</select>
 	<select id="getInvalidCode" resultType="String">
 		SELECT t.barcode
 		FROM
-		TB_MALL_GOOD_BARCODE t
+		TB_MALL_TRACE_BARCODE t
 		WHERE t.activeStatus = 0
 		AND datediff(
 		date_format(now(), '%Y-%m-%d'),substring(t.updatetime, 1, 10)) &gt; 30
@@ -25,7 +25,7 @@
 		<!--<selectKey keyProperty="barcode" resultType="String" order="BEFORE">select 
 			replace(uuid(),'-','')</selectKey> -->
 
-		INSERT INTO TB_MALL_GOOD_BARCODE (
+		INSERT INTO TB_MALL_TRACE_BARCODE (
 		BARCODE,
 		COMPANYID,
 		GOODID,
@@ -42,7 +42,8 @@
 		PRODUCTDATE,
 		isWarnDays,
 		beforeWarnDays,
-		expireDate
+		expireDate,
+		batchId
 		)
 		VALUES(
 		#{info.barcode:VARCHAR},
@@ -61,12 +62,13 @@
 		#{info.productDate:VARCHAR},
 		#{info.isWarnDays:NUMERIC},
 		#{info.beforeWarnDays:NUMERIC},
-		#{info.expireDate:VARCHAR}
+		#{info.expireDate:VARCHAR},
+		#{info.batchId:VARCHAR}
 		)
 	</insert>
 
 	<insert id="saveBatch" parameterType="java.util.List">
-		INSERT INTO TB_MALL_GOOD_BARCODE (
+		INSERT INTO TB_MALL_TRACE_BARCODE (
 		BARCODE,
 		COMPANYID,
 		GOODID,
@@ -83,7 +85,8 @@
 		PRODUCTDATE,
 		isWarnDays,
 		beforeWarnDays,
-		expireDate
+		expireDate,
+		batchId
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -105,13 +108,14 @@
 			#{info.productDate:VARCHAR},
 			#{info.isWarnDays:NUMERIC},
 			#{info.beforeWarnDays:NUMERIC},
-			#{info.expireDate:VARCHAR}
+			#{info.expireDate:VARCHAR},
+			#{info.batchId:VARCHAR}
 			)
 		</foreach>
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.BarCode">
-		UPDATE TB_MALL_GOOD_BARCODE
+		UPDATE TB_MALL_TRACE_BARCODE
 		SET
 		isWarnDays=#{info.isWarnDays:NUMERIC},
 		beforeWarnDays=#{info.beforeWarnDays:NUMERIC},
@@ -147,7 +151,7 @@
 
 		<foreach collection="list" item="info" index="index"
 			separator=";">
-			UPDATE TB_MALL_GOOD_BARCODE
+			UPDATE TB_MALL_TRACE_BARCODE
 			SET
 			isWarnDays=#{info.isWarnDays:NUMERIC},
 			beforeWarnDays=#{info.beforeWarnDays:NUMERIC},
@@ -184,16 +188,16 @@
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM
-		TB_MALL_GOOD_BARCODE WHERE BARCODE=#{barcode}
+		TB_MALL_TRACE_BARCODE WHERE BARCODE=#{barcode}
 	</delete>
 
 	<select id="findAll" resultType="com.marks.module.mall.stock.pojo.BarCode">
 		SELECT * FROM
-		TB_MALL_GOOD_BARCODE t
+		TB_MALL_TRACE_BARCODE t
 	</select>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
-		DELETE FROM TB_MALL_GOOD_BARCODE WHERE BARCODE in
+		DELETE FROM TB_MALL_TRACE_BARCODE WHERE BARCODE in
 		<foreach collection="list" item="ids" index="index" open="("
 			separator="," close=")">
 			#{ids}
@@ -203,7 +207,7 @@
 	<select id="list" resultType="com.marks.module.mall.stock.pojo.BarCode"
 		parameterType="java.util.Map">
 		SELECT *
-		FROM TB_MALL_GOOD_BARCODE t
+		FROM TB_MALL_TRACE_BARCODE t
 		WHERE 1=1 and t.companyId=#{companyId} and t.activeStatus=1
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1 or t.BARCODE LIKE

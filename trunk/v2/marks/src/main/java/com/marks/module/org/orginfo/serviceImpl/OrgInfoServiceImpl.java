@@ -11,7 +11,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.enums.OrgEnums;
-import com.marks.common.util.IDUtil;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
@@ -232,15 +231,16 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 
 	@Override
 	public String getOrgId() {
-		// String orgId = orgInfoDao.getOrgId();
-		// int num = 0;
-		// if (null != orgId && !"".equals(orgId)) {
-		// num = Integer.parseInt(orgId.substring(1));
-		// } else {
-		// orgId = "O1000001";
-		// }
-		// orgId = "O" + (num + 1);
-		String orgId = IDUtil.getDateID() + "_" + IDUtil.getRandom(100, 999) + IDUtil.getRandom(100, 999);
+		String orgId = orgInfoDao.getOrgId();
+		int num = 0;
+		if (null != orgId && !"".equals(orgId)) {
+			num = Integer.parseInt(orgId);
+		} else {
+			num = 10000;
+		}
+		orgId = String.valueOf(num + 1);
+		// String orgId = IDUtil.getDateID() + "_" + IDUtil.getRandom(100, 999)
+		// + IDUtil.getRandom(100, 999);
 		return orgId;
 	}
 
@@ -251,7 +251,10 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		if (null != orgId && !"".equals(orgId)) {
 			num = Integer.parseInt(orgId);
 		} else {
-			orgId = "1001";
+			num = 1000;
+		}
+		if (num > 10000) {
+			num = 10000000;
 		}
 		orgId = "" + (num + 1);
 		return orgId;

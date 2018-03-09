@@ -18,10 +18,10 @@ function topNode() {
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
-	$("#parentName").val("总区");
-	$("#parentId").val("top");
+	$("#parentName").val("中国");
+	$("#parentId").val("0");
 	$("#lvl").val(1);
-	$("#parentNameTr").hide();
+//	$("#parentNameTr").hide();
 
 }
 function add() {
@@ -32,7 +32,7 @@ function add() {
 		showMsg("只能新增5级！");
 		return;
 	}
-	$("#parentNameTr").show();
+//	$("#parentNameTr").show();
 	$("#editWin").window({
 		title : "新增"
 	}).window("open");
@@ -53,7 +53,7 @@ function edit() {
 		showMsg("根节点不可编辑！");
 		return;
 	}
-	$("#parentNameTr").show();
+//	$("#parentNameTr").show();
 	$("#editWin").window({
 		title : "编辑"
 	}).window("open");

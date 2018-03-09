@@ -80,17 +80,17 @@ public class AreaController extends SupportContorller {
 			String areaId = IDUtil.getDateID() + "_" + IDUtil.getRandom(1001, 9999);
 			if (ori == null) {
 				area.setCompanyId(admin.getCompanyId());
-				area.setAreaId(areaId);
+				// area.setAreaId(areaId);
 				Area parentVo = null;
-				if ("top".equals(area.getParentId())) {
+				if ("0".equals(area.getParentId())) {
 					parentVo = new Area();
 					parentVo.setLvl(0);
-					area.setParentId(admin.getCompanyId());
+					area.setParentId("0");
 					area.setLvl(1);
 				} else {
 					parentVo = areaService.findById(area.getParentId());
 					area.setLvl(parentVo.getLvl() + 1);
-					area.setParentName(parentVo.getParentName());
+					area.setParentName(parentVo.getAreaName());
 				}
 
 				area.setLvl1Id(parentVo.getLvl1Id());
