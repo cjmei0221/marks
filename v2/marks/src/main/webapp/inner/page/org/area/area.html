@@ -55,12 +55,11 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 600px; height: 450px; padding: 10px;">
+		style="width: 500px; height: 350px; padding: 10px;">
 		<div align="center" style="width: 100%;">
 			<form id="ff" name="ff" method="post">
-				<input type="hidden" id="areaId" name="areaId">
 				<table>
-					<tr style="display:none;">
+					<tr>
 						<th style="width: 120px; text-align: right;">上级编号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 						<td><input id="parentId" name="parentId"
 							class="easyui-validatebox" readonly="readonly"
@@ -71,6 +70,12 @@
 						<td><input id="parentName" name="parentName"
 							class="easyui-validatebox" readonly="readonly"
 							style="width: 200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<th style="width: 120px; text-align: right;">区域编号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+						<td><input id="areaId" name="areaId"
+							class="easyui-numberbox" data-options="required:true,min:100000"
+							style="width: 200px;" maxlength="150"></td>
 					</tr>
 					<tr>
 						<th style="width: 120px; text-align: right;">区域名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>

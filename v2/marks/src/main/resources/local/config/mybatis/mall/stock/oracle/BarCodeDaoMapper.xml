@@ -4,13 +4,13 @@
 <mapper namespace="com.marks.module.mall.stock.dao.BarCodeDao">
 
     <select id="findById" resultType="com.marks.module.mall.stock.pojo.BarCode">
-		SELECT * FROM TB_MALL_GOOD_BARCODE t where t.BARCODE = #{barcode}
+		SELECT * FROM TB_MALL_TRACE_BARCODE t where t.BARCODE = #{barcode}
  	</select>
  	
  	<insert id="save" parameterType="com.marks.module.mall.stock.pojo.BarCode">
 		<!--<selectKey keyProperty="barcode" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>-->
 
- 		INSERT INTO TB_MALL_GOOD_BARCODE  (
+ 		INSERT INTO TB_MALL_TRACE_BARCODE  (
             BARCODE,
             COMPANYID,
             GOODID,
@@ -45,7 +45,7 @@
  	</insert>
  	
  	<insert id="saveBatch" parameterType="java.util.List">
-		INSERT INTO TB_MALL_GOOD_BARCODE (
+		INSERT INTO TB_MALL_TRACE_BARCODE (
 			            BARCODE,
             COMPANYID,
             GOODID,
@@ -85,7 +85,7 @@
  	
  	
  	<update id="update" parameterType="com.marks.module.mall.stock.pojo.BarCode">
- 		UPDATE TB_MALL_GOOD_BARCODE 
+ 		UPDATE TB_MALL_TRACE_BARCODE 
 		SET 
 COMPANYID = #{info.companyId:VARCHAR},
             GOODID = #{info.goodId:VARCHAR},
@@ -104,15 +104,15 @@ COMPANYID = #{info.companyId:VARCHAR},
  	</update>
  	
  	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_MALL_GOOD_BARCODE t WHERE t.BARCODE=#{barcode}
+ 		DELETE FROM TB_MALL_TRACE_BARCODE t WHERE t.BARCODE=#{barcode}
  	</delete>
  	
  	<select id="findAll" resultType="com.marks.module.mall.stock.pojo.BarCode">
- 		SELECT * FROM TB_MALL_GOOD_BARCODE t
+ 		SELECT * FROM TB_MALL_TRACE_BARCODE t
  	</select>
  	
  	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_MALL_GOOD_BARCODE WHERE BARCODE in 
+ 		DELETE FROM TB_MALL_TRACE_BARCODE WHERE BARCODE in 
  		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
 				#{ids}
 		</foreach>
@@ -121,7 +121,7 @@ COMPANYID = #{info.companyId:VARCHAR},
  	<select id="list" resultType="com.marks.module.mall.stock.pojo.BarCode" 
  	parameterType="java.util.Map">
  		SELECT  *
-		  FROM   TB_MALL_GOOD_BARCODE t
+		  FROM   TB_MALL_TRACE_BARCODE t
 						WHERE 1=1
                         <if test="keyword!=null and keyword!=''">
  and ( 2=1                             or t.BARCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

@@ -86,6 +86,16 @@ public class BarCode implements Serializable {
 
 	private int beforeWarnDays = 15;// 提前天数
 
+	private String batchId;// 批次号
+
+	public String getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(String batchId) {
+		this.batchId = batchId;
+	}
+
 	public String getExpireDate() {
 		return expireDate;
 	}

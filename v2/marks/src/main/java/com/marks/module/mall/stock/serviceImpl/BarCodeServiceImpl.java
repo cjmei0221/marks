@@ -101,6 +101,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 			String traceId = barCode + "_" + IDUtil.getSecondID() + IDUtil.getRandom(1000, 9999)
 					+ IDUtil.getRandom(1000, 9999);
 			code = new BarCode();
+			code.setBatchId(batchId);
 			code.setActiveStatus(1);
 			code.setBarcode(barCode);
 			code.setBarNo(good.getBarNo());
@@ -177,7 +178,13 @@ public class BarCodeServiceImpl implements BarCodeService {
 		}
 		logger.info("save 条码信息 updateFlag：" + updateFlag);
 		if (updateFlag) {
-			barCodeDao.updateBatch(codelist);
+			List<String> blist = new ArrayList<String>();
+			for (BarCode b : codelist) {
+				blist.add(b.getBarcode());
+			}
+			barCodeDao.deleteBatch(blist);
+			// barCodeDao.updateBatch(codelist);
+			barCodeDao.saveBatch(codelist);
 		} else {
 			barCodeDao.saveBatch(codelist);
 		}
