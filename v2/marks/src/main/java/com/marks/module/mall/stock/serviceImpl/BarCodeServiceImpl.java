@@ -77,7 +77,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 		if (hasNums < nums) {
 			String maxCode = barCodeDao.getMaxCode();
 			if (null == maxCode) {
-				maxCode = "1000";
+				maxCode = "100000";
 			}
 			initcode = Long.parseLong(maxCode);
 		}

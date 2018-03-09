@@ -7,6 +7,10 @@
 		SELECT * FROM TB_MALL_BRAND t
 		where t.BRANDID = #{brandId}
 	</select>
+	<select id="getBrandId" resultType="String">
+		SELECT max(t.BRANDID) FROM
+		TB_MALL_BRAND t
+	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.base.pojo.Brand">
 		<!--<selectKey keyProperty="brandId" resultType="String" order="BEFORE">select 

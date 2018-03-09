@@ -34,4 +34,6 @@ public interface CategoryDao {
 	void updateParentName(@Param("typeId") String cId, @Param("typeName") String cName);
 
 	List<Category> getTreeGridByParentId(@Param("companyId") String companyId, @Param("parentId") String parentId);
+
+	String getTypeId(@Param("parentId") String parentId);
 }

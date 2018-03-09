@@ -67,11 +67,11 @@
 				<tr>
 					<th style="width: 120px; text-align: right;">自编码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 					<td><input id="goodNo" name="goodNo"
-						class="easyui-validatebox" data-options="required:true"
-						style="width: 200px;" placeholder="若有条码，则填写条码"></td>
+						class="easyui-validatebox"
+						style="width: 200px;" readonly="readonly"></td>
 					<th style="width: 120px; text-align: right;">条码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-					<td><input id="barNo" name="barNo" class="easyui-validatebox"
-						data-options="required:true" style="width: 200px;"></td>
+					<td><input id="barNo" name="barNo" class="easyui-numberbox"
+						data-options="required:true,min:10000000" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th style="width: 120px; text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>

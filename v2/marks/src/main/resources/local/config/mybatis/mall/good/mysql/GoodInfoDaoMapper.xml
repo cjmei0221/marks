@@ -7,6 +7,10 @@
 		SELECT * FROM TB_MALL_GOOD_INFO
 		goodinfo where goodinfo.GOODID = #{goodId}
 	</select>
+	<select id="getGoodNo" resultType="String">
+		SELECT max(t.goodNo) FROM
+		TB_MALL_GOOD_INFO t
+	</select>
 
 	<select id="getGoodInfoByGoodNo" resultType="com.marks.module.mall.good.pojo.GoodInfo">
 		SELECT * FROM

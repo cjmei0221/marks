@@ -7,6 +7,10 @@
 		SELECT * FROM TB_MALL_CATEGORY
 		t where t.typeID = #{typeId}
 	</select>
+	<select id="getTypeId" resultType="String">
+		SELECT max(t.typeCode) FROM
+		TB_MALL_CATEGORY t where t.ParentID=#{parentId}
+	</select>
 	
 	<select id="getTreeGridByParentId" resultType="com.marks.module.mall.base.pojo.Category">
 		select t.*,
@@ -51,7 +55,8 @@
 		LVL5ID,
 		LVL5NAME,
 		LVL,
-		STATUS
+		STATUS,
+		typeCode
 		)
 		VALUES(
 		#{info.typeId:VARCHAR},
@@ -73,7 +78,8 @@
 		#{info.lvl5Id:VARCHAR},
 		#{info.lvl5Name:VARCHAR},
 		#{info.lvl:NUMERIC},
-		#{info.status:NUMERIC}
+		#{info.status:NUMERIC},
+		#{info.typeCode:VARCHAR}
 		)
 	</insert>
 
@@ -98,7 +104,8 @@
 		LVL5ID,
 		LVL5NAME,
 		LVL,
-		STATUS
+		STATUS,
+		typeCode
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -123,7 +130,8 @@
 			#{info.lvl5Id:VARCHAR},
 			#{info.lvl5Name:VARCHAR},
 			#{info.lvl:NUMERIC},
-			#{info.status:NUMERIC}
+			#{info.status:NUMERIC},
+			#{info.typeCode:VARCHAR}
 			)
 		</foreach>
 	</insert>

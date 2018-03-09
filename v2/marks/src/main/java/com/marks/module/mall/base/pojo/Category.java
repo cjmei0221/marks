@@ -11,6 +11,12 @@ public class Category implements Serializable{
     *
     */
 	private String typeId;
+
+	/**
+	 * 品类ID
+	 *
+	 */
+	private String typeCode;
     /**
     *品类
     *
@@ -110,6 +116,13 @@ public class Category implements Serializable{
 
 	private String state = "open";
 
+	public String getTypeCode() {
+		return typeCode;
+	}
+
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+	}
 
 	public String getState() {
 		return state;

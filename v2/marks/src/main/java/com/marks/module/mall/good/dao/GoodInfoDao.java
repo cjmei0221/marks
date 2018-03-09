@@ -53,4 +53,6 @@ public interface GoodInfoDao {
 	 * @return
 	 */
 	List<GoodInfo> listGoodByBrandId(@Param("brandId") String brandId);
+
+	String getGoodNo();
 }

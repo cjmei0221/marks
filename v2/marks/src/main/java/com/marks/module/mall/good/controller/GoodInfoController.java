@@ -57,6 +57,25 @@ public class GoodInfoController extends SupportContorller {
 		}
 		JsonUtil.output(response, result);
 	}
+
+	/**
+	 * 获取商品自编码
+	 */
+	@RequestMapping("/inner/goodInfo/getGoodNo")
+	public void getGoodNo(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			String goodNo = goodInfoService.getGoodNo();
+			result.getData().put("goodNo", goodNo);
+			result.setMessage("findById goodInfo successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
 	
 	@RequestMapping("/inner/goodInfo/findGoodImgByGoodId")
 	public void findGoodImgByGoodId(HttpServletRequest request, HttpServletResponse response) {

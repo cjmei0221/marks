@@ -3,17 +3,15 @@ package com.marks.module.mall.order.serviceImpl;
 import java.util.List;
 import java.util.Map;
 
-import com.marks.common.domain.PojoDomain;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marks.module.mall.order.pojo.OrderGood;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.marks.common.domain.PojoDomain;
 import com.marks.module.mall.order.dao.OrderGoodDao;
+import com.marks.module.mall.order.pojo.OrderGood;
 import com.marks.module.mall.order.service.OrderGoodService;
 
 @Service
@@ -39,7 +37,11 @@ public class OrderGoodServiceImpl implements OrderGoodService{
     */
     @Override
     public OrderGood findById(String id){
-        return orderGoodDao.findById(id);
+		List<OrderGood> list = orderGoodDao.findById(id);
+		if (null != list && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
     }
     
     /**
