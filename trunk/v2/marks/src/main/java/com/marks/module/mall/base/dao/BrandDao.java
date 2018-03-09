@@ -30,4 +30,6 @@ public interface BrandDao {
 	List<Brand> list(PageBounds pageBounds, Map<String,Object> param);
 
 	List<Brand> findListByTypeId(@Param("companyId") String companyId, @Param("typeId") String typeId);
+
+	String getBrandId();
 }

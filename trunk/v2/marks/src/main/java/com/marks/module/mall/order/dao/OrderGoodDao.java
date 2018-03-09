@@ -13,7 +13,7 @@ import com.marks.module.mall.order.pojo.OrderGood;
 @MapperScan
 public interface OrderGoodDao {
 
-	OrderGood findById(@Param("goodId") String goodId);
+	List<OrderGood> findById(@Param("goodId") String goodId);
 
 	void save(@Param("info") OrderGood orderGood);
 	

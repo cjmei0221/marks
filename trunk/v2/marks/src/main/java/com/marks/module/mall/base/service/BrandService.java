@@ -18,4 +18,11 @@ public interface BrandService{
 	public PojoDomain<Brand> list(int page_number, int page_size,Map<String,Object> param);
 
 	public List<Brand> findListByTypeId(String companyId, String typeId);
+
+	/**
+	 * 获取品牌编号
+	 * 
+	 * @return
+	 */
+	public String getBrandId();
 }

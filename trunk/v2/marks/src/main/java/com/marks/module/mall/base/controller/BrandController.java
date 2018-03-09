@@ -16,7 +16,6 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.base.pojo.Brand;
@@ -78,7 +77,7 @@ public class BrandController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Brand reqVo = getModel(Brand.class);
-			reqVo.setBrandId("B" + IDUtil.getDateID() + IDUtil.getID(4));
+			reqVo.setBrandId(brandService.getBrandId());
 
 			logger.info("saveBrand > param>" + reqVo.toLog());
 

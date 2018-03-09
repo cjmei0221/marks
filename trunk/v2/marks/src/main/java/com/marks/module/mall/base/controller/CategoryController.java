@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.base.pojo.Category;
@@ -74,7 +73,6 @@ public class CategoryController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Category reqVo = getModel(Category.class);
-			reqVo.setTypeId("T" + IDUtil.getDateID() + IDUtil.getRandom(1000, 9999));
 			reqVo.setCompanyId(admin.getCompanyId());
 			logger.info("saveCategory > param>" + reqVo.toLog());
 
@@ -84,48 +82,9 @@ public class CategoryController extends SupportContorller {
 			}
 
 			if (ori == null) {
-				Category parentVo = null;
 				if ("top".equals(reqVo.getParentId())) {
-					parentVo = new Category();
-					parentVo.setLvl(0);
 					reqVo.setParentId(admin.getCompanyId());
 					reqVo.setLvl(1);
-				} else {
-					parentVo = categoryService.findById(reqVo.getParentId());
-					reqVo.setLvl(parentVo.getLvl() + 1);
-					reqVo.setParentName(parentVo.getParentName());
-				}
-
-				reqVo.setLvl1Id(parentVo.getLvl1Id());
-				reqVo.setLvl1Name(parentVo.getLvl1Name());
-
-				reqVo.setLvl2Id(parentVo.getLvl2Id());
-				reqVo.setLvl2Name(parentVo.getLvl2Name());
-
-				reqVo.setLvl3Id(parentVo.getLvl3Id());
-				reqVo.setLvl3Name(parentVo.getLvl3Name());
-
-				reqVo.setLvl4Id(parentVo.getLvl4Id());
-				reqVo.setLvl4Name(parentVo.getLvl4Name());
-
-				reqVo.setLvl5Id(parentVo.getLvl5Id());
-				reqVo.setLvl5Name(parentVo.getLvl5Name());
-
-				if (reqVo.getLvl() == 1) {
-					reqVo.setLvl1Id(reqVo.getTypeId());
-					reqVo.setLvl1Name(reqVo.getTypeName());
-				} else if (reqVo.getLvl() == 2) {
-					reqVo.setLvl2Id(reqVo.getTypeId());
-					reqVo.setLvl2Name(reqVo.getTypeName());
-				} else if (reqVo.getLvl() == 3) {
-					reqVo.setLvl3Id(reqVo.getTypeId());
-					reqVo.setLvl3Name(reqVo.getTypeName());
-				} else if (reqVo.getLvl() == 4) {
-					reqVo.setLvl4Id(reqVo.getTypeId());
-					reqVo.setLvl4Name(reqVo.getTypeName());
-				} else if (reqVo.getLvl() == 5) {
-					reqVo.setLvl5Id(reqVo.getTypeId());
-					reqVo.setLvl5Name(reqVo.getTypeName());
 				}
 				categoryService.save(reqVo);
 				result.setMessage("保存成功");

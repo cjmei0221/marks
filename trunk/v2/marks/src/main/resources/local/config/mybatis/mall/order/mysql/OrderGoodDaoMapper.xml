@@ -4,12 +4,11 @@
 <mapper namespace="com.marks.module.mall.order.dao.OrderGoodDao">
 
 	<select id="findById" resultType="com.marks.module.mall.order.pojo.OrderGood">
-		SELECT
-		t.goodId,t.goodNo,t.goodName,t.barNo,t.unit,t.rank,t.brandId,t.brandName,t.typeId,t.typeName,t.imageurl as picUrl,
-		t.salePrice nowPrice,t.price salePrice
-		FROM tb_mall_good_info t
+		SELECT t.goodId,t.goodNo,t.goodName,t.barNo,t.unit,t.rank,t.brandId,t.brandName,t.typeId,t.typeName,t.imageurl as picUrl,
+	   	t.salePrice nowPrice,t.price salePrice
+		FROM tb_mall_good_info t left join tb_mall_trace_barcode b on t.goodId=b.goodId
 		where
-		t.goodId=#{goodId} or t.goodNo=#{goodId}
+		t.goodId=#{goodId} or t.goodNo=#{goodId} or b.barcode=#{goodId}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.order.pojo.OrderGood">

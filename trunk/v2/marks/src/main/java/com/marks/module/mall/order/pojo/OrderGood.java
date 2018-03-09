@@ -1,6 +1,7 @@
 package com.marks.module.mall.order.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.marks.common.util.date.DateUtil;
 
@@ -193,10 +194,29 @@ public class OrderGood implements Serializable {
 
 	private String payRate;// 占比
 
+	private List<String> barCodeList;// 商品唯一条码集合
+
+	private int stockType;
+
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
 
+	public int getStockType() {
+		return stockType;
+	}
+
+	public void setStockType(int stockType) {
+		this.stockType = stockType;
+	}
+
+	public List<String> getBarCodeList() {
+		return barCodeList;
+	}
+
+	public void setBarCodeList(List<String> barCodeList) {
+		this.barCodeList = barCodeList;
 	}
 
 	public String getPayRate() {

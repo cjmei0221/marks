@@ -1,6 +1,7 @@
 var appInfo = {
 	goodData : [],
-	vipInfo : {}
+	vipInfo : {},
+	barCodeData : []
 }
 $(function() {
 	clear();
@@ -47,6 +48,7 @@ function clear() {
 	$("#vipMobile").val("");
 	$("#goodNo").focus();
 }
+// 加商品
 function checkGood() {
 	var goodNo = $("#goodNo").val();
 	if (goodNo == null || goodNo == '') {
@@ -63,6 +65,14 @@ function checkGood() {
 				var vo = data.info;
 				vo.nums = 1;
 				vo.payableAmt = vo.nowPrice;
+				if (vo.stockType == 0 || vo.stockType == '0') {
+					var flag = checkBarCode(goodNo);
+					if (flag) {
+						return;
+					}
+					appInfo.barCodeData.push(goodNo);
+				}
+				console.log(2);
 				initList(vo);
 				countOrder();
 			}
@@ -72,10 +82,73 @@ function checkGood() {
 		}
 	});
 }
+// 减商品
+function lessGood() {
+	var goodNo = $("#goodNo").val();
+	if (goodNo == null || goodNo == '') {
+		return;
+	}
+	$.ajax({
+		url : tool.reqUrl.findGoodInfoById,
+		type : 'POST',
+		data : {
+			goodId : goodNo
+		},
+		success : function(data) {
+			if (data.retcode == "0") {
+				console.log(appInfo.goodData);
+				var vo = data.info;
+				if (vo.stockType == 0 || vo.stockType == '0') {
+					var flag = checkBarCode(goodNo);
+					if (!flag) {
+						return;
+					}
+					appInfo.barCodeData.remove(goodNo);
+				}
+				var info = getGood(vo.goodNo);
+				console.log(info);
+				if (null == info) {
+					return;
+				}
+				info.nums = info.nums - 1;
+				console.log(1);
+				if (info.nums < 0) {
+					console.log(2);
+					return;
+				}
+				if (info.nums <= 0) {
+					appInfo.goodData.remove(info);
+					$("#" + info.goodNo).remove();
+				} else {
+					info.payableAmt = parseFloat(info.nums)
+							* (parseFloat(info.nowPrice) * 100) / 100;
+					$("#" + info.goodNo + ">td >.cls-nums").val(info.nums);
+					$("#" + info.goodNo + ">td >.cls-payableAmt").val(
+							info.payableAmt.toFixed(2));
+				}
+				countOrder();
+			}
+		},
+		complete : function() {
+
+		}
+	});
+}
+function checkBarCode(barCode) {
+	var flag = false;
+	if (appInfo.barCodeData.length > 0) {
+		for (var i = 0; i < appInfo.barCodeData.length; i++) {
+			if (appInfo.barCodeData[i] == barCode) {
+				flag = true;
+				break;
+			}
+		}
+	}
+	return flag;
+}
 function initList(vo) {
 	var info = {};
 	var flag = false;
-	console.log(vo.goodNo);
 	if (appInfo.goodData.length > 0) {
 		for (var i = 0; i < appInfo.goodData.length; i++) {
 			if (appInfo.goodData[i].goodNo == vo.goodNo) {
@@ -90,7 +163,6 @@ function initList(vo) {
 			}
 		}
 	}
-	console.log(flag);
 	if (!flag) {
 		appInfo.goodData.push(vo);
 		$('#trDiv').append(tool.fillTemplate($("#trDivTmp").html(), vo));
@@ -190,6 +262,12 @@ function summitOrder() {
 	var payAmt = $("#pay_payAmt").val();
 	var payableAmt = $("#pay_payableAmt").html();
 	var goodList = JSON.stringify(appInfo.goodData);
+	var barCodeList = "";
+	if (appInfo.barCodeData.length > 0) {
+		barCodeList = JSON.stringify(appInfo.barCodeData);
+	}
+	console.log(barCodeList);
+	return;
 	var vipId = "";
 	if (appInfo.vipInfo.userid != null) {
 		vipId = appInfo.vipInfo.userid;
@@ -200,7 +278,8 @@ function summitOrder() {
 		data : {
 			goodList : goodList,
 			vipId : vipId,
-			payAmt : payAmt
+			payAmt : payAmt,
+			barCodeList:barCodeList
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
@@ -213,10 +292,10 @@ function summitOrder() {
 		}
 	});
 }
-//document.onkeydown = function(e) {
-//	var theEvent = window.event || e;
-//	var code = theEvent.keyCode || theEvent.which;
-//	if (code == 13) {
-//		$("#uWorkplaceContent .btn-search").click();
-//	}
-//}
+// document.onkeydown = function(e) {
+// var theEvent = window.event || e;
+// var code = theEvent.keyCode || theEvent.which;
+// if (code == 13) {
+// $("#uWorkplaceContent .btn-search").click();
+// }
+// }

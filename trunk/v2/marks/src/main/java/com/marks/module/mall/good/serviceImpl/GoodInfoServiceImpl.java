@@ -127,5 +127,17 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 	public List<GoodInfo> listGoodByBrandId(String brandId) {
 		return goodInfoDao.listGoodByBrandId(brandId);
 	}
-	
+
+	@Override
+	public String getGoodNo() {
+		String orgId = goodInfoDao.getGoodNo();
+		int num = 0;
+		if (null != orgId && !"".equals(orgId)) {
+			num = Integer.parseInt(orgId);
+		} else {
+			num = 1000;
+		}
+		orgId = String.valueOf(num + 1);
+		return orgId;
+	}
 }

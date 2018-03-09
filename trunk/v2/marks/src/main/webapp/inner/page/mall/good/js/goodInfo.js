@@ -12,6 +12,7 @@ var appInfo = {
 	brandlistUrl : top.window.urlBase + '/inner/brand/brandbox.do',// 获取品牌管理列表接口
 	// Brand
 	supplierlistUrl : top.window.urlBase + '/inner/supplier/combobox.do',// 获取品牌管理列表接口
+	getGoodNoUrl : top.window.urlBase + '/inner/goodInfo/getGoodNo.do',// 获取品牌管理列表接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -24,19 +25,27 @@ var appInfo = {
 
 // 新增
 function add() {
-	$("#remove").html("");
-	$("#editWin").window({
-		title : "新增"
-	}).window("open");
-	$('#ff').form('clear');
-	$("#weight_unit").val("Kg");
-	$("#goodType").combobox("setValue", 0);
-	$("#isWarnDays").combobox("setValue", 0);
-	$("#stockManageType").combobox("setValue", 1);
-	appInfo.formStatus = "new";
-	img.deleteImageDiv("addMainImg");
-	img.deleteImageDiv("addMainImageDiv");
-	img.deleteImageDiv("addDetailImageDiv");
+	$.post(appInfo.getGoodNoUrl, "", function(data) {
+		if (data.retcode == "0") {
+			$("#remove").html("");
+			$("#editWin").window({
+				title : "新增"
+			}).window("open");
+			$('#ff').form('clear');
+			$("#goodNo").val(data.goodNo);
+			$("#weight_unit").val("Kg");
+			$("#goodType").combobox("setValue", 0);
+			$("#isWarnDays").combobox("setValue", 0);
+			$("#stockManageType").combobox("setValue", 1);
+			appInfo.formStatus = "new";
+			img.deleteImageDiv("addMainImg");
+			img.deleteImageDiv("addMainImageDiv");
+			img.deleteImageDiv("addDetailImageDiv");
+		} else {
+			showMsg(data.retmsg);
+			return;
+		}
+	});
 }
 
 // 编辑

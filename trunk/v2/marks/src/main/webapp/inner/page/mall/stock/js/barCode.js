@@ -149,7 +149,7 @@ function loadList() {
 		}, {
 			title : '批次码',
 			field : 'batchId',
-			width : 100,
+			width : 200,
 			align : "center"
 //		}, {
 //			title : '激活状态',

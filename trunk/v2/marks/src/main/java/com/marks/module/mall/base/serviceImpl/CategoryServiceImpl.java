@@ -45,12 +45,76 @@ public class CategoryServiceImpl implements CategoryService{
     */
     @Override
     public void save(Category info){
+		Category parentVo = null;
+		if (info.getLvl() == 1) {
+			parentVo = new Category();
+			parentVo.setLvl(0);
+			info.setParentId(info.getCompanyId());
+			info.setLvl(1);
+		} else {
+			parentVo = this.findById(info.getParentId());
+			info.setLvl(parentVo.getLvl() + 1);
+			info.setParentName(parentVo.getTypeName());
+		}
+		info.setTypeCode(this.getTypeId(info.getParentId()));
+		if (info.getLvl() == 1) {
+			info.setTypeId(info.getTypeCode());
+		} else {
+			info.setTypeId(info.getParentId() + info.getTypeCode());
+		}
+
+		info.setLvl1Id(parentVo.getLvl1Id());
+		info.setLvl1Name(parentVo.getLvl1Name());
+
+		info.setLvl2Id(parentVo.getLvl2Id());
+		info.setLvl2Name(parentVo.getLvl2Name());
+
+		info.setLvl3Id(parentVo.getLvl3Id());
+		info.setLvl3Name(parentVo.getLvl3Name());
+
+		info.setLvl4Id(parentVo.getLvl4Id());
+		info.setLvl4Name(parentVo.getLvl4Name());
+
+		info.setLvl5Id(parentVo.getLvl5Id());
+		info.setLvl5Name(parentVo.getLvl5Name());
+
+		if (info.getLvl() == 1) {
+			info.setLvl1Id(info.getTypeId());
+			info.setLvl1Name(info.getTypeName());
+		} else if (info.getLvl() == 2) {
+			info.setLvl2Id(info.getTypeId());
+			info.setLvl2Name(info.getTypeName());
+		} else if (info.getLvl() == 3) {
+			info.setLvl3Id(info.getTypeId());
+			info.setLvl3Name(info.getTypeName());
+		} else if (info.getLvl() == 4) {
+			info.setLvl4Id(info.getTypeId());
+			info.setLvl4Name(info.getTypeName());
+		} else if (info.getLvl() == 5) {
+			info.setLvl5Id(info.getTypeId());
+			info.setLvl5Name(info.getTypeName());
+		}
         categoryDao.save(info);
     }
     
-    /**
-    *更新品类管理
-    */
+	private String getTypeId(String parentId) {
+		String id = categoryDao.getTypeId(parentId);
+		int num = 0;
+		if (null != id && !"".equals(id)) {
+			num = Integer.parseInt(id);
+		} else {
+			num = 0;
+		}
+		id = String.valueOf(num + 1);
+		if (id.length() == 1) {
+			id = "0" + id;
+		}
+		return id;
+	}
+
+	/**
+	 * 更新品类管理
+	 */
     @Override
     public void update(Category info){
         categoryDao.update(info);

@@ -32,4 +32,11 @@ public interface GoodInfoService{
 	 * @return
 	 */
 	public List<GoodInfo> listGoodByBrandId(String brandId);
+
+	/**
+	 * 获取商品自编码
+	 * 
+	 * @return
+	 */
+	public String getGoodNo();
 }

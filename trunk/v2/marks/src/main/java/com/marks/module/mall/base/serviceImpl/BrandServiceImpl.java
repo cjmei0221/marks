@@ -96,5 +96,18 @@ public class BrandServiceImpl implements BrandService{
 	public List<Brand> findListByTypeId(String companyId, String typeId) {
 		return brandDao.findListByTypeId(companyId, typeId);
 	}
+
+	@Override
+	public String getBrandId() {
+		String id = brandDao.getBrandId();
+		int num = 0;
+		if (null != id && !"".equals(id)) {
+			num = Integer.parseInt(id);
+		} else {
+			num = 10000;
+		}
+		id = String.valueOf(num + 1);
+		return id;
+	}
 	
 }
