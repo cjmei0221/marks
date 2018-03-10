@@ -18,6 +18,7 @@ function edit() {
 		title : "审核"
 	}).window("open");
 	$("#wrokId").val(appInfo.selectedId);
+	$("#remarks").val("");
 	var path = top.window.urlBase + appInfo.selectedData.pageUrl;
     var strHtml = "<iframe width='100%' height='280px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
     $("#postShow").html(strHtml);
