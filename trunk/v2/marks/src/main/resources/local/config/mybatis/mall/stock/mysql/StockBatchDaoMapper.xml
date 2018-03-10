@@ -211,7 +211,20 @@
 		order by t.UPDATETIME DESC
 	</select>
 	<select id="getStockBatchByGoodIdAndOrgId" resultType="com.marks.module.mall.stock.pojo.StockBatch">
-		select * from tb_mall_stock_batch t where t.orgid=#{orgId} and t.balNums &gt; 0 and t.goodId=#{goodId} order by t.createtime
+		select *
+		from tb_mall_stock_batch t where t.stockType=1 and t.orgid=#{orgId}
+		and t.balNums &gt; 0 and t.goodId=#{goodId} order by t.createtime
+	</select>
+	<select id="getStockBatchByBarCodeList" resultType="com.marks.module.mall.stock.pojo.StockBatch">
+		select
+		DISTINCT t.*,count(1) tranNums from TB_MALL_STOCK_BATCH t JOIN TB_MALL_TRACE_BARCODE b
+		on t.batchId=b.batchId
+		where b.barcode in 
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+		GROUP BY t.batchId
 	</select>
 
 

@@ -176,12 +176,12 @@
 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.Trace">
 		UPDATE TB_MALL_TRACE
 		SET
-		
 		UPDATETIME = now(),
 		STOCKSTATUS =
 		#{info.stockStatus:NUMERIC},
-		CGNO = #{info.cgNo:VARCHAR},
 		NOWPRICE = #{info.nowPrice:VARCHAR},
+		PRICE = #{info.price:VARCHAR},
+		SALEPRICE = #{info.salePrice:VARCHAR},
 		ORDERID =
 		#{info.orderId:VARCHAR},
 		ORDERGOODID = #{info.orderGoodId:VARCHAR},
