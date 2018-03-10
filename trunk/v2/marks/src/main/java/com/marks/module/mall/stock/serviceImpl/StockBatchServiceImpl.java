@@ -21,6 +21,7 @@ import com.marks.module.mall.good.pojo.GoodInfo;
 import com.marks.module.mall.order.pojo.OrderGood;
 import com.marks.module.mall.stock.dao.StockBatchDao;
 import com.marks.module.mall.stock.dao.TraceLogDao;
+import com.marks.module.mall.stock.pojo.BarCode;
 import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.pojo.StockBatch;
 import com.marks.module.mall.stock.pojo.StockInfo;
@@ -121,18 +122,6 @@ public class StockBatchServiceImpl implements StockBatchService {
 		if (nums > 0) {
 			GoodInfo good = goodInfoDao.findById(info.getGoodId());
 			String batchId = "Batch_" + IDUtil.getDateID() + "_" + IDUtil.getID(8);
-			// 添加库存
-			StockInfo stock = new StockInfo();
-			stock.setCompanyId(info.getCompanyId());
-			stock.setGoodId(info.getGoodId());
-			stock.setOrgId(info.getOrgid());
-			stock.setOrgName(info.getOrgname());
-			stock.setStockAmount(MoneyUtil.multiply(info.getStockPrice(), String.valueOf(info.getNums())));
-			stock.setStockNums(info.getNums());
-			stock.setBarNo(good.getBarNo());
-			stock.setGoodNo(good.getGoodNo());
-			stock.setGoodName(good.getGoodName());
-			stockInfoService.save(stock);
 			// 保存批次
 			StockBatch b = new StockBatch();
 			b.setAmount(MoneyUtil.multiply(info.getStockPrice(), String.valueOf(info.getNums())));
@@ -158,30 +147,10 @@ public class StockBatchServiceImpl implements StockBatchService {
 			}
 			b.setBalAmt(b.getAmount());
 			b.setBalNums(b.getNums());
-			stockBatchDao.save(b);
-			TraceLog log = new TraceLog();
-			log.setTraceId(batchId);
-			log.setBatchId(batchId);
-			log.setOperateCode(StockEnums.OperateCode.batch.getValue());
-			log.setOperate(StockEnums.OperateCode.batch.getName());
-			log.setBarNo(good.getBarNo());
-			log.setBrandId(good.getBrandId());
-			log.setBrandName(good.getBrandName());
-			log.setCompanyId(good.getCompanyId());
-			log.setGoodId(good.getGoodId());
-			log.setGoodName(good.getGoodName());
-			log.setGoodNo(good.getGoodNo());
-			log.setId(IDUtil.getUUID());
-			log.setOperator(info.getOperator());
-			log.setOrgid(info.getOrgid());
-			log.setOrgname(info.getOrgname());
-			log.setRemarks(StockEnums.StockStatus.stockIn.getName());
-			log.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
-			log.setTypeId(good.getTypeId());
-			log.setTypeName(good.getTypeName());
-			log.setAmount(b.getAmount());
-			log.setNums(b.getNums());
-			traceLogDao.save(log);
+			b.setTranAmt(b.getAmount());
+			b.setTranNums(b.getNums());
+			b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
+			dealStock(b);
 			// 更新商品进货价和供应商
 			good.setStockPrice(info.getStockPrice());
 			good.setStockManageType(info.getStockManageType());
@@ -198,46 +167,53 @@ public class StockBatchServiceImpl implements StockBatchService {
 		return result;
 	}
 
-	@Override
-	public List<StockBatch> getStockBatchByGoodIdAndNums(String orgId, OrderGood good) {
-		List<StockBatch> list = stockBatchDao.getStockBatchByGoodIdAndOrgId(orgId, good.getGoodId());
+	public List<StockBatch> getStockBatchByGood(String orgId, OrderGood good) {
+		List<StockBatch> returnList = null;
+		int nums = good.getNums();// 减去条码的数量
+		List<StockBatch> list = new ArrayList<StockBatch>();
+		if (null != good.getBarCodeList() && good.getBarCodeList().size() > 0) {
+			nums = good.getNums() - good.getBarCodeList().size();
+			List<StockBatch> barlist = getStockBatchByBarCodeList(good);
+			if (null != barlist && barlist.size() > 0) {
+				list.addAll(barlist);
+			}
+		}
+		if (nums > 0) {
+			List<StockBatch> numslist = getStockBatchByNums(orgId, good);
+			if (null != numslist && numslist.size() > 0) {
+				list.addAll(numslist);
+			}
+		}
+		if (list.size() > 0) {
+			returnList = countStockBatch(good, list);
+		}
+		return returnList;
+	}
+
+	private List<StockBatch> getStockBatchByBarCodeList(OrderGood good) {
+		List<StockBatch> list = stockBatchDao.getStockBatchByBarCodeList(good.getBarCodeList());
+		return list;
+	}
+
+	private List<StockBatch> countStockBatch(OrderGood good, List<StockBatch> list) {
 		List<StockBatch> returnList = null;
 		if (null != list && list.size() > 0) {
 			String costAmt = "";
 			returnList = new ArrayList<StockBatch>();
-			int nums = good.getNums();
 			for (int i = 0; i < list.size(); i++) {
 				StockBatch batch = list.get(i);
-				String salePrice = MoneyUtil.divide(good.getPayAmt(), String.valueOf(nums));
-				if (nums - batch.getBalNums() <= 0) {
-					batch.setTranNums(nums);
-					batch.setTranAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), batch.getStockPrice()));
-					batch.setTranSaleAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), salePrice));
-
-					costAmt = MoneyUtil.add(costAmt, batch.getTranAmt());
-
-					batch.setBalAmt(MoneyUtil.subtract(batch.getBalAmt(), batch.getTranAmt()));
-					batch.setBalNums(batch.getBalNums() - batch.getTranNums());
-					batch.setSaleNums(batch.getSaleNums() + batch.getTranNums());
-					batch.setSaleAmount(MoneyUtil.add(batch.getSaleAmount(), batch.getTranSaleAmt()));
-					returnList.add(batch);
-					break;
-				} else {
-					nums = nums - batch.getBalNums();
-					batch.setTranNums(batch.getBalNums());
-					batch.setTranAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), batch.getStockPrice()));
-					batch.setTranSaleAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), salePrice));
-
-					costAmt = MoneyUtil.add(costAmt, batch.getTranAmt());
-					batch.setBalAmt("0.00");
-					batch.setBalNums(0);
-					batch.setSaleNums(batch.getSaleNums() + batch.getTranNums());
-					batch.setSaleAmount(MoneyUtil.add(batch.getSaleAmount(), batch.getTranSaleAmt()));
-					returnList.add(batch);
-				}
+				String salePrice = MoneyUtil.divide(good.getPayAmt(), String.valueOf(good.getNums()));
+				batch.setTranAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), batch.getStockPrice()));
+				batch.setTranSaleAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), salePrice));
+				costAmt = MoneyUtil.add(costAmt, batch.getTranAmt());
+				batch.setBalAmt(MoneyUtil.subtract(batch.getBalAmt(), batch.getTranAmt()));
+				batch.setBalNums(batch.getBalNums() - batch.getTranNums());
+				batch.setSaleNums(batch.getSaleNums() + batch.getTranNums());
+				batch.setSaleAmount(MoneyUtil.add(batch.getSaleAmount(), batch.getTranSaleAmt()));
+				returnList.add(batch);
 			}
 			for (StockBatch batch : returnList) {
-				batch.setCostPrice(MoneyUtil.divide(costAmt, String.valueOf(nums)));
+				batch.setCostPrice(MoneyUtil.divide(costAmt, String.valueOf(good.getNums())));
 				batch.setTypeId(good.getTypeId());
 				batch.setTypeName(good.getTypeName());
 				batch.setBrandId(good.getBrandId());
@@ -247,27 +223,67 @@ public class StockBatchServiceImpl implements StockBatchService {
 		return returnList;
 	}
 
+	private List<StockBatch> getStockBatchByNums(String orgId, OrderGood good) {
+		List<StockBatch> list = stockBatchDao.getStockBatchByGoodIdAndOrgId(orgId, good.getGoodId());
+		List<StockBatch> returnList = null;
+		if (null != list && list.size() > 0) {
+			returnList = new ArrayList<StockBatch>();
+			int nums = good.getNums();
+			for (int i = 0; i < list.size(); i++) {
+				StockBatch batch = list.get(i);
+				if (nums - batch.getBalNums() <= 0) {
+					batch.setTranNums(nums);
+					returnList.add(batch);
+					break;
+				} else {
+					nums = nums - batch.getBalNums();
+					batch.setTranNums(batch.getBalNums());
+					returnList.add(batch);
+				}
+			}
+		}
+		return returnList;
+	}
+
 	@Override
-	public void updateSaleOut(List<StockBatch> stockList) {
+	public void updateSaleOut(List<StockBatch> stockList, List<BarCode> barCodeList) {
 		for (StockBatch batch : stockList) {
+			batch.setTranStatus(StockEnums.StockStatus.stockOut.getValue());
 			dealStock(batch);
+		}
+		if (null != barCodeList && barCodeList.size() > 0) {
+			barCodeService.updateBarCodeStockOut(barCodeList);
 		}
 	}
 
 	public void dealStock(StockBatch info) {
+		// 更新库存批次
+		StockBatch ori = stockBatchDao.findById(info.getBatchId());
+		if (ori == null) {
+			stockBatchDao.save(info);
+		} else {
+			stockBatchDao.update(info);
+		}
 		// 减少库存
 		StockInfo stock = new StockInfo();
 		stock.setCompanyId(info.getCompanyId());
 		stock.setGoodId(info.getGoodId());
 		stock.setOrgId(info.getOrgId());
 		stock.setOrgName(info.getOrgName());
-		stock.setStockAmount("-" + info.getTranAmt());
-		stock.setStockNums(-info.getTranNums());
+		stock.setBarNo(info.getBarNo());
+		stock.setGoodNo(info.getGoodNo());
+		stock.setGoodName(info.getGoodName());
+		if (StockEnums.StockStatus.stockIn.getValue() == info.getTranStatus()
+				|| StockEnums.StockStatus.transferIn.getValue() == info.getTranStatus()) {
+			stock.setStockAmount(info.getTranAmt());
+			stock.setStockNums(info.getTranNums());
+		} else {
+			stock.setStockAmount("-" + info.getTranAmt());
+			stock.setStockNums(-info.getTranNums());
+		}
 		stock.setSaleNums(info.getTranNums());
 		stock.setSaleAmt(info.getTranSaleAmt());
 		stockInfoService.save(stock);
-		// 更新库存批次
-		stockBatchDao.update(info);
 		/*
 		 * 保存日志
 		 */
@@ -287,8 +303,8 @@ public class StockBatchServiceImpl implements StockBatchService {
 		log.setOperator("");
 		log.setOrgid(info.getOrgId());
 		log.setOrgname(info.getOrgName());
-		log.setRemarks(StockEnums.StockStatus.stockOut.getName());
-		log.setStockStatus(StockEnums.StockStatus.stockOut.getValue());
+		log.setStockStatus(info.getTranStatus());
+		log.setRemarks(StockEnums.StockStatus.getByKey(log.getStockStatus()));
 		log.setTypeId(info.getTypeId());
 		log.setTypeName(info.getTypeName());
 		log.setAmount(info.getTranAmt());

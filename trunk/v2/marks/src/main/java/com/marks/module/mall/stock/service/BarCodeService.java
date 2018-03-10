@@ -19,5 +19,23 @@ public interface BarCodeService{
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<BarCode> list(int page_number, int page_size,Map<String,Object> param);
 
+	/**
+	 * 首次入库
+	 * 
+	 * @param info
+	 * @param good
+	 * @return
+	 * @throws Exception
+	 */
 	public Result saveBarCode(BarCodeForm info, GoodInfo good) throws Exception;
+
+	public List<BarCode> getBarCodeListByBarCodes(List<String> barCodeList);
+
+	/**
+	 * 条码更新出库
+	 * 
+	 * @param barCodeList
+	 * @param value
+	 */
+	public void updateBarCodeStockOut(List<BarCode> barCodeList);
 }

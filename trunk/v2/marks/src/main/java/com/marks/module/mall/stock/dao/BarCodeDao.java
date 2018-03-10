@@ -39,4 +39,11 @@ public interface BarCodeDao {
 	 * @param codelist
 	 */
 	void updateBatch(List<BarCode> codelist);
+
+	/**
+	 * 获取条码集合
+	 * 
+	 * @param codelist
+	 */
+	List<BarCode> getBarCodeListByBarCodes(@Param("list") List<String> barCodeList);
 }
