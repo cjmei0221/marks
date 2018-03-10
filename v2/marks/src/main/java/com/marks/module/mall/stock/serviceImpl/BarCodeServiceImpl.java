@@ -17,10 +17,8 @@ import com.marks.common.domain.Result;
 import com.marks.common.enums.StockEnums;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.date.DateUtil;
-import com.marks.module.mall.good.dao.GoodInfoDao;
 import com.marks.module.mall.good.pojo.GoodInfo;
 import com.marks.module.mall.stock.dao.BarCodeDao;
-import com.marks.module.mall.stock.dao.StockBatchDao;
 import com.marks.module.mall.stock.dao.TraceDao;
 import com.marks.module.mall.stock.dao.TraceLogDao;
 import com.marks.module.mall.stock.pojo.BarCode;
@@ -28,7 +26,6 @@ import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.pojo.Trace;
 import com.marks.module.mall.stock.pojo.TraceLog;
 import com.marks.module.mall.stock.service.BarCodeService;
-import com.marks.module.mall.stock.service.StockInfoService;
 
 @Service
 @Transactional
@@ -40,14 +37,6 @@ public class BarCodeServiceImpl implements BarCodeService {
 	private TraceLogDao traceLogDao;
 	@Autowired
 	private TraceDao traceDao;
-
-	@Autowired
-	private GoodInfoDao goodInfoDao;
-
-	@Autowired
-	private StockInfoService stockInfoService;
-	@Autowired
-	private StockBatchDao stockBatchDao;
 
 	/**
 	 * private BarCodeDao barCodeDao;
@@ -64,6 +53,9 @@ public class BarCodeServiceImpl implements BarCodeService {
 		return barCodeDao.findById(id);
 	}
 
+	/**
+	 * 首次入库
+	 */
 	public Result saveBarCode(BarCodeForm info, GoodInfo good) throws Exception {
 		String batchId = info.getBatchId();
 		Result result = new Result();
@@ -119,6 +111,11 @@ public class BarCodeServiceImpl implements BarCodeService {
 				code.setExpireDate(DateUtil.getAfterDateByDays(code.getProductDate(), good.getValidDays()));
 			}
 			code.setIsWarnDays(good.getIsWarnDays());
+			code.setTypeId(good.getTypeId());
+			code.setTypeName(good.getTypeName());
+			code.setBrandId(good.getBrandId());
+			code.setBrandName(good.getBrandName());
+			code.setStockPrice(info.getStockPrice());
 			codelist.add(code);
 
 			// 追踪记录
@@ -151,29 +148,8 @@ public class BarCodeServiceImpl implements BarCodeService {
 			vo.setExpireDate(code.getExpireDate());
 			tracelist.add(vo);
 
-			TraceLog log = new TraceLog();
-			log.setBatchId(batchId);
-			log.setOperateCode(StockEnums.OperateCode.barCode.getValue());
-			log.setOperate(StockEnums.OperateCode.barCode.getName());
-			log.setBarCode(code.getBarcode());
-			log.setBarNo(vo.getBarNo());
-			log.setBrandId(vo.getBrandId());
-			log.setBrandName(vo.getBrandName());
-			log.setCompanyId(vo.getCompanyId());
-			log.setGoodId(vo.getGoodId());
-			log.setGoodName(vo.getGoodName());
-			log.setGoodNo(vo.getGoodNo());
-			log.setId(IDUtil.getUUID());
-			log.setOperator(info.getOperator());
-			log.setOrgid(vo.getOrgid());
-			log.setOrgname(vo.getOrgname());
-			log.setRemarks(StockEnums.StockStatus.stockIn.getName());
-			log.setStockStatus(stockStatus);
-			log.setTraceId(vo.getTraceId());
-			log.setTypeId(vo.getTypeId());
-			log.setTypeName(vo.getTypeName());
-			log.setAmount(vo.getStockPrice());
-			log.setNums(1);
+			TraceLog log = getTraceLog(code);
+
 			loglist.add(log);
 		}
 		logger.info("save 条码信息 updateFlag：" + updateFlag);
@@ -191,6 +167,60 @@ public class BarCodeServiceImpl implements BarCodeService {
 		traceDao.saveBatch(tracelist);
 		traceLogDao.saveBatch(loglist);
 		return result;
+	}
+
+	@Override
+	public void updateBarCodeStockOut(List<BarCode> list) {
+		if (null != list && list.size() > 0) {
+			for (BarCode barCode : list) {
+				barCode.setActiveStatus(0);
+				barCode.setUpdatetime(DateUtil.getCurrDateStr());
+				barCode.setStockStatus(StockEnums.StockStatus.stockOut.getValue());
+				barCode.setEndDate(DateUtil.getCurrDateStr());
+				barCodeDao.update(barCode);
+			}
+		}
+
+	}
+
+	private TraceLog getTraceLog(BarCode vo) {
+		Trace trace = new Trace();
+		trace.setEndDate(vo.getEndDate());
+		trace.setMobile(vo.getMobile());
+		trace.setNowPrice(vo.getNowPrice());
+		trace.setOrderGoodId(vo.getOrderGoodId());
+		trace.setOrgid(vo.getOrderId());
+		trace.setOrgname(vo.getOrgname());
+		trace.setPrice(vo.getPrice());
+		trace.setSalePrice(vo.getSalePrice());
+		trace.setStockStatus(vo.getStockStatus());
+		trace.setUserid(vo.getUserid());
+		trace.setUsername(vo.getUsername());
+		traceDao.update(trace);
+		TraceLog log = new TraceLog();
+		log.setBatchId(vo.getBatchId());
+		log.setOperateCode(StockEnums.OperateCode.barCode.getValue());
+		log.setOperate(StockEnums.OperateCode.barCode.getName());
+		log.setBarCode(vo.getBarcode());
+		log.setBarNo(vo.getBarNo());
+		log.setBrandId(vo.getBrandId());
+		log.setBrandName(vo.getBrandName());
+		log.setCompanyId(vo.getCompanyId());
+		log.setGoodId(vo.getGoodId());
+		log.setGoodName(vo.getGoodName());
+		log.setGoodNo(vo.getGoodNo());
+		log.setId(IDUtil.getUUID());
+		log.setOperator("");
+		log.setOrgid(vo.getOrgid());
+		log.setOrgname(vo.getOrgname());
+		log.setStockStatus(vo.getStockStatus());
+		log.setRemarks(StockEnums.StockStatus.getByKey(log.getStockStatus()));
+		log.setTraceId(vo.getTraceId());
+		log.setTypeId(vo.getTypeId());
+		log.setTypeName(vo.getTypeName());
+		log.setAmount(vo.getStockPrice());
+		log.setNums(1);
+		return log;
 	}
 
 	/**
@@ -235,6 +265,11 @@ public class BarCodeServiceImpl implements BarCodeService {
 		pojoDomain.setPage_size(page_size);
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
+	}
+
+	@Override
+	public List<BarCode> getBarCodeListByBarCodes(List<String> barCodeList) {
+		return barCodeDao.getBarCodeListByBarCodes(barCodeList);
 	}
 
 }

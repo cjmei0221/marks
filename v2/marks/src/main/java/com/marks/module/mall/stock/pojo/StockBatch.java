@@ -137,6 +137,7 @@ public class StockBatch implements Serializable {
 	private int tranNums;// 交易数量
 	private String tranAmt;// 交易金额
 	private String tranSaleAmt;// 交易售出金额
+	private int tranStatus;// 交易类型
 
 	/**
 	 * 品类ID
@@ -160,6 +161,14 @@ public class StockBatch implements Serializable {
 	private String brandName;
 
 	private String costPrice;// 均价
+
+	public int getTranStatus() {
+		return tranStatus;
+	}
+
+	public void setTranStatus(int tranStatus) {
+		this.tranStatus = tranStatus;
+	}
 
 	public String getCostPrice() {
 		return costPrice;

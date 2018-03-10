@@ -82,7 +82,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		info.setCompanyId(flow.getCompanyId());
 		info.setTypeCode(flow.getTypeCode());
 		info.setIdNo(flow.getIdNo());
-		info.setIdName(flow.getIdName());
+		info.setIdName(flow.getRemarks());
 		SysUser user = sysUserDao.findByUserid(info.getApplyManId());
 		WorkTypeStep typeStep = list.get(0);
 		info.setCompanyId(type.getCompanyId());

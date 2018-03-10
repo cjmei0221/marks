@@ -17,10 +17,16 @@ public class WorkFlow implements Serializable {
 	 */
 	private String idNo;
 	/**
-	 * 业务名称
+	 * 备注
 	 *
 	 */
-	private String idName;
+	private String remarks;
+	/**
+	 * 类型编号
+	 *
+	 */
+	private String typeCode;
+
 	/**
 	 * 申请人编号
 	 *
@@ -31,22 +37,54 @@ public class WorkFlow implements Serializable {
 	 *
 	 */
 	private String applyMan;
-	/**
-	 * 类型编号
-	 *
-	 */
-	private String typeCode;
+
+	private String applyOrgId;
+	private String applyOrgName;
+	private String applyRoleId;
+	private String applyRoleName;
 
 	public WorkFlow() {
 
 	}
 
-	public String getIdName() {
-		return idName;
+	public String getApplyOrgId() {
+		return applyOrgId;
 	}
 
-	public void setIdName(String idName) {
-		this.idName = idName;
+	public void setApplyOrgId(String applyOrgId) {
+		this.applyOrgId = applyOrgId;
+	}
+
+	public String getApplyOrgName() {
+		return applyOrgName;
+	}
+
+	public void setApplyOrgName(String applyOrgName) {
+		this.applyOrgName = applyOrgName;
+	}
+
+	public String getApplyRoleId() {
+		return applyRoleId;
+	}
+
+	public void setApplyRoleId(String applyRoleId) {
+		this.applyRoleId = applyRoleId;
+	}
+
+	public String getApplyRoleName() {
+		return applyRoleName;
+	}
+
+	public void setApplyRoleName(String applyRoleName) {
+		this.applyRoleName = applyRoleName;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	public String getCompanyId() {

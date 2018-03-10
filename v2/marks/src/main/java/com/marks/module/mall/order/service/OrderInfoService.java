@@ -30,5 +30,5 @@ public interface OrderInfoService{
 	 * @param info
 	 * @param goodList
 	 */
-	public void saveOrder(OrderInfo info, List<OrderGood> goodList);
+	public void saveOrder(OrderInfo info, List<OrderGood> goodList, List<String> barCodeList);
 }

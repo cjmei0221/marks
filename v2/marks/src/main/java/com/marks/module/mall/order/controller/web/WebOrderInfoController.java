@@ -39,6 +39,7 @@ public class WebOrderInfoController extends SupportContorller {
 		return logger;
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/web/orderInfo/save")
 	public void saveOrderInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
@@ -47,9 +48,15 @@ public class WebOrderInfoController extends SupportContorller {
 			String goodJson = request.getParameter("goodList");// 商品列表
 			String vipId = request.getParameter("vipId");// 会员编号
 			String payAmt = request.getParameter("payAmt");// 实付金额
+			String barCodeJson = request.getParameter("barCodeList");
 			logger.info("saveOrderInfo params > " + vipId + " - " + payAmt + " - " + goodJson);
 			List<OrderGood> goodList = (List<OrderGood>) JSONArray.toCollection(JSONArray.fromObject(goodJson),
 					OrderGood.class);
+			List<String> barCodeList = null;
+			if (null != barCodeJson && barCodeJson.length() > 4) {
+				barCodeList = (List<String>) JSONArray.toCollection(JSONArray.fromObject(barCodeJson),
+						String.class);
+			}
 			OrderInfo info = new OrderInfo();
 			info.setOrderId(orderInfoService.getOrderId());
 			info.setCashDate(DateUtil.getCurrDateStr().substring(0, 10));
@@ -69,7 +76,7 @@ public class WebOrderInfoController extends SupportContorller {
 			info.setVipId(vipId);
 			info.setPayTypeCode(OrderEnums.PayType.cash.getValue());
 			info.setPayTypeName(OrderEnums.PayType.getByKey(info.getPayTypeCode()));
-			orderInfoService.saveOrder(info, goodList);
+			orderInfoService.saveOrder(info, goodList, barCodeList);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("保存失败，请联系管理员！");

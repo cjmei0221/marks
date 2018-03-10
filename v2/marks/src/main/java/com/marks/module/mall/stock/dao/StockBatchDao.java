@@ -32,4 +32,6 @@ public interface StockBatchDao {
 	List<StockBatch> list(PageBounds pageBounds, Map<String,Object> param);
 
 	List<StockBatch> getStockBatchByGoodIdAndOrgId(@Param("orgId") String orgId, @Param("goodId") String goodId);
+
+	List<StockBatch> getStockBatchByBarCodeList(@Param("list") List<String> barCodeList);
 }

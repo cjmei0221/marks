@@ -88,6 +88,190 @@ public class BarCode implements Serializable {
 
 	private String batchId;// 批次号
 
+	/**
+	 * 原价
+	 *
+	 */
+	private String price;
+	/**
+	 * 售价
+	 *
+	 */
+	private String salePrice;
+	/**
+	 * 现价
+	 *
+	 */
+	private String nowPrice;
+
+	/**
+	 * 订单号
+	 *
+	 */
+	private String orderId;
+	/**
+	 * 订单商品号
+	 *
+	 */
+	private String orderGoodId;
+
+	/**
+	 * 会员ID
+	 *
+	 */
+	private String userid;
+	/**
+	 * 会员名称
+	 *
+	 */
+	private String username;
+	/**
+	 * 会员手机号
+	 *
+	 */
+	private String mobile;
+
+	/**
+	 * 类别ID
+	 *
+	 */
+	private String typeId;
+	/**
+	 * 类别
+	 *
+	 */
+	private String typeName;
+	/**
+	 * 品牌ID
+	 *
+	 */
+	private String brandId;
+	/**
+	 * 品牌
+	 *
+	 */
+	private String brandName;
+
+	/**
+	 * 进货价
+	 *
+	 */
+	private String stockPrice;
+
+	private String endDate;
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	public String getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(String brandId) {
+		this.brandId = brandId;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getStockPrice() {
+		return stockPrice;
+	}
+
+	public void setStockPrice(String stockPrice) {
+		this.stockPrice = stockPrice;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(String salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public String getNowPrice() {
+		return nowPrice;
+	}
+
+	public void setNowPrice(String nowPrice) {
+		this.nowPrice = nowPrice;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getOrderGoodId() {
+		return orderGoodId;
+	}
+
+	public void setOrderGoodId(String orderGoodId) {
+		this.orderGoodId = orderGoodId;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
 	public String getBatchId() {
 		return batchId;
 	}

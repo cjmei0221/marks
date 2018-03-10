@@ -61,36 +61,6 @@ public class BarCodeController extends SupportContorller {
 		}
 		JsonUtil.output(response, result);
 	}
-
-	/**
-	 * 更改条码管理
-	 */
-	@RequestMapping("/inner/barCode/update")
-	public void updateBarCode(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			BarCode reqVo = getModel(BarCode.class);
-
-			logger.info(" updateBarCode> param>" + reqVo.toLog());
-
-			BarCode ori = barCodeService.findById(reqVo.getBarcode());
-			if (ori == null) {
-				result.setMessage("此记录已删除!");
-				result.setCode(Code.CODE_FAIL);
-			} else {
-				barCodeService.update(reqVo);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
-			}
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("更新失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-
 	/**
 	 * 删除条码管理
 	 */
