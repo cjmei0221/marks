@@ -159,7 +159,11 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		}
 		work.setUpdatetime(DateUtil.getCurrDateStr());
 		if (Enums.Status.Enable.getValue() == currStep.getIsCheckOk()) {
-			work.setOperatorStatus(Enums.CheckStatus.end.getValue());
+			if (Enums.CheckStatus.checkOk.getValue() == info.getOperateStatus()) {
+				work.setOperatorStatus(Enums.CheckStatus.checkOk.getValue());
+			} else {
+				work.setOperatorStatus(Enums.CheckStatus.checkFail.getValue());
+			}
 		} else {
 			work.setOperatorStatus(Enums.CheckStatus.checking.getValue());
 		}
