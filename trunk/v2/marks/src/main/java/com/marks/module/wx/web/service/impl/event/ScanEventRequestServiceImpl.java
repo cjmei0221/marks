@@ -24,6 +24,11 @@ public class ScanEventRequestServiceImpl extends AbstractRequestService {
 	@Override
 	public WechatResponse handle(HttpServletRequest request, WechatRequest requestMessage) throws Exception {
 		logger.info("ScanEventRequestServiceImpl deal start");
+		String scene = "";
+		String eventkey = requestMessage.getEventKey();
+		if (null != eventkey && !"".equals(eventkey)) {
+			scene = eventkey;
+		}
 		WxhreadPool.updateWxUser(requestMessage.getAccountId(), requestMessage.getFromUserName());
 
 		return handle(request, requestMessage, WxConstants.SubscribeReplay);
