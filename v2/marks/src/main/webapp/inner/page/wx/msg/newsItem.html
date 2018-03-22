@@ -91,7 +91,7 @@
 					<th style="width: 80px; text-align: right;">服务号</th>
 					<td><input id="accountid" name="accountid"
 						class="easyui-combobox"
-						data-options="required:true,valueField:'accountId',textField:'accountname',url:'/inner/wxAccount/combox.do'"
+						data-options="required:true,valueField:'accountId',textField:'accountname',url:'/t/inner/wxAccount/combox.do'"
 						style="width: 200px;"></td>
 				</tr>
 				<tr>
@@ -117,7 +117,7 @@
 		style="width: 800px; height: 600px; padding: 10px;">
 		<div>
 			<form id="upload_form" enctype="multipart/form-data"
-				action="/inner/fileUpload/img.do" method="post">
+				action="/t/inner/fileUpload/img.do" method="post">
 				<input class="easyui-filebox" style="width: 500px" id="file_upload"
 					name="file_upload" /><input type="button" value="  上传  "
 					onclick="uploadPic()"
