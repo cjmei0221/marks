@@ -1,8 +1,7 @@
 package com.marks.module.system.syslog.pojo;
 
-import java.util.Date;
-
 import com.marks.common.util.IDUtil;
+import com.marks.common.util.date.DateUtil;
 
 public class SysLog {
 
@@ -13,7 +12,7 @@ public class SysLog {
 	private String retain2;//保留字段2
 	private String retain3;//保留字段2
 	private int source;//来源0:内管，1消息中心 2：前端
-	private Date createtime;//创建时间
+	private String createtime;// 创建时间
 	private String menuname;//菜单名称
 	private String opername;//操作名称
 	private String ip;
@@ -37,7 +36,7 @@ public class SysLog {
 	}
 	public SysLog(){
 		id=IDUtil.getUUID();
-		createtime=new Date();
+		createtime = DateUtil.getCurrDateStr();
 	}
 	public String getId() {
 		return id;
@@ -57,10 +56,12 @@ public class SysLog {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public Date getCreatetime() {
+
+	public String getCreatetime() {
 		return createtime;
 	}
-	public void setCreatetime(Date createtime) {
+
+	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
 	public String getIp() {

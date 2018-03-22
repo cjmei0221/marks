@@ -59,6 +59,8 @@ public class SysUserServiceImpl implements SysUserService {
 		String userid = IDUtil.getDateID().substring(0, 6) + userCode;
 		sysUser.setUserid(userid);
 		sysUser.setUserCode(userCode);
+		sysUser.setLvlId(sysUser.getCompanyId() + "_0");
+		sysUser.setLvlName("普通会员");
 		saveSysUserOrgRole(sysUser);
 		sysUserDao.save(sysUser);
 		return userid;
