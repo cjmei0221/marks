@@ -57,17 +57,19 @@ class SysLogThread implements Runnable{
 				sysLogDao.saveSysLog(log);
 				return;
 			}
+			String truthUrl = log.getUrl().substring(2, log.getUrl().length());
+			log.setUrl(truthUrl);
 			if(log.getSource()==0 && !isAlone){
-				List<SysLog> logc=sysLogDao.getSysLogParam(log.getUrl());
+				List<SysLog> logc = sysLogDao.getSysLogParam(truthUrl);
 				if(null != logc && logc.size()>0){
 					log.setMenuname(logc.get(0).getMenuname());
 					log.setOpername(logc.get(0).getOpername());
 					log.setMenuid(logc.get(0).getMenuid());
-					sysLogDao.saveSysLog(log);
 				}
+				sysLogDao.saveSysLog(log);
 				return;
 			}
-			SysLogParam param=sysLogDao.getSysLogParamNoForInner(log.getUrl(),log.getSource());
+			SysLogParam param = sysLogDao.getSysLogParamNoForInner(truthUrl, log.getSource());
 			if(null !=param){
 				log.setMenuname(param.getMenuName());
 				log.setOpername(param.getOperName());

@@ -90,6 +90,26 @@ public class SysUser implements Serializable {
 
 	private String channel;// 渠道
 
+	private String lvlId;// 等级编号
+
+	private String lvlName;// 等级名称
+
+	public String getLvlId() {
+		return lvlId;
+	}
+
+	public void setLvlId(String lvlId) {
+		this.lvlId = lvlId;
+	}
+
+	public String getLvlName() {
+		return lvlName;
+	}
+
+	public void setLvlName(String lvlName) {
+		this.lvlName = lvlName;
+	}
+
 	public String getChannelId() {
 		return channelId;
 	}
