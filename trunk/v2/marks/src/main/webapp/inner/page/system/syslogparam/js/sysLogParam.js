@@ -138,7 +138,7 @@ function loadList() {
 			align : "center",
 			formatter : function(value, row, index) {
 				if(value == 1){
-					return "消息中心";
+					return "其他";
 				}else if(value == 2){
 					return "前端";
 				}

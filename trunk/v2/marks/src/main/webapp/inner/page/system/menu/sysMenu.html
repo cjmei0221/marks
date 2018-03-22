@@ -57,8 +57,8 @@
 					<th>一级菜单</th>
 					<td><input id="lvl1Menuid" name="lvl1Menuid"
 						style="width: 200px;" class="easyui-combobox"
-						data-options="valueField:'menuid',textField:'menuitem',url:'/inner/sysMenu/parentMenu.do?parentId=0',onSelect: function(rec){
-    var url = '/inner/sysMenu/parentMenu.do?parentId='+rec.menuid;
+						data-options="valueField:'menuid',textField:'menuitem',url:'/t/inner/sysMenu/parentMenu.do?parentId=0',onSelect: function(rec){
+    var url = '/t/inner/sysMenu/parentMenu.do?parentId='+rec.menuid;
     $('#lvl2Menuid').combobox('reload', url);
     }"></td>
 				</tr>
@@ -66,7 +66,7 @@
 					<th>二级菜单</th>
 					<td><input id="lvl2Menuid" name="lvl2Menuid"
 						style="width: 200px;" class="easyui-combobox"
-						data-options="valueField:'menuid',textField:'menuitem',url:'/inner/sysMenu/parentMenu.do?parentId='"></td>
+						data-options="valueField:'menuid',textField:'menuitem',url:'/t/inner/sysMenu/parentMenu.do?parentId='"></td>
 				</tr>
 				<tr>
 					<th>菜单名称</th>
