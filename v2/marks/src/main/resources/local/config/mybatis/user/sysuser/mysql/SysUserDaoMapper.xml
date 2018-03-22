@@ -52,7 +52,9 @@
 		email,
 		entryDate,
 		channelId,
-		channel
+		channel,
+		lvlId,
+		lvlName
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -85,7 +87,9 @@
 		#{email:VARCHAR},
 		#{entryDate:VARCHAR},
 		#{channelId:VARCHAR},
-		#{channel:VARCHAR}
+		#{channel:VARCHAR},
+		#{lvlId:VARCHAR},
+		#{lvlName:VARCHAR}
 		)
 	</insert>
 

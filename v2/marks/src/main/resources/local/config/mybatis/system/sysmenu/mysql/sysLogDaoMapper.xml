@@ -42,7 +42,7 @@
 		#{log.id:VARCHAR},
 		#{log.userid:VARCHAR},
 		#{log.username:VARCHAR},
-		#{log.createtime:TIMESTAMP},
+		#{log.createtime:VARCHAR},
 		#{log.ip:VARCHAR},
 		#{log.menuname:VARCHAR},
 		#{log.opername:VARCHAR},
