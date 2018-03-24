@@ -266,8 +266,6 @@ function summitOrder() {
 	if (appInfo.barCodeData.length > 0) {
 		barCodeList = JSON.stringify(appInfo.barCodeData);
 	}
-	console.log(barCodeList);
-	return;
 	var vipId = "";
 	if (appInfo.vipInfo.userid != null) {
 		vipId = appInfo.vipInfo.userid;
