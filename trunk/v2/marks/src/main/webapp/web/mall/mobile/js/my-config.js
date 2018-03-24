@@ -8,7 +8,7 @@ $(document).on('ajaxStart', function() {
 			alert("访问已失效，请关闭重新进入！");
 			return;
 		} else if (_data.retcode == "-100") {
-			location.replace(tool.baseUrl+ "/web/note/mobile/view/login/login.html?ele="+tool.getCurEle());
+			location.replace("/web/note/mobile/view/login/login.html?ele="+tool.getCurEle());
 			return;
 		}*/
 	}		
