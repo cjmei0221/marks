@@ -106,14 +106,11 @@ function lessGood() {
 					appInfo.barCodeData.remove(goodNo);
 				}
 				var info = getGood(vo.goodNo);
-				console.log(info);
 				if (null == info) {
 					return;
 				}
 				info.nums = info.nums - 1;
-				console.log(1);
 				if (info.nums < 0) {
-					console.log(2);
 					return;
 				}
 				if (info.nums <= 0) {
@@ -213,18 +210,18 @@ function countOrder() {
 	if (objArr.length > 0) {
 		for (var i = 0; i < objArr.length; i++) {
 			nums += parseFloat($(objArr[i]).val());
-		}
-		$("#totalNums").html(nums);
+		}	
 	}
+	$("#totalNums").html(nums);
 	// 金额
 	var objArr = $("#trDiv > tr > td > .cls-payableAmt");
 	if (objArr.length > 0) {
 		for (var i = 0; i < objArr.length; i++) {
 			amount = (parseFloat(amount) * 100 + parseFloat($(objArr[i]).val()) * 100) / 100;
 		}
-		$("#totalPayableAmt").html(amount.toFixed(2));
-		$("#payAmtPut").val(amount.toFixed(2));
 	}
+	$("#totalPayableAmt").html(amount.toFixed(2));
+	$("#payAmtPut").val(amount.toFixed(2));
 }
 function checkNums(goodNo) {
 	var inputNums = $("#" + goodNo + ">td >.cls-nums").val();
