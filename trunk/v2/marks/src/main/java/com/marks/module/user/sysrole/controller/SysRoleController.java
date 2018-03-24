@@ -114,6 +114,12 @@ public class SysRoleController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
+			if (!Constants.default_roleId.equals(admin.getRoleId()) && ori.getLvl() <= admin.getRoleLvl()) {
+				result.setMessage("此角色您无权限编辑");
+				result.setCode("4102");
+				JsonUtil.output(response, result);
+				return;
+			}
 			SysRole ori2 = sysRoleService.findByUserTypeAndCompanyId(sysRole.getRoleType(), sysRole.getCompanyId());
 			if (ori2 != null && !ori2.getRoleid().equals(sysRole.getRoleid())) {
 				result.setMessage("此记录已存在!");
@@ -289,6 +295,13 @@ public class SysRoleController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
+			SysRole ori = sysRoleService.findById(roleId);
+			if (!Constants.default_roleId.equals(loginUserRoleId) && ori.getLvl() <= admin.getRoleLvl()) {
+				result.setMessage("此角色您无权限编辑");
+				result.setCode("4102");
+				JsonUtil.output(response, result);
+				return;
+			}
 			String[] funcIds = request.getParameterValues("funcId");
 
 			List<String> funcList = new ArrayList<String>();
@@ -314,10 +327,8 @@ public class SysRoleController extends SupportContorller {
 		int lvl = admin.getRoleLvl();
 		List<TreeVo> list = new ArrayList<TreeVo>();
 		TreeVo vo = null;
-		if (lvl == 0) {
-			lvl = lvl + 1;
-		}
-		for (int i = lvl; i < 10; i++) {
+		int size = lvl + 5;
+		for (int i = lvl; i < size; i++) {
 			vo = new TreeVo();
 			vo.setId(i + "");
 			vo.setText("L" + i);

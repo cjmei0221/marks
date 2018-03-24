@@ -188,7 +188,7 @@ function loadList() {
 		// width : 100,
 		// align : "center"
 		}, {
-			title : '级别',
+			title : '层级',
 			field : 'lvl',
 			width : 100,
 			align : "center",

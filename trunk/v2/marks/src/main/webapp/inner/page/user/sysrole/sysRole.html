@@ -60,11 +60,14 @@
 			<form id="ff" name="ff" method="post">
 				<input type="hidden" id="roleid" name="roleid">
 				<table>
+					<tr>
+						<td colspan="2" style="text-align: center; color: red;">层级越高，级别越低，级别高的不能编辑级别低的</td>
+					</tr>
 					<tr id="userTypeTr">
 						<th align="right" style="width: 100px">编号</th>
 						<td><input id="roleType" name="roleType"
 							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px">&nbsp;(<span style="color:red;">新增之后不可编辑</span>)</td>
+							style="width: 200px">&nbsp;(<span style="color: red;">新增之后不可编辑</span>)</td>
 					</tr>
 					<tr>
 						<th align="right" style="width: 100px">名称</th>
@@ -73,7 +76,7 @@
 							style="width: 200px"></td>
 					</tr>
 					<tr>
-						<th align="right" style="width: 100px">级别</th>
+						<th align="right" style="width: 100px">层级</th>
 						<td><input id="lvl" name="lvl" class="easyui-combobox"
 							data-options="valueField:'id',textField:'text',url:'/t/inner/sysRole/lvl.do',required:true"
 							style="width: 200px" data-options="required:true"></td>
@@ -81,7 +84,8 @@
 					<tr id="showFlagTr">
 						<th align="right" style="width: 100px">用户维护标识</th>
 						<td><select id="showFlag" name="showFlag"
-							class="easyui-combobox" data-options="required:true" style="width: 200px">
+							class="easyui-combobox" data-options="required:true"
+							style="width: 200px">
 								<option value="1">统一维护</option>
 								<option value="0">单独维护</option>
 						</select></td>
@@ -89,7 +93,8 @@
 					<tr id="delFlagTr">
 						<th align="right" style="width: 100px">删除标识</th>
 						<td><select id="delFlag" name="delFlag"
-							class="easyui-combobox" data-options="required:true" style="width: 200px">
+							class="easyui-combobox" data-options="required:true"
+							style="width: 200px">
 								<option value="1">可删除</option>
 								<option value="0">不可删除</option>
 						</select></td>
