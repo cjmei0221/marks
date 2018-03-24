@@ -227,7 +227,8 @@ public class SysRoleController extends SupportContorller {
 			if (keyword == null) {
 				keyword = "";
 			}
-			String loginUserRoleId = admin.getRoleId();
+			// String loginUserRoleId = admin.getRoleId();
+			String loginUserRoleId = "";
 			String companyId = admin.getCompanyId();
 			int isDeveloper = 0;
 			if (Constants.default_roleId.equals(admin.getRoleId())) {
@@ -281,6 +282,13 @@ public class SysRoleController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String roleId = request.getParameter("roleId");
+			String loginUserRoleId = admin.getRoleId();
+			if (!Constants.default_roleId.equals(admin.getRoleId()) && loginUserRoleId.equals(roleId)) {
+				result.setMessage("不能编辑自己的权限");
+				result.setCode("4101");
+				JsonUtil.output(response, result);
+				return;
+			}
 			String[] funcIds = request.getParameterValues("funcId");
 
 			List<String> funcList = new ArrayList<String>();
