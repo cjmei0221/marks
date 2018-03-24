@@ -61,6 +61,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Override
 	public void update(SysRole sysRole) {
 		sysRoleDao.update(sysRole);
+		sysRoleDao.updateSysUserByRole(sysRole);
+		sysRoleDao.updateSysUserRoleByRole(sysRole);
 	}
 
 	/**

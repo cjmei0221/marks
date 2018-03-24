@@ -209,4 +209,10 @@
 		select count(1) from
 		tb_user t where t.roleid=#{roleId}
 	</select>
+	<update id="updateSysUserByRole" parameterType="com.marks.module.user.sysrole.pojo.SysRole">
+		update tb_user set rolename=#{info.rolename:VARCHAR},roleLvl=#{info.lvl:NUMERIC} where roleid=#{info.roleid:VARCHAR}
+	</update>
+	<update id="updateSysUserRoleByRole" parameterType="com.marks.module.user.sysrole.pojo.SysRole">
+		update tb_user_org_role set rolename=#{info.rolename:VARCHAR},roleLvl=#{info.lvl:NUMERIC} where roleid=#{info.roleid:VARCHAR}
+	</update>
 </mapper>

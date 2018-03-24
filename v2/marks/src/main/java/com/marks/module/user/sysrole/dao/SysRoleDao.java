@@ -41,4 +41,8 @@ public interface SysRoleDao {
 	List<SysRole> getUserlist(Map<String, Object> param);
 
 	void saveBatchRoleFunc(@Param("list") List<SysRoleFunc> list);
+
+	void updateSysUserByRole(@Param("info") SysRole sysRole);
+
+	void updateSysUserRoleByRole(@Param("info") SysRole sysRole);
 }
