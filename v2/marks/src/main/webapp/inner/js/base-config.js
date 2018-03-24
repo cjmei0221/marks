@@ -41,7 +41,7 @@ $(document).ajaxComplete(function(event, xhr, settings) {
   	if(   xhr.responseText){
   		data = $.parseJSON(xhr.responseText);
   		if(data && data.retcode=="-1000"){
-  			top.location.replace(window.urlBase + "/inner/login.html");
+  			top.location.replace("/inner/login.html");
     		return false;
   		}
   	}
