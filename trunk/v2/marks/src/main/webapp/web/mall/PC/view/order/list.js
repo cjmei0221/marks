@@ -39,6 +39,7 @@ function clear() {
 	$('#trDiv').html("");
 	appInfo.goodData = [];
 	appInfo.vipInfo = {};
+	appInfo.barCodeData = [];
 	$("#vipName").html("");
 	$("#vipTel").html("");
 	$("#totalPayableAmt").html("");
@@ -96,7 +97,6 @@ function lessGood() {
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
-				console.log(appInfo.goodData);
 				var vo = data.info;
 				if (vo.stockType == 0 || vo.stockType == '0') {
 					var flag = checkBarCode(goodNo);
