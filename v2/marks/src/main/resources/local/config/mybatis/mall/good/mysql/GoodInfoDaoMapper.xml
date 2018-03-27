@@ -55,7 +55,6 @@
 		goodNo,
 		barNo,
 		salePrice,
-		vipPrice,
 		minPrice,
 		typeId,
 		typeName,
@@ -92,7 +91,6 @@
 		#{goodNo:VARCHAR},
 		#{barNo:VARCHAR},
 		#{salePrice:VARCHAR},
-		#{vipPrice:VARCHAR},
 		#{minPrice:VARCHAR},
 		#{typeId:VARCHAR},
 		#{typeName:VARCHAR},
@@ -139,7 +137,6 @@
 		goodNo=#{goodNo:VARCHAR},
 		barNo=#{barNo:VARCHAR},
 		salePrice=#{salePrice:VARCHAR},
-		vipPrice=#{vipPrice:VARCHAR},
 		minPrice=#{minPrice:VARCHAR},
 		typeId=#{typeId:VARCHAR},
 		typeName=#{typeName:VARCHAR}

@@ -3,7 +3,7 @@ var img = {
 	imgNum : 1,
 	pageNum : 1,
 	pageSize : 12,
-	checkImgUrl:top.window.urlBase + "/inner/images/checked.jpg"
+	checkImgUrl: "/inner/images/checked.jpg"
 };
 $(function() {
 	$("#upload_form  .l-btn-text").html("请选择");
