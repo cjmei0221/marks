@@ -160,8 +160,6 @@
 		#{info.price:VARCHAR},
 		salePrice =
 		#{info.salePrice:VARCHAR},
-		nowPrice =
-		#{info.nowPrice:VARCHAR},
 		orderId =
 		#{info.orderId:VARCHAR},
 		orderGoodId =

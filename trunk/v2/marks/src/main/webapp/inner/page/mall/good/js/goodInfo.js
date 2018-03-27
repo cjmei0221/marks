@@ -116,7 +116,7 @@ function stockIn() {
 	$("#stockWin").window({
 		title : "首次入库"
 	}).window("open");
-	var path = top.window.urlBase + '/inner/page/mall/stock/stockIn.html?goodId='+appInfo.selectedId;
+	var path = '/inner/page/mall/stock/stockIn.html?goodId='+appInfo.selectedId;
     var strHtml = "<iframe width='100%' height='280px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
     $("#postShow").html(strHtml);
 }
@@ -398,11 +398,6 @@ function loadList() {
 								}, {
 									title : '售价',
 									field : 'salePrice',
-									width : 100,
-									align : "center"
-								}, {
-									title : '会员价',
-									field : 'vipPrice',
 									width : 100,
 									align : "center"
 								}, {

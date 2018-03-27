@@ -166,23 +166,13 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '零售价',
+			title : '原价',
 			field : 'price',
 			width : 100,
 			align : "center"
 		}, {
-			title : '会员价',
-			field : 'vipPrice',
-			width : 100,
-			align : "center"
-		}, {
-			title : '特价',
+			title : '售价',
 			field : 'salePrice',
-			width : 100,
-			align : "center"
-		}, {
-			title : '现价',
-			field : 'nowPrice',
 			width : 100,
 			align : "center"
 		}, {

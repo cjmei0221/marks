@@ -109,6 +109,17 @@ function formSubmit() {
 		}
 	});
 }
+function detail(id){
+	$('#detail').dialog({
+	    title: '详情',
+	    width: 400,
+	    height: 200,
+	    closed: false,
+	    cache: false,
+	    href: 'get_content.php',
+	    modal: true
+	});
+}
 
 function loadList() {
 	$('#tbList').datagrid({

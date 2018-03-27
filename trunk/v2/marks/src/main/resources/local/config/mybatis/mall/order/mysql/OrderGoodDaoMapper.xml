@@ -5,7 +5,7 @@
 
 	<select id="findById" resultType="com.marks.module.mall.order.pojo.OrderGood">
 		SELECT t.goodId,t.goodNo,t.goodName,t.barNo,t.unit,t.rank,t.brandId,t.brandName,t.typeId,t.typeName,t.imageurl as picUrl,
-	   	t.salePrice nowPrice,t.price salePrice
+	   	t.salePrice,t.price
 		FROM tb_mall_good_info t left join tb_mall_trace_barcode b on t.goodId=b.goodId
 		where
 		t.goodId=#{goodId} or t.goodNo=#{goodId} or b.barcode=#{goodId}
@@ -31,7 +31,7 @@
 		BRANDNAME,
 		NUMS,
 		SALEPRICE,
-		NOWPRICE,
+		PRICE,
 		PAYABLEAMT,
 		PAYAMT,
 		CASHAMT,
@@ -70,7 +70,7 @@
 		#{info.brandName:VARCHAR},
 		#{info.nums:NUMERIC},
 		#{info.salePrice:VARCHAR},
-		#{info.nowPrice:VARCHAR},
+		#{info.price:VARCHAR},
 		#{info.payableAmt:VARCHAR},
 		#{info.payAmt:VARCHAR},
 		#{info.cashAmt:VARCHAR},
@@ -112,7 +112,7 @@
 		BRANDNAME,
 		NUMS,
 		SALEPRICE,
-		NOWPRICE,
+		PRICE,
 		PAYABLEAMT,
 		PAYAMT,
 		CASHAMT,
@@ -154,7 +154,7 @@
 			#{info.brandName:VARCHAR},
 			#{info.nums:NUMERIC},
 			#{info.salePrice:VARCHAR},
-			#{info.nowPrice:VARCHAR},
+			#{info.price:VARCHAR},
 			#{info.payableAmt:VARCHAR},
 			#{info.payAmt:VARCHAR},
 			#{info.cashAmt:VARCHAR},
@@ -201,8 +201,8 @@
 		NUMS =
 		#{info.nums:NUMERIC},
 		SALEPRICE = #{info.salePrice:VARCHAR},
-		NOWPRICE =
-		#{info.nowPrice:VARCHAR},
+		PRICE =
+		#{info.price:VARCHAR},
 		PAYABLEAMT = #{info.payableAmt:VARCHAR},
 		PAYAMT = #{info.payAmt:VARCHAR},
 		CASHAMT = #{info.cashAmt:VARCHAR},
@@ -225,23 +225,6 @@
 		ORDERGOODID =
 		#{info.orderGoodId}
 	</update>
-	<!-- <update id="updateBatch" parameterType="List"> <foreach collection="list" 
-		item="info" index="index" separator=";"> UPDATE TB_MALL_ORDER_GOOD SET ORDERID 
-		= #{info.orderId:VARCHAR}, GOODID = #{info.goodId:VARCHAR}, GOODNO = #{info.goodNo:VARCHAR}, 
-		GOODNAME = #{info.goodName:VARCHAR}, BARNO = #{info.barNo:VARCHAR}, PICURL 
-		= #{info.picUrl:VARCHAR}, UNIT = #{info.unit:VARCHAR}, RANK = #{info.rank:VARCHAR}, 
-		TYPEID = #{info.typeId:VARCHAR}, TYPENAME = #{info.typeName:VARCHAR}, BRANDID 
-		= #{info.brandId:VARCHAR}, BRANDNAME = #{info.brandName:VARCHAR}, NUMS = 
-		#{info.nums:NUMERIC}, SALEPRICE = #{info.salePrice:VARCHAR}, NOWPRICE = #{info.nowPrice:VARCHAR}, 
-		PAYABLEAMT = #{info.payableAmt:VARCHAR}, PAYAMT = #{info.payAmt:VARCHAR}, 
-		CASHAMT = #{info.cashAmt:VARCHAR}, WXAMT = #{info.wxAmt:VARCHAR}, ALIPAYAMT 
-		= #{info.alipayAmt:VARCHAR}, OTHERAMT = #{info.otherAmt:VARCHAR}, SALEAMT 
-		= #{info.saleAmt:VARCHAR}, DISCOUNTAMT = #{info.discountAmt:VARCHAR}, FULLCUTAMT 
-		= #{info.fullCutAmt:VARCHAR}, COUPONAMT = #{info.couponAmt:VARCHAR}, POINTAMT 
-		= #{info.pointAmt:VARCHAR}, MLAMT = #{info.mlAmt:VARCHAR}, SIMPLEDISCOUNTAMT 
-		= #{info.simpleDiscountAmt:VARCHAR}, UPDATETIME = #{info.updatetime:VARCHAR}, 
-		COSTAMT = #{info.costAmt:VARCHAR}, COSTPRICE = #{info.costPrice:VARCHAR} 
-		WHERE ORDERGOODID = #{info.orderGoodId} </foreach> </update> -->
 	<delete id="delete" parameterType="String">
 		DELETE FROM TB_MALL_ORDER_GOOD
 		WHERE ORDERGOODID=#{orderGoodId}

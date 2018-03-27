@@ -65,7 +65,7 @@ function checkGood() {
 			if (data.retcode == "0") {
 				var vo = data.info;
 				vo.nums = 1;
-				vo.payableAmt = vo.nowPrice;
+				vo.payableAmt = vo.salePrice;
 				if (vo.stockType == 0 || vo.stockType == '0') {
 					var flag = checkBarCode(goodNo);
 					if (flag) {
@@ -118,7 +118,7 @@ function lessGood() {
 					$("#" + info.goodNo).remove();
 				} else {
 					info.payableAmt = parseFloat(info.nums)
-							* (parseFloat(info.nowPrice) * 100) / 100;
+							* (parseFloat(info.salePrice) * 100) / 100;
 					$("#" + info.goodNo + ">td >.cls-nums").val(info.nums);
 					$("#" + info.goodNo + ">td >.cls-payableAmt").val(
 							info.payableAmt.toFixed(2));
@@ -150,7 +150,7 @@ function initList(vo) {
 		for (var i = 0; i < appInfo.goodData.length; i++) {
 			if (appInfo.goodData[i].goodNo == vo.goodNo) {
 				appInfo.goodData[i].nums += 1;
-				appInfo.goodData[i].payableAmt = (parseFloat(appInfo.goodData[i].payableAmt) * 100 + parseFloat(vo.nowPrice) * 100) / 100;
+				appInfo.goodData[i].payableAmt = (parseFloat(appInfo.goodData[i].payableAmt) * 100 + parseFloat(vo.salePrice) * 100) / 100;
 				info = appInfo.goodData[i];
 				$("#" + info.goodNo + " > td > .cls-nums").val(info.nums);
 				$("#" + info.goodNo + " > td > .cls-payableAmt").val(
@@ -227,7 +227,7 @@ function checkNums(goodNo) {
 	var inputNums = $("#" + goodNo + ">td >.cls-nums").val();
 	var info = getGood(goodNo);
 	info.nums = inputNums;
-	info.payableAmt = parseFloat(info.nums) * (parseFloat(info.nowPrice) * 100)
+	info.payableAmt = parseFloat(info.nums) * (parseFloat(info.salePrice) * 100)
 			/ 100;
 	$("#" + goodNo + ">td >.cls-payableAmt").val(info.payableAmt.toFixed(2));
 	countOrder();

@@ -115,7 +115,7 @@ function loadList() {
 		url : appInfo.listUrl,
 		toolbar : "#tb",
 		idField : 'barcode',
-		height : 580,
+		height : 520,
 		rownumbers : true,
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
@@ -201,7 +201,7 @@ function loadList() {
 		}, {
 			title : '更新时间',
 			field : 'updatetime',
-			width : 100,
+			width : 200,
 			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
