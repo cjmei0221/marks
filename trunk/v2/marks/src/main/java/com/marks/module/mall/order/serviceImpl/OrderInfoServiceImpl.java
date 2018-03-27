@@ -177,27 +177,33 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		String saleAmt = "";
 		String countAmt = "";
 		String oriPriceAmt = "";
+		String mandiscountAmt = "";
 		for (OrderGood good : goodList) {
-			String rate = String
-					.valueOf(Double.parseDouble(good.getPayableAmt()) / Double.parseDouble(info.getPayableAmt()));
+			String rate = "0.000000";
+			double totalPayableAmt = Double.parseDouble(info.getPayableAmt());
+			if (totalPayableAmt > 0) {
+				rate = String.valueOf(Double.parseDouble(good.getPayableAmt()) / totalPayableAmt);
+			}
 			good.setCashAmt(MoneyUtil.multiply(info.getPayAmt(), rate));
 			good.setPayAmt(MoneyUtil.multiply(info.getPayAmt(), rate));
-			good.setCountAmt(MoneyUtil.multiply(good.getNowPrice(), String.valueOf(good.getNums())));
-			good.setOriPriceAmt(MoneyUtil.multiply(good.getSalePrice(), String.valueOf(good.getNums())));
+			good.setCountAmt(MoneyUtil.multiply(good.getSalePrice(), String.valueOf(good.getNums())));
+			good.setOriPriceAmt(MoneyUtil.multiply(good.getPrice(), String.valueOf(good.getNums())));
 			good.setSimpleDiscountAmt(MoneyUtil.multiply(info.getSimpleDiscountAmt(), rate));
 			good.setSaleAmt(MoneyUtil.subtract(good.getCountAmt(), good.getPayAmt()));
 			good.setGoodManDiscountAmt(MoneyUtil.subtract(good.getCountAmt(), good.getPayableAmt()));
 			good.setSimpleDiscountAmt(MoneyUtil.add(good.getSimpleDiscountAmt(), good.getGoodManDiscountAmt()));
 			BigDecimal payRate = new BigDecimal(rate);
-			payRate = payRate.setScale(6, BigDecimal.ROUND_HALF_UP);
+			payRate = payRate.setScale(18, BigDecimal.ROUND_HALF_UP);
 			good.setPayRate(payRate.toString());
 			stock(info, good, stockList);
 			costAmt = MoneyUtil.add(costAmt, good.getCostAmt());
 			saleAmt = MoneyUtil.add(saleAmt, good.getSaleAmt());
 			countAmt = MoneyUtil.add(countAmt, good.getCountAmt());
 			oriPriceAmt = MoneyUtil.add(oriPriceAmt, good.getOriPriceAmt());
+			mandiscountAmt = MoneyUtil.add(mandiscountAmt, good.getGoodManDiscountAmt());
 		}
 		info.setSaleAmt(saleAmt);
+		info.setSimpleDiscountAmt(MoneyUtil.add(info.getSimpleDiscountAmt(), mandiscountAmt));
 		info.setCostAmt(costAmt);
 		info.setCountAmt(countAmt);
 		info.setOriPriceAmt(oriPriceAmt);
@@ -214,13 +220,12 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		if (null != good.getBarList() && good.getBarList().size() > 0) {
 			for (BarCode b : good.getBarList()) {
 				b.setMobile(info.getVipMobile());
-				b.setNowPrice(MoneyUtil.divide(good.getPayAmt(), String.valueOf(good.getNums())));
 				b.setOrderGoodId(good.getOrderGoodId());
 				b.setOrderId(good.getOrderId());
 				b.setOrgid(info.getOrgId());
 				b.setOrgname(info.getOrgName());
-				b.setPrice(good.getSalePrice());
-				b.setSalePrice(good.getNowPrice());
+				b.setPrice(good.getPrice());
+				b.setSalePrice(MoneyUtil.divide(good.getPayAmt(), String.valueOf(good.getNums())));
 				b.setUserid(info.getVipId());
 				b.setUsername(info.getVipName());
 			}

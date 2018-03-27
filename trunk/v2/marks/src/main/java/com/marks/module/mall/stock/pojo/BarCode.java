@@ -98,11 +98,6 @@ public class BarCode implements Serializable {
 	 *
 	 */
 	private String salePrice;
-	/**
-	 * 现价
-	 *
-	 */
-	private String nowPrice;
 
 	/**
 	 * 订单号
@@ -222,14 +217,6 @@ public class BarCode implements Serializable {
 
 	public void setSalePrice(String salePrice) {
 		this.salePrice = salePrice;
-	}
-
-	public String getNowPrice() {
-		return nowPrice;
-	}
-
-	public void setNowPrice(String nowPrice) {
-		this.nowPrice = nowPrice;
 	}
 
 	public String getOrderId() {

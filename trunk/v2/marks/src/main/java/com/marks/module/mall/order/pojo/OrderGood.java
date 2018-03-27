@@ -85,12 +85,12 @@ public class OrderGood implements Serializable {
 	 * 原价
 	 *
 	 */
-	private String salePrice;
+	private String price;
 	/**
 	 * 售价
 	 *
 	 */
-	private String nowPrice;
+	private String salePrice;
 
 	/**
 	 * 应付金额
@@ -204,6 +204,14 @@ public class OrderGood implements Serializable {
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public List<BarCode> getBarList() {
@@ -398,14 +406,6 @@ public class OrderGood implements Serializable {
 		this.salePrice = salePrice;
 	}
 
-	public String getNowPrice() {
-		return nowPrice;
-	}
-
-	public void setNowPrice(String nowPrice) {
-		this.nowPrice = nowPrice;
-	}
-
 	public String getPayableAmt() {
 		return payableAmt;
 	}
@@ -550,7 +550,7 @@ public class OrderGood implements Serializable {
 				+ String.valueOf(typeId) + " - typeName:" + String.valueOf(typeName) + " - brandId:"
 				+ String.valueOf(brandId) + " - brandName:" + String.valueOf(brandName) + " - nums:"
 				+ String.valueOf(nums) + " - salePrice:" + String.valueOf(salePrice) + " - nowPrice:"
-				+ String.valueOf(nowPrice) + " - payableAmt:" + String.valueOf(payableAmt) + " - payAmt:"
+				+ " - payableAmt:" + String.valueOf(payableAmt) + " - payAmt:"
 				+ String.valueOf(payAmt) + " - cashAmt:" + String.valueOf(cashAmt) + " - wxAmt:" + String.valueOf(wxAmt)
 				+ " - alipayAmt:" + String.valueOf(alipayAmt) + " - otherAmt:" + String.valueOf(otherAmt)
 				+ " - saleAmt:" + String.valueOf(saleAmt) + " - discountAmt:" + String.valueOf(discountAmt)

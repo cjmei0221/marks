@@ -72,7 +72,7 @@ public class GoodInfo implements Serializable {
 
 	private String minPrice;// 最低价
 
-	private String vipPrice;//
+
 	private String stockPrice;// 进货价
 	private String rank;
 
@@ -174,14 +174,6 @@ public class GoodInfo implements Serializable {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
-	}
-
-	public String getVipPrice() {
-		return vipPrice;
-	}
-
-	public void setVipPrice(String vipPrice) {
-		this.vipPrice = vipPrice;
 	}
 
 	public String getModel() {
