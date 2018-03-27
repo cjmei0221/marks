@@ -3,6 +3,7 @@ package com.marks.common.util.number;
 import java.math.BigDecimal;
 
 public class MoneyUtil {
+	private static int scale = 2;// 保留2位小数
 	/**
 	 * 加法
 	 * 
@@ -20,6 +21,7 @@ public class MoneyUtil {
 		BigDecimal bigDecimal = new BigDecimal(oriValue);
 		BigDecimal bigDecimal2 = new BigDecimal(addValue);
 		BigDecimal bigDecimalAdd = bigDecimal.add(bigDecimal2);
+		bigDecimalAdd = bigDecimalAdd.setScale(scale, BigDecimal.ROUND_HALF_UP);
 		return bigDecimalAdd.toString();
 	}
 
@@ -41,6 +43,7 @@ public class MoneyUtil {
 		BigDecimal bigDecimal2 = new BigDecimal(addValue);
 		// 减法
 		BigDecimal bigDecimalSubtract = bigDecimal.subtract(bigDecimal2);
+		bigDecimalSubtract = bigDecimalSubtract.setScale(scale, BigDecimal.ROUND_HALF_UP);
 		return bigDecimalSubtract.toString();
 	}
 
@@ -62,7 +65,6 @@ public class MoneyUtil {
 		BigDecimal bigDecimal2 = new BigDecimal(addValue);
 		// 减法
 		BigDecimal bigDecimalMultiply = bigDecimal.multiply(bigDecimal2);
-		int scale = 2;// 保留2位小数
 		bigDecimalMultiply = bigDecimalMultiply.setScale(scale, BigDecimal.ROUND_HALF_UP);
 		return bigDecimalMultiply.toString();
 	}
@@ -88,7 +90,6 @@ public class MoneyUtil {
 		BigDecimal bigDecimal = new BigDecimal(oriValue);
 		BigDecimal bigDecimal2 = new BigDecimal(addValue);
 		// 减法
-		int scale = 2;// 保留2位小数
 		BigDecimal bigDecimalDivide = bigDecimal.divide(bigDecimal2, scale, BigDecimal.ROUND_HALF_UP);
 		return bigDecimalDivide.toString();
 	}
