@@ -144,12 +144,9 @@ public class BarCodeServiceImpl implements BarCodeService {
 			vo.setTraceId(traceId);
 			vo.setTypeId(good.getTypeId());
 			vo.setTypeName(good.getTypeName());
-			vo.setVipPrice(good.getVipPrice());
 			vo.setExpireDate(code.getExpireDate());
 			tracelist.add(vo);
-
 			TraceLog log = getTraceLog(code);
-
 			loglist.add(log);
 		}
 		logger.info("save 条码信息 updateFlag：" + updateFlag);
@@ -177,26 +174,34 @@ public class BarCodeServiceImpl implements BarCodeService {
 				barCode.setUpdatetime(DateUtil.getCurrDateStr());
 				barCode.setStockStatus(StockEnums.StockStatus.stockOut.getValue());
 				barCode.setEndDate(DateUtil.getCurrDateStr());
-				barCodeDao.update(barCode);
+				updateTrace(barCode);
 			}
 		}
 
 	}
 
-	private TraceLog getTraceLog(BarCode vo) {
+	private void updateTrace(BarCode vo) {
+		barCodeDao.update(vo);
 		Trace trace = new Trace();
 		trace.setEndDate(vo.getEndDate());
 		trace.setMobile(vo.getMobile());
-		trace.setNowPrice(vo.getNowPrice());
+		trace.setOrderId(vo.getOrderId());
 		trace.setOrderGoodId(vo.getOrderGoodId());
-		trace.setOrgid(vo.getOrderId());
+		trace.setOrgid(vo.getOrgid());
 		trace.setOrgname(vo.getOrgname());
 		trace.setPrice(vo.getPrice());
 		trace.setSalePrice(vo.getSalePrice());
 		trace.setStockStatus(vo.getStockStatus());
 		trace.setUserid(vo.getUserid());
 		trace.setUsername(vo.getUsername());
+		trace.setMobile(vo.getMobile());
+		trace.setTraceId(vo.getTraceId());
 		traceDao.update(trace);
+		TraceLog log = getTraceLog(vo);
+		traceLogDao.save(log);
+	}
+
+	private TraceLog getTraceLog(BarCode vo) {
 		TraceLog log = new TraceLog();
 		log.setBatchId(vo.getBatchId());
 		log.setOperateCode(StockEnums.OperateCode.barCode.getValue());

@@ -7,6 +7,8 @@ import java.util.Vector;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import com.marks.common.util.string.IStringUtil;
+
 /**
  *
  * <p class="detail">
@@ -79,6 +81,7 @@ public class TsRequest extends HttpServletRequestWrapper {
 			for (int i = 0; i < params.length; i++) {
 				params[i] = params[i].replaceAll("<", "&lt;");
 				params[i] = params[i].replaceAll(">", "&gt;");
+				params[i] = IStringUtil.getUTF8(params[i]);
 			}
 		}
 	}
