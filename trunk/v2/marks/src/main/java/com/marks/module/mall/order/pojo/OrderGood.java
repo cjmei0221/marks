@@ -198,6 +198,8 @@ public class OrderGood implements Serializable {
 
 	private List<String> barCodeList = new ArrayList<String>();// 商品唯一条码集合
 	private List<BarCode> barList = new ArrayList<BarCode>();// 商品唯一条码集合
+	
+	private String companyId;
 
 	private int stockType;
 
@@ -205,6 +207,18 @@ public class OrderGood implements Serializable {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
 	}
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+
 
 	public String getPrice() {
 		return price;

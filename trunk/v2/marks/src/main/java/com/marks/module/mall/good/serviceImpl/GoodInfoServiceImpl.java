@@ -129,8 +129,8 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 	}
 
 	@Override
-	public String getGoodNo() {
-		String orgId = goodInfoDao.getGoodNo();
+	public String getGoodNo(String companyId) {
+		String orgId = goodInfoDao.getGoodNo(companyId);
 		int num = 0;
 		if (null != orgId && !"".equals(orgId)) {
 			num = Integer.parseInt(orgId);

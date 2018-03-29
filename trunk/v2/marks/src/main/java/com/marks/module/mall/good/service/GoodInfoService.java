@@ -38,5 +38,5 @@ public interface GoodInfoService{
 	 * 
 	 * @return
 	 */
-	public String getGoodNo();
+	public String getGoodNo(String companyId);
 }

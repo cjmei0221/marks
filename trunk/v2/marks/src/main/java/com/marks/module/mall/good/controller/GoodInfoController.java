@@ -65,7 +65,8 @@ public class GoodInfoController extends SupportContorller {
 	public void getGoodNo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			String goodNo = goodInfoService.getGoodNo();
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+			String goodNo = goodInfoService.getGoodNo(admin.getCompanyId());
 			result.getData().put("goodNo", goodNo);
 			result.setMessage("findById goodInfo successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -111,7 +112,7 @@ public class GoodInfoController extends SupportContorller {
 			}else{
 
 				goodInfo.setCompanyId(admin.getCompanyId());
-				goodInfo.setGoodId(goodInfo.getGoodNo());
+				goodInfo.setGoodId(admin.getCompanyId() + goodInfo.getGoodNo());
 				goodInfo.setCreator(admin.getUserid() + " - " + admin.getUsername());
 				goodInfo.setUpdater(admin.getUserid() + " - " + admin.getUsername());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));

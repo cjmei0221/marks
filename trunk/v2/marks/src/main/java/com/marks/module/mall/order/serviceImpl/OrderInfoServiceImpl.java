@@ -164,11 +164,14 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	private void countOrder(OrderInfo info, List<OrderGood> goodList, List<StockBatch> stockList) {
 		String payableAmt = "";// 应付金额
 		int nums = 0;// 商品数量
+		int idx = 1;
 		for (OrderGood good : goodList) {
-			good.setOrderGoodId(info.getOrderId() + "_" + good.getGoodId());
+			good.setCompanyId(info.getCompanyId());
+			good.setOrderGoodId(info.getOrderId() + idx);
 			good.setOrderId(info.getOrderId());
 			payableAmt = MoneyUtil.add(payableAmt, good.getPayableAmt());
 			nums = nums + good.getNums();
+			idx++;
 		}
 		info.setPayableAmt(payableAmt);
 		info.setSimpleDiscountAmt(MoneyUtil.subtract(info.getPayableAmt(), info.getPayAmt()));

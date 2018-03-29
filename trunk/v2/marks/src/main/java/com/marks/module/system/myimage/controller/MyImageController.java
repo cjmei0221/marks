@@ -221,6 +221,7 @@ public class MyImageController extends SupportContorller{
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("companyId", admin.getCompanyId());
 			PojoDomain<MyImage> list = myImageService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

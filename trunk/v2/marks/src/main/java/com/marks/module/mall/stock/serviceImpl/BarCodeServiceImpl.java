@@ -198,6 +198,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 		trace.setTraceId(vo.getTraceId());
 		traceDao.update(trace);
 		TraceLog log = getTraceLog(vo);
+		log.setAmount(vo.getSalePrice());
 		traceLogDao.save(log);
 	}
 

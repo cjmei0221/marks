@@ -15,6 +15,8 @@ import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.order.pojo.OrderGood;
 import com.marks.module.mall.order.service.OrderGoodService;
+import com.marks.module.user.login.helper.LoginUtil;
+import com.marks.module.user.sysuser.pojo.SysUser;
 
 /**
  * 订单商品: 订单商品
@@ -38,10 +40,11 @@ public class WebOrderGoodController extends SupportContorller {
 	public void findOrderGoodById(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			OrderGood info = getModel(OrderGood.class);
 
 			logger.info("findOrderGoodById > param>" + info.getGoodId());
-			OrderGood vo = orderGoodService.findById(info.getGoodId());
+			OrderGood vo = orderGoodService.findById(admin.getCompanyId(), info.getGoodId());
 			if (vo == null) {
 				result.setMessage("无数据！");
 				result.setCode("4003");

@@ -36,8 +36,8 @@ public class OrderGoodServiceImpl implements OrderGoodService{
     *根据ID查找订单商品
     */
     @Override
-    public OrderGood findById(String id){
-		List<OrderGood> list = orderGoodDao.findById(id);
+	public OrderGood findById(String companyId, String id) {
+		List<OrderGood> list = orderGoodDao.findById(companyId, id);
 		if (null != list && list.size() > 0) {
 			return list.get(0);
 		}

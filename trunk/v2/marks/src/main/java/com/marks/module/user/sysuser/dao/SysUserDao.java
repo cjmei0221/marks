@@ -45,5 +45,6 @@ public interface SysUserDao {
 
 	void updateSkin(@Param("userid") String userid, @Param("skin") int skin);
 
+	String getMaxCode(@Param("companyId") String companyId);
 
 }

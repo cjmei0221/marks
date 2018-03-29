@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.common.util.IDUtil;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.user.sysrole.dao.SysRoleDao;
@@ -55,14 +54,27 @@ public class SysUserServiceImpl implements SysUserService {
 	 */
 	@Override
 	public String save(SysUser sysUser) {
-		String userCode = IDUtil.getID(6);
-		String userid = IDUtil.getDateID().substring(0, 6) + userCode;
+		String userid = getUserid(sysUser.getCompanyId());
+		String userCode = userid.substring(sysUser.getCompanyId().length());
 		sysUser.setUserid(userid);
 		sysUser.setUserCode(userCode);
 		sysUser.setLvlId(sysUser.getCompanyId() + "_0");
 		sysUser.setLvlName("普通会员");
 		saveSysUserOrgRole(sysUser);
 		sysUserDao.save(sysUser);
+		return userid;
+	}
+
+	public String getUserid(String companyId){
+		String userid="";
+		long initcode = 0;
+		String maxCode = sysUserDao.getMaxCode(companyId);
+		if (null == maxCode || "".equals(maxCode)) {
+			maxCode = "100000";
+		}
+		initcode = Long.parseLong(maxCode);
+		userid = String.valueOf(initcode + 1);
+		userid = companyId + userid;
 		return userid;
 	}
 
