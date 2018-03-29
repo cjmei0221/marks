@@ -10,6 +10,9 @@ $(function() {
 	$("#upload_form  .l-btn-text").css("width", "80px");
 	$("#_easyui_textbox_input1").css("margin-left", "100px");
 });
+function comfirmPic(){
+	$("#imageListWin").window("close");
+}
 function selectUploadImage(eleName, imgNum) {
 	$("#imageListWin").window({
 		title : "请选择图片"
@@ -75,7 +78,7 @@ function uploadPic() {
 		return false;
 	}
 	$('#upload_form').form('submit', {
-		url : "/inner/fileUpload/img.do",
+		url : top.window.urlBase + "/inner/fileUpload/img.do",
 		success : function(data) {
 			showMsg("上传成功");
 			$("#upload_form").form('clear');
