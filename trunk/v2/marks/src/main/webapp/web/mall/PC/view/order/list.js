@@ -119,9 +119,10 @@ function lessGood() {
 				} else {
 					info.payableAmt = parseFloat(info.nums)
 							* (parseFloat(info.salePrice) * 100) / 100;
+					info.payableAmt=info.payableAmt.toFixed(2);
 					$("#" + info.goodNo + ">td >.cls-nums").val(info.nums);
 					$("#" + info.goodNo + ">td >.cls-payableAmt").val(
-							info.payableAmt.toFixed(2));
+							info.payableAmt);
 				}
 				countOrder();
 			}
@@ -152,9 +153,10 @@ function initList(vo) {
 				appInfo.goodData[i].nums += 1;
 				appInfo.goodData[i].payableAmt = (parseFloat(appInfo.goodData[i].payableAmt) * 100 + parseFloat(vo.salePrice) * 100) / 100;
 				info = appInfo.goodData[i];
+				info.payableAmt=info.payableAmt.toFixed(2);
 				$("#" + info.goodNo + " > td > .cls-nums").val(info.nums);
 				$("#" + info.goodNo + " > td > .cls-payableAmt").val(
-						info.payableAmt.toFixed(2));
+						info.payableAmt);
 				flag = true;
 				break;
 			}
@@ -229,14 +231,16 @@ function checkNums(goodNo) {
 	info.nums = inputNums;
 	info.payableAmt = parseFloat(info.nums) * (parseFloat(info.salePrice) * 100)
 			/ 100;
-	$("#" + goodNo + ">td >.cls-payableAmt").val(info.payableAmt.toFixed(2));
+	info.payableAmt=info.payableAmt.toFixed(2);
+	$("#" + goodNo + ">td >.cls-payableAmt").val(info.payableAmt);
 	countOrder();
 }
 function checkPayableAmt(goodNo) {
 	var vals = $("#" + goodNo + ">td >.cls-payableAmt").val();
 	var info = getGood(goodNo);
 	info.payableAmt = parseFloat(vals);
-	$("#" + goodNo + ">td >.cls-payableAmt").val(info.payableAmt.toFixed(2));
+	info.payableAmt=info.payableAmt.toFixed(2);
+	$("#" + goodNo + ">td >.cls-payableAmt").val(info.payableAmt);
 	countOrder();
 }
 function toPay() {
