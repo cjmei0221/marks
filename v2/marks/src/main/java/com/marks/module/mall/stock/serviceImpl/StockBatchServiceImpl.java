@@ -257,13 +257,6 @@ public class StockBatchServiceImpl implements StockBatchService {
 	}
 
 	public void dealStock(StockBatch info) {
-		// 更新库存批次
-		StockBatch ori = stockBatchDao.findById(info.getBatchId());
-		if (ori == null) {
-			stockBatchDao.save(info);
-		} else {
-			stockBatchDao.update(info);
-		}
 		// 减少库存
 		StockInfo stock = new StockInfo();
 		stock.setCompanyId(info.getCompanyId());
@@ -283,7 +276,15 @@ public class StockBatchServiceImpl implements StockBatchService {
 		}
 		stock.setSaleNums(info.getTranNums());
 		stock.setSaleAmt(info.getTranSaleAmt());
-		stockInfoService.save(stock);
+		String stockId = stockInfoService.save(stock);
+		// 更新库存批次
+		StockBatch ori = stockBatchDao.findById(info.getBatchId());
+		if (ori == null) {
+			info.setStockId(stockId);
+			stockBatchDao.save(info);
+		} else {
+			stockBatchDao.update(info);
+		}
 		/*
 		 * 保存日志
 		 */

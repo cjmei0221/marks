@@ -162,6 +162,16 @@ public class StockBatch implements Serializable {
 
 	private String costPrice;// 均价
 
+	private String stockId;// 库存编号
+
+	public String getStockId() {
+		return stockId;
+	}
+
+	public void setStockId(String stockId) {
+		this.stockId = stockId;
+	}
+
 	public int getTranStatus() {
 		return tranStatus;
 	}

@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.number.MoneyUtil;
 import com.marks.module.mall.stock.dao.StockInfoDao;
 import com.marks.module.mall.stock.pojo.StockInfo;
@@ -46,14 +45,16 @@ public class StockInfoServiceImpl implements StockInfoService{
     *保存库存管理
     */
     @Override
-    public void save(StockInfo info){
-		StockInfo ori = stockInfoDao.findByOrgIdAndGoodId(info.getCompanyId(), info.getOrgId(), info.getGoodId());
+	public String save(StockInfo info) {
+		String stockId = "";
+		StockInfo ori = stockInfoDao.findByOrgIdAndGoodId(info.getCompanyId(), info.getOrgId(), info.getGoodNo());
 		if (ori == null) {
-			info.setStockId("I-" + IDUtil.getDateID() + "-" + IDUtil.getID(8));
+			info.setStockId("I-" + info.getCompanyId() + "-" + info.getOrgId() + "-" + info.getGoodNo());
 			info.setTotalAmount(MoneyUtil.add(info.getGiftAmount(), info.getHoldAmount()));
 			info.setTotalAmount(MoneyUtil.add(info.getTotalAmount(), info.getStockAmount()));
 			info.setTotalNums(info.getGiftNums() + info.getHoldNums() + info.getStockNums());
 			stockInfoDao.save(info);
+			stockId = info.getStockId();
 		} else {
 			ori.setGiftAmount(MoneyUtil.add(ori.getGiftAmount(), info.getGiftAmount()));
 			ori.setGiftNums(ori.getGiftNums() + info.getGiftNums());
@@ -70,10 +71,11 @@ public class StockInfoServiceImpl implements StockInfoService{
 			ori.setTotalNums(ori.getGiftNums() + ori.getHoldNums() + ori.getStockNums());
 			ori.setSaleAmt(MoneyUtil.add(ori.getSaleAmt(), info.getSaleAmt()));
 			ori.setSaleNums(ori.getSaleNums() + info.getSaleNums());
-
 			ori.setUpdatetime(info.getUpdatetime());
 			stockInfoDao.update(ori);
+			stockId = ori.getStockId();
 		}
+		return stockId;
     }
     
     /**

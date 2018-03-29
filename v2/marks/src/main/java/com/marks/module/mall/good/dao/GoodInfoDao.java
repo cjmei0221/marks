@@ -54,5 +54,5 @@ public interface GoodInfoDao {
 	 */
 	List<GoodInfo> listGoodByBrandId(@Param("brandId") String brandId);
 
-	String getGoodNo();
+	String getGoodNo(@Param("companyId") String companyId);
 }

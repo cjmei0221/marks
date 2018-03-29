@@ -39,151 +39,6 @@ public class OrderGoodController extends SupportContorller{
 	public Logger getLogger() {
 		return logger;
 	}
-
-    /**
-	 * 保存订单商品
-	 */
-    @RequestMapping("/inner/orderGood/save")
-    public void saveOrderGood(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-	    	OrderGood info = getModel(OrderGood.class);
-	        info.setOrderGoodId(IDUtil.getUUID());
-	 		
-	 		logger.info("saveOrderGood > param>"+info.toLog());
-	 
-			 OrderGood ori=null;
-	 		if(info.getOrderGoodId() != null){
-	 			ori=orderGoodService.findById(info.getOrderGoodId());
-	 		}
-	 		
-	 		if(ori==null){
-	 			orderGoodService.save(info);
-	 			result.setMessage("保存成功");
-				result.setCode(Code.CODE_SUCCESS);
-	 		}else{
-	    		result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
-	    	}
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("保存失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
-	/**
-	 * 更改订单商品
-	 */
-    @RequestMapping("/inner/orderGood/update")
-    public void updateOrderGood(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-		    OrderGood info = getModel(OrderGood.class);
-		    
-		    logger.info(" updateOrderGood> param>"+info.toLog());
-		    
-		    OrderGood ori=orderGoodService.findById(info.getOrderGoodId());
-		    if(ori == null){
-		    	result.setMessage("此记录已删除!");
-				result.setCode(Code.CODE_FAIL);
-		    }else{
-		    	orderGoodService.update(info);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
-		    }
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("更新失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
-	/**
-	 * 删除订单商品
-	 */
-    @RequestMapping("/inner/orderGood/delete")
-    public void deleteOrderGoodById(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-		   	OrderGood info = getModel(OrderGood.class);
-		   	
-		   	logger.info("deleteOrderGoodById > param>"+info.getOrderGoodId());
-		   	
-			orderGoodService.delete(info.getOrderGoodId());
-			result.setMessage("删除成功!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("删除失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
-	/**
-	 * 查询全部订单商品
-	 */
-
-    /*
-    @RequestMapping("/inner/orderGood/findAllOrderGood")
-    public void findAllOrderGood(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-			List<OrderGood> allList = orderGoodService.findAll();
-			result.getData().put("allList",allList);
-			result.setMessage("findAll orderGood successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("findAll orderGood fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	} 
-	*/
-	
-	/**
-	 * 删除多个订单商品
-	 */
-	/*
-	@RequestMapping("/inner/orderGood/deleteIds")
-	public void deleteOrderGood(HttpServletRequest request,
-			HttpServletResponse response){
-		Result result = new Result();
-		try {
-			String id = request.getParameter("orderGoodId");
-			logger.info("delete batch> param>"+id);
-			String[] ids = id.split(",");
-			List<String> idList = new ArrayList<String>();
-			for(int i=0;i<ids.length;i++){
-				idList.add(ids[i]);
-			}
-			if(idList.size()>0){
-				orderGoodService.deleteBatch(idList);
-				result.setMessage("删除成功!");
-				result.setCode(Code.CODE_SUCCESS);
-			}else{
-				result.setMessage("删除失败，请联系管理员!");
-				result.setCode(Code.CODE_FAIL);
-			}
-			
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("delete orderGood fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	*/
 	
 	/**
 	 * 列表查询
@@ -198,10 +53,12 @@ public class OrderGoodController extends SupportContorller{
 			if (page_size > 200) {
 				page_size = 200;
 			}
-			String keyword=IStringUtil.getUTF8(request.getParameter("keyword"));
+			String keyword=request.getParameter("keyword");
+			String orderId=request.getParameter("orderId");
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("orderId", orderId);
 			PojoDomain<OrderGood> list = orderGoodService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

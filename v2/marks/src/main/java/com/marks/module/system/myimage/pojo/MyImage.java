@@ -33,9 +33,17 @@ public class MyImage implements Serializable{
     */
     private String creator;
 
+	private String companyId;
 
+	public String getCompanyId() {
+		return companyId;
+	}
 
-    public String getPicId(){
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getPicId() {
         return picId;
     }
     public void setPicId(String picId){

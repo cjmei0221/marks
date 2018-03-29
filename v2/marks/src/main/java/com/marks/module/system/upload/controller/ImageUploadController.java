@@ -26,8 +26,6 @@ import com.marks.module.system.upload.util.UploadUtil;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
-import sun.misc.BASE64Decoder;
-
 /**
  * 上传图片。
  */
@@ -75,6 +73,7 @@ public class ImageUploadController {
 			img.setCreator(admin.getUserid());
 			img.setPicName(picName);
 			img.setPicUrl(FTPUtil.ftp_url + picName);
+			img.setCompanyId(admin.getCompanyId());
 			myImageService.save(img);
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
