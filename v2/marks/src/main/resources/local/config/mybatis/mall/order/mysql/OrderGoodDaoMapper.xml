@@ -7,8 +7,8 @@
 		SELECT t.goodId,t.goodNo,t.goodName,t.barNo,t.unit,t.rank,t.brandId,t.brandName,t.typeId,t.typeName,t.imageurl as picUrl,
 	   	t.salePrice,t.price
 		FROM tb_mall_good_info t left join tb_mall_trace_barcode b on t.goodId=b.goodId
-		where
-		t.goodId=#{goodId} or t.goodNo=#{goodId} or b.barcode=#{goodId}
+		where t.companyId=#{companyId} and
+		(t.goodId=#{goodId} or t.goodNo=#{goodId} or t.barNo=#{goodId} or b.barcode=#{goodId})
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.order.pojo.OrderGood">
@@ -52,7 +52,8 @@
 		remarks,
 		countAmt,
 		oriPriceAmt,
-		payRate
+		payRate,
+		companyId
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -91,7 +92,8 @@
 		#{info.remarks:VARCHAR},
 		#{info.countAmt:VARCHAR},
 		#{info.oriPriceAmt:VARCHAR},
-		#{info.payRate:VARCHAR}
+		#{info.payRate:VARCHAR},
+		#{info.companyId:VARCHAR}
 		)
 	</insert>
 
@@ -133,7 +135,8 @@
 		remarks,
 		countAmt,
 		oriPriceAmt,
-		payRate
+		payRate,
+		companyId
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -175,7 +178,8 @@
 			#{info.remarks:VARCHAR},
 			#{info.countAmt:VARCHAR},
 			#{info.oriPriceAmt:VARCHAR},
-			#{info.payRate:VARCHAR}
+			#{info.payRate:VARCHAR},
+			#{info.companyId:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -248,9 +252,11 @@
 		SELECT *
 		FROM TB_MALL_ORDER_GOOD t
 		WHERE 1=1
+		<if test="orderId!=null and orderId!=''">
+			and t.orderId=#{orderId}
+		</if>
 		<if test="keyword!=null and keyword!=''">
-			and ( 2=1 or t.ORDERGOODID LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			and ( 2=1 
 			or t.ORDERID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or t.GOODNO LIKE
@@ -271,37 +277,11 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or t.BRANDNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.PAYABLEAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.PAYAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.CASHAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.WXAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.ALIPAYAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.OTHERAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.SALEAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.DISCOUNTAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.FULLCUTAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.COUPONAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.POINTAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.MLAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.SIMPLEDISCOUNTAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
 
 
-		order by t.UPDATETIME DESC
+		order by t.ORDERGOODID
 	</select>
 
 
