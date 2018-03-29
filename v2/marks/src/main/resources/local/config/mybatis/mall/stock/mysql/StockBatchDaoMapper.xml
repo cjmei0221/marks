@@ -37,7 +37,8 @@
 		saleNums,
 		saleAmount,
 		balNums,
-		balAmt
+		balAmt,
+		stockId
 		)
 		VALUES(
 		#{info.batchId:VARCHAR},
@@ -64,7 +65,8 @@
 		#{info.saleNums:NUMERIC},
 		#{info.saleAmount:VARCHAR},
 		#{info.balNums:VARCHAR},
-		#{info.balAmt:VARCHAR}
+		#{info.balAmt:VARCHAR},
+		#{info.stockId:VARCHAR}
 		)
 	</insert>
 
@@ -94,7 +96,8 @@
 		saleNums,
 		saleAmount,
 		balNums,
-		balAmt
+		balAmt,
+		stockId
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -124,7 +127,8 @@
 			#{info.saleNums:NUMERIC},
 			#{info.saleAmount:VARCHAR},
 			#{info.balNums:VARCHAR},
-			#{info.balAmt:VARCHAR}
+			#{info.balAmt:VARCHAR},
+			#{info.stockId:VARCHAR}
 			)
 		</foreach>
 	</insert>

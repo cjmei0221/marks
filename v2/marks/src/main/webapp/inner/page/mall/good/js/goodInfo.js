@@ -121,31 +121,30 @@ function stockIn() {
     $("#postShow").html(strHtml);
 }
 
-function importExcel() {
-	$("#excelWin").window({
-		title : "导入Excel"
-	}).window("open");
-}
 $(function() {
 	// 加载列表
 	loadList();
-	// excel.init();
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
 		appInfo.selectedData = {};
 		appInfo.selectedId = -1;
 	});
-	// 保存菜单
-	$("#btnOKExcel").on("click", function() {
-		formSubmitforExcel();
-	});
+	
 	// 保存菜单
 	$("#btnOK").on("click", function() {
-		formSubmit();
+		$('#tt').tabs('select', 1);
 	});
 	
 	$("#btnCancel").on("click", function() {
+		$("#editWin").window("close");
+	});
+	// 保存菜单
+	$("#btnOKPrice").on("click", function() {
+		formSubmit();
+	});
+	
+	$("#btnCancelPrice").on("click", function() {
 		$("#editWin").window("close");
 	});
 	$("#imgBtnOk").on("click", function() {
@@ -185,15 +184,6 @@ $(function() {
 	});
 });
 
-function formSubmitforExcel() {
-	excel.upload();
-	var fileName = $("#excelfileName").val();
-	if (fileName != "") {
-
-	} else {
-		$("#uploadInfo").html("还未上传文件");
-	}
-}
 function loadImg(goodId, flag) {
 	$.ajax({
 		url : appInfo.goodImgListUrl,
@@ -290,27 +280,6 @@ function formSubmit() {
 			showMsg(data.retmsg);
 		}
 	});
-}
-function showDetail() {
-	$("#detailWin").window({
-		title : "详情"
-	}).window("open");
-	var info = appInfo.selectedData;
-	$("#sku_num_detail").html(info.sku_num);
-	$("#goodName_detail").html(info.goodName);
-	$("#goodPrice_detail").html(info.goodPrice);
-	$("#unit_detail").html(info.unit);
-	$("#createtime_detail").html(info.createtime);
-	$("#updatetime_detail").html(info.updatetime);
-	$("#brand_detail").html(info.brand);
-	$("#madeIn_detail").html(info.madeIn);
-	$("#material_detail").html(info.material);
-	$("#description_detail").html(info.description);
-	$("#remark_detail").html(info.remark);
-	$("#weight_detail").html(info.weight + " " + info.weight_unit);
-	$("#detailListImg").html("");
-	img.editImage("detailListImg", info.imageUrl, 1);
-	loadImg(info.goodId, 1);
 }
 function loadList() {
 	$('#tbList')

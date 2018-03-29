@@ -13,15 +13,16 @@
 	PICNAME,
 	PICURL,
 	CREATETIME,
-	CREATOR
+	CREATOR,
+	companyId
 	)
 	VALUES(
 	#{picId:VARCHAR},
 	#{picName:VARCHAR},
 	#{picUrl:VARCHAR},
 	now(),
-	#{creator:VARCHAR}
-
+	#{creator:VARCHAR},
+	#{companyId:VARCHAR}
 	)
  	</insert>
  	
@@ -54,7 +55,7 @@
  	parameterType="java.util.Map">
  		SELECT  *
 		  FROM   TB_IMAGE myimage
-						WHERE 1=1
+						WHERE 1=1 and myimage.companyId=#{companyId}
 		  order by myimage.CREATETIME desc
 					
 							

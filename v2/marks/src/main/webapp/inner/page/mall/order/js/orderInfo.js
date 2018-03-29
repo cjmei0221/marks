@@ -110,15 +110,12 @@ function formSubmit() {
 	});
 }
 function detail(id){
-	$('#detail').dialog({
-	    title: '详情',
-	    width: 400,
-	    height: 200,
-	    closed: false,
-	    cache: false,
-	    href: 'get_content.php',
-	    modal: true
-	});
+	$("#goodWin").window({
+		title : "商品明细"
+	}).window("open");
+	var path = '/inner/page/mall/order/orderGood.html?id='+id;
+    var strHtml = "<iframe width='100%' height='500px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
+    $("#postShow").html(strHtml);
 }
 
 function loadList() {
@@ -136,6 +133,9 @@ function loadList() {
 			field : 'orderId',
 			width : 200,
 			align : "center",
+			formatter : function(value, row, index) {
+				return '<a href="javascript:void(0)" onclick="detail(\''+value+'\')">'+value+'</a>';
+			}
 		}, {
 			title : '订单状态',
 			field : 'orderStatusName',
@@ -168,7 +168,7 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '计算总额',
+			title : '售价总额',
 			field : 'countAmt',
 			width : 100,
 			align : "center"
@@ -273,16 +273,16 @@ function loadList() {
 			field : 'updatetime',
 			width : 100,
 			align : "center"
-		}, {
-			title : '积分抵扣金额',
-			field : 'pointAmt',
-			width : 100,
-			align : "center"
-		}, {
-			title : '积分',
-			field : 'point',
-			width : 100,
-			align : "center"
+//		}, {
+//			title : '积分抵扣金额',
+//			field : 'pointAmt',
+//			width : 100,
+//			align : "center"
+//		}, {
+//			title : '积分',
+//			field : 'point',
+//			width : 100,
+//			align : "center"
 		}, {
 			title : '收银员编号',
 			field : 'cashManId',
@@ -350,7 +350,7 @@ function loadList() {
 		onDblClickRow : function(rowIndex, rowData) {
 			appInfo.selectedId = rowData.orderId;
 			appInfo.selectedData = rowData;
-			edit();
+			detail(appInfo.selectedId);
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');
