@@ -218,13 +218,12 @@ public class TraceController extends SupportContorller{
 				page_size = 200;
 			}
 			String keyword=request.getParameter("keyword");
-			if(keyword==null){
-				keyword="";
-			}
+			String batchId = request.getParameter("batchId");
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
 			param.put("companyId", admin.getCompanyId());
+			param.put("batchId", batchId);
 			PojoDomain<Trace> list = traceService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

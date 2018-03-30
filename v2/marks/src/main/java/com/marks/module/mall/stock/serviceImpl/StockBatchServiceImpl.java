@@ -115,13 +115,17 @@ public class StockBatchServiceImpl implements StockBatchService {
 		return pojoDomain;
 	}
 
+	public String getBatchId() {
+		return "B-" + IDUtil.getDateID() + "-" + IDUtil.getID(8);
+	}
+
 	@Override
 	public Result saveFirstStockIn(BarCodeForm info) throws Exception {
 		Result result = new Result();
 		int nums = info.getNums();
 		if (nums > 0) {
 			GoodInfo good = goodInfoDao.findById(info.getGoodId());
-			String batchId = "Batch_" + IDUtil.getDateID() + "_" + IDUtil.getID(8);
+			String batchId = getBatchId();
 			// 保存批次
 			StockBatch b = new StockBatch();
 			b.setAmount(MoneyUtil.multiply(info.getCostPrice(), String.valueOf(info.getNums())));

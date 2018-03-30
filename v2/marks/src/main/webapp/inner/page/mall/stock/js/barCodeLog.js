@@ -1,24 +1,17 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/inner/stockBatch/list.do',// 获取库存批次列表接口
-																// StockBatch
+	listUrl : top.window.urlBase + '/inner/trace/list.do',// 获取追踪码管理列表接口 Trace
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		batchId:""
 	},
 	formStatus : "new"
 };
+appInfo.requestParam.batchId=tool.getUrlParams("id");
 // -----------------权限控制功能 start---------------
-function showLog(id){
-	$("#barlogWin").window({
-		title : "条码明细"
-	}).window("open");
-	var path = '/inner/page/mall/stock/barCodeLog.html?id='+id;
-    var strHtml = "<iframe width='100%' height='420px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
-    $("#barlogShow").html(strHtml);
-}
 // -----------------权限控制功能 end---------------
 $(function() {
 	// 加载列表
@@ -31,79 +24,33 @@ $(function() {
 		appInfo.selectedId = -1;
 	});
 
+	// 保存菜单
+	$("#btnOK").on("click", function() {
+		formSubmit();
+	});
+	$("#btnCancel").on("click", function() {
+		$("#editWin").window("close");
+	});
 });
-
-
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
 		toolbar : "#tb",
-		idField : 'batchId',
-		height : 580,
+		idField : 'traceId',
+		height : 400,
 		rownumbers : true,
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '批次号',
-			field : 'batchId',
-			width : 200,
-			align : "center",
-			formatter : function(value, row, index) {
-				if(row.stockType==0){
-					return '<a href="javascript:void(0)" onclick="showLog(\''+value+'\')">'+value+'</a>';
-				}
-				return value;
-			}
-		}, {
-			title : '库存编号',
-			field : 'stockId',
-			width : 200,
+			title : '追踪码',
+			field : 'traceId',
+			width : 250,
 			align : "center"
 		}, {
-			title : '机构编号',
-			field : 'orgId',
-			width : 100,
-			align : "center"
-		}, {
-			title : '机构名称',
-			field : 'orgName',
-			width : 100,
-			align : "center"
-		}, {
-			title : '进货价',
-			field : 'costPrice',
-			width : 100,
-			align : "center"
-		}, {
-			title : '数量',
-			field : 'nums',
-			width : 100,
-			align : "center"
-		}, {
-			title : '金额',
-			field : 'amount',
-			width : 100,
-			align : "center"
-		}, {
-			title : '售出数量',
-			field : 'saleNums',
-			width : 100,
-			align : "center"
-		}, {
-			title : '售出金额',
-			field : 'saleAmount',
-			width : 100,
-			align : "center"
-		}, {
-			title : '剩余数量',
-			field : 'balNums',
-			width : 100,
-			align : "center"
-		}, {
-			title : '剩余金额',
-			field : 'balAmt',
+			title : '条码',
+			field : 'barcode',
 			width : 100,
 			align : "center"
 		}, {
@@ -119,16 +66,36 @@ function loadList() {
 		}, {
 			title : '商品名称',
 			field : 'goodName',
-			width : 200,
-			align : "center"
-		}, {
-			title : '库存管理方式',
-			field : 'stockTypeName',
 			width : 100,
 			align : "center"
 		}, {
-			title : '业务类型',
-			field : 'ywCodeName',
+			title : '创建时间',
+			field : 'createtime',
+			width : 150,
+			align : "center"
+		}, {
+			title : '更新时间',
+			field : 'updatetime',
+			width : 150,
+			align : "center"
+		}, {
+			title : '库存状态',
+			field : 'stockStatusName',
+			width : 100,
+			align : "center"
+		}, {
+			title : '采购单号',
+			field : 'cgNo',
+			width : 100,
+			align : "center"
+		}, {
+			title : '原价',
+			field : 'price',
+			width : 100,
+			align : "center"
+		}, {
+			title : '售价',
+			field : 'salePrice',
 			width : 100,
 			align : "center"
 		}, {
@@ -137,39 +104,72 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '订单号',
+			field : 'orderId',
+			width : 100,
+			align : "center"
+		}, {
+			title : '是否为赠品',
+			field : 'isGift',
+			width : 100,
+			align : "center",
+			formatter : function(value, row, index) {
+				if (value == 1) {
+					return "赠品";
+				}
+				return '非赠品';
+			}
+		}, {
+			title : '原追踪码',
+			field : 'oriTraceId',
+			width : 100,
+			align : "center"
+		}, {
+			title : '机构',
+			field : 'orgname',
+			width : 100,
+			align : "center"
+
+		}, {
+			title : '类别',
+			field : 'typeName',
+			width : 100,
+			align : "center"
+
+		}, {
+			title : '品牌',
+			field : 'brandName',
+			width : 100,
+			align : "center"
+		}, {
 			title : '生产日期',
 			field : 'productDate',
 			width : 100,
 			align : "center"
 		}, {
-			title : '到期日期',
-			field : 'expireDate',
+			title : '供应商',
+			field : 'supplierName',
 			width : 100,
 			align : "center"
 		}, {
-			title : '供应商编号',
-			field : 'supplierId',
-			width : 120,
+			title : '会员名称',
+			field : 'username',
+			width : 100,
 			align : "center"
 		}, {
-			title : '供应商',
-			field : 'supplierName',
-			width : 150,
+			title : '会员手机号',
+			field : 'mobile',
+			width : 100,
 			align : "center"
 		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 180,
+			title : '入库日期',
+			field : 'stockInDate',
+			width : 100,
 			align : "center"
 		}, {
-			title : '更新时间',
-			field : 'updatetime',
-			width : 180,
-			align : "center"
-		}, {
-			title : '备注',
-			field : 'remarks',
-			width : 200,
+			title : '结束日期',
+			field : 'endDate',
+			width : 100,
 			align : "center"
 		} ] ],
 		loader : function(params, success, loadError) {
@@ -177,11 +177,11 @@ function loadList() {
 			loader(that, params, success, loadError);
 		},
 		onClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.batchId;
+			appInfo.selectedId = rowData.traceId;
 			appInfo.selectedData = rowData;
 		},
 		onDblClickRow : function(rowIndex, rowData) {
-			appInfo.selectedId = rowData.batchId;
+			appInfo.selectedId = rowData.id;
 			appInfo.selectedData = rowData;
 			edit();
 		},

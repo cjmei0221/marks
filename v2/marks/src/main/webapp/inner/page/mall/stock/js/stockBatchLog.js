@@ -6,10 +6,12 @@ var appInfo = {
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		stockId:""
 	},
 	formStatus : "new"
 };
+appInfo.requestParam.stockId=tool.getUrlParams("id");
 // -----------------权限控制功能 start---------------
 function showLog(id){
 	$("#barlogWin").window({
@@ -39,7 +41,7 @@ function loadList() {
 		url : appInfo.listUrl,
 		toolbar : "#tb",
 		idField : 'batchId',
-		height : 580,
+		height : 520,
 		rownumbers : true,
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,

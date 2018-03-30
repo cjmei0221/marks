@@ -213,9 +213,11 @@ public class StockBatchController extends SupportContorller{
 				page_size = 200;
 			}
 			String keyword=request.getParameter("keyword");
+			String stockId = request.getParameter("stockId");
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
+			param.put("stockId", stockId);
 			PojoDomain<StockBatch> list = stockBatchService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
