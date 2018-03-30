@@ -381,7 +381,7 @@ function loadList() {
 									align : "center"
 								}, {
 									title : '进货价',
-									field : 'stockPrice',
+									field : 'costPrice',
 									width : 100,
 									align : "center"
 								}, {
