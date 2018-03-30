@@ -124,7 +124,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			String batchId = "Batch_" + IDUtil.getDateID() + "_" + IDUtil.getID(8);
 			// 保存批次
 			StockBatch b = new StockBatch();
-			b.setAmount(MoneyUtil.multiply(info.getStockPrice(), String.valueOf(info.getNums())));
+			b.setAmount(MoneyUtil.multiply(info.getCostPrice(), String.valueOf(info.getNums())));
 			b.setBarNo(good.getBarNo());
 			b.setBatchId(batchId);
 			b.setCompanyId(info.getCompanyId());
@@ -136,7 +136,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setOrgName(info.getOrgname());
 			b.setProductDate(info.getProductDate());
 			b.setRemarks(StockEnums.StockManageType.getByKey(info.getStockManageType()) + " 入库");
-			b.setStockPrice(info.getStockPrice());
+			b.setCostPrice(info.getCostPrice());
 			b.setStockType(info.getStockManageType());
 			b.setSupplierId(info.getSupplierId2());
 			b.setSupplierName(info.getSupplier2());
@@ -152,7 +152,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
 			dealStock(b);
 			// 更新商品进货价和供应商
-			good.setStockPrice(info.getStockPrice());
+			good.setCostPrice(info.getCostPrice());
 			good.setStockManageType(info.getStockManageType());
 			good.setSupplier(info.getSupplier2());
 			good.setSupplierId(info.getSupplierId2());
@@ -199,19 +199,23 @@ public class StockBatchServiceImpl implements StockBatchService {
 		List<StockBatch> returnList = null;
 		if (null != list && list.size() > 0) {
 			String costAmt = "";
+			int totalBatchNums = 0;
 			returnList = new ArrayList<StockBatch>();
 			for (int i = 0; i < list.size(); i++) {
 				StockBatch batch = list.get(i);
 				String salePrice = MoneyUtil.divide(good.getPayAmt(), String.valueOf(good.getNums()));
-				batch.setTranAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), batch.getStockPrice()));
+				batch.setTranAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), batch.getCostPrice()));
 				batch.setTranSaleAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), salePrice));
 				costAmt = MoneyUtil.add(costAmt, batch.getTranAmt());
 				batch.setBalAmt(MoneyUtil.subtract(batch.getBalAmt(), batch.getTranAmt()));
 				batch.setBalNums(batch.getBalNums() - batch.getTranNums());
 				batch.setSaleNums(batch.getSaleNums() + batch.getTranNums());
 				batch.setSaleAmount(MoneyUtil.add(batch.getSaleAmount(), batch.getTranSaleAmt()));
+				totalBatchNums = totalBatchNums + batch.getTranNums();
 				returnList.add(batch);
 			}
+			costAmt = MoneyUtil.add(costAmt,
+					MoneyUtil.multiply(good.getCostPrice(), String.valueOf(good.getNums() - totalBatchNums)));
 			for (StockBatch batch : returnList) {
 				batch.setCostPrice(MoneyUtil.divide(costAmt, String.valueOf(good.getNums())));
 				batch.setTypeId(good.getTypeId());

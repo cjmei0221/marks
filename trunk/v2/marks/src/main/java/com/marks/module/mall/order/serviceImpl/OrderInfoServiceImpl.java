@@ -205,10 +205,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			oriPriceAmt = MoneyUtil.add(oriPriceAmt, good.getOriPriceAmt());
 			mandiscountAmt = MoneyUtil.add(mandiscountAmt, good.getGoodManDiscountAmt());
 		}
-		info.setSaleAmt(saleAmt);
+		// info.setSaleAmt(saleAmt);
 		info.setSimpleDiscountAmt(MoneyUtil.add(info.getSimpleDiscountAmt(), mandiscountAmt));
 		info.setCostAmt(costAmt);
 		info.setCountAmt(countAmt);
+		info.setSaleAmt(MoneyUtil.subtract(info.getCountAmt(), info.getPayAmt()));
 		info.setOriPriceAmt(oriPriceAmt);
 
 	}
@@ -219,6 +220,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			good.setCostPrice(stock.get(0).getCostPrice());
 			good.setCostAmt(MoneyUtil.multiply(good.getCostPrice(), String.valueOf(good.getNums())));
 			stockList.addAll(stock);
+		} else {
+			good.setCostPrice(good.getCostPrice());
+			good.setCostAmt(MoneyUtil.multiply(good.getCostPrice(), String.valueOf(good.getNums())));
 		}
 		if (null != good.getBarList() && good.getBarList().size() > 0) {
 			for (BarCode b : good.getBarList()) {

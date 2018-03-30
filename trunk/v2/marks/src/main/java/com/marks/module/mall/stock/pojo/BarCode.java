@@ -151,7 +151,7 @@ public class BarCode implements Serializable {
 	 * 进货价
 	 *
 	 */
-	private String stockPrice;
+	private String costPrice;
 
 	private String endDate;
 
@@ -195,12 +195,12 @@ public class BarCode implements Serializable {
 		this.brandName = brandName;
 	}
 
-	public String getStockPrice() {
-		return stockPrice;
+	public String getCostPrice() {
+		return costPrice;
 	}
 
-	public void setStockPrice(String stockPrice) {
-		this.stockPrice = stockPrice;
+	public void setCostPrice(String costPrice) {
+		this.costPrice = costPrice;
 	}
 
 	public String getPrice() {
