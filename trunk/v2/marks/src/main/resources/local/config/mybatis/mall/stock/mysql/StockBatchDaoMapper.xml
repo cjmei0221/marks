@@ -191,6 +191,9 @@
 		SELECT *
 		FROM TB_MALL_STOCK_BATCH t
 		WHERE 1=1
+		<if test="stockId!=null and stockId!=''">
+			and t.stockId=#{stockId}
+		</if>
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1 or t.BATCHID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

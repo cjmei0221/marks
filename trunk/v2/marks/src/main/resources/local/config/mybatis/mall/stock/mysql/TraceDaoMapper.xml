@@ -213,6 +213,9 @@
 		SELECT *
 		FROM TB_MALL_TRACE t
 		WHERE 1=1 and t.companyId=#{companyId}
+		<if test="batchId!=null and batchId!=''">
+			and t.batchId=#{batchId}
+		</if>
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1 or t.TRACEID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

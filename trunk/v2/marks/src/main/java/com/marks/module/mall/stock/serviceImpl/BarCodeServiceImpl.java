@@ -173,7 +173,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 				barCode.setActiveStatus(0);
 				barCode.setUpdatetime(DateUtil.getCurrDateStr());
 				barCode.setStockStatus(StockEnums.StockStatus.stockOut.getValue());
-				barCode.setEndDate(DateUtil.getCurrDateStr());
+				barCode.setEndDate(DateUtil.getCurrDateStr().substring(0, 10));
 				updateTrace(barCode);
 			}
 		}
