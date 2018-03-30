@@ -47,7 +47,7 @@ public class StockInfoServiceImpl implements StockInfoService{
     @Override
 	public String save(StockInfo info) {
 		String stockId = "";
-		StockInfo ori = stockInfoDao.findByOrgIdAndGoodId(info.getCompanyId(), info.getOrgId(), info.getGoodNo());
+		StockInfo ori = stockInfoDao.findByOrgIdAndGoodNo(info.getCompanyId(), info.getOrgId(), info.getGoodNo());
 		if (ori == null) {
 			info.setStockId("I-" + info.getCompanyId() + "-" + info.getOrgId() + "-" + info.getGoodNo());
 			info.setTotalAmount(MoneyUtil.add(info.getGiftAmount(), info.getHoldAmount()));

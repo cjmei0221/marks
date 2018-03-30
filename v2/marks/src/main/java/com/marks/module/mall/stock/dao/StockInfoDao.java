@@ -31,6 +31,6 @@ public interface StockInfoDao {
 
 	List<StockInfo> list(PageBounds pageBounds, Map<String,Object> param);
 
-	StockInfo findByOrgIdAndGoodId(@Param("companyId") String companyId, @Param("orgId") String orgId,
-			@Param("goodId") String goodId);
+	StockInfo findByOrgIdAndGoodNo(@Param("companyId") String companyId, @Param("orgId") String orgId,
+			@Param("goodNo") String goodNo);
 }

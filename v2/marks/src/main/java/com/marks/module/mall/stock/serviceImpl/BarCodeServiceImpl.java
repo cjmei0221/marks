@@ -115,7 +115,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 			code.setTypeName(good.getTypeName());
 			code.setBrandId(good.getBrandId());
 			code.setBrandName(good.getBrandName());
-			code.setStockPrice(info.getStockPrice());
+			code.setCostPrice(info.getCostPrice());
 			codelist.add(code);
 
 			// 追踪记录
@@ -137,7 +137,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 			vo.setProductDate(info.getProductDate());
 			vo.setSalePrice(good.getSalePrice());
 			vo.setStockInDate(DateUtil.parseDate(new Date(), "yyyy-MM-dd"));
-			vo.setStockPrice(info.getStockPrice());
+			vo.setCostPrice(info.getCostPrice());
 			vo.setStockStatus(stockStatus);
 			vo.setSupplierId(info.getSupplierId2());
 			vo.setSupplierName(info.getSupplier2());
@@ -224,7 +224,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 		log.setTraceId(vo.getTraceId());
 		log.setTypeId(vo.getTypeId());
 		log.setTypeName(vo.getTypeName());
-		log.setAmount(vo.getStockPrice());
+		log.setAmount(vo.getCostPrice());
 		log.setNums(1);
 		return log;
 	}

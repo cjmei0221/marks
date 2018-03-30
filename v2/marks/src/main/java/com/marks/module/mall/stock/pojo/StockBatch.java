@@ -81,11 +81,6 @@ public class StockBatch implements Serializable {
 	 */
 	private String ywCodeName;
 	/**
-	 * 进货价
-	 *
-	 */
-	private String stockPrice;
-	/**
 	 * 生产日期
 	 *
 	 */
@@ -160,7 +155,7 @@ public class StockBatch implements Serializable {
 	 */
 	private String brandName;
 
-	private String costPrice;// 均价
+	private String costPrice;// 进货价
 
 	private String stockId;// 库存编号
 
@@ -386,14 +381,6 @@ public class StockBatch implements Serializable {
 		this.ywCode = ywCode;
 	}
 
-	public String getStockPrice() {
-		return stockPrice;
-	}
-
-	public void setStockPrice(String stockPrice) {
-		this.stockPrice = stockPrice;
-	}
-
 	public String getProductDate() {
 		return productDate;
 	}
@@ -463,8 +450,8 @@ public class StockBatch implements Serializable {
 				+ String.valueOf(orgId) + " - orgName:" + String.valueOf(orgName) + " - nums:" + String.valueOf(nums)
 				+ " - amount:" + String.valueOf(amount) + " - goodId:" + String.valueOf(goodId) + " - goodName:"
 				+ String.valueOf(goodName) + " - goodNo:" + String.valueOf(goodNo) + " - barNo:" + String.valueOf(barNo)
-				+ " - stockType:" + String.valueOf(stockType) + " - ywCode:" + String.valueOf(ywCode) + " - stockPrice:"
-				+ String.valueOf(stockPrice) + " - productDate:" + String.valueOf(productDate) + " - expireDate:"
+				+ " - stockType:" + String.valueOf(stockType) + " - ywCode:" + String.valueOf(ywCode) + " - costPrice:"
+				+ " - productDate:" + String.valueOf(productDate) + " - expireDate:"
 				+ String.valueOf(expireDate) + " - supplierId:" + String.valueOf(supplierId) + " - supplierName:"
 				+ String.valueOf(supplierName) + " - createtime:" + String.valueOf(createtime) + " - updatetime:"
 				+ String.valueOf(updatetime) + " - updater:" + String.valueOf(updater) + " - remarks:"

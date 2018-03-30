@@ -21,7 +21,7 @@ public class BarCodeForm {
 	 * 进货价
 	 *
 	 */
-	private String stockPrice;
+	private String costPrice;
 
 	private int nums;
 
@@ -135,12 +135,12 @@ public class BarCodeForm {
 		this.cgNo = cgNo;
 	}
 
-	public String getStockPrice() {
-		return stockPrice;
+	public String getCostPrice() {
+		return costPrice;
 	}
 
-	public void setStockPrice(String stockPrice) {
-		this.stockPrice = stockPrice;
+	public void setCostPrice(String costPrice) {
+		this.costPrice = costPrice;
 	}
 
 	public int getNums() {

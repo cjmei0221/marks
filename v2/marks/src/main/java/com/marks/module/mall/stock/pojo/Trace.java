@@ -74,7 +74,7 @@ public class Trace implements Serializable {
 	 * 进货价
 	 *
 	 */
-	private String stockPrice;
+	private String costPrice;
 	/**
 	 * 订单号
 	 *
@@ -290,12 +290,12 @@ public class Trace implements Serializable {
 		this.salePrice = salePrice;
 	}
 
-	public String getStockPrice() {
-		return stockPrice;
+	public String getCostPrice() {
+		return costPrice;
 	}
 
-	public void setStockPrice(String stockPrice) {
-		this.stockPrice = stockPrice;
+	public void setCostPrice(String costPrice) {
+		this.costPrice = costPrice;
 	}
 
 	public String getOrderId() {
@@ -456,8 +456,8 @@ public class Trace implements Serializable {
 				+ " - goodName:" + String.valueOf(goodName) + " - createtime:" + String.valueOf(createtime)
 				+ " - updatetime:" + String.valueOf(updatetime) + " - stockStatus:" + String.valueOf(stockStatus)
 				+ " - cgNo:" + String.valueOf(cgNo) + " - price:" + String.valueOf(price) + " - vipPrice:"
-				+ " - salePrice:" + String.valueOf(salePrice) + " - nowPrice:" + " - stockPrice:"
-				+ String.valueOf(stockPrice) + " - orderId:"
+				+ " - salePrice:" + String.valueOf(salePrice) + " - nowPrice:" + " - costPrice:"
+				+ " - orderId:"
 				+ String.valueOf(orderId) + " - orderGoodId:" + String.valueOf(orderGoodId) + " - isGift:"
 				+ String.valueOf(isGift) + " - oriTraceId:" + String.valueOf(oriTraceId) + " - companyId:"
 				+ String.valueOf(companyId) + " - orgid:" + String.valueOf(orgid) + " - orgname:"

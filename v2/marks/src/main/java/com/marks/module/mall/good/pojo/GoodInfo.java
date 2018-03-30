@@ -73,7 +73,7 @@ public class GoodInfo implements Serializable {
 	private String minPrice;// 最低价
 
 
-	private String stockPrice;// 进货价
+	private String costPrice;// 进货价
 	private String rank;
 
 	private String model;
@@ -136,12 +136,12 @@ public class GoodInfo implements Serializable {
 		this.supplier = supplier;
 	}
 
-	public String getStockPrice() {
-		return stockPrice;
+	public String getCostPrice() {
+		return costPrice;
 	}
 
-	public void setStockPrice(String stockPrice) {
-		this.stockPrice = stockPrice;
+	public void setCostPrice(String costPrice) {
+		this.costPrice = costPrice;
 	}
 
 	public int getGoodType() {
