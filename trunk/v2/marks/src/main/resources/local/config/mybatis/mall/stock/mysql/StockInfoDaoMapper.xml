@@ -7,10 +7,10 @@
 		SELECT * FROM TB_MALL_STOCK t
 		where t.STOCKID = #{stockId}
 	</select>
-	<select id="findByOrgIdAndGoodId" resultType="com.marks.module.mall.stock.pojo.StockInfo">
+	<select id="findByOrgIdAndGoodNo" resultType="com.marks.module.mall.stock.pojo.StockInfo">
 		SELECT * FROM
 		TB_MALL_STOCK t where t.COMPANYID = #{companyId} and t.ORGID=#{orgId}
-		and t.GOODID=#{goodId}
+		and t.GOODNO=#{goodNo}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.stock.pojo.StockInfo">

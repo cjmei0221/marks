@@ -57,7 +57,7 @@
 		typeName,
 		brandId,
 		brandName,
-		stockPrice
+		costPrice
 		)
 		VALUES(
 		#{info.barcode:VARCHAR},
@@ -82,7 +82,7 @@
 		#{info.typeName:VARCHAR},
 		#{info.brandId:VARCHAR},
 		#{info.brandName:VARCHAR},
-		#{info.stockPrice:VARCHAR}
+		#{info.costPrice:VARCHAR}
 		)
 	</insert>
 
@@ -110,7 +110,7 @@
 		typeName,
 		brandId,
 		brandName,
-		stockPrice
+		costPrice
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -138,7 +138,7 @@
 			#{info.typeName:VARCHAR},
 			#{info.brandId:VARCHAR},
 			#{info.brandName:VARCHAR},
-			#{info.stockPrice:VARCHAR}
+			#{info.costPrice:VARCHAR}
 			)
 		</foreach>
 	</insert>
