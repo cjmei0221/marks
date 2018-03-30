@@ -5,7 +5,7 @@
 
 	<select id="findById" resultType="com.marks.module.mall.order.pojo.OrderGood">
 		SELECT t.goodId,t.goodNo,t.goodName,t.barNo,t.unit,t.rank,t.brandId,t.brandName,t.typeId,t.typeName,t.imageurl as picUrl,
-	   	t.salePrice,t.price
+	   	t.salePrice,t.price,t.costPrice
 		FROM tb_mall_good_info t left join tb_mall_trace_barcode b on t.goodId=b.goodId
 		where t.companyId=#{companyId} and
 		(t.goodId=#{goodId} or t.goodNo=#{goodId} or t.barNo=#{goodId} or b.barcode=#{goodId})
