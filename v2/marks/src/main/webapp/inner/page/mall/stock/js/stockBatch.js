@@ -107,6 +107,11 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '进货价',
+			field : 'costPrice',
+			width : 100,
+			align : "center"
+		}, {
 			title : '数量',
 			field : 'nums',
 			width : 100,
@@ -116,7 +121,26 @@ function loadList() {
 			field : 'amount',
 			width : 100,
 			align : "center"
-		
+		}, {
+			title : '售出数量',
+			field : 'saleNums',
+			width : 100,
+			align : "center"
+		}, {
+			title : '售出金额',
+			field : 'saleAmount',
+			width : 100,
+			align : "center"
+		}, {
+			title : '剩余数量',
+			field : 'balNums',
+			width : 100,
+			align : "center"
+		}, {
+			title : '剩余金额',
+			field : 'balAmt',
+			width : 100,
+			align : "center"
 		}, {
 			title : '商品编号',
 			field : 'goodNo',
@@ -144,7 +168,7 @@ function loadList() {
 			align : "center"
 		}, {
 			title : '进货价',
-			field : 'stockPrice',
+			field : 'costPrice',
 			width : 100,
 			align : "center"
 		}, {
