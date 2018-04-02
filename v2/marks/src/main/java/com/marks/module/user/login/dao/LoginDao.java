@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
-import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.sysuser.pojo.SysUser;
+import com.marks.module.user.sysuser.pojo.SysUserOrgRole;
 @MapperScan
 public interface LoginDao {
 
@@ -39,11 +39,7 @@ public interface LoginDao {
 
 	public List<SysMenu> getParentSysMenu();
 
-	List<String> getUrlByUserid(@Param("userid") String userid);
-
-	List<String> getOrgidBySysUser(@Param("orglist")List<OrgInfo> orglist);
-
-	List<OrgInfo> getOrgInfoListByUserid(@Param("userid")String userid);
+	List<String> getUrlByRoleId(@Param("roleId") String roleId);
 
 	SysUser getSysUserByOpenidAndAccountid(@Param("accountid")String accountid, @Param("openid")String openid);
 
@@ -52,5 +48,7 @@ public interface LoginDao {
 	List<SysUser> listById(@Param("id") String id);
 
 	List<SysMenu> getMenuListByLog(@Param("userid") String userid, @Param("before3Month") String before3Month);
+
+	List<SysUserOrgRole> getUserOrgRolelistByUserid(@Param("userid") String userid);
 
 }

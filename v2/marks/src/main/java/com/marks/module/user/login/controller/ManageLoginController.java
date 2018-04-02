@@ -26,6 +26,7 @@ import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
+import com.marks.module.user.sysuser.pojo.SysUserOrgRole;
 
 /**
  * 用户登录 控制层 File Name: com.grgbanking.inner.controller.LoginController.java
@@ -83,7 +84,7 @@ public class ManageLoginController {
 		if (Constants.default_roleId.equals(user.getRoleId())) {
 			user.setCompanyId(companyId);
 		}
-		List<String> list = loginService.getUrlByUserid(user.getUserid());
+		List<String> list = loginService.getUrlByRoleId(user.getRoleId());
 		user.setUserUrlList(list);
 		result.setCode("0");
 		result.setMessage("success");
@@ -143,7 +144,6 @@ public class ManageLoginController {
 		result.setCode(Code.CODE_SUCCESS);
 		result.setMessage("success");
 		result.getData().put("menuList", list);
-		result.getData().put("loginUser", user);
 		JsonUtil.output(response, result);
 	}
 
@@ -180,6 +180,57 @@ public class ManageLoginController {
 		} catch (Exception e) {
 
 		}
+	}
 
+	/**
+	 * 加载用户角色列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/inner/sys/userRoleList")
+	public void userRoleList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Result result = new Result();
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+		String userid = admin.getUserid();
+		List<SysUserOrgRole> list = loginService.getUserOrgRolelistByUserid(userid);
+		result.getData().put("list", list);
+		result.getData().put("loginUser", admin);
+		JsonUtil.output(response, result);
+	}
+
+	/**
+	 * 改变角色
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/inner/sys/changeRole")
+	public void changeRole(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Result result = new Result();
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+		String roleId = request.getParameter("userRoleOrgId");
+		List<SysUserOrgRole> list = loginService.getUserOrgRolelistByUserid(admin.getUserid());
+		if (list != null && list.size() > 0) {
+			for (SysUserOrgRole role : list) {
+				if (roleId.equals(role.getUserRoleOrgId())) {
+					admin.setRoleId(role.getRoleId());
+					admin.setRoleLvl(role.getRoleLvl());
+					admin.setRoleName(role.getRoleName());
+					admin.setRoleType(role.getRoleType());
+					admin.setOrgCategory(role.getOrgCategory());
+					admin.setOrgId(role.getOrgId());
+					admin.setOrgName(role.getOrgName());
+					admin.setOrgType(role.getOrgType());
+					admin.setParentOrgId(role.getParentOrgId());
+					admin.setParentOrgName(role.getParentOrgName());
+					admin.setUserRoleOrgId(role.getUserRoleOrgId());
+					admin.setUserUrlList(loginService.getUrlByRoleId(admin.getRoleId()));
+				}
+			}
+		}
+		JsonUtil.output(response, result);
 	}
 }
