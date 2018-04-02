@@ -78,14 +78,15 @@ public class OrgInfoController extends SupportContorller {
 				if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 					String orgId = orgInfoService.getCompanyId();
 					orgInfo.setOrgid(orgId);
+					orgInfo.setOrgCategory(OrgEnums.OrgCategory.company.getValue());
 				} else {
 					if ("top".equals(orgInfo.getParentId())) {
 						orgInfo.setParentId(admin.getCompanyId());
 					}
 					String orgId = orgInfoService.getOrgId();
 					orgInfo.setOrgid(orgId);
+					orgInfo.setOrgCategory(OrgEnums.OrgCategory.dept.getValue());
 				}
-				orgInfo.setOrgCategory(OrgEnums.OrgCategory.company.getValue());
 				orgInfo.setCompanyId(admin.getCompanyId());
 				orgInfo.setCreator(admin.getUserid());
 				orgInfoService.save(orgInfo);
@@ -185,8 +186,44 @@ public class OrgInfoController extends SupportContorller {
 		if (parentId == null || "".equals(parentId)) {
 			parentId = admin.getCompanyId();
 		}
+		String useFlag = "";
 		logger.info("list parentId:" + parentId + " - " + admin.getCompanyId());
-		list = orgInfoService.listGrid(parentId, companyId, orgType);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("parentId", parentId);
+		params.put("companyId", companyId);
+		params.put("orgType", orgType);
+		params.put("useFlag", useFlag);
+		list = orgInfoService.listGrid(params);
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+		return;
+	}
+
+	/**
+	 * jqGrid多种条件查询
+	 */
+	@RequestMapping("/inner/orgInfo/treebox")
+	public void treebox(HttpServletRequest request, HttpServletResponse response) {
+
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+		String parentId = request.getParameter("parentId");
+		String orgType = request.getParameter("orgType");
+		logger.info("list parentId:" + parentId);
+		String companyId = admin.getCompanyId();
+		logger.info("list companyId:" + companyId);
+		List<OrgInfo> list = null;
+
+		// 根节点加载
+		if (parentId == null || "".equals(parentId)) {
+			parentId = admin.getCompanyId();
+		}
+		String useFlag = "1";
+		logger.info("list parentId:" + parentId + " - " + admin.getCompanyId() + " - " + orgType + " - ");
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("parentId", parentId);
+		params.put("companyId", companyId);
+		params.put("orgType", orgType);
+		params.put("useFlag", useFlag);
+		list = orgInfoService.listGrid(params);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 		return;
 	}
@@ -197,7 +234,8 @@ public class OrgInfoController extends SupportContorller {
 	@RequestMapping("/inner/orgInfo/tree")
 	public void tree(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-		List<OrgInfo> list = orgInfoService.list(admin);
+		String orgType = request.getParameter("orgType");
+		List<OrgInfo> list = orgInfoService.list(admin, orgType);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 

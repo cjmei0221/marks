@@ -94,7 +94,25 @@ public class GoodInfo implements Serializable {
 
 	private int beforeWarnDays = 15;// 提前天数
 
+	private int point;// 可积积分
 
+	private int needPoint;// 兑换积分
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public int getNeedPoint() {
+		return needPoint;
+	}
+
+	public void setNeedPoint(int needPoint) {
+		this.needPoint = needPoint;
+	}
 
 	public int getValidDays() {
 		return validDays;

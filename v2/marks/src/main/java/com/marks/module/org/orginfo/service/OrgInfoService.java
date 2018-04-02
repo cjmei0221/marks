@@ -14,13 +14,13 @@ public interface OrgInfoService{
 	public void save(OrgInfo orgInfo);
 	public void update(OrgInfo orgInfo);
 	public void delete(String orgid);
-	public List<OrgInfo> findAll();
 	public void deleteBatch(List<String> ids);
-	public List<OrgInfo> list(SysUser admin);
+
+	public List<OrgInfo> list(SysUser admin, String orgType);
 	public PojoDomain<OrgInfo> framelist(int page_number, int page_size, Map<String, Object> param);
 	public List<OrgInfo> getChildList(String orgid);
 
-	public List<OrgInfo> listGrid(String parentid, String companyId, String orgType);
+	public List<OrgInfo> listGrid(Map<String, Object> param);
 	public List<OrgInfo> frameCombo(Map<String, Object> param);
 	/**
 	 * 获取机构ID
