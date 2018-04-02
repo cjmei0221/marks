@@ -14,7 +14,7 @@ var appInfo = {
 		keyword : "",
 		ssorgid : "",
 		s_role : null,
-		roleYwType:0
+		roleYwType : 1
 	},
 	formStatus : "new",
 };
@@ -26,11 +26,11 @@ function add() {
 	}).window("open");
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
-	$("#roleId").combobox("reload");
-	$("#roleId1").combobox("reload");
-	$("#roleYwType").val(0);
-	$("#roleId").combobox("clear");
-	
+	$("#roleType").combobox("reload");
+	$("#roleYwType").val(1);
+	$("#bind_mobile").numberbox({
+		disabled : false
+	});
 }
 
 // 编辑
@@ -40,8 +40,7 @@ function edit() {
 			title : "编辑"
 		}).window("open");
 		appInfo.formStatus = "edit";
-		$("#roleId").combobox("reload");
-		$("#roleId1").combobox("reload");
+		$("#roleType").combobox("reload");
 		$('#ff').form('load', appInfo.selectedData);
 		notEdit();
 	}
@@ -85,7 +84,7 @@ function resetPwdBtn() {
 		});
 	}
 }
-//启禁用
+// 启禁用
 function activeBtn() {
 	if (isSelectedOne(appInfo.selectedId)) {
 		$.messager.confirm('确认', '确认执行此操作吗?', function(r) {
@@ -124,6 +123,12 @@ $(function() {
 		$("#editWin").window("close");
 	});
 });
+function checkPhone(val) {
+	if (!(/^1[34578]\d{9}$/.test(val))) {
+		return false;
+	}
+	return true;
+}
 /**
  * 保存菜单
  */
@@ -132,16 +137,22 @@ function formSubmit() {
 		showMsg("表单校验不通过");
 		return;
 	}
-	
 	var roleId = $("#roleId").combobox("getValue");
 	if (roleId == null || roleId == '') {
-		showMsg("默认角色为空");
+		showMsg("默认职位为空");
+		return;
+	}
+	var phoneVar = checkPhone($("#bind_mobile").val());
+	if (!phoneVar) {
+		showMsg("手机号码格式有误，请重填");
 		return;
 	}
 
-
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
+	$("#bind_mobile").numberbox({
+		disabled : false
+	});
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	$.post(reqUrl, parms, function(data) {
@@ -163,6 +174,13 @@ function formSubmit() {
 			showMsg(data.retmsg);
 		}
 	});
+}
+function notEdit() {
+	if (appInfo.formStatus != "new") {
+		$("#bind_mobile").numberbox({
+			disabled : true
+		});
+	}
 }
 function loadList() {
 	$('#tbList').datagrid({
@@ -186,7 +204,7 @@ function loadList() {
 			field : 'userCode',
 			width : 120
 		}, {
-			title : '登陆账号',
+			title : '绑定手机',
 			field : 'bind_mobile',
 			width : 100,
 			align : "center"
@@ -212,11 +230,11 @@ function loadList() {
 			field : 'roleName',
 			width : 100,
 			align : "center"
-//		}, {
-//			title : '所属组织',
-//			field : 'orgName',
-//			width : 100,
-//			align : "center"
+		}, {
+			title : '所属组织',
+			field : 'orgName',
+			width : 100,
+			align : "center"
 		}, {
 			title : '激活标识',
 			field : 'activeFlag',
@@ -261,7 +279,7 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
-//		appInfo.requestParam.ssorgid = $("#ssorgid").combotree("getValue");
+		appInfo.requestParam.ssorgid = $("#ssorgid").combotree("getValue");
 		appInfo.requestParam.s_role = $("#s_role").combotree("getValue");
 		$.ajax({
 			url : opts.url,

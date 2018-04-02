@@ -13,7 +13,7 @@ var appInfo = {
 		page_size : 10,
 		keyword : "",
 		s_lvl : "",
-		roleYwType :0
+		roleYwType : 2
 	},
 	formStatus : "new",
 	isDeveloper : 0
@@ -29,14 +29,10 @@ function add() {
 	$('#userTypeTr').show();
 	$('#showFlagTr').show();
 	$('#delFlagTr').show();
-	$("#roleYwType").val(0);
+	$("#roleYwType").val(2);
 	$("#showFlag").combobox("setValue", 1);
 	$("#delFlag").combobox("setValue", 1);
-	if (appInfo.isDeveloper == 1) {
-		$('#showFlagTr').show();
-	} else {
-		$('#showFlagTr').hide();
-	}
+	$('#showFlagTr').hide();
 }
 
 // 编辑
@@ -52,16 +48,10 @@ function edit() {
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
 		$('#userTypeTr').hide();
-		if (appInfo.isDeveloper == 1) {
-			$('#showFlagTr').show();
-			$('#delFlagTr').show();
+		if (appInfo.selectedData.delFlag == 0) {
+			$('#delFlagTr').hide();
 		} else {
-			$('#showFlagTr').hide();
-			if (appInfo.selectedData.delFlag == 0) {
-				$('#delFlagTr').hide();
-			} else {
-				$('#delFlagTr').show();
-			}
+			$('#delFlagTr').show();
 		}
 	}
 }
@@ -104,12 +94,6 @@ function addFunc() {
 $(function() {
 	// 加载列表
 	loadList();
-
-	if (appInfo.isDeveloper == 1) {
-		$("#tbList").datagrid("showColumn", "showFlag");
-	} else {
-		$("#tbList").datagrid("hideColumn", "showFlag");
-	}
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
@@ -198,17 +182,6 @@ function loadList() {
 				return "L" + value;
 			}
 		}, {
-			title : '用户维护标识',
-			field : 'showFlag',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if (value == 0) {
-					return "单独维护";
-				}
-				return "统一维护";
-			}
-		}, {
 			title : '删除标识',
 			field : 'delFlag',
 			width : 100,
@@ -244,11 +217,6 @@ function loadList() {
 			appInfo.selectedData = rowData;
 		},
 		onLoadSuccess : function(data) {
-			if (appInfo.isDeveloper == 1) {
-				$("#tbList").datagrid("showColumn", "showFlag");
-			} else {
-				$("#tbList").datagrid("hideColumn", "showFlag");
-			}
 			$("#tbList").datagrid('unselectAll');
 			appInfo.selectedData = {};
 		}
@@ -312,26 +280,28 @@ function saveFuncList(roleId) {
 	});
 }
 
-//全选按钮
-function getAll(row){
-	if(row.children.length > 0){
-		 for(var i = 0 ; i < row.children.length; i++){
-			 if(row.children[i].oper_list.length>0){
-				 for (var j = 0; j < row.children[i].oper_list.length; j++) {
-					 if($("#"+row.menuid).is(':checked')){
-						 $("#" + row.children[i].oper_list[j].funcid + "").prop('checked',true);
-					 }else{
-						 $("#" + row.children[i].oper_list[j].funcid + "").prop('checked',false);
-					 }
-					
-				 }
-			 }
-		 }
-		 
-	}else if(row.oper_list.length > 0){
-		for(var i = 0 ; i < row.oper_list.length; i++){
-			$("#" + row.oper_list[i].funcid + "").prop('checked',true);
-		 }
+// 全选按钮
+function getAll(row) {
+	if (row.children.length > 0) {
+		for (var i = 0; i < row.children.length; i++) {
+			if (row.children[i].oper_list.length > 0) {
+				for (var j = 0; j < row.children[i].oper_list.length; j++) {
+					if ($("#" + row.menuid).is(':checked')) {
+						$("#" + row.children[i].oper_list[j].funcid + "").prop(
+								'checked', true);
+					} else {
+						$("#" + row.children[i].oper_list[j].funcid + "").prop(
+								'checked', false);
+					}
+
+				}
+			}
+		}
+
+	} else if (row.oper_list.length > 0) {
+		for (var i = 0; i < row.oper_list.length; i++) {
+			$("#" + row.oper_list[i].funcid + "").prop('checked', true);
+		}
 	}
 }
 
@@ -347,7 +317,7 @@ function funcList(roleId) {
 						idField : 'menuid',
 						treeField : 'menuitem',
 						toolbar : [ {
-							text : "保存",
+							text : "默认功能保存",
 							iconCls : "icon-save",
 							handler : function() {
 								saveFuncList(roleId);
@@ -369,16 +339,21 @@ function funcList(roleId) {
 							width : 350,
 							formatter : function(value, row, index) {
 								var str = "";
-								if(row.children.length>0){
-									str = '<label><input type="checkbox" name="" checked="checked"  id="'+row.menuid+'" onclick=getAll('+JSON.stringify(row)+') '
-									+'/>'
-									+ '全选'
-									+ ' </label>';
+								if (row.children.length > 0) {
+									str = '<label><input type="checkbox" name="" checked="checked"  id="'
+											+ row.menuid
+											+ '" onclick=getAll('
+											+ JSON.stringify(row)
+											+ ') '
+											+ '/>'
+											+ '全选' + ' </label>';
 								}
 								var funcList = row.oper_list;
 								if (funcList.length > 0) {
 									for (var i = 0; i < funcList.length; i++) {
-										str += '<label><input name="funcId" type="checkbox" id="'+funcList[i].funcid+'" value="'
+										str += '<label><input name="funcId" type="checkbox" id="'
+												+ funcList[i].funcid
+												+ '" value="'
 												+ funcList[i].funcid
 												+ '" '
 												+ funcList[i].state
@@ -400,16 +375,18 @@ function funcList(roleId) {
 						onLoadSuccess : function(row, data) {
 							var list = data.rows;
 							for (var i = 0; i < list.length; i++) {
-								if(list[i].children.length > 0 ){
-									for(var j = 0; j< list[i].children.length; j++){
-										if(list[i].children[j].oper_list.length > 0){
-											for(var k = 0; k< list[i].children[j].oper_list.length; k++){
-												if(!list[i].children[j].oper_list[k].state){
-													$("#"+list[i].menuid).prop("checked",false);
+								if (list[i].children.length > 0) {
+									for (var j = 0; j < list[i].children.length; j++) {
+										if (list[i].children[j].oper_list.length > 0) {
+											for (var k = 0; k < list[i].children[j].oper_list.length; k++) {
+												if (!list[i].children[j].oper_list[k].state) {
+													$("#" + list[i].menuid)
+															.prop("checked",
+																	false);
 													break;
 												}
 											}
-											
+
 										}
 									}
 								}

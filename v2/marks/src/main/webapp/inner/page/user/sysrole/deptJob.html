@@ -26,27 +26,23 @@
 <body>
 
 	<div id="mainPanel">
-		<div id="tb" style="padding: 5px 0;">
-			<table>
-				<tr>
-					<td>用户级别： <input id="s_lvl" name="s_lvl"
-						class="easyui-combobox"
-						data-options="valueField:'id',textField:'text',url:'/t/inner/sysRole/lvl.do'"
-						style="width: 200px" />
-					</td>
-					<td><input type="text" id="keyword" name="keyword"
-						style="width: 260px;" placeholder="关键字" /></td>
-					<td><a id="doSearch" href="javascript:void(0)"
-						class="easyui-linkbutton menuBtnCls"
-						data-options="iconCls:'icon-search'">查询</a></td>
-				</tr>
-			</table>
-			<div>
-				<span id="operateBtns"></span>
+		<div id="cc" class="easyui-layout" style="width: 100%; height: 620px;">
+			<div data-options="region:'west',title:'部门',collapsible:false"
+				style="width: 150px">
+				<ul id="typeTree">
+				</ul>
+			</div>
+			<div data-options="region:'center',title:'职位'"
+				style="background: #eee; width: 100%;">
+				<div id="tb" style="display: none;">
+					<div>
+						<span id="operateBtns"></span>
+					</div>
+				</div>
+				<table id="tbList">
+				</table>
 			</div>
 		</div>
-		<table id="tbList">
-		</table>
 	</div>
 
 	<div id="editWin" class="easyui-window"
@@ -58,19 +54,20 @@
 		style="width: 500px; height: 300px; padding: 10px;">
 		<div align="center" style="width: 100%;">
 			<form id="ff" name="ff" method="post">
-				<input type="hidden" id="roleid" name="roleid">
-				<input type="hidden" id="roleYwType" name="roleYwType">
+				<input type="hidden" id="roleid" name="roleid"> <input
+					type="hidden" id="roleYwType" name="roleYwType">
 				<table>
 					<tr>
 						<td colspan="2" style="text-align: center; color: red;">层级越高，级别越低，级别高的不能编辑级别低的</td>
 					</tr>
 					<tr id="userTypeTr">
-						<th align="right" style="width: 100px">编号</th>
+						<th align="right" style="width: 100px">职位</th>
 						<td><input id="roleType" name="roleType"
-							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px">&nbsp;(<span style="color: red;">新增之后不可编辑</span>)</td>
+						class="easyui-combobox"
+						data-options="valueField:'roleType',textField:'rolename',url:'/t/inner/sysRole/combo.do?roleYwType=2'"
+						style="width: 200px">&nbsp;(<span style="color: red;">新增之后不可编辑</span>)</td>
 					</tr>
-					<tr>
+					<tr style="display:none;">
 						<th align="right" style="width: 100px">名称</th>
 						<td><input id="rolename" name="rolename"
 							class="easyui-validatebox" data-options="required:true"
@@ -129,5 +126,5 @@
 	</div>
 
 </body>
-<script src="js/sysRole.js"></script>
+<script src="js/deptJob.js"></script>
 </html>

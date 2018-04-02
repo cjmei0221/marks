@@ -365,6 +365,11 @@ function loadList() {
 									width : 100,
 									align : "center"
 								}, {
+									title : '原价',
+									field : 'price',
+									width : 100,
+									align : "center"
+								}, {
 									title : '售价',
 									field : 'salePrice',
 									width : 100,
@@ -375,13 +380,18 @@ function loadList() {
 									width : 100,
 									align : "center"
 								}, {
-									title : '原价',
-									field : 'price',
+									title : '进货价',
+									field : 'costPrice',
 									width : 100,
 									align : "center"
 								}, {
-									title : '进货价',
-									field : 'costPrice',
+									title : '积分',
+									field : 'point',
+									width : 100,
+									align : "center"
+								}, {
+									title : '兑换积分',
+									field : 'needPoint',
 									width : 100,
 									align : "center"
 								}, {

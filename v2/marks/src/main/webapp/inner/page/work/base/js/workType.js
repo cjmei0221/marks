@@ -78,7 +78,7 @@ function addStep(typeId,status) {
 	$("#stepTypeId").val(typeId);
 }
 function loadRoleList() {
-	var parms = "";
+	var parms = "roleYwType=1";
 	$.post(appInfo.listRoleUrl, parms, function(data) {
 		appInfo.roleListData = data;
 	});
