@@ -8,12 +8,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.login.dao.LoginDao;
 import com.marks.module.user.login.service.LoginService;
 import com.marks.module.user.sysuser.pojo.SysUser;
+import com.marks.module.user.sysuser.pojo.SysUserOrgRole;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -40,8 +40,8 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List<String> getUrlByUserid(String userid) {
-		return loginDao.getUrlByUserid(userid);
+	public List<String> getUrlByRoleId(String userid) {
+		return loginDao.getUrlByRoleId(userid);
 	}
 
 	@Override
@@ -134,19 +134,13 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List<String> getOrgidBySysUser(List<OrgInfo> orglist) {
-
-		return loginDao.getOrgidBySysUser(orglist);
-	}
-
-	@Override
-	public List<OrgInfo> getOrgInfoListByUserid(String userid) {
-		return loginDao.getOrgInfoListByUserid(userid);
-	}
-
-	@Override
 	public SysUser getSysUserByOpenidAndAccountid(String accountid, String openid) {
 		return loginDao.getSysUserByOpenidAndAccountid(accountid, openid);
+	}
+
+	@Override
+	public List<SysUserOrgRole> getUserOrgRolelistByUserid(String userid) {
+		return loginDao.getUserOrgRolelistByUserid(userid);
 	}
 
 }

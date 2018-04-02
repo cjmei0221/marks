@@ -2,10 +2,10 @@ package com.marks.module.user.login.service;
 
 import java.util.List;
 
-import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
 import com.marks.module.user.sysuser.pojo.SysUser;
+import com.marks.module.user.sysuser.pojo.SysUserOrgRole;
 
 /**
  * 登录服务层接口
@@ -23,10 +23,6 @@ public interface LoginService {
 	List<SysMenu> getSysMenuOfSysUser(SysUser user);
 
 	List<SysOperate> getSysOperate(String menuid,SysUser user);
-
-	List<String> getOrgidBySysUser(List<OrgInfo> orgInfo);
-
-	List<OrgInfo> getOrgInfoListByUserid(String userid);
 	/**
 	 * 根据openid和accountid获取系统用户
 	 * @param accountid
@@ -35,8 +31,10 @@ public interface LoginService {
 	 */
 	SysUser getSysUserByOpenidAndAccountid(String accountid, String openid);
 
-	List<String> getUrlByUserid(String userid);
+	List<String> getUrlByRoleId(String userid);
 
 	SysUser findSysUserByUserid(String userid);
+
+	List<SysUserOrgRole> getUserOrgRolelistByUserid(String userid);
 
 }

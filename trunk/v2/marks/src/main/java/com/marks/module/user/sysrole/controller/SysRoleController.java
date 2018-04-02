@@ -73,9 +73,17 @@ public class SysRoleController extends SupportContorller {
 			sysRole.setCreator(admin.getUserid());
 			String companyId = admin.getCompanyId();
 			sysRole.setCompanyId(companyId);
-			SysRole ori = sysRoleService.findByUserTypeAndCompanyId(sysRole.getRoleType(), sysRole.getCompanyId());
+
+			if (0 == sysRole.getRoleYwType() || 2 == sysRole.getRoleYwType()) {
+				sysRole.setOrgId(sysRole.getCompanyId());
+			}
+			if (null == sysRole.getOrgId() || "".equals(sysRole.getOrgId())) {
+				sysRole.setOrgId(sysRole.getCompanyId());
+			}
+			sysRole.setRoleid(sysRole.getOrgId() + "_" + sysRole.getRoleType());
+
+			SysRole ori = sysRoleService.findById(sysRole.getRoleid());
 			if (ori == null) {
-				sysRole.setRoleid(sysRole.getCompanyId() + "_" + sysRole.getRoleType());
 				sysRoleService.save(sysRole);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
@@ -120,15 +128,15 @@ public class SysRoleController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
-			SysRole ori2 = sysRoleService.findByUserTypeAndCompanyId(sysRole.getRoleType(), sysRole.getCompanyId());
-			if (ori2 != null && !ori2.getRoleid().equals(sysRole.getRoleid())) {
-				result.setMessage("此记录已存在!");
-				result.setCode(Code.CODE_FAIL);
-			} else {
+//			SysRole ori2 = sysRoleService.findByUserTypeAndCompanyId(sysRole.getRoleType(), sysRole.getCompanyId());
+//			if (ori2 != null && !ori2.getRoleid().equals(sysRole.getRoleid())) {
+//				result.setMessage("此记录已存在!");
+//				result.setCode(Code.CODE_FAIL);
+//			} else {
 				sysRoleService.update(sysRole);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
-			}
+//			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");
@@ -230,9 +238,8 @@ public class SysRoleController extends SupportContorller {
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");
 			String s_lvl = request.getParameter("s_lvl");
-			if (keyword == null) {
-				keyword = "";
-			}
+			String roleYwType = request.getParameter("roleYwType");
+			String orgId = request.getParameter("orgId");
 			// String loginUserRoleId = admin.getRoleId();
 			String loginUserRoleId = "";
 			String companyId = admin.getCompanyId();
@@ -244,7 +251,9 @@ public class SysRoleController extends SupportContorller {
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("s_lvl", s_lvl);
+			param.put("roleYwType", roleYwType);
 			param.put("companyId", companyId);
+			param.put("orgId", orgId);
 			param.put("lvl", admin.getRoleLvl());
 			param.put("loginUserRoleId", loginUserRoleId);
 			PojoDomain<SysRole> list = sysRoleService.list(page_number, page_size, param);
@@ -310,7 +319,7 @@ public class SysRoleController extends SupportContorller {
 					funcList.add(funcId);
 				}
 			}
-			sysRoleService.saveSysFuncByRoleId(admin, roleId, funcList);
+			sysRoleService.saveSysFuncByRoleId(roleId, funcList);
 			result.setMessage("find sysRole successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -342,9 +351,18 @@ public class SysRoleController extends SupportContorller {
 		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		Map<String, Object> param = new HashMap<String, Object>();
 		String companyId = admin.getCompanyId();
+		String roleYwType = request.getParameter("roleYwType");
+		String orgId = request.getParameter("orgId");
 		param.put("companyId", companyId);
 		param.put("lvl", admin.getRoleLvl());
+		param.put("roleYwType", roleYwType);
+		param.put("orgId", orgId);
 		List<SysRole> list = sysRoleService.getUserlist(param);
+		SysRole info = new SysRole();
+		info.setRolename("未选择");
+		info.setRoleid("");
+		info.setRoleType("");
+		list.add(0, info);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 }

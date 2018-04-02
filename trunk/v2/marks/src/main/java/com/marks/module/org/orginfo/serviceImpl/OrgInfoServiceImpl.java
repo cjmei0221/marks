@@ -99,7 +99,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 			orgInfo.setParentId("0");
 			orgInfo.setLvl(1);
-		} else if (OrgEnums.OrgType.common.getValue() == orgInfo.getOrgType()) {
+		} else {
 			OrgInfo parentVo = this.findById(orgInfo.getParentId());
 			orgInfo.setParentName(parentVo.getOrgname());
 			orgInfo.setLvl(parentVo.getLvl() + 1);
@@ -156,14 +156,6 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	}
 
 	/**
-	 * 查找所有机构管理
-	 */
-	@Override
-	public List<OrgInfo> findAll() {
-		return orgInfoDao.findAll(null);
-	}
-
-	/**
 	 * 删除多个机构管理
 	 */
 	@Override
@@ -172,12 +164,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	}
 
 	@Override
-	public List<OrgInfo> listGrid(String parentId, String companyId, String orgType) {
-		return orgInfoDao.getTreeGridByParentId(parentId, companyId, orgType);
+	public List<OrgInfo> listGrid(Map<String, Object> param) {
+		return orgInfoDao.getTreeGridByParentId(param);
 	}
 
-	public List<OrgInfo> list(SysUser admin) {
-		List<OrgInfo> allList = orgInfoDao.findAll(admin.getCompanyId());
+	public List<OrgInfo> list(SysUser admin, String orgType) {
+		List<OrgInfo> allList = orgInfoDao.findAll(admin.getCompanyId(), orgType);
 		List<OrgInfo> list = new ArrayList<OrgInfo>();
 		for (OrgInfo vo : allList) {
 			if (admin.getCompanyId().equals(vo.getOrgid())) {
