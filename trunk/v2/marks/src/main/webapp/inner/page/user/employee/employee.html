@@ -35,7 +35,12 @@
 				<tr>
 					<td>用户类型
 						<ul id="s_role" name="s_role" class="easyui-combobox"
-							data-options="valueField:'roleid',textField:'rolename',url:'/t/inner/sysRole/combo.do?roleYwType=0'"
+							data-options="valueField:'roleid',textField:'showName',url:'/t/inner/sysRole/combo.do?roleYwType=0'"
+							style="width: 200px"></ul>
+					</td>
+					<td>所属组织
+						<ul id="ssorgid" name="ssorgid" class="easyui-combotree"
+							data-options="url:'/t/inner/orgInfo/tree.do?orgType=0,1'"
 							style="width: 200px"></ul>
 					</td>
 					<td><input type="text" id="keyword" name="keyword"
@@ -59,22 +64,33 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 500px; height: 300px; padding: 10px;">
+		style="width: 500px; height: 400px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
-			<input type="hidden" id="userid" name="userid">
-			<input type="hidden" id="roleYwType" name="roleYwType">
+			<input type="hidden" id="userid" name="userid"> <input
+				type="hidden" id="roleYwType" name="roleYwType">
 			<table class="out-win-cls">
 				<tr>
-					<th>默认角色（必填）</th>
-					<td><input id="roleId" name="roleId"
-						class="easyui-combobox"
-						data-options="required:true,valueField:'roleid',textField:'rolename',url:'/t/inner/sysRole/combo.do?roleYwType=0'"
+					<th>默认职位</th>
+					<td><input id="roleId" name="roleId" class="easyui-combobox"
+						data-options="required:true,valueField:'roleid',textField:'showName',url:'/t/inner/sysRole/combo.do?roleYwType=1'"
 						style="width: 200px"></td>
 				</tr>
 				<tr>
-					<th>登陆账号</th>
+					<th>职位2</th>
+					<td><input id="roleId1" name="roleId1" class="easyui-combobox"
+						data-options="valueField:'roleid',textField:'showName',url:'/t/inner/sysRole/combo.do?roleYwType=1'"
+						style="width: 200px"></td>
+				</tr>
+				<tr>
+					<th>职位3</th>
+					<td><input id="roleId2" name="roleId2" class="easyui-combobox"
+						data-options="valueField:'roleid',textField:'showName',url:'/t/inner/sysRole/combo.do?roleYwType=1'"
+						style="width: 200px"></td>
+				</tr>
+				<tr>
+					<th>手机号码</th>
 					<td><input id="bind_mobile" name="bind_mobile"
-						class="easyui-validatebox"
+						class="easyui-numberbox"
 						data-options="required:true,min:10000000000,precision:0"
 						style="width: 200px;"></td>
 				</tr>
@@ -84,9 +100,11 @@
 						class="easyui-validatebox" data-options="required:true"
 						maxlength="50" style="width: 200px;"></td>
 				</tr>
-
 				<tr>
-					<td colspan="2" style="text-align: center"><a id="btnCancel"
+					<td colspan="2" style="text-align: center; height: 25px;"></td>
+				</tr>
+				<tr>
+					<td colspan="3" style="text-align: center"><a id="btnCancel"
 						name="btnCancel" href="javascript:void(0)"
 						class="easyui-linkbutton" style="width: 100px;"
 						data-options="iconCls:'icon-cancel'">取消</a>
@@ -98,5 +116,5 @@
 		</form>
 	</div>
 </body>
-<script src="js/sysUser.js"></script>
+<script src="js/employee.js"></script>
 </html>

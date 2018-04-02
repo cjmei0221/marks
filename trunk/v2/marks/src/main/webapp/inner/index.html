@@ -84,10 +84,12 @@
 	<div data-options="region:'north'" style="height: 50px">
 		<table style="width: 100%; height: 100%;">
 			<tr>
-				<td width="12%" valign="center" align="center"><span
+				<td width="200px" valign="center" align="center"><span
 					class="sysName">管理平台</span></td>
-				<td width="77%" valign="center"><div id="parentMenu"></div></td>
-				<td width="100px"> <span id="loginUserName"></span></td>
+				<td width="900px" valign="center"><div id="parentMenu"></div></td>
+				<td width="100px"><span id="loginUserName"></span></td>
+				<td width="200px"><input id="roleType" class="easyui-combobox"
+					name="roleType" style="width:200px;"></td>
 				<td valign="center" align="center" width="53px" id="logout"
 					class="loginout"><div>退出</div></td>
 				<td width="20px"></td>
@@ -128,8 +130,44 @@
 		var appInfo = {
 			menuUrl : top.window.urlBase + "/inner/sys/menu.do",
 			logoutUrl : top.window.urlBase + "/inner/logout.do",
+			userInfoUrl : top.window.urlBase + "/inner/sys/userRoleList.do",//加载用户基本信息
+			changeRoleUrl : top.window.urlBase + "/inner/sys/changeRole.do",//加载用户基本信息
 			menuList : []
 		}
+		function loadUserInfo() {
+			$.ajax({
+				type : "GET",
+				url : appInfo.userInfoUrl,
+				success : function(data) {
+					if (data.retcode == "0") {
+						$("#loginUserName").html(data.loginUser.username);
+						$('#roleType').combobox({
+							data : data.list,
+							valueField : 'userRoleOrgId',
+							textField : 'showName',
+							panelHeight:'auto',
+							onSelect : function(rec) {
+								var id=rec.userRoleOrgId;
+								if(id != data.loginUser.userRoleOrgId){
+									var parms="userRoleOrgId="+id;
+									$.post(appInfo.changeRoleUrl, parms, function(data) {
+										if (data.retcode == '0') {
+											location.reload();
+										} else {
+											showMsg(data.retmsg);
+										}
+									});
+								}
+							}
+						});
+						$('#roleType').combobox("setValue",
+								data.loginUser.userRoleOrgId);
+					}
+				}
+			});
+
+		}
+
 		//添加面板
 		/* var index = 0;
 		function addPanel() {
@@ -171,7 +209,6 @@
 					checkLogin(data);
 					if (data.retcode == "0") {
 						//赋值登录用户信息
-						$("#loginUserName").html(data.loginUser.username);
 						appInfo.menuList = data.menuList;
 						if (appInfo.menuList.length > 0) {
 							console.log(appInfo.menuList[0].menuid);
@@ -269,6 +306,7 @@
 			});
 		}
 		$(function() {
+			loadUserInfo();
 			loadMenu();
 			$("#logout").on("click", function() {
 				logoutFunc();

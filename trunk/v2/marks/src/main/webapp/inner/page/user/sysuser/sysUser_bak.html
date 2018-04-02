@@ -35,7 +35,12 @@
 				<tr>
 					<td>用户类型
 						<ul id="s_role" name="s_role" class="easyui-combobox"
-							data-options="valueField:'roleid',textField:'rolename',url:'/t/inner/sysRole/combo.do?roleYwType=0'"
+							data-options="valueField:'roleid',textField:'rolename',url:'/t/inner/sysRole/combo.do'"
+							style="width: 200px"></ul>
+					</td>
+					<td>所属组织
+						<ul id="ssorgid" name="ssorgid" class="easyui-combotree"
+							data-options="url:'/t/inner/orgInfo/tree.do'"
 							style="width: 200px"></ul>
 					</td>
 					<td><input type="text" id="keyword" name="keyword"
@@ -62,21 +67,23 @@
 		style="width: 500px; height: 300px; padding: 10px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="userid" name="userid">
-			<input type="hidden" id="roleYwType" name="roleYwType">
 			<table class="out-win-cls">
 				<tr>
-					<th>默认角色（必填）</th>
-					<td><input id="roleId" name="roleId"
-						class="easyui-combobox"
-						data-options="required:true,valueField:'roleid',textField:'rolename',url:'/t/inner/sysRole/combo.do?roleYwType=0'"
+					<th>用户角色</th>
+					<td><input
+						id="roleType" name="roleType" class="easyui-combobox"
+						data-options="required:true,valueField:'roleType',textField:'rolename',url:'/t/inner/sysRole/combo.do'"
 						style="width: 200px"></td>
 				</tr>
 				<tr>
-					<th>登陆账号</th>
+					<th>所属组织</th>
+					<td><a href="javascript:;" id="chooseOrg">选择组织</a></td>
+				</tr>
+				<tr>
+					<th>手机号码</th>
 					<td><input id="bind_mobile" name="bind_mobile"
-						class="easyui-validatebox"
-						data-options="required:true,min:10000000000,precision:0"
-						style="width: 200px;"></td>
+						class="easyui-numberbox"
+						data-options="required:true,min:10000000000,precision:0" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th>用户名称</th>
@@ -85,18 +92,45 @@
 						maxlength="50" style="width: 200px;"></td>
 				</tr>
 
+				<tr style="display: none;">
+					<th>口令</th>
+					<td><input id="token" name="token" class="easyui-validatebox"></td>
+				</tr>
+
+
 				<tr>
 					<td colspan="2" style="text-align: center"><a id="btnCancel"
-						name="btnCancel" href="javascript:void(0)"
-						class="easyui-linkbutton" style="width: 100px;"
-						data-options="iconCls:'icon-cancel'">取消</a>
-						&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
-						href="javascript:void(0)" class="easyui-linkbutton"
-						style="width: 100px;" data-options="iconCls:'icon-save'">保存</a></td>
+							name="btnCancel" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;"
+							data-options="iconCls:'icon-cancel'">取消</a>
+							&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+							href="javascript:void(0)" class="easyui-linkbutton"
+							style="width: 100px;" data-options="iconCls:'icon-save'">保存</a></td>
 				</tr>
 			</table>
+
+			<div id="orgWin" class="easyui-window"
+				data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false,inline:false"
+				style="width: 600px; height: 500px; padding: 10px;">
+				<table id="orgList"></table>
+				<div style="color:red">第一个所选组织为默认所属组织</div>
+				已选：
+				<div id="inputDiv" style="height: 80px;">
+					<!-- 公司：<input id="companyId" name="companyId" readonly="readonly"> -->
+					<div id="inputOrgDiv"></div>
+					<div align="center">
+						<a id="orgBtn" name="orgBtn"
+							href="javascript:void(0)" class="easyui-linkbutton"
+							style="width: 100px;" data-options="iconCls:'icon-save'">确定</a>
+					</div>
+				</div>
+			</div>
 		</form>
 	</div>
 </body>
-<script src="js/sysUser.js"></script>
+<script src="js/sysUser_bak.js"></script>
 </html>

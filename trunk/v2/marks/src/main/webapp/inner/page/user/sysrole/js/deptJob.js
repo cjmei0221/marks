@@ -6,14 +6,19 @@ var appInfo = {
 	deleteUrl : top.window.urlBase + '/inner/sysRole/delete.do',// 删除角色管理接口
 	funcListUrl : top.window.urlBase + '/inner/sysRole/funclist.do',// 删除角色管理接口
 	funcSaveUrl : top.window.urlBase + '/inner/sysRole/funcSave.do',// 删除角色管理接口
+	orglistUrl : top.window.urlBase + '/inner/orgInfo/list.do',
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
 		keyword : "",
-		s_lvl : "",
-		roleYwType :0
+		orgId : "",
+		roleYwType : 1
+	},
+	treeData : {
+		treeNo : "",
+		treeName : ""
 	},
 	formStatus : "new",
 	isDeveloper : 0
@@ -21,6 +26,10 @@ var appInfo = {
 
 // 新增
 function add() {
+	if (appInfo.treeData.treeNo == null || appInfo.treeData.treeNo == '') {
+		showMsg("请先选择部门");
+		return;
+	}
 	$("#editWin").window({
 		title : "新增"
 	}).window("open");
@@ -28,15 +37,11 @@ function add() {
 	appInfo.formStatus = "new";
 	$('#userTypeTr').show();
 	$('#showFlagTr').show();
-	$('#delFlagTr').show();
-	$("#roleYwType").val(0);
+	$('#delFlagTr').hide();
+	$("#roleYwType").val(1);
 	$("#showFlag").combobox("setValue", 1);
 	$("#delFlag").combobox("setValue", 1);
-	if (appInfo.isDeveloper == 1) {
-		$('#showFlagTr').show();
-	} else {
-		$('#showFlagTr').hide();
-	}
+	$('#showFlagTr').hide();
 }
 
 // 编辑
@@ -52,16 +57,10 @@ function edit() {
 		appInfo.formStatus = "edit";
 		$('#ff').form('load', appInfo.selectedData);
 		$('#userTypeTr').hide();
-		if (appInfo.isDeveloper == 1) {
-			$('#showFlagTr').show();
-			$('#delFlagTr').show();
+		if (appInfo.selectedData.delFlag == 0) {
+			$('#delFlagTr').hide();
 		} else {
-			$('#showFlagTr').hide();
-			if (appInfo.selectedData.delFlag == 0) {
-				$('#delFlagTr').hide();
-			} else {
-				$('#delFlagTr').show();
-			}
+			$('#delFlagTr').hide();
 		}
 	}
 }
@@ -103,13 +102,8 @@ function addFunc() {
 
 $(function() {
 	// 加载列表
+	loadTypeTree();
 	loadList();
-
-	if (appInfo.isDeveloper == 1) {
-		$("#tbList").datagrid("showColumn", "showFlag");
-	} else {
-		$("#tbList").datagrid("hideColumn", "showFlag");
-	}
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
@@ -124,6 +118,12 @@ $(function() {
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
 	});
+	$("#roleType").combobox({
+		onSelect : function(rec) {
+			$("#rolename").val(rec.rolename);
+			$("#lvl").combobox("setValue", rec.lvl);
+		}
+	});
 });
 /**
  * 保存菜单
@@ -136,6 +136,8 @@ function formSubmit() {
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
 	var parms = $("#ff").serialize();
+	parms += "&orgId=" + appInfo.treeData.treeNo;
+	parms += "&orgName=" + appInfo.treeData.treeName;
 	parms += "&formStatus=" + appInfo.formStatus;
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
@@ -156,6 +158,25 @@ function formSubmit() {
 			showMsg(data.retmsg);
 		}
 	});
+}
+
+function loadTypeTree() {
+	$('#typeTree').tree(
+			{
+				url : appInfo.orglistUrl + "?orgType=0",
+				onBeforeExpand : function(node) {
+					$("#typeTree").tree("options").url = appInfo.orglistUrl
+							+ "?parentId=" + node.id + "&orgType=0&_timer="
+							+ new Date().getTime();
+				},
+				onClick : function(node) {
+					appInfo.treeData.treeNo = node.id;
+					appInfo.treeData.treeName = node.text;
+					app.myreload("#tbList");
+					appInfo.selectedData = {};
+					appInfo.selectedId = -1;
+				}
+			});
 }
 
 function loadList() {
@@ -184,11 +205,11 @@ function loadList() {
 			field : 'rolename',
 			width : 100,
 			align : "center"
-		// }, {
-		// title : '组织',
-		// field : 'companyName',
-		// width : 100,
-		// align : "center"
+		}, {
+			title : '部门',
+			field : 'orgName',
+			width : 100,
+			align : "center"
 		}, {
 			title : '层级',
 			field : 'lvl',
@@ -197,28 +218,17 @@ function loadList() {
 			formatter : function(value, row, index) {
 				return "L" + value;
 			}
-		}, {
-			title : '用户维护标识',
-			field : 'showFlag',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if (value == 0) {
-					return "单独维护";
-				}
-				return "统一维护";
-			}
-		}, {
-			title : '删除标识',
-			field : 'delFlag',
-			width : 100,
-			align : "center",
-			formatter : function(value, row, index) {
-				if (value == 0) {
-					return "不可删除";
-				}
-				return "可删除";
-			}
+		// }, {
+		// title : '删除标识',
+		// field : 'delFlag',
+		// width : 100,
+		// align : "center",
+		// formatter : function(value, row, index) {
+		// if (value == 0) {
+		// return "不可删除";
+		// }
+		// return "可删除";
+		// }
 		}, {
 			title : '创建时间',
 			field : 'createtime',
@@ -244,11 +254,6 @@ function loadList() {
 			appInfo.selectedData = rowData;
 		},
 		onLoadSuccess : function(data) {
-			if (appInfo.isDeveloper == 1) {
-				$("#tbList").datagrid("showColumn", "showFlag");
-			} else {
-				$("#tbList").datagrid("hideColumn", "showFlag");
-			}
 			$("#tbList").datagrid('unselectAll');
 			appInfo.selectedData = {};
 		}
@@ -259,7 +264,7 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
-		appInfo.requestParam.s_lvl = $("#s_lvl").combobox("getValue");
+		appInfo.requestParam.orgId = appInfo.treeData.treeNo;
 		$.ajax({
 			url : opts.url,
 			type : "get",
@@ -312,26 +317,28 @@ function saveFuncList(roleId) {
 	});
 }
 
-//全选按钮
-function getAll(row){
-	if(row.children.length > 0){
-		 for(var i = 0 ; i < row.children.length; i++){
-			 if(row.children[i].oper_list.length>0){
-				 for (var j = 0; j < row.children[i].oper_list.length; j++) {
-					 if($("#"+row.menuid).is(':checked')){
-						 $("#" + row.children[i].oper_list[j].funcid + "").prop('checked',true);
-					 }else{
-						 $("#" + row.children[i].oper_list[j].funcid + "").prop('checked',false);
-					 }
-					
-				 }
-			 }
-		 }
-		 
-	}else if(row.oper_list.length > 0){
-		for(var i = 0 ; i < row.oper_list.length; i++){
-			$("#" + row.oper_list[i].funcid + "").prop('checked',true);
-		 }
+// 全选按钮
+function getAll(row) {
+	if (row.children.length > 0) {
+		for (var i = 0; i < row.children.length; i++) {
+			if (row.children[i].oper_list.length > 0) {
+				for (var j = 0; j < row.children[i].oper_list.length; j++) {
+					if ($("#" + row.menuid).is(':checked')) {
+						$("#" + row.children[i].oper_list[j].funcid + "").prop(
+								'checked', true);
+					} else {
+						$("#" + row.children[i].oper_list[j].funcid + "").prop(
+								'checked', false);
+					}
+
+				}
+			}
+		}
+
+	} else if (row.oper_list.length > 0) {
+		for (var i = 0; i < row.oper_list.length; i++) {
+			$("#" + row.oper_list[i].funcid + "").prop('checked', true);
+		}
 	}
 }
 
@@ -369,16 +376,21 @@ function funcList(roleId) {
 							width : 350,
 							formatter : function(value, row, index) {
 								var str = "";
-								if(row.children.length>0){
-									str = '<label><input type="checkbox" name="" checked="checked"  id="'+row.menuid+'" onclick=getAll('+JSON.stringify(row)+') '
-									+'/>'
-									+ '全选'
-									+ ' </label>';
+								if (row.children.length > 0) {
+									str = '<label><input type="checkbox" name="" checked="checked"  id="'
+											+ row.menuid
+											+ '" onclick=getAll('
+											+ JSON.stringify(row)
+											+ ') '
+											+ '/>'
+											+ '全选' + ' </label>';
 								}
 								var funcList = row.oper_list;
 								if (funcList.length > 0) {
 									for (var i = 0; i < funcList.length; i++) {
-										str += '<label><input name="funcId" type="checkbox" id="'+funcList[i].funcid+'" value="'
+										str += '<label><input name="funcId" type="checkbox" id="'
+												+ funcList[i].funcid
+												+ '" value="'
 												+ funcList[i].funcid
 												+ '" '
 												+ funcList[i].state
@@ -400,16 +412,18 @@ function funcList(roleId) {
 						onLoadSuccess : function(row, data) {
 							var list = data.rows;
 							for (var i = 0; i < list.length; i++) {
-								if(list[i].children.length > 0 ){
-									for(var j = 0; j< list[i].children.length; j++){
-										if(list[i].children[j].oper_list.length > 0){
-											for(var k = 0; k< list[i].children[j].oper_list.length; k++){
-												if(!list[i].children[j].oper_list[k].state){
-													$("#"+list[i].menuid).prop("checked",false);
+								if (list[i].children.length > 0) {
+									for (var j = 0; j < list[i].children.length; j++) {
+										if (list[i].children[j].oper_list.length > 0) {
+											for (var k = 0; k < list[i].children[j].oper_list.length; k++) {
+												if (!list[i].children[j].oper_list[k].state) {
+													$("#" + list[i].menuid)
+															.prop("checked",
+																	false);
 													break;
 												}
 											}
-											
+
 										}
 									}
 								}
