@@ -65,7 +65,9 @@
 		supplier,
 		validDays,
 		isWarnDays,
-		beforeWarnDays
+		beforeWarnDays,
+		point,
+		needPoint
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -101,13 +103,17 @@
 		#{supplier:VARCHAR},
 		#{validDays:NUMERIC},
 		#{isWarnDays:NUMERIC},
-		#{beforeWarnDays:NUMERIC}
+		#{beforeWarnDays:NUMERIC},
+		#{point:NUMERIC},
+		#{needPoint:NUMERIC}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		UPDATE TB_MALL_GOOD_INFO
 		SET
+		point=#{point:NUMERIC},
+		needPoint=#{needPoint:NUMERIC},
 		validDays=#{validDays:NUMERIC},
 		isWarnDays=#{isWarnDays:NUMERIC},
 		beforeWarnDays=#{beforeWarnDays:NUMERIC},

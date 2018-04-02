@@ -22,7 +22,8 @@
 		COMPANYID,
 		delFlag,
 		orgId,
-		orgName
+		orgName,
+		roleYwType
 		)
 		VALUES(
 		#{roleid:VARCHAR},
@@ -36,7 +37,8 @@
 		#{companyId:VARCHAR},
 		#{delFlag:NUMERIC},
 		#{orgId:VARCHAR},
-		#{orgName:VARCHAR}
+		#{orgName:VARCHAR},
+		#{roleYwType:NUMERIC}
 		)
 	</insert>
 
@@ -78,17 +80,21 @@
 
 	<select id="getUserlist" resultType="com.marks.module.user.sysrole.pojo.SysRole"
 		parameterType="java.util.Map">
-		SELECT sysrole.*,o.orgname companyName
-		FROM TB_SYS_ROLE sysrole left
-		join
-		tb_org_info o on sysrole.companyId=o.orgid
+		SELECT sysrole.*
+		FROM TB_SYS_ROLE sysrole
 		WHERE 1=1
 		<if test="companyId !=null and companyId != ''">
 			and sysrole.COMPANYID = #{companyId}
 		</if>
+		<if test="roleYwType !=null and roleYwType != ''">
+			and sysrole.roleYwType = #{roleYwType}
+		</if>
+		<if test="orgId !=null and orgId != ''">
+			and sysrole.orgId = #{orgId}
+		</if>
 		and sysrole.lvl &gt;= #{lvl}
 		and sysrole.SHOWFLAG=1
-		ORDER BY sysrole.COMPANYID,sysrole.lvl
+		ORDER BY sysrole.orgId,sysrole.lvl
 	</select>
 
 	<select id="list" resultType="com.marks.module.user.sysrole.pojo.SysRole"
@@ -98,6 +104,12 @@
 		WHERE 1=1
 		<if test="companyId !=null and companyId != ''">
 			and sysrole.COMPANYID = #{companyId}
+		</if>
+		<if test="orgId !=null and orgId != ''">
+			and sysrole.orgId = #{orgId}
+		</if>
+		<if test="roleYwType !=null and roleYwType != ''">
+			and sysrole.roleYwType = #{roleYwType}
 		</if>
 		<if test="loginUserRoleId !=null and loginUserRoleId != ''">
 			and sysrole.ROLEID != #{loginUserRoleId}
@@ -128,7 +140,7 @@
 		</if>
 		and sysrole.lvl &gt;= #{lvl}
 
-		ORDER BY sysrole.COMPANYID,sysrole.UPDATETIME desc
+		ORDER BY sysrole.orgId,sysrole.UPDATETIME desc
 
 	</select>
 
@@ -178,6 +190,12 @@
 		delete from tb_sys_role_func where
 		roleid=#{roleid}
 	</delete>
+	<select id="getFuncListByRoleId" resultType="String">
+		select
+		DISTINCT tsrf.funcid
+		from tb_sys_role_func tsrf where
+		tsrf.roleid=#{roleId:VARCHAR}
+	</select>
 	<select id="getFuncList" resultType="com.marks.module.system.sysmenu.pojo.SysFunc">
 	SELECT distinct
 		tso.OPERID,
