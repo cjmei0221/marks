@@ -12,6 +12,8 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.util.Constants;
+import com.marks.module.org.orginfo.dao.OrgInfoDao;
+import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.system.sysmenu.pojo.SysFunc;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.user.login.dao.LoginDao;
@@ -24,6 +26,9 @@ import com.marks.module.user.sysuser.pojo.SysUser;
 public class SysRoleServiceImpl implements SysRoleService {
 	@Autowired
 	private LoginDao loginDao;
+
+	@Autowired
+	private OrgInfoDao orgInfoDao;
 
 	public void setLoginDao(LoginDao loginDao) {
 		this.loginDao = loginDao;
@@ -52,7 +57,16 @@ public class SysRoleServiceImpl implements SysRoleService {
 	 */
 	@Override
 	public void save(SysRole sysRole) {
+		OrgInfo info = orgInfoDao.findById(sysRole.getOrgId());
+		if (info != null) {
+			sysRole.setOrgName(info.getOrgname());
+		}
 		sysRoleDao.save(sysRole);
+		if (1 == sysRole.getRoleYwType()) {
+			String roleId = sysRole.getCompanyId() + "_" + sysRole.getRoleType();
+			List<String> funcList = sysRoleDao.getFuncListByRoleId(roleId);
+			saveSysFuncByRoleId(sysRole.getRoleid(), funcList);
+		}
 	}
 
 	/**
@@ -132,7 +146,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	
 
 	@Override
-	public void saveSysFuncByRoleId(SysUser admin, String roleId, List<String> funcList) {
+	public void saveSysFuncByRoleId(String roleId, List<String> funcList) {
 		sysRoleDao.deleteFuncByRoleid(roleId);
 		addSysFuncByRoleId(roleId,funcList);
 	}

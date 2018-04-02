@@ -45,4 +45,6 @@ public interface SysRoleDao {
 	void updateSysUserByRole(@Param("info") SysRole sysRole);
 
 	void updateSysUserRoleByRole(@Param("info") SysRole sysRole);
+
+	List<String> getFuncListByRoleId(@Param("roleId") String roleId);
 }

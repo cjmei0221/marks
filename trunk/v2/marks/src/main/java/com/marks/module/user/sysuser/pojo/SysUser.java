@@ -67,10 +67,12 @@ public class SysUser implements Serializable {
 	/**
 	 * 用户ID
 	 */
+	private String userRoleOrgId;
 	private String roleId;
 	private String roleName;
 	private String roleType;
 	private int roleLvl;
+	private int roleYwType;// 角色业务类型
 
 	private String orgId;
 	private String orgName;
@@ -93,6 +95,42 @@ public class SysUser implements Serializable {
 	private String lvlId;// 等级编号
 
 	private String lvlName;// 等级名称
+
+	private String roleId1;// 角色2
+
+	private String roleId2;// 角色3
+
+	public String getUserRoleOrgId() {
+		return userRoleOrgId;
+	}
+
+	public void setUserRoleOrgId(String userRoleOrgId) {
+		this.userRoleOrgId = userRoleOrgId;
+	}
+
+	public String getRoleId1() {
+		return roleId1;
+	}
+
+	public void setRoleId1(String roleId1) {
+		this.roleId1 = roleId1;
+	}
+
+	public String getRoleId2() {
+		return roleId2;
+	}
+
+	public void setRoleId2(String roleId2) {
+		this.roleId2 = roleId2;
+	}
+
+	public int getRoleYwType() {
+		return roleYwType;
+	}
+
+	public void setRoleYwType(int roleYwType) {
+		this.roleYwType = roleYwType;
+	}
 
 	public String getLvlId() {
 		return lvlId;

@@ -50,6 +50,16 @@ public class SysRole implements Serializable{
 
 	private String orgName;
 
+	private int roleYwType;// 业务类别 0:系统角色 1:部门职位 2：职位
+
+	public int getRoleYwType() {
+		return roleYwType;
+	}
+
+	public void setRoleYwType(int roleYwType) {
+		this.roleYwType = roleYwType;
+	}
+
 	public String getOrgId() {
 		return orgId;
 	}
@@ -138,5 +148,13 @@ public class SysRole implements Serializable{
 	
 	public String getRoleFullName() {
 		return this.getRolename();
+	}
+
+	public String getShowName() {
+		String str = "";
+		if (this.getOrgName() != null && !"".equals(this.getOrgName())) {
+			str = this.getOrgName() + " / ";
+		}
+		return str = str + this.getRolename();
 	}
 }
