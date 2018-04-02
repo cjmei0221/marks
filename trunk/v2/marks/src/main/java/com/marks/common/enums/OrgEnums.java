@@ -5,6 +5,7 @@ public class OrgEnums {
 	public enum OrgCategory {
 		shop(3, "门店"), //
 		supplier(2, "供应商"), //
+		dept(0, "部门"), //
 		company(1, "公司"), //
 		;// 普通
 
@@ -48,7 +49,8 @@ public class OrgEnums {
 		shop(3, "门店"), // 公司
 		supplier(2, "供应商"), // 公司
 		company(1, "公司"), // 公司
-		common(0, "部门");// 普通
+		dept(0, "部门"), //
+		;// 普通
 
 		private int status;
 		private String name;
