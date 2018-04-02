@@ -57,7 +57,9 @@
 		channelId,
 		channel,
 		lvlId,
-		lvlName
+		lvlName,
+		roleYwType,
+		userRoleOrgId
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -92,13 +94,16 @@
 		#{channelId:VARCHAR},
 		#{channel:VARCHAR},
 		#{lvlId:VARCHAR},
-		#{lvlName:VARCHAR}
+		#{lvlName:VARCHAR},
+		#{roleYwType:NUMERIC},
+		#{userRoleOrgId:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
 		UPDATE tb_user
 		SET
+		userRoleOrgId=#{userRoleOrgId:VARCHAR},
 		gender=#{gender:NUMERIC},
 		birthday=#{birthday:VARCHAR},
 		signature=#{signature:VARCHAR},
@@ -189,6 +194,9 @@
 		<if test="companyId !=null and companyId != ''">
 			and sysuser.COMPANYID = #{companyId}
 		</if>
+		<if test="roleYwType !=null and roleYwType != ''">
+			and sysuser.roleYwType = #{roleYwType}
+		</if>
 		<if test="roleType !=null and roleType != ''">
 			and sysuser.roleType = #{roleType}
 		</if>
@@ -256,7 +264,9 @@
 		roleName,
 		roleType,
 		roleLvl,
-		UPDATETIME
+		UPDATETIME,
+		sort,
+		userRoleOrgId
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -271,7 +281,9 @@
 		#{roleName:VARCHAR},
 		#{roleType:VARCHAR},
 		#{roleLvl:NUMERIC},
-		now()
+		now(),
+		#{sort:NUMERIC},
+		#{userRoleOrgId:VARCHAR}
 		)
 	</insert>
 	<update id="updateSkin" flushCache="true">

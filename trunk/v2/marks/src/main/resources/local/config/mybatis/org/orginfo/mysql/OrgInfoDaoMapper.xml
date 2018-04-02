@@ -134,6 +134,9 @@
 		<if test="companyId !=null and companyId !=''">
 			and t.COMPANYID=#{companyId}
 		</if>
+		<if test="orgType !=null and orgType !=''">
+			and t.orgType in (${orgType})
+		</if>
 	</select>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
@@ -215,7 +218,7 @@
 		and
 		t.COMPANYID=#{companyId} and t.orgType !=2
 		<if test="orgType !=null and orgType !=''">
-			and t.orgType=#{orgType}
+			and t.orgType in (${orgType})
 		</if>
 		AND t.parentid =#{parentId}
 		ORDER BY t.orgtype,t.updatetime desc
