@@ -20,7 +20,8 @@ public interface SysRoleService{
 	public PojoDomain<SysRole> list(int page_number, int page_size,Map<String,Object> param);
 	public void addSysFuncByRoleId(String role_id, List<String> funcIds);
 	public List<SysMenu> funcList(SysUser admin,String roleId);
-	public void saveSysFuncByRoleId(SysUser admin, String roleId, List<String> funcList);
+
+	public void saveSysFuncByRoleId(String roleId, List<String> funcList);
 	public SysRole findByUserTypeAndCompanyId(String roleid, String companyId);
 	public boolean isDelete(String roleid);
 	public List<SysRole> getUserlist(Map<String, Object> param);

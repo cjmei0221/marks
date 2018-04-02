@@ -54,8 +54,8 @@ public class SysUserServiceImpl implements SysUserService {
 	 */
 	@Override
 	public String save(SysUser sysUser) {
-		String userid = getUserid(sysUser.getCompanyId());
-		String userCode = userid.substring(sysUser.getCompanyId().length());
+		String userCode = getUserCode(sysUser.getCompanyId());
+		String userid = sysUser.getCompanyId() + userCode;
 		sysUser.setUserid(userid);
 		sysUser.setUserCode(userCode);
 		sysUser.setLvlId(sysUser.getCompanyId() + "_0");
@@ -65,17 +65,16 @@ public class SysUserServiceImpl implements SysUserService {
 		return userid;
 	}
 
-	public String getUserid(String companyId){
-		String userid="";
+	public String getUserCode(String companyId) {
+		String userCode = "";
 		long initcode = 0;
 		String maxCode = sysUserDao.getMaxCode(companyId);
 		if (null == maxCode || "".equals(maxCode)) {
 			maxCode = "100000";
 		}
 		initcode = Long.parseLong(maxCode);
-		userid = String.valueOf(initcode + 1);
-		userid = companyId + userid;
-		return userid;
+		userCode = String.valueOf(initcode + 1);
+		return userCode;
 	}
 
 	/**
@@ -89,22 +88,26 @@ public class SysUserServiceImpl implements SysUserService {
 
 	private void saveSysUserOrgRole(SysUser sysUser) {
 		sysUserDao.deleteSysUserOrgRoleByUserid(sysUser.getUserid());
+		// 默认角色
 		SysRole role = sysRoleDao.findById(sysUser.getRoleId());
 		SysUserOrgRole su = new SysUserOrgRole();
+		su.setSort(0);
+		su.setUserRoleOrgId(sysUser.getUserid() + su.getSort());
 		su.setUserid(sysUser.getUserid());
 		su.setCompanyId(sysUser.getCompanyId());
+		sysUser.setUserRoleOrgId(su.getUserRoleOrgId());
 		if (role != null) {
 			sysUser.setRoleId(role.getRoleid());
 			sysUser.setRoleLvl(role.getLvl());
 			sysUser.setRoleName(role.getRolename());
 			sysUser.setRoleType(role.getRoleType());
-			su.setRoleId(sysUser.getRoleId());
-			su.setRoleLvl(sysUser.getRoleLvl());
-			su.setRoleName(sysUser.getRoleName());
-			su.setRoleType(sysUser.getRoleType());
+			su.setRoleId(role.getRoleid());
+			su.setRoleLvl(role.getLvl());
+			su.setRoleName(role.getRolename());
+			su.setRoleType(role.getRoleType());
 		}
-		if (null != sysUser.getOrgId()) {
-			OrgInfo info = orgInfoDao.findById(sysUser.getOrgId());
+		if (null != role.getOrgId()) {
+			OrgInfo info = orgInfoDao.findById(role.getOrgId());
 			if (info != null) {
 				sysUser.setParentOrgId(info.getParentId());
 				sysUser.setParentOrgName(info.getParentName());
@@ -112,12 +115,46 @@ public class SysUserServiceImpl implements SysUserService {
 				sysUser.setOrgId(info.getOrgid());
 				sysUser.setOrgName(info.getOrgname());
 				sysUser.setOrgType(info.getOrgType());
-				su.setOrgCategory(sysUser.getOrgCategory());
-				su.setOrgId(sysUser.getOrgId());
-				su.setOrgName(sysUser.getOrgName());
-				su.setOrgType(sysUser.getOrgType());
-				su.setParentOrgId(sysUser.getParentOrgId());
-				su.setParentOrgName(sysUser.getParentOrgName());
+				su.setOrgCategory(info.getOrgCategory());
+				su.setOrgId(info.getOrgid());
+				su.setOrgName(info.getOrgname());
+				su.setOrgType(info.getOrgType());
+				su.setParentOrgId(info.getParentId());
+				su.setParentOrgName(info.getParentName());
+			}
+		}
+		sysUserDao.saveSysUserOrgRole(su);
+		// 其他角色
+		if (null != sysUser.getRoleId1() && !"".equals(sysUser.getRoleId1())) {
+			saveSysUserOrgRole2(sysUser.getRoleId1(), 1, sysUser.getUserid(), sysUser.getCompanyId());
+		}
+		if (null != sysUser.getRoleId2() && !"".equals(sysUser.getRoleId2())) {
+			saveSysUserOrgRole2(sysUser.getRoleId1(), 1, sysUser.getUserid(), sysUser.getCompanyId());
+		}
+	}
+
+	private void saveSysUserOrgRole2(String roleId, int sort, String userid, String companyId) {
+		SysRole role = sysRoleDao.findById(roleId);
+		SysUserOrgRole su = new SysUserOrgRole();
+		su.setUserid(userid);
+		su.setCompanyId(companyId);
+		su.setSort(sort);
+		su.setUserRoleOrgId(su.getUserid() + su.getSort());
+		if (role != null) {
+			su.setRoleId(role.getRoleid());
+			su.setRoleLvl(role.getLvl());
+			su.setRoleName(role.getRolename());
+			su.setRoleType(role.getRoleType());
+		}
+		if (null != role.getOrgId()) {
+			OrgInfo info = orgInfoDao.findById(role.getOrgId());
+			if (info != null) {
+				su.setOrgCategory(info.getOrgCategory());
+				su.setOrgId(info.getOrgid());
+				su.setOrgName(info.getOrgname());
+				su.setOrgType(info.getOrgType());
+				su.setParentOrgId(info.getParentId());
+				su.setParentOrgName(info.getParentName());
 			}
 		}
 		sysUserDao.saveSysUserOrgRole(su);

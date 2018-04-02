@@ -71,7 +71,6 @@ public class SysUserController extends SupportContorller {
 			SysUser ori = sysUserService.findByMobile(companyId, sysUser.getBind_mobile());
 			if (ori == null) {
 				// 密码处理
-				sysUser.setRoleId(companyId + "_" + sysUser.getRoleType());
 				sysUser.setPassword(EncryptUtil.defaultPwd);
 				sysUser.setCreator(admin.getUserid());
 				sysUser.setCompanyId(companyId);
@@ -115,9 +114,8 @@ public class SysUserController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
-			String orgIdsPut = request.getParameter("orgIdsPut");
-			String orgNamesPut = request.getParameter("orgNamesPut");
 			sysUser.setCompanyId(admin.getCompanyId());
+			sysUser.setActiveFlag(ori.getActiveFlag());
 			sysUserService.update(sysUser);
 			result.setMessage("更新成功!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -213,6 +211,7 @@ public class SysUserController extends SupportContorller {
 			String s_role = request.getParameter("s_role");
 			String roleType = request.getParameter("roleType");
 			String showflag = request.getParameter("showflag");
+			String roleYwType = request.getParameter("roleYwType");
 			if (keyword == null) {
 				keyword = "";
 			}
@@ -225,6 +224,7 @@ public class SysUserController extends SupportContorller {
 			param.put("s_role", s_role);
 			param.put("roleType", roleType);
 			param.put("showflag", showflag);
+			param.put("roleYwType", roleYwType);
 			PojoDomain<SysUser> list = sysUserService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

@@ -2,6 +2,8 @@ package com.marks.module.user.sysuser.pojo;
 
 public class SysUserOrgRole {
 
+	private String userRoleOrgId;// 主键
+
 	private String userid;
 	private String companyId;
 	/**
@@ -19,6 +21,23 @@ public class SysUserOrgRole {
 	private String updatetime;
 	private String parentOrgId;
 	private String parentOrgName;
+	private int sort;
+
+	public String getUserRoleOrgId() {
+		return userRoleOrgId;
+	}
+
+	public void setUserRoleOrgId(String userRoleOrgId) {
+		this.userRoleOrgId = userRoleOrgId;
+	}
+
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -120,5 +139,13 @@ public class SysUserOrgRole {
 
 	public void setParentOrgName(String parentOrgName) {
 		this.parentOrgName = parentOrgName;
+	}
+
+	public String getShowName() {
+		String str = "";
+		if (this.getOrgName() != null && !"".equals(this.getOrgName())) {
+			str = this.getOrgName() + " / ";
+		}
+		return str = str + this.getRoleName();
 	}
 }
