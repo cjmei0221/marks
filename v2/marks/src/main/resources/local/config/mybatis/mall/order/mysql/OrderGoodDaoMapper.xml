@@ -4,11 +4,18 @@
 <mapper namespace="com.marks.module.mall.order.dao.OrderGoodDao">
 
 	<select id="findById" resultType="com.marks.module.mall.order.pojo.OrderGood">
-		SELECT t.goodId,t.goodNo,t.goodName,t.barNo,t.unit,t.rank,t.brandId,t.brandName,t.typeId,t.typeName,t.imageurl as picUrl,
-	   	t.salePrice,t.price,t.costPrice
-		FROM tb_mall_good_info t left join tb_mall_trace_barcode b on t.goodId=b.goodId
-		where t.companyId=#{companyId} and
-		(t.goodId=#{goodId} or t.goodNo=#{goodId} or t.barNo=#{goodId} or b.barcode=#{goodId})
+		SELECT
+		t.goodId,t.goodNo,t.goodName,t.barNo,t.unit,t.rank,t.brandId,t.brandName,t.typeId,t.typeName,t.imageurl
+		as picUrl,
+		t.salePrice,t.price,t.costPrice,c.lvl1Id,c.lvl1Name,c.lvl2Id,c.lvl2Name,c.lvl3Id,c.lvl3Name,c.lvl4Id,c.lvl4Name,c.lvl5Id,c.lvl5Name
+		FROM tb_mall_good_info t
+		left join tb_mall_category c on t.typeId=c.typeid
+		left join
+		tb_mall_trace_barcode b on t.goodId=b.goodId
+		where
+		t.companyId=#{companyId} and
+		(t.goodId=#{goodId} or t.goodNo=#{goodId}
+		or t.barNo=#{goodId} or b.barcode=#{goodId})
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.order.pojo.OrderGood">
@@ -53,7 +60,17 @@
 		countAmt,
 		oriPriceAmt,
 		payRate,
-		companyId
+		companyId,
+		LVL1ID,
+		LVL1NAME,
+		LVL2ID,
+		LVL2NAME,
+		LVL3ID,
+		LVL3NAME,
+		LVL4ID,
+		LVL4NAME,
+		LVL5ID,
+		LVL5NAME
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -93,7 +110,17 @@
 		#{info.countAmt:VARCHAR},
 		#{info.oriPriceAmt:VARCHAR},
 		#{info.payRate:VARCHAR},
-		#{info.companyId:VARCHAR}
+		#{info.companyId:VARCHAR},
+		#{info.lvl1Id:VARCHAR},
+		#{info.lvl1Name:VARCHAR},
+		#{info.lvl2Id:VARCHAR},
+		#{info.lvl2Name:VARCHAR},
+		#{info.lvl3Id:VARCHAR},
+		#{info.lvl3Name:VARCHAR},
+		#{info.lvl4Id:VARCHAR},
+		#{info.lvl4Name:VARCHAR},
+		#{info.lvl5Id:VARCHAR},
+		#{info.lvl5Name:VARCHAR}
 		)
 	</insert>
 
@@ -136,7 +163,17 @@
 		countAmt,
 		oriPriceAmt,
 		payRate,
-		companyId
+		companyId,
+		LVL1ID,
+		LVL1NAME,
+		LVL2ID,
+		LVL2NAME,
+		LVL3ID,
+		LVL3NAME,
+		LVL4ID,
+		LVL4NAME,
+		LVL5ID,
+		LVL5NAME
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -179,7 +216,17 @@
 			#{info.countAmt:VARCHAR},
 			#{info.oriPriceAmt:VARCHAR},
 			#{info.payRate:VARCHAR},
-			#{info.companyId:VARCHAR}
+			#{info.companyId:VARCHAR},
+			#{info.lvl1Id:VARCHAR},
+			#{info.lvl1Name:VARCHAR},
+			#{info.lvl2Id:VARCHAR},
+			#{info.lvl2Name:VARCHAR},
+			#{info.lvl3Id:VARCHAR},
+			#{info.lvl3Name:VARCHAR},
+			#{info.lvl4Id:VARCHAR},
+			#{info.lvl4Name:VARCHAR},
+			#{info.lvl5Id:VARCHAR},
+			#{info.lvl5Name:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -187,32 +234,14 @@
 	<update id="update" parameterType="com.marks.module.mall.order.pojo.OrderGood">
 		UPDATE TB_MALL_ORDER_GOOD
 		SET
-		ORDERID = #{info.orderId:VARCHAR},
-		GOODID = #{info.goodId:VARCHAR},
-		GOODNO = #{info.goodNo:VARCHAR},
-		GOODNAME = #{info.goodName:VARCHAR},
-		BARNO = #{info.barNo:VARCHAR},
-		PICURL = #{info.picUrl:VARCHAR},
-		UNIT =
-		#{info.unit:VARCHAR},
-		RANK = #{info.rank:VARCHAR},
-		TYPEID =
-		#{info.typeId:VARCHAR},
-		TYPENAME = #{info.typeName:VARCHAR},
-		BRANDID =
-		#{info.brandId:VARCHAR},
-		BRANDNAME = #{info.brandName:VARCHAR},
-		NUMS =
-		#{info.nums:NUMERIC},
-		SALEPRICE = #{info.salePrice:VARCHAR},
-		PRICE =
-		#{info.price:VARCHAR},
-		PAYABLEAMT = #{info.payableAmt:VARCHAR},
-		PAYAMT = #{info.payAmt:VARCHAR},
+		PAYAMT =
+		#{info.payAmt:VARCHAR},
 		CASHAMT = #{info.cashAmt:VARCHAR},
-		WXAMT = #{info.wxAmt:VARCHAR},
+		WXAMT =
+		#{info.wxAmt:VARCHAR},
 		ALIPAYAMT = #{info.alipayAmt:VARCHAR},
-		OTHERAMT = #{info.otherAmt:VARCHAR},
+		OTHERAMT =
+		#{info.otherAmt:VARCHAR},
 		SALEAMT = #{info.saleAmt:VARCHAR},
 		DISCOUNTAMT = #{info.discountAmt:VARCHAR},
 		FULLCUTAMT =
@@ -256,10 +285,11 @@
 			and t.orderId=#{orderId}
 		</if>
 		<if test="keyword!=null and keyword!=''">
-			and ( 2=1 
+			and ( 2=1
 			or t.ORDERID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.GOODNO LIKE
+			or t.GOODNO
+			LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or t.GOODNAME LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')

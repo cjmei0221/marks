@@ -198,27 +198,154 @@ public class OrderGood implements Serializable {
 
 	private List<String> barCodeList = new ArrayList<String>();// 商品唯一条码集合
 	private List<BarCode> barList = new ArrayList<BarCode>();// 商品唯一条码集合
-	
+
 	private String companyId;
 
 	private int stockType;
+
+	/**
+	 * 级别1ID
+	 *
+	 */
+	private String lvl1Id;
+	/**
+	 * 级别1姓名
+	 *
+	 */
+	private String lvl1Name;
+	/**
+	 * 级别2ID
+	 *
+	 */
+	private String lvl2Id;
+	/**
+	 * 级别2姓名
+	 *
+	 */
+	private String lvl2Name;
+	/**
+	 * 级别3ID
+	 *
+	 */
+	private String lvl3Id;
+	/**
+	 * 级别3姓名
+	 *
+	 */
+	private String lvl3Name;
+	/**
+	 * 级别4ID
+	 *
+	 */
+	private String lvl4Id;
+	/**
+	 * 级别4姓名
+	 *
+	 */
+	private String lvl4Name;
+	/**
+	 * 级别5ID
+	 *
+	 */
+	private String lvl5Id;
+	/**
+	 * 级别5姓名
+	 *
+	 */
+	private String lvl5Name;
 
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
 	}
 
+	public String getLvl1Id() {
+		return lvl1Id;
+	}
+
+	public void setLvl1Id(String lvl1Id) {
+		this.lvl1Id = lvl1Id;
+	}
+
+	public String getLvl1Name() {
+		return lvl1Name;
+	}
+
+	public void setLvl1Name(String lvl1Name) {
+		this.lvl1Name = lvl1Name;
+	}
+
+	public String getLvl2Id() {
+		return lvl2Id;
+	}
+
+	public void setLvl2Id(String lvl2Id) {
+		this.lvl2Id = lvl2Id;
+	}
+
+	public String getLvl2Name() {
+		return lvl2Name;
+	}
+
+	public void setLvl2Name(String lvl2Name) {
+		this.lvl2Name = lvl2Name;
+	}
+
+	public String getLvl3Id() {
+		return lvl3Id;
+	}
+
+	public void setLvl3Id(String lvl3Id) {
+		this.lvl3Id = lvl3Id;
+	}
+
+	public String getLvl3Name() {
+		return lvl3Name;
+	}
+
+	public void setLvl3Name(String lvl3Name) {
+		this.lvl3Name = lvl3Name;
+	}
+
+	public String getLvl4Id() {
+		return lvl4Id;
+	}
+
+	public void setLvl4Id(String lvl4Id) {
+		this.lvl4Id = lvl4Id;
+	}
+
+	public String getLvl4Name() {
+		return lvl4Name;
+	}
+
+	public void setLvl4Name(String lvl4Name) {
+		this.lvl4Name = lvl4Name;
+	}
+
+	public String getLvl5Id() {
+		return lvl5Id;
+	}
+
+	public void setLvl5Id(String lvl5Id) {
+		this.lvl5Id = lvl5Id;
+	}
+
+	public String getLvl5Name() {
+		return lvl5Name;
+	}
+
+	public void setLvl5Name(String lvl5Name) {
+		this.lvl5Name = lvl5Name;
+	}
+
 	public String getCompanyId() {
 		return companyId;
 	}
 
-
-
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
-
-
 
 	public String getPrice() {
 		return price;
@@ -563,15 +690,15 @@ public class OrderGood implements Serializable {
 				+ " - unit:" + String.valueOf(unit) + " - rank:" + String.valueOf(rank) + " - typeId:"
 				+ String.valueOf(typeId) + " - typeName:" + String.valueOf(typeName) + " - brandId:"
 				+ String.valueOf(brandId) + " - brandName:" + String.valueOf(brandName) + " - nums:"
-				+ String.valueOf(nums) + " - salePrice:" + String.valueOf(salePrice) + " - nowPrice:"
-				+ " - payableAmt:" + String.valueOf(payableAmt) + " - payAmt:"
-				+ String.valueOf(payAmt) + " - cashAmt:" + String.valueOf(cashAmt) + " - wxAmt:" + String.valueOf(wxAmt)
-				+ " - alipayAmt:" + String.valueOf(alipayAmt) + " - otherAmt:" + String.valueOf(otherAmt)
-				+ " - saleAmt:" + String.valueOf(saleAmt) + " - discountAmt:" + String.valueOf(discountAmt)
-				+ " - fullCutAmt:" + String.valueOf(fullCutAmt) + " - couponAmt:" + String.valueOf(couponAmt)
-				+ " - pointAmt:" + String.valueOf(pointAmt) + " - mlAmt:" + String.valueOf(mlAmt)
-				+ " - simpleDiscountAmt:" + String.valueOf(simpleDiscountAmt) + " - createtime:"
-				+ String.valueOf(createtime) + " - updatetime:" + String.valueOf(updatetime) + " - costAmt:"
-				+ String.valueOf(costAmt) + " - costPrice:" + String.valueOf(costPrice);
+				+ String.valueOf(nums) + " - salePrice:" + String.valueOf(salePrice) + " - nowPrice:" + " - payableAmt:"
+				+ String.valueOf(payableAmt) + " - payAmt:" + String.valueOf(payAmt) + " - cashAmt:"
+				+ String.valueOf(cashAmt) + " - wxAmt:" + String.valueOf(wxAmt) + " - alipayAmt:"
+				+ String.valueOf(alipayAmt) + " - otherAmt:" + String.valueOf(otherAmt) + " - saleAmt:"
+				+ String.valueOf(saleAmt) + " - discountAmt:" + String.valueOf(discountAmt) + " - fullCutAmt:"
+				+ String.valueOf(fullCutAmt) + " - couponAmt:" + String.valueOf(couponAmt) + " - pointAmt:"
+				+ String.valueOf(pointAmt) + " - mlAmt:" + String.valueOf(mlAmt) + " - simpleDiscountAmt:"
+				+ String.valueOf(simpleDiscountAmt) + " - createtime:" + String.valueOf(createtime) + " - updatetime:"
+				+ String.valueOf(updatetime) + " - costAmt:" + String.valueOf(costAmt) + " - costPrice:"
+				+ String.valueOf(costPrice);
 	}
 }

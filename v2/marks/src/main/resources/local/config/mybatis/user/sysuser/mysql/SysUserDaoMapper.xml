@@ -239,6 +239,13 @@
 		</if>
 		order by sysuser.UPDATETIME desc
 	</select>
+	<select id="findUserRoleByUserids" resultType="com.marks.module.user.sysuser.pojo.SysUserOrgRole">
+		select * FROM TB_USER_ORG_ROLE WHERE USERID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</select>
 
 	<delete id="deleteSysUserOrgRole" parameterType="String">
 		DELETE FROM
