@@ -111,6 +111,6 @@ public class MoneyUtil {
 
 	public static void main(String[] args) {
 
-		System.out.println(MoneyUtil.compare("0.01", "0.012"));
+		System.out.println(MoneyUtil.multiply("23", "0E-18"));
 	}
 }

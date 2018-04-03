@@ -1,5 +1,6 @@
 package com.marks.module.user.sysuser.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -199,6 +200,24 @@ public class SysUserServiceImpl implements SysUserService {
 		PojoDomain<SysUser> pojoDomain = new PojoDomain<SysUser>();
 		PageBounds pageBounds = new PageBounds(page_number, page_size);
 		List<SysUser> list = sysUserDao.list(pageBounds, param);
+		if (null != list && list.size() > 0) {
+			List<String> userids = new ArrayList<String>();
+			for (SysUser user : list) {
+				userids.add(user.getUserid());
+			}
+			List<SysUserOrgRole> roleList = sysUserDao.findUserRoleByUserids(userids);
+			if (null != roleList && roleList.size() > 0) {
+				for (SysUser user : list) {
+					for (SysUserOrgRole role : roleList) {
+						if (user.getUserid().equals(role.getUserid()) && role.getSort() == 1) {
+							user.setRoleId1(role.getRoleId());
+						} else if (user.getUserid().equals(role.getUserid()) && role.getSort() == 2) {
+							user.setRoleId2(role.getRoleId());
+						}
+					}
+				}
+			}
+		}
 		PageList<SysUser> pageList = (PageList<SysUser>) list;
 		pojoDomain.setPojolist(list);
 		pojoDomain.setPage_number(page_number);

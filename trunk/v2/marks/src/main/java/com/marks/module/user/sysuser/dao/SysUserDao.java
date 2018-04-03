@@ -47,4 +47,6 @@ public interface SysUserDao {
 
 	String getMaxCode(@Param("companyId") String companyId);
 
+	List<SysUserOrgRole> findUserRoleByUserids(@Param("list") List<String> userids);
+
 }
