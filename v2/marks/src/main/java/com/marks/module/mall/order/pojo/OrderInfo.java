@@ -2,6 +2,7 @@ package com.marks.module.mall.order.pojo;
 
 import java.io.Serializable;
 
+import com.marks.common.enums.OrderEnums;
 import com.marks.common.util.date.DateUtil;
 
 public class OrderInfo implements Serializable {
@@ -248,10 +249,25 @@ public class OrderInfo implements Serializable {
 
 	private String countAmt;// 售价金额
 
+	private String ywType;// 订单类型
+	private String ywName;// 订单类型
+
 	public OrderInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
 
+	}
+
+	public String getYwType() {
+		return ywType;
+	}
+
+	public void setYwType(String ywType) {
+		this.ywType = ywType;
+	}
+
+	public String getYwName() {
+		return OrderEnums.YwType.getByKey(this.getYwType());
 	}
 
 	public String getOriPriceAmt() {
@@ -519,11 +535,7 @@ public class OrderInfo implements Serializable {
 	}
 
 	public String getCashTypeName() {
-		return cashTypeName;
-	}
-
-	public void setCashTypeName(String cashTypeName) {
-		this.cashTypeName = cashTypeName;
+		return OrderEnums.CashType.getByKey(this.getCashType());
 	}
 
 	public String getPointAmt() {
