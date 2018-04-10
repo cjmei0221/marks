@@ -221,7 +221,7 @@
 	<select id="findByUserTypeAndCompanyId" resultType="com.marks.module.user.sysrole.pojo.SysRole">
 		select * from
 		tb_sys_role t where t.roleType=#{roleType} and
-		t.companyid=#{companyId}
+		t.orgId=#{companyId}
 	</select>
 	<select id="countUserByRoleid" resultType="int">
 		select count(1) from
