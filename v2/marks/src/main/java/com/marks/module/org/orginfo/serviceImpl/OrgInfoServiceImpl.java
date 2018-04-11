@@ -11,6 +11,7 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.enums.OrgEnums;
+import com.marks.common.util.Constants;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
@@ -43,7 +44,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Override
 	public void save(OrgInfo orgInfo) {
 		if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
-			orgInfo.setParentId("0");
+			orgInfo.setParentId(Constants.top_parent_id);
 			orgInfo.setCompanyId(orgInfo.getOrgid());
 			orgInfo.setLvl(1);
 		} else {
@@ -97,7 +98,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Override
 	public void update(OrgInfo orgInfo) {
 		if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
-			orgInfo.setParentId("0");
+			orgInfo.setParentId(Constants.top_parent_id);
 			orgInfo.setLvl(1);
 		} else {
 			OrgInfo parentVo = this.findById(orgInfo.getParentId());
