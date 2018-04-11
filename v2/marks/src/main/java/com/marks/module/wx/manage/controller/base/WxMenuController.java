@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.LoginUtil;
@@ -199,7 +200,7 @@ public class WxMenuController extends SupportContorller {
 		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		String parentId = request.getParameter("parentId");
 		if (parentId == null || "".equals(parentId)) {
-			parentId = "0";
+			parentId = Constants.top_parent_id;
 		}
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("companyId", admin.getCompanyId());

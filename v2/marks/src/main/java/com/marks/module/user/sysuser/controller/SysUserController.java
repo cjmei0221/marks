@@ -18,6 +18,7 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.ChannelEnums;
 import com.marks.common.enums.Enums;
+import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
@@ -76,6 +77,9 @@ public class SysUserController extends SupportContorller {
 				sysUser.setCompanyId(companyId);
 				sysUser.setChannelId(ChannelEnums.Channel.manage.getValue());
 				sysUser.setActiveFlag(Enums.Status.Enable.getValue());
+				if (UserEnums.UserType.VIP.getValue().equals(sysUser.getRoleType())) {
+					sysUser.setRoleId(admin.getCompanyId() + "_" + sysUser.getRoleType());
+				}
 				sysUserService.save(sysUser);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);

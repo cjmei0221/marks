@@ -58,6 +58,10 @@ public class WebOrderGoodController extends SupportContorller {
 				vo.setSalePrice(vo.getPrice());
 			}
 
+			if (null == vo.getVipPrice() || "".equals(vo.getVipPrice())) {
+				vo.setVipPrice(vo.getSalePrice());
+			}
+
 			if (info.getGoodId().length() >= 6 && info.getGoodId().length() < 8) {
 				vo.setStockType(StockEnums.StockManageType.simple.getValue());
 			} else {

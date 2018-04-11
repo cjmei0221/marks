@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.Constants;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
@@ -54,7 +55,7 @@ public class SysMenuController extends SupportContorller {
 		Result result = new Result();
 		String parentId = request.getParameter("parentId");
 		if (null == parentId || "".equals(parentId)) {
-			parentId = "0";
+			parentId = Constants.top_parent_id;
 		}
 		List<SysMenu> list = sysMenuService.listTree(parentId);
 		result.setCode(Code.CODE_SUCCESS);
@@ -103,7 +104,7 @@ public class SysMenuController extends SupportContorller {
 		SysUser user = LoginUtil.getInstance().getCurrentUser(request);
 		SysMenu sm = getModel(SysMenu.class);
 		if (sm.getLvl() == 1) {
-			sm.setParentid("0");
+			sm.setParentid(Constants.top_parent_id);
 		} else if (sm.getLvl() == 2) {
 			sm.setParentid(sm.getLvl1Menuid());
 		} else if (sm.getLvl() == 3) {
