@@ -2,8 +2,41 @@ package com.marks.common.enums;
 
 public class OrderEnums {
 
+	public enum YwType {
+		good("0", "商品订单"), // 系统用户
+		acct("1", "储值订单"), // 系统用户
+		batch("2", "批发订单"), // 系统用户
+		;// 会员
+
+		private String status;
+		private String name;
+
+		private YwType(String status, String name) {
+			this.status = status;
+			this.name = name;
+		}
+
+		public static String getByKey(String status) {
+			for (YwType c : YwType.values()) {
+				if (c.getValue().equals(status)) {
+					return c.name;
+				}
+			}
+			return "";
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getValue() {
+			return status;
+		}
+	}
+
 	public enum CashType {
 		consume("0", "消费"), // 系统用户
+		refund("1", "退货"), // 系统用户
 		;// 会员
 
 		private String status;
