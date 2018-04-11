@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.base.pojo.Category;
@@ -83,7 +84,7 @@ public class CategoryController extends SupportContorller {
 
 			if (ori == null) {
 				if ("top".equals(reqVo.getParentId())) {
-					reqVo.setParentId(admin.getCompanyId());
+					reqVo.setParentId(Constants.top_parent_id);
 					reqVo.setLvl(1);
 				}
 				categoryService.save(reqVo);
@@ -214,7 +215,7 @@ public class CategoryController extends SupportContorller {
 		List<Category> list = null;
 		// 根节点加载
 		if (parentId == null || "".equals(parentId)) {
-			parentId = companyId;
+			parentId = Constants.top_parent_id;
 		}
 		list = categoryService.treeGrid(companyId, parentId);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());

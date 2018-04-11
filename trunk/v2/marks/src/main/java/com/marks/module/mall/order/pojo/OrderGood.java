@@ -254,9 +254,44 @@ public class OrderGood implements Serializable {
 	 */
 	private String lvl5Name;
 
+	private String vipPrice;
+
+	private String nowPrice;// 现价价
+	
+	private String nowPriceAmt;//现价金额
+
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getNowPriceAmt() {
+		return nowPriceAmt;
+	}
+
+
+
+	public void setNowPriceAmt(String nowPriceAmt) {
+		this.nowPriceAmt = nowPriceAmt;
+	}
+
+
+
+
+	public String getNowPrice() {
+		return nowPrice;
+	}
+
+	public void setNowPrice(String nowPrice) {
+		this.nowPrice = nowPrice;
+	}
+
+	public String getVipPrice() {
+		return vipPrice;
+	}
+
+	public void setVipPrice(String vipPrice) {
+		this.vipPrice = vipPrice;
 	}
 
 	public String getLvl1Id() {

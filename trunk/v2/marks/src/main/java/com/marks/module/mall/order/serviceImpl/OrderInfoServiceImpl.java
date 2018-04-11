@@ -181,19 +181,23 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		String countAmt = "";
 		String oriPriceAmt = "";
 		String mandiscountAmt = "";
+		String discountAmt="";
+		String nowPriceAmt = "";// 现价金额
 		for (OrderGood good : goodList) {
 			String rate = "0.000000";
 			double totalPayableAmt = Double.parseDouble(info.getPayableAmt());
 			if (totalPayableAmt > 0) {
 				rate = String.valueOf(Double.parseDouble(good.getPayableAmt()) / totalPayableAmt);
 			}
-			good.setCashAmt(MoneyUtil.multiply(info.getPayAmt(), rate));
+			good.setCashAmt(MoneyUtil.multiply(info.getCashAmt(), rate));
 			good.setPayAmt(MoneyUtil.multiply(info.getPayAmt(), rate));
 			good.setCountAmt(MoneyUtil.multiply(good.getSalePrice(), String.valueOf(good.getNums())));
+			good.setNowPriceAmt(MoneyUtil.multiply(good.getNowPrice(), String.valueOf(good.getNums())));
 			good.setOriPriceAmt(MoneyUtil.multiply(good.getPrice(), String.valueOf(good.getNums())));
 			good.setSimpleDiscountAmt(MoneyUtil.multiply(info.getSimpleDiscountAmt(), rate));
 			good.setSaleAmt(MoneyUtil.subtract(good.getCountAmt(), good.getPayAmt()));
-			good.setGoodManDiscountAmt(MoneyUtil.subtract(good.getCountAmt(), good.getPayableAmt()));
+			good.setGoodManDiscountAmt(MoneyUtil.subtract(good.getNowPriceAmt(), good.getPayableAmt()));
+			good.setDiscountAmt(MoneyUtil.subtract(good.getCountAmt(), good.getNowPriceAmt()));
 			good.setSimpleDiscountAmt(MoneyUtil.add(good.getSimpleDiscountAmt(), good.getGoodManDiscountAmt()));
 			BigDecimal payRate = new BigDecimal(rate);
 			payRate = payRate.setScale(18, BigDecimal.ROUND_HALF_UP);
@@ -204,8 +208,12 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			countAmt = MoneyUtil.add(countAmt, good.getCountAmt());
 			oriPriceAmt = MoneyUtil.add(oriPriceAmt, good.getOriPriceAmt());
 			mandiscountAmt = MoneyUtil.add(mandiscountAmt, good.getGoodManDiscountAmt());
+			discountAmt = MoneyUtil.add(discountAmt, good.getDiscountAmt());
+			nowPriceAmt = MoneyUtil.add(nowPriceAmt, good.getNowPriceAmt());
 		}
 		// info.setSaleAmt(saleAmt);
+		info.setNowPriceAmt(nowPriceAmt);
+		info.setDiscountAmt(discountAmt);
 		info.setSimpleDiscountAmt(MoneyUtil.add(info.getSimpleDiscountAmt(), mandiscountAmt));
 		info.setCostAmt(costAmt);
 		info.setCountAmt(countAmt);

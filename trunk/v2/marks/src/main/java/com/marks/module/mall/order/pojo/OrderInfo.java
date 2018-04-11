@@ -252,10 +252,20 @@ public class OrderInfo implements Serializable {
 	private String ywType;// 订单类型
 	private String ywName;// 订单类型
 
+	private String nowPriceAmt;// 现价金额
+
 	public OrderInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
 
+	}
+
+	public String getNowPriceAmt() {
+		return nowPriceAmt;
+	}
+
+	public void setNowPriceAmt(String nowPriceAmt) {
+		this.nowPriceAmt = nowPriceAmt;
 	}
 
 	public String getYwType() {

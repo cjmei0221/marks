@@ -70,6 +70,8 @@ public class GoodInfo implements Serializable {
 
 	private String salePrice;// 售价
 
+	private String vipPrice;// 会员价
+
 	private String minPrice;// 最低价
 
 
@@ -97,6 +99,14 @@ public class GoodInfo implements Serializable {
 	private int point;// 可积积分
 
 	private int needPoint;// 兑换积分
+
+	public String getVipPrice() {
+		return vipPrice;
+	}
+
+	public void setVipPrice(String vipPrice) {
+		this.vipPrice = vipPrice;
+	}
 
 	public int getPoint() {
 		return point;
