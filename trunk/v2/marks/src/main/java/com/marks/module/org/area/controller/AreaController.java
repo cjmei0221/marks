@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
+import com.marks.common.util.Constants;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
@@ -85,7 +86,7 @@ public class AreaController extends SupportContorller {
 				if ("0".equals(area.getParentId())) {
 					parentVo = new Area();
 					parentVo.setLvl(0);
-					area.setParentId("0");
+					area.setParentId(Constants.top_parent_id);
 					area.setLvl(1);
 				} else {
 					parentVo = areaService.findById(area.getParentId());
@@ -243,7 +244,7 @@ public class AreaController extends SupportContorller {
 		List<Area> list = null;
 		// 根节点加载
 		if (parentId == null || "".equals(parentId)) {
-			parentId = "0";
+			parentId = Constants.top_parent_id;
 		}
 		list = areaService.treeGrid(companyId, parentId);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
