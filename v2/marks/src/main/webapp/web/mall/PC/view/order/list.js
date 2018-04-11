@@ -1,6 +1,7 @@
 var appInfo = {
 	goodData : [],
 	vipInfo : {},
+	vipFlag:0,
 	barCodeData : []
 }
 $(function() {
@@ -36,6 +37,7 @@ $(function() {
 
 });
 function clear() {
+	appInfo.vipFlag=0;//不是会员
 	$('#trDiv').html("");
 	appInfo.goodData = [];
 	appInfo.vipInfo = {};
@@ -64,8 +66,6 @@ function checkGood() {
 		success : function(data) {
 			if (data.retcode == "0") {
 				var vo = data.info;
-				vo.nums = 1;
-				vo.payableAmt = vo.salePrice;
 				if (vo.stockType == 0 || vo.stockType == '0') {
 					var flag = checkBarCode(goodNo);
 					if (flag) {
@@ -73,9 +73,7 @@ function checkGood() {
 					}
 					appInfo.barCodeData.push(goodNo);
 				}
-				console.log(2);
 				initList(vo);
-				countOrder();
 			}
 		},
 		complete : function() {
@@ -116,15 +114,10 @@ function lessGood() {
 				if (info.nums <= 0) {
 					appInfo.goodData.remove(info);
 					$("#" + info.goodNo).remove();
+					countOrder();
 				} else {
-					info.payableAmt = parseFloat(info.nums)
-							* (parseFloat(info.salePrice) * 100) / 100;
-					info.payableAmt=info.payableAmt.toFixed(2);
-					$("#" + info.goodNo + ">td >.cls-nums").val(info.nums);
-					$("#" + info.goodNo + ">td >.cls-payableAmt").val(
-							info.payableAmt);
+					changePrice(info);
 				}
-				countOrder();
 			}
 		},
 		complete : function() {
@@ -151,23 +144,40 @@ function initList(vo) {
 		for (var i = 0; i < appInfo.goodData.length; i++) {
 			if (appInfo.goodData[i].goodNo == vo.goodNo) {
 				appInfo.goodData[i].nums += 1;
-				appInfo.goodData[i].payableAmt = (parseFloat(appInfo.goodData[i].payableAmt) * 100 + parseFloat(vo.salePrice) * 100) / 100;
-				info = appInfo.goodData[i];
-				info.payableAmt=info.payableAmt.toFixed(2);
-				$("#" + info.goodNo + " > td > .cls-nums").val(info.nums);
-				$("#" + info.goodNo + " > td > .cls-payableAmt").val(
-						info.payableAmt);
+				changePrice(appInfo.goodData[i]);
 				flag = true;
 				break;
 			}
 		}
 	}
 	if (!flag) {
+		vo.nums = 1;
+		var nowPrice=vo.salePrice;
+		console.log(appInfo.vipFlag);
+		if(appInfo.vipFlag==1){
+			nowPrice=vo.vipPrice;
+		}
+		vo.nowPrice=nowPrice;
+		vo.payableAmt = vo.nowPrice;
 		appInfo.goodData.push(vo);
 		$('#trDiv').append(tool.fillTemplate($("#trDivTmp").html(), vo));
+		countOrder();
 	}
 }
-
+function changePrice(info){
+	var nowPrice=info.salePrice;
+	if(appInfo.vipFlag==1){
+		nowPrice=info.vipPrice;
+	}
+	info.nowPrice=nowPrice;
+	info.payableAmt = (parseFloat(nowPrice) * 100*info.nums) / 100;
+	info.payableAmt=info.payableAmt.toFixed(2);
+	$("#" + info.goodNo + " > td > .cls-nowPrice").val(info.nowPrice);
+	$("#" + info.goodNo + " > td > .cls-nums").val(info.nums);
+	$("#" + info.goodNo + " > td > .cls-payableAmt").val(
+			info.payableAmt);
+	countOrder();
+}
 function getGood(goodNo) {
 	if (appInfo.goodData.length > 0) {
 		for (var i = 0; i < appInfo.goodData.length; i++) {
@@ -193,9 +203,11 @@ function checkVip() {
 			if (data.retcode == "0") {
 				var vo = data.info;
 				if (vo != null && vo != '') {
+					appInfo.vipFlag=1;//是会员
 					appInfo.vipInfo = vo;
 					$("#vipName").html(appInfo.vipInfo.username);
 					$("#vipTel").html(appInfo.vipInfo.bind_mobile);
+					countVipPrice();
 				}
 			}
 		},
@@ -203,6 +215,13 @@ function checkVip() {
 
 		}
 	});
+}
+function countVipPrice(){
+	if (appInfo.goodData.length > 0) {
+		for (var i = 0; i < appInfo.goodData.length; i++) {
+			changePrice(appInfo.goodData[i]);
+		}
+	}
 }
 function countOrder() {
 	var nums = 0;
@@ -229,11 +248,7 @@ function checkNums(goodNo) {
 	var inputNums = $("#" + goodNo + ">td >.cls-nums").val();
 	var info = getGood(goodNo);
 	info.nums = inputNums;
-	info.payableAmt = parseFloat(info.nums) * (parseFloat(info.salePrice) * 100)
-			/ 100;
-	info.payableAmt=info.payableAmt.toFixed(2);
-	$("#" + goodNo + ">td >.cls-payableAmt").val(info.payableAmt);
-	countOrder();
+	changePrice(info);
 }
 function checkPayableAmt(goodNo) {
 	var vals = $("#" + goodNo + ">td >.cls-payableAmt").val();

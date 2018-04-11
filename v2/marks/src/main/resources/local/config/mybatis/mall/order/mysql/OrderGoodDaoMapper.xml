@@ -6,7 +6,7 @@
 	<select id="findById" resultType="com.marks.module.mall.order.pojo.OrderGood">
 		SELECT
 		t.goodId,t.goodNo,t.goodName,t.barNo,t.unit,t.rank,t.brandId,t.brandName,t.typeId,t.typeName,t.imageurl
-		as picUrl,
+		as picUrl,t.vipPrice,
 		t.salePrice,t.price,t.costPrice,c.lvl1Id,c.lvl1Name,c.lvl2Id,c.lvl2Name,c.lvl3Id,c.lvl3Name,c.lvl4Id,c.lvl4Name,c.lvl5Id,c.lvl5Name
 		FROM tb_mall_good_info t
 		left join tb_mall_category c on t.typeId=c.typeid
@@ -70,7 +70,9 @@
 		LVL4ID,
 		LVL4NAME,
 		LVL5ID,
-		LVL5NAME
+		LVL5NAME,
+		nowPrice,
+		nowPriceAmt
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -120,7 +122,9 @@
 		#{info.lvl4Id:VARCHAR},
 		#{info.lvl4Name:VARCHAR},
 		#{info.lvl5Id:VARCHAR},
-		#{info.lvl5Name:VARCHAR}
+		#{info.lvl5Name:VARCHAR},
+		#{info.nowPrice:VARCHAR},
+		#{info.nowPriceAmt:VARCHAR}
 		)
 	</insert>
 
@@ -173,7 +177,9 @@
 		LVL4ID,
 		LVL4NAME,
 		LVL5ID,
-		LVL5NAME
+		LVL5NAME,
+		nowPrice,
+		nowPriceAmt
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -226,7 +232,9 @@
 			#{info.lvl4Id:VARCHAR},
 			#{info.lvl4Name:VARCHAR},
 			#{info.lvl5Id:VARCHAR},
-			#{info.lvl5Name:VARCHAR}
+			#{info.lvl5Name:VARCHAR},
+			#{info.nowPrice:VARCHAR},
+			#{info.nowPriceAmt:VARCHAR}
 			)
 		</foreach>
 	</insert>

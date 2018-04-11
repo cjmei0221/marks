@@ -88,23 +88,23 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '原价',
-			field : 'price',
-			width : 100,
-			align : "center"
-		}, {
-			title : '现价',
+			title : '售价',
 			field : 'salePrice',
 			width : 100,
 			align : "center"
 		}, {
-			title : '原价金额',
-			field : 'oriPriceAmt',
+			title : '现价',
+			field : 'nowPrice',
 			width : 100,
 			align : "center"
 		}, {
 			title : '售价金额',
 			field : 'countAmt',
+			width : 100,
+			align : "center"
+		}, {
+			title : '现价金额',
+			field : 'nowPriceAmt',
 			width : 100,
 			align : "center"
 		}, {

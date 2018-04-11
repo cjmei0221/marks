@@ -61,7 +61,10 @@
 		COSTAMT,
 		NUMS,
 		oriPriceAmt,
-		countAmt
+		countAmt,
+		ywType,
+		ywName,
+		nowPriceAmt
 		)
 		VALUES(
 		#{info.orderId:VARCHAR},
@@ -112,7 +115,10 @@
 		#{info.costAmt:VARCHAR},
 		#{info.nums:NUMERIC},
 		#{info.oriPriceAmt:VARCHAR},
-		#{info.countAmt:VARCHAR}
+		#{info.countAmt:VARCHAR},
+		#{info.ywType:VARCHAR},
+		#{info.ywName:VARCHAR},
+		#{info.nowPriceAmt:VARCHAR}
 		)
 	</insert>
 
@@ -166,7 +172,10 @@
 		COSTAMT,
 		NUMS,
 		oriPriceAmt,
-		countAmt
+		countAmt,
+		ywType,
+		ywName,
+		nowPriceAmt
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -220,7 +229,10 @@
 			#{info.costAmt:VARCHAR},
 			#{info.nums:NUMERIC},
 			#{info.oriPriceAmt:VARCHAR},
-			#{info.countAmt:VARCHAR}
+			#{info.countAmt:VARCHAR},
+			#{info.ywType:VARCHAR},
+			#{info.ywName:VARCHAR},
+			#{info.nowPriceAmt:VARCHAR}
 			)
 		</foreach>
 	</insert>
