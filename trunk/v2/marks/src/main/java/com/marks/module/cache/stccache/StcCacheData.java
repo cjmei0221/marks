@@ -70,7 +70,7 @@ public class StcCacheData {
 	}
 
 	public static void putDatadir(DataDir info) {
-		if (Constants.top_datadir_id.equals(info.getParentkey())) {
+		if (Constants.top_parent_id.equals(info.getParentkey())) {
 			return;
 		}
 		dataMap.put(info.getParentkey() + "_" + info.getCkey(), info.getCvalue());

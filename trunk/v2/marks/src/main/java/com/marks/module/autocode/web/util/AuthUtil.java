@@ -3,6 +3,7 @@ package com.marks.module.autocode.web.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.marks.common.util.Constants;
 import com.marks.module.autocode.core.produced.config.AutoConfig;
 import com.marks.module.autocode.core.produced.pojo.AutoBean;
 import com.marks.module.autocode.core.produced.webpage.html.htmlpage.HtmlPageProduced;
@@ -47,7 +48,7 @@ public class AuthUtil {
 			smP = new SysMenu();
 			smP.setMenuid(lvl1Menuid);
 			smP.setMenuitem(autoBean.getModuleDesc());
-			smP.setParentid("0");
+			smP.setParentid(Constants.top_parent_id);
 			smP.setSort(12);
 			smP.setLvl(1);
 			smP.setUrl("#");
