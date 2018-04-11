@@ -67,7 +67,8 @@
 		isWarnDays,
 		beforeWarnDays,
 		point,
-		needPoint
+		needPoint,
+		vipPrice
 		)
 		VALUES(
 		#{goodId:VARCHAR},
@@ -105,13 +106,15 @@
 		#{isWarnDays:NUMERIC},
 		#{beforeWarnDays:NUMERIC},
 		#{point:NUMERIC},
-		#{needPoint:NUMERIC}
+		#{needPoint:NUMERIC},
+		#{vipPrice:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		UPDATE TB_MALL_GOOD_INFO
 		SET
+		vipPrice=#{vipPrice:VARCHAR},
 		point=#{point:NUMERIC},
 		needPoint=#{needPoint:NUMERIC},
 		validDays=#{validDays:NUMERIC},
@@ -210,7 +213,7 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-		order by goodinfo.CREATETIME desc
+		order by goodinfo.GOODNO desc
 	</select>
 
 	<insert id="saveGoodImg" parameterType="com.marks.module.mall.good.pojo.GoodImg">

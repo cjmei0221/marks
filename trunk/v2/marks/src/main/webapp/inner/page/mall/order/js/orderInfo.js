@@ -163,13 +163,13 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '原价总额',
-			field : 'oriPriceAmt',
+			title : '售价总额',
+			field : 'countAmt',
 			width : 100,
 			align : "center"
 		}, {
-			title : '售价总额',
-			field : 'countAmt',
+			title : '现价总额',
+			field : 'nowPriceAmt',
 			width : 100,
 			align : "center"
 		}, {
