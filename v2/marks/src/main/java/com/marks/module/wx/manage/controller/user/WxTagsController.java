@@ -91,7 +91,7 @@ public class WxTagsController extends SupportContorller{
 	 			//成功则保存数据库
 	 			if(result.getCode().equals(Code.CODE_SUCCESS)){
 	 				wxTags.setTagid(Integer.parseInt(result.getData().get("tagid").toString()) );
-	 				wxTags.setUpdater(admin.getUserid()+"-"+admin.getUsername());
+					wxTags.setUpdater(admin.getUserCode() + "-" + admin.getUsername());
 					wxTags.setCompanyId(admin.getCompanyId());
 	 				wxTagsService.save(wxTags);
 		 			result.setMessage("保存成功");
@@ -129,7 +129,7 @@ public class WxTagsController extends SupportContorller{
 		    }else{
 		    	result=WxMpUtil.getInstance().editTag(ori.getAccountid(), wxTags.getTagid(), wxTags.getName());
 		    	if(result.getCode().equals(Code.CODE_SUCCESS)){
-		    		wxTags.setUpdater(admin.getUserid()+"-"+admin.getUsername());
+					wxTags.setUpdater(admin.getUserCode() + "-" + admin.getUsername());
 			    	wxTagsService.update(wxTags);
 					result.setMessage("更新成功!");
 					result.setCode(Code.CODE_SUCCESS);

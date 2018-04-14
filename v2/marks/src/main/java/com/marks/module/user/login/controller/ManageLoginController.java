@@ -92,7 +92,7 @@ public class ManageLoginController {
 		LoginUtil.getInstance().setCurrentUser(request, user);
 		// 保存日志
 		SysLog log = new SysLog();
-		log.setUserid(user.getUserid());
+		log.setUserid(user.getUserCode());
 		log.setUsername(user.getUsername());
 		log.setRetain3(user.getCompanyId());
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
@@ -117,7 +117,7 @@ public class ManageLoginController {
 			LoginUtil.getInstance().setCurrentUser(request, null);
 			// 保存日志
 			SysLog log = new SysLog();
-			log.setUserid(user.getUserid());
+			log.setUserid(user.getUserCode());
 			log.setUsername(user.getUsername());
 			log.setRetain3(user.getCompanyId());
 			String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");

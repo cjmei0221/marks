@@ -73,7 +73,7 @@ public class DataDirController extends SupportContorller {
 
 			if (ori == null) {
 				dataDir.setCompanyId(admin.getCompanyId());
-				dataDir.setCreator(admin.getUserid());
+				dataDir.setCreator(admin.getUsername());
 				dataDirService.save(dataDir);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
