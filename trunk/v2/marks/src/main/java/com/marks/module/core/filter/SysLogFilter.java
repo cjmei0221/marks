@@ -19,7 +19,6 @@ import com.marks.common.util.RequestUtil;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.user.login.helper.LoginUtil;
-import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 public class SysLogFilter implements Filter {
@@ -56,7 +55,7 @@ public class SysLogFilter implements Filter {
 			if(isLog){
 				SysLog log = new SysLog();
 				if (user != null) {
-					log.setUserid(user.getUserid());
+					log.setUserid(user.getUserCode());
 					log.setUsername(user.getUsername());
 					log.setRetain3(user.getCompanyId());
 				}

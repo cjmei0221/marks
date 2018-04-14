@@ -88,7 +88,7 @@ public class OrgInfoController extends SupportContorller {
 					orgInfo.setOrgCategory(OrgEnums.OrgCategory.dept.getValue());
 				}
 				orgInfo.setCompanyId(admin.getCompanyId());
-				orgInfo.setCreator(admin.getUserid());
+				orgInfo.setCreator(admin.getUsername());
 				orgInfoService.save(orgInfo);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);

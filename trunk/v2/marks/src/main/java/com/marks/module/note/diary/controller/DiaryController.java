@@ -70,7 +70,7 @@ public class DiaryController extends SupportContorller{
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Diary diary = getModel(Diary.class);
 	    	diary.setId(IDUtil.getUUID());
-	    	diary.setCreator(admin.getUserid());
+			diary.setCreator(admin.getUserid());
 	    	diary.setMobile(admin.getBind_mobile());
 			diaryService.save(diary);
 			result.setMessage("保存成功");

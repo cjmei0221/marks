@@ -113,8 +113,8 @@ public class GoodInfoController extends SupportContorller {
 
 				goodInfo.setCompanyId(admin.getCompanyId());
 				goodInfo.setGoodId(admin.getCompanyId() + goodInfo.getGoodNo());
-				goodInfo.setCreator(admin.getUserid() + " - " + admin.getUsername());
-				goodInfo.setUpdater(admin.getUserid() + " - " + admin.getUsername());
+				goodInfo.setCreator(admin.getUserCode() + " - " + admin.getUsername());
+				goodInfo.setUpdater(admin.getUserCode() + " - " + admin.getUsername());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
 				String addMainImagePut=request.getParameter("addMainImagePut");
 				String addDetailImagePut=request.getParameter("addDetailImagePut");
@@ -149,7 +149,7 @@ public class GoodInfoController extends SupportContorller {
 					result.setMessage("此商品编码已存在!");
 					result.setCode("2001");
 				}else{
-					goodInfo.setUpdater(admin.getUserid() + " - " + admin.getUsername());
+					goodInfo.setUpdater(admin.getUserCode() + " - " + admin.getUsername());
 					goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
 					String addMainImagePut=request.getParameter("addMainImagePut");
 					String addDetailImagePut=request.getParameter("addDetailImagePut");
