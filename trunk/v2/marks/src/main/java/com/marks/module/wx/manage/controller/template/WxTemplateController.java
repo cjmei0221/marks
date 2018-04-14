@@ -76,7 +76,7 @@ public class WxTemplateController extends SupportContorller{
 	 		
 	 		if(ori==null){
 				wxTemplate.setCompanyId(admin.getCompanyId());
-	 			wxTemplate.setCreator(admin.getUserid());
+				wxTemplate.setCreator(admin.getUsername());
 	 			wxTemplateService.save(wxTemplate);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);

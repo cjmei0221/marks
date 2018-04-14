@@ -70,7 +70,7 @@ public class ImageUploadController {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			MyImage img = new MyImage();
 			img.setPicId(id);
-			img.setCreator(admin.getUserid());
+			img.setCreator(admin.getUsername());
 			img.setPicName(picName);
 			img.setPicUrl(FTPUtil.ftp_url + picName);
 			img.setCompanyId(admin.getCompanyId());

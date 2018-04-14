@@ -75,7 +75,7 @@ public class QrcodeController extends SupportContorller {
 				if (ori == null) {
 					
 					qrcode.setCompanyId(admin.getCompanyId());
-					qrcode.setCreator(admin.getUserid());
+					qrcode.setCreator(admin.getUsername());
 					String imagePath = createQrImage(qrcode, request);
 					if (imagePath != null && imagePath.length() > 5) {
 						qrcode.setQrPath(imagePath);
@@ -92,7 +92,7 @@ public class QrcodeController extends SupportContorller {
 				}
 			} else {
 				qrcode.setCompanyId(admin.getCompanyId());
-				qrcode.setCreator(admin.getUserid());
+				qrcode.setCreator(admin.getUsername());
 				qrcode.setSceneType(1);
 				String imagePath = createQrImage(qrcode, request);
 				if (imagePath != null && imagePath.length() > 5) {

@@ -73,7 +73,7 @@ public class SysUserController extends SupportContorller {
 			if (ori == null) {
 				// 密码处理
 				sysUser.setPassword(EncryptUtil.defaultPwd);
-				sysUser.setCreator(admin.getUserid());
+				sysUser.setCreator(admin.getUsername());
 				sysUser.setCompanyId(companyId);
 				sysUser.setChannelId(ChannelEnums.Channel.manage.getValue());
 				sysUser.setActiveFlag(Enums.Status.Enable.getValue());

@@ -78,7 +78,7 @@ public class WxAccountController extends SupportContorller{
 	 			
 	 			wxAccount.setCreatetime(new Timestamp(System.currentTimeMillis()));
 	 			wxAccount.setUpdatetime(wxAccount.getCreatetime());
-	 			wxAccount.setCreator(admin.getUserid());
+				wxAccount.setCreator(admin.getUsername());
 	 			wxAccount.setUrl(getUrl(wxAccount));
 //	 			OrgInfo info=StaticData.getOrgInfo(wxAccount.getOrgid());
 //	 			wxAccount.setCompanyId(info.getCompanyId());
