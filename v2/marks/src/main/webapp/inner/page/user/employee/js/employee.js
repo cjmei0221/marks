@@ -28,9 +28,6 @@ function add() {
 	appInfo.formStatus = "new";
 	$("#roleType").combobox("reload");
 	$("#roleYwType").val(1);
-	$("#bind_mobile").numberbox({
-		disabled : false
-	});
 }
 
 // 编辑
@@ -142,6 +139,28 @@ function formSubmit() {
 		showMsg("默认职位为空");
 		return;
 	}
+	var roleId1 = $("#roleId1").combobox("getValue");
+	var roleId2 = $("#roleId2").combobox("getValue");
+	if(null !=roleId1 && roleId1 !=''){
+		if(roleId==roleId1){
+			showMsg("默认职位与职位2相同");
+			return;
+		}
+		if(null !=roleId2 && roleId2 !=''){
+			if(roleId1==roleId2){
+				showMsg("职位1与职位2相同");
+				return;
+			}
+		}
+	}
+	if(null !=roleId2 && roleId2 !=''){
+		if(roleId==roleId2){
+			showMsg("默认职位与职位3相同");
+			return;
+		}
+	}
+	
+	
 	var phoneVar = checkPhone($("#bind_mobile").val());
 	if (!phoneVar) {
 		showMsg("手机号码格式有误，请重填");
@@ -150,9 +169,6 @@ function formSubmit() {
 
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
-	$("#bind_mobile").numberbox({
-		disabled : false
-	});
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	$.post(reqUrl, parms, function(data) {
@@ -176,11 +192,6 @@ function formSubmit() {
 	});
 }
 function notEdit() {
-	if (appInfo.formStatus != "new") {
-		$("#bind_mobile").numberbox({
-			disabled : true
-		});
-	}
 }
 function loadList() {
 	$('#tbList').datagrid({
