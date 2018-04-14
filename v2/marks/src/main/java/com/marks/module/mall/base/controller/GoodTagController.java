@@ -84,7 +84,7 @@ public class GoodTagController extends SupportContorller{
 	 		
 	 		if(ori==null){
 				reqVo.setCompanyId(admin.getCompanyId());
-				reqVo.setCreator(admin.getUserid() + " - " + admin.getUsername());
+				reqVo.setCreator(admin.getUserCode() + " - " + admin.getUsername());
 	 			goodTagService.save(reqVo);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
