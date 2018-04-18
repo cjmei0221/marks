@@ -104,7 +104,7 @@ public class SysUserController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser sysUser = getModel(SysUser.class);
-			SysUser ori = sysUserService.findById(sysUser.getUserid());
+			SysUser ori = sysUserService.findByUserid(sysUser.getUserid());
 			if (ori == null) {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
@@ -253,7 +253,7 @@ public class SysUserController extends SupportContorller {
 		Result result = new Result();
 		try {
 			String userid = request.getParameter("userid");
-			SysUser su = sysUserService.findById(userid);
+			SysUser su = sysUserService.findByUserid(userid);
 			if (su != null) {
 				sysUserService.updatePwd(userid, EncryptUtil.defaultPwd);
 				result.setMessage("resetPwd sysUser successs!");
@@ -284,7 +284,7 @@ public class SysUserController extends SupportContorller {
 			String newPwd = request.getParameter("newPwd");
 			String oldPwd = request.getParameter("oldPwd");
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			SysUser su = sysUserService.findById(admin.getUserid());
+			SysUser su = sysUserService.findByUserid(admin.getUserid());
 			if (su.getPassword().equals(EncryptUtil.encryptPwd(oldPwd))) {
 				admin.setPassword(EncryptUtil.encryptPwd(newPwd));
 				sysUserService.updatePwd(admin.getUserid(), admin.getPassword());
@@ -313,7 +313,7 @@ public class SysUserController extends SupportContorller {
 			String newPhone = request.getParameter("newPhone");
 			String newPwd = request.getParameter("newPwd");
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			SysUser su = sysUserService.findById(admin.getUserid());
+			SysUser su = sysUserService.findByUserid(admin.getUserid());
 			if (su.getPassword().equals(EncryptUtil.encryptPwd(newPwd))) {
 				SysUser sUser = sysUserService.findByMobile(admin.getCompanyId(), newPhone);
 				if (sUser == null) {
@@ -346,13 +346,14 @@ public class SysUserController extends SupportContorller {
 		Result result = new Result();
 		try {
 			String userid = request.getParameter("userid");
-			SysUser su = sysUserService.findById(userid);
+			SysUser su = sysUserService.findByUserid(userid);
 			if (su != null) {
 				int flag = Enums.Status.Enable.getValue();
 				if (Enums.Status.Enable.getValue() == su.getActiveFlag()) {
 					flag = Enums.Status.Unable.getValue();
 				}
-				sysUserService.updateActiveFlag(userid, flag);
+				su.setActiveFlag(flag);
+				sysUserService.updateActiveFlag(su);
 				result.setMessage("resetPwd sysUser successs!");
 				result.setCode(Code.CODE_SUCCESS);
 			} else {

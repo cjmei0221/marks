@@ -157,7 +157,7 @@ public class WebLoginController {
 				user.setChannelId(ChannelEnums.Channel.web.getValue());
 				sysUserService.save(user);
 			}else{
-				sysUserService.update(user);
+				sysUserService.updateBinding(user);
 			}
 		} catch (Exception e) {
 			logger.error("bind", e);

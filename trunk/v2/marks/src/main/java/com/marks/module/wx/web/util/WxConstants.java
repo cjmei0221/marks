@@ -9,4 +9,6 @@ public class WxConstants {
 	public static final String SubscribeReplay = "subscribe";
 	
 	public static final String defaultReplay = "default_reply";
+
+	public static final String unbind = "unbind";
 }

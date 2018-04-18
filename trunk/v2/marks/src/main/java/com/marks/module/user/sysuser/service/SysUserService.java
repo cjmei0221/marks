@@ -11,6 +11,8 @@ public interface SysUserService{
 
 	public SysUser findByUserid(String userid);
 
+	public SysUser findByMobile(String companyId, String bind_mobile);
+
 	public String save(SysUser sysUser);
 
 	public void update(SysUser sysUser);
@@ -18,11 +20,26 @@ public interface SysUserService{
 	public List<SysUser> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<SysUser> list(int page_number, int page_size,Map<String,Object> param);
-	public SysUser findByMobile(String companyId, String bind_mobile);
-	public SysUser findById(String userid);
+
 	public void updatePwd(String userid,String pwd);
 	public void updateMobile(String userid, String newPhone);
-	public void updateActiveFlag(String userid, int flag);
+
+	public void updateActiveFlag(SysUser sysUser);
 	public void updateSkin(String userid, int parseInt);
+
+	/**
+	 * 解绑
+	 * 
+	 * @param accountId
+	 * @param fromUserName
+	 */
+	public void updateUnbinding(String accountId, String fromUserName);
+
+	/**
+	 * 绑定
+	 * 
+	 * @param user
+	 */
+	public void updateBinding(SysUser user);
 
 }

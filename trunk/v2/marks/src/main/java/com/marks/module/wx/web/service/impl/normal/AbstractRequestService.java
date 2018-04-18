@@ -68,7 +68,11 @@ public abstract class AbstractRequestService implements RequestService {
 				reply = new WxAutoReplay();
 				if (WxConstants.SubscribeReplay.equals(key.toLowerCase())) {
 					reply.setReplayType(WxConstants.weixin_replay_type_text);
-					reply.setCreplay("欢迎关注我的公众号");
+					reply.setCreplay("欢迎关注我们的公众号");
+				} else if (WxConstants.unbind.equals(key.toLowerCase())) {
+					isEquels = true;
+					reply.setReplayType(WxConstants.weixin_replay_type_module);
+					reply.setCreplay("com.marks.module.wx.web.module.impl.UnbindModule");
 				}
 			}
 		}

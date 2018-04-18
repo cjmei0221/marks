@@ -309,7 +309,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 		log.setGoodName(info.getGoodName());
 		log.setGoodNo(info.getGoodNo());
 		log.setId(IDUtil.getUUID());
-		log.setOperator("");
+		log.setOperator(info.getOperator());
 		log.setOrgid(info.getOrgId());
 		log.setOrgname(info.getOrgName());
 		log.setStockStatus(info.getTranStatus());
