@@ -7,7 +7,7 @@
 		TSU.*
 		FROM
 		tb_user tsu 
-		WHERE 1=1 and tsu.companyId=#{companyId}
+		WHERE tsu.activeFlag=1 and tsu.companyId=#{companyId}
 		and
 		(tsu.USERID = #{id} or
 		tsu.bind_mobile=#{id})
@@ -17,7 +17,7 @@
 		TSU.*
 		FROM
 		tb_user tsu 
-		WHERE 1=1
+		WHERE tsu.activeFlag=1
 		and (tsu.USERID = #{id} or
 		tsu.bind_mobile=#{id})
 	</select>
@@ -33,7 +33,7 @@
 		TSU.*
 		FROM
 		tb_user tsu
-		WHERE
+		WHERE tsu.activeFlag=1 and
 		tsu.accountid=#{accountid} and
 		tsu.openid=#{openid}
 	</select>

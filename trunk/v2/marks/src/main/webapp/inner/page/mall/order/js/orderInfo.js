@@ -285,7 +285,7 @@ function loadList() {
 //			align : "center"
 		}, {
 			title : '收银员编号',
-			field : 'cashManId',
+			field : 'cashManCode',
 			width : 100,
 			align : "center"
 		}, {
@@ -295,7 +295,7 @@ function loadList() {
 			align : "center"
 		}, {
 			title : '导购员编号',
-			field : 'guiderId',
+			field : 'guiderCode',
 			width : 100,
 			align : "center"
 		}, {
@@ -305,7 +305,7 @@ function loadList() {
 			align : "center"
 		}, {
 			title : '会员编号',
-			field : 'vipId',
+			field : 'vipCode',
 			width : 100,
 			align : "center"
 		}, {
