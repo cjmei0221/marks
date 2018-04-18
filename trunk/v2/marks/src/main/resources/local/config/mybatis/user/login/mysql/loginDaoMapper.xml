@@ -17,9 +17,9 @@
 		TSU.*
 		FROM
 		tb_user tsu 
-		WHERE tsu.activeFlag=1
-		and (tsu.USERID = #{id} or
+		WHERE 1=1 and (tsu.USERID = #{id} or
 		tsu.bind_mobile=#{id})
+		order by tsu.activeFlag desc
 	</select>
 	<select id="getSysUserByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		SELECT
@@ -33,9 +33,10 @@
 		TSU.*
 		FROM
 		tb_user tsu
-		WHERE tsu.activeFlag=1 and
+		WHERE 
 		tsu.accountid=#{accountid} and
 		tsu.openid=#{openid}
+		order by tsu.activeFlag desc
 	</select>
 	<!-- 加载父级菜单 -->
 	<select id="getParentSysMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
