@@ -41,7 +41,7 @@ public interface LoginDao {
 
 	List<String> getUrlByRoleId(@Param("roleId") String roleId);
 
-	SysUser getSysUserByOpenidAndAccountid(@Param("accountid")String accountid, @Param("openid")String openid);
+	List<SysUser> getSysUserByOpenidAndAccountid(@Param("accountid") String accountid, @Param("openid") String openid);
 
 	SysUser getSysUserByUserid(@Param("userid") String userid);
 

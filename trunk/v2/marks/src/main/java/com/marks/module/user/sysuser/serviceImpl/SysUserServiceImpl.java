@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ import com.marks.module.user.sysuser.service.SysUserService;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
-
+	private static Logger logger = Logger.getLogger(SysUserServiceImpl.class);
 	@Autowired
 	private SysUserDao sysUserDao;
 	@Autowired
@@ -103,30 +104,38 @@ public class SysUserServiceImpl implements SysUserService {
 			su.setRoleName(role.getRolename());
 			su.setRoleType(role.getRoleType());
 		}
-		if (null != role.getOrgId()) {
-			OrgInfo info = orgInfoDao.findById(role.getOrgId());
-			if (info != null) {
-				sysUser.setParentOrgId(info.getParentId());
-				sysUser.setParentOrgName(info.getParentName());
-				sysUser.setOrgCategory(info.getOrgCategory());
-				sysUser.setOrgId(info.getOrgid());
-				sysUser.setOrgName(info.getOrgname());
-				sysUser.setOrgType(info.getOrgType());
-				su.setOrgCategory(info.getOrgCategory());
-				su.setOrgId(info.getOrgid());
-				su.setOrgName(info.getOrgname());
-				su.setOrgType(info.getOrgType());
-				su.setParentOrgId(info.getParentId());
-				su.setParentOrgName(info.getParentName());
-			}
+		logger.info("saveSysUserOrgRole >>" + sysUser.getOrgId() + " - " + role.getOrgId());
+		OrgInfo info = null;
+		if (null != sysUser.getOrgId() && !"".equals(sysUser.getOrgId())) {
+		
+			info = orgInfoDao.findById(sysUser.getOrgId());
 		}
+		if (info == null && null != role.getOrgId() && !"".equals(role.getOrgId())) {
+			
+			info = orgInfoDao.findById(role.getOrgId());
+		}
+		if (info != null) {
+			sysUser.setParentOrgId(info.getParentId());
+			sysUser.setParentOrgName(info.getParentName());
+			sysUser.setOrgCategory(info.getOrgCategory());
+			sysUser.setOrgId(info.getOrgid());
+			sysUser.setOrgName(info.getOrgname());
+			sysUser.setOrgType(info.getOrgType());
+			su.setOrgCategory(info.getOrgCategory());
+			su.setOrgId(info.getOrgid());
+			su.setOrgName(info.getOrgname());
+			su.setOrgType(info.getOrgType());
+			su.setParentOrgId(info.getParentId());
+			su.setParentOrgName(info.getParentName());
+		}
+
 		sysUserDao.saveSysUserOrgRole(su);
 		// 其他角色
 		if (null != sysUser.getRoleId1() && !"".equals(sysUser.getRoleId1())) {
 			saveSysUserOrgRole2(sysUser.getRoleId1(), 1, sysUser.getUserid(), sysUser.getCompanyId());
 		}
 		if (null != sysUser.getRoleId2() && !"".equals(sysUser.getRoleId2())) {
-			saveSysUserOrgRole2(sysUser.getRoleId1(), 1, sysUser.getUserid(), sysUser.getCompanyId());
+			saveSysUserOrgRole2(sysUser.getRoleId1(), 2, sysUser.getUserid(), sysUser.getCompanyId());
 		}
 	}
 
