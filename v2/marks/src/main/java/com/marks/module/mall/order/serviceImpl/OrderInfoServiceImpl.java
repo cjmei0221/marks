@@ -125,9 +125,10 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	public void saveOrder(OrderInfo info, List<OrderGood> goodList, List<String> barCodeList) {
 		// 会员信息
 		if (info.getVipId() != null && info.getVipId().length() > 4) {
-			SysUser vip = sysUserService.findById(info.getVipId());
+			SysUser vip = sysUserService.findByUserid(info.getVipId());
 			info.setVipMobile(vip.getBind_mobile());
 			info.setVipName(vip.getUsername());
+			info.setVipCode(vip.getUserCode());
 		}
 		info.setI_year(info.getCashDate().substring(0, 4));
 		info.setI_month(info.getCashDate().substring(5, 7));
@@ -227,6 +228,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		if (null != stock && stock.size() > 0) {
 			good.setCostPrice(stock.get(0).getCostPrice());
 			good.setCostAmt(MoneyUtil.multiply(good.getCostPrice(), String.valueOf(good.getNums())));
+			for (StockBatch b : stock) {
+				b.setOperator(info.getCashMan());
+			}
 			stockList.addAll(stock);
 		} else {
 			good.setCostPrice(good.getCostPrice());
@@ -243,6 +247,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				b.setSalePrice(MoneyUtil.divide(good.getPayAmt(), String.valueOf(good.getNums())));
 				b.setUserid(info.getVipId());
 				b.setUsername(info.getVipName());
+				b.setOperator(info.getCashMan());
 			}
 		}
 		return stock;

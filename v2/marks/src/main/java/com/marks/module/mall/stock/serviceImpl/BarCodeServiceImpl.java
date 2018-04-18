@@ -116,6 +116,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 			code.setBrandId(good.getBrandId());
 			code.setBrandName(good.getBrandName());
 			code.setCostPrice(info.getCostPrice());
+			code.setOperator(info.getOperator());
 			codelist.add(code);
 
 			// 追踪记录
@@ -216,7 +217,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 		log.setGoodName(vo.getGoodName());
 		log.setGoodNo(vo.getGoodNo());
 		log.setId(IDUtil.getUUID());
-		log.setOperator("");
+		log.setOperator(vo.getOperator());
 		log.setOrgid(vo.getOrgid());
 		log.setOrgname(vo.getOrgname());
 		log.setStockStatus(vo.getStockStatus());

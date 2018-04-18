@@ -29,8 +29,6 @@ public interface SysUserDao {
 
 	List<SysUser> list(PageBounds pageBounds, Map<String, Object> param);
 
-	SysUser findById(@Param("userid") String userid);
-
 	void updatePwd(@Param("userid") String userid, @Param("password") String password);
 
 	void updateMobile(@Param("userid") String userid, @Param("newPhone") String newPhone);
@@ -48,5 +46,12 @@ public interface SysUserDao {
 	String getMaxCode(@Param("companyId") String companyId);
 
 	List<SysUserOrgRole> findUserRoleByUserids(@Param("list") List<String> userids);
+
+	void updateUnbinding(@Param("accountId") String accountId, @Param("openid") String openid);
+
+	void updateBinding(SysUser user);
+
+	void updateforbidOrder(@Param("companyId") String companyId, @Param("userid") String userid,
+			@Param("mobile") String mobile, @Param("openid") String openid);
 
 }

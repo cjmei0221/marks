@@ -154,7 +154,7 @@ public class WebSysUserController extends SupportContorller {
 		try {
 			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser info = getModel(SysUser.class);
-			SysUser ori = sysUserService.findById(loginUser.getUserid());
+			SysUser ori = sysUserService.findByUserid(loginUser.getUserid());
 			if (ori == null) {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);

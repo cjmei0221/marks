@@ -155,6 +155,16 @@ public class BarCode implements Serializable {
 
 	private String endDate;
 
+	private String operator;// 操作人
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
 	public String getEndDate() {
 		return endDate;
 	}

@@ -180,10 +180,12 @@ public class OrderInfo implements Serializable {
 	 */
 	private int point;
 	/**
-	 * 收银员编号
+	 * 收银员系统编号
 	 *
 	 */
 	private String cashManId;
+
+	private String cashManCode;// 收银员编号
 	/**
 	 * 收银员名称
 	 *
@@ -194,6 +196,8 @@ public class OrderInfo implements Serializable {
 	 *
 	 */
 	private String guiderId;
+
+	private String guiderCode;
 	/**
 	 * 导购员名称
 	 *
@@ -204,6 +208,8 @@ public class OrderInfo implements Serializable {
 	 *
 	 */
 	private String vipId;
+
+	private String vipCode;//
 	/**
 	 * 会员名称
 	 *
@@ -257,7 +263,30 @@ public class OrderInfo implements Serializable {
 	public OrderInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
 
+	public String getCashManCode() {
+		return cashManCode;
+	}
+
+	public void setCashManCode(String cashManCode) {
+		this.cashManCode = cashManCode;
+	}
+
+	public String getGuiderCode() {
+		return guiderCode;
+	}
+
+	public void setGuiderCode(String guiderCode) {
+		this.guiderCode = guiderCode;
+	}
+
+	public String getVipCode() {
+		return vipCode;
+	}
+
+	public void setVipCode(String vipCode) {
+		this.vipCode = vipCode;
 	}
 
 	public String getNowPriceAmt() {

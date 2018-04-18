@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.enums.Enums;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.user.sysrole.dao.SysRoleDao;
@@ -43,11 +44,6 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	public SysUser findByMobile(String companyId, String bind_mobile) {
 		return sysUserDao.findByMobile(companyId, bind_mobile);
-	}
-
-	@Override
-	public SysUser findById(String userid) {
-		return sysUserDao.findById(userid);
 	}
 
 	/**
@@ -167,8 +163,14 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	@Override
-	public void updateActiveFlag(String userid, int flag) {
-		sysUserDao.updateActiveFlag(userid, flag);
+	public void updateActiveFlag(SysUser su) {
+		if (Enums.Status.Enable.getValue() == su.getActiveFlag()) {
+			String mobile = su.getBind_mobile() == null ? "AAA" : su.getBind_mobile();
+			String openid = su.getOpenid() == null ? "AAA" : su.getOpenid();
+			sysUserDao.updateforbidOrder(su.getCompanyId(), su.getUserid(), mobile, openid);
+
+		}
+		sysUserDao.updateActiveFlag(su.getUserid(), su.getActiveFlag());
 	}
 
 	/**
@@ -235,4 +237,15 @@ public class SysUserServiceImpl implements SysUserService {
 	public void updateSkin(String userid, int skin) {
 		sysUserDao.updateSkin(userid, skin);
 	}
+
+	@Override
+	public void updateUnbinding(String accountId, String openid) {
+		sysUserDao.updateUnbinding(accountId, openid);
+	}
+
+	@Override
+	public void updateBinding(SysUser user) {
+		sysUserDao.updateBinding(user);
+	}
+
 }

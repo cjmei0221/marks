@@ -63,6 +63,7 @@ public class WebOrderInfoController extends SupportContorller {
 			info.setCashAmt(payAmt);
 			info.setCashMan(admin.getUsername());
 			info.setCashManId(admin.getUserid());
+			info.setCashManCode(admin.getUserCode());
 			info.setCashType(OrderEnums.CashType.consume.getValue());
 			info.setYwType(OrderEnums.YwType.good.getValue());
 			info.setCommitTime(DateUtil.getCurrDateStr());
