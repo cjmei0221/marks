@@ -98,6 +98,12 @@ public class WebLoginController {
 				JsonUtil.output(response, result);
 				return;
 			}
+			if (Enums.Status.Unable.getValue() == loginUser.getActiveFlag()) {
+				result.setMessage("您已经被禁用了哦");
+				result.setCode("4001");
+				JsonUtil.output(response, result);
+				return;
+			}
 			SysUser user = loginService.findSysUserByUserid(loginUser.getUserid());
 			result.getData().put("loginUser", user);
 		} catch (Exception e) {
@@ -132,12 +138,6 @@ public class WebLoginController {
 				if (Enums.Status.Unable.getValue() == sysUser.getActiveFlag()) {
 					result.setCode("4002");
 					result.setMessage("此手机号已被禁用");
-					JsonUtil.output(response, result);
-					return;
-				}
-				if (Enums.Status.Unable.getValue() == sysUser.getBindFlag()) {
-					result.setCode("4003");
-					result.setMessage("此手机号已被绑定");
 					JsonUtil.output(response, result);
 					return;
 				}
