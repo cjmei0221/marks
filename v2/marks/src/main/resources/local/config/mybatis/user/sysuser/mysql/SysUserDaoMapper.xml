@@ -3,11 +3,6 @@
 
 <mapper namespace="com.marks.module.user.sysuser.dao.SysUserDao">
 
-	<select id="findById" resultType="com.marks.module.user.sysuser.pojo.SysUser">
-		select * from tb_user t
-		where
-		t.userid=#{userid}
-	</select>
 	<select id="findByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		select
 		u.*
@@ -20,7 +15,7 @@
 
 	<select id="findByMobile" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		select * from tb_user t
-		where t.bind_mobile=#{mobile} and t.COMPANYID=#{companyId}
+		where t.ACTIVEFLAG=1 and t.bind_mobile=#{mobile} and t.COMPANYID=#{companyId}
 	</select>
 	<insert id="save" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
 		INSERT INTO tb_user
@@ -59,7 +54,8 @@
 		lvlId,
 		lvlName,
 		roleYwType,
-		userRoleOrgId
+		userRoleOrgId,
+		bindFlag
 		)
 		VALUES(
 		#{userid:VARCHAR},
@@ -96,7 +92,8 @@
 		#{lvlId:VARCHAR},
 		#{lvlName:VARCHAR},
 		#{roleYwType:NUMERIC},
-		#{userRoleOrgId:VARCHAR}
+		#{userRoleOrgId:VARCHAR},
+		#{bindFlag:NUMERIC}
 		)
 	</insert>
 
@@ -296,5 +293,32 @@
 	<update id="updateSkin" flushCache="true">
 		update tb_user set
 		skin=#{skin},UPDATETIME=now() where userid=#{userid}
+	</update>
+	
+	<update id="updateUnbinding" flushCache="true">
+		update tb_user set
+		ACTIVEFLAG=0,bindflag=0,UPDATETIME=now() where accountid=#{accountId} and openid=#{openid}
+	</update>
+	<update id="updateBinding" flushCache="true">
+		UPDATE tb_user
+		SET
+		ACTIVEFLAG=1
+		bindflag = 1,
+		openid=#{openid},
+		accountId=#{accountid},
+		UPDATETIME
+		=now()
+		WHERE
+		USERID=#{userid}
+	</update>
+	<update id="updateforbidOrder" flushCache="true">
+		UPDATE tb_user
+		SET
+		ACTIVEFLAG=0,
+		bindflag = 0,
+		UPDATETIME
+		=now()
+		WHERE
+		companyId=#{companyId} and userid !=#{userid} and (BIND_MOBILE=#{mobile} or openid=#{openid})
 	</update>
 </mapper>
