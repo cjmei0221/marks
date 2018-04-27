@@ -25,7 +25,7 @@ $(function() {
 		}
 
 	});
-	$('#pay_payAmt').bind('keypress', function(event) {
+	$('#pay_returnAmt').bind('keypress', function(event) {
 
 		if (event.keyCode == 13)
 
@@ -34,8 +34,89 @@ $(function() {
 		}
 
 	});
+	$('#pay_cashAmt').bind('keypress', function(event) {
+
+		if (event.keyCode == 13)
+
+		{
+			var pay_cashAmt=$("#pay_cashAmt").val();
+			if(null != pay_cashAmt && pay_cashAmt !=''){
+				countReturnAmt();
+			}
+		}
+
+	});
+	$('#pay_pointAmt').bind('keypress', function(event) {
+
+		if (event.keyCode == 13)
+
+		{
+			var pay_cashAmt=$("#pay_cashAmt").val();
+			var pay_pointAmt=$("#pay_pointAmt").val();
+			var pay_useBalAmt=$("#pay_useBalAmt").val();
+			var pay_payAmt=$("#pay_payAmt").val();
+			var pay_payableAmt=$("#pay_payableAmt").html();
+			var amt=parseFloat(pay_payAmt)-parseFloat(pay_pointAmt)-parseFloat(pay_useBalAmt);
+			
+			$("#pay_cashAmt").val(amt.toFixed(2));
+		}
+
+	});
+	$('#pay_useBalAmt').bind('keypress', function(event) {
+
+		if (event.keyCode == 13)
+
+		{
+			var pay_cashAmt=$("#pay_cashAmt").val();
+			var pay_pointAmt=$("#pay_pointAmt").val();
+			var pay_useBalAmt=$("#pay_useBalAmt").val();
+			var pay_payAmt=$("#pay_payAmt").val();
+			var pay_payableAmt=$("#pay_payableAmt").html();
+			var amt=parseFloat(pay_payAmt)-parseFloat(pay_pointAmt)-parseFloat(pay_useBalAmt);		
+			$("#pay_cashAmt").val(amt.toFixed(2));
+		}
+
+	});
+	
+	$('#recharge_cashAmt').bind('keypress', function(event) {
+
+		if (event.keyCode == 13)
+
+		{
+			var pay_cashAmt=$("#recharge_cashAmt").val();
+			if(null != pay_cashAmt && pay_cashAmt !=''){
+				countRechargeAmt();
+			}
+		}
+
+	});
 
 });
+//积分抵扣金额
+function pointAmt(){
+	var pay_usePoint=$("#pay_usePoint").val();
+	if(parseFloat(pay_usePoint)>0){
+		$("#pay_pointAmt").val("0");
+	}
+}
+function countReturnAmt(){
+	var pay_cashAmt=$("#pay_cashAmt").val();
+	var pay_pointAmt=$("#pay_pointAmt").val();
+	var pay_useBalAmt=$("#pay_useBalAmt").val();
+	var pay_payAmt=$("#pay_payAmt").val();
+	var pay_payableAmt=$("#pay_payableAmt").html();
+	var amt=parseFloat(pay_cashAmt)-parseFloat(pay_payAmt)+parseFloat(pay_useBalAmt)+parseFloat(pay_pointAmt);
+	$("#pay_returnAmt").val(amt.toFixed(2));
+}
+//积分抵扣金额
+function balAmt(){
+	var balAmt=$("#pay_balAmt").html();
+	var pay_useBalAmt=$("#pay_useBalAmt").val();
+	var flagAmt=parseFloat(balAmt)-parseFloat(pay_useBalAmt);
+	if(flagAmt >= 0 ){
+		$("#pay_useBalAmt").val("0");
+	}
+}
 function clear() {
 	appInfo.vipFlag=0;//不是会员
 	$('#trDiv').html("");
@@ -50,6 +131,14 @@ function clear() {
 	$("#goodNo").val("");
 	$("#vipMobile").val("");
 	$("#goodNo").focus();
+	$("#vipPoint").html("");
+	$("#vipBalAmt").html("");
+	$("#toRecharge").hide();
+	$(".pay-vip-cls").hide();
+	$("#recharge_Amt").val("");
+	$("#recharge_sendAmt").val("0");
+	$("#recharge_cashAmt").val("");
+	$("#recharge_returnAmt").val("");
 }
 // 加商品
 function checkGood() {
@@ -207,6 +296,12 @@ function checkVip() {
 					appInfo.vipInfo = vo;
 					$("#vipName").html(appInfo.vipInfo.username);
 					$("#vipTel").html(appInfo.vipInfo.bind_mobile);
+					$("#vipPoint").html(appInfo.vipInfo.balPoint);
+					$("#vipBalAmt").html(appInfo.vipInfo.balAmt);
+					$("#pay_point").html(appInfo.vipInfo.balPoint);
+					$("#pay_balAmt").html(appInfo.vipInfo.balAmt);
+					$("#toRecharge").show();
+					$(".pay-vip-cls").show();
 					countVipPrice();
 				}
 			}
@@ -262,21 +357,36 @@ function toPay() {
 	$("#payModal").modal('show');
 	$("#pay_payableAmt").html($("#totalPayableAmt").html());
 	$("#pay_payAmt").val($("#payAmtPut").val());
-	$("#pay_payAmt").focus();
 }
 function payCancel() {
 	$("#payModal").modal('hide');
 	clear();
 }
 function payOk() {
-	summitOrder();
+	var pay_cashAmt=$("#pay_cashAmt").val();
+	if(null != pay_cashAmt && pay_cashAmt !=''){
+		summitOrder();
+	}else{
+		alert("尚未填写收款金额！");
+	}
 }
 function summitOrder() {
 	if (appInfo.goodData.length == 0) {
 		return;
 	}
+
+	var pay_pointAmt=$("#pay_pointAmt").val();
+	var pay_useBalAmt=$("#pay_useBalAmt").val();
+
 	var payAmt = $("#pay_payAmt").val();
 	var payableAmt = $("#pay_payableAmt").html();
+	
+	var pay_usePoint = $("#pay_usePoint").val();
+	
+	var pay_cashAmt=$("#pay_cashAmt").val();
+	var pay_returnAmt=$("#pay_returnAmt").val();
+	var cashAmt=(parseFloat(pay_cashAmt)-parseFloat(pay_returnAmt)).toFixed(2);
+	
 	var goodList = JSON.stringify(appInfo.goodData);
 	var barCodeList = "";
 	if (appInfo.barCodeData.length > 0) {
@@ -292,12 +402,73 @@ function summitOrder() {
 		data : {
 			goodList : goodList,
 			vipId : vipId,
+			usePoint:pay_usePoint,
 			payAmt : payAmt,
+			payableAmt:payableAmt,
+			pointAmt:pay_pointAmt,
+			storedAmt:pay_useBalAmt,
+			cashAmt:cashAmt,
 			barCodeList:barCodeList
 		},
 		success : function(data) {
 			if (data.retcode == "0") {
 				$("#payModal").modal('hide');
+				clear();
+			}
+		},
+		complete : function() {
+
+		}
+	});
+}
+
+function toRecharge(){
+	$("#rechargeModal").modal('show');
+}
+function rechargeCancel(){
+	$("#rechargeModal").modal('hide');
+	clear();
+}
+function countRechargeAmt(){
+	var recharge_cashAmt = $("#recharge_cashAmt").val();
+	var recharge_Amt = $("#recharge_Amt").val();
+	var recharge_sendAmt = $("#recharge_sendAmt").val();
+	var payableAmt=(parseFloat(recharge_cashAmt)-parseFloat(recharge_Amt)).toFixed(2);
+	$("#recharge_returnAmt").val(payableAmt);
+}
+function rechargeOk(){
+	var pay_cashAmt=$("#recharge_cashAmt").val();
+	if(null != pay_cashAmt && pay_cashAmt !=''){
+		summitRechargeOrder();
+	}else{
+		alert("尚未填写收款金额！");
+		return;
+	}
+	
+}
+function summitRechargeOrder(){
+	var vipId = "";
+	if (appInfo.vipInfo.userid != null) {
+		vipId = appInfo.vipInfo.userid;
+	}
+	var recharge_cashAmt = $("#recharge_cashAmt").val();
+	var recharge_Amt = $("#recharge_Amt").val();
+	var recharge_sendAmt = $("#recharge_sendAmt").val();
+	var recharge_returnAmt = $("#recharge_returnAmt").val();
+	var payableAmt=(parseFloat(recharge_Amt)+parseFloat(recharge_sendAmt)).toFixed(2);
+	var payAmt=(parseFloat(recharge_cashAmt)-parseFloat(recharge_returnAmt)).toFixed(2);
+	$.ajax({
+		url : tool.reqUrl.summitRechargeOrderUrl,
+		type : 'POST',
+		data : {
+			vipId : vipId,
+			payAmt : payAmt,
+			payableAmt:payableAmt,
+			cashAmt:payAmt
+		},
+		success : function(data) {
+			if (data.retcode == "0") {
+				$("#rechargeModal").modal('hide');
 				clear();
 			}
 		},

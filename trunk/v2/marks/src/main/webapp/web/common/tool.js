@@ -79,10 +79,11 @@ tool.reqUrl = {
 	wxPay : '/web/WXPay/preorder.do', // 微信支付接口
 	downWxImg : "/web/js/media.do",
 
-	findGoodInfoById : tool.baseUrl + "/web/orderGood/findById.do",
-	findVipInfoById : tool.baseUrl + "/web/sysUser/findById.do",
+	findGoodInfoById : tool.baseUrl + "/web/orderInfo/findGoodById.do",
+	findVipInfoById : tool.baseUrl + "/web/orderInfo/findVipInfoById.do",
 	summitOrderUrl : tool.baseUrl + "/web/orderInfo/save.do",
 	saveVipInfo : tool.baseUrl + "/web/sysUser/saveVipInfo.do",
+	summitRechargeOrderUrl : tool.baseUrl + "/web/orderInfo/recharge.do",
 
 }
 
