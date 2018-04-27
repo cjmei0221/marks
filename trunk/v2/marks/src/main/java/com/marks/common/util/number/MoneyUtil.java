@@ -111,6 +111,6 @@ public class MoneyUtil {
 
 	public static void main(String[] args) {
 
-		System.out.println(MoneyUtil.multiply("23", "0E-18"));
+		System.out.println(MoneyUtil.add("3.5", MoneyUtil.subtract("2.3", "5.6")));
 	}
 }

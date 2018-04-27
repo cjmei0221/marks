@@ -1,6 +1,7 @@
 package com.marks.module.user.sysuser.pojo;
 
 import java.io.Serializable;
+
 import com.marks.common.util.date.DateUtil;
 
 public class UserLvl implements Serializable{
@@ -58,7 +59,7 @@ public class UserLvl implements Serializable{
     *是否积分升级
     *
     */
-    private int upPointFlag;
+	private int upPointFlag;
     /**
     *升级积分
     *

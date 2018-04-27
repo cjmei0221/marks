@@ -31,4 +31,11 @@ public interface OrderInfoService{
 	 * @param goodList
 	 */
 	public void saveOrder(OrderInfo info, List<OrderGood> goodList, List<String> barCodeList);
+
+	/**
+	 * 充值
+	 * 
+	 * @param info
+	 */
+	public void saveRecharge(OrderInfo info);
 }

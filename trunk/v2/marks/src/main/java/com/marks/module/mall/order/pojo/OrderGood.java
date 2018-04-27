@@ -102,6 +102,8 @@ public class OrderGood implements Serializable {
 	 *
 	 */
 	private String payAmt;
+
+	private String recevieAmt;
 	/**
 	 * 现金金额
 	 *
@@ -117,6 +119,10 @@ public class OrderGood implements Serializable {
 	 *
 	 */
 	private String alipayAmt;
+	/**
+	 * 储值卡支付金额
+	 */
+	private String storedAmt;
 	/**
 	 * 其他金额
 	 *
@@ -260,9 +266,45 @@ public class OrderGood implements Serializable {
 	
 	private String nowPriceAmt;//现价金额
 
+	private int point;// 可得积分
+
+	private int usePoint;// 使用积分
+
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getRecevieAmt() {
+		return recevieAmt;
+	}
+
+	public void setRecevieAmt(String recevieAmt) {
+		this.recevieAmt = recevieAmt;
+	}
+
+	public String getStoredAmt() {
+		return storedAmt;
+	}
+
+	public void setStoredAmt(String storedAmt) {
+		this.storedAmt = storedAmt;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public int getUsePoint() {
+		return usePoint;
+	}
+
+	public void setUsePoint(int usePoint) {
+		this.usePoint = usePoint;
 	}
 
 	public String getNowPriceAmt() {

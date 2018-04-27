@@ -2,6 +2,7 @@ package com.marks.module.mall.order.pojo;
 
 import java.io.Serializable;
 
+import com.marks.common.enums.ChannelEnums;
 import com.marks.common.enums.OrderEnums;
 import com.marks.common.util.date.DateUtil;
 
@@ -80,6 +81,10 @@ public class OrderInfo implements Serializable {
 	 */
 	private String payAmt;
 	/**
+	 * 收款金额
+	 */
+	private String recevieAmt;
+	/**
 	 * 促销总额
 	 *
 	 */
@@ -139,8 +144,13 @@ public class OrderInfo implements Serializable {
 	 *
 	 */
 	private String alipayAmt;
+
 	/**
-	 * 其他金额
+	 * 储值卡支付金额
+	 */
+	private String storedAmt;
+	/**
+	 * 其他金额 包含 刷卡。银联，等其他支付方式
 	 *
 	 */
 	private String otherAmt;
@@ -260,9 +270,55 @@ public class OrderInfo implements Serializable {
 
 	private String nowPriceAmt;// 现价金额
 
+	private int usePoint;// 使用积分
+
+	private String channelId;// 渠道
+
+	private String channel;// 渠道
+
 	public OrderInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getRecevieAmt() {
+		return recevieAmt;
+	}
+
+	public void setRecevieAmt(String recevieAmt) {
+		this.recevieAmt = recevieAmt;
+	}
+
+	public String getStoredAmt() {
+		return storedAmt;
+	}
+
+	public void setStoredAmt(String storedAmt) {
+		this.storedAmt = storedAmt;
+	}
+
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
+	public String getChannel() {
+		return ChannelEnums.Channel.getByKey(channelId);
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+
+	public int getUsePoint() {
+		return usePoint;
+	}
+
+	public void setUsePoint(int usePoint) {
+		this.usePoint = usePoint;
 	}
 
 	public String getCashManCode() {

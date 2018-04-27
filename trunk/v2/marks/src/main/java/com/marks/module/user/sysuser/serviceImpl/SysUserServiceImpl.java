@@ -12,6 +12,7 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.enums.Enums;
+import com.marks.module.acct.base.service.UserExtService;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.user.sysrole.dao.SysRoleDao;
@@ -30,6 +31,8 @@ public class SysUserServiceImpl implements SysUserService {
 	private SysRoleDao sysRoleDao;
 	@Autowired
 	private OrgInfoDao orgInfoDao;
+	@Autowired
+	private UserExtService userExtService;
 
 	/**
 	 * 根据ID查找用户管理
@@ -56,11 +59,14 @@ public class SysUserServiceImpl implements SysUserService {
 		String userid = sysUser.getCompanyId() + userCode;
 		sysUser.setUserid(userid);
 		sysUser.setUserCode(userCode);
-		sysUser.setLvlId(sysUser.getCompanyId() + "_0");
-		sysUser.setLvlName("普通会员");
 		saveSysUserOrgRole(sysUser);
 		sysUserDao.save(sysUser);
+		saveUserExt(sysUser);
 		return userid;
+	}
+
+	private void saveUserExt(SysUser sysUser) {
+		userExtService.saveOrUpdate(sysUser);
 	}
 
 	public String getUserCode(String companyId) {
@@ -82,6 +88,7 @@ public class SysUserServiceImpl implements SysUserService {
 	public void update(SysUser sysUser) {
 		saveSysUserOrgRole(sysUser);
 		sysUserDao.update(sysUser);
+		saveUserExt(sysUser);
 	}
 
 	private void saveSysUserOrgRole(SysUser sysUser) {
@@ -189,6 +196,7 @@ public class SysUserServiceImpl implements SysUserService {
 	public void delete(String userid) {
 		sysUserDao.deleteSysUserOrgRoleByUserid(userid);
 		sysUserDao.delete(userid);
+		userExtService.delete(userid);
 	}
 
 	/**

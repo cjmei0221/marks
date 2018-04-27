@@ -12,8 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.enums.AcctEnums;
+import com.marks.common.enums.FeeEnums;
+import com.marks.common.enums.OrderEnums;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.number.MoneyUtil;
+import com.marks.module.acct.base.service.UserExtService;
+import com.marks.module.acct.ext.pojo.PointLog;
+import com.marks.module.acct.ext.pojo.TranLog;
+import com.marks.module.acct.ext.service.AcctService;
+import com.marks.module.fee.log.pojo.FeeLog;
+import com.marks.module.fee.log.service.FeeLogService;
 import com.marks.module.mall.order.dao.OrderGoodDao;
 import com.marks.module.mall.order.dao.OrderInfoDao;
 import com.marks.module.mall.order.pojo.OrderGood;
@@ -43,6 +52,15 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	private StockBatchService stockBatchService;
 	@Autowired
 	private BarCodeService barCodeService;
+
+	@Autowired
+	private AcctService acctService;
+
+	@Autowired
+	private UserExtService userExtService;
+
+	@Autowired
+	private FeeLogService feeLogService;
 
 	/**
 	 * private OrderInfoDao orderInfoDao;
@@ -122,7 +140,36 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	}
 
 	@Override
-	public void saveOrder(OrderInfo info, List<OrderGood> goodList, List<String> barCodeList) {
+	public void saveRecharge(OrderInfo info) {
+		dealOrder(info);
+		// 保存订单
+		orderInfoDao.save(info);
+		// 充值帐户
+		saveBalAmt(info);
+		// 记录费用
+		saveFeeLog(info);
+	}
+
+	private void saveBalAmt(OrderInfo info) {
+		TranLog log = new TranLog();
+		log.setCashAmt(info.getPayAmt());
+		log.setRemarks("会员充值");
+		log.setSendAmt(MoneyUtil.subtract(info.getPayableAmt(), info.getPayAmt()));
+		log.setTranAmt(info.getPayableAmt());
+		log.setTranCode(AcctEnums.TranCode.add.getValue());
+		log.setTranDesc("会员充值");
+		log.setTranTime(info.getCommitTime());
+		log.setUserid(info.getVipId());
+		log.setChannelId(info.getChannelId());
+		log.setOrgId(info.getOrgId());
+		log.setOrgName(info.getOrgName());
+		log.setOperatorCode(info.getCashManCode());
+		log.setOperatorName(info.getCashMan());
+		acctService.saveAmt(log);
+
+	}
+
+	private void dealOrder(OrderInfo info) {
 		// 会员信息
 		if (info.getVipId() != null && info.getVipId().length() > 4) {
 			SysUser vip = sysUserService.findByUserid(info.getVipId());
@@ -133,6 +180,14 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		info.setI_year(info.getCashDate().substring(0, 4));
 		info.setI_month(info.getCashDate().substring(5, 7));
 		info.setI_season(getSeasion(info.getI_month()) + "");
+		info.setRecevieAmt(MoneyUtil.add(info.getCashAmt(), info.getWxAmt()));
+		info.setRecevieAmt(MoneyUtil.add(info.getRecevieAmt(), info.getAlipayAmt()));
+		info.setRecevieAmt(MoneyUtil.add(info.getRecevieAmt(), info.getOtherAmt()));
+	}
+
+	@Override
+	public void saveOrder(OrderInfo info, List<OrderGood> goodList, List<String> barCodeList) {
+		dealOrder(info);
 		// 计算订单商品
 		List<StockBatch> stockList = new ArrayList<StockBatch>();
 
@@ -151,7 +206,18 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				}
 			}
 		}
-		countOrder(info, goodList, stockList);
+		dealGood(info, goodList, stockList);
+		// 给会员积分
+		if (null != info.getVipId() && info.getVipId().length() > 4) {
+			saveVipPoint(info, goodList);
+		}
+		if (info.getUsePoint() > 0) {
+			saveVipLessPoint(info);
+		}
+		// 储值卡
+		if (MoneyUtil.compare(info.getStoredAmt(), "0.01")) {
+			saveVipLessBalAmt(info);
+		}
 		// 保存订单
 		orderInfoDao.save(info);
 		// 保存订单商品
@@ -160,13 +226,108 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		if (stockList.size() > 0) {
 			stockBatchService.updateSaleOut(stockList, barList);
 		}
+		// 处理会员等级等信息
+		if (null != info.getVipId() && info.getVipId().length() > 4) {
+			userExtService.updateVipInfoByOrder(info.getVipId(), info.getPoint(), info.getPayAmt());
+		}
+		if (MoneyUtil.compare(info.getRecevieAmt(), "0.01")) {
+			// 记录费用
+			saveFeeLog(info);
+		}
 	}
 
-	private void countOrder(OrderInfo info, List<OrderGood> goodList, List<StockBatch> stockList) {
+	private void saveFeeLog(OrderInfo info) {
+		FeeLog log = new FeeLog();
+		log.setCompanyId(info.getCompanyId());
+		if (OrderEnums.CashType.recharge.getValue().equals(info.getCashType())) {
+			log.setFeeCode(FeeEnums.FeeCode.recharge.getValue());
+			log.setItemCode(FeeEnums.ItemCode.recharge.getValue());
+		} else {
+			log.setFeeCode(FeeEnums.FeeCode.consume.getValue());
+			log.setItemCode(FeeEnums.ItemCode.consume.getValue());
+		}
+		log.setIdNo(info.getOrderId());
+		log.setItemName(FeeEnums.ItemCode.getByKey(log.getItemCode()));
+		log.setPayeeId(info.getVipId());
+		log.setRemarks(info.getRemarks());
+		log.setTranAmt(info.getRecevieAmt());
+		log.setTranTime(info.getCommitTime());
+		feeLogService.save(log);
+	}
+
+	private void saveVipLessBalAmt(OrderInfo info) {
+		TranLog log = new TranLog();
+		log.setCashAmt(info.getPayAmt());
+		log.setRemarks("会员购买消费");
+		log.setTranAmt(info.getStoredAmt());
+		log.setTranCode(AcctEnums.TranCode.less.getValue());
+		log.setTranDesc("会员消费");
+		log.setTranTime(info.getCommitTime());
+		log.setUserid(info.getVipId());
+		log.setChannelId(info.getChannelId());
+		log.setOrgId(info.getOrgId());
+		log.setOrgName(info.getOrgName());
+		log.setOperatorCode(info.getCashManCode());
+		log.setOperatorName(info.getCashMan());
+		acctService.saveAmt(log);
+	}
+
+	private void saveVipLessPoint(OrderInfo info) {
+		PointLog log = new PointLog();
+		log.setChannelId(info.getChannelId());
+		log.setOperatorCode(info.getCashManCode());
+		log.setOperatorName(info.getCashMan());
+		log.setOrgId(info.getOrgId());
+		log.setOrgName(info.getOrgName());
+		log.setRemarks("抵扣购买商品金额");
+		log.setTranCode(AcctEnums.TranCode.less.getValue());
+		log.setTranDesc("抵扣消费");
+		log.setTranPoint(info.getUsePoint());
+		log.setTranTime(info.getCommitTime());
+		log.setUserid(info.getVipId());
+		acctService.savePoint(log);
+	}
+
+	private void saveVipPoint(OrderInfo info, List<OrderGood> goodList) {
+		String pointType = "2";// 1:按商品积分 2:按订单金额积分 1元 1积分
+		int goodPoint = 0;
+		for (OrderGood good : goodList) {
+			goodPoint += good.getPoint();
+			if (!"1".equals(pointType)) {
+				good.setPoint(0);
+			}
+			good.setUsePoint(0);
+		}
+
+		PointLog log = new PointLog();
+		if ("1".equals(pointType)) {
+			log.setRemarks("购买商品积分");
+			log.setTranPoint(goodPoint);
+		} else {
+			double point = Double.parseDouble(info.getPayAmt());
+			log.setTranPoint((int) point);
+		}
+		if (log.getTranPoint() > 0) {
+			log.setTranCode(AcctEnums.TranCode.add.getValue());
+			log.setTranDesc("消费积分");
+			log.setTranTime(info.getCommitTime());
+			log.setUserid(info.getVipId());
+			log.setChannelId(info.getChannelId());
+			log.setOrgId(info.getOrgId());
+			log.setOrgName(info.getOrgName());
+			log.setOperatorCode(info.getCashManCode());
+			log.setOperatorName(info.getCashMan());
+			acctService.savePoint(log);
+		}
+		info.setPoint(log.getTranPoint());
+	}
+
+	private void dealGood(OrderInfo info, List<OrderGood> goodList, List<StockBatch> stockList) {
 		String payableAmt = "";// 应付金额
 		int nums = 0;// 商品数量
 		int idx = 1;
 		for (OrderGood good : goodList) {
+			info.setRemarks("购买" + good.getGoodName() + "等");
 			good.setCompanyId(info.getCompanyId());
 			good.setOrderGoodId(info.getOrderId() + idx);
 			good.setOrderId(info.getOrderId());
@@ -174,52 +335,76 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			nums = nums + good.getNums();
 			idx++;
 		}
-		info.setPayableAmt(payableAmt);
 		info.setSimpleDiscountAmt(MoneyUtil.subtract(info.getPayableAmt(), info.getPayAmt()));
 		info.setNums(nums);
 		String costAmt = "";
-		String saleAmt = "";
 		String countAmt = "";
 		String oriPriceAmt = "";
 		String mandiscountAmt = "";
-		String discountAmt="";
 		String nowPriceAmt = "";// 现价金额
+		String countGoodPayableAmt = "";
 		for (OrderGood good : goodList) {
 			String rate = "0.000000";
-			double totalPayableAmt = Double.parseDouble(info.getPayableAmt());
-			if (totalPayableAmt > 0) {
+			double totalPayableAmt = Double.parseDouble(payableAmt);
+			if (totalPayableAmt != 0) {
 				rate = String.valueOf(Double.parseDouble(good.getPayableAmt()) / totalPayableAmt);
 			}
-			good.setCashAmt(MoneyUtil.multiply(info.getCashAmt(), rate));
+			countGoodPayableAmt = MoneyUtil.multiply(info.getPayableAmt(), rate);
+			// 实付金额
 			good.setPayAmt(MoneyUtil.multiply(info.getPayAmt(), rate));
+			// 收款金额
+			good.setRecevieAmt(MoneyUtil.multiply(info.getRecevieAmt(), rate));
+			// 售价金额
 			good.setCountAmt(MoneyUtil.multiply(good.getSalePrice(), String.valueOf(good.getNums())));
+			// 现价金额
 			good.setNowPriceAmt(MoneyUtil.multiply(good.getNowPrice(), String.valueOf(good.getNums())));
+			// 原价金额
 			good.setOriPriceAmt(MoneyUtil.multiply(good.getPrice(), String.valueOf(good.getNums())));
-			good.setSimpleDiscountAmt(MoneyUtil.multiply(info.getSimpleDiscountAmt(), rate));
+			// 支付金额
+			good.setCashAmt(MoneyUtil.multiply(info.getCashAmt(), rate));
+			good.setAlipayAmt(MoneyUtil.multiply(info.getAlipayAmt(), rate));
+			good.setWxAmt(MoneyUtil.multiply(info.getWxAmt(), rate));
+			good.setOtherAmt(MoneyUtil.multiply(info.getOtherAmt(), rate));
+			good.setStoredAmt(MoneyUtil.multiply(info.getStoredAmt(), rate));
+
+			// 积分抵扣金额
+			good.setPointAmt(MoneyUtil.multiply(info.getPointAmt(), rate));
+
+			// 促销总额=满减促销+单品促销+单品折扣
 			good.setSaleAmt(MoneyUtil.subtract(good.getCountAmt(), good.getPayAmt()));
-			good.setGoodManDiscountAmt(MoneyUtil.subtract(good.getNowPriceAmt(), good.getPayableAmt()));
+			// 单品促销
 			good.setDiscountAmt(MoneyUtil.subtract(good.getCountAmt(), good.getNowPriceAmt()));
+			// 单品折扣
+			good.setGoodManDiscountAmt(MoneyUtil.subtract(good.getNowPriceAmt(), good.getPayableAmt()));
+			// 满减促销
+			good.setFullCutAmt(MoneyUtil.subtract(good.getPayableAmt(), countGoodPayableAmt));
+			// 整单折扣
+			good.setSimpleDiscountAmt(MoneyUtil.multiply(info.getSimpleDiscountAmt(), rate));
+			// 手工总折扣
 			good.setSimpleDiscountAmt(MoneyUtil.add(good.getSimpleDiscountAmt(), good.getGoodManDiscountAmt()));
+
 			BigDecimal payRate = new BigDecimal(rate);
 			payRate = payRate.setScale(18, BigDecimal.ROUND_HALF_UP);
 			good.setPayRate(payRate.toString());
 			stock(info, good, stockList);
 			costAmt = MoneyUtil.add(costAmt, good.getCostAmt());
-			saleAmt = MoneyUtil.add(saleAmt, good.getSaleAmt());
 			countAmt = MoneyUtil.add(countAmt, good.getCountAmt());
 			oriPriceAmt = MoneyUtil.add(oriPriceAmt, good.getOriPriceAmt());
 			mandiscountAmt = MoneyUtil.add(mandiscountAmt, good.getGoodManDiscountAmt());
-			discountAmt = MoneyUtil.add(discountAmt, good.getDiscountAmt());
 			nowPriceAmt = MoneyUtil.add(nowPriceAmt, good.getNowPriceAmt());
 		}
-		// info.setSaleAmt(saleAmt);
 		info.setNowPriceAmt(nowPriceAmt);
-		info.setDiscountAmt(discountAmt);
-		info.setSimpleDiscountAmt(MoneyUtil.add(info.getSimpleDiscountAmt(), mandiscountAmt));
+		info.setOriPriceAmt(oriPriceAmt);
 		info.setCostAmt(costAmt);
 		info.setCountAmt(countAmt);
+		// 促销总额=满减促销+单品促销+单品折扣
 		info.setSaleAmt(MoneyUtil.subtract(info.getCountAmt(), info.getPayAmt()));
-		info.setOriPriceAmt(oriPriceAmt);
+		// 满减金额
+		info.setFullCutAmt(MoneyUtil.subtract(payableAmt, info.getPayableAmt()));
+		// 单品促销总折扣
+		info.setDiscountAmt(MoneyUtil.subtract(info.getCountAmt(), info.getNowPriceAmt()));
+		// 人工总折扣
+		info.setSimpleDiscountAmt(MoneyUtil.add(info.getSimpleDiscountAmt(), mandiscountAmt));
 
 	}
 
