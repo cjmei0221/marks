@@ -67,7 +67,10 @@
 		nowPriceAmt,
 		vipCode,
 		guiderCode,
-		cashManCode
+		cashManCode,
+		usePoint,
+		storedAmt,
+		recevieAmt
 		)
 		VALUES(
 		#{info.orderId:VARCHAR},
@@ -124,7 +127,10 @@
 		#{info.nowPriceAmt:VARCHAR},
 		#{info.vipCode:VARCHAR},
 		#{info.guiderCode:VARCHAR},
-		#{info.cashManCode:VARCHAR}
+		#{info.cashManCode:VARCHAR},
+		#{info.usePoint:NUMERIC},
+		#{info.storedAmt:VARCHAR},
+		#{info.recevieAmt:VARCHAR}
 		)
 	</insert>
 
@@ -184,7 +190,10 @@
 		nowPriceAmt,
 		vipCode,
 		guiderCode,
-		cashManCode
+		cashManCode,
+		usePoint,
+		storedAmt,
+		recevieAmt
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -244,7 +253,10 @@
 			#{info.nowPriceAmt:VARCHAR},
 			#{info.vipCode:VARCHAR},
 			#{info.guiderCode:VARCHAR},
-			#{info.cashManCode:VARCHAR}
+			#{info.cashManCode:VARCHAR},
+			#{info.usePoint:NUMERIC},
+			#{info.storedAmt:VARCHAR},
+			#{info.recevieAmt:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -253,14 +265,17 @@
 		UPDATE TB_MALL_ORDER_INFO
 		SET
 		ORDERSTATUS = #{info.orderStatus:NUMERIC},
-
+		recevieAmt=#{info.recevieAmt:VARCHAR},
+		storedAmt=#{info.storedAmt:VARCHAR},
 		PAYAMT = #{info.payAmt:VARCHAR},
 		SALEAMT = #{info.saleAmt:VARCHAR},
-		DISCOUNTAMT = #{info.discountAmt:VARCHAR},
+		DISCOUNTAMT =
+		#{info.discountAmt:VARCHAR},
 		FULLCUTAMT =
 		#{info.fullCutAmt:VARCHAR},
 		COUPONAMT = #{info.couponAmt:VARCHAR},
-		MALINGAMT = #{info.malingAmt:VARCHAR},
+		MALINGAMT =
+		#{info.malingAmt:VARCHAR},
 		SIMPLEDISCOUNTAMT =
 		#{info.simpleDiscountAmt:VARCHAR},
 		REMARKS = #{info.remarks:VARCHAR},
@@ -295,7 +310,6 @@
 		#{info.receiveAddr:VARCHAR},
 		ORDERSTATUSNAME =
 		#{info.orderStatusName:VARCHAR}
-
 		WHERE
 		ORDERID = #{info.orderId}
 	</update>

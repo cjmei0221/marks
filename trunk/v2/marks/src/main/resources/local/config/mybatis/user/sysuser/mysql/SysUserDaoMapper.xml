@@ -51,8 +51,6 @@
 		entryDate,
 		channelId,
 		channel,
-		lvlId,
-		lvlName,
 		roleYwType,
 		userRoleOrgId,
 		bindFlag
@@ -89,8 +87,6 @@
 		#{entryDate:VARCHAR},
 		#{channelId:VARCHAR},
 		#{channel:VARCHAR},
-		#{lvlId:VARCHAR},
-		#{lvlName:VARCHAR},
 		#{roleYwType:NUMERIC},
 		#{userRoleOrgId:VARCHAR},
 		#{bindFlag:NUMERIC}
