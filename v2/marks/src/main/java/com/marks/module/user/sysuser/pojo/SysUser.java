@@ -2,7 +2,6 @@ package com.marks.module.user.sysuser.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.marks.common.enums.ChannelEnums;
@@ -40,11 +39,11 @@ public class SysUser implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private Date createtime;
+	private String createtime;
 	/**
 	 * 更新时间
 	 */
-	private Date updatetime;
+	private String updatetime;
 	/**
 	 * 创建者
 	 */
@@ -92,10 +91,6 @@ public class SysUser implements Serializable {
 
 	private String channel;// 渠道
 
-	private String lvlId;// 等级编号
-
-	private String lvlName;// 等级名称
-
 	private String roleId1;// 角色2
 
 	private String roleId2;// 角色3
@@ -130,22 +125,6 @@ public class SysUser implements Serializable {
 
 	public void setRoleYwType(int roleYwType) {
 		this.roleYwType = roleYwType;
-	}
-
-	public String getLvlId() {
-		return lvlId;
-	}
-
-	public void setLvlId(String lvlId) {
-		this.lvlId = lvlId;
-	}
-
-	public String getLvlName() {
-		return lvlName;
-	}
-
-	public void setLvlName(String lvlName) {
-		this.lvlName = lvlName;
 	}
 
 	public String getChannelId() {
@@ -328,19 +307,19 @@ public class SysUser implements Serializable {
 		this.activeFlag = activeFlag;
 	}
 
-	public Date getCreatetime() {
+	public String getCreatetime() {
 		return createtime;
 	}
 
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
 
-	public Date getUpdatetime() {
+	public String getUpdatetime() {
 		return updatetime;
 	}
 
-	public void setUpdatetime(Date updatetime) {
+	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;
 	}
 

@@ -4,7 +4,7 @@ public class OrderEnums {
 
 	public enum YwType {
 		good("0", "商品订单"), // 系统用户
-		acct("1", "储值订单"), // 系统用户
+		service("1", "服务订单"), // 系统用户
 		batch("2", "批发订单"), // 系统用户
 		;// 会员
 
@@ -37,6 +37,7 @@ public class OrderEnums {
 	public enum CashType {
 		consume("0", "消费"), // 系统用户
 		refund("1", "退货"), // 系统用户
+		recharge("2", "充值"), // 系统用户
 		;// 会员
 
 		private String status;

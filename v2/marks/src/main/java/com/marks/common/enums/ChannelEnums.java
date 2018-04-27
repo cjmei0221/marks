@@ -5,6 +5,7 @@ public class ChannelEnums {
 	public enum Channel {
 		manage("manage", "管理端"), //
 		web("web", "前端"), //
+		mobile("mobile", "手机端"), //
 		;// 会员
 
 		private String status;

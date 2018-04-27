@@ -182,4 +182,16 @@ public class DateUtil {
 		return sdf.format(new Date());
 	}
 
+	public static int getSeason(String monthStr) {
+		int month = Integer.parseInt(monthStr);
+		if (month < 4) {
+			return 1;
+		} else if (month < 7) {
+			return 2;
+		} else if (month < 10) {
+			return 3;
+		}
+		return 4;
+	}
+
 }
