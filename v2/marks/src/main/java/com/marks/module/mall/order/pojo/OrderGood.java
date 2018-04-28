@@ -262,17 +262,27 @@ public class OrderGood implements Serializable {
 
 	private String vipPrice;
 
-	private String nowPrice;// 现价价
-	
-	private String nowPriceAmt;//现价金额
+	private String nowPrice;// 现销售价
+
+	private String nowPriceAmt;// 现价金额
 
 	private int point;// 可得积分
 
 	private int usePoint;// 使用积分
 
+	private String payPrice;// 实际成交价 actualPrice
+
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getPayPrice() {
+		return payPrice;
+	}
+
+	public void setPayPrice(String payPrice) {
+		this.payPrice = payPrice;
 	}
 
 	public String getRecevieAmt() {
@@ -311,14 +321,9 @@ public class OrderGood implements Serializable {
 		return nowPriceAmt;
 	}
 
-
-
 	public void setNowPriceAmt(String nowPriceAmt) {
 		this.nowPriceAmt = nowPriceAmt;
 	}
-
-
-
 
 	public String getNowPrice() {
 		return nowPrice;

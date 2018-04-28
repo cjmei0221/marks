@@ -1,6 +1,7 @@
 package com.marks.module.fee.base.pojo;
 
 import java.io.Serializable;
+
 import com.marks.common.util.date.DateUtil;
 
 public class FeeType implements Serializable{
@@ -29,11 +30,6 @@ public class FeeType implements Serializable{
     *
     */
     private String typeName;
-    /**
-    *费用类型
-    *0:支出 1:收入
-    */
-    private int inOrOut;
     /**
     *启禁用
     *0:禁用 1:启用
@@ -90,13 +86,6 @@ public class FeeType implements Serializable{
         this.typeName = typeName;
     }
 
-    public int getInOrOut(){
-        return inOrOut;
-    }
-    public void setInOrOut(int inOrOut){
-        this.inOrOut = inOrOut;
-    }
-
     public int getStatus(){
         return status;
     }
@@ -127,6 +116,9 @@ public class FeeType implements Serializable{
 
 
 	public String toLog(){
-		return " - typeId:" +String.valueOf(typeId)+" - typeCode:" +String.valueOf(typeCode)+" - companyId:" +String.valueOf(companyId)+" - typeName:" +String.valueOf(typeName)+" - inOrOut:" +String.valueOf(inOrOut)+" - status:" +String.valueOf(status)+" - updatetime:" +String.valueOf(updatetime)+" - updater:" +String.valueOf(updater)+" - delFlag:" +String.valueOf(delFlag);
+		return " - typeId:" + String.valueOf(typeId) + " - typeCode:" + String.valueOf(typeCode) + " - companyId:"
+				+ String.valueOf(companyId) + " - typeName:" + String.valueOf(typeName) + " - status:"
+				+ String.valueOf(status) + " - updatetime:" + String.valueOf(updatetime) + " - updater:"
+				+ String.valueOf(updater) + " - delFlag:" + String.valueOf(delFlag);
 	}
 }
