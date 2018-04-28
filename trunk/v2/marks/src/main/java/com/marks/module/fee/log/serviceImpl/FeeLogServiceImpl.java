@@ -66,7 +66,6 @@ public class FeeLogServiceImpl implements FeeLogService {
 		FeeType type = feeTypeDao.findById(info.getCompanyId() + info.getFeeCode());
 		if (type != null) {
 			info.setFeeName(type.getTypeName());
-			info.setInOrOut(type.getInOrOut());
 		}
 		if (user != null) {
 			info.setPayeeCode(user.getUserCode());

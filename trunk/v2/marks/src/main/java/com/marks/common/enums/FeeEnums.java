@@ -66,4 +66,35 @@ public class FeeEnums {
 		}
 	}
 
+	public enum InOrOut {
+		in(1, "收入"), //
+		out(0, "支出"), //
+		;// 会员
+
+		private int status;
+		private String name;
+
+		private InOrOut(int status, String name) {
+			this.status = status;
+			this.name = name;
+		}
+
+		public static String getByKey(int status) {
+			for (ItemCode c : ItemCode.values()) {
+				if (c.getValue().equals(status)) {
+					return c.name;
+				}
+			}
+			return "";
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getValue() {
+			return status;
+		}
+	}
+
 }

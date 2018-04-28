@@ -242,14 +242,22 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		if (OrderEnums.CashType.recharge.getValue().equals(info.getCashType())) {
 			log.setFeeCode(FeeEnums.FeeCode.recharge.getValue());
 			log.setItemCode(FeeEnums.ItemCode.recharge.getValue());
+			log.setInOrOut(FeeEnums.InOrOut.in.getValue());
+			log.setRemarks("会员充值");
 		} else {
 			log.setFeeCode(FeeEnums.FeeCode.consume.getValue());
 			log.setItemCode(FeeEnums.ItemCode.consume.getValue());
+			log.setInOrOut(FeeEnums.InOrOut.in.getValue());
+			log.setRemarks("购买" + info.getRemarks() + "商品");
+			if (OrderEnums.CashType.refund.getValue().equals(info.getCashType())) {
+				log.setInOrOut(FeeEnums.InOrOut.out.getValue());
+				log.setRemarks("退货" + info.getRemarks() + "商品");
+			}
 		}
 		log.setIdNo(info.getOrderId());
 		log.setItemName(FeeEnums.ItemCode.getByKey(log.getItemCode()));
 		log.setPayeeId(info.getVipId());
-		log.setRemarks(info.getRemarks());
+
 		log.setTranAmt(info.getRecevieAmt());
 		log.setTranTime(info.getCommitTime());
 		feeLogService.save(log);
@@ -327,7 +335,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		int nums = 0;// 商品数量
 		int idx = 1;
 		for (OrderGood good : goodList) {
-			info.setRemarks("购买" + good.getGoodName() + "等");
+			info.setRemarks(good.getGoodName() + "等");
 			good.setCompanyId(info.getCompanyId());
 			good.setOrderGoodId(info.getOrderId() + idx);
 			good.setOrderId(info.getOrderId());
@@ -352,6 +360,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			countGoodPayableAmt = MoneyUtil.multiply(info.getPayableAmt(), rate);
 			// 实付金额
 			good.setPayAmt(MoneyUtil.multiply(info.getPayAmt(), rate));
+			good.setPayPrice(MoneyUtil.divide(good.getPayAmt(), String.valueOf(good.getNums())));
 			// 收款金额
 			good.setRecevieAmt(MoneyUtil.multiply(info.getRecevieAmt(), rate));
 			// 售价金额
