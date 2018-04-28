@@ -100,7 +100,8 @@
 		usePoint,
 		goodManDiscountAmt,
 		storedAmt,
-		recevieAmt
+		recevieAmt,
+		payPrice
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -157,7 +158,8 @@
 		#{info.usePoint:NUMERIC},
 		#{info.goodManDiscountAmt:VARCHAR},
 		#{info.storedAmt:VARCHAR},
-		#{info.recevieAmt:VARCHAR}
+		#{info.recevieAmt:VARCHAR},
+		#{info.payPrice:VARCHAR}
 		)
 	</insert>
 
@@ -217,7 +219,8 @@
 		usePoint,
 		goodManDiscountAmt,
 		storedAmt,
-		recevieAmt
+		recevieAmt,
+		payPrice
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -277,7 +280,8 @@
 			#{info.usePoint:NUMERIC},
 			#{info.goodManDiscountAmt:VARCHAR},
 			#{info.storedAmt:VARCHAR},
-			#{info.recevieAmt:VARCHAR}
+			#{info.recevieAmt:VARCHAR},
+			#{info.payPrice:VARCHAR}
 			)
 		</foreach>
 	</insert>
