@@ -88,32 +88,22 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '售价',
+			title : '原价',
 			field : 'salePrice',
 			width : 100,
 			align : "center"
 		}, {
-			title : '现价',
-			field : 'nowPrice',
-			width : 100,
-			align : "center"
-		}, {
-			title : '售价金额',
+			title : '原价金额',
 			field : 'countAmt',
 			width : 100,
 			align : "center"
 		}, {
-			title : '现价金额',
-			field : 'nowPriceAmt',
+			title : '售价',
+			field : 'payPrice',
 			width : 100,
 			align : "center"
 		}, {
-			title : '应付金额',
-			field : 'payableAmt',
-			width : 100,
-			align : "center"
-		}, {
-			title : '实付金额',
+			title : '售价金额',
 			field : 'payAmt',
 			width : 100,
 			align : "center"
@@ -153,23 +143,23 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '议价金额',
+			field : 'simpleDiscountAmt',
+			width : 100,
+			align : "center"
+		}, {
 			title : '优惠券金额',
 			field : 'couponAmt',
 			width : 100,
 			align : "center"
-//		}, {
-//			title : '积分抵扣金额',
-//			field : 'pointAmt',
-//			width : 100,
-//			align : "center"
 		}, {
-			title : '抹零金额',
-			field : 'mlAmt',
+			title : '积分抵扣金额',
+			field : 'pointAmt',
 			width : 100,
 			align : "center"
 		}, {
-			title : '议价金额',
-			field : 'simpleDiscountAmt',
+			title : '抹零金额',
+			field : 'mlAmt',
 			width : 100,
 			align : "center"
 		}, {

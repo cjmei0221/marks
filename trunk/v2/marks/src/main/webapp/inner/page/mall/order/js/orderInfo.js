@@ -168,11 +168,6 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '现价总额',
-			field : 'nowPriceAmt',
-			width : 100,
-			align : "center"
-		}, {
 			title : '应付金额',
 			field : 'payableAmt',
 			width : 100,
@@ -203,6 +198,11 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '议价总额',
+			field : 'simpleDiscountAmt',
+			width : 100,
+			align : "center"
+		}, {
 			title : '优惠券金额',
 			field : 'couponAmt',
 			width : 100,
@@ -210,11 +210,6 @@ function loadList() {
 		}, {
 			title : '抹零金额',
 			field : 'malingAmt',
-			width : 100,
-			align : "center"
-		}, {
-			title : '议价总额',
-			field : 'simpleDiscountAmt',
 			width : 100,
 			align : "center"
 		}, {
