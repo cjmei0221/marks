@@ -68,6 +68,7 @@ public class WebOrderInfoController extends SupportContorller {
 			info.setCashDate(DateUtil.getCurrDateStr().substring(0, 10));
 			info.setStoredAmt(storedAmt);
 			info.setPointAmt(pointAmt);
+			info.setPayingAmt(payAmt);
 			info.setUsePoint(Integer.parseInt(usePoint));
 			info.setCashAmt(cashAmt);
 			info.setCashMan(admin.getUsername());
@@ -122,6 +123,7 @@ public class WebOrderInfoController extends SupportContorller {
 			info.setOrderStatusName(OrderEnums.OrderStatus.getByKey(info.getOrderStatus()));
 			info.setOrgId(admin.getOrgId());
 			info.setOrgName(admin.getOrgName());
+			info.setPayingAmt(payAmt);
 			info.setPayAmt(payAmt);
 			info.setPayableAmt(payableAmt);
 			info.setPayStatus(1);

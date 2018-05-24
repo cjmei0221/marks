@@ -71,10 +71,15 @@ public class OrderInfo implements Serializable {
 	 */
 	private String cashDate;
 	/**
-	 * 应付金额
+	 * 小计总额
 	 *
 	 */
 	private String payableAmt;
+	/**
+	 * 应付金额
+	 *
+	 */
+	private String payingAmt;
 	/**
 	 * 实付金额
 	 *
@@ -279,6 +284,14 @@ public class OrderInfo implements Serializable {
 	public OrderInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getPayingAmt() {
+		return payingAmt;
+	}
+
+	public void setPayingAmt(String payingAmt) {
+		this.payingAmt = payingAmt;
 	}
 
 	public String getRecevieAmt() {

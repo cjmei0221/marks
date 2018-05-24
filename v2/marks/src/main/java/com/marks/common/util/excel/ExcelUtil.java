@@ -328,7 +328,7 @@ public class ExcelUtil {
 	/**
 	 * 为demo写的java程序导出，如果web程序请用上一个方法
 	 */
-	public static void exportExcelByTemplate(OutputStream out, Map dataMap, String templatePath, String fileName) {
+	public static void exportExcelByTemplate(OutputStream out, Map dataMap, String templatePath) {
 
 		try {
 			InputStream is = new BufferedInputStream(new FileInputStream(templatePath));

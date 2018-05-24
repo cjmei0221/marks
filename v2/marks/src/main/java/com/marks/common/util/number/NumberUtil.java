@@ -22,6 +22,18 @@ public class NumberUtil {
 		 df.applyPattern(format); 
 		 return df.format(amount); 
 	}
+
+	public static boolean isNumeric(String str) {
+		try {
+			if (null == str || "".equals(str)) {
+				return false;
+			}
+			Double.parseDouble(str);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
 	public static void main(String[] args){
 		System.out.println(formatNum(1045341.12,"0"));
 	}
