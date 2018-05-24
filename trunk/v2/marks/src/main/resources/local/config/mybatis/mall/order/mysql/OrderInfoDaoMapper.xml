@@ -70,7 +70,8 @@
 		cashManCode,
 		usePoint,
 		storedAmt,
-		recevieAmt
+		recevieAmt,
+		payingAmt
 		)
 		VALUES(
 		#{info.orderId:VARCHAR},
@@ -130,7 +131,8 @@
 		#{info.cashManCode:VARCHAR},
 		#{info.usePoint:NUMERIC},
 		#{info.storedAmt:VARCHAR},
-		#{info.recevieAmt:VARCHAR}
+		#{info.recevieAmt:VARCHAR},
+		#{info.payingAmt:VARCHAR}
 		)
 	</insert>
 
@@ -193,7 +195,8 @@
 		cashManCode,
 		usePoint,
 		storedAmt,
-		recevieAmt
+		recevieAmt,
+		payingAmt
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -256,7 +259,8 @@
 			#{info.cashManCode:VARCHAR},
 			#{info.usePoint:NUMERIC},
 			#{info.storedAmt:VARCHAR},
-			#{info.recevieAmt:VARCHAR}
+			#{info.recevieAmt:VARCHAR},
+			#{info.payingAmt:VARCHAR}
 			)
 		</foreach>
 	</insert>

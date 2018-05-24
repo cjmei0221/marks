@@ -87,7 +87,7 @@
 			and sysrole.COMPANYID = #{companyId}
 		</if>
 		<if test="roleYwType !=null and roleYwType != ''">
-			and sysrole.roleYwType = #{roleYwType}
+			and sysrole.roleYwType in (${roleYwType})
 		</if>
 		<if test="orgId !=null and orgId != ''">
 			and sysrole.orgId = #{orgId}
