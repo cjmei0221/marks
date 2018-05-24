@@ -142,23 +142,172 @@
 		collapsible:false"
 		style="width: 600px; height: 450px; padding: 10px 0px;">
 		<div align="center" style="width: 100%;">
-			<input type="hidden" id="stepTypeId" name="stepTypeId">
-			<div align="left">
-				<table>
+			<form id="stepff" name="stepff" method="post">
+				<input type="hidden" id="stepTypeId" name="stepTypeId">
+				<div align="left">
+					<table>
+						<tr>
+							<td><select id="status" class="easyui-combobox"
+								name="status" style="width: 200px;" data-options="required:true">
+									<option value="0">禁用</option>
+									<option value="1">启用</option>
+							</select></td>
+							<td><a id="saveStep" href="javascript:void(0)"
+								class="easyui-linkbutton menuBtnCls"
+								data-options="iconCls:'icon-search'">保存</a></td>
+						</tr>
+					</table>
+				</div>
+				<table style="width: 100%; border-collapse: collapse;" border="1px;">
 					<tr>
-						<td><select id="status" class="easyui-combobox" name="status"
-							style="width: 200px;" data-options="required:true">
-								<option value="0">禁用</option>
-								<option value="1">启用</option>
+						<td>序号</td>
+						<td>步骤名称</td>
+						<td>处理类型</td>
+						<td>处理角色</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td><input id="stepName1" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType1" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
 						</select></td>
-						<td><a id="saveStep" href="javascript:void(0)"
-							class="easyui-linkbutton menuBtnCls"
-							data-options="iconCls:'icon-search'">保存</a></td>
+						<td><input id="roleId1" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td><input id="stepName2" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType2" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId2" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td><input id="stepName3" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType3" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId3" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td><input id="stepName4" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType4" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId4" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td><input id="stepName5" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType5" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId5" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td><input id="stepName6" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType6" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId6" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td><input id="stepName7" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType7" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId7" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td><input id="stepName7" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType8" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId8" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>9</td>
+						<td><input id="stepName9" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType9" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId9" class="easyui-combobox" name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
+					</tr>
+					<tr>
+						<td>10</td>
+						<td><input id="stepName10" name="stepName"
+							class="easyui-validatebox" style="width: 200px;"></td>
+						<td><select id="dealType10" class="easyui-combobox"
+							name="dealType" style="width: 100px;">
+								<option value=""></option>
+								<option value="0">按指定角色</option>
+								<option value="1">按同级职位</option>
+								<option value="2">按上级职位</option>
+						</select></td>
+						<td><input id="roleId10" class="easyui-combobox"
+							name="roleId"
+							data-options="valueField:'roleid',textField:'showName'"></td>
 					</tr>
 				</table>
-			</div>
-			<table id="dg">
-			</table> 
+			</form>
 		</div>
 	</div>
 </body>

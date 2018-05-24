@@ -148,7 +148,7 @@ $(function() {
 	});
 });
 function showIntroInfo(page, filename) {
-	window.open(top.window.urlBase + "/introduce/" + page.replace(/\./g, '/') + "/"
+	window.open("/introduce/" + page.replace(/\./g, '/') + "/"
 			+ filename + ".html"); 
 }
 /**

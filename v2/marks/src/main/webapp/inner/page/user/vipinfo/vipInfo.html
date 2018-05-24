@@ -105,6 +105,25 @@
 			</form>
 		</div>
 	</div>
+	
+	<div id="updateFileWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 500px; height: 300px; padding: 10px;">
+		<div>
+			<form id="upload_form" enctype="multipart/form-data"
+				action="/t/inner/sysuser/excelImportForVip.do" method="post">
+				<input class="easyui-filebox" style="width: 300px" id="file_upload"
+					name="file_upload" /><input type="button" value="  上传  "
+					onclick="uploadFile()"
+					style="width: 100px; height: 30px; margin-left: 10px; background-color: indianred;">
+			</form>
+		</div>
+	</div>
+	
 
 </body>
 <script src="js/vipInfo.js"></script>
