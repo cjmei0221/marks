@@ -73,15 +73,13 @@ public class SysRoleController extends SupportContorller {
 			sysRole.setCreator(admin.getUsername());
 			String companyId = admin.getCompanyId();
 			sysRole.setCompanyId(companyId);
-
-			if (0 == sysRole.getRoleYwType() || 2 == sysRole.getRoleYwType()) {
-				sysRole.setOrgId(sysRole.getCompanyId());
-			}
 			if (null == sysRole.getOrgId() || "".equals(sysRole.getOrgId())) {
 				sysRole.setOrgId(sysRole.getCompanyId());
 			}
 			sysRole.setRoleid(sysRole.getOrgId() + "_" + sysRole.getRoleType());
-
+			if (0 == sysRole.getRoleYwType() || 2 == sysRole.getRoleYwType()) {
+				sysRole.setOrgId(null);
+			}
 			SysRole ori = sysRoleService.findById(sysRole.getRoleid());
 			if (ori == null) {
 				sysRoleService.save(sysRole);
@@ -358,11 +356,15 @@ public class SysRoleController extends SupportContorller {
 		param.put("roleYwType", roleYwType);
 		param.put("orgId", orgId);
 		List<SysRole> list = sysRoleService.getUserlist(param);
-		SysRole info = new SysRole();
-		info.setRolename("未选择");
-		info.setRoleid("");
-		info.setRoleType("");
-		list.add(0, info);
+		String edit = request.getParameter("edit");
+		if (!"edit".equals(edit)) {
+			SysRole info = new SysRole();
+			info.setRolename("未选择");
+			info.setRoleid("");
+			info.setRoleType("");
+			list.add(0, info);
+		}
+
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
 }

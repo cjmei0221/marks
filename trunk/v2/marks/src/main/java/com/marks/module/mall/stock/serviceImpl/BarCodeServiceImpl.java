@@ -68,12 +68,14 @@ public class BarCodeServiceImpl implements BarCodeService {
 		long initcode = 0;
 		if (hasNums < nums) {
 			String maxCode = barCodeDao.getMaxCode();
-			if (null == maxCode) {
+			if (null != maxCode && maxCode.length() > 4) {
+				
+			} else {
 				maxCode = "100000";
 			}
 			initcode = Long.parseLong(maxCode);
 		}
-		logger.info("save 条码信息：" + hasNums + " - " + initcode);
+		logger.info("save 条码信息：" + hasNums + " - " + initcode + " - " + nums);
 		Trace vo = null;
 		BarCode code = null;
 		// 库存状态
@@ -84,9 +86,9 @@ public class BarCodeServiceImpl implements BarCodeService {
 		boolean updateFlag = false;
 		for (int i = 0; i < nums; i++) {
 			String barCode = "";
-			if (hasNums > 0 && hasNums > nums) {
+			if (hasNums > 0 && hasNums >= nums) {
 				updateFlag = true;
-				barCode = codeList.get(0);
+				barCode = codeList.get(i);
 			} else {
 				barCode = String.valueOf(initcode + (i + 1));
 			}
@@ -154,11 +156,12 @@ public class BarCodeServiceImpl implements BarCodeService {
 		if (updateFlag) {
 			List<String> blist = new ArrayList<String>();
 			for (BarCode b : codelist) {
-				blist.add(b.getBarcode());
+				// blist.add(b.getBarcode());
+				barCodeDao.update(b);
 			}
-			barCodeDao.deleteBatch(blist);
-			// barCodeDao.updateBatch(codelist);
-			barCodeDao.saveBatch(codelist);
+			// barCodeDao.deleteBatch(blist);
+			// // barCodeDao.updateBatch(codelist);
+			// barCodeDao.saveBatch(codelist);
 		} else {
 			barCodeDao.saveBatch(codelist);
 		}

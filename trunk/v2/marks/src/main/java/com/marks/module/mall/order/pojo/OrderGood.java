@@ -93,7 +93,7 @@ public class OrderGood implements Serializable {
 	private String salePrice;
 
 	/**
-	 * 应付金额
+	 * 小计
 	 *
 	 */
 	private String payableAmt;

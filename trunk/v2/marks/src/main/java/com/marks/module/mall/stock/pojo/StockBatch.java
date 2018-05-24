@@ -79,7 +79,7 @@ public class StockBatch implements Serializable {
 	 * 业务类型
 	 *
 	 */
-	private String ywCodeName;
+	private String ywName;
 	/**
 	 * 生产日期
 	 *
@@ -290,7 +290,7 @@ public class StockBatch implements Serializable {
 		return StockEnums.StockManageType.getByKey(stockType);
 	}
 
-	public String getYwCodeName() {
+	public String getYwName() {
 		return StockEnums.YwCode.getByKey(ywCode);
 	}
 

@@ -82,7 +82,7 @@ public class Demo {
 		try {
 			os = new FileOutputStream("D:/demo4Template.xls");
 			String mobanPath = System.getProperty("user.dir")+"/template/DemoTemplate.xls" ;
-			ExcelUtil.exportExcelByTemplate(os, beanParams, mobanPath, "demo4Template.xls");
+			ExcelUtil.exportExcelByTemplate(os, beanParams, mobanPath);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} finally{

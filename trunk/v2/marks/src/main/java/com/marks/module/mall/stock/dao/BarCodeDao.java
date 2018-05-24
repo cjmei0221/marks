@@ -34,13 +34,6 @@ public interface BarCodeDao {
 	List<String> getInvalidCode();
 
 	/**
-	 * 批量更新
-	 * 
-	 * @param codelist
-	 */
-	void updateBatch(List<BarCode> codelist);
-
-	/**
 	 * 获取条码集合
 	 * 
 	 * @param codelist

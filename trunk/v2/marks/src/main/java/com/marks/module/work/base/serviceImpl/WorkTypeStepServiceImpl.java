@@ -1,6 +1,5 @@
 package com.marks.module.work.base.serviceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -85,54 +84,28 @@ public class WorkTypeStepServiceImpl implements WorkTypeStepService {
 		PojoDomain<WorkTypeStep> pojoDomain = new PojoDomain<WorkTypeStep>();
 		PageBounds pageBounds = new PageBounds(page_number, page_size);
 		List<WorkTypeStep> list = workTypeStepDao.list(pageBounds, param);
-		List<WorkTypeStep> returnlist = new ArrayList<WorkTypeStep>();
-		WorkTypeStep info = null;
-		if (list == null) {
-			list = new ArrayList<WorkTypeStep>();
-		}
-		if (list.size() > 0) {
-			returnlist.addAll(list);
-		}
-		for (int i = 0; i < 10 - list.size(); i++) {
-			info = new WorkTypeStep();
-			returnlist.add(info);
-		}
-		pojoDomain.setPojolist(returnlist);
+		pojoDomain.setPojolist(list);
 		pojoDomain.setPage_number(page_number);
 		pojoDomain.setPage_size(page_size);
-		pojoDomain.setTotal_count(returnlist.size());
+		pojoDomain.setTotal_count(list.size());
 		return pojoDomain;
 	}
 
 	@Override
-	public void saveStep(String typeId, String status, String listArr) {
+	public void saveStep(String typeId, String status, List<WorkTypeStep> list) {
 		WorkType type = workTypeDao.findById(typeId);
 		if (type != null) {
 			type.setStatus(Integer.parseInt(status));
 			workTypeDao.update(type);
 			workTypeStepDao.deleteByTypeId(typeId);
-			String[] arr = listArr.split(",");
-			if (null != arr && arr.length > 0) {
-				List<WorkTypeStep> list = new ArrayList<WorkTypeStep>();
-				WorkTypeStep info = null;
-				int count = 0;
-				for (int i = 0; i < arr.length; i++) {
-					// 单个商品信息
-					String[] infos = arr[i].split("#");
-					if (null != infos && infos.length > 0) {
-						count++;
-						if (infos[0].length() > 0) {
-							info = new WorkTypeStep();
-							info.setCompanyId(type.getCompanyId());
-							info.setRoleId(infos[0]);
-							info.setStep(count);
-							info.setStepId(type.getTypeId() + "_" + info.getStep());
-							info.setStepName(infos[1]);
-							info.setTypeId(type.getTypeId());
-							info.setRoleName(infos[2]);
-							list.add(info);
-						}
-					}
+			if (null != list && list.size() > 0) {
+				for (int i = 0; i < list.size(); i++) {
+					int step = i + 1;
+					WorkTypeStep info = list.get(i);
+					info.setCompanyId(type.getCompanyId());
+					info.setStep(step);
+					info.setStepId(type.getTypeId() + "_" + info.getStep());
+					info.setTypeId(type.getTypeId());
 				}
 				if (list.size() > 0) {
 					list.get(list.size() - 1).setIsCheckOk(Enums.Status.Enable.getValue());

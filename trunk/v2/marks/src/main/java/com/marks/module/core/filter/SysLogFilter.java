@@ -1,6 +1,8 @@
 package com.marks.module.core.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -30,7 +32,13 @@ public class SysLogFilter implements Filter {
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) arg0;
-		LOG.info("sessionId : " + request.getSession().getId() + " - url : " + request.getRequestURI());
+		StringBuffer sb = new StringBuffer();
+		Map<String, String[]> newParams = request.getParameterMap();
+		for (Map.Entry<String, String[]> entry : newParams.entrySet()) {
+			sb.append("-" + entry.getKey() + "=" + Arrays.toString(entry.getValue()));
+		}
+		LOG.info("sessionId : " + request.getSession().getId() + " - url : " + request.getRequestURI() + " - params :"
+				+ sb.toString());
 		// 获取访问url
 		String url = request.getRequestURI().replace(request.getContextPath(), "").replace(".do", "");
 		SysUser user = null;

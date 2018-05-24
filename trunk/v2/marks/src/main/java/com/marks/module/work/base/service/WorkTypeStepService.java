@@ -17,5 +17,5 @@ public interface WorkTypeStepService{
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<WorkTypeStep> list(int page_number, int page_size,Map<String,Object> param);
 
-	public void saveStep(String typeId, String status, String listArr);
+	public void saveStep(String typeId, String status, List<WorkTypeStep> list);
 }

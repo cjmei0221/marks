@@ -1,6 +1,8 @@
 package com.marks.module.work.base.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,8 +76,26 @@ public class WorkTypeStepController extends SupportContorller{
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			String status = request.getParameter("status");
 			String typeId = request.getParameter("typeId");
-			String listArr = request.getParameter("list");
-			workTypeStepService.saveStep(typeId, status, listArr);
+			String[] stepName = request.getParameterValues("stepName");
+			String[] roleId = request.getParameterValues("roleId");
+			String[] dealType = request.getParameterValues("dealType");
+			List<WorkTypeStep> list = new ArrayList<WorkTypeStep>();
+			if (null != roleId && roleId.length > 0) {
+				WorkTypeStep item = null;
+				for (int i = 0; i < roleId.length; i++) {
+					if (null != roleId[i] && roleId[i].length() > 4) {
+						item = new WorkTypeStep();
+						item.setCompanyId(admin.getCompanyId());
+						item.setDealModel("1");
+						item.setDealType(dealType[i]);
+						item.setRoleId(roleId[i]);
+						item.setStepName(stepName[i]);
+						item.setTypeId(typeId);
+						list.add(item);
+					}
+				}
+			}
+			workTypeStepService.saveStep(typeId, status, list);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			result.setMessage("保存失败，请联系管理员！");

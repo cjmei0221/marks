@@ -42,4 +42,13 @@ public class UploadUtil {
 		return uploadFile;
 	}
 
+	public static String getRootPath(HttpServletRequest request) {
+		String uploadFile = request.getSession().getServletContext().getRealPath("/");
+		File file = new File(uploadFile);
+		if (!file.exists()) {
+			file.mkdir();
+		}
+		return uploadFile;
+	}
+
 }
