@@ -9,8 +9,6 @@ var appInfo = {
 	listRoleUrl : top.window.urlBase + '/inner/sysRole/combo.do',// 删除工作流步骤配置接口
 	selectedId : -1,
 	selectedData : {},
-	roleListData : [],
-	ywTypeData:[],
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
@@ -68,7 +66,7 @@ function del() {
 		}
 	});
 }
-function addStep(typeId,status) {
+function addStep(typeId, status) {
 	editRow = undefined;
 	loadItemList(typeId);
 	$("#stepWin").window({
@@ -77,26 +75,39 @@ function addStep(typeId,status) {
 	$("#status").combobox("setValue", status);
 	$("#stepTypeId").val(typeId);
 }
-function loadRoleList() {
-	var parms = "roleYwType=1";
-	$.post(appInfo.listRoleUrl, parms, function(data) {
-		appInfo.roleListData = data;
+function loadItemList(typeId){
+	var reqUrl=appInfo.listItemUrl;
+	var parms="typeId="+typeId;
+	$.post(reqUrl, parms, function(data) {
+		if (typeof data === 'string') {
+			try {
+				data = $.parseJSON(data);
+			} catch (e0) {
+				showMsg("json格式错误");
+				return;
+			}
+		}
+		if (data.retcode == "0") {
+			console.log(data);
+			if(data.total_count>0){
+				var infolist=data.list;
+				for(var i=0;i<infolist.length;i++){
+					var idx=i+1;
+					$("#stepName"+idx).val(infolist[i].stepName);
+					$("#dealType"+idx).combobox("setValue",infolist[i].dealType);
+					$("#roleId"+idx).combobox("setValue",infolist[i].roleId);
+				}
+			}
+		} else {
+			showMsg(data.retmsg);
+		}
 	});
 }
-function changeValue(value) {
-	var fiValue = "";
-	for (var i = 0; i < appInfo.roleListData.length; i++) {
-		if (appInfo.roleListData[i].roleid.toString() == value) {
-			fiValue = appInfo.roleListData[i].rolename;
-		}
-	}
-	return fiValue;
-}
+
 // -----------------权限控制功能 end---------------
 $(function() {
 	// 加载列表
 	loadList();
-	loadRoleList();
 	// 搜索
 	$("#doSearch").on("click", function(e) {
 		app.myreload("#tbList");
@@ -124,34 +135,92 @@ $(function() {
 		}
 	});
 	$("#saveStep").on("click", function() {
-		endEdit();
 		saveStep();
 	});
-	appInfo.ywTypeData=[
-		{"value":0,"text":"仅用户角色"},
-		{"value":1,"text":"按机构类型"},
-		{"value":2,"text":"按机构等级"}
-	]
-});
-function saveStep() {
-	var attrList = [];
-	var row = $("#dg").datagrid('getRows');
-	console.log(row);
-	for (var i = 0; i < row.length; i++) {
-		if (row[i].roleId != "") {
-			var roleName=changeValue(row[i].roleId);
-			var items = row[i].roleId + "#" + row[i].stepName+ "#" + roleName;
-			attrList.push(items);
+
+	$("#dealType1").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(1,val);
 		}
-	}
-	console.log(attrList);
-	if (attrList.length < 1) {
-		showMsg("至少添加1条！");
+	});
+	$("#dealType2").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(2,val);
+		}
+	});
+	$("#dealType3").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(3,val);
+		}
+	});
+	$("#dealType4").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(4,val);
+		}
+	});
+	$("#dealType5").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(5,val);
+		}
+	});
+	$("#dealType6").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(6,val);
+		}
+	});
+	$("#dealType7").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(7,val);
+		}
+	});
+	$("#dealType8").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(8,val);
+		}
+	});
+	$("#dealType9").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(9,val);
+		}
+	});
+	$("#dealType10").combobox({
+		onSelect : function(rec) {
+			var val = rec.value;
+			loadRole(10,val);
+		}
+	});
+});
+
+function loadRole(idx,val){
+	if(val == ""){
 		return;
 	}
-	attrList = attrList.join(',');
-	var parms = "status=" + $("#status").combobox("getValue");
-	parms += "&list=" + attrList;
+	var url=appInfo.listRoleUrl+"?roleYwType=2&edit=edit";
+	if(0== val) {
+		url=appInfo.listRoleUrl+"?roleYwType=0,1&edit=edit";
+	}
+	$.ajax({
+        type: "POST",
+        url: url,
+        cache: false,
+        dataType: "json",
+        success: function (data) {
+            $("#roleId"+idx).combobox("loadData", data);
+        }
+    });
+}
+
+function saveStep() {
+	var parms = $("#stepff").serialize();
 	parms += "&typeId=" + $("#stepTypeId").val();
 	var reqUrl = appInfo.saveStepUrl;
 	$.post(reqUrl, parms, function(data) {
@@ -236,7 +305,9 @@ function loadList() {
 									formatter : function(value, row, index) {
 										return '<a href="javascript:void(0)" onclick="addStep(\''
 												+ row.typeId
-												+ '\','+row.status+')">'
+												+ '\','
+												+ row.status
+												+ ')">'
 												+ value
 												+ '</a>';
 									}
@@ -298,122 +369,6 @@ function loadList() {
 					that.data().datagrid["cache"] = data;
 					success({
 						"total" : data.total_count,
-						"rows" : list
-					});
-					return true;
-				} else {
-					showMsg(data.retmsg);
-					success({
-						"total" : 0,
-						"rows" : []
-					});
-				}
-			},
-			error : function(err) {
-				loadError.apply(this, arguments);
-			}
-		});
-	}
-}
-function endEdit() {
-	var rows = $("#dg").datagrid('getRows');
-	for (var i = 0; i < rows.length; i++) {
-		$("#dg").datagrid('endEdit', i);
-	}
-}
-
-function loadItemList(typeId) {
-	$('#dg').datagrid({
-		url : appInfo.listItemUrl,
-		striped : true,
-		nowrap : true,
-		collapsible : true,
-		rownumbers : true,
-		fitColumns : true,
-		singleSelect : true,
-		toolbar : [ {
-			text : "删除",
-			iconCls : "icon-remove",
-			handler : function() {
-				var row = $('#dg').datagrid('getSelected');
-				if (row) {
-					var rowIndex = $('#dg').datagrid('getRowIndex', row);
-					$('#dg').datagrid('deleteRow', rowIndex);
-				}
-			}
-		} ],
-		columns : [ [ {
-			field : 'stepName',
-			title : '步骤名称',
-			width : 150,
-			editor : "validatebox"
-		}, {
-			field : 'roleId',
-			title : '执行角色',
-			width : 150,
-			formatter : function(value, row, index) {
-				return changeValue(value);
-			},
-			editor : {
-				type : 'combobox',
-				options : {
-					data : appInfo.roleListData,
-					valueField : "roleid",
-					textField : "rolename",
-					panelHeight : 'auto'
-				}
-			}
-		}, {
-			field : 'ywType',
-			title : '类型',
-			width : 150,
-			editor : {
-				type : 'combobox',
-				options : {
-					data : appInfo.ywTypeData,
-					valueField : "value",
-					textField : "text",
-					panelHeight : 'auto'
-				}
-			}
-		}, {
-			field : 'orgId',
-			title : '机构',
-			width : 150
-		}, {
-			field : 'stepId',
-			title : '步骤',
-			width : 50,
-			hidden : true
-		} ] ],
-		loader : function(params, success, loadError) {
-			var that = $(this);
-			attrloader(that, params, success, loadError);
-		},
-		onClickRow : function(rowIndex, rowData) {
-			$("#dg").datagrid("beginEdit", rowIndex);
-		},
-		onLoadSuccess : function(data) {
-			$("#dg").datagrid('unselectAll');
-
-		}
-	});
-	// 请求加载数据
-	function attrloader(that, params, success, loadError) {
-		var opts = that.datagrid("options");
-
-		appInfo.requestParam2.typeId = typeId;
-		$.ajax({
-			url : opts.url,
-			type : "get",
-			data : appInfo.requestParam2,
-			dataType : "json",
-			success : function(data, status, xhr) {
-				if (data.retcode == "0") {
-					var list = data.list;
-					that.data().datagrid["cache"] = data;
-					success({
-						"total" : data.total_counth,
 						"rows" : list
 					});
 					return true;

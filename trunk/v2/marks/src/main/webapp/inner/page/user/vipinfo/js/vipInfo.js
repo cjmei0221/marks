@@ -5,6 +5,7 @@ var appInfo = {
 	deleteUrl : top.window.urlBase + '/inner/sysUser/delete.do',// 删除会员信息接口
 	resetPwdUrl : top.window.urlBase + '/inner/sysUser/resetPwd.do',// 删除用户管理接口
 	activeUrl : top.window.urlBase + '/inner/sysUser/updateActiveFlag.do',// 删除用户管理接口
+	excelImportUrl : top.window.urlBase + '/inner/sysuser/excelImportForVip.do',// 删除用户管理接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -95,7 +96,28 @@ function activeBtn() {
 		});
 	}
 }
+function importExcel(){
+	$("#upload_form  .l-btn-text").html("请选择");
+	$("#upload_form  .l-btn-text").css("width", "80px");
+	$("#_easyui_textbox_input1").css("margin-left", "100px");
+	$("#updateFileWin").window({
+		title : "导入"
+	}).window("open");
+}
 
+function uploadFile(){
+	if ($("#filebox_file_id_1").val() == "") {
+		showMsg("请选择文件");
+		return false;
+	}
+	$('#upload_form').form('submit', {
+		url : appInfo.excelImportUrl,
+		success : function(data) {
+			showMsg("上传成功");
+			$("#upload_form").form('clear');
+		}
+	});
+}
 $(function() {
 	// 加载列表
 	loadList();
