@@ -17,7 +17,7 @@
 	</select>
 
 	<select id="getMaxCode" resultType="String">
-		SELECT max(t.barcode) FROM
+		SELECT max(t.barcode) as barCode FROM
 		TB_MALL_TRACE_BARCODE t
 	</select>
 	<select id="getInvalidCode" resultType="String">
@@ -26,7 +26,7 @@
 		TB_MALL_TRACE_BARCODE t
 		WHERE t.activeStatus = 0
 		AND datediff(
-		date_format(now(), '%Y-%m-%d'),substring(t.updatetime, 1, 10)) &gt; 30
+		date_format(now(), '%Y-%m-%d'),left(t.updatetime, 10)) &gt; 30
 		order by t.barcode
 	</select>
 
@@ -146,72 +146,28 @@
 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.BarCode">
 		UPDATE TB_MALL_TRACE_BARCODE
 		SET
-		UPDATETIME =
-		now(),
-		ACTIVESTATUS =
-		#{info.activeStatus:NUMERIC},
-		STOCKSTATUS =
-		#{info.stockStatus:NUMERIC},
-		ORGID =
-		#{info.orgid:VARCHAR},
-		ORGNAME =
-		#{info.orgname:VARCHAR},
-		price =
-		#{info.price:VARCHAR},
-		salePrice =
-		#{info.salePrice:VARCHAR},
-		orderId =
-		#{info.orderId:VARCHAR},
-		orderGoodId =
-		#{info.orderGoodId:VARCHAR},
-		userid =
-		#{info.userid:VARCHAR},
-		username =
-		#{info.username:VARCHAR},
-		mobile =
-		#{info.mobile:VARCHAR},
-		endDate =
-		#{info.endDate:VARCHAR}
+		GOODID=#{info.goodId:VARCHAR},
+		GOODNO=#{info.goodNo:VARCHAR},
+		BARNO=#{info.barNo:VARCHAR},
+		GOODNAME=#{info.goodName:VARCHAR},
+		UPDATETIME=now(),
+		TRACEID=#{info.traceId:VARCHAR},
+		ACTIVESTATUS=#{info.activeStatus:NUMERIC},
+		STOCKSTATUS=#{info.stockStatus:NUMERIC},
+		ORGID=#{info.orgid:VARCHAR},
+		ORGNAME=#{info.orgname:VARCHAR},
+		PRODUCTDATE=#{info.productDate:VARCHAR},
+		isWarnDays=#{info.isWarnDays:NUMERIC},
+		beforeWarnDays=#{info.beforeWarnDays:NUMERIC},
+		expireDate=#{info.expireDate:VARCHAR},
+		batchId=#{info.batchId:VARCHAR},
+		typeId=#{info.typeId:VARCHAR},
+		typeName=#{info.typeName:VARCHAR},
+		brandId=#{info.brandId:VARCHAR},
+		brandName=#{info.brandName:VARCHAR},
+		costPrice=#{info.costPrice:VARCHAR}
 		WHERE
 		BARCODE = #{info.barcode}
-	</update>
-	<update id="updateBatch" parameterType="List">
-
-		<foreach collection="list" item="info" index="index"
-			separator=";">
-			UPDATE TB_MALL_TRACE_BARCODE
-			SET
-			isWarnDays=#{info.isWarnDays:NUMERIC},
-			beforeWarnDays=#{info.beforeWarnDays:NUMERIC},
-			expireDate=#{info.expireDate:VARCHAR},
-			COMPANYID =
-			#{info.companyId:VARCHAR},
-			GOODID =
-			#{info.goodId:VARCHAR},
-			GOODNO =
-			#{info.goodNo:VARCHAR},
-			BARNO =
-			#{info.barNo:VARCHAR},
-			GOODNAME =
-			#{info.goodName:VARCHAR},
-			UPDATETIME =
-			now(),
-			TRACEID =
-			#{info.traceId:VARCHAR},
-			ACTIVESTATUS =
-			#{info.activeStatus:NUMERIC},
-			STOCKSTATUS =
-			#{info.stockStatus:NUMERIC},
-			ORGID =
-			#{info.orgid:VARCHAR},
-			ORGNAME =
-			#{info.orgname:VARCHAR},
-			PRODUCTDATE =
-			#{info.productDate:VARCHAR}
-			WHERE
-			BARCODE = #{info.barcode}
-		</foreach>
-
 	</update>
 
 	<delete id="delete" parameterType="String">
@@ -224,7 +180,7 @@
 		TB_MALL_TRACE_BARCODE t
 	</select>
 
-	<delete id="deleteBatch" parameterType="java.util.List">
+	<delete id="deleteBatch" parameterType="java.util.List" flushCache="true">
 		DELETE FROM TB_MALL_TRACE_BARCODE WHERE BARCODE in
 		<foreach collection="list" item="ids" index="index" open="("
 			separator="," close=")">
