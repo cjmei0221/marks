@@ -14,13 +14,21 @@ var appInfo = {
 // -----------------权限控制功能 start---------------
 // 新增
 function edit() {
+	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
+	}
 	$("#editWin").window({
 		title : "审核"
 	}).window("open");
 	$("#wrokId").val(appInfo.selectedId);
 	$("#remarks").val("");
+	if(appInfo.selectedData.dealModel==2){
+		$("#checkForm").hide();
+	}else{
+		$("#checkForm").show();
+	}
 	var path = appInfo.selectedData.pageUrl;
-    var strHtml = "<iframe width='100%' height='280px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
+    var strHtml = "<iframe width='100%' height='480px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
     $("#postShow").html(strHtml);
 }// -----------------权限控制功能 end---------------
 $(function() {
