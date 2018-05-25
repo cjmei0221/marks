@@ -29,8 +29,7 @@
 		TYPEID,
 		ISCHECKOK,
 		ROLENAME,
-		dealType,
-		dealModel
+		dealType
 		)
 		VALUES(
 		#{info.stepId:VARCHAR},
@@ -44,8 +43,7 @@
 		#{info.typeId:VARCHAR},
 		#{info.isCheckOk:NUMERIC},
 		#{info.roleName:VARCHAR},
-		#{info.dealType:VARCHAR},
-		#{info.dealModel:VARCHAR}
+		#{info.dealType:VARCHAR}
 		)
 	</insert>
 
@@ -62,8 +60,7 @@
 		TYPEID,
 		ISCHECKOK,
 		ROLENAME,
-		dealType,
-		dealModel
+		dealType
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -80,8 +77,7 @@
 			#{info.typeId:VARCHAR},
 			#{info.isCheckOk:NUMERIC},
 			#{info.roleName:VARCHAR},
-			#{info.dealType:VARCHAR},
-			#{info.dealModel:VARCHAR}
+			#{info.dealType:VARCHAR}
 			)
 		</foreach>
 	</insert>

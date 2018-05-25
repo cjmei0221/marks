@@ -37,7 +37,9 @@
 		APPLYORGID,
 		APPLYORGNAME,
 		nextStep,
-		idName
+		idName,
+		nextDealType,
+		dealModel
 		)
 		VALUES(
 		#{info.workId:VARCHAR},
@@ -64,7 +66,9 @@
 		#{info.applyOrgId:VARCHAR},
 		#{info.applyOrgName:VARCHAR},
 		#{info.nextStep:NUMERIC},
-		#{info.idName:VARCHAR}
+		#{info.idName:VARCHAR},
+		#{info.nextDealType:NUMERIC},
+		#{info.dealModel:NUMERIC}
 		)
 	</insert>
 
@@ -94,7 +98,9 @@
 		APPLYORGID,
 		APPLYORGNAME,
 		nextStep,
-		idName
+		idName,
+		nextDealType,
+		dealModel
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -124,7 +130,9 @@
 			#{info.applyOrgId:VARCHAR},
 			#{info.applyOrgName:VARCHAR},
 			#{info.nextStep:NUMERIC},
-			#{info.idName:VARCHAR}
+			#{info.idName:VARCHAR},
+			#{info.nextDealType:NUMERIC},
+			#{info.dealModel:NUMERIC}
 			)
 		</foreach>
 	</insert>
@@ -132,6 +140,7 @@
 	<update id="update" parameterType="com.marks.module.work.info.pojo.WorkInfo">
 		UPDATE TB_WORK
 		SET
+		nextDealType=#{info.nextDealType:NUMERIC},
 		nextStep=#{info.nextStep:NUMERIC},
 		nextStepId =
 		#{info.nextStepId:VARCHAR},
