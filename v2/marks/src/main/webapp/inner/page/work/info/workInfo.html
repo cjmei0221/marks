@@ -52,32 +52,34 @@
 		maximizable:false,
 		draggable:true,
 		collapsible:false"
-		style="width: 800px; height: 550px;">
+		style="width: 800px; height: 680px;">
 		<div align="center" style="width: 100%;">
-			<div id="postShow" style="width: 90%; height: 300px;"></div>
-			<form id="workff" name="workff" method="post">
-				<input type="hidden" id="wrokId" name="wrokId">
-				<table style="width: 90%; height: 180px;">
-					<tr>
-						<th colspan="2"><textarea id="remarks" name="remarks"
-								style="width: 100%; height: 100px;" maxlength="2000">
+			<div id="postShow" style="width: 100%; height: 480px;"></div>
+			<div id="checkForm" style="width:100%; height: 180px;">
+				<form id="workff" name="workff" method="post">
+					<input type="hidden" id="wrokId" name="wrokId">
+					<table style="width: 90%;">
+						<tr>
+							<th colspan="2"><textarea id="remarks" name="remarks"
+									style="width: 100%; height: 100px;" maxlength="2000">
 						</textarea>
-						</td>
-					</tr>
-					<tr height="15px">
-						<td colspan="2"></td>
-					</tr>
-					<tr>
-						<td colspan="2" style="text-align: center"><a id="btnCancel"
-							name="btnCancel" href="javascript:void(0)"
-							class="easyui-linkbutton" style="width: 100px;"
-							data-options="iconCls:'icon-cancel'">审核不通过</a>
-							&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
-							href="javascript:void(0)" class="easyui-linkbutton"
-							style="width: 100px;" data-options="iconCls:'icon-save'">审核通过</a></td>
-					</tr>
-				</table>
-			</form>
+							</td>
+						</tr>
+						<tr height="15px">
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: center"><a id="btnCancel"
+								name="btnCancel" href="javascript:void(0)"
+								class="easyui-linkbutton" style="width: 100px;"
+								data-options="iconCls:'icon-cancel'">审核不通过</a>
+								&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+								href="javascript:void(0)" class="easyui-linkbutton"
+								style="width: 100px;" data-options="iconCls:'icon-save'">审核通过</a></td>
+						</tr>
+					</table>
+				</form>
+			</div>
 		</div>
 	</div>
 

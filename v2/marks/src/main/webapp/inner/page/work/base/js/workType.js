@@ -128,8 +128,11 @@ $(function() {
 			if (val == '0') {
 				$(".noAutoDiv").hide();
 				$(".autoDiv").show();
-			} else {
+			} else if (val == '1') {
 				$(".noAutoDiv").show();
+				$(".autoDiv").hide();
+			}else{
+				$(".noAutoDiv").hide();
 				$(".autoDiv").hide();
 			}
 		}
