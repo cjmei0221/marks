@@ -80,6 +80,7 @@ public class WorkInfoController extends SupportContorller {
 			info.setOperatorOrgName(admin.getOrgName());
 			info.setRoleId(admin.getRoleId());
 			info.setRoleName(admin.getRoleName());
+			info.setParentOrgId(admin.getParentOrgId());
 			logger.info("/inner/workInfo/save > " + info.toLog());
 			workInfoService.saveWorkStep(info);
 			result.setMessage("保存成功");

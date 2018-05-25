@@ -86,7 +86,6 @@ public class WorkTypeStepController extends SupportContorller{
 					if (null != roleId[i] && roleId[i].length() > 4) {
 						item = new WorkTypeStep();
 						item.setCompanyId(admin.getCompanyId());
-						item.setDealModel("1");
 						item.setDealType(dealType[i]);
 						item.setRoleId(roleId[i]);
 						item.setStepName(stepName[i]);

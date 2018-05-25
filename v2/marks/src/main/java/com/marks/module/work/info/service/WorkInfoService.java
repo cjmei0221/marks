@@ -14,7 +14,6 @@ public interface WorkInfoService{
 	public WorkInfo findById(String workId);
 
 	public boolean save(WorkFlow info);
-	public void update(WorkInfo info);
 	public void delete(String id);
 	public List<WorkInfo> findAll();
 	public void deleteBatch(List<String> ids);

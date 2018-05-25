@@ -16,7 +16,10 @@ import com.marks.common.enums.WorkEnums;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.date.DateUtil;
 import com.marks.module.core.common.SpringContextHolder;
+import com.marks.module.user.sysrole.dao.SysRoleDao;
+import com.marks.module.user.sysrole.pojo.SysRole;
 import com.marks.module.user.sysuser.dao.SysUserDao;
+import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.work.base.dao.WorkTypeDao;
 import com.marks.module.work.base.dao.WorkTypeStepDao;
 import com.marks.module.work.base.pojo.WorkType;
@@ -40,9 +43,11 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 	@Autowired
 	private WorkTypeStepDao workTypeStepDao;
 	@Autowired
-	private SysUserDao sysUserDao;
-	@Autowired
 	private WorkStepDao workStepDao;
+	@Autowired
+	private SysRoleDao sysRoleDao;
+	@Autowired
+	private SysUserDao sysUserDao;
 
 	/**
 	 * private WorkInfoDao workInfoDao;
@@ -76,6 +81,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 			return false;
 		}
 		WorkInfo info = new WorkInfo();
+		info.setDealModel(type.getIsAuto());
 		info.setApplyMan(flow.getApplyMan());
 		info.setApplyManId(flow.getApplyManId());
 		info.setCompanyId(flow.getCompanyId());
@@ -89,7 +95,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		info.setCurrUserid(flow.getApplyManId());
 		info.setCurrUsername(flow.getApplyMan());
 		info.setOperatorStatus(Enums.CheckStatus.checking.getValue());
-		info.setPageUrl(type.getLinkUrl() + "?idNo=" + info.getIdNo());
+		info.setPageUrl(type.getLinkUrl() + "?idNo=" + info.getIdNo() + "&formStatus=check");
 		info.setNextStep(typeStep.getStep());
 		info.setNextStepId(typeStep.getStepId());
 		info.setNextStepName(typeStep.getStepName());
@@ -99,10 +105,21 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		info.setApplyOrgId(flow.getApplyOrgId());
 		info.setApplyOrgName(flow.getApplyOrgName());
 		info.setApplyMan(flow.getApplyMan());
+
 		info.setNextRoleid(typeStep.getRoleId());
-		info.setNextRolename(typeStep.getRoleName());
+		// 同级职位
+		if ("1".equals(typeStep.getDealType())) {
+			SysUser user = sysUserDao.findByUserid(info.getCurrUserid());
+			info.setNextRoleid(user.getOrgId() +"_"+ typeStep.getRoleId().split("_")[1]);
+		} else if ("2".equals(typeStep.getDealType())) {
+			SysUser user = sysUserDao.findByUserid(info.getCurrUserid());
+			info.setNextRoleid(user.getParentOrgId()  +"_"+ typeStep.getRoleId().split("_")[1]);
+		}
+		SysRole role = sysRoleDao.findById(info.getNextRoleid());
+		info.setNextRolename(role.getShowName());
 		info.setNextUserid("");
 		info.setNextUsername("");
+		info.setNextDealType(Integer.parseInt(typeStep.getDealType()));
 		workInfoDao.save(info);
 		WorkStep step = new WorkStep();
 		step.setCompanyId(type.getCompanyId());
@@ -148,6 +165,14 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 			work.setNextStep(next);
 			work.setNextStepId(nextStep.getStepId());
 			work.setNextStepName(nextStep.getStepName());
+			// 同级职位
+			if ("1".equals(nextStep.getDealType())) {
+				work.setNextRoleid(info.getOperatorOrgId() + "_" + nextStep.getRoleId().split("_")[1]);
+			} else if ("2".equals(nextStep.getDealType())) {
+				work.setNextRoleid(info.getParentOrgId() + "_" + nextStep.getRoleId().split("_")[1]);
+			}
+			SysRole role = sysRoleDao.findById(work.getNextRoleid());
+			work.setNextRolename(role.getShowName());
 		} else {
 			work.setNextRoleid("");
 			work.setNextRolename("");
@@ -183,7 +208,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 			if (Enums.CheckStatus.checkFail.getValue() == info.getOperateStatus()) {
 				if (WorkEnums.DealType.auto.getValue() == type.getIsAuto()) {
 					workInfoDao.updateCheck(type);
-				} else {
+				} else if (WorkEnums.DealType.self.getValue() == type.getIsAuto()) {
 					CheckService service = SpringContextHolder.getBean(type.getClassType());
 					service.approveFail(params);
 				}
@@ -191,7 +216,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 			} else {
 				if (WorkEnums.DealType.auto.getValue() == type.getIsAuto()) {
 					workInfoDao.updateCheck(type);
-				} else {
+				} else if (WorkEnums.DealType.self.getValue() == type.getIsAuto()) {
 					CheckService service = SpringContextHolder.getBean(type.getClassType());
 					service.approveOk(params);
 				}
@@ -202,7 +227,6 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		}
 		// 继续审核
 		noticeNextCheckMan(work);
-
 	}
 
 	/**
@@ -226,13 +250,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 
 	}
 
-	/**
-	 * 更新工作流查询
-	 */
-	@Override
-	public void update(WorkInfo info) {
-		workInfoDao.update(info);
-	}
+
 
 	/**
 	 * 删除工作流查询
