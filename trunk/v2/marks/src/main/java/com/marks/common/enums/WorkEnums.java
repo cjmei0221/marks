@@ -3,8 +3,9 @@ package com.marks.common.enums;
 public class WorkEnums {
 
 	public enum DealType {
-		auto(0, "系统处理"), // 绑定
-		self(1, "自行处理");// 未绑定
+		auto(0, "系统全权处理"), // 绑定
+		self(1, "系统代为转发"), //
+		dealSelf(2, "自行业务处理");// 未绑定
 
 		private int status;
 		private String name;

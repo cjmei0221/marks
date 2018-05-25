@@ -134,11 +134,31 @@ public class WorkInfo implements Serializable {
 	 */
 	private String applyOrgName;
 
+	private int nextDealType;// 处理方式 0:按指定角色 1:按同级职位 2:按上级职位
+
+	private int dealModel;// 处理模式同isAuto
+
 	public WorkInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
-
 	}
+
+	public int getDealModel() {
+		return dealModel;
+	}
+
+	public void setDealModel(int dealModel) {
+		this.dealModel = dealModel;
+	}
+
+	public int getNextDealType() {
+		return nextDealType;
+	}
+
+	public void setNextDealType(int nextDealType) {
+		this.nextDealType = nextDealType;
+	}
+
 
 	public String getIdName() {
 		return idName;

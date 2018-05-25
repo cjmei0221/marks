@@ -65,8 +65,6 @@ public class WorkTypeStep implements Serializable {
 
 	private String dealType;// 处理方式 0:按指定角色 1:按同级职位 2:按上级职位
 
-	private String dealModel;// 处理方式 0:系统代为转发 1:自行处理
-
 	public WorkTypeStep() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
@@ -78,14 +76,6 @@ public class WorkTypeStep implements Serializable {
 
 	public void setDealType(String dealType) {
 		this.dealType = dealType;
-	}
-
-	public String getDealModel() {
-		return dealModel;
-	}
-
-	public void setDealModel(String dealModel) {
-		this.dealModel = dealModel;
 	}
 
 	public String getStepId() {
