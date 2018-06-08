@@ -19,6 +19,7 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
+import com.marks.module.cache.CacheData;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -84,6 +85,7 @@ public class WxAccountController extends SupportContorller{
 //	 			wxAccount.setCompanyId(info.getCompanyId());
 				wxAccount.setCompanyId(admin.getCompanyId());
 	 			wxAccountService.save(wxAccount);
+				CacheData.putWxAccount(wxAccount);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -121,6 +123,7 @@ public class WxAccountController extends SupportContorller{
 	 			wxAccount.setCompanyId(info.getCompanyId());*/
 				wxAccount.setCompanyId(admin.getCompanyId());
 		    	wxAccountService.update(wxAccount);
+				CacheData.putWxAccount(wxAccount);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }

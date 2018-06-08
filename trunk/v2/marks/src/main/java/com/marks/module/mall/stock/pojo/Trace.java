@@ -174,6 +174,16 @@ public class Trace implements Serializable {
 	 */
 	private String endDate;
 
+	private String tradePrice;// 配送价
+
+	public String getTradePrice() {
+		return tradePrice;
+	}
+
+	public void setTradePrice(String tradePrice) {
+		this.tradePrice = tradePrice;
+	}
+
 	public String getBatchId() {
 		return batchId;
 	}

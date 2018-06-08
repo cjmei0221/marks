@@ -95,13 +95,12 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		info.setCurrUserid(flow.getApplyManId());
 		info.setCurrUsername(flow.getApplyMan());
 		info.setOperatorStatus(Enums.CheckStatus.checking.getValue());
-		info.setPageUrl(type.getLinkUrl() + "?idNo=" + info.getIdNo() + "&formStatus=check");
 		info.setNextStep(typeStep.getStep());
 		info.setNextStepId(typeStep.getStepId());
 		info.setNextStepName(typeStep.getStepName());
 		info.setTypeCode(type.getTypeCode());
 		info.setTypeName(type.getTypeName());
-		info.setWorkId(IDUtil.getIdNo());
+		info.setWorkId(IDUtil.getProjectCode());
 		info.setApplyOrgId(flow.getApplyOrgId());
 		info.setApplyOrgName(flow.getApplyOrgName());
 		info.setApplyMan(flow.getApplyMan());
@@ -120,6 +119,8 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		info.setNextUserid("");
 		info.setNextUsername("");
 		info.setNextDealType(Integer.parseInt(typeStep.getDealType()));
+		info.setPageUrl(
+				type.getLinkUrl() + "?idNo=" + info.getIdNo() + "&workId=" + info.getWorkId() + "&formStatus=check");
 		workInfoDao.save(info);
 		WorkStep step = new WorkStep();
 		step.setCompanyId(type.getCompanyId());

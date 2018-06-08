@@ -103,7 +103,7 @@ public class QuestionServiceImpl implements QuestionService{
 	public String exportTxt(Map<String, Object> param, String basePath) {
 		PageBounds pageBounds = new PageBounds(1, 100000);
 		List<Question> list = questionDao.list(pageBounds, param);
-		String fileName="question_"+IDUtil.getTimeID()+".txt";
+		String fileName = "question_" + IDUtil.getNumID() + ".txt";
 		FileOutputStream fos=null;
 		PrintWriter pw=null;
 		String filePath=null;

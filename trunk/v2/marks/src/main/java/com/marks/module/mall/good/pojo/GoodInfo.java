@@ -3,6 +3,8 @@ package com.marks.module.mall.good.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.marks.common.enums.GoodEnums;
+
 public class GoodInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -66,14 +68,15 @@ public class GoodInfo implements Serializable {
 	/**
 	 * 商品原价
 	 */
-	private String price;
+	private String tradePrice;// 批发价
+
+	private String dispatchPrice;// 配送价
 
 	private String salePrice;// 售价
 
 	private String vipPrice;// 会员价
 
 	private String minPrice;// 最低价
-
 
 	private String costPrice;// 进货价
 	private String rank;
@@ -99,6 +102,46 @@ public class GoodInfo implements Serializable {
 	private int point;// 可积积分
 
 	private int needPoint;// 兑换积分
+
+	private int materialType;// 类型 0:实物商品 1:虚拟商品
+	private String materialTypeName;
+	private String helpCode;// 助记码
+
+	public String getTradePrice() {
+		return tradePrice;
+	}
+
+	public void setTradePrice(String tradePrice) {
+		this.tradePrice = tradePrice;
+	}
+
+	public String getDispatchPrice() {
+		return dispatchPrice;
+	}
+
+	public void setDispatchPrice(String dispatchPrice) {
+		this.dispatchPrice = dispatchPrice;
+	}
+
+	public int getMaterialType() {
+		return materialType;
+	}
+
+	public void setMaterialType(int materialType) {
+		this.materialType = materialType;
+	}
+
+	public String getMaterialTypeName() {
+		return GoodEnums.MaterialType.getByKey(materialType);
+	}
+
+	public String getHelpCode() {
+		return helpCode;
+	}
+
+	public void setHelpCode(String helpCode) {
+		this.helpCode = helpCode;
+	}
 
 	public String getVipPrice() {
 		return vipPrice;
@@ -314,14 +357,6 @@ public class GoodInfo implements Serializable {
 
 	public void setGoodName(String goodName) {
 		this.goodName = goodName;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
 	}
 
 	public String getBrandId() {

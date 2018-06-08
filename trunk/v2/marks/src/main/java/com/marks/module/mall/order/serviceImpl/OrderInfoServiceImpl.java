@@ -16,6 +16,7 @@ import com.marks.common.enums.AcctEnums;
 import com.marks.common.enums.FeeEnums;
 import com.marks.common.enums.OrderEnums;
 import com.marks.common.util.IDUtil;
+import com.marks.common.util.date.DateUtil;
 import com.marks.common.util.number.MoneyUtil;
 import com.marks.module.acct.base.service.UserExtService;
 import com.marks.module.acct.ext.pojo.PointLog;
@@ -127,18 +128,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		return IDUtil.getNumID();
 	}
 
-	private int getSeasion(String monthStr) {
-		int month = Integer.parseInt(monthStr);
-		if (month < 4) {
-			return 1;
-		} else if (month < 7) {
-			return 2;
-		} else if (month < 10) {
-			return 3;
-		}
-		return 4;
-	}
-
 	@Override
 	public void saveRecharge(OrderInfo info) {
 		dealOrder(info);
@@ -177,9 +166,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			info.setVipName(vip.getUsername());
 			info.setVipCode(vip.getUserCode());
 		}
-		info.setI_year(info.getCashDate().substring(0, 4));
-		info.setI_month(info.getCashDate().substring(5, 7));
-		info.setI_season(getSeasion(info.getI_month()) + "");
+		info.setI_year(Integer.parseInt(info.getCashDate().substring(0, 4)));
+		info.setI_month(Integer.parseInt(info.getCashDate().substring(5, 7)));
+		info.setI_season(DateUtil.getSeason(info.getI_month()));
 		info.setRecevieAmt(MoneyUtil.add(info.getCashAmt(), info.getWxAmt()));
 		info.setRecevieAmt(MoneyUtil.add(info.getRecevieAmt(), info.getAlipayAmt()));
 		info.setRecevieAmt(MoneyUtil.add(info.getRecevieAmt(), info.getOtherAmt()));
@@ -346,8 +335,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		info.setSimpleDiscountAmt(MoneyUtil.subtract(info.getPayableAmt(), info.getPayAmt()));
 		info.setNums(nums);
 		String costAmt = "";
-		String countAmt = "";
-		String oriPriceAmt = "";
+		String salePriceAmt = "";
 		String mandiscountAmt = "";
 		String nowPriceAmt = "";// 现价金额
 		String countGoodPayableAmt = "";
@@ -364,11 +352,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			// 收款金额
 			good.setRecevieAmt(MoneyUtil.multiply(info.getRecevieAmt(), rate));
 			// 售价金额
-			good.setCountAmt(MoneyUtil.multiply(good.getSalePrice(), String.valueOf(good.getNums())));
+			good.setSalePriceAmt(MoneyUtil.multiply(good.getSalePrice(), String.valueOf(good.getNums())));
 			// 现价金额
 			good.setNowPriceAmt(MoneyUtil.multiply(good.getNowPrice(), String.valueOf(good.getNums())));
-			// 原价金额
-			good.setOriPriceAmt(MoneyUtil.multiply(good.getPrice(), String.valueOf(good.getNums())));
 			// 支付金额
 			good.setCashAmt(MoneyUtil.multiply(info.getCashAmt(), rate));
 			good.setAlipayAmt(MoneyUtil.multiply(info.getAlipayAmt(), rate));
@@ -380,9 +366,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			good.setPointAmt(MoneyUtil.multiply(info.getPointAmt(), rate));
 
 			// 促销总额=满减促销+单品促销+单品折扣
-			good.setSaleAmt(MoneyUtil.subtract(good.getCountAmt(), good.getPayAmt()));
+			good.setSalesAmt(MoneyUtil.subtract(good.getSalePriceAmt(), good.getPayAmt()));
 			// 单品促销
-			good.setDiscountAmt(MoneyUtil.subtract(good.getCountAmt(), good.getNowPriceAmt()));
+			good.setDiscountAmt(MoneyUtil.subtract(good.getSalePriceAmt(), good.getNowPriceAmt()));
 			// 单品折扣
 			good.setGoodManDiscountAmt(MoneyUtil.subtract(good.getNowPriceAmt(), good.getPayableAmt()));
 			// 满减促销
@@ -397,28 +383,27 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			good.setPayRate(payRate.toString());
 			stock(info, good, stockList);
 			costAmt = MoneyUtil.add(costAmt, good.getCostAmt());
-			countAmt = MoneyUtil.add(countAmt, good.getCountAmt());
-			oriPriceAmt = MoneyUtil.add(oriPriceAmt, good.getOriPriceAmt());
+			salePriceAmt = MoneyUtil.add(salePriceAmt, good.getSalePriceAmt());
 			mandiscountAmt = MoneyUtil.add(mandiscountAmt, good.getGoodManDiscountAmt());
 			nowPriceAmt = MoneyUtil.add(nowPriceAmt, good.getNowPriceAmt());
 		}
 		info.setNowPriceAmt(nowPriceAmt);
-		info.setOriPriceAmt(oriPriceAmt);
 		info.setCostAmt(costAmt);
-		info.setCountAmt(countAmt);
+		info.setSalePriceAmt(salePriceAmt);
+		;
 		// 促销总额=满减促销+单品促销+单品折扣
-		info.setSaleAmt(MoneyUtil.subtract(info.getCountAmt(), info.getPayAmt()));
+		info.setSalesAmt(MoneyUtil.subtract(info.getSalePriceAmt(), info.getPayAmt()));
 		// 满减金额
 		info.setFullCutAmt(MoneyUtil.subtract(payableAmt, info.getPayableAmt()));
 		// 单品促销总折扣
-		info.setDiscountAmt(MoneyUtil.subtract(info.getCountAmt(), info.getNowPriceAmt()));
+		info.setDiscountAmt(MoneyUtil.subtract(info.getSalePriceAmt(), info.getNowPriceAmt()));
 		// 人工总折扣
 		info.setSimpleDiscountAmt(MoneyUtil.add(info.getSimpleDiscountAmt(), mandiscountAmt));
 
 	}
 
 	private List<StockBatch> stock(OrderInfo info, OrderGood good, List<StockBatch> stockList) {
-		List<StockBatch> stock = stockBatchService.getStockBatchByGood(info.getOrgId(), good);
+		List<StockBatch> stock = stockBatchService.getStockBatchByGood(info, good);
 		if (null != stock && stock.size() > 0) {
 			good.setCostPrice(stock.get(0).getCostPrice());
 			good.setCostAmt(MoneyUtil.multiply(good.getCostPrice(), String.valueOf(good.getNums())));
@@ -437,7 +422,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				b.setOrderId(good.getOrderId());
 				b.setOrgid(info.getOrgId());
 				b.setOrgname(info.getOrgName());
-				b.setPrice(good.getPrice());
+				b.setPrice(good.getSalePrice());
 				b.setSalePrice(MoneyUtil.divide(good.getPayAmt(), String.valueOf(good.getNums())));
 				b.setUserid(info.getVipId());
 				b.setUsername(info.getVipName());

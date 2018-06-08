@@ -117,7 +117,7 @@ public class DiaryServiceImpl implements DiaryService {
 	public String exportTxt(Map<String, Object> param,String basePath) {
 		PageBounds pageBounds = new PageBounds(1, 100000);
 		List<Diary> list = diaryDao.list(pageBounds, param);
-		String fileName="diary_"+IDUtil.getTimeID()+".txt";
+		String fileName = "diary_" + IDUtil.getNumID() + ".txt";
 		FileOutputStream fos=null;
 		PrintWriter pw=null;
 		String filePath=null;

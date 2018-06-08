@@ -70,7 +70,7 @@ public class QuestionController extends SupportContorller{
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Question question = getModel(Question.class);
-	    	question.setId(IDUtil.getTimeID());
+			question.setId(IDUtil.getNumID());
 			 Question ori=null;
 	 		if(question.getId() != null){
 	 			ori=questionService.findByQuestion(question.getQuestion());

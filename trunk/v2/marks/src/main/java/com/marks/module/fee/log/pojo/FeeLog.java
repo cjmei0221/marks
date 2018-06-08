@@ -101,14 +101,14 @@ public class FeeLog implements Serializable {
 	 * 年
 	 *
 	 */
-	private String year;
+	private int i_year;
 	/**
 	 * 月
 	 *
 	 */
-	private String month;
+	private int i_month;
 
-	private int season;
+	private int i_season;
 	/**
 	 * 关联单号
 	 *
@@ -123,14 +123,6 @@ public class FeeLog implements Serializable {
 	public FeeLog() {
 		this.updatetime = DateUtil.getCurrDateStr();
 
-	}
-
-	public int getSeason() {
-		return season;
-	}
-
-	public void setSeason(int season) {
-		this.season = season;
 	}
 
 	public String getId() {
@@ -277,22 +269,6 @@ public class FeeLog implements Serializable {
 		this.payeeCode = payeeCode;
 	}
 
-	public String getYear() {
-		return year;
-	}
-
-	public void setYear(String year) {
-		this.year = year;
-	}
-
-	public String getMonth() {
-		return month;
-	}
-
-	public void setMonth(String month) {
-		this.month = month;
-	}
-
 	public String getIdNo() {
 		return idNo;
 	}
@@ -309,6 +285,30 @@ public class FeeLog implements Serializable {
 		this.updatetime = updatetime;
 	}
 
+	public int getI_year() {
+		return i_year;
+	}
+
+	public void setI_year(int i_year) {
+		this.i_year = i_year;
+	}
+
+	public int getI_month() {
+		return i_month;
+	}
+
+	public void setI_month(int i_month) {
+		this.i_month = i_month;
+	}
+
+	public int getI_season() {
+		return i_season;
+	}
+
+	public void setI_season(int i_season) {
+		this.i_season = i_season;
+	}
+
 	public String toLog() {
 		return " - id:" + String.valueOf(id) + " - companyId:" + String.valueOf(companyId) + " - feeCode:"
 				+ String.valueOf(feeCode) + " - feeName:" + String.valueOf(feeName) + " - itemCode:"
@@ -319,7 +319,7 @@ public class FeeLog implements Serializable {
 				+ String.valueOf(payeeName) + " - payeeRoleType:" + String.valueOf(payeeRoleType) + " - payeeRole:"
 				+ String.valueOf(payeeRole) + " - payeeOrgId:" + String.valueOf(payeeOrgId) + " - payeeOrgName:"
 				+ String.valueOf(payeeOrgName) + " - payeeCode:" + String.valueOf(payeeCode) + " - year:"
-				+ String.valueOf(year) + " - month:" + String.valueOf(month) + " - idNo:" + String.valueOf(idNo)
+				+ String.valueOf(i_year) + " - month:" + String.valueOf(i_month) + " - idNo:" + String.valueOf(idNo)
 				+ " - updatetime:" + String.valueOf(updatetime);
 	}
 }

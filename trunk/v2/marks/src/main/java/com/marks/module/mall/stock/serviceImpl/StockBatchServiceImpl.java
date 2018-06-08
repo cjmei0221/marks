@@ -19,6 +19,7 @@ import com.marks.common.util.number.MoneyUtil;
 import com.marks.module.mall.good.dao.GoodInfoDao;
 import com.marks.module.mall.good.pojo.GoodInfo;
 import com.marks.module.mall.order.pojo.OrderGood;
+import com.marks.module.mall.order.pojo.OrderInfo;
 import com.marks.module.mall.stock.dao.StockBatchDao;
 import com.marks.module.mall.stock.dao.TraceLogDao;
 import com.marks.module.mall.stock.pojo.BarCode;
@@ -154,6 +155,8 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setTranAmt(b.getAmount());
 			b.setTranNums(b.getNums());
 			b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
+			b.setTradePrice(b.getCostPrice());
+			b.setTradePriceAmt(b.getAmount());
 			dealStock(b);
 			// 更新商品进货价和供应商
 			good.setCostPrice(info.getCostPrice());
@@ -171,27 +174,75 @@ public class StockBatchServiceImpl implements StockBatchService {
 		return result;
 	}
 
-	public List<StockBatch> getStockBatchByGood(String orgId, OrderGood good) {
+	public List<StockBatch> getStockBatchByGood(OrderInfo order, OrderGood good) {
 		List<StockBatch> returnList = null;
 		int nums = good.getNums();// 减去条码的数量
 		List<StockBatch> list = new ArrayList<StockBatch>();
+		// 一瓶一码管理
 		if (null != good.getBarCodeList() && good.getBarCodeList().size() > 0) {
-			nums = good.getNums() - good.getBarCodeList().size();
 			List<StockBatch> barlist = getStockBatchByBarCodeList(good);
 			if (null != barlist && barlist.size() > 0) {
 				list.addAll(barlist);
+				for (StockBatch b : barlist) {
+					nums = nums - b.getTranNums();
+				}
 			}
 		}
+		// 数量管理
 		if (nums > 0) {
-			List<StockBatch> numslist = getStockBatchByNums(orgId, good);
+			List<StockBatch> numslist = getStockBatchByNums(order.getOrgId(), good, nums);
 			if (null != numslist && numslist.size() > 0) {
 				list.addAll(numslist);
+				for (StockBatch b : numslist) {
+					nums = nums - b.getTranNums();
+				}
 			}
 		}
-		if (list.size() > 0) {
-			returnList = countStockBatch(good, list);
+		// 负卖
+		if (nums > 0) {
+
 		}
+
+		returnList = countStockBatch(good, list);
+
 		return returnList;
+	}
+
+	private List<StockBatch> getlessStockList(OrderInfo order, OrderGood good, int nums) {
+		List<StockBatch> list = new ArrayList<StockBatch>();
+		String salePrice = MoneyUtil.divide(good.getPayAmt(), String.valueOf(good.getNums()));
+		StockBatch b = new StockBatch();
+		b.setAmount("0");
+		b.setBalAmt("0");
+		b.setBalNums(0);
+		b.setBarNo(good.getBarNo());
+		b.setBatchId(getBatchId());
+		b.setBrandId(good.getBrandId());
+		b.setBrandName(good.getBrandName());
+		b.setCompanyId(good.getCompanyId());
+		b.setCostPrice(good.getCostPrice());
+		b.setGoodId(good.getGoodId());
+		b.setGoodName(good.getGoodName());
+		b.setGoodNo(good.getGoodNo());
+		b.setNums(0);
+		b.setOperator("");
+		b.setOrgId(order.getOrgId());
+		b.setOrgName(order.getOrgName());
+		b.setRemarks("负卖，库存不足");
+		b.setSaleAmount("");
+		b.setSaleNums(0);
+		b.setStockType(StockEnums.StockManageType.nums.getValue());
+		b.setTradePrice(b.getCostPrice());
+		b.setTradePriceAmt(b.getAmount());
+		b.setTranAmt(MoneyUtil.multiply(nums + "", good.getCostPrice()));
+		b.setTranNums(nums);
+		b.setTranSaleAmt(MoneyUtil.multiply(nums + "", salePrice));
+		b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
+		b.setTypeId(good.getTypeId());
+		b.setTypeName(good.getTypeName());
+		b.setYwCode(StockEnums.YwCode.no_stock_sale.getValue());
+		list.add(b);
+		return list;
 	}
 
 	private List<StockBatch> getStockBatchByBarCodeList(OrderGood good) {
@@ -231,12 +282,12 @@ public class StockBatchServiceImpl implements StockBatchService {
 		return returnList;
 	}
 
-	private List<StockBatch> getStockBatchByNums(String orgId, OrderGood good) {
+
+	private List<StockBatch> getStockBatchByNums(String orgId, OrderGood good, int nums) {
 		List<StockBatch> list = stockBatchDao.getStockBatchByGoodIdAndOrgId(orgId, good.getGoodId());
 		List<StockBatch> returnList = null;
 		if (null != list && list.size() > 0) {
 			returnList = new ArrayList<StockBatch>();
-			int nums = good.getNums();
 			for (int i = 0; i < list.size(); i++) {
 				StockBatch batch = list.get(i);
 				if (nums - batch.getBalNums() <= 0) {

@@ -78,9 +78,9 @@ public class FeeLogServiceImpl implements FeeLogService {
 		}
 		info.setId(IDUtil.getSecondID() + IDUtil.getID(8));
 		info.setItemName(FeeEnums.ItemCode.getByKey(info.getItemCode()));
-		info.setMonth(IDUtil.getDateID().substring(4, 6));
-		info.setYear(IDUtil.getDateID().substring(0, 4));
-		info.setSeason(DateUtil.getSeason(info.getMonth()));
+		info.setI_month(Integer.parseInt(IDUtil.getDateID().substring(4, 6)));
+		info.setI_year(Integer.parseInt(IDUtil.getDateID().substring(0, 4)));
+		info.setI_season(DateUtil.getSeason(info.getI_month()));
 		feeLogDao.save(info);
 		logger.info("save > end>");
 	}

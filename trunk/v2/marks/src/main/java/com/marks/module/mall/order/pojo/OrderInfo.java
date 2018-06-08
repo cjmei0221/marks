@@ -49,17 +49,17 @@ public class OrderInfo implements Serializable {
 	 * 年份
 	 *
 	 */
-	private String i_year;
+	private int i_year;
 	/**
 	 * 月份
 	 *
 	 */
-	private String i_month;
+	private int i_month;
 	/**
 	 * 季度
 	 *
 	 */
-	private String i_season;
+	private int i_season;
 	/**
 	 * 下单时间
 	 *
@@ -93,7 +93,7 @@ public class OrderInfo implements Serializable {
 	 * 促销总额
 	 *
 	 */
-	private String saleAmt;
+	private String salesAmt;
 	/**
 	 * 折扣总额
 	 *
@@ -266,9 +266,8 @@ public class OrderInfo implements Serializable {
 	 */
 	private int nums;
 
-	private String oriPriceAmt;// 原价金额
 
-	private String countAmt;// 售价金额
+	private String salePriceAmt;// 售价金额
 
 	private String ywType;// 订单类型
 	private String ywName;// 订单类型
@@ -280,6 +279,22 @@ public class OrderInfo implements Serializable {
 	private String channelId;// 渠道
 
 	private String channel;// 渠道
+
+	public String getSalesAmt() {
+		return salesAmt;
+	}
+
+	public void setSalesAmt(String salesAmt) {
+		this.salesAmt = salesAmt;
+	}
+
+	public String getSalePriceAmt() {
+		return salePriceAmt;
+	}
+
+	public void setSalePriceAmt(String salePriceAmt) {
+		this.salePriceAmt = salePriceAmt;
+	}
 
 	public OrderInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
@@ -378,21 +393,7 @@ public class OrderInfo implements Serializable {
 		return OrderEnums.YwType.getByKey(this.getYwType());
 	}
 
-	public String getOriPriceAmt() {
-		return oriPriceAmt;
-	}
 
-	public void setOriPriceAmt(String oriPriceAmt) {
-		this.oriPriceAmt = oriPriceAmt;
-	}
-
-	public String getCountAmt() {
-		return countAmt;
-	}
-
-	public void setCountAmt(String countAmt) {
-		this.countAmt = countAmt;
-	}
 
 	public String getOrderId() {
 		return orderId;
@@ -450,27 +451,27 @@ public class OrderInfo implements Serializable {
 		this.areaName = areaName;
 	}
 
-	public String getI_year() {
+	public int getI_year() {
 		return i_year;
 	}
 
-	public void setI_year(String i_year) {
+	public void setI_year(int i_year) {
 		this.i_year = i_year;
 	}
 
-	public String getI_month() {
+	public int getI_month() {
 		return i_month;
 	}
 
-	public void setI_month(String i_month) {
+	public void setI_month(int i_month) {
 		this.i_month = i_month;
 	}
 
-	public String getI_season() {
+	public int getI_season() {
 		return i_season;
 	}
 
-	public void setI_season(String i_season) {
+	public void setI_season(int i_season) {
 		this.i_season = i_season;
 	}
 
@@ -506,13 +507,6 @@ public class OrderInfo implements Serializable {
 		this.payAmt = payAmt;
 	}
 
-	public String getSaleAmt() {
-		return saleAmt;
-	}
-
-	public void setSaleAmt(String saleAmt) {
-		this.saleAmt = saleAmt;
-	}
 
 	public String getDiscountAmt() {
 		return discountAmt;
@@ -774,7 +768,7 @@ public class OrderInfo implements Serializable {
 				+ String.valueOf(i_month) + " - i_season:" + String.valueOf(i_season) + " - commitTime:"
 				+ String.valueOf(commitTime) + " - cashDate:" + String.valueOf(cashDate) + " - payableAmt:"
 				+ String.valueOf(payableAmt) + " - payAmt:" + String.valueOf(payAmt) + " - saleAmt:"
-				+ String.valueOf(saleAmt) + " - discountAmt:" + String.valueOf(discountAmt) + " - fullCutAmt:"
+				+ String.valueOf(salesAmt) + " - discountAmt:" + String.valueOf(discountAmt) + " - fullCutAmt:"
 				+ String.valueOf(fullCutAmt) + " - couponAmt:" + String.valueOf(couponAmt) + " - malingAmt:"
 				+ String.valueOf(malingAmt) + " - simpleDiscountAmt:" + String.valueOf(simpleDiscountAmt)
 				+ " - remarks:" + String.valueOf(remarks) + " - payTypeCode:" + String.valueOf(payTypeCode)

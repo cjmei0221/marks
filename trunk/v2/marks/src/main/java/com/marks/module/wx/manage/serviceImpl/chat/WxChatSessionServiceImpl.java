@@ -57,7 +57,7 @@ public class WxChatSessionServiceImpl implements WxChatSessionService{
     @Override
     public void save(WxChatSession sessionVo){
     	long timeLong = System.currentTimeMillis() / 1000;
-		String sessionId = "SID" + IDUtil.getTimeID();
+		String sessionId = "SID" + IDUtil.getNumID();
 		logger.info("getSessionFlag:"+sessionVo.getSessionFlag());
 		WxAccount wx = CacheData.getWxAccount(sessionVo.getAccountid());
 		if (WXEnums.SessionType.AUTO.getValue() == sessionVo.getSessionFlag()) {

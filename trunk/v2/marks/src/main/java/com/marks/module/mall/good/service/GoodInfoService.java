@@ -18,7 +18,7 @@ public interface GoodInfoService{
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<GoodInfo> list(int page_number, int page_size,Map<String,Object> param);
 
-	public GoodInfo getGoodInfoByGoodNo(String companyId, String goodNo);
+	public GoodInfo getGoodInfoByGoodNo(String companyId, String goodNo, String helpCode);
 	public List<GoodImg> findGoodImgByGoodId(String goodId);
 
 	public void updateStatus(String goodId, int value);
@@ -39,4 +39,6 @@ public interface GoodInfoService{
 	 * @return
 	 */
 	public String getGoodNo(String companyId);
+
+	public GoodInfo getGoodInfoByLike(String companyId, String goodNo);
 }

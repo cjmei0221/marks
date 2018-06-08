@@ -7,6 +7,7 @@ import java.util.Map;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.module.mall.order.pojo.OrderGood;
+import com.marks.module.mall.order.pojo.OrderInfo;
 import com.marks.module.mall.stock.pojo.BarCode;
 import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.pojo.StockBatch;
@@ -36,7 +37,7 @@ public interface StockBatchService{
 	 * @param nums
 	 * @return
 	 */
-	public List<StockBatch> getStockBatchByGood(String orgId, OrderGood good);
+	public List<StockBatch> getStockBatchByGood(OrderInfo order, OrderGood good);
 
 	/**
 	 * 保存售出

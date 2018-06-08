@@ -96,4 +96,35 @@ public class GoodEnums {
 			return status;
 		}
 	}
+
+	public enum MaterialType {
+		good_actual(0, "普通商品"), // 系统用户
+		good_virtual(1, "服务项目"), //
+		good_clothing(2, "服装商品"),;// 会员
+
+		private int status;
+		private String name;
+
+		private MaterialType(int status, String name) {
+			this.status = status;
+			this.name = name;
+		}
+
+		public static String getByKey(int status) {
+			for (MaterialType c : MaterialType.values()) {
+				if (c.getValue() == status) {
+					return c.name;
+				}
+			}
+			return "";
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getValue() {
+			return status;
+		}
+	}
 }

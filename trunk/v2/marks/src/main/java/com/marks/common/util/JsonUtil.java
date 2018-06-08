@@ -181,6 +181,7 @@ public class JsonUtil {
 	
 	public static void output(HttpServletResponse response,Result rtn){
 		try {
+			log.info("返回结果 [" + rtn.getCode() + "] " + rtn.getMessage());
 			String json = object2json(rtn);
 			if ("Y".equals(CacheData.getSysConf("out_log_flag"))) {
 				log.info("回应数据[" + json + "]");

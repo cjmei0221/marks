@@ -119,6 +119,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 			code.setBrandName(good.getBrandName());
 			code.setCostPrice(info.getCostPrice());
 			code.setOperator(info.getOperator());
+			code.setTradePrice(code.getCostPrice());
 			codelist.add(code);
 
 			// 追踪记录
@@ -136,7 +137,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 			vo.setIsGift(0);
 			vo.setOrgid(info.getOrgid());
 			vo.setOrgname(info.getOrgname());
-			vo.setPrice(good.getPrice());
+			vo.setPrice(good.getSalePrice());
 			vo.setProductDate(info.getProductDate());
 			vo.setSalePrice(good.getSalePrice());
 			vo.setStockInDate(DateUtil.parseDate(new Date(), "yyyy-MM-dd"));
@@ -148,13 +149,14 @@ public class BarCodeServiceImpl implements BarCodeService {
 			vo.setTypeId(good.getTypeId());
 			vo.setTypeName(good.getTypeName());
 			vo.setExpireDate(code.getExpireDate());
+			vo.setTradePrice(code.getTradePrice());
 			tracelist.add(vo);
 			TraceLog log = getTraceLog(code);
 			loglist.add(log);
 		}
 		logger.info("save 条码信息 updateFlag：" + updateFlag);
 		if (updateFlag) {
-			List<String> blist = new ArrayList<String>();
+			// List<String> blist = new ArrayList<String>();
 			for (BarCode b : codelist) {
 				// blist.add(b.getBarcode());
 				barCodeDao.update(b);

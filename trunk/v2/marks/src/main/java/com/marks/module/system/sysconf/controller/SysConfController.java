@@ -18,6 +18,7 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
+import com.marks.module.cache.CacheData;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.system.sysconf.pojo.SysConf;
 import com.marks.module.system.sysconf.service.SysConfService;
@@ -75,6 +76,7 @@ public class SysConfController extends SupportContorller {
 				sysConf.setCompanyId(admin.getCompanyId());
 				sysConf.setCreator(admin.getUsername());
 				sysConfService.save(sysConf);
+				CacheData.putSysConf(sysConf);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 			} else {
@@ -103,6 +105,7 @@ public class SysConfController extends SupportContorller {
 				result.setCode(Code.CODE_FAIL);
 			} else {
 				sysConfService.update(sysConf);
+				CacheData.putSysConf(sysConf);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			}
@@ -198,7 +201,7 @@ public class SysConfController extends SupportContorller {
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
-			param.put("companyId", admin.getCompanyId());
+			param.put("companyId", "");
 			PojoDomain<SysConf> list = sysConfService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());

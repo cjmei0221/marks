@@ -57,12 +57,6 @@ public class WebOrderGoodController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
-			if (null == vo.getPrice() || "".equals(vo.getPrice())) {
-				vo.setPrice("0.00");
-			}
-			if (null == vo.getSalePrice() || "".equals(vo.getSalePrice())) {
-				vo.setSalePrice(vo.getPrice());
-			}
 
 			if (null == vo.getVipPrice() || "".equals(vo.getVipPrice())) {
 				vo.setVipPrice(vo.getSalePrice());

@@ -18,7 +18,6 @@ import com.marks.common.domain.Result;
 import com.marks.common.enums.OrgEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
-import com.marks.common.util.string.IStringUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
@@ -85,7 +84,6 @@ public class OrgInfoController extends SupportContorller {
 					}
 					String orgId = orgInfoService.getOrgId();
 					orgInfo.setOrgid(orgId);
-					orgInfo.setOrgCategory(OrgEnums.OrgCategory.dept.getValue());
 				}
 				orgInfo.setCompanyId(admin.getCompanyId());
 				orgInfo.setCreator(admin.getUsername());
@@ -231,17 +229,6 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
-	@RequestMapping("/inner/orgInfo/tree")
-	public void tree(HttpServletRequest request, HttpServletResponse response) {
-		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-		String orgType = request.getParameter("orgType");
-		List<OrgInfo> list = orgInfoService.list(admin, orgType);
-		JsonUtil.output(response, JSONArray.fromObject(list).toString());
-	}
-
-	/**
-	 * jqGrid多种条件查询
-	 */
 	@RequestMapping("/inner/orgInfo/framelist")
 	public void framelist(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();
@@ -250,12 +237,17 @@ public class OrgInfoController extends SupportContorller {
 			int page_number = Integer.parseInt(request.getParameter("page_number"));
 			int page_size = Integer.parseInt(request.getParameter("page_size"));
 			String keyword = request.getParameter("keyword");
-			if (keyword == null) {
-				keyword = "";
+			String orgType = request.getParameter("orgType");
+			String orgCategory = request.getParameter("orgCategory");
+			String companyId = admin.getCompanyId();
+			if (OrgEnums.OrgCategory.company.toString().equals(orgCategory)) {
+				companyId = "";
 			}
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
-			param.put("companyId", null);
+			param.put("companyId", companyId);
+			param.put("orgType", orgType);
+			param.put("orgCategory", orgCategory);
 			PojoDomain<OrgInfo> list = orgInfoService.framelist(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
@@ -275,46 +267,14 @@ public class OrgInfoController extends SupportContorller {
 	@RequestMapping("/inner/orgInfo/combo")
 	public void combo(HttpServletRequest request, HttpServletResponse response) {
 		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+		String orgType = request.getParameter("orgType");
+		String orgCategory = request.getParameter("orgCategory");
 		Map<String, Object> param = new HashMap<String, Object>();
 		String companyId = admin.getCompanyId();
 		param.put("companyId", companyId);
+		param.put("orgType", orgType);
+		param.put("orgCategory", orgCategory);
 		List<OrgInfo> list = orgInfoService.frameCombo(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
-	}
-
-	/**
-	 * 根据不同的机构类型查询组织
-	 * 
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping("/inner/orgInfo/listByOrgType")
-	public void listByOrgType(HttpServletRequest request, HttpServletResponse response) {
-		PaginationResult result = new PaginationResult();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			int page_number = Integer.parseInt(request.getParameter("page_number"));
-			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			String keyword = IStringUtil.getUTF8(request.getParameter("keyword"));
-			String orgType = request.getParameter("orgType");
-
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("keyword", keyword);
-			param.put("companyId", admin.getCompanyId());
-			param.put("orgType", orgType);
-			PojoDomain<OrgInfo> list = orgInfoService.listByOrgType(page_number, page_size, param);
-			result.getData().put("list", list.getPojolist());
-			result.setPageNumber(list.getPage_number());
-			result.setPageSize(list.getPage_size());
-			result.setPageTotal(list.getPage_total());
-			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find sysRole successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("find sysRole fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
 	}
 }
