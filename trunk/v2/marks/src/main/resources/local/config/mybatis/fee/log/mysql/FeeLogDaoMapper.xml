@@ -29,10 +29,11 @@
             PAYEEORGID,
             PAYEEORGNAME,
             PAYEECODE,
-            YEAR,
-            MONTH,
+            I_YEAR,
+            I_MONTH,
             IDNO,
-            UPDATETIME
+            UPDATETIME,
+            I_SEASON
 		)
 		VALUES(
 		#{info.id:VARCHAR},
@@ -53,10 +54,11 @@
             #{info.payeeOrgId:VARCHAR},
             #{info.payeeOrgName:VARCHAR},
             #{info.payeeCode:VARCHAR},
-            #{info.year:VARCHAR},
-            #{info.month:VARCHAR},
+            #{info.i_year:NUMERIC},
+            #{info.i_month:NUMERIC},
             #{info.idNo:VARCHAR},
-            #{info.updatetime:VARCHAR}			
+            #{info.updatetime:VARCHAR},
+            #{info.i_season:NUMERIC}	
 			)
  	</insert>
  	
@@ -83,7 +85,8 @@
             YEAR,
             MONTH,
             IDNO,
-            UPDATETIME
+            UPDATETIME,
+            I_SEASON
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -107,10 +110,11 @@
             #{info.payeeOrgId:VARCHAR},
             #{info.payeeOrgName:VARCHAR},
             #{info.payeeCode:VARCHAR},
-            #{info.year:VARCHAR},
-            #{info.month:VARCHAR},
+            #{info.i_year:VARCHAR},
+            #{info.i_month:VARCHAR},
             #{info.idNo:VARCHAR},
-            #{info.updatetime:VARCHAR}			
+            #{info.updatetime:VARCHAR},
+            #{info.i_season:NUMERIC}			
 			)
 		</foreach>
 	</insert>
