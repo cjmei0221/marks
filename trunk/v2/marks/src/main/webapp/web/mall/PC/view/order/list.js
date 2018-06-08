@@ -139,6 +139,11 @@ function clear() {
 	$("#recharge_sendAmt").val("0");
 	$("#recharge_cashAmt").val("");
 	$("#recharge_returnAmt").val("");
+	$("#pay_cashAmt").val("");
+	$("#pay_returnAmt").val("");
+	$("#pay_useBalAmt").val("0");
+	$("#pay_pointAmt").val("0");
+	$("#pay_usePoint").val("0");
 }
 // 加商品
 function checkGood() {
