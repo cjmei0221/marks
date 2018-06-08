@@ -160,6 +160,26 @@ public class StockBatch implements Serializable {
 	private String stockId;// 库存编号
 	private String operator;// 操作人
 
+	private String tradePrice;// 配送价
+
+	private String tradePriceAmt;// 配送价
+
+	public String getTradePrice() {
+		return tradePrice;
+	}
+
+	public void setTradePrice(String tradePrice) {
+		this.tradePrice = tradePrice;
+	}
+
+	public String getTradePriceAmt() {
+		return tradePriceAmt;
+	}
+
+	public void setTradePriceAmt(String tradePriceAmt) {
+		this.tradePriceAmt = tradePriceAmt;
+	}
+
 	public String getOperator() {
 		return operator;
 	}

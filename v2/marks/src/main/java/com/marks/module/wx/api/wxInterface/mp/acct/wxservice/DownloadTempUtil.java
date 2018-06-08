@@ -56,7 +56,7 @@ public class DownloadTempUtil {
 	public static void main(String[] args) throws Exception {
 		String downloadPath=WxfwConfig.downloadMediaPath;
 		String viewPath=WxfwConfig.view_image_url;
-		String fileName="P"+IDUtil.getTimeID()+".html";
+		String fileName = "P" + IDUtil.getNumID() + ".html";
 //		String url="http://ccrb.1news.cc/res/1/1/2017-03/18/04/res01_attpic_brief.jpg";
 		String url="http://news.163.com/17/0317/20/CFOPOFJO00014AEE.html";
 		JsonResult	jsonResult = HttpUtils.getInstance().download(url,downloadPath+fileName);

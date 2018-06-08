@@ -35,14 +35,4 @@ public interface OrgInfoService{
 	 */
 	public String getCompanyId();
 
-	/**
-	 * 通过不用机构类型查询组织
-	 * 
-	 * @param page_number
-	 * @param page_size
-	 * @param param
-	 * @return
-	 */
-	public PojoDomain<OrgInfo> listByOrgType(int page_number, int page_size, Map<String, Object> param);
-
 }

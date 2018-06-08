@@ -42,7 +42,8 @@ public class StockEnums {
 		good(0, "正品"), // 系统用户
 		gift(1, "赠品"), //
 		second(2, "次品"), //
-		scrap(3, "废品")//
+		scrap(3, "废品"), //
+		no_stock_sale(4, "负卖")//
 		;// 会员
 
 		private int status;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
+import com.marks.module.cache.CacheData;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.system.datadir.pojo.DataDir;
 import com.marks.module.system.datadir.service.DataDirService;
@@ -75,6 +76,7 @@ public class DataDirController extends SupportContorller {
 				dataDir.setCompanyId(admin.getCompanyId());
 				dataDir.setCreator(admin.getUsername());
 				dataDirService.save(dataDir);
+				CacheData.putDatadir(dataDir);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 			} else {
@@ -104,6 +106,7 @@ public class DataDirController extends SupportContorller {
 				result.setCode(Code.CODE_FAIL);
 			} else {
 				dataDirService.update(dataDir);
+				CacheData.putDatadir(dataDir);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			}

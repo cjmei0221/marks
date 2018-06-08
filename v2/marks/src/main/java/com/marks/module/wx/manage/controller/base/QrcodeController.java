@@ -68,7 +68,7 @@ public class QrcodeController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			Qrcode qrcode = getModel(Qrcode.class);
-			qrcode.setId(IDUtil.getTimeID());
+			qrcode.setId(IDUtil.getNumID());
 			Qrcode ori = null;
 			if ("1".equals(qrcode.getQrType())) {// 公众号
 				ori = qrcodeService.findByQrNo(qrcode.getQrNo(),qrcode.getAccountid());

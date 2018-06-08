@@ -77,7 +77,7 @@ public class GoodInfoController extends SupportContorller {
 		}
 		JsonUtil.output(response, result);
 	}
-	
+
 	@RequestMapping("/inner/goodInfo/findGoodImgByGoodId")
 	public void findGoodImgByGoodId(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
@@ -104,21 +104,24 @@ public class GoodInfoController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			GoodInfo goodInfo = getModel(GoodInfo.class);
-			
-			GoodInfo old = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyId(), goodInfo.getGoodNo());
-			if(old !=null){
+			String helpCode = "";
+			if (null != goodInfo.getHelpCode() && !"".equals(goodInfo.getHelpCode())) {
+				helpCode = goodInfo.getHelpCode();
+			}
+			GoodInfo old = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyId(), goodInfo.getGoodNo(), helpCode);
+			if (old != null) {
 				result.setMessage("此商品编码已存在");
 				result.setCode("4001");
-			}else{
+			} else {
 
 				goodInfo.setCompanyId(admin.getCompanyId());
 				goodInfo.setGoodId(admin.getCompanyId() + goodInfo.getGoodNo());
 				goodInfo.setCreator(admin.getUserCode() + " - " + admin.getUsername());
 				goodInfo.setUpdater(admin.getUserCode() + " - " + admin.getUsername());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
-				String addMainImagePut=request.getParameter("addMainImagePut");
-				String addDetailImagePut=request.getParameter("addDetailImagePut");
-				goodInfoService.save(goodInfo,addMainImagePut,addDetailImagePut);
+				String addMainImagePut = request.getParameter("addMainImagePut");
+				String addDetailImagePut = request.getParameter("addDetailImagePut");
+				goodInfoService.save(goodInfo, addMainImagePut, addDetailImagePut);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 			}
@@ -144,16 +147,21 @@ public class GoodInfoController extends SupportContorller {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			} else {
-				GoodInfo sku = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyId(), goodInfo.getGoodNo());
-				if(sku !=null && !sku.getGoodId().equals(goodInfo.getGoodId())){
+				String helpCode = "";
+				if (null != goodInfo.getHelpCode() && !"".equals(goodInfo.getHelpCode())) {
+					helpCode = goodInfo.getHelpCode();
+				}
+				GoodInfo sku = goodInfoService.getGoodInfoByGoodNo(admin.getCompanyId(), goodInfo.getGoodNo(),
+						helpCode);
+				if (sku != null && !sku.getGoodId().equals(goodInfo.getGoodId())) {
 					result.setMessage("此商品编码已存在!");
 					result.setCode("2001");
-				}else{
+				} else {
 					goodInfo.setUpdater(admin.getUserCode() + " - " + admin.getUsername());
 					goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
-					String addMainImagePut=request.getParameter("addMainImagePut");
-					String addDetailImagePut=request.getParameter("addDetailImagePut");
-					goodInfoService.update(goodInfo,addMainImagePut,addDetailImagePut);
+					String addMainImagePut = request.getParameter("addMainImagePut");
+					String addDetailImagePut = request.getParameter("addDetailImagePut");
+					goodInfoService.update(goodInfo, addMainImagePut, addDetailImagePut);
 					result.setMessage("更新成功!");
 					result.setCode(Code.CODE_SUCCESS);
 				}
@@ -273,22 +281,22 @@ public class GoodInfoController extends SupportContorller {
 	public void onsale(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
-			String goodId=request.getParameter("goodId");
-			GoodInfo goodInfo =goodInfoService.findById(goodId);
-			if(null != goodInfo){
+			String goodId = request.getParameter("goodId");
+			GoodInfo goodInfo = goodInfoService.findById(goodId);
+			if (null != goodInfo) {
 				if (GoodEnums.GoodOnsale.onsale.getValue() == goodInfo.getOnsale_status()) {
 					goodInfoService.updateStatus(goodId, GoodEnums.GoodOnsale.shelves.getValue());
 					result.setMessage("下架成功!");
-				}else{
+				} else {
 					goodInfoService.updateStatus(goodId, GoodEnums.GoodOnsale.onsale.getValue());
 					result.setMessage("上架成功!");
 				}
 				result.setCode(Code.CODE_SUCCESS);
-			}else{
+			} else {
 				result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 			}
-			
+
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("删除失败，请联系管理员！");

@@ -157,6 +157,16 @@ public class BarCode implements Serializable {
 
 	private String operator;// 操作人
 
+	private String tradePrice;
+
+	public String getTradePrice() {
+		return tradePrice;
+	}
+
+	public void setTradePrice(String tradePrice) {
+		this.tradePrice = tradePrice;
+	}
+
 	public String getOperator() {
 		return operator;
 	}

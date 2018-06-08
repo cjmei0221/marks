@@ -28,7 +28,8 @@ public interface GoodInfoDao {
 
 	List<GoodInfo> list(PageBounds pageBounds, Map<String,Object> param);
 
-	GoodInfo getGoodInfoByGoodNo(@Param("companyId") String companyId, @Param("goodNo") String sku_num);
+	GoodInfo getGoodInfoByGoodNo(@Param("companyId") String companyId, @Param("goodNo") String sku_num,
+			@Param("helpCode") String helpCode);
 
 	void saveGoodImg(GoodImg img);
 
@@ -55,4 +56,6 @@ public interface GoodInfoDao {
 	List<GoodInfo> listGoodByBrandId(@Param("brandId") String brandId);
 
 	String getGoodNo(@Param("companyId") String companyId);
+
+	List<GoodInfo> getGoodInfoByLike(@Param("companyId") String companyId, @Param("goodNo") String goodNo);
 }

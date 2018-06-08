@@ -82,15 +82,16 @@ public class OrderGood implements Serializable {
 	 */
 	private int nums;
 	/**
-	 * 原价
-	 *
-	 */
-	private String price;
-	/**
 	 * 售价
 	 *
 	 */
 	private String salePrice;
+
+	/**
+	 * 计算金额
+	 *
+	 */
+	private String salePriceAmt;
 
 	/**
 	 * 小计
@@ -132,7 +133,7 @@ public class OrderGood implements Serializable {
 	 * 促销金额
 	 *
 	 */
-	private String saleAmt;
+	private String salesAmt;
 	/**
 	 * 折扣金额
 	 *
@@ -186,13 +187,7 @@ public class OrderGood implements Serializable {
 
 	private String remarks;
 
-	/**
-	 * 计算金额
-	 *
-	 */
-	private String countAmt;
 
-	private String oriPriceAmt;
 
 	/**
 	 * 单品议价金额
@@ -271,6 +266,8 @@ public class OrderGood implements Serializable {
 	private int usePoint;// 使用积分
 
 	private String payPrice;// 实际成交价 actualPrice
+
+	private String helpCode;// 助记码
 
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
@@ -429,14 +426,6 @@ public class OrderGood implements Serializable {
 		this.companyId = companyId;
 	}
 
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
 	public List<BarCode> getBarList() {
 		return barList;
 	}
@@ -483,22 +472,6 @@ public class OrderGood implements Serializable {
 
 	public void setGoodManDiscountAmt(String goodManDiscountAmt) {
 		this.goodManDiscountAmt = goodManDiscountAmt;
-	}
-
-	public String getOriPriceAmt() {
-		return oriPriceAmt;
-	}
-
-	public void setOriPriceAmt(String oriPriceAmt) {
-		this.oriPriceAmt = oriPriceAmt;
-	}
-
-	public String getCountAmt() {
-		return countAmt;
-	}
-
-	public void setCountAmt(String countAmt) {
-		this.countAmt = countAmt;
 	}
 
 	public String getRemarks() {
@@ -677,14 +650,6 @@ public class OrderGood implements Serializable {
 		this.otherAmt = otherAmt;
 	}
 
-	public String getSaleAmt() {
-		return saleAmt;
-	}
-
-	public void setSaleAmt(String saleAmt) {
-		this.saleAmt = saleAmt;
-	}
-
 	public String getDiscountAmt() {
 		return discountAmt;
 	}
@@ -765,6 +730,30 @@ public class OrderGood implements Serializable {
 		this.costPrice = costPrice;
 	}
 
+	public String getSalePriceAmt() {
+		return salePriceAmt;
+	}
+
+	public void setSalePriceAmt(String salePriceAmt) {
+		this.salePriceAmt = salePriceAmt;
+	}
+
+	public String getSalesAmt() {
+		return salesAmt;
+	}
+
+	public void setSalesAmt(String salesAmt) {
+		this.salesAmt = salesAmt;
+	}
+
+	public String getHelpCode() {
+		return helpCode;
+	}
+
+	public void setHelpCode(String helpCode) {
+		this.helpCode = helpCode;
+	}
+
 	public String toLog() {
 		return " - orderGoodId:" + String.valueOf(orderGoodId) + " - orderId:" + String.valueOf(orderId) + " - goodId:"
 				+ String.valueOf(goodId) + " - goodNo:" + String.valueOf(goodNo) + " - goodName:"
@@ -776,7 +765,7 @@ public class OrderGood implements Serializable {
 				+ String.valueOf(payableAmt) + " - payAmt:" + String.valueOf(payAmt) + " - cashAmt:"
 				+ String.valueOf(cashAmt) + " - wxAmt:" + String.valueOf(wxAmt) + " - alipayAmt:"
 				+ String.valueOf(alipayAmt) + " - otherAmt:" + String.valueOf(otherAmt) + " - saleAmt:"
-				+ String.valueOf(saleAmt) + " - discountAmt:" + String.valueOf(discountAmt) + " - fullCutAmt:"
+				+ String.valueOf(salesAmt) + " - discountAmt:" + String.valueOf(discountAmt) + " - fullCutAmt:"
 				+ String.valueOf(fullCutAmt) + " - couponAmt:" + String.valueOf(couponAmt) + " - pointAmt:"
 				+ String.valueOf(pointAmt) + " - mlAmt:" + String.valueOf(mlAmt) + " - simpleDiscountAmt:"
 				+ String.valueOf(simpleDiscountAmt) + " - createtime:" + String.valueOf(createtime) + " - updatetime:"

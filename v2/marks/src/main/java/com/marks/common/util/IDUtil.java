@@ -23,15 +23,15 @@ public class IDUtil {
 	 * 
 	 * @return
 	 */
-	public static String getTimeID(String partten) {
-		SimpleDateFormat sdf = new SimpleDateFormat(partten);
-		return sdf.format(new Date());
-	}
+	// public static String getTimeID(String partten) {
+	// SimpleDateFormat sdf = new SimpleDateFormat(partten);
+	// return sdf.format(new Date());
+	// }
 
-	public static String getTimeID() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssS");
-		return sdf.format(new Date());
-	}
+	// public static String getTimeID() {
+	// SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssS");
+	// return sdf.format(new Date());
+	// }
 
 	public static String getSecondID() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -54,7 +54,7 @@ public class IDUtil {
 	 * @return
 	 */
 	public static String getDateSID() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_S");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_" + IDUtil.getID(4));
 		return sdf.format(new Date());
 	}
 
@@ -65,7 +65,7 @@ public class IDUtil {
 	 */
 	public static String getID(int size) {
 		String str = System.currentTimeMillis() + "";
-		String idStr = System.currentTimeMillis() + "" + IDUtil.getRandom(1000, 9999)
+		String idStr = System.currentTimeMillis() + IDUtil.getRandom(1000, 9999) + IDUtil.getRandom(1000, 9999)
 				+ str.substring(str.length() - 4, str.length());
 		if (size > idStr.length()) {
 			size = idStr.length();
@@ -78,13 +78,13 @@ public class IDUtil {
 	 * 
 	 * @return
 	 */
-	public static String getIdNo() {
-		String str = System.currentTimeMillis() + "";
-		String date = IDUtil.getDateID();
-		String idStr = date.substring(0, 4) + "_" + date.substring(4) + "_" + IDUtil.getRandom(1000, 9999) + "_"
-				+ str.substring(str.length() - 4, str.length());
-		return idStr;
-	}
+//	public static String getIdNo() {
+//		String str = System.currentTimeMillis() + "";
+//		String date = IDUtil.getDateID();
+//		String idStr = date.substring(0, 4) + "_" + date.substring(4) + "_" + IDUtil.getRandom(1000, 9999) + "_"
+//				+ str.substring(str.length() - 4, str.length());
+//		return idStr;
+//	}
 
 	public static String getRandom(int min, int max) {
 		Random random = new Random();
@@ -93,13 +93,19 @@ public class IDUtil {
 	}
 
 	public static String getNumID() {
-		return IDUtil.getSecondID() + IDUtil.getID(3) + IDUtil.getRandom(100, 999);
+		return IDUtil.getSecondID() + IDUtil.getID(12);
 	}
 
 	public static void main(String[] args) {
 		for (int i = 0; i < 30; i++) {
 			System.out.println(IDUtil.getRandom(0, 6));
 		}
+	}
+
+	public static String getProjectCode() {
+		String date = IDUtil.getDateID();
+		String l = IDUtil.getID(8);
+		return date.substring(0, 4) + "-" + date.substring(4, 8) + "-" + l.substring(0, 4) + "-" + l.substring(4, 8);
 	}
 
 }

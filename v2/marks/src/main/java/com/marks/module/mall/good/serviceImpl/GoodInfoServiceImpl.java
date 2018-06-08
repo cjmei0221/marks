@@ -67,8 +67,8 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 	}
 
 	@Override
-	public GoodInfo getGoodInfoByGoodNo(String companyId, String goodNo) {
-		return goodInfoDao.getGoodInfoByGoodNo(companyId, goodNo);
+	public GoodInfo getGoodInfoByGoodNo(String companyId, String goodNo, String helpCode) {
+		return goodInfoDao.getGoodInfoByGoodNo(companyId, goodNo, helpCode);
 	}
 
 	/**
@@ -140,4 +140,14 @@ public class GoodInfoServiceImpl implements GoodInfoService {
 		orgId = String.valueOf(num + 1);
 		return orgId;
 	}
+
+	@Override
+	public GoodInfo getGoodInfoByLike(String companyId, String goodNo) {
+		List<GoodInfo> list = goodInfoDao.getGoodInfoByLike(companyId, goodNo);
+		if (null != list && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
 }

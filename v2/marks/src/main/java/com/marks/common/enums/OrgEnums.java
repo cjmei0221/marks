@@ -3,9 +3,8 @@ package com.marks.common.enums;
 public class OrgEnums {
 
 	public enum OrgCategory {
-		shop(3, "门店"), //
 		supplier(2, "供应商"), //
-		dept(0, "部门"), //
+		organization(0, "组织"), //
 		company(1, "公司"), //
 		;// 普通
 

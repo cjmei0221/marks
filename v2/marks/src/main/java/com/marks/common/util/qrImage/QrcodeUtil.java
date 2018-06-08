@@ -73,7 +73,7 @@ public class QrcodeUtil {
 	public static String createUrlQrcode(HttpServletRequest request, String url) {
 		int width = 4000;
 		int height = 4000;
-		String name = "QR" + IDUtil.getTimeID() + ".png";
+		String name = "QR" + IDUtil.getNumID() + ".png";
 		Map<EncodeHintType, String> hints = new HashMap<EncodeHintType, String>();
 		hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 		BitMatrix matrix = null;
@@ -102,7 +102,7 @@ public class QrcodeUtil {
 	 * @return
 	 */
 	public static String createFwQrcode(HttpServletRequest request, String ticket) {
-		String filename = "WQR" + IDUtil.getTimeID() + ".jpg";
+		String filename = "WQR" + IDUtil.getNumID() + ".jpg";
 		try {
 			OutputStream out = null;
 			InputStream is = null;

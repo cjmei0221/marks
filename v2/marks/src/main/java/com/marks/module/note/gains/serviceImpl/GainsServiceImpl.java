@@ -102,7 +102,7 @@ public class GainsServiceImpl implements GainsService{
 	public String exportTxt(Map<String, Object> param, String basePath) {
 		PageBounds pageBounds = new PageBounds(1, 100000);
 		List<Gains> list = gainsDao.list(pageBounds, param);
-		String fileName="gains_"+IDUtil.getTimeID()+".txt";
+		String fileName = "gains_" + IDUtil.getNumID() + ".txt";
 		FileOutputStream fos=null;
 		PrintWriter pw=null;
 		String filePath=null;

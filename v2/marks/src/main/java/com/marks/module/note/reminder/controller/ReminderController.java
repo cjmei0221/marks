@@ -75,7 +75,7 @@ public class ReminderController extends SupportContorller{
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Reminder reminder = getModel(Reminder.class);
-	    	reminder.setId(IDUtil.getTimeID());
+			reminder.setId(IDUtil.getNumID());
 	 		
 	 		logger.info("saveReminder > param>"+reminder.toLog());
 	 

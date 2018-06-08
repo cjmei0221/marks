@@ -55,7 +55,7 @@ public class ExcelFileUploadController {
 					if (item.isFormField()) {
 						continue;
 					} else {
-						String fileName = "EXCEL" + IDUtil.getTimeID();
+						String fileName = "EXCEL" + IDUtil.getNumID();
 						String hzname = item.getName().substring(item.getName().lastIndexOf("."),
 								item.getName().length());
 						fileName = fileName + hzname;

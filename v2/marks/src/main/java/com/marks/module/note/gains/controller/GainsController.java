@@ -70,7 +70,7 @@ public class GainsController extends SupportContorller{
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	Gains gains = getModel(Gains.class);
-	    	gains.setId(IDUtil.getTimeID());
+			gains.setId(IDUtil.getNumID());
 			 Gains ori=null;
 	 		if(gains.getTitle() != null){
 	 			ori=gainsService.findByTitle(gains.getTitle());
