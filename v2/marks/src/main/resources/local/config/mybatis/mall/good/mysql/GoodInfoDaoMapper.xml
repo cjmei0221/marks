@@ -15,8 +15,14 @@
 	<select id="getGoodInfoByGoodNo" resultType="com.marks.module.mall.good.pojo.GoodInfo">
 		SELECT * FROM
 		TB_MALL_GOOD_INFO
-		goodinfo where goodinfo.goodNo = #{goodNo}
-		and goodinfo.companyId=#{companyId}
+		goodinfo where goodinfo.companyId=#{companyId} and goodinfo.goodNo = #{goodNo}
+		<if test="helpCode!=null and helpCode!=''">
+			and goodinfo.helpCode=#{helpCode}
+		</if>
+	</select>
+	<select id="getGoodInfoByLike" resultType="com.marks.module.mall.good.pojo.GoodInfo">
+		SELECT * FROM TB_MALL_GOOD_INFO
+		t where t.companyId=#{companyId} and (t.goodId=#{goodNo} or t.goodNo=#{goodNo} or t.helpCode=#{goodNo} or t.barNo=#{goodNo})
 	</select>
 	<select id="listGoodByTypeId" resultType="com.marks.module.mall.good.pojo.GoodInfo">
 		SELECT * FROM
@@ -34,7 +40,7 @@
 		(
 		GOODID,
 		GOODNAME,
-		PRICE,
+		tradePrice,
 		UNIT,
 		IMAGEURL,
 		CREATETIME,
@@ -68,12 +74,17 @@
 		beforeWarnDays,
 		point,
 		needPoint,
-		vipPrice
+		vipPrice,
+		materialType,
+		materialTypeName,
+		helpCode,
+		onsale_status,
+		dispatchPrice
 		)
 		VALUES(
 		#{goodId:VARCHAR},
 		#{goodName:VARCHAR},
-		#{price:VARCHAR},
+		#{tradePrice:VARCHAR},
 		#{unit:VARCHAR},
 		#{imageUrl:VARCHAR},
 		now(),
@@ -107,13 +118,22 @@
 		#{beforeWarnDays:NUMERIC},
 		#{point:NUMERIC},
 		#{needPoint:NUMERIC},
-		#{vipPrice:VARCHAR}
+		#{vipPrice:VARCHAR},
+		#{materialType:NUMERIC},
+		#{materialTypeName:VARCHAR},
+		#{helpCode:VARCHAR},
+		1,
+		#{dispatchPrice:VARCHAR}
 		)
 	</insert>
 
 	<update id="update" parameterType="com.marks.module.mall.good.pojo.GoodInfo">
 		UPDATE TB_MALL_GOOD_INFO
 		SET
+		dispatchPrice=#{dispatchPrice:VARCHAR},
+		materialType=#{materialType:NUMERIC},
+		materialTypeName=#{materialTypeName:VARCHAR},
+		helpCode=#{helpCode:VARCHAR},
 		vipPrice=#{vipPrice:VARCHAR},
 		point=#{point:NUMERIC},
 		needPoint=#{needPoint:NUMERIC},
@@ -126,8 +146,8 @@
 		goodType=#{goodType:NUMERIC},
 		stockManageType=#{stockManageType:NUMERIC},
 		GOODNAME = #{goodName:VARCHAR},
-		PRICE
-		= #{price:VARCHAR},
+		tradePrice
+		= #{tradePrice:VARCHAR},
 		UNIT =
 		#{unit:VARCHAR},
 		IMAGEURL = #{imageUrl:VARCHAR},

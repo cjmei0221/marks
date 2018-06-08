@@ -17,7 +17,6 @@
        t.imageurl AS picUrl,
        t.vipPrice,
        t.salePrice,
-       t.price,
        t.costPrice,
        c.lvl1Id,
        c.lvl1Name,
@@ -61,14 +60,13 @@
 		BRANDNAME,
 		NUMS,
 		SALEPRICE,
-		PRICE,
 		PAYABLEAMT,
 		PAYAMT,
 		CASHAMT,
 		WXAMT,
 		ALIPAYAMT,
 		OTHERAMT,
-		SALEAMT,
+		SALESAMT,
 		DISCOUNTAMT,
 		FULLCUTAMT,
 		COUPONAMT,
@@ -80,8 +78,7 @@
 		COSTAMT,
 		COSTPRICE,
 		remarks,
-		countAmt,
-		oriPriceAmt,
+		salePriceAmt,
 		payRate,
 		companyId,
 		LVL1ID,
@@ -101,7 +98,8 @@
 		goodManDiscountAmt,
 		storedAmt,
 		recevieAmt,
-		payPrice
+		payPrice,
+		helpCode
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -119,14 +117,13 @@
 		#{info.brandName:VARCHAR},
 		#{info.nums:NUMERIC},
 		#{info.salePrice:VARCHAR},
-		#{info.price:VARCHAR},
 		#{info.payableAmt:VARCHAR},
 		#{info.payAmt:VARCHAR},
 		#{info.cashAmt:VARCHAR},
 		#{info.wxAmt:VARCHAR},
 		#{info.alipayAmt:VARCHAR},
 		#{info.otherAmt:VARCHAR},
-		#{info.saleAmt:VARCHAR},
+		#{info.salesAmt:VARCHAR},
 		#{info.discountAmt:VARCHAR},
 		#{info.fullCutAmt:VARCHAR},
 		#{info.couponAmt:VARCHAR},
@@ -138,8 +135,7 @@
 		#{info.costAmt:VARCHAR},
 		#{info.costPrice:VARCHAR},
 		#{info.remarks:VARCHAR},
-		#{info.countAmt:VARCHAR},
-		#{info.oriPriceAmt:VARCHAR},
+		#{info.salePriceAmt:VARCHAR},
 		#{info.payRate:VARCHAR},
 		#{info.companyId:VARCHAR},
 		#{info.lvl1Id:VARCHAR},
@@ -159,7 +155,8 @@
 		#{info.goodManDiscountAmt:VARCHAR},
 		#{info.storedAmt:VARCHAR},
 		#{info.recevieAmt:VARCHAR},
-		#{info.payPrice:VARCHAR}
+		#{info.payPrice:VARCHAR},
+		#{info.helpCode:VARCHAR}
 		)
 	</insert>
 
@@ -180,14 +177,13 @@
 		BRANDNAME,
 		NUMS,
 		SALEPRICE,
-		PRICE,
 		PAYABLEAMT,
 		PAYAMT,
 		CASHAMT,
 		WXAMT,
 		ALIPAYAMT,
 		OTHERAMT,
-		SALEAMT,
+		SALESAMT,
 		DISCOUNTAMT,
 		FULLCUTAMT,
 		COUPONAMT,
@@ -199,8 +195,7 @@
 		COSTAMT,
 		COSTPRICE,
 		remarks,
-		countAmt,
-		oriPriceAmt,
+		salePriceAmt,
 		payRate,
 		companyId,
 		LVL1ID,
@@ -220,7 +215,8 @@
 		goodManDiscountAmt,
 		storedAmt,
 		recevieAmt,
-		payPrice
+		payPrice,
+		helpCode
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -241,14 +237,13 @@
 			#{info.brandName:VARCHAR},
 			#{info.nums:NUMERIC},
 			#{info.salePrice:VARCHAR},
-			#{info.price:VARCHAR},
 			#{info.payableAmt:VARCHAR},
 			#{info.payAmt:VARCHAR},
 			#{info.cashAmt:VARCHAR},
 			#{info.wxAmt:VARCHAR},
 			#{info.alipayAmt:VARCHAR},
 			#{info.otherAmt:VARCHAR},
-			#{info.saleAmt:VARCHAR},
+			#{info.salesAmt:VARCHAR},
 			#{info.discountAmt:VARCHAR},
 			#{info.fullCutAmt:VARCHAR},
 			#{info.couponAmt:VARCHAR},
@@ -260,8 +255,7 @@
 			#{info.costAmt:VARCHAR},
 			#{info.costPrice:VARCHAR},
 			#{info.remarks:VARCHAR},
-			#{info.countAmt:VARCHAR},
-			#{info.oriPriceAmt:VARCHAR},
+			#{info.salePriceAmt:VARCHAR},
 			#{info.payRate:VARCHAR},
 			#{info.companyId:VARCHAR},
 			#{info.lvl1Id:VARCHAR},
@@ -281,7 +275,8 @@
 			#{info.goodManDiscountAmt:VARCHAR},
 			#{info.storedAmt:VARCHAR},
 			#{info.recevieAmt:VARCHAR},
-			#{info.payPrice:VARCHAR}
+			#{info.payPrice:VARCHAR},
+			#{info.helpCode:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -299,7 +294,7 @@
 		ALIPAYAMT = #{info.alipayAmt:VARCHAR},
 		OTHERAMT =
 		#{info.otherAmt:VARCHAR},
-		SALEAMT = #{info.saleAmt:VARCHAR},
+		SALESAMT = #{info.salesAmt:VARCHAR},
 		DISCOUNTAMT = #{info.discountAmt:VARCHAR},
 		FULLCUTAMT =
 		#{info.fullCutAmt:VARCHAR},
