@@ -36,6 +36,7 @@ function add() {
 			$("#weight_unit").val("Kg");
 			$("#goodType").combobox("setValue", 0);
 			$("#isWarnDays").combobox("setValue", 0);
+			$("#materialType").combobox("setValue", 0);
 			$("#stockManageType").combobox("setValue", 1);
 			appInfo.formStatus = "new";
 			img.deleteImageDiv("addMainImg");
@@ -327,6 +328,11 @@ function loadList() {
 								}, {
 									title : '编码',
 									field : 'goodNo',
+									width : 100,
+									align : "center"
+								}, {
+									title : '助记码',
+									field : 'helpCode',
 									width : 100,
 									align : "center"
 								}, {

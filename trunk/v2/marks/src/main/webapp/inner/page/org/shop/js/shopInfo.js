@@ -12,7 +12,7 @@ var appInfo = {
 		parentId : ""
 	},
 	formStatus : "new",
-	orgType : 0,
+	orgType : "3,4",
 	orgCategory:0
 };
 
@@ -25,6 +25,8 @@ function add() {
 	appInfo.formStatus = "new";
 	$("#parentId").val("top");
 	$("#orgid").removeAttr("readonly");
+	$("#orgType").combobox("setValue",3);
+	$("#useflag").combobox("setValue",1);
 }
 
 // 编辑
@@ -122,7 +124,6 @@ function formSubmit() {
 			: appInfo.updateUrl;
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
-	parms += "&orgType=" + appInfo.orgType;
 	parms += "&orgCategory=" + appInfo.orgCategory;
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
@@ -150,7 +151,7 @@ function formSubmit() {
 function loadList() {
 	$('#tbList').treegrid(
 			{
-				url : appInfo.listUrl + "?orgType=0",
+				url : appInfo.listUrl + "?orgType="+appInfo.orgType,
 				toolbar : "#tb",
 				rownumbers : true,
 				idField : 'orgid',
@@ -167,6 +168,11 @@ function loadList() {
 					title : '组织ID',
 					field : 'orgid',
 					width : 150,
+					align : "center"
+				}, {
+					title : '类型',
+					field : 'orgTypeName',
+					width : 100,
 					align : "center"
 				}, {
 					title : '区域',
@@ -208,7 +214,7 @@ function loadList() {
 				} ] ],
 				onBeforeExpand : function(row) {
 					$("#tbList").treegrid("options").url = appInfo.listUrl
-							+ "?parentId=" + row.orgid + "&orgType=0"
+							+ "?parentId=" + row.orgid + "&orgType="+appInfo.orgType
 							+ "&_timer=" + new Date().getTime();
 				},
 				onClickRow : function(rowData) {
