@@ -58,7 +58,7 @@
 		style="width: 750px; height: 560px;">
 		<form id="ff" name="ff" method="post">
 			<input type="hidden" id="goodId" name="goodId">
-			<div id="tt" class="easyui-tabs" style="width:750px;height:525px;">
+			<div id="tt" class="easyui-tabs" style="width: 750px; height: 525px;">
 				<div title="基础维护" style="display: none;" align="center">
 
 					<table>
@@ -67,9 +67,23 @@
 							<td><input id="goodNo" name="goodNo"
 								class="easyui-validatebox" style="width: 200px;"
 								readonly="readonly"></td>
-							<th style="width: 120px; text-align: right;">条码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+							<th style="width: 120px; text-align: right;">国际条码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 							<td><input id="barNo" name="barNo" class="easyui-numberbox"
 								data-options="required:true,min:10000000" style="width: 200px;"></td>
+						</tr>
+						<tr>
+							<th style="width: 120px; text-align: right;">助记码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+							<td><input id="helpCode" name="helpCode"
+								data-options="required:true" class="easyui-validatebox"
+								style="width: 200px;"></td>
+							<th style="width: 120px; text-align: right;">商品属性&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+							<td><select id="materialType" class="easyui-combobox"
+								name="materialType" style="width: 200px;"
+								data-options="required:true">
+									<option value="0">普通商品</option>
+									<option value="1">服务项目</option>
+									<option value="2">服装商品</option>
+							</select></td>
 						</tr>
 						<tr>
 							<th style="width: 120px; text-align: right;">商品名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
@@ -127,12 +141,12 @@
 							<th style="width: 120px; text-align: right;">单位&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 							<td><input id="unit" name="unit" class="easyui-validatebox"
 								style="width: 200px;"></td>
-							<th style="width: 120px; text-align: right;">规格&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+							<th style="width: 120px; text-align: right;">规格/数值/尺码&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 							<td><input id="rank" name="rank" class="easyui-validatebox"
 								style="width: 200px;"></td>
 						</tr>
 						<tr>
-							<th style="width: 120px; text-align: right;">型号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+							<th style="width: 120px; text-align: right;">型号/颜色&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 							<td><input id="model" name="model"
 								class="easyui-validatebox" style="width: 200px;"></td>
 							<th style="width: 120px; text-align: right;">重量&nbsp;&nbsp;:&nbsp;&nbsp;</th>
@@ -182,14 +196,11 @@
 						</tr>
 					</table>
 				</div>
-				<div title="扩展维护" style="padding:10px;overflow: auto; display: none;" align="center">
+				<div title="扩展维护"
+					style="padding: 10px; overflow: auto; display: none;"
+					align="center">
 					<table>
-						<tr>
-							<th style="width: 120px; text-align: right;">原价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-							<td><input id="price" name="price" class="easyui-numberbox"
-								data-options="required:true,min:0,precision:2"
-								style="width: 200px;"></td>
-						</tr>
+						
 						<tr>
 							<th style="width: 120px; text-align: right;">售价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 							<td><input id="salePrice" name="salePrice"
@@ -216,11 +227,23 @@
 						<tr>
 							<th style="width: 120px; text-align: right;">最新进货价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 							<td><input id="costPrice" name="costPrice"
-								class="easyui-numberbox" data-options="required:true,min:0,precision:2"
+								class="easyui-numberbox"
+								data-options="required:true,min:0,precision:2"
 								style="width: 200px;"></td>
 						</tr>
 						<tr>
-
+							<th style="width: 120px; text-align: right;">批发价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+							<td><input id="tradePrice" name="tradePrice" class="easyui-numberbox"
+								data-options="min:0,precision:2"
+								style="width: 200px;"></td>
+						</tr>
+						<tr>
+							<th style="width: 120px; text-align: right;">配送价&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+							<td><input id="dispatchPrice" name="dispatchPrice" class="easyui-numberbox"
+								data-options="min:0,precision:2"
+								style="width: 200px;"></td>
+						</tr>
+						<tr>
 							<th style="width: 120px; text-align: right;">供应商&nbsp;&nbsp;:&nbsp;&nbsp;</th>
 							<td><input id="supplierId" name="supplierId"
 								class="easyui-combobox" style="width: 200px;"><input
@@ -228,8 +251,7 @@
 						</tr>
 						<tr>
 							<th style="width: 120px; text-align: right;">可积积分&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-							<td><input id="point" name="point"
-								class="easyui-numberbox"
+							<td><input id="point" name="point" class="easyui-numberbox"
 								data-options="required:true,min:0,precision:0"
 								style="width: 200px;"></td>
 
@@ -242,13 +264,13 @@
 								style="width: 200px;"></td>
 						</tr>
 						<tr>
-						<td colspan="2" style="height:25px;"></td>
+							<td colspan="2" style="height: 25px;"></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="text-align: center"><a id="btnCancelPrice"
-								name="btnCancelPrice" href="javascript:void(0)"
-								class="easyui-linkbutton" style="width: 100px;"
-								data-options="iconCls:'icon-cancel'">取消</a>
+							<td colspan="2" style="text-align: center"><a
+								id="btnCancelPrice" name="btnCancelPrice"
+								href="javascript:void(0)" class="easyui-linkbutton"
+								style="width: 100px;" data-options="iconCls:'icon-cancel'">取消</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOKPrice" name="btnOKPrice"
 								href="javascript:void(0)" class="easyui-linkbutton"
 								style="width: 100px;" data-options="iconCls:'icon-save'">保存</a></td>

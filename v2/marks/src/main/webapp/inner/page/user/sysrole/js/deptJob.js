@@ -6,7 +6,7 @@ var appInfo = {
 	deleteUrl : top.window.urlBase + '/inner/sysRole/delete.do',// 删除角色管理接口
 	funcListUrl : top.window.urlBase + '/inner/sysRole/funclist.do',// 删除角色管理接口
 	funcSaveUrl : top.window.urlBase + '/inner/sysRole/funcSave.do',// 删除角色管理接口
-	orglistUrl : top.window.urlBase + '/inner/orgInfo/list.do',
+	orglistUrl : top.window.urlBase + '/inner/orgInfo/treebox.do',
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -163,7 +163,7 @@ function formSubmit() {
 function loadTypeTree() {
 	$('#typeTree').tree(
 			{
-				url : appInfo.orglistUrl + "?orgType=0",
+				url : appInfo.orglistUrl + "?orgType=0,3,4",
 				onBeforeExpand : function(node) {
 					$("#typeTree").tree("options").url = appInfo.orglistUrl
 							+ "?parentId=" + node.id + "&orgType=0&_timer="

@@ -159,7 +159,6 @@ function formSubmit() {
 			: appInfo.updateUrl;
 	var attrList = [];
 	var row = $("#dg").datagrid('getRows');
-	;
 	for (var i = 0; i < row.length; i++) {
 		if (row[i].attrName != "") {
 			var items = row[i].attrName + "#" + row[i].attrType + "#"

@@ -8,10 +8,12 @@ var appInfo = {
 	requestParam : {
 		page_number : 1,
 		page_size : 10,
-		keyword : ""
+		keyword : "",
+		orgCategory:1
 	},
 	formStatus : "new",
-	orgType:1
+	orgType:1,
+	orgCategory:1
 };
 
 //新增
@@ -94,6 +96,7 @@ function formSubmit() {
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	parms += "&orgType=" + appInfo.orgType;
+	parms += "&orgCategory=" + appInfo.orgCategory;
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
 			try {
