@@ -36,7 +36,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/t/*</url-pattern>
+		<url-pattern>/i/*</url-pattern>
 	</filter-mapping>
 
 	<!-- 记录系统日志过滤器 -->
@@ -46,7 +46,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>SysLogFilter</filter-name>
-		<url-pattern>/t/*</url-pattern>
+		<url-pattern>/i/*</url-pattern>
 	</filter-mapping> 
 	<filter>
 		<filter-name>paramsFilter</filter-name>
@@ -54,7 +54,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>paramsFilter</filter-name>
-		<url-pattern>/t/*</url-pattern>
+		<url-pattern>/i/*</url-pattern>
 	</filter-mapping>
 	
 	<session-config>
@@ -73,7 +73,7 @@
 
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/t/*</url-pattern>
+		<url-pattern>/i/*</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

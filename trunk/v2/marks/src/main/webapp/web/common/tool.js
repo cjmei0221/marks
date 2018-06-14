@@ -27,7 +27,7 @@ tool.getCurEle = function getEle() {
 	}
 	return ele;
 }
-tool.baseUrl = "/t";
+tool.baseUrl = "/i";
 tool.reqUrl = {
 	image_baseUrl : tool.baseUrl + "/upload_file/",
 	dairy_list : tool.baseUrl + "/web/diary/list.do",
