@@ -74,7 +74,7 @@ public class DataDirController extends SupportContorller {
 
 			if (ori == null) {
 				dataDir.setCompanyId(admin.getCompanyId());
-				dataDir.setCreator(admin.getUsername());
+				dataDir.setCreator(admin.getOperator());
 				dataDirService.save(dataDir);
 				CacheData.putDatadir(dataDir);
 				result.setMessage("保存成功");

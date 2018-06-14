@@ -82,7 +82,7 @@ public class SysOperateController {
 				info.setPicicon(request.getParameter("picicon"));
 				info.setSort(Integer.parseInt(request.getParameter("sort")));
 				info.setCreatetime(new Date());
-				info.setCreator(user.getUsername());
+				info.setCreator(user.getOperator());
 				info.setUpdatetime(new Date());
 				sysOperateService.save(info);
 			}else{

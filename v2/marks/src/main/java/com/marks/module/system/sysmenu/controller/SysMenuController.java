@@ -113,7 +113,7 @@ public class SysMenuController extends SupportContorller {
 		if("new".equals(formStatus)){
 			sm.setMenuid("M_" + IDUtil.getDateID() + "_" + IDUtil.getID(8));
 			sm.setCreatetime(new Date());
-			sm.setCreator(user.getUsername());
+			sm.setCreator(user.getOperator());
 			sm.setUpdatetime(new Date());
 			sysMenuService.save(sm);
 			result.getData().put("menu", sm);
@@ -226,7 +226,7 @@ public class SysMenuController extends SupportContorller {
 				} else {
 					SysUser user = LoginUtil.getInstance().getCurrentUser(request);
 					SysOperate oper = sysMenuService.saveFunc(operid, menuid,url);
-					oper.setCreator(user.getUsername());
+					oper.setCreator(user.getOperator());
 					result.setCode(Code.CODE_SUCCESS);
 					result.getData().put("operObj", oper);
 				}

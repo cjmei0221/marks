@@ -18,7 +18,7 @@
 		FROM
 		tb_user tsu 
 		WHERE 1=1 and (tsu.USERID = #{id} or
-		tsu.bind_mobile=#{id})
+		tsu.bind_mobile=#{id}  or tsu.openid=#{id} or tsu.userCode=#{id})
 		order by tsu.activeFlag desc
 	</select>
 	<select id="getSysUserByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">

@@ -88,7 +88,7 @@ public class BrandController extends SupportContorller {
 
 			if (ori == null) {
 				reqVo.setCompanyId(admin.getCompanyId());
-				reqVo.setCreator(admin.getUserCode() + " - " + admin.getUsername());
+				reqVo.setCreator(admin.getOperator());
 				brandService.save(reqVo);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);

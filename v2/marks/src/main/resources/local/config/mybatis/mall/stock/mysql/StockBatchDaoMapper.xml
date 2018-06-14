@@ -39,7 +39,12 @@
 		balNums,
 		balAmt,
 		stockId,
-		ywName
+		ywName,
+		operator,
+		tradePrice,
+		tradePriceAmt,
+		goodType,
+		goodTypeName
 		)
 		VALUES(
 		#{info.batchId:VARCHAR},
@@ -68,7 +73,12 @@
 		#{info.balNums:VARCHAR},
 		#{info.balAmt:VARCHAR},
 		#{info.stockId:VARCHAR},
-		#{info.ywName:VARCHAR}
+		#{info.ywName:VARCHAR},
+		#{info.operator:VARCHAR},
+		#{info.tradePrice:VARCHAR},
+		#{info.tradePriceAmt:VARCHAR},
+		#{info.goodType:NUMERIC},
+		#{info.goodTypeName:VARCHAR}
 		)
 	</insert>
 
@@ -100,7 +110,12 @@
 		balNums,
 		balAmt,
 		stockId,
-		ywName
+		ywName,
+		operator,
+		tradePrice,
+		tradePriceAmt,
+		goodType,
+		goodTypeName
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -132,7 +147,12 @@
 			#{info.balNums:VARCHAR},
 			#{info.balAmt:VARCHAR},
 			#{info.stockId:VARCHAR},
-			#{info.ywName:VARCHAR}
+			#{info.ywName:VARCHAR},
+			#{info.operator:VARCHAR},
+			#{info.tradePrice:VARCHAR},
+			#{info.tradePriceAmt:VARCHAR},
+			#{info.goodType:NUMERIC},
+			#{info.goodTypeName:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -228,9 +248,10 @@
 	</select>
 	<select id="getStockBatchByBarCodeList" resultType="com.marks.module.mall.stock.pojo.StockBatch">
 		select
-		DISTINCT t.*,count(1) tranNums from TB_MALL_STOCK_BATCH t JOIN TB_MALL_TRACE_BARCODE b
+		DISTINCT t.*,count(1) tranNums from TB_MALL_STOCK_BATCH t JOIN
+		TB_MALL_TRACE_BARCODE b
 		on t.batchId=b.batchId
-		where b.barcode in 
+		where b.barcode in
 		<foreach collection="list" item="ids" index="index" open="("
 			separator="," close=")">
 			#{ids}

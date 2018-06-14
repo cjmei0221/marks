@@ -1,7 +1,7 @@
 
 //base-config.js
 window.nfb = {};
-window.urlBase = "/t";
+window.urlBase = "/i";
 app = {};
 
 app.getUrlParams = function(name) {

@@ -164,6 +164,22 @@ public class StockBatch implements Serializable {
 
 	private String tradePriceAmt;// 配送价
 
+	private int goodType;// 商品类型
+
+	private String goodTypeName;// 商品类型
+
+	public int getGoodType() {
+		return goodType;
+	}
+
+	public void setGoodType(int goodType) {
+		this.goodType = goodType;
+	}
+
+	public String getGoodTypeName() {
+		return goodTypeName;
+	}
+
 	public String getTradePrice() {
 		return tradePrice;
 	}

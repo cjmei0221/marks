@@ -89,58 +89,6 @@ public class StockBatchController extends SupportContorller{
 		JsonUtil.output(response, result);
 	}
 	
-	/**
-	 * 更改库存批次
-	 */
-    @RequestMapping("/inner/stockBatch/update")
-    public void updateStockBatch(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-		    StockBatch info = getModel(StockBatch.class);
-		    
-		    logger.info(" updateStockBatch> param>"+info.toLog());
-		    
-		    StockBatch ori=stockBatchService.findById(info.getBatchId());
-		    if(ori == null){
-		    	result.setMessage("此记录已删除!");
-				result.setCode(Code.CODE_FAIL);
-		    }else{
-		    	stockBatchService.update(info);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
-		    }
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("更新失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
-	/**
-	 * 删除库存批次
-	 */
-    @RequestMapping("/inner/stockBatch/delete")
-    public void deleteStockBatchById(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-		   	StockBatch info = getModel(StockBatch.class);
-		   	
-		   	logger.info("deleteStockBatchById > param>"+info.getBatchId());
-		   	
-			stockBatchService.delete(info.getBatchId());
-			result.setMessage("删除成功!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("删除失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
 	
 	/**
 	 * 查询全部库存批次

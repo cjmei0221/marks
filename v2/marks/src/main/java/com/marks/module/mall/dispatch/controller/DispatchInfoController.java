@@ -98,7 +98,6 @@ public class DispatchInfoController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			DispatchInfo info = getModel(DispatchInfo.class);
-			info.setOrderId(IDUtil.getUUID());
 
 			logger.info("saveDispatchInfo > param>" + info.toLog());
 

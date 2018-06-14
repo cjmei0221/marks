@@ -77,7 +77,7 @@ public class WxAutoReplayController extends SupportContorller {
 				result.setCode(Code.CODE_FAIL);
 			} else {
 				wxAutoReplay.setCompanyId(admin.getCompanyId());
-				wxAutoReplay.setCreator(admin.getUsername());
+				wxAutoReplay.setCreator(admin.getOperator());
 				wxAutoReplayService.save(wxAutoReplay);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
