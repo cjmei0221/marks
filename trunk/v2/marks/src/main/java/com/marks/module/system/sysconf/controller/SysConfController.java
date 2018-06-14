@@ -74,7 +74,7 @@ public class SysConfController extends SupportContorller {
 
 			if (ori == null) {
 				sysConf.setCompanyId(admin.getCompanyId());
-				sysConf.setCreator(admin.getUsername());
+				sysConf.setCreator(admin.getOperator());
 				sysConfService.save(sysConf);
 				CacheData.putSysConf(sysConf);
 				result.setMessage("保存成功");

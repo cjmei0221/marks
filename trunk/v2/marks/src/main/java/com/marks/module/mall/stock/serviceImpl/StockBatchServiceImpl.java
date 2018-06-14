@@ -64,45 +64,6 @@ public class StockBatchServiceImpl implements StockBatchService {
 		return stockBatchDao.findById(id);
 	}
 
-	/**
-	 * 保存库存批次
-	 */
-	@Override
-	public void save(StockBatch info) {
-		stockBatchDao.save(info);
-	}
-
-	/**
-	 * 更新库存批次
-	 */
-	@Override
-	public void update(StockBatch info) {
-		stockBatchDao.update(info);
-	}
-
-	/**
-	 * 删除库存批次
-	 */
-	@Override
-	public void delete(String id) {
-		stockBatchDao.delete(id);
-	}
-
-	/**
-	 * 查找所有库存批次
-	 */
-	@Override
-	public List<StockBatch> findAll() {
-		return stockBatchDao.findAll();
-	}
-
-	/**
-	 * 删除多个库存批次
-	 */
-	@Override
-	public void deleteBatch(List<String> ids) {
-		stockBatchDao.deleteBatch(ids);
-	}
 
 	public PojoDomain<StockBatch> list(int page_number, int page_size, Map<String, Object> param) {
 		PojoDomain<StockBatch> pojoDomain = new PojoDomain<StockBatch>();
@@ -146,7 +107,8 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setSupplierId(info.getSupplierId2());
 			b.setSupplierName(info.getSupplier2());
 			b.setUpdater(info.getOperatorId() + "-" + info.getOperator());
-			b.setYwCode(StockEnums.YwCode.good.getValue());
+			b.setYwCode(StockEnums.YwCode.cg_stockIn.getValue());
+			b.setGoodType(StockEnums.GoodType.good.getValue());
 			if (good.getValidDays() > 0) {
 				b.setExpireDate(DateUtil.getAfterDateByDays(info.getProductDate(), good.getValidDays()));
 			}
@@ -200,7 +162,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 		}
 		// 负卖
 		if (nums > 0) {
-
+			getlessStockList(order, good, nums);
 		}
 
 		returnList = countStockBatch(good, list);
@@ -225,7 +187,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 		b.setGoodName(good.getGoodName());
 		b.setGoodNo(good.getGoodNo());
 		b.setNums(0);
-		b.setOperator("");
+		b.setOperator(order.getCashMan());
 		b.setOrgId(order.getOrgId());
 		b.setOrgName(order.getOrgName());
 		b.setRemarks("负卖，库存不足");
@@ -238,9 +200,10 @@ public class StockBatchServiceImpl implements StockBatchService {
 		b.setTranNums(nums);
 		b.setTranSaleAmt(MoneyUtil.multiply(nums + "", salePrice));
 		b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
+		b.setGoodType(StockEnums.GoodType.good.getValue());
 		b.setTypeId(good.getTypeId());
 		b.setTypeName(good.getTypeName());
-		b.setYwCode(StockEnums.YwCode.no_stock_sale.getValue());
+		b.setYwCode(StockEnums.YwCode.fm_stockIn.getValue());
 		list.add(b);
 		return list;
 	}
@@ -308,6 +271,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 	public void updateSaleOut(List<StockBatch> stockList, List<BarCode> barCodeList) {
 		for (StockBatch batch : stockList) {
 			batch.setTranStatus(StockEnums.StockStatus.stockOut.getValue());
+			batch.setYwCode(StockEnums.YwCode.sale_stockOut.getValue());
 			dealStock(batch);
 		}
 		if (null != barCodeList && barCodeList.size() > 0) {
@@ -369,6 +333,8 @@ public class StockBatchServiceImpl implements StockBatchService {
 		log.setTypeName(info.getTypeName());
 		log.setAmount(info.getTranAmt());
 		log.setNums(info.getTranNums());
+		log.setGoodType(info.getGoodType());
+		log.setYwCode(info.getYwCode());
 		traceLogDao.save(log);
 	}
 }

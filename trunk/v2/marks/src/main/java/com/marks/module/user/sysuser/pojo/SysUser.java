@@ -403,4 +403,11 @@ public class SysUser implements Serializable {
 		this.parentOrgName = parentOrgName;
 	}
 
+	public String getOperator() {
+		if (null != this.getUserCode() && !"".equals(this.getUserCode())) {
+			return this.getUserCode() + " - " + this.getUsername();
+		}
+		return this.getUsername();
+	}
+
 }

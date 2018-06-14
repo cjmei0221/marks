@@ -39,7 +39,7 @@ public class LoginUtil {
 			String openid = this.getCurrentOpenid(request);
 			String accountid = this.getCurrentAccountid(request);
 			LoginService loginService = SpringContextHolder.getBean(LoginService.class);
-			user = loginService.getSysUserByOpenidAndAccountid(accountid, openid);
+			user = loginService.findById(accountid, openid);
 		}
 		return user;
 	}

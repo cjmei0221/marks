@@ -162,9 +162,19 @@ public class DispatchGood implements Serializable {
 
 	private String saleAmt;// 零售金额
 
+	private String remarks;// 备注；
+
 	public DispatchGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	public int getHadDispatchNums() {

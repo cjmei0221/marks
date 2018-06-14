@@ -25,6 +25,7 @@ import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.wx.api.wxInterface.mp.user.entity.UserGet;
 import com.marks.module.wx.api.wxInterface.mp.user.entity.WxUser;
 import com.marks.module.wx.manage.service.user.WxUserService;
+import com.marks.module.wx.manage.thread.SyncWxUserThread;
 import com.marks.module.wx.manage.util.WxMpUtil;
 
 @Controller
@@ -262,12 +263,21 @@ public class WxUserController extends SupportContorller{
     HttpServletResponse response){
 		Result result = new Result();
 		try {
+			String next_openid = "";
 		   	String accountId=request.getParameter("accountId");
-		   	UserGet ug=WxMpUtil.getInstance().getWXUserOpenId(accountId, "");
+			UserGet ug = WxMpUtil.getInstance().getWXUserOpenId(accountId, next_openid);
 		   	if(ug !=null){
-				for(String openid:ug.getOpenid_list()){
-					WxUser user = WxMpUtil.getInstance().getUserInfo(accountId, openid);
-					wxUserService.saveOrUpdateWxUser(user);
+				new Thread(new SyncWxUserThread(accountId, ug.getOpenid_list())).start();
+				next_openid = ug.getNext_openid();
+				int total = ug.getTotal();
+				int pageNum = total % ug.getCount() > 0 ? total / ug.getCount() + 1 : total / ug.getCount();
+				pageNum = pageNum - 1;
+				if (pageNum > 0) {
+					for (int i = 0; i < pageNum; i++) {
+						ug = WxMpUtil.getInstance().getWXUserOpenId(accountId, next_openid);
+						next_openid = ug.getNext_openid();
+						new Thread(new SyncWxUserThread(accountId, ug.getOpenid_list())).start();
+					}
 				}
 			}
 			result.setMessage("删除成功!");

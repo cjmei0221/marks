@@ -79,7 +79,7 @@ public class NewsItemController extends SupportContorller{
 	 		
 	 		if(ori==null){
 	 			newsItem.setId("N"+IDUtil.getDateSID());
-				newsItem.setCreator(admin.getUsername());
+				newsItem.setCreator(admin.getOperator());
 				newsItem.setCompanyId(admin.getCompanyId());
 	 			newsItemService.save(newsItem);
 	 			result.setMessage("保存成功");

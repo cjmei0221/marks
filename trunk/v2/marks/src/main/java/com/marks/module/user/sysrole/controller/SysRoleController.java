@@ -70,7 +70,7 @@ public class SysRoleController extends SupportContorller {
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 			SysRole sysRole = getModel(SysRole.class);
-			sysRole.setCreator(admin.getUsername());
+			sysRole.setCreator(admin.getOperator());
 			String companyId = admin.getCompanyId();
 			sysRole.setCompanyId(companyId);
 			if (null == sysRole.getOrgId() || "".equals(sysRole.getOrgId())) {

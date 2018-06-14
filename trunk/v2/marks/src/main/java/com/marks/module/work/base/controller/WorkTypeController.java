@@ -85,7 +85,7 @@ public class WorkTypeController extends SupportContorller{
 	 		}
 	 		
 	 		if(ori==null){
-				info.setUpdater(admin.getUserCode() + " - " + admin.getUsername());
+				info.setUpdater(admin.getOperator());
 				info.setStatus(Enums.Status.Unable.getValue());
 	 			workTypeService.save(info);
 	 			result.setMessage("保存成功");
@@ -120,7 +120,7 @@ public class WorkTypeController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-				info.setUpdater(admin.getUserCode() + " - " + admin.getUsername());
+				info.setUpdater(admin.getOperator());
 				info.setStatus(ori.getStatus());
 		    	workTypeService.update(info);
 				result.setMessage("更新成功!");

@@ -139,7 +139,7 @@ public class SupplierController extends SupportContorller {
 				org.setAreaId(reqVo.getAreaId());
 				org.setAreaName(reqVo.getAreaName());
 				org.setCompanyId(admin.getCompanyId());
-				org.setCreator(admin.getUsername());
+				org.setCreator(admin.getOperator());
 				org.setLinkman(reqVo.getLinkman());
 				org.setLinkTel(reqVo.getLinkTel());
 				org.setLvl(2);

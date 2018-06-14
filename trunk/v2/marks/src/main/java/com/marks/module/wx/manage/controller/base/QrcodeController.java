@@ -75,7 +75,7 @@ public class QrcodeController extends SupportContorller {
 				if (ori == null) {
 					
 					qrcode.setCompanyId(admin.getCompanyId());
-					qrcode.setCreator(admin.getUsername());
+					qrcode.setCreator(admin.getOperator());
 					String imagePath = createQrImage(qrcode, request);
 					if (imagePath != null && imagePath.length() > 5) {
 						qrcode.setQrPath(imagePath);

@@ -86,7 +86,7 @@ public class OrgInfoController extends SupportContorller {
 					orgInfo.setOrgid(orgId);
 				}
 				orgInfo.setCompanyId(admin.getCompanyId());
-				orgInfo.setCreator(admin.getUsername());
+				orgInfo.setCreator(admin.getOperator());
 				orgInfoService.save(orgInfo);
 				result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);

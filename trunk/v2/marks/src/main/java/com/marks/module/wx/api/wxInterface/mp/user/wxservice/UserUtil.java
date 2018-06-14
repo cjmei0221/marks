@@ -91,6 +91,8 @@ public class UserUtil {
             	UserGet userGet=new UserGet();
          		next_openid=jsonObj.optString("next_openid");
          		userGet.setNext_openid(next_openid);
+				userGet.setTotal(jsonObj.optInt("total"));
+				userGet.setCount(jsonObj.optInt("count"));
          		jsonObj=jsonObj.optJSONObject("data");
          		if(jsonObj!=null){
          			JSONArray array=jsonObj.optJSONArray("openid");

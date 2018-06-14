@@ -205,9 +205,19 @@ public class DispatchInfo implements Serializable {
 
 	private String deadlineDate;// 交货期限
 
+	private String remarks;// 备注
+
 	public DispatchInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	public String getDeadlineDate() {

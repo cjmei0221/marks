@@ -116,8 +116,8 @@ public class GoodInfoController extends SupportContorller {
 
 				goodInfo.setCompanyId(admin.getCompanyId());
 				goodInfo.setGoodId(admin.getCompanyId() + goodInfo.getGoodNo());
-				goodInfo.setCreator(admin.getUserCode() + " - " + admin.getUsername());
-				goodInfo.setUpdater(admin.getUserCode() + " - " + admin.getUsername());
+				goodInfo.setCreator(admin.getOperator());
+				goodInfo.setUpdater(admin.getOperator());
 				goodInfo.setImageUrl(request.getParameter("imageUrlPut"));
 				String addMainImagePut = request.getParameter("addMainImagePut");
 				String addDetailImagePut = request.getParameter("addDetailImagePut");

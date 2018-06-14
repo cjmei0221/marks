@@ -109,6 +109,49 @@ public class TraceLog implements Serializable {
 	 */
 	private String remarks;
 
+	private int goodType;// 商品类型
+
+	private String goodTypeName;// 商品类型
+
+	/**
+	 * 业务类型
+	 *
+	 */
+	private int ywCode;
+	/**
+	 * 业务类型
+	 *
+	 */
+	private String ywName;
+
+	public int getGoodType() {
+		return goodType;
+	}
+
+	public void setGoodType(int goodType) {
+		this.goodType = goodType;
+	}
+
+	public String getGoodTypeName() {
+		return StockEnums.GoodType.getByKey(goodType);
+	}
+
+
+
+	public int getYwCode() {
+		return ywCode;
+	}
+
+	public void setYwCode(int ywCode) {
+		this.ywCode = ywCode;
+	}
+
+	public String getYwName() {
+		return StockEnums.YwCode.getByKey(ywCode);
+	}
+
+
+
 	public int getNums() {
 		return nums;
 	}

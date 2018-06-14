@@ -10,7 +10,10 @@ public class StockEnums {
 	 */
 	public enum StockStatus {
 		stockIn(1, "入库"), // 系统用户
-		stockOut(2, "出库"), transferIn(3, "转入"), transferOut(4, "转出"),;// 会员
+		stockOut(2, "出库"), //
+		transferIn(3, "转入"), //
+		transferOut(4, "转出"),//
+		;// 会员
 
 		private int status;
 		private String name;
@@ -38,12 +41,43 @@ public class StockEnums {
 		}
 	}
 
-	public enum YwCode {
+	public enum GoodType {
 		good(0, "正品"), // 系统用户
 		gift(1, "赠品"), //
 		second(2, "次品"), //
 		scrap(3, "废品"), //
-		no_stock_sale(4, "负卖")//
+		;// 会员
+
+		private int status;
+		private String name;
+
+		private GoodType(int status, String name) {
+			this.status = status;
+			this.name = name;
+		}
+
+		public static String getByKey(int status) {
+			for (GoodType c : GoodType.values()) {
+				if (c.getValue() == status) {
+					return c.getName();
+				}
+			}
+			return "";
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getValue() {
+			return status;
+		}
+	}
+
+	public enum YwCode {
+		cg_stockIn(1, "采购入库"), //
+		fm_stockIn(2, "负买入库"), //
+		sale_stockOut(3, "售卖出库"), //
 		;// 会员
 
 		private int status;

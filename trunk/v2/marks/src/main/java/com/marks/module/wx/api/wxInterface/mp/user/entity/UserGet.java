@@ -9,6 +9,26 @@ public class UserGet {
 	
 	private List<String> openid_list=new ArrayList<String>();
 
+	private int total;// 总个数
+
+	private int count;// 总个数
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	public String getNext_openid() {
 		return next_openid;
 	}

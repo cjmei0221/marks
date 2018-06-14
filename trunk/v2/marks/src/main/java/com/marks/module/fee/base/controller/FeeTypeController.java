@@ -74,7 +74,7 @@ public class FeeTypeController extends SupportContorller{
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 	    	FeeType info = getModel(FeeType.class);
 			info.setCompanyId(admin.getCompanyId());
-			info.setUpdater(admin.getUserCode() + admin.getUsername());
+			info.setUpdater(admin.getOperator());
 			info.setTypeId(info.getCompanyId() + info.getTypeCode());
 	 		
 	 		logger.info("saveFeeType > param>"+info.toLog());
@@ -118,7 +118,7 @@ public class FeeTypeController extends SupportContorller{
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-				info.setUpdater(admin.getUserCode() + admin.getUsername());
+				info.setUpdater(admin.getOperator());
 		    	feeTypeService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
