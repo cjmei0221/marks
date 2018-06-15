@@ -28,14 +28,16 @@
 
 	<div id="mainPanel">
 		<!-- <p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p> -->
-		<div>
+		<div id="tb">
 			<div style="margin-top: 10px; margin-bottom: 10px;">
-				<a id="btnCancel" name="btnCancel" href="javascript:void(0)"
-					class="easyui-linkbutton" style="width: 100px;"
-					data-options="iconCls:'icon-cancel'">取消</a>
-				&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+				&nbsp;&nbsp;&nbsp;&nbsp;<a id="returnParent" name="returnParent"
 					href="javascript:void(0)" class="easyui-linkbutton"
-					style="width: 100px;" data-options="iconCls:'icon-save'">保存</a>
+					style="width: 100px;">返回</a> &nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK"
+					name="btnOK" href="javascript:void(0)" class="easyui-linkbutton"
+					style="width: 100px;">保存</a> &nbsp;&nbsp;&nbsp;&nbsp; <a
+					id="btnCheck" name="btnCheck" href="javascript:void(0)"
+					class="easyui-linkbutton" style="width: 100px;">审核</a>
+
 			</div>
 			<form id="ff" name="ff" method="post">
 				<table>
@@ -57,12 +59,10 @@
 							style="width: 200px;"></td>
 						<td>供应商联系人:</td>
 						<td><input id="sendContactor" name="sendContactor"
-							class="easyui-validatebox" style="width: 200px;"
-							readonly="readonly"></td>
+							class="easyui-validatebox" style="width: 200px;"></td>
 						<td>供应商联系电话:</td>
 						<td><input id="sendContact" name="sendContact"
-							class="easyui-validatebox" style="width: 200px;"
-							readonly="readonly"></td>
+							class="easyui-validatebox" style="width: 200px;"></td>
 					</tr>
 					<tr>
 						<td>仓库/门店:</td>
@@ -71,13 +71,18 @@
 							data-options="required:true,valueField:'orgid',textField:'orgname',url:'/i/inner/orgInfo/treebox.do?orgType=3,4'"
 							style="width: 200px;"></td>
 						<td>采购员:</td>
-						<td><input id="applyManId" name="applyManId"
+						<td><input id="applyMan" name="applyMan"
 							class="easyui-validatebox" data-options="required:true"
 							style="width: 200px;"></td>
 						<td>交货期限:</td>
 						<td><input id="deadlineDate" name="deadlineDate"
 							class="easyui-datebox" data-options="required:true"
 							style="width: 200px;"></td>
+					</tr>
+					<tr>
+						<td>备注:</td>
+						<td colspan="5" style="height: 15px;"><input id="remarks"
+							name="remarks" class="easyui-validatebox" style="width: 600px;height:30px;"></td>
 					</tr>
 					<tr>
 						<td colspan="6" style="height: 15px;"></td>

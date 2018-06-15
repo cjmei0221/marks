@@ -1,6 +1,6 @@
 var appInfo = {
 	listUrl : top.window.urlBase + '/inner/dispatchInfo/list.do',// 获取采购单列表接口
-																	// DispatchInfo
+	// DispatchInfo
 	saveUrl : top.window.urlBase + '/inner/dispatchInfo/save.do',// 保存新增采购单接口
 	updateUrl : top.window.urlBase + '/inner/dispatchInfo/update.do',// 编辑采购单信息接口
 	deleteUrl : top.window.urlBase + '/inner/dispatchInfo/delete.do',// 删除采购单接口
@@ -16,7 +16,7 @@ var appInfo = {
 // -----------------权限控制功能 start---------------
 // 新增
 function add() {
-	var path = "dispatchGood.html?idNo=D-2018-0530-2354-2352&edit=new&returnType=0";
+	var path = "dispatchGood.html?edit=new&returnType=0&idNo=1";
 	location.href = path;
 }
 
@@ -25,11 +25,29 @@ function edit() {
 	if (!isSelectedOne(appInfo.selectedId)) {
 		return;
 	}
-	$("#editWin").window({
-		title : "编辑"
-	}).window("open");
-	appInfo.formStatus = "edit";
-	$('#ff').form('load', appInfo.selectedData);
+	if (appInfo.selectedData.checkStatus == 1) {
+		showMsg("审核通过，不可编辑");
+		return;
+	}
+	if (appInfo.selectedData.checkStatus == 3) {
+		showMsg("审核中，不可编辑");
+		return;
+	}
+	var path = "dispatchGood.html?edit=edit&returnType=0&idNo="
+			+ appInfo.selectedId;
+	location.href = path;
+}
+function receive() {
+	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
+	}
+	if (appInfo.selectedData.checkStatus != 1) {
+		showMsg("审核未通过，不可收货");
+		return;
+	}
+	var path = "dispatchGood.html?edit=receive&returnType=0&idNo="
+			+ appInfo.selectedId;
+	location.href = path;
 }
 // 删除
 function del() {
@@ -113,7 +131,7 @@ function loadList() {
 		// toolbar : "#tb",
 
 		idField : 'orderId',
-		height : 520,
+		height : 620,
 		rownumbers : true,
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
@@ -189,11 +207,11 @@ function loadList() {
 			field : 'dispatchNums',
 			width : 100,
 			align : "center"
-		}, {
-			title : '申请人编号',
-			field : 'applyManCode',
-			width : 100,
-			align : "center"
+//		}, {
+//			title : '申请人编号',
+//			field : 'applyManCode',
+//			width : 100,
+//			align : "center"
 		}, {
 			title : '申请人',
 			field : 'applyMan',

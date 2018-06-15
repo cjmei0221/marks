@@ -128,7 +128,7 @@ function loadList() {
 			align : "center"
 		}, {
 			title : '业务类型',
-			field : 'ywCodeName',
+			field : 'ywName',
 			width : 100,
 			align : "center"
 		}, {

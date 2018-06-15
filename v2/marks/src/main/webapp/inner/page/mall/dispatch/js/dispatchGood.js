@@ -3,6 +3,8 @@ var appInfo = {
 	getGoodUrl : top.window.urlBase + '/inner/dispatchGood/findGoodInfoById.do',// 获取采购商品列表接口
 	saveUrl : top.window.urlBase + '/inner/dispatchInfo/save.do',// 保存新增采购单接口
 	updateUrl : top.window.urlBase + '/inner/dispatchInfo/update.do',// 编辑采购单信息接口
+	approveUrl : top.window.urlBase + '/inner/dispatchInfo/approve.do',// 编辑采购单信息接口
+	receiveUrl : top.window.urlBase + '/inner/dispatchInfo/receive.do',// 编辑采购单信息接口
 	// DispatchGood
 	selectedId : -1,
 	selectedData : {},
@@ -17,24 +19,58 @@ var orderId = tool.getUrlParams("idNo");
 var edit = tool.getUrlParams("edit");
 var returnType = tool.getUrlParams("returnType");
 // -----------------权限控制功能 start---------------
-appInfo.formStatus=edit;
+appInfo.formStatus = edit;
 // -----------------权限控制功能 end---------------
 $(function() {
-	
+
 	// 加载列表
 	loadList();
 	// 保存菜单
 	$("#btnOK").on("click", function() {
 		formSubmit();
 	});
-	$("#btnCancel").on("click", function() {
-
-	});
 	$("#returnParent").on("click", function(e) {
-		var url = "./dispatchInfo.html?&menuid=M_mall_dispatch_dispatchInfo";
-		location.href = url;
+		returnList();
 	});
+	$("#btnCheck").on("click",function(e){
+		$.messager.confirm('确认', '确认提交审核吗?', function(r) {
+			if (r) {
+				var parms = "idNo=" +$("#orderId").val();
+				$.post(appInfo.approveUrl, parms, function(data) {
+					if (data.retcode == '0') {
+						showMsg("操作成功");
+						returnList();
+					} else {
+						showMsg(data.retmsg);
+					}
+				});
+			}
+		});
+	});
+	if(appInfo.formStatus=='receive'){
+		showOrHide(1);
+	}else{
+		showOrHide(0);
+	}
 });
+function returnList(){
+	var url = "./dispatchInfo.html?&menuid=M_mall_dispatch_dispatchInfo";
+	location.href = url;
+}
+function showOrHide(flag){
+	if(flag==1){
+		$("#tbList").datagrid("showColumn", "hadReceiveNums"); // 设置隐藏列
+		$("#tbList").datagrid("showColumn", "receiveNums"); // 设置隐藏列
+		$("#tbList").datagrid("hideColumn", "oper"); 
+		$("#btnCheck").hide();
+	}else{
+		$("#tbList").datagrid("hideColumn", "hadReceiveNums"); // 设置隐藏列
+		$("#tbList").datagrid("hideColumn", "receiveNums"); // 设置隐藏列
+		$("#tbList").datagrid("showColumn", "oper"); 
+		$("#btnCheck").show();
+	}
+	
+}
 /**
  * 保存菜单
  */
@@ -45,21 +81,24 @@ function formSubmit() {
 	}
 	endEdit();
 	var attrList = [];
-	var row = $("#dg").datagrid('getChecked');
+	var row = $("#tbList").datagrid('getRows');
 	for (var i = 0; i < row.length; i++) {
-		if (row[i].goodNo != "" ) {
+		var count = row[i].nums + row[i].sendNums;
+		if (row[i].goodNo != "" && count > 0) {
 			var items = row[i];
 			attrList.push(items);
 		}
-
 	}
 	if (attrList.length < 1) {
 		showMsg("至少添加一个商品！");
 		return;
 	}
-	
+
 	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
 			: appInfo.updateUrl;
+	if("receive" == appInfo.formStatus){
+		reqUrl=appInfo.receiveUrl;
+	}
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	parms += "&goodData=" + JSON.stringify(attrList);
@@ -73,7 +112,6 @@ function formSubmit() {
 			}
 		}
 		if (data.retcode == "0") {
-
 			showMsg("保存成功");
 		} else {
 			showMsg(data.retmsg);
@@ -117,7 +155,8 @@ function setEditing(rowIndex) {
 		$(saleAmtEditor.target).numberbox('setValue', saleAmt);
 	}
 	function calculateTax() {
-		var taxAmt =numsEditor.target.val() * costPriceEditor.target.val() * taxRateEditor.target.val()/100;
+		var taxAmt = numsEditor.target.val() * costPriceEditor.target.val()
+				* taxRateEditor.target.val() / 100;
 		$(taxAmtEditor.target).numberbox('setValue', taxAmt);
 	}
 }
@@ -154,7 +193,7 @@ function loadList() {
 						url : appInfo.listUrl,
 						// toolbar : "#tb",
 						idField : 'orderGoodId',
-						height : 450,
+						height : 350,
 						rownumbers : true,
 						columns : [ [
 								{
@@ -164,13 +203,13 @@ function loadList() {
 									align : "center",
 									hidden : true
 
-								},
-								{
-									title : '',
-									field : 'cks',
-									width : 100,
-									align : "center",
-									checkbox : true
+								// },
+								// {
+								// title : '',
+								// field : 'cks',
+								// width : 100,
+								// align : "center",
+								// checkbox : true
 
 								},
 								{
@@ -280,7 +319,7 @@ function loadList() {
 									field : 'salePrice',
 									width : 100,
 									align : "center",
-									editor :{
+									editor : {
 										type : 'numberbox',
 										options : {
 											precision : 2
@@ -291,10 +330,26 @@ function loadList() {
 									field : 'saleAmt',
 									width : 100,
 									align : "center",
-									editor :{
+									editor : {
 										type : 'numberbox',
 										options : {
 											precision : 2
+										}
+									}
+								}, {
+									title : '已收数量',
+									field : 'hadReceiveNums',
+									width : 100,
+									align : "center",
+								}, {
+									title : '收货数量',
+									field : 'receiveNums',
+									width : 100,
+									align : "center",
+									editor : {
+										type : 'numberbox',
+										options : {
+											precision : 0
 										}
 									}
 								} ] ],
@@ -307,7 +362,7 @@ function loadList() {
 							setEditing(rowIndex);
 						},
 						onClickCell : function(rowIndex, field, value) {
-							
+
 						},
 						onLoadSuccess : function(data) {
 							$("#tbList").datagrid('unselectAll');
@@ -319,6 +374,7 @@ function loadList() {
 		appInfo.requestParam.page_number = 1;
 		appInfo.requestParam.page_size = 200;
 		appInfo.requestParam.orderId = orderId;
+		appInfo.requestParam.formStatus=appInfo.formStatus
 		$.ajax({
 			url : opts.url,
 			type : "get",
