@@ -32,4 +32,8 @@ public interface DispatchGoodDao {
 	List<DispatchGood> list(PageBounds pageBounds, Map<String,Object> param);
 
 	List<DispatchGood> findByOrderId(@Param("orderId") String orderId);
+
+	void deleteByOrderId(@Param("orderId") String orderId);
+
+	void updateRecevieNums(@Param("orderGoodId") String orderGoodId, @Param("receiveNums") int receiveNums);
 }

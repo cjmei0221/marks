@@ -11,4 +11,6 @@ public interface FeeLogService{
 	public FeeLog findById(String id);
 	public void save(FeeLog info);
 	public PojoDomain<FeeLog> list(int page_number, int page_size,Map<String,Object> param);
+
+	public void update(FeeLog info);
 }

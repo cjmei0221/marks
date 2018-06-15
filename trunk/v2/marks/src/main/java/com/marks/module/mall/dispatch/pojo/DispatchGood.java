@@ -164,9 +164,29 @@ public class DispatchGood implements Serializable {
 
 	private String remarks;// 备注；
 
+	private int hadRefundNums;// 退货数量
+
+	private int refundNums;// 退货数量
+
 	public DispatchGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public int getHadRefundNums() {
+		return hadRefundNums;
+	}
+
+	public void setHadRefundNums(int hadRefundNums) {
+		this.hadRefundNums = hadRefundNums;
+	}
+
+	public int getRefundNums() {
+		return refundNums;
+	}
+
+	public void setRefundNums(int refundNums) {
+		this.refundNums = refundNums;
 	}
 
 	public String getRemarks() {

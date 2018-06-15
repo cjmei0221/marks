@@ -41,10 +41,6 @@ public class Enums {
 		checking(3, "审核中"), //
 		checkFail(2, "审核不通过"), //
 		checkOk(1, "审核通过"), //
-		free(6, "不用审核"), //
-		edit(5, "编辑中"),//
-		apply(7, "申请"),//
-		end(8, "结束"),//
 		;
 
 		private int status;

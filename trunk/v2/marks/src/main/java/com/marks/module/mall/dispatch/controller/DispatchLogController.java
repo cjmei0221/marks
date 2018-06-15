@@ -1,6 +1,8 @@
-package com.marks.module.work.base.controller;
+package com.marks.module.mall.dispatch.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,25 +16,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.enums.Enums;
-import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.string.IStringUtil;
+import com.marks.common.util.IDUtil;
+import com.marks.common.util.Code;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
-import com.marks.module.work.base.pojo.WorkType;
-import com.marks.module.work.base.service.WorkTypeService;
+
+import com.marks.module.mall.dispatch.pojo.DispatchLog;
+import com.marks.module.mall.dispatch.service.DispatchLogService;
 
  /**
-	 * 工作类型: 工作流类型
+	 * 配送记录: 采购和配送商品记录
 	 */
 @Controller
-public class WorkTypeController extends SupportContorller{
-    private static Logger logger = Logger.getLogger( WorkTypeController.class);
+public class DispatchLogController extends SupportContorller{
+    private static Logger logger = Logger.getLogger( DispatchLogController.class);
     
     @Autowired
-    private WorkTypeService  workTypeService;
+    private DispatchLogService  dispatchLogService;
    
 
     @Override
@@ -41,18 +44,18 @@ public class WorkTypeController extends SupportContorller{
 	}
 
     /**
-	 * 查询工作类型
+	 * 查询配送记录
 	 */
-    @RequestMapping("/inner/workType/findById")
-    public void findWorkTypeById(HttpServletRequest request,
+    @RequestMapping("/inner/dispatchLog/findById")
+    public void findDispatchLogById(HttpServletRequest request,
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    WorkType info = getModel(WorkType.class);
+		    DispatchLog info = getModel(DispatchLog.class);
 		    
-		    logger.info("findWorkTypeById > param>"+info.getTypeId());
+		    logger.info("findDispatchLogById > param>"+info.getLogId());
 		    
-			WorkType vo = workTypeService.findById(info.getTypeId());
+			DispatchLog vo = dispatchLogService.findById(info.getLogId());
 			result.getData().put("info",vo);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
@@ -65,30 +68,26 @@ public class WorkTypeController extends SupportContorller{
     }
     
     /**
-	 * 保存工作类型
+	 * 保存配送记录
 	 */
-    @RequestMapping("/inner/workType/save")
-    public void saveWorkType(HttpServletRequest request,
+    @RequestMapping("/inner/dispatchLog/save")
+    public void saveDispatchLog(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-	    	WorkType info = getModel(WorkType.class);
-			info.setCompanyId(admin.getCompanyId());
-			info.setTypeCode(info.getTypeCode().toUpperCase());
-			info.setTypeId(admin.getCompanyId() + "_" + info.getTypeCode());
+	    	DispatchLog info = getModel(DispatchLog.class);
+	        info.setLogId(IDUtil.getUUID());
 	 		
-	 		logger.info("saveWorkType > param>"+info.toLog());
+	 		logger.info("saveDispatchLog > param>"+info.toLog());
 	 
-			 WorkType ori=null;
-	 		if(info.getTypeId() != null){
-	 			ori=workTypeService.findById(info.getTypeId());
+			 DispatchLog ori=null;
+	 		if(info.getLogId() != null){
+	 			ori=dispatchLogService.findById(info.getLogId());
 	 		}
 	 		
 	 		if(ori==null){
-				info.setUpdater(admin.getOperator());
-				info.setStatus(Enums.Status.Unable.getValue());
-	 			workTypeService.save(info);
+	 			dispatchLogService.save(info);
 	 			result.setMessage("保存成功");
 				result.setCode(Code.CODE_SUCCESS);
 	 		}else{
@@ -104,26 +103,24 @@ public class WorkTypeController extends SupportContorller{
 	}
 	
 	/**
-	 * 更改工作类型
+	 * 更改配送记录
 	 */
-    @RequestMapping("/inner/workType/update")
-    public void updateWorkType(HttpServletRequest request,
+    @RequestMapping("/inner/dispatchLog/update")
+    public void updateDispatchLog(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-		    WorkType info = getModel(WorkType.class);
-			info.setTypeCode(info.getTypeCode().toUpperCase());
-		    logger.info(" updateWorkType> param>"+info.toLog());
+		    DispatchLog info = getModel(DispatchLog.class);
 		    
-		    WorkType ori=workTypeService.findById(info.getTypeId());
+		    logger.info(" updateDispatchLog> param>"+info.toLog());
+		    
+		    DispatchLog ori=dispatchLogService.findById(info.getLogId());
 		    if(ori == null){
 		    	result.setMessage("此记录已删除!");
 				result.setCode(Code.CODE_FAIL);
 		    }else{
-				info.setUpdater(admin.getOperator());
-				info.setStatus(ori.getStatus());
-		    	workTypeService.update(info);
+		    	dispatchLogService.update(info);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 		    }
@@ -136,18 +133,18 @@ public class WorkTypeController extends SupportContorller{
 	}
 	
 	/**
-	 * 删除工作类型
+	 * 删除配送记录
 	 */
-    @RequestMapping("/inner/workType/delete")
-    public void deleteWorkTypeById(HttpServletRequest request,
+    @RequestMapping("/inner/dispatchLog/delete")
+    public void deleteDispatchLogById(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-		   	WorkType info = getModel(WorkType.class);
+		   	DispatchLog info = getModel(DispatchLog.class);
 		   	
-		   	logger.info("deleteWorkTypeById > param>"+info.getTypeId());
+		   	logger.info("deleteDispatchLogById > param>"+info.getLogId());
 		   	
-			workTypeService.delete(info.getTypeId());
+			dispatchLogService.delete(info.getLogId());
 			result.setMessage("删除成功!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -159,22 +156,22 @@ public class WorkTypeController extends SupportContorller{
 	}
 	
 	/**
-	 * 查询全部工作类型
+	 * 查询全部配送记录
 	 */
 
     /*
-    @RequestMapping("/inner/workType/findAllWorkType")
-    public void findAllWorkType(HttpServletRequest request,
+    @RequestMapping("/inner/dispatchLog/findAllDispatchLog")
+    public void findAllDispatchLog(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
-			List<WorkType> allList = workTypeService.findAll();
+			List<DispatchLog> allList = dispatchLogService.findAll();
 			result.getData().put("allList",allList);
-			result.setMessage("findAll workType successs!");
+			result.setMessage("findAll dispatchLog successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("findAll workType fail!");
+			result.setMessage("findAll dispatchLog fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
@@ -182,15 +179,15 @@ public class WorkTypeController extends SupportContorller{
 	*/
 	
 	/**
-	 * 删除多个工作类型
+	 * 删除多个配送记录
 	 */
 	/*
-	@RequestMapping("/inner/workType/deleteIds")
-	public void deleteWorkType(HttpServletRequest request,
+	@RequestMapping("/inner/dispatchLog/deleteIds")
+	public void deleteDispatchLog(HttpServletRequest request,
 			HttpServletResponse response){
 		Result result = new Result();
 		try {
-			String id = request.getParameter("typeId");
+			String id = request.getParameter("logId");
 			logger.info("delete batch> param>"+id);
 			String[] ids = id.split(",");
 			List<String> idList = new ArrayList<String>();
@@ -198,7 +195,7 @@ public class WorkTypeController extends SupportContorller{
 				idList.add(ids[i]);
 			}
 			if(idList.size()>0){
-				workTypeService.deleteBatch(idList);
+				dispatchLogService.deleteBatch(idList);
 				result.setMessage("删除成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			}else{
@@ -208,7 +205,7 @@ public class WorkTypeController extends SupportContorller{
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("delete workType fail!");
+			result.setMessage("delete dispatchLog fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
@@ -216,9 +213,9 @@ public class WorkTypeController extends SupportContorller{
 	*/
 	
 	/**
-	 * jqGrid多种条件查询
+	 * 列表查询
 	 */
-	@RequestMapping("/inner/workType/list")
+	@RequestMapping("/inner/dispatchLog/list")
     public void list(HttpServletRequest request,HttpServletResponse response){
        PaginationResult result = new PaginationResult();
 		try {
@@ -232,17 +229,17 @@ public class WorkTypeController extends SupportContorller{
 			logger.info("list> param>"+page_number+"-"+page_size+"-"+keyword);
 			Map<String,Object> param=new HashMap<String,Object>();
 			param.put("keyword", keyword);
-			PojoDomain<WorkType> list = workTypeService.list(page_number, page_size, param);
+			PojoDomain<DispatchLog> list = dispatchLogService.list(page_number, page_size, param);
 			result.getData().put("list", list.getPojolist());
 			result.setPageNumber(list.getPage_number());
 			result.setPageSize(list.getPage_size());
 			result.setPageTotal(list.getPage_total());
 			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find workType successs!");
+			result.setMessage("find dispatchLog successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("find workType fail!");
+			result.setMessage("find dispatchLog fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);

@@ -1,6 +1,7 @@
 package com.marks.module.user.sysuser.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
 import com.marks.common.enums.Enums;
+import com.marks.common.util.Code;
 import com.marks.module.acct.base.service.UserExtService;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
@@ -54,7 +57,17 @@ public class SysUserServiceImpl implements SysUserService {
 	 * 保存用户管理
 	 */
 	@Override
-	public String save(SysUser sysUser) {
+	public Result save(SysUser sysUser) {
+		Result result = new Result();
+		if (null != sysUser.getBind_mobile() && sysUser.getBind_mobile().length() > 4) {
+			SysUser mobileUser = sysUserDao.findByMobile(sysUser.getCompanyId(), sysUser.getBind_mobile());
+			if (mobileUser != null) {
+				result.setCode("2001");
+				result.setMessage("此手机号已注册");
+				return result;
+			}
+		}
+
 		String userCode = getUserCode(sysUser.getCompanyId());
 		String userid = sysUser.getCompanyId() + userCode;
 		sysUser.setUserid(userid);
@@ -62,7 +75,8 @@ public class SysUserServiceImpl implements SysUserService {
 		saveSysUserOrgRole(sysUser);
 		sysUserDao.save(sysUser);
 		saveUserExt(sysUser);
-		return userid;
+		result.getData().put("userid", result);
+		return result;
 	}
 
 	private void saveUserExt(SysUser sysUser) {
@@ -85,10 +99,19 @@ public class SysUserServiceImpl implements SysUserService {
 	 * 更新用户管理
 	 */
 	@Override
-	public void update(SysUser sysUser) {
+	public Result update(SysUser sysUser) {
+		Result result = new Result();
+		SysUser mobileUser = this.findByMobile(sysUser.getCompanyId(), sysUser.getBind_mobile());
+		if (mobileUser != null && !sysUser.getUserid().equals(mobileUser.getUserid())) {
+			result.setMessage("此手机号已被注册!");
+			result.setCode(Code.CODE_FAIL);
+			return result;
+		}
 		saveSysUserOrgRole(sysUser);
 		sysUserDao.update(sysUser);
 		saveUserExt(sysUser);
+		result.getData().put("userid", result);
+		return result;
 	}
 
 	private void saveSysUserOrgRole(SysUser sysUser) {
@@ -114,11 +137,11 @@ public class SysUserServiceImpl implements SysUserService {
 		logger.info("saveSysUserOrgRole >>" + sysUser.getOrgId() + " - " + role.getOrgId());
 		OrgInfo info = null;
 		if (null != sysUser.getOrgId() && !"".equals(sysUser.getOrgId())) {
-		
+
 			info = orgInfoDao.findById(sysUser.getOrgId());
 		}
 		if (info == null && null != role.getOrgId() && !"".equals(role.getOrgId())) {
-			
+
 			info = orgInfoDao.findById(role.getOrgId());
 		}
 		if (info != null) {
@@ -263,6 +286,27 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	public void updateBinding(SysUser user) {
 		sysUserDao.updateBinding(user);
+	}
+
+	@Override
+	public Result saveOrUpdate(SysUser sysUser) {
+		Result result = new Result();
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("companyId", sysUser.getCompanyId());
+		param.put("userid", sysUser.getUserid());
+		param.put("mobile", sysUser.getBind_mobile());
+		List<SysUser> ori = sysUserDao.findByParams(param);
+		if (null != ori && ori.size() > 1) {
+			result.setCode("2001");
+			result.setMessage("数据错误");
+			return result;
+		}
+		if (null != ori && ori.size() == 1) {
+			result = this.update(sysUser);
+		} else {
+			result = this.save(sysUser);
+		}
+		return result;
 	}
 
 }

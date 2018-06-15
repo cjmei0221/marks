@@ -74,4 +74,37 @@ public class DispatchEnums {
 		}
 	}
 
+	public enum Status {
+		init(0, "未处理"), //
+		dealing(1, "处理中"), //
+		part(2, "部分处理"), //
+		end(3, "处理结束"), //
+		;// 会员
+
+		private int status;
+		private String name;
+
+		private Status(int status, String name) {
+			this.status = status;
+			this.name = name;
+		}
+
+		public static String getByKey(int status) {
+			for (Status c : Status.values()) {
+				if (c.getValue() == status) {
+					return c.getName();
+				}
+			}
+			return "";
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getValue() {
+			return status;
+		}
+	}
+
 }

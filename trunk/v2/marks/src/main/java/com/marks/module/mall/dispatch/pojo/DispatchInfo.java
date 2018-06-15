@@ -2,6 +2,8 @@ package com.marks.module.mall.dispatch.pojo;
 
 import java.io.Serializable;
 
+import com.marks.common.enums.DispatchEnums;
+import com.marks.common.enums.Enums;
 import com.marks.common.util.date.DateUtil;
 
 public class DispatchInfo implements Serializable {
@@ -207,9 +209,19 @@ public class DispatchInfo implements Serializable {
 
 	private String remarks;// 备注
 
+	private int refundNums;
+
 	public DispatchInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public int getRefundNums() {
+		return refundNums;
+	}
+
+	public void setRefundNums(int refundNums) {
+		this.refundNums = refundNums;
 	}
 
 	public String getRemarks() {
@@ -509,11 +521,7 @@ public class DispatchInfo implements Serializable {
 	}
 
 	public String getYwName() {
-		return ywName;
-	}
-
-	public void setYwName(String ywName) {
-		this.ywName = ywName;
+		return DispatchEnums.YwCode.getByKey(ywCode);
 	}
 
 	public String getTypeCode() {
@@ -525,27 +533,15 @@ public class DispatchInfo implements Serializable {
 	}
 
 	public String getTypeName() {
-		return typeName;
-	}
-
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+		return DispatchEnums.TypeCode.getByKey(typeCode);
 	}
 
 	public String getStatusName() {
-		return statusName;
-	}
-
-	public void setStatusName(String statusName) {
-		this.statusName = statusName;
+		return DispatchEnums.Status.getByKey(status);
 	}
 
 	public String getCheckStatusName() {
-		return checkStatusName;
-	}
-
-	public void setCheckStatusName(String checkStatusName) {
-		this.checkStatusName = checkStatusName;
+		return Enums.CheckStatus.getByKey(checkStatus);
 	}
 
 	public String toLog() {

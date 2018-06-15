@@ -120,9 +120,36 @@ public class FeeLog implements Serializable {
 	 */
 	private String updatetime;
 
+	private String creator;//
+	private int isDel;
+	private String tranDate;// 交易日期
+
 	public FeeLog() {
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
 
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public int getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(int isDel) {
+		this.isDel = isDel;
+	}
+
+	public String getTranDate() {
+		return tranDate;
+	}
+
+	public void setTranDate(String tranDate) {
+		this.tranDate = tranDate;
 	}
 
 	public String getId() {
@@ -189,12 +216,20 @@ public class FeeLog implements Serializable {
 		this.tranAmt = tranAmt;
 	}
 
+	public String getTranAmtShow() {
+		return inOrOut == 0 ? "-" + tranAmt : tranAmt;
+	}
+
 	public int getInOrOut() {
 		return inOrOut;
 	}
 
 	public void setInOrOut(int inOrOut) {
 		this.inOrOut = inOrOut;
+	}
+
+	public String getInOrOutStr() {
+		return inOrOut == 0 ? "支出" : "收入";
 	}
 
 	public String getRemarks() {

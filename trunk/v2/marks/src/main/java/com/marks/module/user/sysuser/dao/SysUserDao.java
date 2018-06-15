@@ -54,4 +54,6 @@ public interface SysUserDao {
 	void updateforbidOrder(@Param("companyId") String companyId, @Param("userid") String userid,
 			@Param("mobile") String mobile, @Param("openid") String openid);
 
+	List<SysUser> findByParams(Map<String, String> param);
+
 }

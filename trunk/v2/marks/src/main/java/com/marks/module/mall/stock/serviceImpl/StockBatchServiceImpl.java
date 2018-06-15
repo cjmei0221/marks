@@ -23,8 +23,8 @@ import com.marks.module.mall.order.pojo.OrderInfo;
 import com.marks.module.mall.stock.dao.StockBatchDao;
 import com.marks.module.mall.stock.dao.TraceLogDao;
 import com.marks.module.mall.stock.pojo.BarCode;
-import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.pojo.StockBatch;
+import com.marks.module.mall.stock.pojo.StockBatchForm;
 import com.marks.module.mall.stock.pojo.StockInfo;
 import com.marks.module.mall.stock.pojo.TraceLog;
 import com.marks.module.mall.stock.service.BarCodeService;
@@ -82,7 +82,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 	}
 
 	@Override
-	public Result saveFirstStockIn(BarCodeForm info) throws Exception {
+	public Result saveFirstStockIn(StockBatchForm info) {
 		Result result = new Result();
 		int nums = info.getNums();
 		if (nums > 0) {
@@ -119,6 +119,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
 			b.setTradePrice(b.getCostPrice());
 			b.setTradePriceAmt(b.getAmount());
+			b.setOrderId(info.getOrderId());
 			dealStock(b);
 			// 更新商品进货价和供应商
 			good.setCostPrice(info.getCostPrice());
@@ -129,8 +130,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 
 			// 一品一码
 			if (StockEnums.StockManageType.simple.getValue() == info.getStockManageType()) {
-				info.setBatchId(batchId);
-				barCodeService.saveBarCode(info, good);
+				barCodeService.saveBarCode(b, good);
 			}
 		}
 		return result;
@@ -335,6 +335,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 		log.setNums(info.getTranNums());
 		log.setGoodType(info.getGoodType());
 		log.setYwCode(info.getYwCode());
+		log.setOrderId(info.getOrderId());
 		traceLogDao.save(log);
 	}
 }

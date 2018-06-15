@@ -38,6 +38,7 @@ public class FeeEnums {
 		consume("1011", "购买订单"), //
 		recharge("1021", "会员充值"), //
 		purchase("1031", "采购订单"), //
+		self("1041", "手动录入"), //
 		;// 会员
 
 		private String status;

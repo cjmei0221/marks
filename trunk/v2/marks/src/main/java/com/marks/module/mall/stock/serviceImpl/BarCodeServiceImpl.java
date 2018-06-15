@@ -22,7 +22,7 @@ import com.marks.module.mall.stock.dao.BarCodeDao;
 import com.marks.module.mall.stock.dao.TraceDao;
 import com.marks.module.mall.stock.dao.TraceLogDao;
 import com.marks.module.mall.stock.pojo.BarCode;
-import com.marks.module.mall.stock.pojo.BarCodeForm;
+import com.marks.module.mall.stock.pojo.StockBatch;
 import com.marks.module.mall.stock.pojo.Trace;
 import com.marks.module.mall.stock.pojo.TraceLog;
 import com.marks.module.mall.stock.service.BarCodeService;
@@ -56,7 +56,7 @@ public class BarCodeServiceImpl implements BarCodeService {
 	/**
 	 * 首次入库
 	 */
-	public Result saveBarCode(BarCodeForm info, GoodInfo good) throws Exception {
+	public Result saveBarCode(StockBatch info, GoodInfo good) {
 		String batchId = info.getBatchId();
 		Result result = new Result();
 		int nums = info.getNums();
@@ -103,8 +103,8 @@ public class BarCodeServiceImpl implements BarCodeService {
 			code.setGoodId(info.getGoodId());
 			code.setGoodName(good.getGoodName());
 			code.setGoodNo(good.getGoodNo());
-			code.setOrgid(info.getOrgid());
-			code.setOrgname(info.getOrgname());
+			code.setOrgid(info.getOrgId());
+			code.setOrgname(info.getOrgName());
 			code.setProductDate(info.getProductDate());
 			code.setStockStatus(stockStatus);
 			code.setTraceId(traceId);
@@ -129,22 +129,22 @@ public class BarCodeServiceImpl implements BarCodeService {
 			vo.setBarNo(good.getBarNo());
 			vo.setBrandId(good.getBrandId());
 			vo.setBrandName(good.getBrandName());
-			vo.setCgNo(info.getCgNo());
+			vo.setCgNo(info.getOrderId());
 			vo.setCompanyId(info.getCompanyId());
 			vo.setGoodId(info.getGoodId());
 			vo.setGoodName(good.getGoodName());
 			vo.setGoodNo(good.getGoodNo());
 			vo.setIsGift(0);
-			vo.setOrgid(info.getOrgid());
-			vo.setOrgname(info.getOrgname());
+			vo.setOrgid(info.getOrgId());
+			vo.setOrgname(info.getOrgName());
 			vo.setPrice(good.getSalePrice());
 			vo.setProductDate(info.getProductDate());
 			vo.setSalePrice(good.getSalePrice());
 			vo.setStockInDate(DateUtil.parseDate(new Date(), "yyyy-MM-dd"));
 			vo.setCostPrice(info.getCostPrice());
 			vo.setStockStatus(stockStatus);
-			vo.setSupplierId(info.getSupplierId2());
-			vo.setSupplierName(info.getSupplier2());
+			vo.setSupplierId(info.getSupplierId());
+			vo.setSupplierName(info.getSupplierName());
 			vo.setTraceId(traceId);
 			vo.setTypeId(good.getTypeId());
 			vo.setTypeName(good.getTypeName());

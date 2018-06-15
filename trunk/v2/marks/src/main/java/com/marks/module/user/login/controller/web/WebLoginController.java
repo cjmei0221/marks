@@ -155,7 +155,7 @@ public class WebLoginController {
 			user.setAccountid(LoginUtil.getInstance().getCurrentAccountid(request));
 			if(sysUser==null){
 				user.setChannelId(ChannelEnums.Channel.web.getValue());
-				sysUserService.save(user);
+				result = sysUserService.save(user);
 			}else{
 				sysUserService.updateBinding(user);
 			}
