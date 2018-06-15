@@ -187,7 +187,7 @@ public class StockBatch implements Serializable {
 	}
 
 	public String getGoodTypeName() {
-		return goodTypeName;
+		return StockEnums.GoodType.getByKey(goodType);
 	}
 
 	public String getTradePrice() {

@@ -125,7 +125,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		WorkStep step = new WorkStep();
 		step.setCompanyId(type.getCompanyId());
 		step.setEndTime(DateUtil.getCurrDateStr());
-		step.setOperateStatus(Enums.CheckStatus.apply.getValue());
+		step.setOperateStatus(Enums.CheckStatus.noCheck.getValue());
 		step.setOperatorId(info.getApplyManId());
 		step.setOperatorName(flow.getApplyMan());
 		step.setOperatorOrgId(flow.getApplyOrgId());
@@ -253,29 +253,6 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 
 
 
-	/**
-	 * 删除工作流查询
-	 */
-	@Override
-	public void delete(String id) {
-		workInfoDao.delete(id);
-	}
-
-	/**
-	 * 查找所有工作流查询
-	 */
-	@Override
-	public List<WorkInfo> findAll() {
-		return workInfoDao.findAll();
-	}
-
-	/**
-	 * 删除多个工作流查询
-	 */
-	@Override
-	public void deleteBatch(List<String> ids) {
-		workInfoDao.deleteBatch(ids);
-	}
 
 	public PojoDomain<WorkInfo> list(int page_number, int page_size, Map<String, Object> param) {
 		PojoDomain<WorkInfo> pojoDomain = new PojoDomain<WorkInfo>();

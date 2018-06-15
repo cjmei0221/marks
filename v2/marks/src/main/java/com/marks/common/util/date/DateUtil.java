@@ -168,13 +168,20 @@ public class DateUtil {
 	 * @return
 	 * @throws ParseException
 	 */
-	public static String getAfterDateByDays(String sDate1, int days) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date1 = sdf.parse(sDate1);
-		Calendar c = Calendar.getInstance();
-		c.setTime(date1);
-		c.add(Calendar.DAY_OF_MONTH, days);
-		return sdf.format(c.getTime());
+	public static String getAfterDateByDays(String sDate1, int days) {
+		SimpleDateFormat sdf;
+		Calendar c;
+		try {
+			sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date1 = sdf.parse(sDate1);
+			c = Calendar.getInstance();
+			c.setTime(date1);
+			c.add(Calendar.DAY_OF_MONTH, days);
+			return sdf.format(c.getTime());
+		} catch (Exception e) {
+
+		}
+		return "";
 	}
 
 	public static String getCurrDateStr() {

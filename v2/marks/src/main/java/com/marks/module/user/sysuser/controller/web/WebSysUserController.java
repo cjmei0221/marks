@@ -164,9 +164,7 @@ public class WebSysUserController extends SupportContorller {
 				ori.setSignature(info.getSignature());
 				ori.setUsername(info.getUsername());
 				ori.setEmail(info.getEmail());
-				sysUserService.update(ori);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
+				result = sysUserService.update(ori);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -185,22 +183,14 @@ public class WebSysUserController extends SupportContorller {
 		try {
 			SysUser loginUser = LoginUtil.getInstance().getCurrentUser(request);
 			SysUser info = getModel(SysUser.class);
-			SysUser ori = sysUserService.findByMobile(loginUser.getCompanyId(), info.getBind_mobile());
-			if (ori == null) {
-				// 密码处理
-				info.setPassword(EncryptUtil.defaultPwd);
-				info.setCreator(loginUser.getUserid());
-				info.setCompanyId(loginUser.getCompanyId());
-				info.setChannelId(ChannelEnums.Channel.web.getValue());
-				info.setRoleId(info.getCompanyId() + "_VIP");
-				info.setActiveFlag(Enums.Status.Enable.getValue());
-				sysUserService.save(info);
-				result.setMessage("保存成功");
-				result.setCode(Code.CODE_SUCCESS);
-			} else {
-				result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
-			}
+			// 密码处理
+			info.setPassword(EncryptUtil.defaultPwd);
+			info.setCreator(loginUser.getUserid());
+			info.setCompanyId(loginUser.getCompanyId());
+			info.setChannelId(ChannelEnums.Channel.web.getValue());
+			info.setRoleId(info.getCompanyId() + "_VIP");
+			info.setActiveFlag(Enums.Status.Enable.getValue());
+			result = sysUserService.save(info);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");

@@ -52,6 +52,16 @@ public class FeeLogServiceImpl implements FeeLogService {
 		return feeLogDao.findById(id);
 	}
 
+	@Override
+	public void update(FeeLog info) {
+		info.setTranDate(info.getTranTime().substring(0, 10));
+		info.setItemName(FeeEnums.ItemCode.getByKey(info.getItemCode()));
+		info.setI_month(Integer.parseInt(info.getTranDate().substring(5, 7)));
+		info.setI_year(Integer.parseInt(info.getTranDate().substring(0, 4)));
+		info.setI_season(DateUtil.getSeason(info.getI_month()));
+		feeLogDao.update(info);
+	}
+
 	/**
 	 * 保存费用明细
 	 */
@@ -76,10 +86,11 @@ public class FeeLogServiceImpl implements FeeLogService {
 			info.setPayeeRole(user.getRoleName());
 			info.setPayeeRoleType(user.getRoleType());
 		}
-		info.setId(IDUtil.getSecondID() + IDUtil.getID(8));
+		info.setId(IDUtil.getNumID());
+		info.setTranDate(info.getTranTime().substring(0, 10));
 		info.setItemName(FeeEnums.ItemCode.getByKey(info.getItemCode()));
-		info.setI_month(Integer.parseInt(IDUtil.getDateID().substring(4, 6)));
-		info.setI_year(Integer.parseInt(IDUtil.getDateID().substring(0, 4)));
+		info.setI_month(Integer.parseInt(info.getTranDate().substring(5, 7)));
+		info.setI_year(Integer.parseInt(info.getTranDate().substring(0, 4)));
 		info.setI_season(DateUtil.getSeason(info.getI_month()));
 		feeLogDao.save(info);
 		logger.info("save > end>");

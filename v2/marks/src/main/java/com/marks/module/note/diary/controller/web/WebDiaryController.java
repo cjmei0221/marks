@@ -254,8 +254,12 @@ public class WebDiaryController extends SupportContorller {
 				sysUser.setRoleId(companyId + "_" + UserEnums.UserType.VIP.getValue());
 				sysUser.setCreator(mobile);
 				sysUser.setChannelId(ChannelEnums.Channel.web.getValue());
-				String userid = sysUserService.save(sysUser);
-				sysUser.setUserid(userid);
+				result = sysUserService.save(sysUser);
+				if (Code.CODE_SUCCESS.equals(result.getCode())) {
+					JsonUtil.output(response, result);
+					return;
+				}
+				sysUser.setUserid(result.getData().get("userid").toString());
 			} else {
 				if (sysUser.getActiveFlag() == Enums.Status.Unable.getValue()) {
 					result.setMessage("此手机号已禁用");

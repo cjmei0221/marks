@@ -9,8 +9,8 @@ import com.marks.common.domain.Result;
 import com.marks.module.mall.order.pojo.OrderGood;
 import com.marks.module.mall.order.pojo.OrderInfo;
 import com.marks.module.mall.stock.pojo.BarCode;
-import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.pojo.StockBatch;
+import com.marks.module.mall.stock.pojo.StockBatchForm;
 
 public interface StockBatchService{
 
@@ -24,7 +24,7 @@ public interface StockBatchService{
 	 * @param reqVo
 	 * @return
 	 */
-	public Result saveFirstStockIn(BarCodeForm reqVo) throws Exception;
+	public Result saveFirstStockIn(StockBatchForm reqVo);
 
 	/**
 	 * 获取批次和进货价，进货金额

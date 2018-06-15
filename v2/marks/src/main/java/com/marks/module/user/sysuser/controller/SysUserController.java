@@ -69,24 +69,18 @@ public class SysUserController extends SupportContorller {
 			SysUser sysUser = getModel(SysUser.class);
 			String companyId = admin.getCompanyId();
 			// sysUser.setUserid(IDUtil.getTimeID());
-			SysUser ori = sysUserService.findByMobile(companyId, sysUser.getBind_mobile());
-			if (ori == null) {
-				// 密码处理
-				sysUser.setPassword(EncryptUtil.defaultPwd);
-				sysUser.setCreator(admin.getOperator());
-				sysUser.setCompanyId(companyId);
-				sysUser.setChannelId(ChannelEnums.Channel.manage.getValue());
-				sysUser.setActiveFlag(Enums.Status.Enable.getValue());
-				if (UserEnums.UserType.VIP.getValue().equals(sysUser.getRoleType())) {
-					sysUser.setRoleId(admin.getCompanyId() + "_" + sysUser.getRoleType());
-				}
-				sysUserService.save(sysUser);
-				result.setMessage("保存成功");
-				result.setCode(Code.CODE_SUCCESS);
-			} else {
-				result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
+
+			// 密码处理
+			sysUser.setPassword(EncryptUtil.defaultPwd);
+			sysUser.setCreator(admin.getOperator());
+			sysUser.setCompanyId(companyId);
+			sysUser.setChannelId(ChannelEnums.Channel.manage.getValue());
+			sysUser.setActiveFlag(Enums.Status.Enable.getValue());
+			if (UserEnums.UserType.VIP.getValue().equals(sysUser.getRoleType())) {
+				sysUser.setRoleId(admin.getCompanyId() + "_" + sysUser.getRoleType());
 			}
+			result = sysUserService.save(sysUser);
+
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("保存失败，请联系管理员！");
@@ -111,19 +105,10 @@ public class SysUserController extends SupportContorller {
 				JsonUtil.output(response, result);
 				return;
 			}
-			ori = sysUserService.findByMobile(admin.getCompanyId(), sysUser.getBind_mobile());
-			if (ori != null && !sysUser.getUserid().equals(ori.getUserid())) {
-				result.setMessage("此手机号已被注册!");
-				result.setCode(Code.CODE_FAIL);
-				JsonUtil.output(response, result);
-				return;
-			}
+
 			sysUser.setCompanyId(admin.getCompanyId());
 			sysUser.setActiveFlag(ori.getActiveFlag());
-			sysUserService.update(sysUser);
-			result.setMessage("更新成功!");
-			result.setCode(Code.CODE_SUCCESS);
-
+			result = sysUserService.update(sysUser);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result.setMessage("更新失败，请联系管理员！");

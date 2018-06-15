@@ -74,7 +74,7 @@ public class WorkInfoController extends SupportContorller {
 			WorkStep info = getModel(WorkStep.class);
 			info.setCompanyId(admin.getCompanyId());
 			info.setEndTime(DateUtil.getCurrDateStr());
-			info.setOperatorId(admin.getUserid());
+			info.setOperatorId(admin.getUserCode());
 			info.setOperatorName(admin.getUsername());
 			info.setOperatorOrgId(admin.getOrgId());
 			info.setOperatorOrgName(admin.getOrgName());
@@ -94,27 +94,6 @@ public class WorkInfoController extends SupportContorller {
 		JsonUtil.output(response, result);
 	}
 
-	/**
-	 * 删除工作流查询
-	 */
-	@RequestMapping("/inner/workInfo/delete")
-	public void deleteWorkInfoById(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			WorkInfo info = getModel(WorkInfo.class);
-
-			logger.info("deleteWorkInfoById > param>" + info.getWorkId());
-
-			workInfoService.delete(info.getWorkId());
-			result.setMessage("删除成功!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("删除失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
 
 	/**
 	 * jqGrid多种条件查询

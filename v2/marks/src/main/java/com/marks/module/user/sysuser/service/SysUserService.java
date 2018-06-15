@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.domain.Result;
 import com.marks.module.user.sysuser.pojo.SysUser;
 
 public interface SysUserService{
@@ -13,9 +14,11 @@ public interface SysUserService{
 
 	public SysUser findByMobile(String companyId, String bind_mobile);
 
-	public String save(SysUser sysUser);
+	public Result save(SysUser sysUser);
 
-	public void update(SysUser sysUser);
+	public Result update(SysUser sysUser);
+
+	public Result saveOrUpdate(SysUser sysUser);
 	public void delete(String userid);
 	public List<SysUser> findAll();
 	public void deleteBatch(List<String> ids);

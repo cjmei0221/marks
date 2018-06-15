@@ -8,7 +8,7 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.module.mall.good.pojo.GoodInfo;
 import com.marks.module.mall.stock.pojo.BarCode;
-import com.marks.module.mall.stock.pojo.BarCodeForm;
+import com.marks.module.mall.stock.pojo.StockBatch;
 
 public interface BarCodeService{
 
@@ -27,7 +27,7 @@ public interface BarCodeService{
 	 * @return
 	 * @throws Exception
 	 */
-	public Result saveBarCode(BarCodeForm info, GoodInfo good) throws Exception;
+	public Result saveBarCode(StockBatch info, GoodInfo good);
 
 	public List<BarCode> getBarCodeListByBarCodes(List<String> barCodeList);
 

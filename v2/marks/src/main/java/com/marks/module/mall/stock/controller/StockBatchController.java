@@ -17,8 +17,8 @@ import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.mall.stock.pojo.BarCodeForm;
 import com.marks.module.mall.stock.pojo.StockBatch;
+import com.marks.module.mall.stock.pojo.StockBatchForm;
 import com.marks.module.mall.stock.service.StockBatchService;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -72,7 +72,7 @@ public class StockBatchController extends SupportContorller{
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			BarCodeForm reqVo = getModel(BarCodeForm.class);
+			StockBatchForm reqVo = getModel(StockBatchForm.class);
 			reqVo.setCompanyId(admin.getCompanyId());
 			reqVo.setOrgid(admin.getOrgId());
 			reqVo.setOrgname(admin.getOrgName());
