@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.mall.dispatch.dao.DispatchLogDao">
+
+    <select id="findById" resultType="com.marks.module.mall.dispatch.pojo.DispatchLog">
+		SELECT * FROM TB_MALL_DISPATCH_LOG t where t.LOGID = #{logId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.mall.dispatch.pojo.DispatchLog">
+		<!--<selectKey keyProperty="logId" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+
+ 		INSERT INTO TB_MALL_DISPATCH_LOG (
+            LOGID,
+            ORDERGOODID,
+            ORDERID,
+            TYPECODE,
+            TYPECODENAME,
+            OPERATOR,
+            ORGID,
+            ORGNAME,
+            GOODID,
+            GOODNO,
+            GOODNAME,
+            BARNO,
+            UNIT,
+            RANK,
+            MODEL,
+            TYPEID,
+            TYPENAME,
+            BRANDID,
+            BRANDNAME,
+            NUMS,
+            AMT,
+            CREATETIME
+		)
+		VALUES(
+		#{info.logId:VARCHAR},
+            #{info.orderGoodId:VARCHAR},
+            #{info.orderId:VARCHAR},
+            #{info.typeCode:VARCHAR},
+            #{info.typeCodeName:VARCHAR},
+            #{info.operator:VARCHAR},
+            #{info.orgId:VARCHAR},
+            #{info.orgName:VARCHAR},
+            #{info.goodId:VARCHAR},
+            #{info.goodNo:VARCHAR},
+            #{info.goodName:VARCHAR},
+            #{info.barNo:VARCHAR},
+            #{info.unit:VARCHAR},
+            #{info.rank:VARCHAR},
+            #{info.model:VARCHAR},
+            #{info.typeId:VARCHAR},
+            #{info.typeName:VARCHAR},
+            #{info.brandId:VARCHAR},
+            #{info.brandName:VARCHAR},
+            #{info.nums:NUMERIC},
+            #{info.amt:VARCHAR},
+            #{info.createtime:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_DISPATCH_LOG (
+			            LOGID,
+            ORDERGOODID,
+            ORDERID,
+            TYPECODE,
+            TYPECODENAME,
+            OPERATOR,
+            ORGID,
+            ORGNAME,
+            GOODID,
+            GOODNO,
+            GOODNAME,
+            BARNO,
+            UNIT,
+            RANK,
+            MODEL,
+            TYPEID,
+            TYPENAME,
+            BRANDID,
+            BRANDNAME,
+            NUMS,
+            AMT,
+            CREATETIME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.logId:VARCHAR},
+            #{info.orderGoodId:VARCHAR},
+            #{info.orderId:VARCHAR},
+            #{info.typeCode:VARCHAR},
+            #{info.typeCodeName:VARCHAR},
+            #{info.operator:VARCHAR},
+            #{info.orgId:VARCHAR},
+            #{info.orgName:VARCHAR},
+            #{info.goodId:VARCHAR},
+            #{info.goodNo:VARCHAR},
+            #{info.goodName:VARCHAR},
+            #{info.barNo:VARCHAR},
+            #{info.unit:VARCHAR},
+            #{info.rank:VARCHAR},
+            #{info.model:VARCHAR},
+            #{info.typeId:VARCHAR},
+            #{info.typeName:VARCHAR},
+            #{info.brandId:VARCHAR},
+            #{info.brandName:VARCHAR},
+            #{info.nums:NUMERIC},
+            #{info.amt:VARCHAR},
+            #{info.createtime:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.mall.dispatch.pojo.DispatchLog">
+ 		UPDATE TB_MALL_DISPATCH_LOG 
+		SET 
+ORDERGOODID = #{info.orderGoodId:VARCHAR},
+                ORDERID = #{info.orderId:VARCHAR},
+                TYPECODE = #{info.typeCode:VARCHAR},
+                TYPECODENAME = #{info.typeCodeName:VARCHAR},
+                OPERATOR = #{info.operator:VARCHAR},
+                ORGID = #{info.orgId:VARCHAR},
+                ORGNAME = #{info.orgName:VARCHAR},
+                GOODID = #{info.goodId:VARCHAR},
+                GOODNO = #{info.goodNo:VARCHAR},
+                GOODNAME = #{info.goodName:VARCHAR},
+                BARNO = #{info.barNo:VARCHAR},
+                UNIT = #{info.unit:VARCHAR},
+                RANK = #{info.rank:VARCHAR},
+                MODEL = #{info.model:VARCHAR},
+                TYPEID = #{info.typeId:VARCHAR},
+                TYPENAME = #{info.typeName:VARCHAR},
+                BRANDID = #{info.brandId:VARCHAR},
+                BRANDNAME = #{info.brandName:VARCHAR},
+                NUMS = #{info.nums:NUMERIC},
+                AMT = #{info.amt:VARCHAR}
+		WHERE
+			LOGID = #{info.logId}
+ 	</update>
+ 	<!--
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_MALL_DISPATCH_LOG 
+		SET 
+			ORDERGOODID = #{info.orderGoodId:VARCHAR},
+                ORDERID = #{info.orderId:VARCHAR},
+                TYPECODE = #{info.typeCode:VARCHAR},
+                TYPECODENAME = #{info.typeCodeName:VARCHAR},
+                OPERATOR = #{info.operator:VARCHAR},
+                ORGID = #{info.orgId:VARCHAR},
+                ORGNAME = #{info.orgName:VARCHAR},
+                GOODID = #{info.goodId:VARCHAR},
+                GOODNO = #{info.goodNo:VARCHAR},
+                GOODNAME = #{info.goodName:VARCHAR},
+                BARNO = #{info.barNo:VARCHAR},
+                UNIT = #{info.unit:VARCHAR},
+                RANK = #{info.rank:VARCHAR},
+                MODEL = #{info.model:VARCHAR},
+                TYPEID = #{info.typeId:VARCHAR},
+                TYPENAME = #{info.typeName:VARCHAR},
+                BRANDID = #{info.brandId:VARCHAR},
+                BRANDNAME = #{info.brandName:VARCHAR},
+                NUMS = #{info.nums:NUMERIC},
+                AMT = #{info.amt:VARCHAR}
+		WHERE
+			LOGID = #{info.logId}
+		</foreach>
+
+	</update>
+ 	-->
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_MALL_DISPATCH_LOG WHERE LOGID=#{logId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.mall.dispatch.pojo.DispatchLog">
+ 		SELECT * FROM TB_MALL_DISPATCH_LOG t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_MALL_DISPATCH_LOG WHERE LOGID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.mall.dispatch.pojo.DispatchLog" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_MALL_DISPATCH_LOG t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.LOGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.ORDERGOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.ORDERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPECODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPECODENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.OPERATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.GOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.GOODNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BARNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.UNIT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.RANK LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.MODEL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BRANDID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BRANDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.NUMS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.AMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+						
+					
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

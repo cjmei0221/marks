@@ -197,6 +197,9 @@ public class DispatchInfoController extends SupportContorller {
 				String goodObj = request.getParameter("goodData");
 				List<DispatchGood> goodList = (List<DispatchGood>) JSONArray.toCollection(JSONArray.fromObject(goodObj),
 						DispatchGood.class);
+				ori.setReceiveOrgId(admin.getOrgId());
+				ori.setReceiveOrgName(admin.getOrgName());
+				ori.setCreator(admin.getOperator());
 				dispatchInfoService.updateReceiveGood(ori, goodList);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
