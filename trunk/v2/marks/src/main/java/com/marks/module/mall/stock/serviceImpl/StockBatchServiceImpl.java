@@ -162,7 +162,8 @@ public class StockBatchServiceImpl implements StockBatchService {
 		}
 		// 负卖
 		if (nums > 0) {
-			getlessStockList(order, good, nums);
+			List<StockBatch> lesslist = getlessStockList(order, good, nums);
+			list.addAll(lesslist);
 		}
 
 		returnList = countStockBatch(good, list);
