@@ -106,7 +106,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setStockType(info.getStockManageType());
 			b.setSupplierId(info.getSupplierId2());
 			b.setSupplierName(info.getSupplier2());
-			b.setUpdater(info.getOperatorId() + "-" + info.getOperator());
+			b.setUpdater(info.getOperator());
 			b.setYwCode(StockEnums.YwCode.cg_stockIn.getValue());
 			b.setGoodType(StockEnums.GoodType.good.getValue());
 			if (good.getValidDays() > 0) {
@@ -120,6 +120,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setTradePrice(b.getCostPrice());
 			b.setTradePriceAmt(b.getAmount());
 			b.setOrderId(info.getOrderId());
+			b.setOperator(info.getOperator());
 			dealStock(b);
 			// 更新商品进货价和供应商
 			good.setCostPrice(info.getCostPrice());

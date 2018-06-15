@@ -3,286 +3,294 @@
 
 <mapper namespace="com.marks.module.mall.dispatch.dao.DispatchGoodDao">
 
-    <select id="findById" resultType="com.marks.module.mall.dispatch.pojo.DispatchGood">
-		SELECT * FROM TB_MALL_DISPATCH_GOOD t where t.ORDERGOODID = #{orderGoodId}
- 	</select>
- 	
- 	 <select id="findByOrderId" resultType="com.marks.module.mall.dispatch.pojo.DispatchGood">
-		SELECT * FROM TB_MALL_DISPATCH_GOOD t where t.ORDERID = #{orderId}
- 	</select>
- 	
- 	<insert id="save" parameterType="com.marks.module.mall.dispatch.pojo.DispatchGood">
-		<!--<selectKey keyProperty="orderGoodId" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+	<select id="findById" resultType="com.marks.module.mall.dispatch.pojo.DispatchGood">
+		SELECT * FROM
+		TB_MALL_DISPATCH_GOOD t where t.ORDERGOODID = #{orderGoodId}
+	</select>
 
- 		INSERT INTO TB_MALL_DISPATCH_GOOD (
-            ORDERGOODID,
-            ORDERID,
-            GOODID,
-            GOODCODE,
-            GOODNAME,
-            BARNO,
-            UNIT,
-            RANK,
-            FZCOLOR,
-            FZSIZE,
-            MODEL,
-            TYPEID,
-            TYPENAME,
-            BRANDID,
-            BRANDNAME,
-            NUMS,
-            SENDNUMS,
-            PURCHASENUMS,
-            PURCHASEPRICE,
-            PAYPRICE,
-            AMT,
-            PAYABLEAMT,
-            PAYAMT,
-            UNPAYAMT,
-            CREATETIME,
-            UPDATETIME,
-            DISPATCHNUMS,
-            RECEIVENUMS,
-            STOCKTYPE,
-            STOCKTYPENAME
+	<select id="findByOrderId" resultType="com.marks.module.mall.dispatch.pojo.DispatchGood">
+		SELECT * FROM
+		TB_MALL_DISPATCH_GOOD t where t.ORDERID = #{orderId}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.mall.dispatch.pojo.DispatchGood">
+		<!--<selectKey keyProperty="orderGoodId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_DISPATCH_GOOD (
+		ORDERGOODID,
+		ORDERID,
+		GOODID,
+		goodNo,
+		GOODNAME,
+		BARNO,
+		UNIT,
+		RANK,
+		MODEL,
+		TYPEID,
+		TYPENAME,
+		BRANDID,
+		BRANDNAME,
+		NUMS,
+		SENDNUMS,
+		PURCHASENUMS,
+		costPrice,
+		PAYPRICE,
+		AMT,
+		PAYABLEAMT,
+		PAYAMT,
+		UNPAYAMT,
+		CREATETIME,
+		UPDATETIME,
+		STOCKTYPE,
+		STOCKTYPENAME,
+		hadDispatchNums,
+		hadReceiveNums,
+		taxRate,
+		taxAmt,
+		salePrice,
+		saleAmt,
+		remarks
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
-            #{info.orderId:VARCHAR},
-            #{info.goodId:VARCHAR},
-            #{info.goodCode:VARCHAR},
-            #{info.goodName:VARCHAR},
-            #{info.barNo:VARCHAR},
-            #{info.unit:VARCHAR},
-            #{info.rank:VARCHAR},
-            #{info.fzColor:VARCHAR},
-            #{info.fzSize:VARCHAR},
-            #{info.model:VARCHAR},
-            #{info.typeId:VARCHAR},
-            #{info.typeName:VARCHAR},
-            #{info.brandId:VARCHAR},
-            #{info.brandName:VARCHAR},
-            #{info.nums:NUMERIC},
-            #{info.sendNums:NUMERIC},
-            #{info.purchaseNums:NUMERIC},
-            #{info.purchasePrice:VARCHAR},
-            #{info.payPrice:VARCHAR},
-            #{info.amt:VARCHAR},
-            #{info.payableAmt:VARCHAR},
-            #{info.payAmt:VARCHAR},
-            #{info.unpayAmt:VARCHAR},
-            #{info.createtime:VARCHAR},
-            #{info.updatetime:VARCHAR},
-            #{info.dispatchNums:NUMERIC},
-            #{info.receiveNums:NUMERIC},
-            #{info.stockType:NUMERIC},
-            #{info.stockTypeName:VARCHAR}			
-			)
- 	</insert>
- 	
- 	<insert id="saveBatch" parameterType="java.util.List">
+		#{info.orderId:VARCHAR},
+		#{info.goodId:VARCHAR},
+		#{info.goodNo:VARCHAR},
+		#{info.goodName:VARCHAR},
+		#{info.barNo:VARCHAR},
+		#{info.unit:VARCHAR},
+		#{info.rank:VARCHAR},
+		#{info.model:VARCHAR},
+		#{info.typeId:VARCHAR},
+		#{info.typeName:VARCHAR},
+		#{info.brandId:VARCHAR},
+		#{info.brandName:VARCHAR},
+		#{info.nums:NUMERIC},
+		#{info.sendNums:NUMERIC},
+		#{info.purchaseNums:NUMERIC},
+		#{info.costPrice:VARCHAR},
+		#{info.payPrice:VARCHAR},
+		#{info.amt:VARCHAR},
+		#{info.payableAmt:VARCHAR},
+		#{info.payAmt:VARCHAR},
+		#{info.unpayAmt:VARCHAR},
+		#{info.createtime:VARCHAR},
+		#{info.updatetime:VARCHAR},
+		#{info.stockType:NUMERIC},
+		#{info.stockTypeName:VARCHAR},
+		#{info.hadDispatchNums:NUMERIC},
+		#{info.hadReceiveNums:NUMERIC},
+		#{info.taxRate:NUMERIC},
+		#{info.taxAmt:VARCHAR},
+		#{info.salePrice:VARCHAR},
+		#{info.saleAmt:VARCHAR},
+		#{info.remarks:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
 		INSERT INTO TB_MALL_DISPATCH_GOOD (
-			            ORDERGOODID,
-            ORDERID,
-            GOODID,
-            GOODCODE,
-            GOODNAME,
-            BARNO,
-            UNIT,
-            RANK,
-            FZCOLOR,
-            FZSIZE,
-            MODEL,
-            TYPEID,
-            TYPENAME,
-            BRANDID,
-            BRANDNAME,
-            NUMS,
-            SENDNUMS,
-            PURCHASENUMS,
-            PURCHASEPRICE,
-            PAYPRICE,
-            AMT,
-            PAYABLEAMT,
-            PAYAMT,
-            UNPAYAMT,
-            CREATETIME,
-            UPDATETIME,
-            DISPATCHNUMS,
-            RECEIVENUMS,
-            STOCKTYPE,
-            STOCKTYPENAME
+		ORDERGOODID,
+		ORDERID,
+		GOODID,
+		goodNo,
+		GOODNAME,
+		BARNO,
+		UNIT,
+		RANK,
+		MODEL,
+		TYPEID,
+		TYPENAME,
+		BRANDID,
+		BRANDNAME,
+		NUMS,
+		SENDNUMS,
+		PURCHASENUMS,
+		costPrice,
+		PAYPRICE,
+		AMT,
+		PAYABLEAMT,
+		PAYAMT,
+		UNPAYAMT,
+		CREATETIME,
+		UPDATETIME,
+		STOCKTYPE,
+		STOCKTYPENAME,
+		hadDispatchNums,
+		hadReceiveNums,
+		taxRate,
+		taxAmt,
+		salePrice,
+		saleAmt,
+		remarks
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
 			separator=",">
 			(
-				#{info.orderGoodId:VARCHAR},
-            #{info.orderId:VARCHAR},
-            #{info.goodId:VARCHAR},
-            #{info.goodCode:VARCHAR},
-            #{info.goodName:VARCHAR},
-            #{info.barNo:VARCHAR},
-            #{info.unit:VARCHAR},
-            #{info.rank:VARCHAR},
-            #{info.fzColor:VARCHAR},
-            #{info.fzSize:VARCHAR},
-            #{info.model:VARCHAR},
-            #{info.typeId:VARCHAR},
-            #{info.typeName:VARCHAR},
-            #{info.brandId:VARCHAR},
-            #{info.brandName:VARCHAR},
-            #{info.nums:NUMERIC},
-            #{info.sendNums:NUMERIC},
-            #{info.purchaseNums:NUMERIC},
-            #{info.purchasePrice:VARCHAR},
-            #{info.payPrice:VARCHAR},
-            #{info.amt:VARCHAR},
-            #{info.payableAmt:VARCHAR},
-            #{info.payAmt:VARCHAR},
-            #{info.unpayAmt:VARCHAR},
-            #{info.createtime:VARCHAR},
-            #{info.updatetime:VARCHAR},
-            #{info.dispatchNums:NUMERIC},
-            #{info.receiveNums:NUMERIC},
-            #{info.stockType:NUMERIC},
-            #{info.stockTypeName:VARCHAR}			
+			#{info.orderGoodId:VARCHAR},
+			#{info.orderId:VARCHAR},
+			#{info.goodId:VARCHAR},
+			#{info.goodNo:VARCHAR},
+			#{info.goodName:VARCHAR},
+			#{info.barNo:VARCHAR},
+			#{info.unit:VARCHAR},
+			#{info.rank:VARCHAR},
+			#{info.model:VARCHAR},
+			#{info.typeId:VARCHAR},
+			#{info.typeName:VARCHAR},
+			#{info.brandId:VARCHAR},
+			#{info.brandName:VARCHAR},
+			#{info.nums:NUMERIC},
+			#{info.sendNums:NUMERIC},
+			#{info.purchaseNums:NUMERIC},
+			#{info.costPrice:VARCHAR},
+			#{info.payPrice:VARCHAR},
+			#{info.amt:VARCHAR},
+			#{info.payableAmt:VARCHAR},
+			#{info.payAmt:VARCHAR},
+			#{info.unpayAmt:VARCHAR},
+			#{info.createtime:VARCHAR},
+			#{info.updatetime:VARCHAR},
+			#{info.stockType:NUMERIC},
+			#{info.stockTypeName:VARCHAR},
+			#{info.hadDispatchNums:NUMERIC},
+			#{info.hadReceiveNums:NUMERIC},
+			#{info.taxRate:NUMERIC},
+			#{info.taxAmt:VARCHAR},
+			#{info.salePrice:VARCHAR},
+			#{info.saleAmt:VARCHAR},
+			#{info.remarks:VARCHAR}
 			)
 		</foreach>
 	</insert>
- 	
- 	<update id="update" parameterType="com.marks.module.mall.dispatch.pojo.DispatchGood">
- 		UPDATE TB_MALL_DISPATCH_GOOD 
-		SET 
-ORDERID = #{info.orderId:VARCHAR},
-                GOODID = #{info.goodId:VARCHAR},
-                GOODCODE = #{info.goodCode:VARCHAR},
-                GOODNAME = #{info.goodName:VARCHAR},
-                BARNO = #{info.barNo:VARCHAR},
-                UNIT = #{info.unit:VARCHAR},
-                RANK = #{info.rank:VARCHAR},
-                FZCOLOR = #{info.fzColor:VARCHAR},
-                FZSIZE = #{info.fzSize:VARCHAR},
-                MODEL = #{info.model:VARCHAR},
-                TYPEID = #{info.typeId:VARCHAR},
-                TYPENAME = #{info.typeName:VARCHAR},
-                BRANDID = #{info.brandId:VARCHAR},
-                BRANDNAME = #{info.brandName:VARCHAR},
-                NUMS = #{info.nums:NUMERIC},
-                SENDNUMS = #{info.sendNums:NUMERIC},
-                PURCHASENUMS = #{info.purchaseNums:NUMERIC},
-                PURCHASEPRICE = #{info.purchasePrice:VARCHAR},
-                PAYPRICE = #{info.payPrice:VARCHAR},
-                AMT = #{info.amt:VARCHAR},
-                PAYABLEAMT = #{info.payableAmt:VARCHAR},
-                PAYAMT = #{info.payAmt:VARCHAR},
-                UNPAYAMT = #{info.unpayAmt:VARCHAR},
-                UPDATETIME = #{info.updatetime:VARCHAR},
-                DISPATCHNUMS = #{info.dispatchNums:NUMERIC},
-                RECEIVENUMS = #{info.receiveNums:NUMERIC},
-                STOCKTYPE = #{info.stockType:NUMERIC},
-                STOCKTYPENAME = #{info.stockTypeName:VARCHAR}
-		WHERE
-			ORDERGOODID = #{info.orderGoodId}
- 	</update>
- 	<!--
- 	<update id="updateBatch" parameterType="List">
 
-		<foreach collection="list" item="info" index="index"
-			separator=";">
-			UPDATE TB_MALL_DISPATCH_GOOD 
-		SET 
-			ORDERID = #{info.orderId:VARCHAR},
-                GOODID = #{info.goodId:VARCHAR},
-                GOODCODE = #{info.goodCode:VARCHAR},
-                GOODNAME = #{info.goodName:VARCHAR},
-                BARNO = #{info.barNo:VARCHAR},
-                UNIT = #{info.unit:VARCHAR},
-                RANK = #{info.rank:VARCHAR},
-                FZCOLOR = #{info.fzColor:VARCHAR},
-                FZSIZE = #{info.fzSize:VARCHAR},
-                MODEL = #{info.model:VARCHAR},
-                TYPEID = #{info.typeId:VARCHAR},
-                TYPENAME = #{info.typeName:VARCHAR},
-                BRANDID = #{info.brandId:VARCHAR},
-                BRANDNAME = #{info.brandName:VARCHAR},
-                NUMS = #{info.nums:NUMERIC},
-                SENDNUMS = #{info.sendNums:NUMERIC},
-                PURCHASENUMS = #{info.purchaseNums:NUMERIC},
-                PURCHASEPRICE = #{info.purchasePrice:VARCHAR},
-                PAYPRICE = #{info.payPrice:VARCHAR},
-                AMT = #{info.amt:VARCHAR},
-                PAYABLEAMT = #{info.payableAmt:VARCHAR},
-                PAYAMT = #{info.payAmt:VARCHAR},
-                UNPAYAMT = #{info.unpayAmt:VARCHAR},
-                UPDATETIME = #{info.updatetime:VARCHAR},
-                DISPATCHNUMS = #{info.dispatchNums:NUMERIC},
-                RECEIVENUMS = #{info.receiveNums:NUMERIC},
-                STOCKTYPE = #{info.stockType:NUMERIC},
-                STOCKTYPENAME = #{info.stockTypeName:VARCHAR}
+	<update id="update" parameterType="com.marks.module.mall.dispatch.pojo.DispatchGood">
+		UPDATE TB_MALL_DISPATCH_GOOD
+		SET
+		PAYAMT =
+		#{info.payAmt:VARCHAR},
+		UNPAYAMT = #{info.unpayAmt:VARCHAR},
+		UPDATETIME
+		= #{info.updatetime:VARCHAR},
+		hadDispatchNums=#{info.hadDispatchNums:NUMERIC},
+		hadReceiveNums=#{info.hadReceiveNums:NUMERIC}
 		WHERE
-			ORDERGOODID = #{info.orderGoodId}
-		</foreach>
-
+		ORDERGOODID =
+		#{info.orderGoodId}
 	</update>
- 	-->
- 	<delete id="delete" parameterType="String">
- 		DELETE FROM TB_MALL_DISPATCH_GOOD WHERE ORDERGOODID=#{orderGoodId}
- 	</delete>
- 	
- 	<select id="findAll" resultType="com.marks.module.mall.dispatch.pojo.DispatchGood">
- 		SELECT * FROM TB_MALL_DISPATCH_GOOD t
- 	</select>
- 	
- 	<delete id="deleteBatch" parameterType="java.util.List">
- 		DELETE FROM TB_MALL_DISPATCH_GOOD WHERE ORDERGOODID in 
- 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
-				#{ids}
-		</foreach>
- 	</delete>
- 	
- 	<select id="list" resultType="com.marks.module.mall.dispatch.pojo.DispatchGood" 
- 	parameterType="java.util.Map">
- 		SELECT  *
-		  FROM   TB_MALL_DISPATCH_GOOD t
-						WHERE 1=1
-                        <if test="keyword!=null and keyword!=''">
- and ( 2=1                             or t.ORDERGOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.ORDERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.GOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.GOODCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BARNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.UNIT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.RANK LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.FZCOLOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.FZSIZE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.MODEL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TYPEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BRANDID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.BRANDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.NUMS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.SENDNUMS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.PURCHASENUMS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.PURCHASEPRICE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.PAYPRICE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.AMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.PAYABLEAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.PAYAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.UNPAYAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.DISPATCHNUMS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.RECEIVENUMS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.STOCKTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-                            or t.STOCKTYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
- )                        </if>
+	<update id="updateRecevieNums">
+		UPDATE TB_MALL_DISPATCH_GOOD
+		SET
+		UPDATETIME = now(),
+		hadReceiveNums=#{receiveNums}
+		WHERE
+		ORDERGOODID = #{orderGoodId}
+	</update>
+	<!-- <update id="updateBatch" parameterType="List"> <foreach collection="list" 
+		item="info" index="index" separator=";"> UPDATE TB_MALL_DISPATCH_GOOD SET 
+		ORDERID = #{info.orderId:VARCHAR}, GOODID = #{info.goodId:VARCHAR}, goodNo 
+		= #{info.goodNo:VARCHAR}, GOODNAME = #{info.goodName:VARCHAR}, BARNO = #{info.barNo:VARCHAR}, 
+		UNIT = #{info.unit:VARCHAR}, RANK = #{info.rank:VARCHAR}, MODEL = #{info.model:VARCHAR}, 
+		TYPEID = #{info.typeId:VARCHAR}, TYPENAME = #{info.typeName:VARCHAR}, BRANDID 
+		= #{info.brandId:VARCHAR}, BRANDNAME = #{info.brandName:VARCHAR}, NUMS = 
+		#{info.nums:NUMERIC}, SENDNUMS = #{info.sendNums:NUMERIC}, PURCHASENUMS = 
+		#{info.purchaseNums:NUMERIC}, costPrice = #{info.costPrice:VARCHAR}, PAYPRICE 
+		= #{info.payPrice:VARCHAR}, AMT = #{info.amt:VARCHAR}, PAYABLEAMT = #{info.payableAmt:VARCHAR}, 
+		PAYAMT = #{info.payAmt:VARCHAR}, UNPAYAMT = #{info.unpayAmt:VARCHAR}, UPDATETIME 
+		= #{info.updatetime:VARCHAR}, DISPATCHNUMS = #{info.dispatchNums:NUMERIC}, 
+		RECEIVENUMS = #{info.receiveNums:NUMERIC}, STOCKTYPE = #{info.stockType:NUMERIC}, 
+		STOCKTYPENAME = #{info.stockTypeName:VARCHAR} WHERE ORDERGOODID = #{info.orderGoodId} 
+		</foreach> </update> -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_MALL_DISPATCH_GOOD WHERE ORDERGOODID=#{orderGoodId}
+	</delete>
 
-						
-			    order by  t.UPDATETIME DESC		
- 	</select>
- 	
- 	
- 	
+	<delete id="deleteByOrderId" parameterType="String">
+		DELETE FROM
+		TB_MALL_DISPATCH_GOOD WHERE ORDERID=#{orderId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.mall.dispatch.pojo.DispatchGood">
+		SELECT * FROM
+		TB_MALL_DISPATCH_GOOD t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_DISPATCH_GOOD WHERE ORDERGOODID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.mall.dispatch.pojo.DispatchGood"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_DISPATCH_GOOD t
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.ORDERGOODID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORDERID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GOODID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.goodNo LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GOODNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BARNO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.UNIT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.RANK LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.MODEL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPEID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BRANDID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BRANDNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.NUMS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.SENDNUMS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PURCHASENUMS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.costPrice LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PAYPRICE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.AMT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PAYABLEAMT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PAYAMT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.UNPAYAMT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.STOCKTYPE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.STOCKTYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
 </mapper>

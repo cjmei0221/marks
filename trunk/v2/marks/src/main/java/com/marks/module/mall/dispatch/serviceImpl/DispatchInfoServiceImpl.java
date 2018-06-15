@@ -222,7 +222,6 @@ public class DispatchInfoServiceImpl implements DispatchInfoService {
 		info.setGoodId(good.getGoodId());
 		info.setNums(good.getReceiveNums());
 		info.setOperator(vo.getCreator());
-		info.setOperatorId(vo.getCreatorCode());
 		info.setOrderId(vo.getOrderId());
 		info.setOrgid(vo.getReceiveOrgId());
 		info.setOrgname(vo.getReceiveOrgName());

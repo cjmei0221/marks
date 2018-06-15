@@ -28,8 +28,6 @@ public class StockBatchForm {
 	private String companyId;
 	private String orgid;
 	private String orgname;
-
-	private String operatorId;
 	private String operator;
 
 	private int stockManageType;// 库存管理方式
@@ -59,14 +57,6 @@ public class StockBatchForm {
 
 	public void setSupplier2(String supplier2) {
 		this.supplier2 = supplier2;
-	}
-
-	public String getOperatorId() {
-		return operatorId;
-	}
-
-	public void setOperatorId(String operatorId) {
-		this.operatorId = operatorId;
 	}
 
 	public String getOperator() {

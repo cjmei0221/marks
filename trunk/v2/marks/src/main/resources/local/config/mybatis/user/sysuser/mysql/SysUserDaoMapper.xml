@@ -10,13 +10,33 @@
 		where u.USERID =#{userid}
 	</select>
 	<select id="getMaxCode" resultType="String">
-		select max(userCode) from tb_user t where t.companyId=#{companyId}
+		select max(userCode) from
+		tb_user t where t.companyId=#{companyId}
 	</select>
 
 	<select id="findByMobile" resultType="com.marks.module.user.sysuser.pojo.SysUser">
 		select * from tb_user t
-		where t.ACTIVEFLAG=1 and t.bind_mobile=#{mobile} and t.COMPANYID=#{companyId}
+		where t.ACTIVEFLAG=1 and t.bind_mobile=#{mobile} and
+		t.COMPANYID=#{companyId}
 	</select>
+
+	<select id="findByParams" resultType="com.marks.module.user.sysuser.pojo.SysUser">
+		select * from tb_user t
+		where t.ACTIVEFLAG=1 and
+		t.COMPANYID=#{companyId}
+		and (1=1
+		<if test="userid != null and userid !=''">
+			or t.USERID=#{userid}
+		</if>
+		<if test="mobile != null and mobile !=''">
+			or t.bind_mobile=#{mobile}
+		</if>
+		<if test="userCode != null and userCode !=''">
+			or t.userCode=#{userCode}
+		</if>
+		)
+	</select>
+
 	<insert id="save" parameterType="com.marks.module.user.sysuser.pojo.SysUser">
 		INSERT INTO tb_user
 		(
@@ -290,10 +310,11 @@
 		update tb_user set
 		skin=#{skin},UPDATETIME=now() where userid=#{userid}
 	</update>
-	
+
 	<update id="updateUnbinding" flushCache="true">
 		update tb_user set
-		ACTIVEFLAG=0,bindflag=0,UPDATETIME=now() where accountid=#{accountId} and openid=#{openid}
+		ACTIVEFLAG=0,bindflag=0,UPDATETIME=now() where accountid=#{accountId}
+		and openid=#{openid}
 	</update>
 	<update id="updateBinding" flushCache="true">
 		UPDATE tb_user
@@ -315,6 +336,7 @@
 		UPDATETIME
 		=now()
 		WHERE
-		companyId=#{companyId} and userid !=#{userid} and (BIND_MOBILE=#{mobile} or openid=#{openid})
+		companyId=#{companyId}
+		and userid !=#{userid} and (BIND_MOBILE=#{mobile} or openid=#{openid})
 	</update>
 </mapper>

@@ -101,7 +101,7 @@
  	</delete>
  	
  	<select id="findAll" resultType="com.marks.module.fee.base.pojo.FeeType">
- 		SELECT * FROM TB_FEE_TYPE t
+ 		SELECT * FROM TB_FEE_TYPE t where t.STATUS=1  order by t.UPDATETIME desc
  	</select>
  	
  	<delete id="deleteBatch" parameterType="java.util.List">

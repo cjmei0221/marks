@@ -76,8 +76,7 @@ public class StockBatchController extends SupportContorller{
 			reqVo.setCompanyId(admin.getCompanyId());
 			reqVo.setOrgid(admin.getOrgId());
 			reqVo.setOrgname(admin.getOrgName());
-			reqVo.setOperator(admin.getUsername());
-			reqVo.setOperatorId(admin.getUserCode());
+			reqVo.setOperator(admin.getOperator());
 			logger.info("saveBarCode > param>" + reqVo.getGoodId() + " - " + reqVo.getNums());
 
 			result = stockBatchService.saveFirstStockIn(reqVo);
