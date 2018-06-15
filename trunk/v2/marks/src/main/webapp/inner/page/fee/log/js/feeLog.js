@@ -3,6 +3,7 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/inner/feeLog/save.do',// 保存新增费用明细接口
 	updateUrl : top.window.urlBase + '/inner/feeLog/update.do',// 编辑费用明细信息接口
 	deleteUrl : top.window.urlBase + '/inner/feeLog/delete.do',// 删除费用明细接口
+	excelUrl : top.window.urlBase + '/inner/feeLog/listExcel.do',// 获取订单管理列表接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -25,6 +26,10 @@ function add() {
 // 编辑
 function edit() {
 	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
+	}
+	if (appInfo.selectedData.isDel==0) {
+		showMsg("系统记录，不可编辑");
 		return;
 	}
 	$("#editWin").window({
@@ -56,6 +61,16 @@ function del() {
 	});
 
 }
+
+function exportExcel() {
+	appInfo.requestParam.keyword = $("#keyword").val();
+	appInfo.requestParam.startDate = $("#startDate").datebox('getValue');
+	appInfo.requestParam.endDate = $("#endDate").datebox('getValue');
+	location.href = appInfo.excelUrl + '?keyword='
+			+ appInfo.requestParam.keyword + "&startDate="
+			+ appInfo.requestParam.startDate + "&endDate="
+			+ appInfo.requestParam.endDate;
+}
 // -----------------权限控制功能 end---------------
 $(function() {
 	// 加载列表
@@ -74,6 +89,12 @@ $(function() {
 	});
 	$("#btnCancel").on("click", function() {
 		$("#editWin").window("close");
+	});
+	$("#feeCode").combobox({
+		onSelect : function(rec) {
+			var name=rec.typeName;
+			$("#feeName").val(name);
+		}
 	});
 });
 /**
@@ -152,7 +173,7 @@ function loadList() {
 			align : "center"
 		}, {
 			title : '交易金额',
-			field : 'tranAmt',
+			field : 'tranAmtShow',
 			width : 100,
 			align : "center"
 		}, {
@@ -161,7 +182,7 @@ function loadList() {
 			width : 100,
 			align : "center",
 			formatter : function(value, row, index) {
-				if(value==1){
+				if (value == 1) {
 					return '收入';
 				}
 				return '支出'
@@ -256,6 +277,8 @@ function loadList() {
 		appInfo.requestParam.page_number = params.page;
 		appInfo.requestParam.page_size = params.rows;
 		appInfo.requestParam.keyword = $("#keyword").val();
+		appInfo.requestParam.startDate = $("#startDate").datebox('getValue');
+		appInfo.requestParam.endDate = $("#endDate").datebox('getValue');
 		$.ajax({
 			url : opts.url,
 			type : "get",
