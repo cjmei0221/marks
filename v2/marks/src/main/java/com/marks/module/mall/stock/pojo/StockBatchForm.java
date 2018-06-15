@@ -1,6 +1,6 @@
 package com.marks.module.mall.stock.pojo;
 
-public class BarCodeForm {
+public class StockBatchForm {
 	/**
 	 * 商品编码
 	 *
@@ -16,7 +16,7 @@ public class BarCodeForm {
 	 * 采购单号
 	 *
 	 */
-	private String cgNo;
+	private String orderId;
 	/**
 	 * 进货价
 	 *
@@ -36,16 +36,6 @@ public class BarCodeForm {
 
 	private String supplierId2;// 供应商编号
 	private String supplier2;// 供应商
-
-	private String batchId;// 批次号
-
-	public String getBatchId() {
-		return batchId;
-	}
-
-	public void setBatchId(String batchId) {
-		this.batchId = batchId;
-	}
 
 	public int getStockManageType() {
 		return stockManageType;
@@ -127,12 +117,12 @@ public class BarCodeForm {
 		this.productDate = productDate;
 	}
 
-	public String getCgNo() {
-		return cgNo;
+	public String getOrderId() {
+		return orderId;
 	}
 
-	public void setCgNo(String cgNo) {
-		this.cgNo = cgNo;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
 	public String getCostPrice() {
