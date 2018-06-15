@@ -168,6 +168,16 @@ public class StockBatch implements Serializable {
 
 	private String goodTypeName;// 商品类型
 
+	private String orderId;// 订单号
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
 	public int getGoodType() {
 		return goodType;
 	}

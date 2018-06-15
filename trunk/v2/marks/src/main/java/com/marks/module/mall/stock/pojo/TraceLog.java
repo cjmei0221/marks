@@ -124,6 +124,16 @@ public class TraceLog implements Serializable {
 	 */
 	private String ywName;
 
+	private String orderId;
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
 	public int getGoodType() {
 		return goodType;
 	}
