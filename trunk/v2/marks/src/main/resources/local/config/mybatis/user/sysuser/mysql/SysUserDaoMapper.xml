@@ -313,13 +313,12 @@
 
 	<update id="updateUnbinding" flushCache="true">
 		update tb_user set
-		ACTIVEFLAG=0,bindflag=0,UPDATETIME=now() where accountid=#{accountId}
+		bindflag=0,UPDATETIME=now() where accountid=#{accountId}
 		and openid=#{openid}
 	</update>
 	<update id="updateBinding" flushCache="true">
 		UPDATE tb_user
 		SET
-		ACTIVEFLAG=1
 		bindflag = 1,
 		openid=#{openid},
 		accountId=#{accountid},

@@ -8,8 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marks.common.enums.Enums;
-import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Constants;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
 import com.marks.module.system.sysmenu.pojo.SysOperate;
@@ -41,18 +39,7 @@ public class LoginServiceImpl implements LoginService {
 				}
 			}
 			if (users.size() > 0) {
-				if (Enums.Status.Enable.getValue() == users.get(0).getActiveFlag()) {
-					return users.get(0);
-				} else {
-					SysUser info = null;
-					for (SysUser user : users) {
-						if (UserEnums.UserType.VIP.getValue().equals(user.getRoleType())) {
-							info = user;
-							break;
-						}
-					}
-					return info;
-				}
+				return users.get(0);
 			}
 		}
 		return null;
@@ -156,18 +143,7 @@ public class LoginServiceImpl implements LoginService {
 	public SysUser getSysUserByOpenidAndAccountid(String accountid, String openid) {
 		List<SysUser> list = loginDao.getSysUserByOpenidAndAccountid(accountid, openid);
 		if (null != list && list.size() > 0) {
-			if (Enums.Status.Enable.getValue() == list.get(0).getActiveFlag()) {
-				return list.get(0);
-			} else {
-				SysUser info = null;
-				for (SysUser user : list) {
-					if (UserEnums.UserType.VIP.getValue().equals(user.getRoleType())) {
-						info = user;
-						break;
-					}
-				}
-				return info;
-			}
+			return list.get(0);
 		}
 		return null;
 	}

@@ -201,11 +201,11 @@ public class StockBatchServiceImpl implements StockBatchService {
 		b.setTranAmt(MoneyUtil.multiply(nums + "", good.getCostPrice()));
 		b.setTranNums(nums);
 		b.setTranSaleAmt(MoneyUtil.multiply(nums + "", salePrice));
-		b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
+		b.setTranStatus(StockEnums.StockStatus.stockOut.getValue());
 		b.setGoodType(StockEnums.GoodType.good.getValue());
 		b.setTypeId(good.getTypeId());
 		b.setTypeName(good.getTypeName());
-		b.setYwCode(StockEnums.YwCode.fm_stockIn.getValue());
+		b.setYwCode(StockEnums.YwCode.sale_stockOut.getValue());
 		list.add(b);
 		return list;
 	}
@@ -299,8 +299,10 @@ public class StockBatchServiceImpl implements StockBatchService {
 			stock.setStockAmount("-" + info.getTranAmt());
 			stock.setStockNums(-info.getTranNums());
 		}
-		stock.setSaleNums(info.getTranNums());
-		stock.setSaleAmt(info.getTranSaleAmt());
+		if (StockEnums.YwCode.sale_stockOut.getValue() == info.getYwCode()) {
+			stock.setSaleNums(info.getTranNums());
+			stock.setSaleAmt(info.getTranSaleAmt());
+		}
 		String stockId = stockInfoService.save(stock);
 		// 更新库存批次
 		StockBatch ori = stockBatchDao.findById(info.getBatchId());
