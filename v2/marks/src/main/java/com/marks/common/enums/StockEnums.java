@@ -76,7 +76,6 @@ public class StockEnums {
 
 	public enum YwCode {
 		cg_stockIn(1, "采购入库"), //
-		fm_stockIn(2, "负买入库"), //
 		sale_stockOut(3, "售卖出库"), //
 		;// 会员
 
