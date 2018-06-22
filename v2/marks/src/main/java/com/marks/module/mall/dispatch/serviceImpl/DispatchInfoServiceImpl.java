@@ -21,12 +21,13 @@ import com.marks.module.mall.dispatch.dao.DispatchInfoDao;
 import com.marks.module.mall.dispatch.pojo.DispatchGood;
 import com.marks.module.mall.dispatch.pojo.DispatchInfo;
 import com.marks.module.mall.dispatch.service.DispatchInfoService;
+import com.marks.module.mall.stock.pojo.StockBatch;
 import com.marks.module.mall.stock.pojo.StockBatchForm;
 import com.marks.module.mall.stock.service.StockBatchService;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
 
-@Service
+@Service("dispatchInfoService")
 @Transactional
 public class DispatchInfoServiceImpl implements DispatchInfoService {
 
@@ -229,7 +230,86 @@ public class DispatchInfoServiceImpl implements DispatchInfoService {
 		info.setStockManageType(StockEnums.StockManageType.nums.getValue());
 		info.setSupplier2(vo.getSendOrgName());
 		info.setSupplierId2(vo.getSendOrgId());
+		info.setYwCode(StockEnums.YwCode.cg_stockIn.getValue());
+		info.setDispatchPrice(good.getPayPrice());
 		logger.info("saveBarCode > param>" + info.getGoodId() + " - " + info.getNums());
 		stockBatchService.saveFirstStockIn(info);
 	}
+
+	@Override
+	public void approveOk(Map<String, String> params) {
+		params.put("checkStatus", Enums.CheckStatus.checkOk.toString());
+		updateCheckStatus(params);
+	}
+
+	@Override
+	public void approveFail(Map<String, String> params) {
+		params.put("checkStatus", Enums.CheckStatus.checkFail.toString());
+		updateCheckStatus(params);
+	}
+
+	@Override
+	public void updateReceiveGoodForPh(DispatchInfo info, List<DispatchGood> goodList) {
+		for (DispatchGood good : goodList) {
+			good.setHadReceiveNums(good.getHadDispatchNums() + good.getReceiveNums());
+			info.setReceiveNums(info.getReceiveNums() + good.getReceiveNums());
+			dispatchGoodDao.updateRecevieNums(good.getOrderGoodId(), good.getReceiveNums());
+			good.setOrderId(info.getOrderId());
+			// 保存入库批次
+			saveStockBatchForPh(info, good);
+		}
+		int balNums = info.getTotalNums() - info.getReceiveNums() - info.getRefundNums();
+		if (balNums <= 0) {
+			info.setStatus(DispatchEnums.Status.end.getValue());
+		} else {
+			info.setStatus(DispatchEnums.Status.part.getValue());
+		}
+		dispatchInfoDao.updateRecevieNums(info);
+	}
+
+	/**
+	 * 调货收货
+	 * 
+	 * @param info
+	 * @param good
+	 */
+	private void saveStockBatchForPh(DispatchInfo info, DispatchGood good) {
+		List<StockBatch> list = stockBatchService.getStockBatchByNums(info.getSendOrgId(), good.getGoodId(),
+				good.getReceiveNums());
+		int nums = good.getReceiveNums();
+		String costAmt = "";
+		if (null != list && list.size() > 0) {
+			for (StockBatch batch : list) {
+				nums = nums - batch.getTranNums();
+				batch.setTranAmt(MoneyUtil.multiply(String.valueOf(batch.getTranNums()), batch.getCostPrice()));
+				costAmt = MoneyUtil.add(costAmt, batch.getTranAmt());
+				batch.setBalAmt(MoneyUtil.subtract(batch.getBalAmt(), batch.getTranAmt()));
+				batch.setBalNums(batch.getBalNums() - batch.getTranNums());
+				batch.setYwCode(StockEnums.YwCode.dh_stockOut.getValue());
+			}
+			stockBatchService.updateStockOut(list, null);
+		}
+		// 防止库存不足
+		if (nums > 0) {
+			costAmt = MoneyUtil.add(costAmt, MoneyUtil.multiply(good.getCostPrice(), String.valueOf(nums)));
+		}
+		String costPrice = MoneyUtil.divide(costAmt, String.valueOf(good.getReceiveNums()));
+		StockBatchForm batch = new StockBatchForm();
+		batch.setCompanyId(info.getCompanyId());
+		batch.setCostPrice(costPrice);
+		batch.setGoodId(good.getGoodId());
+		batch.setNums(good.getReceiveNums());
+		batch.setOperator(info.getCreator());
+		batch.setOrderId(info.getOrderId());
+		batch.setOrgid(info.getReceiveOrgId());
+		batch.setOrgname(info.getReceiveOrgName());
+		batch.setProductDate(DateUtil.getCurrDateStr().substring(0, 10));
+		batch.setStockManageType(StockEnums.StockManageType.nums.getValue());
+		batch.setSupplier2(info.getSendOrgName());
+		batch.setSupplierId2(info.getSendOrgId());
+		batch.setYwCode(StockEnums.YwCode.dh_stockIn.getValue());
+		batch.setDispatchPrice(good.getPayPrice());
+		stockBatchService.saveFirstStockIn(batch);
+	}
+
 }

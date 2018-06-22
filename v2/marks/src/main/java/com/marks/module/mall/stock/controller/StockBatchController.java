@@ -18,7 +18,6 @@ import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.stock.pojo.StockBatch;
-import com.marks.module.mall.stock.pojo.StockBatchForm;
 import com.marks.module.mall.stock.service.StockBatchService;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -63,31 +62,6 @@ public class StockBatchController extends SupportContorller{
 		JsonUtil.output(response, result);
     }
     
-    /**
-	 * 首次入库
-	 */
-    @RequestMapping("/inner/stockBatch/save")
-    public void saveStockBatch(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			StockBatchForm reqVo = getModel(StockBatchForm.class);
-			reqVo.setCompanyId(admin.getCompanyId());
-			reqVo.setOrgid(admin.getOrgId());
-			reqVo.setOrgname(admin.getOrgName());
-			reqVo.setOperator(admin.getOperator());
-			logger.info("saveBarCode > param>" + reqVo.getGoodId() + " - " + reqVo.getNums());
-
-			result = stockBatchService.saveFirstStockIn(reqVo);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("保存失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
 	
 	/**
 	 * 查询全部库存批次

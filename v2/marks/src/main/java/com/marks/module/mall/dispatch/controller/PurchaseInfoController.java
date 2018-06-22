@@ -1,6 +1,5 @@
 package com.marks.module.mall.dispatch.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,19 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.marks.common.domain.PaginationResult;
-import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.DispatchEnums;
 import com.marks.common.enums.Enums;
 import com.marks.common.enums.WorkEnums;
 import com.marks.common.util.Code;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.dispatch.pojo.DispatchGood;
 import com.marks.module.mall.dispatch.pojo.DispatchInfo;
-import com.marks.module.mall.dispatch.service.DispatchGoodService;
 import com.marks.module.mall.dispatch.service.DispatchInfoService;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -38,14 +33,12 @@ import net.sf.json.JSONArray;
  * 采购单:
  */
 @Controller
-public class DispatchInfoController extends SupportContorller {
-	private static Logger logger = Logger.getLogger(DispatchInfoController.class);
+public class PurchaseInfoController extends SupportContorller {
+	private static Logger logger = Logger.getLogger(PurchaseInfoController.class);
 
 	@Autowired
 	private DispatchInfoService dispatchInfoService;
 
-	@Autowired
-	private DispatchGoodService dispatchGoodService;
 	@Autowired
 	private WorkInfoService workInfoService;
 
@@ -55,57 +48,10 @@ public class DispatchInfoController extends SupportContorller {
 	}
 
 	/**
-	 * 查询采购单
-	 */
-	@RequestMapping("/inner/dispatchInfo/findById")
-	public void findDispatchInfoById(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			String orderId = request.getParameter("orderId");
-
-			String page_size = request.getParameter("page_size");
-
-			String formStatus = request.getParameter("formStatus");
-
-			int len = Integer.parseInt(page_size);
-
-			DispatchInfo vo = dispatchInfoService.findById(orderId);
-			if (vo == null) {
-				vo = new DispatchInfo();
-				vo.setOrderId(IDUtil.getProjectCode());
-			}
-			List<DispatchGood> list = dispatchGoodService.findByOrderId(orderId);
-			if (null == list) {
-				list = new ArrayList<DispatchGood>();
-			}
-			if ("new".equals(formStatus) || "edit".equals(formStatus)) {
-				int size = list.size();
-				if (size < len) {
-					DispatchGood info = null;
-					for (int i = size; i < len; i++) {
-						info = new DispatchGood();
-						info.setOrderGoodId(IDUtil.getNumID());
-						list.add(info);
-					}
-				}
-			}
-			result.getData().put("info", vo);
-			result.getData().put("list", list);
-			result.setMessage("findById successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("查询失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-
-	/**
 	 * 保存采购单
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/inner/dispatchInfo/save")
+	@RequestMapping("/inner/purchase/save")
 	public void saveDispatchInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -146,7 +92,7 @@ public class DispatchInfoController extends SupportContorller {
 	 * 更改采购单
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/inner/dispatchInfo/update")
+	@RequestMapping("/inner/purchase/update")
 	public void updateDispatchInfo(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -179,7 +125,7 @@ public class DispatchInfoController extends SupportContorller {
 	 * 保存收货记录
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/inner/dispatchInfo/receive")
+	@RequestMapping("/inner/purchase/receive")
 	public void receive(HttpServletRequest request, HttpServletResponse response) {
 		Result result = new Result();
 		try {
@@ -197,7 +143,7 @@ public class DispatchInfoController extends SupportContorller {
 				ori.setReceiveOrgId(admin.getOrgId());
 				ori.setReceiveOrgName(admin.getOrgName());
 				ori.setCreator(admin.getOperator());
-				dispatchInfoService.updateReceiveGoodForPh(ori, goodList);
+				dispatchInfoService.updateReceiveGood(ori, goodList);
 				result.setMessage("更新成功!");
 				result.setCode(Code.CODE_SUCCESS);
 			}
@@ -209,99 +155,11 @@ public class DispatchInfoController extends SupportContorller {
 		JsonUtil.output(response, result);
 	}
 
-	/**
-	 * 删除采购单
-	 */
-	@RequestMapping("/inner/dispatchInfo/delete")
-	public void deleteDispatchInfoById(HttpServletRequest request, HttpServletResponse response) {
-		Result result = new Result();
-		try {
-			DispatchInfo info = getModel(DispatchInfo.class);
 
-			logger.info("deleteDispatchInfoById > param>" + info.getOrderId());
 
-			dispatchInfoService.delete(info.getOrderId());
-			result.setMessage("删除成功!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("删除失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
 
-	/**
-	 * 查询全部采购单
-	 */
 
-	/*
-	 * @RequestMapping("/inner/dispatchInfo/findAllDispatchInfo") public void
-	 * findAllDispatchInfo(HttpServletRequest request, HttpServletResponse
-	 * response){ Result result = new Result(); try { List<DispatchInfo> allList
-	 * = dispatchInfoService.findAll(); result.getData().put("allList",allList);
-	 * result.setMessage("findAll dispatchInfo successs!");
-	 * result.setCode(Code.CODE_SUCCESS); } catch (Exception e) {
-	 * logger.error(e.getMessage(),e);
-	 * result.setMessage("findAll dispatchInfo fail!");
-	 * result.setCode(Code.CODE_FAIL); } JsonUtil.output(response, result); }
-	 */
-
-	/**
-	 * 删除多个采购单
-	 */
-	/*
-	 * @RequestMapping("/inner/dispatchInfo/deleteIds") public void
-	 * deleteDispatchInfo(HttpServletRequest request, HttpServletResponse
-	 * response){ Result result = new Result(); try { String id =
-	 * request.getParameter("orderId"); logger.info("delete batch> param>"+id);
-	 * String[] ids = id.split(","); List<String> idList = new
-	 * ArrayList<String>(); for(int i=0;i<ids.length;i++){ idList.add(ids[i]); }
-	 * if(idList.size()>0){ dispatchInfoService.deleteBatch(idList);
-	 * result.setMessage("删除成功!"); result.setCode(Code.CODE_SUCCESS); }else{
-	 * result.setMessage("删除失败，请联系管理员!"); result.setCode(Code.CODE_FAIL); }
-	 * 
-	 * } catch (Exception e) { logger.error(e.getMessage(),e);
-	 * result.setMessage("delete dispatchInfo fail!");
-	 * result.setCode(Code.CODE_FAIL); } JsonUtil.output(response, result); }
-	 */
-
-	/**
-	 * 列表查询
-	 */
-	@RequestMapping("/inner/dispatchInfo/list")
-	public void list(HttpServletRequest request, HttpServletResponse response) {
-		PaginationResult result = new PaginationResult();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-			int page_number = Integer.parseInt(request.getParameter("page_number"));
-			int page_size = Integer.parseInt(request.getParameter("page_size"));
-			if (page_size > 200) {
-				page_size = 200;
-			}
-			String keyword = request.getParameter("keyword");
-			logger.info("list> param>" + page_number + "-" + page_size + "-" + keyword);
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("keyword", keyword);
-			param.put("ywCode", request.getParameter("ywCode"));
-			param.put("typeCode", request.getParameter("typeCode"));
-			PojoDomain<DispatchInfo> list = dispatchInfoService.list(page_number, page_size, param);
-			result.getData().put("list", list.getPojolist());
-			result.setPageNumber(list.getPage_number());
-			result.setPageSize(list.getPage_size());
-			result.setPageTotal(list.getPage_total());
-			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find dispatchInfo successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setMessage("find dispatchInfo fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-
-	@RequestMapping("/inner/dispatchInfo/approve")
+	@RequestMapping("/inner/purchase/approve")
 	public void approve(HttpServletRequest request, HttpServletResponse response) {
 
 		Result result = new Result();
@@ -328,7 +186,7 @@ public class DispatchInfoController extends SupportContorller {
 			work.setCompanyId(admin.getCompanyId());
 			work.setIdNo(idNo);
 			work.setRemarks(info.getSendOrgName());
-			work.setTypeCode(WorkEnums.WorkType.dispatch_ps.getValue());
+			work.setTypeCode(WorkEnums.WorkType.dispatch_cg.getValue());
 			boolean isCheck = workInfoService.save(work);
 			if (isCheck) {
 				Map<String, String> map = new HashMap<String, String>();

@@ -211,9 +211,19 @@ public class DispatchInfo implements Serializable {
 
 	private int refundNums;
 
+	private String oldOrderId;// 原订单
+
 	public DispatchInfo() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getOldOrderId() {
+		return oldOrderId;
+	}
+
+	public void setOldOrderId(String oldOrderId) {
+		this.oldOrderId = oldOrderId;
 	}
 
 	public int getRefundNums() {

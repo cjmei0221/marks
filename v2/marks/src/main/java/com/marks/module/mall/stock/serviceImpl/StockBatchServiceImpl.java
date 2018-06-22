@@ -107,7 +107,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setSupplierId(info.getSupplierId2());
 			b.setSupplierName(info.getSupplier2());
 			b.setUpdater(info.getOperator());
-			b.setYwCode(StockEnums.YwCode.cg_stockIn.getValue());
+			b.setYwCode(info.getYwCode());
 			b.setGoodType(StockEnums.GoodType.good.getValue());
 			if (good.getValidDays() > 0) {
 				b.setExpireDate(DateUtil.getAfterDateByDays(info.getProductDate(), good.getValidDays()));
@@ -117,8 +117,8 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setTranAmt(b.getAmount());
 			b.setTranNums(b.getNums());
 			b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
-			b.setTradePrice(b.getCostPrice());
-			b.setTradePriceAmt(b.getAmount());
+			b.setTradePrice(info.getDispatchPrice());
+			b.setTradePriceAmt(MoneyUtil.multiply(b.getTradePrice(), String.valueOf(info.getNums())));
 			b.setOrderId(info.getOrderId());
 			b.setOperator(info.getOperator());
 			dealStock(b);
@@ -153,7 +153,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 		}
 		// 数量管理
 		if (nums > 0) {
-			List<StockBatch> numslist = getStockBatchByNums(order.getOrgId(), good, nums);
+			List<StockBatch> numslist = getStockBatchByNums(order.getOrgId(), good.getGoodId(), nums);
 			if (null != numslist && numslist.size() > 0) {
 				list.addAll(numslist);
 				for (StockBatch b : numslist) {
@@ -248,8 +248,8 @@ public class StockBatchServiceImpl implements StockBatchService {
 	}
 
 
-	private List<StockBatch> getStockBatchByNums(String orgId, OrderGood good, int nums) {
-		List<StockBatch> list = stockBatchDao.getStockBatchByGoodIdAndOrgId(orgId, good.getGoodId());
+	public List<StockBatch> getStockBatchByNums(String orgId, String goodId, int nums) {
+		List<StockBatch> list = stockBatchDao.getStockBatchByGoodIdAndOrgId(orgId, goodId);
 		List<StockBatch> returnList = null;
 		if (null != list && list.size() > 0) {
 			returnList = new ArrayList<StockBatch>();
@@ -274,6 +274,17 @@ public class StockBatchServiceImpl implements StockBatchService {
 		for (StockBatch batch : stockList) {
 			batch.setTranStatus(StockEnums.StockStatus.stockOut.getValue());
 			batch.setYwCode(StockEnums.YwCode.sale_stockOut.getValue());
+			dealStock(batch);
+		}
+		if (null != barCodeList && barCodeList.size() > 0) {
+			barCodeService.updateBarCodeStockOut(barCodeList);
+		}
+	}
+
+	@Override
+	public void updateStockOut(List<StockBatch> stockList, List<BarCode> barCodeList) {
+		for (StockBatch batch : stockList) {
+			batch.setTranStatus(StockEnums.StockStatus.stockOut.getValue());
 			dealStock(batch);
 		}
 		if (null != barCodeList && barCodeList.size() > 0) {

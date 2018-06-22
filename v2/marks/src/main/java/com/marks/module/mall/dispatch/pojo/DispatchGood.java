@@ -168,9 +168,19 @@ public class DispatchGood implements Serializable {
 
 	private int refundNums;// 退货数量
 
+	private String dispatchPrice;// 配送价
+
 	public DispatchGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getDispatchPrice() {
+		return dispatchPrice;
+	}
+
+	public void setDispatchPrice(String dispatchPrice) {
+		this.dispatchPrice = dispatchPrice;
 	}
 
 	public int getHadRefundNums() {
