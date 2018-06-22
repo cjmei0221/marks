@@ -1,8 +1,5 @@
 var appInfo = {
 	listUrl : top.window.urlBase + '/inner/dispatchInfo/list.do',// 获取采购单列表接口
-	// DispatchInfo
-	saveUrl : top.window.urlBase + '/inner/dispatchInfo/save.do',// 保存新增采购单接口
-	updateUrl : top.window.urlBase + '/inner/dispatchInfo/update.do',// 编辑采购单信息接口
 	deleteUrl : top.window.urlBase + '/inner/dispatchInfo/delete.do',// 删除采购单接口
 	selectedId : -1,
 	selectedData : {},
@@ -10,14 +7,14 @@ var appInfo = {
 		page_number : 1,
 		page_size : 10,
 		keyword : "",
-		ywCode:2
+		ywCode:1
 	},
 	formStatus : "new"
 };
 // -----------------权限控制功能 start---------------
 // 新增
 function add() {
-	var path = "dispatchGood.html?formStatus=new&returnType=0&idNo=1";
+	var path = "purchaseGood.html?formStatus=new&returnType=0&idNo=1";
 	location.href = path;
 }
 
@@ -34,7 +31,7 @@ function edit() {
 		showMsg("审核中，不可编辑");
 		return;
 	}
-	var path = "dispatchGood.html?formStatus=edit&returnType=0&idNo="
+	var path = "purchaseGood.html?formStatus=edit&returnType=0&idNo="
 			+ appInfo.selectedId;
 	location.href = path;
 }
@@ -46,7 +43,7 @@ function receive() {
 		showMsg("审核未通过，不可收货");
 		return;
 	}
-	var path = "dispatchGood.html?edit=receive&returnType=0&idNo="
+	var path = "purchaseGood.html?formStatus=receive&returnType=0&idNo="
 			+ appInfo.selectedId;
 	location.href = path;
 }
@@ -71,7 +68,15 @@ function del() {
 			});
 		}
 	});
-
+}
+//详情
+function showDetail() {
+	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
+	}
+	var path = "purchaseGood.html?formStatus=detail&returnType=0&idNo="
+			+ appInfo.selectedId;
+	location.href = path;
 }
 // -----------------权限控制功能 end---------------
 $(function() {
@@ -93,39 +98,6 @@ $(function() {
 		$("#editWin").window("close");
 	});
 });
-/**
- * 保存菜单
- */
-function formSubmit() {
-	if (!$('#ff').form('validate')) {
-		showMsg("表单校验不通过");
-		return;
-	}
-	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
-			: appInfo.updateUrl;
-	var parms = $("#ff").serialize();
-	parms += "&formStatus=" + appInfo.formStatus;
-	$.post(reqUrl, parms, function(data) {
-		if (typeof data === 'string') {
-			try {
-				data = $.parseJSON(data);
-			} catch (e0) {
-				showMsg("json格式错误");
-				return;
-			}
-		}
-		if (data.retcode == "0") {
-			$("#editWin").window("close");
-			app.myreload("#tbList");
-			appInfo.selectedData = {};
-			appInfo.selectedId = -1;
-			showMsg("保存成功");
-		} else {
-			showMsg(data.retmsg);
-		}
-	});
-}
-
 function loadList() {
 	$('#tbList').datagrid({
 		url : appInfo.listUrl,
@@ -149,7 +121,7 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '收货门店',
+			title : '要货门店',
 			field : 'receiveOrgName',
 			width : 100,
 			align : "center"
@@ -189,7 +161,7 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
-			title : '销售金额',
+			title : '优惠金额',
 			field : 'salesAmt',
 			width : 100,
 			align : "center"
@@ -270,7 +242,7 @@ function loadList() {
 		onDblClickRow : function(rowIndex, rowData) {
 			appInfo.selectedId = rowData.orderId;
 			appInfo.selectedData = rowData;
-			edit();
+			showDetail();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');

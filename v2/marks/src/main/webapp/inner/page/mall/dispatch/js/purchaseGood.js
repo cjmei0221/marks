@@ -1,10 +1,10 @@
 var appInfo = {
 	listUrl : top.window.urlBase + '/inner/dispatchInfo/findById.do',// 获取采购商品列表接口
 	getGoodUrl : top.window.urlBase + '/inner/dispatchGood/findGoodInfoById.do',// 获取采购商品列表接口
-	saveUrl : top.window.urlBase + '/inner/dispatchInfo/save.do',// 保存新增采购单接口
-	updateUrl : top.window.urlBase + '/inner/dispatchInfo/update.do',// 编辑采购单信息接口
-	approveUrl : top.window.urlBase + '/inner/dispatchInfo/approve.do',// 编辑采购单信息接口
-	receiveUrl : top.window.urlBase + '/inner/dispatchInfo/receive.do',// 编辑采购单信息接口
+	saveUrl : top.window.urlBase + '/inner/purchase/save.do',// 保存新增采购单接口
+	updateUrl : top.window.urlBase + '/inner/purchase/update.do',// 编辑采购单信息接口
+	approveUrl : top.window.urlBase + '/inner/purchase/approve.do',// 编辑采购单信息接口
+	receiveUrl : top.window.urlBase + '/inner/purchase/receive.do',// 编辑采购单信息接口
 	// DispatchGood
 	selectedId : -1,
 	selectedData : {},
@@ -51,12 +51,14 @@ $(function() {
 		showOrHide(1);
 	}else if(appInfo.formStatus=='check'){
 		showOrHide(2);
+	}else if( appInfo.formStatus=='detail'){
+		showOrHide(3);
 	}else{
 		showOrHide(0);
 	}
 });
 function returnList(){
-	var url = "./dispatchInfo.html?&menuid=M_mall_dispatch_dispatchInfo";
+	var url = "./purchaseInfo.html?&menuid=M_20180620_59749208";
 	location.href = url;
 }
 function showOrHide(flag){
@@ -71,6 +73,13 @@ function showOrHide(flag){
 		$("#tbList").datagrid("showColumn", "receiveNums"); // 设置隐藏列
 		$("#tbList").datagrid("hideColumn", "oper"); 
 		$("#btnDiv").hide();
+	}else if(flag==3){
+		$("#tbList").datagrid("showColumn", "hadReceiveNums"); // 设置隐藏列
+		$("#tbList").datagrid("showColumn", "receiveNums"); // 设置隐藏列
+		$("#tbList").datagrid("hideColumn", "oper"); 
+		$("#btnOK").hide();
+		$("#btnCheck").hide();
+		$("#returnParent").show();
 	}else{
 		$("#tbList").datagrid("hideColumn", "hadReceiveNums"); // 设置隐藏列
 		$("#tbList").datagrid("hideColumn", "receiveNums"); // 设置隐藏列
@@ -109,7 +118,8 @@ function formSubmit() {
 	}
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
-	parms += "&ywCode=2";
+	parms += "&ywCode=1";
+	parms += "&typeCode=1";
 	parms += "&goodData=" + JSON.stringify(attrList);
 	$.post(reqUrl, parms, function(data) {
 		if (typeof data === 'string') {
@@ -139,13 +149,14 @@ function delRow(idx) {
 }
 function setEditing(rowIndex) {
 	var editors = $('#tbList').datagrid('getEditors', rowIndex);
-	console.log(editors);
 	var goodCodeEditor = editors[0];
 	var numsEditor = editors[1];
-	var costPriceEditor = editors[3];
-	var amtEditor = editors[4];
-	var salePriceEditor = editors[5];
-	var saleAmtEditor = editors[6];
+	var taxRateEditor = editors[3];
+	var costPriceEditor = editors[4];
+	var amtEditor = editors[5];
+	var taxAmtEditor = editors[6];
+	var salePriceEditor = editors[7];
+	var saleAmtEditor = editors[8];
 	goodCodeEditor.target.bind('change', function() {
 		var goodCode = goodCodeEditor.target.val()
 		getGoodInfo(rowIndex, goodCode);
@@ -153,12 +164,19 @@ function setEditing(rowIndex) {
 	numsEditor.target.bind('change', function() {
 		calculateNums();
 	});
-	
+	taxRateEditor.target.bind('change', function() {
+		calculateTax();
+	});
 	function calculateNums() {
 		var amt = numsEditor.target.val() * costPriceEditor.target.val();
 		var saleAmt = numsEditor.target.val() * salePriceEditor.target.val();
 		$(amtEditor.target).numberbox('setValue', amt);
 		$(saleAmtEditor.target).numberbox('setValue', saleAmt);
+	}
+	function calculateTax() {
+		var taxAmt = numsEditor.target.val() * costPriceEditor.target.val()
+				* taxRateEditor.target.val() / 100;
+		$(taxAmtEditor.target).numberbox('setValue', taxAmt);
 	}
 }
 function getGoodInfo(rowIndex, goodCode) {
@@ -276,10 +294,15 @@ function loadList() {
 											precision : 0
 										}
 									}
-								
 								}, {
-									title : '配送价',
-									field : 'dispatchPrice',
+									title : '税率%',
+									field : 'taxRate',
+									width : 100,
+									align : "center",
+									editor : "validatebox"
+								}, {
+									title : '采购价',
+									field : 'costPrice',
 									width : 100,
 									align : "center",
 									editor : {
@@ -291,6 +314,17 @@ function loadList() {
 								}, {
 									title : '金额',
 									field : 'amt',
+									width : 100,
+									align : "center",
+									editor : {
+										type : 'numberbox',
+										options : {
+											precision : 2
+										}
+									}
+								}, {
+									title : '税额',
+									field : 'taxAmt',
 									width : 100,
 									align : "center",
 									editor : {
@@ -343,8 +377,10 @@ function loadList() {
 							loader(that, params, success, loadError);
 						},
 						onClickRow : function(rowIndex, rowData) {
-							$("#tbList").datagrid("beginEdit", rowIndex);
-							setEditing(rowIndex);
+							if(appInfo.formStatus != 'detail' && appInfo.formStatus!='check'){
+								$("#tbList").datagrid("beginEdit", rowIndex);
+								setEditing(rowIndex);
+							}
 						},
 						onClickCell : function(rowIndex, field, value) {
 
