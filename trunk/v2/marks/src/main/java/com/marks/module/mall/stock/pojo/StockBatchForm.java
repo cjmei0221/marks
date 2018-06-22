@@ -35,6 +35,26 @@ public class StockBatchForm {
 	private String supplierId2;// 供应商编号
 	private String supplier2;// 供应商
 
+	private int ywCode;// 业务
+
+	private String dispatchPrice;// 配送价
+
+	public String getDispatchPrice() {
+		return dispatchPrice;
+	}
+
+	public void setDispatchPrice(String dispatchPrice) {
+		this.dispatchPrice = dispatchPrice;
+	}
+
+	public int getYwCode() {
+		return ywCode;
+	}
+
+	public void setYwCode(int ywCode) {
+		this.ywCode = ywCode;
+	}
+
 	public int getStockManageType() {
 		return stockManageType;
 	}

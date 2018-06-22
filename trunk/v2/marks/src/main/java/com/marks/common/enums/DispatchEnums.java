@@ -40,12 +40,13 @@ public class DispatchEnums {
 	}
 
 	public enum TypeCode {
-		cg_apply("1", "申请采购"), // 系统用户
+		cg_apply("1", "采购单"), // 系统用户
 		cg_receive("2", "采购收货"), //
 		cg_refund("3", "采购退货"), //
-		dh_apply("11", "申请调货"), // 系统用户
-		dh_receive("12", "调货收货"), //
-		dh_refund("13", "调货退货"), //
+		dh_apply("11", "要货单"), // 系统用户
+		dh_receive("12", "收货单"), //
+		dh_refund("13", "退货单"), //
+		dh_send("14", "调货单"), //
 		;// 会员
 
 		private String status;

@@ -153,10 +153,10 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 		work.setCurrUserid(info.getOperatorId());
 		work.setCurrUsername(info.getOperatorName());
 		info.setStep(work.getNextStep());
-		WorkTypeStep currStep = workTypeStepDao
-				.findById(work.getCompanyId() + "_" + work.getTypeCode() + "_" + info.getStep());
+		info.setStepId(work.getNextStepId());
+		info.setStepName(work.getNextStepName());
 		info.setStepId(work.getWorkId() + "_" + info.getStep());
-		info.setStepName(currStep.getStepName());
+		WorkTypeStep currStep = workTypeStepDao.findById(work.getNextStepId());
 		int next = work.getNextStep() + 1;
 		WorkTypeStep nextStep = workTypeStepDao.findById(work.getCompanyId() + "_" + work.getTypeCode() + "_" + next);
 

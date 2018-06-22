@@ -41,4 +41,22 @@ public interface StockBatchService{
 	 * @param stockList
 	 */
 	public void updateSaleOut(List<StockBatch> stockList, List<BarCode> barCodeList);
+
+	/**
+	 * 根据数量获取相关批次
+	 * 
+	 * @param order
+	 * @param good
+	 * @param nums
+	 * @return
+	 */
+	public List<StockBatch> getStockBatchByNums(String orgId, String goodId, int nums);
+
+	/**
+	 * 出库
+	 * 
+	 * @param list
+	 * @param object
+	 */
+	public void updateStockOut(List<StockBatch> list, List<BarCode> barCodeList);
 }

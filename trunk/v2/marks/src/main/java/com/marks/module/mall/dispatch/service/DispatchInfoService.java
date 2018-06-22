@@ -7,8 +7,9 @@ import java.util.Map;
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.mall.dispatch.pojo.DispatchGood;
 import com.marks.module.mall.dispatch.pojo.DispatchInfo;
+import com.marks.module.work.info.service.CheckService;
 
-public interface DispatchInfoService{
+public interface DispatchInfoService extends CheckService {
 
 	public DispatchInfo findById(String orderId);
 
@@ -28,10 +29,18 @@ public interface DispatchInfoService{
 	public void updateCheckStatus(Map<String, String> map);
 
 	/**
-	 * 更新收货信息
+	 * 采购收货
 	 * 
 	 * @param info
 	 * @param goodList
 	 */
 	public void updateReceiveGood(DispatchInfo info, List<DispatchGood> goodList);
+
+	/**
+	 * 配货收货
+	 * 
+	 * @param ori
+	 * @param goodList
+	 */
+	public void updateReceiveGoodForPh(DispatchInfo ori, List<DispatchGood> goodList);
 }
