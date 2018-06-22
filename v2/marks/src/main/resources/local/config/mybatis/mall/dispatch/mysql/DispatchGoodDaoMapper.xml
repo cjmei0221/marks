@@ -50,7 +50,8 @@
 		taxAmt,
 		salePrice,
 		saleAmt,
-		remarks
+		remarks,
+		dispatchPrice
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -85,7 +86,8 @@
 		#{info.taxAmt:VARCHAR},
 		#{info.salePrice:VARCHAR},
 		#{info.saleAmt:VARCHAR},
-		#{info.remarks:VARCHAR}
+		#{info.remarks:VARCHAR},
+		#{info.dispatchPrice:VARCHAR}
 		)
 	</insert>
 
@@ -123,7 +125,8 @@
 		taxAmt,
 		salePrice,
 		saleAmt,
-		remarks
+		remarks,
+		dispatchPrice
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -161,7 +164,8 @@
 			#{info.taxAmt:VARCHAR},
 			#{info.salePrice:VARCHAR},
 			#{info.saleAmt:VARCHAR},
-			#{info.remarks:VARCHAR}
+			#{info.remarks:VARCHAR},
+			#{info.dispatchPrice:VARCHAR}
 			)
 		</foreach>
 	</insert>
