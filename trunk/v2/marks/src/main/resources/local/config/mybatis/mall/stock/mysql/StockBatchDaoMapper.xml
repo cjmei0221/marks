@@ -44,7 +44,8 @@
 		tradePrice,
 		tradePriceAmt,
 		goodType,
-		goodTypeName
+		goodTypeName,
+		orderId
 		)
 		VALUES(
 		#{info.batchId:VARCHAR},
@@ -78,7 +79,8 @@
 		#{info.tradePrice:VARCHAR},
 		#{info.tradePriceAmt:VARCHAR},
 		#{info.goodType:NUMERIC},
-		#{info.goodTypeName:VARCHAR}
+		#{info.goodTypeName:VARCHAR},
+		#{info.orderId:VARCHAR}
 		)
 	</insert>
 
@@ -115,7 +117,8 @@
 		tradePrice,
 		tradePriceAmt,
 		goodType,
-		goodTypeName
+		goodTypeName,
+		orderId
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -152,7 +155,8 @@
 			#{info.tradePrice:VARCHAR},
 			#{info.tradePriceAmt:VARCHAR},
 			#{info.goodType:NUMERIC},
-			#{info.goodTypeName:VARCHAR}
+			#{info.goodTypeName:VARCHAR},
+			#{info.orderId:VARCHAR}
 			)
 		</foreach>
 	</insert>

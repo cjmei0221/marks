@@ -54,7 +54,8 @@
 		creatorCode,
 		creator,
 		deadlineDate,
-		remarks
+		remarks,
+		oldOrderId
 		)
 		VALUES(
 		#{info.orderId:VARCHAR},
@@ -98,7 +99,8 @@
 		#{info.creatorCode:VARCHAR},
 		#{info.creator:VARCHAR},
 		#{info.deadlineDate:VARCHAR},
-		#{info.remarks:VARCHAR}
+		#{info.remarks:VARCHAR},
+		#{info.oldOrderId:VARCHAR}
 		)
 	</insert>
 
@@ -181,40 +183,18 @@
 		SELECT *
 		FROM TB_MALL_DISPATCH_INFO t
 		WHERE 1=1
+		<if test="ywCode!=null and ywCode!=''">
+			and t.YWCODE=#{ywCode}
+		</if>
+		<if test="typeCode!=null and typeCode!=''">
+			and t.typeCode=#{typeCode}
+		</if>
 		<if test="keyword!=null and keyword!=''">
 			and ( 2=1 or t.ORDERID LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.COMPANYID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or t.RECEIVEORGID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or t.RECEIVEORGNAME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.COMMITTIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.CASHDATE LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.TOTALAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.PAYABLEAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.PAYAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.UNPAYAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.CREATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.UPDATETIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.TOTALNUMS LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.SALESAMT LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.SENDNUMS LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.RECEIVENUMS LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.DISPATCHNUMS LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or t.SENDORGID LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
@@ -230,30 +210,8 @@
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			or t.SENDCONTACT LIKE
 			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.CHECKSTATUS LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.CHECKTIME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.CHECKCODE LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.CHECKER LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.YWCODE LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.YWNAME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.TYPECODE LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.TYPENAME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.STATUSNAME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
-			or t.CHECKSTATUSNAME LIKE
-			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
 			)
 		</if>
-
-
 		order by t.UPDATETIME DESC
 	</select>
 
