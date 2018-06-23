@@ -12,7 +12,7 @@ var appInfo = {
 		parentId : ""
 	},
 	formStatus : "new",
-	orgType : 0,
+	orgType : 3,
 	orgCategory:0
 };
 
@@ -150,7 +150,7 @@ function formSubmit() {
 function loadList() {
 	$('#tbList').treegrid(
 			{
-				url : appInfo.listUrl + "?orgType=0",
+				url : appInfo.listUrl + "?orgType="+appInfo.orgType,
 				toolbar : "#tb",
 				rownumbers : true,
 				idField : 'orgid',

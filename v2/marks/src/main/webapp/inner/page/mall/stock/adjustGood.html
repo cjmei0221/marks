@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- DispatchGood.html -->
+<!-- AdjustGood.html -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -25,11 +25,11 @@
 </head>
 
 <body>
-
 	<div id="mainPanel">
 		<!-- <p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p> -->
 		<div id="tb">
-			<div id="btnDiv" style="margin-top: 10px; margin-bottom: 10px;display:none;">
+			<div id="btnDiv"
+				style="margin-top: 10px; margin-bottom: 10px; display: none;">
 				&nbsp;&nbsp;&nbsp;&nbsp;<a id="returnParent" name="returnParent"
 					href="javascript:void(0)" class="easyui-linkbutton"
 					style="width: 100px;">返回</a> &nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK"
@@ -42,47 +42,22 @@
 			<form id="ff" name="ff" method="post">
 				<table>
 					<tr>
-						<td>采购单号:</td>
+						<td>单号:</td>
 						<td><input id="orderId" name="orderId"
 							class="easyui-validatebox" style="width: 200px;"
 							readonly="readonly"></td>
-						<td></td>
-						<td style="text-align: center"></td>
-						<td></td>
-						<td style="text-align: center"></td>
-					</tr>
-					<tr>
-						<td>供应商:</td>
-						<td><input id="sendOrgId" name="sendOrgId"
-							class="easyui-combobox"
-							data-options="required:true,valueField:'orgid',textField:'orgname',url:'/i/inner/supplier/combobox.do'"
-							style="width: 200px;"></td>
-						<td>供应商联系人:</td>
-						<td><input id="sendContactor" name="sendContactor"
-							class="easyui-validatebox" style="width: 200px;"></td>
-						<td>供应商联系电话:</td>
-						<td><input id="sendContact" name="sendContact"
-							class="easyui-validatebox" style="width: 200px;"></td>
 					</tr>
 					<tr>
 						<td>仓库/门店:</td>
-						<td><input id="receiveOrgId" name="receiveOrgId"
+						<td><input id="orgId" name="orgId"
 							class="easyui-combobox"
 							data-options="required:true,valueField:'orgid',textField:'orgname',url:'/i/inner/orgInfo/combo.do?orgType=1,5,4'"
-							style="width: 200px;"></td>
-						<td>采购员:</td>
-						<td><input id="applyMan" name="applyMan"
-							class="easyui-validatebox" data-options="required:true"
-							style="width: 200px;"></td>
-						<td>交货期限:</td>
-						<td><input id="deadlineDate" name="deadlineDate"
-							class="easyui-datebox" data-options="required:true"
 							style="width: 200px;"></td>
 					</tr>
 					<tr>
 						<td>备注:</td>
-						<td colspan="5" style="height: 15px;"><input id="remarks"
-							name="remarks" class="easyui-validatebox" style="width: 600px;height:30px;"></td>
+						<td style="height: 15px;"><input id="remarks" name="remarks"
+							class="easyui-validatebox" style="width: 600px; height: 30px;"></td>
 					</tr>
 					<tr>
 						<td colspan="6" style="height: 15px;"></td>
@@ -93,7 +68,6 @@
 		<table id="tbList">
 		</table>
 	</div>
-
 </body>
-<script src="js/purchaseGood.js"></script>
+<script src="js/adjustGood.js"></script>
 </html>
