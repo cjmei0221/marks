@@ -170,9 +170,19 @@ public class DispatchGood implements Serializable {
 
 	private String dispatchPrice;// 配送价
 
+	private String companyId;
+
 	public DispatchGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 
 	public String getDispatchPrice() {

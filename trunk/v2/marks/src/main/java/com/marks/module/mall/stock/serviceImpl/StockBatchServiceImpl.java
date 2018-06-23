@@ -116,7 +116,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setBalNums(b.getNums());
 			b.setTranAmt(b.getAmount());
 			b.setTranNums(b.getNums());
-			b.setTranStatus(StockEnums.StockStatus.stockIn.getValue());
+			b.setTranStatus(info.getStockStatus());
 			b.setTradePrice(info.getDispatchPrice());
 			b.setTradePriceAmt(MoneyUtil.multiply(b.getTradePrice(), String.valueOf(info.getNums())));
 			b.setOrderId(info.getOrderId());
@@ -124,6 +124,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			dealStock(b);
 			// 更新商品进货价和供应商
 			good.setCostPrice(info.getCostPrice());
+			good.setDispatchPrice(info.getDispatchPrice());
 			good.setStockManageType(info.getStockManageType());
 			good.setSupplier(info.getSupplier2());
 			good.setSupplierId(info.getSupplierId2());
@@ -302,8 +303,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 		stock.setBarNo(info.getBarNo());
 		stock.setGoodNo(info.getGoodNo());
 		stock.setGoodName(info.getGoodName());
-		if (StockEnums.StockStatus.stockIn.getValue() == info.getTranStatus()
-				|| StockEnums.StockStatus.transferIn.getValue() == info.getTranStatus()) {
+		if (StockEnums.StockStatus.stockIn.getValue() == info.getTranStatus()) {
 			stock.setStockAmount(info.getTranAmt());
 			stock.setStockNums(info.getTranNums());
 		} else {
