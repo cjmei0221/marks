@@ -3,6 +3,7 @@ var appInfo = {
 	saveUrl : top.window.urlBase + '/inner/orgInfo/save.do',// 保存新增机构管理接口
 	updateUrl : top.window.urlBase + '/inner/orgInfo/update.do',// 编辑机构管理信息接口
 	deleteUrl : top.window.urlBase + '/inner/orgInfo/delete.do',// 删除机构管理接口
+	approveUrl : top.window.urlBase + '/inner/orgInfo/approve.do',// 编辑采购单信息接口
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -62,6 +63,34 @@ function edit() {
 			}
 		});
 	}
+}
+function approve(){
+	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
+	}
+	if (appInfo.selectedData.checkStatus == 1) {
+		showMsg("审核通过，不可编辑");
+		return;
+	}
+	if (appInfo.selectedData.checkStatus == 3) {
+		showMsg("审核中，不可编辑");
+		return;
+	}
+	$.messager.confirm('确认', '确认提交审核吗?', function(r) {
+		if (r) {
+			var parms = "idNo=" +appInfo.selectedId;
+			$.post(appInfo.approveUrl, parms, function(data) {
+				if (data.retcode == '0') {
+					showMsg("操作成功");
+					app.myreload("#tbList");
+					appInfo.selectedData = {};
+					appInfo.selectedId = -1;
+				} else {
+					showMsg(data.retmsg);
+				}
+			});
+		}
+	});
 }
 
 $(function() {
@@ -159,6 +188,11 @@ function loadList() {
 			width : 100,
 			align : "center"
 		}, {
+			title : '审核状态',
+			field : 'checkStatusName',
+			width : 100,
+			align : "center"
+		}, {
 			title : '启用标识',
 			field : 'useflag',
 			width : 100,
@@ -170,12 +204,6 @@ function loadList() {
 					return "禁用";
 				}
 			}
-		
-		}, {
-			title : '创建时间',
-			field : 'createtime',
-			width : 100,
-			align : "center"
 		}, {
 			title : '更新时间',
 			field : 'updatetime',
