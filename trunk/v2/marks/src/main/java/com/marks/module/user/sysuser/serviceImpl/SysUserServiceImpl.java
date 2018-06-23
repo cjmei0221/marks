@@ -14,6 +14,7 @@ import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.enums.Enums;
+import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Code;
 import com.marks.module.acct.base.service.UserExtService;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
@@ -70,12 +71,16 @@ public class SysUserServiceImpl implements SysUserService {
 
 		String userCode = getUserCode(sysUser.getCompanyId());
 		String userid = sysUser.getCompanyId() + userCode;
+		if (UserEnums.RoleYwType.defaultSys.getValue() == sysUser.getRoleYwType()) {
+			userid = sysUser.getUserid();
+			sysUser.setRoleYwType(UserEnums.RoleYwType.sys.getValue());
+		}
 		sysUser.setUserid(userid);
 		sysUser.setUserCode(userCode);
 		saveSysUserOrgRole(sysUser);
 		sysUserDao.save(sysUser);
 		saveUserExt(sysUser);
-		result.getData().put("userid", result);
+		result.getData().put("userid", userid);
 		return result;
 	}
 
@@ -110,7 +115,7 @@ public class SysUserServiceImpl implements SysUserService {
 		saveSysUserOrgRole(sysUser);
 		sysUserDao.update(sysUser);
 		saveUserExt(sysUser);
-		result.getData().put("userid", result);
+		result.getData().put("userid", sysUser.getUserid());
 		return result;
 	}
 
@@ -266,6 +271,11 @@ public class SysUserServiceImpl implements SysUserService {
 		pojoDomain.setPage_size(page_size);
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
+	}
+
+	@Override
+	public void updateUnMobile(String companyId, String mobile) {
+		sysUserDao.updateUnMobile(companyId, mobile);
 	}
 
 	@Override
