@@ -51,7 +51,8 @@
 		salePrice,
 		saleAmt,
 		remarks,
-		dispatchPrice
+		dispatchPrice,
+		companyId
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -87,7 +88,8 @@
 		#{info.salePrice:VARCHAR},
 		#{info.saleAmt:VARCHAR},
 		#{info.remarks:VARCHAR},
-		#{info.dispatchPrice:VARCHAR}
+		#{info.dispatchPrice:VARCHAR},
+		#{info.companyId:VARCHAR}
 		)
 	</insert>
 
@@ -126,7 +128,8 @@
 		salePrice,
 		saleAmt,
 		remarks,
-		dispatchPrice
+		dispatchPrice,
+		companyId
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -165,7 +168,8 @@
 			#{info.salePrice:VARCHAR},
 			#{info.saleAmt:VARCHAR},
 			#{info.remarks:VARCHAR},
-			#{info.dispatchPrice:VARCHAR}
+			#{info.dispatchPrice:VARCHAR},
+			#{info.companyId:VARCHAR}
 			)
 		</foreach>
 	</insert>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.mall.stock.dao.AdjustInfoDao">
+
+    <select id="findById" resultType="com.marks.module.mall.stock.pojo.AdjustInfo">
+		SELECT * FROM TB_MALL_STOCK_ADJUST_INFO t where t.ORDERID = #{orderId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.mall.stock.pojo.AdjustInfo">
+		<!--<selectKey keyProperty="orderId" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>-->
+
+ 		INSERT INTO TB_MALL_STOCK_ADJUST_INFO  (
+            ORDERID,
+            UPDATETIME,
+            ORGID,
+            ORGNAME,
+            TOTALNUMS,
+            TOTALAMT,
+            CREATETIME,
+            CREATORCODE,
+            CREATORNAME,
+            CREATEDATE,
+            STATUS,
+            CHECKSTATUS,
+            CHECKERID,
+            CHECKER,
+            CHECKTIME,
+            YWCODE,
+            YWNAME,
+            TYPECODE,
+            TYPENAME
+		)
+		VALUES(
+		#{info.orderId:VARCHAR},
+            #{info.updatetime:VARCHAR},
+            #{info.orgId:VARCHAR},
+            #{info.orgName:VARCHAR},
+            #{info.totalNums:NUMERIC},
+            #{info.totalAmt:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.creatorCode:VARCHAR},
+            #{info.creatorName:VARCHAR},
+            #{info.createDate:VARCHAR},
+            #{info.status:NUMERIC},
+            #{info.checkStatus:NUMERIC},
+            #{info.checkerId:VARCHAR},
+            #{info.checker:VARCHAR},
+            #{info.checkTime:VARCHAR},
+            #{info.ywCode:VARCHAR},
+            #{info.ywName:VARCHAR},
+            #{info.typeCode:VARCHAR},
+            #{info.typeName:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_STOCK_ADJUST_INFO (
+			            ORDERID,
+            UPDATETIME,
+            ORGID,
+            ORGNAME,
+            TOTALNUMS,
+            TOTALAMT,
+            CREATETIME,
+            CREATORCODE,
+            CREATORNAME,
+            CREATEDATE,
+            STATUS,
+            CHECKSTATUS,
+            CHECKERID,
+            CHECKER,
+            CHECKTIME,
+            YWCODE,
+            YWNAME,
+            TYPECODE,
+            TYPENAME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.orderId:VARCHAR},
+            #{info.updatetime:VARCHAR},
+            #{info.orgId:VARCHAR},
+            #{info.orgName:VARCHAR},
+            #{info.totalNums:NUMERIC},
+            #{info.totalAmt:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.creatorCode:VARCHAR},
+            #{info.creatorName:VARCHAR},
+            #{info.createDate:VARCHAR},
+            #{info.status:NUMERIC},
+            #{info.checkStatus:NUMERIC},
+            #{info.checkerId:VARCHAR},
+            #{info.checker:VARCHAR},
+            #{info.checkTime:VARCHAR},
+            #{info.ywCode:VARCHAR},
+            #{info.ywName:VARCHAR},
+            #{info.typeCode:VARCHAR},
+            #{info.typeName:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	
+ 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.AdjustInfo">
+ 		UPDATE TB_MALL_STOCK_ADJUST_INFO 
+		SET 
+			UPDATETIME = #{info.updatetime:VARCHAR},
+            ORGID = #{info.orgId:VARCHAR},
+            ORGNAME = #{info.orgName:VARCHAR},
+            TOTALNUMS = #{info.totalNums:NUMERIC},
+            TOTALAMT = #{info.totalAmt:VARCHAR},
+            CREATORCODE = #{info.creatorCode:VARCHAR},
+            CREATORNAME = #{info.creatorName:VARCHAR},
+            CREATEDATE = #{info.createDate:VARCHAR},
+            STATUS = #{info.status:NUMERIC},
+            CHECKSTATUS = #{info.checkStatus:NUMERIC},
+            CHECKERID = #{info.checkerId:VARCHAR},
+            CHECKER = #{info.checker:VARCHAR},
+            CHECKTIME = #{info.checkTime:VARCHAR},
+            YWCODE = #{info.ywCode:VARCHAR},
+            YWNAME = #{info.ywName:VARCHAR},
+            TYPECODE = #{info.typeCode:VARCHAR},
+            TYPENAME = #{info.typeName:VARCHAR}
+		WHERE
+			ORDERID = #{info.orderId}
+ 	</update>
+ 	<!--
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_MALL_STOCK_ADJUST_INFO 
+		SET 
+			UPDATETIME = #{info.updatetime:VARCHAR},
+            ORGID = #{info.orgId:VARCHAR},
+            ORGNAME = #{info.orgName:VARCHAR},
+            TOTALNUMS = #{info.totalNums:NUMERIC},
+            TOTALAMT = #{info.totalAmt:VARCHAR},
+            CREATORCODE = #{info.creatorCode:VARCHAR},
+            CREATORNAME = #{info.creatorName:VARCHAR},
+            CREATEDATE = #{info.createDate:VARCHAR},
+            STATUS = #{info.status:NUMERIC},
+            CHECKSTATUS = #{info.checkStatus:NUMERIC},
+            CHECKERID = #{info.checkerId:VARCHAR},
+            CHECKER = #{info.checker:VARCHAR},
+            CHECKTIME = #{info.checkTime:VARCHAR},
+            YWCODE = #{info.ywCode:VARCHAR},
+            YWNAME = #{info.ywName:VARCHAR},
+            TYPECODE = #{info.typeCode:VARCHAR},
+            TYPENAME = #{info.typeName:VARCHAR}
+		WHERE
+			ORDERID = #{info.orderId}
+		</foreach>
+
+	</update>
+ 	-->
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_MALL_STOCK_ADJUST_INFO t WHERE t.ORDERID=#{orderId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.mall.stock.pojo.AdjustInfo">
+ 		SELECT * FROM TB_MALL_STOCK_ADJUST_INFO t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_MALL_STOCK_ADJUST_INFO WHERE ORDERID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.mall.stock.pojo.AdjustInfo" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_MALL_STOCK_ADJUST_INFO t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.ORDERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.ORGID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.ORGNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TOTALNUMS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TOTALAMT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CREATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CREATORCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CREATORNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CREATEDATE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CHECKERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CHECKER LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.CHECKTIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.YWCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.YWNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPECODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+					
+			    order by  t.UPDATETIME DESC				
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>
