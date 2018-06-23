@@ -5,6 +5,8 @@ public class WorkEnums {
 	public enum WorkType {
 		dispatch_cg("dispatch_cg".toUpperCase(), "采购流程"), //
 		dispatch_ps("dispatch_ps".toUpperCase(), "配送流程"), //
+		stock_adjust("stock_adjust".toUpperCase(), "调整库存流程"), //
+		org_company("org_company".toUpperCase(), "公司审核流程"), //
 		;// 未绑定
 
 		private String status;

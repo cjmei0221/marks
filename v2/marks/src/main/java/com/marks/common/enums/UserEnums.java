@@ -2,14 +2,17 @@ package com.marks.common.enums;
 
 public class UserEnums {
 
-	public enum Gender {
-		bind(1, "绑定"), // 绑定
-		unbind(0, "未绑定");// 未绑定
+	public enum RoleYwType {
+		common(0, "通用用户"), // 绑定
+		employee(1, "员工"), //
+		sys(2, "系统用户"), //
+		defaultSys(3, "默认用户"),//
+		;// 未绑定
 
 		private int status;
 		private String name;
 
-		private Gender(int status, String name) {
+		private RoleYwType(int status, String name) {
 			this.status = status;
 			this.name = name;
 		}
@@ -27,7 +30,7 @@ public class UserEnums {
 		}
 
 		public static String getByKey(int status) {
-			for (Gender c : Gender.values()) {
+			for (RoleYwType c : RoleYwType.values()) {
 				if (c.getValue() == status) {
 					return c.getName();
 				}

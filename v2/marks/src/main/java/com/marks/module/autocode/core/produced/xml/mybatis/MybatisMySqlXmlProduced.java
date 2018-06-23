@@ -35,7 +35,7 @@ public class MybatisMySqlXmlProduced extends AbstractXmlProduced {
 	 */
 	@Override
 	public String getFileSrc(AutoBean autoBean) {
-		String mysqlSrc = StringUtil.StringJoin(MYSQL_PACKAGE);
+		String mysqlSrc = StringUtil.StringJoin(MYSQL_PACKAGE, DOT_VALUE, autoBean.getParentPackage());
 		return mysqlSrc;
 	}
 
