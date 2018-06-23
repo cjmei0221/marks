@@ -10,18 +10,24 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.marks.common.domain.PojoDomain;
+import com.marks.common.enums.Enums;
 import com.marks.common.enums.OrgEnums;
+import com.marks.common.enums.UserEnums;
 import com.marks.common.util.Constants;
+import com.marks.common.util.encrypt.EncryptUtil;
 import com.marks.module.org.orginfo.dao.OrgInfoDao;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
 import com.marks.module.user.sysuser.pojo.SysUser;
+import com.marks.module.user.sysuser.service.SysUserService;
 
 @Service
 public class OrgInfoServiceImpl implements OrgInfoService {
 
 	@Autowired
 	private OrgInfoDao orgInfoDao;
+	@Autowired
+	private SysUserService sysUserService;
 
 	/*
 	 * public OrgInfoDao getOrgInfoDao() { return orgInfoDao; }
@@ -43,10 +49,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	 */
 	@Override
 	public void save(OrgInfo orgInfo) {
+		String adminCompanyId = orgInfo.getCompanyId();
 		if (OrgEnums.OrgType.company.getValue() == orgInfo.getOrgType()) {
 			orgInfo.setParentId(Constants.top_parent_id);
 			orgInfo.setCompanyId(orgInfo.getOrgid());
 			orgInfo.setLvl(1);
+			orgInfo.setCheckStatus(Enums.CheckStatus.noCheck.getValue());
 		} else {
 			OrgInfo parentVo = this.findById(orgInfo.getParentId());
 			orgInfo.setLvl(parentVo.getLvl() + 1);
@@ -89,7 +97,6 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		if (orgInfo.getLvl() > 1) {
 			updateOrgChildNum(orgInfo.getParentId());
 		}
-
 	}
 
 	/**
@@ -253,4 +260,31 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		return orgId;
 	}
 
+	public void updateCheckStatus(Map<String, String> map) {
+		orgInfoDao.updateCheckStatus(map);
+		String checkStatus = map.get("checkStatus");
+		String companyId = map.get("companyId");
+		OrgInfo info = orgInfoDao.findById(map.get("idNo"));
+		// 审核通过处理库存
+		if (Enums.CheckStatus.checkOk.toString().equals(checkStatus)) {
+			// 若为公司则创建相关用户
+			if (OrgEnums.OrgCategory.company.getValue() == info.getOrgCategory()) {
+				SysUser user = new SysUser();
+				if (null != info.getLinkTel() && info.getLinkTel().length() > 4) {
+					sysUserService.updateUnMobile(companyId, info.getLinkTel());
+					user.setBind_mobile(info.getLinkTel());
+				}
+				user.setActiveFlag(Enums.Status.Enable.getValue());
+				user.setBindFlag(Enums.Status.Unable.getValue());
+				user.setCompanyId(info.getCompanyId());
+				user.setCreator(info.getCreator());
+				user.setPassword(EncryptUtil.defaultPwd);
+				user.setUsername(info.getOrgname());
+				user.setRoleId(companyId + "_system");
+				user.setUserid(info.getOrgid());
+				user.setRoleYwType(UserEnums.RoleYwType.defaultSys.getValue());
+				sysUserService.save(user);
+			}
+		}
+	}
 }

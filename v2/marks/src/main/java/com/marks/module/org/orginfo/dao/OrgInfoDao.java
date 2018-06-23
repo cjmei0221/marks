@@ -41,4 +41,6 @@ public interface OrgInfoDao {
 
 	String getCompanyId();
 
+	void updateCheckStatus(Map<String, String> map);
+
 }

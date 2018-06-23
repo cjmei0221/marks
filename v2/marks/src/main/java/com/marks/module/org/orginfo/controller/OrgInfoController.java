@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.enums.Enums;
 import com.marks.common.enums.OrgEnums;
+import com.marks.common.enums.WorkEnums;
 import com.marks.common.util.Code;
 import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
@@ -23,6 +25,8 @@ import com.marks.module.org.orginfo.pojo.OrgInfo;
 import com.marks.module.org.orginfo.service.OrgInfoService;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
+import com.marks.module.work.info.pojo.WorkFlow;
+import com.marks.module.work.info.service.WorkInfoService;
 
 import net.sf.json.JSONArray;
 
@@ -32,6 +36,8 @@ public class OrgInfoController extends SupportContorller {
 
 	@Autowired
 	private OrgInfoService orgInfoService;
+	@Autowired
+	private WorkInfoService workInfoService;
 
 	@Override
 	public Logger getLogger() {
@@ -277,4 +283,61 @@ public class OrgInfoController extends SupportContorller {
 		List<OrgInfo> list = orgInfoService.frameCombo(param);
 		JsonUtil.output(response, JSONArray.fromObject(list).toString());
 	}
+
+	@RequestMapping("/inner/orgInfo/approve")
+	public void approve(HttpServletRequest request, HttpServletResponse response) {
+
+		Result result = new Result();
+		try {
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+			String idNo = request.getParameter("idNo");
+			String checkStatus = Enums.CheckStatus.checkOk.getValue() + "";
+			OrgInfo info = orgInfoService.findById(idNo);
+			if (info == null) {
+				result.setMessage("参数错误！");
+				result.setCode("4001");
+				JsonUtil.output(response, result);
+				return;
+			}
+			// 审批
+			// 审批
+			WorkFlow work = new WorkFlow();
+			work.setApplyMan(admin.getUsername());
+			work.setApplyManId(admin.getUserid());
+			work.setApplyOrgId(admin.getOrgId());
+			work.setApplyOrgName(admin.getOrgName());
+			work.setApplyRoleId(admin.getRoleId());
+			work.setApplyRoleName(admin.getRoleName());
+			work.setCompanyId(admin.getCompanyId());
+			work.setIdNo(idNo);
+			work.setRemarks(info.getOrgname());
+			work.setTypeCode(WorkEnums.WorkType.org_company.getValue());
+			boolean isCheck = workInfoService.save(work);
+			if (isCheck) {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("idNo", idNo);
+				map.put("checkStatus", Enums.CheckStatus.checking.getValue() + "");
+				map.put("checkerId", admin.getUserCode());
+				map.put("checker", admin.getUsername());
+				map.put("companyId", admin.getCompanyId());
+				orgInfoService.updateCheckStatus(map);
+			} else {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("idNo", idNo);
+				map.put("checkStatus", checkStatus);
+				map.put("checkerId", admin.getUserCode());
+				map.put("checker", admin.getUsername());
+				map.put("companyId", admin.getCompanyId());
+				orgInfoService.updateCheckStatus(map);
+			}
+			result.setMessage("删除成功!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("删除失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
+	}
+
 }
