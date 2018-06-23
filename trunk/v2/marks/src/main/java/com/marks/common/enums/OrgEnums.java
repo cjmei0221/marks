@@ -45,10 +45,10 @@ public class OrgEnums {
 	 */
 	public enum OrgType {
 		storehouse(4, "仓库"), // 公司
-		shop(3, "门店"), // 公司
+		shop(5, "门店"), // 公司
 		supplier(2, "供应商"), // 公司
 		company(1, "公司"), // 公司
-		dept(0, "部门"), //
+		dept(3, "部门"), //
 		;// 普通
 
 		private int status;

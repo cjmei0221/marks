@@ -11,8 +11,6 @@ public class StockEnums {
 	public enum StockStatus {
 		stockIn(1, "入库"), // 系统用户
 		stockOut(2, "出库"), //
-		transferIn(3, "转入"), //
-		transferOut(4, "转出"),//
 		;// 会员
 
 		private int status;
@@ -79,6 +77,8 @@ public class StockEnums {
 		sale_stockOut(2, "售卖出库"), //
 		dh_stockIn(3, "调货入库"), //
 		dh_stockOut(4, "调货出库"), //
+		dz_stockIn(5, "调整入库"), //
+		dz_stockOut(5, "调整出库"), //
 		;// 会员
 
 		private int status;

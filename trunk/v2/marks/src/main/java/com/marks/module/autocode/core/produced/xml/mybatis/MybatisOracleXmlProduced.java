@@ -54,7 +54,7 @@ public class MybatisOracleXmlProduced extends AbstractXmlProduced {
 		// TODO 改为代理注入方案
 		// setFileSrc(outFileContent, sBuffer.toString());
 		// TODO Auto-generated method stub
-		String oracleSrc = StringUtil.StringJoin(ORACLE_PACKAGE);
+		String oracleSrc = StringUtil.StringJoin(ORACLE_PACKAGE, DOT_VALUE, autoBean.getParentPackage());
 		return oracleSrc;
 	}
 
