@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.work.base.dao.WorkTypeDao">
+
+	<select id="findById" resultType="com.marks.module.work.base.pojo.WorkType">
+		SELECT * FROM TB_WORK_TYPE t
+		where t.TYPEID = #{typeId}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.work.base.pojo.WorkType">
+		<!--<selectKey keyProperty="typeId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_WORK_TYPE (
+		TYPEID,
+		TYPENAME,
+		COMPANYID,
+		TYPECODE,
+		DBSCHEME,
+		TBNAME,
+		IDFIELD,
+		CHECKFIELD,
+		CREATETIME,
+		UPDATETIME,
+		UPDATER,
+		LINKURL,
+		ISAUTO,
+		CLASSTYPE,
+		checkerField,
+		checkerIdField,
+		status
+		)
+		VALUES(
+		#{info.typeId:VARCHAR},
+		#{info.typeName:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.typeCode:VARCHAR},
+		#{info.dbscheme:VARCHAR},
+		#{info.tbName:VARCHAR},
+		#{info.idField:VARCHAR},
+		#{info.checkField:VARCHAR},
+		#{info.createtime:VARCHAR},
+		#{info.updatetime:VARCHAR},
+		#{info.updater:VARCHAR},
+		#{info.linkUrl:VARCHAR},
+		#{info.isAuto:INTEGER},
+		#{info.classType:VARCHAR},
+		#{info.checkerField:VARCHAR},
+		#{info.checkerIdField:VARCHAR},
+		#{info.status:INTEGER}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_WORK_TYPE (
+		TYPEID,
+		TYPENAME,
+		COMPANYID,
+		TYPECODE,
+		DBSCHEME,
+		TBNAME,
+		IDFIELD,
+		CHECKFIELD,
+		CREATETIME,
+		UPDATETIME,
+		UPDATER,
+		LINKURL,
+		ISAUTO,
+		CLASSTYPE,
+		checkerField,
+		checkerIdField,
+		status
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.typeId:VARCHAR},
+			#{info.typeName:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.typeCode:VARCHAR},
+			#{info.dbscheme:VARCHAR},
+			#{info.tbName:VARCHAR},
+			#{info.idField:VARCHAR},
+			#{info.checkField:VARCHAR},
+			#{info.createtime:VARCHAR},
+			#{info.updatetime:VARCHAR},
+			#{info.updater:VARCHAR},
+			#{info.linkUrl:VARCHAR},
+			#{info.isAuto:INTEGER},
+			#{info.classType:VARCHAR},
+			#{info.checkerField:VARCHAR},
+			#{info.checkerIdField:VARCHAR},
+			#{info.status:INTEGER}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.work.base.pojo.WorkType">
+		UPDATE TB_WORK_TYPE
+		SET
+		checkerField=#{info.checkerField:VARCHAR},
+		checkerIdField=#{info.checkerIdField:VARCHAR},
+		status=#{info.status:INTEGER},
+		TYPENAME = #{info.typeName:VARCHAR},
+		DBSCHEME =
+		#{info.dbscheme:VARCHAR},
+		TBNAME = #{info.tbName:VARCHAR},
+		IDFIELD =
+		#{info.idField:VARCHAR},
+		CHECKFIELD = #{info.checkField:VARCHAR},
+		UPDATETIME = #{info.updatetime:VARCHAR},
+		UPDATER =
+		#{info.updater:VARCHAR},
+		LINKURL = #{info.linkUrl:VARCHAR},
+		ISAUTO =
+		#{info.isAuto:INTEGER},
+		CLASSTYPE = #{info.classType:VARCHAR}
+		WHERE
+		TYPEID = #{info.typeId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WORK_TYPE WHERE
+		TYPEID=#{typeId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.work.base.pojo.WorkType">
+		SELECT * FROM TB_WORK_TYPE t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WORK_TYPE WHERE TYPEID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.work.base.pojo.WorkType"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WORK_TYPE t
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.TYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPECODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

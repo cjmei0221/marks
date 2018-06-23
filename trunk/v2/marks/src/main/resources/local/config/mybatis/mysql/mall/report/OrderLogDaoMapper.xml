@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.mall.report.dao.OrderLogDao">
+
+	<select id="list" resultType="com.marks.module.mall.report.pojo.OrderLog"
+		parameterType="java.util.Map">
+		SELECT t.*,
+		o.orgId,
+		o.orgName,
+		o.areaId,
+		o.areaName,
+		o.i_year,
+		o.i_month,
+		o.i_season,
+		o.commitTime,
+		o.cashDate,
+		o.payTypeCode,
+		o.payTypeName,
+		o.cashType,
+		o.cashTypeName,
+		o.cashManId,
+		o.cashMan,
+		o.cashManCode,
+		o.guiderId,
+		o.guiderName,
+		o.guiderCode,
+		o.vipId,
+		o.vipName,
+		o.vipMobile,
+		o.vipCode,
+		o.ywType,
+		o.ywName
+		FROM tb_mall_order_good t
+		JOIN tb_mall_order_info o ON t.orderId = o.orderId
+		where t.companyId=#{companyId}
+		<if test="startDate != null and startDate !='' ">
+			and o.cashDate &gt;=#{startDate}
+		</if>
+		<if test="endDate != null and endDate !='' ">
+			and o.cashDate &lt;=#{endDate}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or o.ORDERID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.goodId LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.goodNo LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.goodName LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.orgId LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.ORGNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.AREAID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.AREANAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.PAYTYPECODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.PAYTYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.CASHMANID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.CASHMAN LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.GUIDERID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.GUIDERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.VIPID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.VIPNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or o.VIPMOBILE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			
+			)
+		</if>
+		order by o.commitTime DESC
+	</select>
+</mapper>

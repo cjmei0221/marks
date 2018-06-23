@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.marks.module.user.login.dao.LoginDao">
+	<!-- 通过userid获取系统用户 -->
+	<select id="findById" resultType="com.marks.module.user.sysuser.pojo.SysUser">
+		SELECT
+		TSU.*
+		FROM
+		tb_user tsu
+		WHERE tsu.activeFlag=1 and tsu.companyId=#{companyId}
+		and
+		(tsu.USERID =
+		#{id} or
+		tsu.bind_mobile=#{id})
+	</select>
+	<select id="listById" resultType="com.marks.module.user.sysuser.pojo.SysUser">
+		SELECT
+		TSU.*
+		FROM
+		tb_user tsu
+		WHERE 1=1 and (tsu.USERID = #{id} or
+		tsu.bind_mobile=#{id} or
+		tsu.openid=#{id} or tsu.userCode=#{id})
+		order by tsu.activeFlag
+		desc,tsu.updatetime desc
+	</select>
+	<select id="getSysUserByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
+		SELECT
+		TSU.*
+		FROM
+		tb_user tsu
+		WHERE tsu.USERID = #{userid}
+	</select>
+	<select id="getSysUserByOpenidAndAccountid" resultType="com.marks.module.user.sysuser.pojo.SysUser">
+		SELECT
+		TSU.*
+		FROM
+		tb_user tsu
+		WHERE tsu.bindflag=1 and tsu.activeFlag=1 and
+		tsu.accountid=#{accountid} and
+		tsu.openid=#{openid}
+		order by
+		tsu.updatetime desc
+	</select>
+	<!-- 加载父级菜单 -->
+	<select id="getParentSysMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
+		SELECT
+		VSRM.MENUID,
+		VSRM.MENUITEM,
+		VSRM.PARENTID,
+		VSRM.URL,
+		vsrm.sort,
+		vsrm.lvl
+		FROM
+		tb_sys_menu vsrm
+		WHERE vsrm.lvl !=3 and vsrm.status=1 order by
+		VSRM.PARENTID,vsrm.sort
+	</select>
+
+	<select id="getMenuListByLog" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
+		SELECT menu.*, t2.nums
+		FROM tb_sys_menu menu
+		JOIN
+		( SELECT count(t.menuid) nums, t.menuid
+		FROM
+		tb_sys_log t
+		WHERE date_format(t.createtime,'yyyy-MM-dd')
+		&gt;=#{before3Month}
+		AND t.menuid IS NOT NULL
+		AND t.userid = #{userid}
+		GROUP BY t.menuid) t2
+		ON t2.menuid = menu.menuid
+		where menu.status=1
+		ORDER BY t2.nums DESC
+	</select>
+
+	<select id="getChildMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
+		SELECT DISTINCT
+		VSRM.MENUID,
+		VSRM.MENUITEM,
+		VSRM.PARENTID,
+		VSRM.URL,
+		vsrm.sort
+		FROM
+		tb_sys_menu vsrm
+		left join tb_sys_func tsf on
+		vsrm.menuid=tsf.menuid
+		left join tb_sys_role_func tsrf on
+		tsrf.funcid=tsf.funcid
+		WHERE 1=1 and vsrm.status=1
+		<if test="roleId != null and roleId !=''">
+			AND tsrf.ROLEID =#{roleId}
+		</if>
+		and vsrm.lvl=3 order by vsrm.sort
+	</select>
+	<select id="getSysOperate" resultType="com.marks.module.system.sysmenu.pojo.SysOperate">
+		SELECT distinct
+		tso.OPERID,
+		tso.OPERNAME,
+		tso.PICICON,
+		tso.sort
+		FROM
+		TB_SYS_FUNC tsf JOIN TB_SYS_OPERATE tso on tsf.operid=tso.operid
+		left
+		join tb_sys_role_func tsrfn on tsf.funcid=tsrfn.funcid
+		where 1=1
+		<if test="roleId != null and roleId !=''">
+			AND tsrfn.ROLEID =#{roleId}
+		</if>
+		AND tsf.MENUID =
+		#{menuid}
+		order by tso.sort
+	</select>
+
+	<select id="getUrlByRoleId" resultType="String">
+		SELECT DISTINCT
+		sf.url
+		FROM
+		tb_sys_role_func srf
+		JOIN tb_sys_func sf ON sf.funcid = srf.funcid
+		where
+		SRF.ROLEID=#{roleId}
+	</select>
+
+	<select id="getUserOrgRolelistByUserid" resultType="com.marks.module.user.sysuser.pojo.SysUserOrgRole">
+		select * from
+		tb_user_org_role t where t.userid=#{userid}
+	</select>
+</mapper>

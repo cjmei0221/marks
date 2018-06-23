@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.asset.manage.dao.AssetPlanDao">
+
+    <select id="findById" resultType="com.marks.module.asset.manage.pojo.AssetPlan">
+		SELECT * FROM TB_ASSET_PLAN t where t.PLANID = #{planId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.asset.manage.pojo.AssetPlan">
+		<!--<selectKey keyProperty="planId" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+
+ 		INSERT INTO TB_ASSET_PLAN (
+            PLANID,
+            PLANNAME,
+            USERID,
+            USERNAME,
+            MOBILE,
+            INVESTAMOUNT,
+            STATUS,
+            NOWAMOUNT,
+            DIFFER,
+            CREATETIME,
+            UPDATETIME
+		)
+		VALUES(
+		#{info.planId:VARCHAR},
+            #{info.planName:VARCHAR},
+            #{info.userid:VARCHAR},
+            #{info.username:VARCHAR},
+            #{info.mobile:VARCHAR},
+            #{info.investAmount:VARCHAR},
+            #{info.status:NUMERIC},
+            #{info.nowAmount:VARCHAR},
+            #{info.differ:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_ASSET_PLAN (
+			            PLANID,
+            PLANNAME,
+            USERID,
+            USERNAME,
+            MOBILE,
+            INVESTAMOUNT,
+            STATUS,
+            NOWAMOUNT,
+            DIFFER,
+            CREATETIME,
+            UPDATETIME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.planId:VARCHAR},
+            #{info.planName:VARCHAR},
+            #{info.userid:VARCHAR},
+            #{info.username:VARCHAR},
+            #{info.mobile:VARCHAR},
+            #{info.investAmount:VARCHAR},
+            #{info.status:NUMERIC},
+            #{info.nowAmount:VARCHAR},
+            #{info.differ:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.asset.manage.pojo.AssetPlan">
+ 		UPDATE TB_ASSET_PLAN 
+		SET 
+PLANNAME = #{info.planName:VARCHAR},
+                USERID = #{info.userid:VARCHAR},
+                USERNAME = #{info.username:VARCHAR},
+                MOBILE = #{info.mobile:VARCHAR},
+                INVESTAMOUNT = #{info.investAmount:VARCHAR},
+                STATUS = #{info.status:NUMERIC},
+                NOWAMOUNT = #{info.nowAmount:VARCHAR},
+                DIFFER = #{info.differ:VARCHAR},
+                UPDATETIME = #{info.updatetime:VARCHAR}
+		WHERE
+			PLANID = #{info.planId}
+ 	</update>
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_ASSET_PLAN 
+		SET 
+			PLANNAME = #{info.planName:VARCHAR},
+                USERID = #{info.userid:VARCHAR},
+                USERNAME = #{info.username:VARCHAR},
+                MOBILE = #{info.mobile:VARCHAR},
+                INVESTAMOUNT = #{info.investAmount:VARCHAR},
+                STATUS = #{info.status:NUMERIC},
+                NOWAMOUNT = #{info.nowAmount:VARCHAR},
+                DIFFER = #{info.differ:VARCHAR},
+                UPDATETIME = #{info.updatetime:VARCHAR}
+		WHERE
+			PLANID = #{info.planId}
+		</foreach>
+
+	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_ASSET_PLAN WHERE PLANID=#{planId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.asset.manage.pojo.AssetPlan">
+ 		SELECT * FROM TB_ASSET_PLAN t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_ASSET_PLAN WHERE PLANID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.asset.manage.pojo.AssetPlan" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_ASSET_PLAN t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.PLANID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.PLANNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+						
+			    order by  t.UPDATETIME DESC		
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.autocode.web.dao.AutoCodeDao">
+
+	<select id="findById" resultType="com.marks.module.autocode.web.pojo.AutoCode">
+		SELECT * FROM tb_autocode_bean
+		autocode where autocode.idNo = #{idNo}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.autocode.web.pojo.AutoCode">
+		INSERT INTO tb_autocode_bean
+		(
+		TABLENAME,
+		BEANNAME,
+		MODULEDESC,
+		IS_CREATETABLE,
+		IS_AUTH,
+		CREATETIME,
+		UPDATETIME,
+		PARENTPACKAGE,
+		DESCRIPTION,
+		idNo
+		)
+		VALUES(
+		#{tableName:VARCHAR},
+		#{beanName:VARCHAR},
+		#{moduleDesc:VARCHAR},
+		#{is_createtable:INTEGER},
+		#{is_auth:INTEGER},
+		now(),
+		now(),
+		#{parentPackage:VARCHAR},
+		#{description:VARCHAR},
+		#{idNo:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.autocode.web.pojo.AutoCode">
+		UPDATE tb_autocode_bean
+		SET
+		BEANNAME = #{beanName:VARCHAR},
+		MODULEDESC = #{moduleDesc:VARCHAR},
+		IS_CREATETABLE=#{is_createtable:INTEGER},
+		IS_AUTH=#{is_auth:INTEGER},
+		UPDATETIME=now(),
+		PARENTPACKAGE=#{parentPackage:VARCHAR},
+		DESCRIPTION=#{description:VARCHAR},
+		ISAUTO=#{isAuto:INTEGER},
+		TABLENAME =
+		#{tableName:VARCHAR}
+		WHERE
+		idNo=#{idNo:VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM tb_autocode_bean
+		WHERE idNo=#{idNo}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.autocode.web.pojo.AutoCode">
+		SELECT * FROM tb_autocode_bean
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM tb_autocode_bean WHERE TABLENAME in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.autocode.web.pojo.AutoCode"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM tb_autocode_bean autocode
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and (autocode.TABLENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or autocode.BEANNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or autocode.MODULEDESC LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by autocode.UPDATETIME desc
+	</select>
+
+
+	<select id="attrList" resultType="com.marks.module.autocode.web.pojo.AutoCodeAttr"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM tb_autocode_attr autocode
+		WHERE 1=1
+
+		and
+		autocode.idNo =#{idNo}
+		order by autocode.ISPK
+		desc,autocode.SORT
+
+
+	</select>
+	<delete id="deleteAttr" flushCache="true">
+		delete from tb_autocode_attr
+		where
+		idNo=#{idNo}
+	</delete>
+
+	<insert id="saveAttr" parameterType="com.marks.module.autocode.web.pojo.AutoCodeAttr">
+		insert into tb_autocode_attr
+		(
+		ATTRNAME,
+		ATTRTYPE,
+		ISPK,
+		SEQ,
+		ATTRSIZE,
+		ATTRDESC,
+		idNo,
+		SORT,
+		NOTE,
+		ISQUERY
+		)
+		values
+		(
+		#{attrName:VARCHAR},
+		#{attrType:VARCHAR},
+		#{isPK:INTEGER},
+		#{seq:VARCHAR},
+		#{attrSize:INTEGER},
+		#{attrDesc:VARCHAR},
+		#{idNo:VARCHAR},
+		#{sort:INTEGER},
+		#{note:VARCHAR},
+		#{isQuery:INTEGER}
+		)
+	</insert>
+</mapper>

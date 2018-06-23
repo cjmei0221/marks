@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.work.info.dao.WorkInfoDao">
+
+	<select id="findById" resultType="com.marks.module.work.info.pojo.WorkInfo">
+		SELECT * FROM TB_WORK t where
+		t.WORKID = #{workId}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.work.info.pojo.WorkInfo">
+		<!--<selectKey keyProperty="workId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_WORK (
+		WORKID,
+		COMPANYID,
+		IDNO,
+		APPLYMANID,
+		APPLYMAN,
+		TYPECODE,
+		TYPENAME,
+		nextSTEPID,
+		nextSTEPNAME,
+		CREATETIME,
+		NEXTUSERID,
+		NEXTUSERNAME,
+		OPERATORSTATUS,
+		UPDATETIME,
+		CURRUSERID,
+		CURRUSERNAME,
+		PAGEURL,
+		CURRROLEID,
+		NEXTROLEID,
+		CURRROLENAME,
+		NEXTROLENAME,
+		APPLYORGID,
+		APPLYORGNAME,
+		nextStep,
+		idName,
+		nextDealType,
+		dealModel
+		)
+		VALUES(
+		#{info.workId:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.idNo:VARCHAR},
+		#{info.applyManId:VARCHAR},
+		#{info.applyMan:VARCHAR},
+		#{info.typeCode:VARCHAR},
+		#{info.typeName:VARCHAR},
+		#{info.nextStepId:VARCHAR},
+		#{info.nextStepName:VARCHAR},
+		#{info.createtime:VARCHAR},
+		#{info.nextUserid:VARCHAR},
+		#{info.nextUsername:VARCHAR},
+		#{info.operatorStatus:NUMERIC},
+		#{info.updatetime:VARCHAR},
+		#{info.currUserid:VARCHAR},
+		#{info.currUsername:VARCHAR},
+		#{info.pageUrl:VARCHAR},
+		#{info.currRoleid:VARCHAR},
+		#{info.nextRoleid:VARCHAR},
+		#{info.currRolename:VARCHAR},
+		#{info.nextRolename:VARCHAR},
+		#{info.applyOrgId:VARCHAR},
+		#{info.applyOrgName:VARCHAR},
+		#{info.nextStep:NUMERIC},
+		#{info.idName:VARCHAR},
+		#{info.nextDealType:NUMERIC},
+		#{info.dealModel:NUMERIC}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_WORK (
+		WORKID,
+		COMPANYID,
+		IDNO,
+		APPLYMANID,
+		APPLYMAN,
+		typeCode,
+		TYPENAME,
+		nextSTEPID,
+		nextSTEPNAME,
+		CREATETIME,
+		NEXTUSERID,
+		NEXTUSERNAME,
+		OPERATORSTATUS,
+		UPDATETIME,
+		CURRUSERID,
+		CURRUSERNAME,
+		PAGEURL,
+		CURRROLEID,
+		NEXTROLEID,
+		CURRROLENAME,
+		NEXTROLENAME,
+		APPLYORGID,
+		APPLYORGNAME,
+		nextStep,
+		idName,
+		nextDealType,
+		dealModel
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.workId:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.idNo:VARCHAR},
+			#{info.applyManId:VARCHAR},
+			#{info.applyMan:VARCHAR},
+			#{info.typeCode:VARCHAR},
+			#{info.typeName:VARCHAR},
+			#{info.nextStepId:VARCHAR},
+			#{info.nextStepName:VARCHAR},
+			#{info.createtime:VARCHAR},
+			#{info.nextUserid:VARCHAR},
+			#{info.nextUsername:VARCHAR},
+			#{info.operatorStatus:NUMERIC},
+			#{info.updatetime:VARCHAR},
+			#{info.currUserid:VARCHAR},
+			#{info.currUsername:VARCHAR},
+			#{info.pageUrl:VARCHAR},
+			#{info.currRoleid:VARCHAR},
+			#{info.nextRoleid:VARCHAR},
+			#{info.currRolename:VARCHAR},
+			#{info.nextRolename:VARCHAR},
+			#{info.applyOrgId:VARCHAR},
+			#{info.applyOrgName:VARCHAR},
+			#{info.nextStep:NUMERIC},
+			#{info.idName:VARCHAR},
+			#{info.nextDealType:NUMERIC},
+			#{info.dealModel:NUMERIC}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.work.info.pojo.WorkInfo">
+		UPDATE TB_WORK
+		SET
+		nextDealType=#{info.nextDealType:NUMERIC},
+		nextStep=#{info.nextStep:NUMERIC},
+		nextStepId =
+		#{info.nextStepId:VARCHAR},
+		nextStepName =
+		#{info.nextStepName:VARCHAR},
+		NEXTUSERID = #{info.nextUserid:VARCHAR},
+		NEXTUSERNAME = #{info.nextUsername:VARCHAR},
+		OPERATORSTATUS =
+		#{info.operatorStatus:NUMERIC},
+		UPDATETIME =
+		#{info.updatetime:VARCHAR},
+		CURRUSERID = #{info.currUserid:VARCHAR},
+		CURRUSERNAME = #{info.currUsername:VARCHAR},
+		CURRROLEID =
+		#{info.currRoleid:VARCHAR},
+		NEXTROLEID = #{info.nextRoleid:VARCHAR},
+		CURRROLENAME = #{info.currRolename:VARCHAR},
+		NEXTROLENAME =
+		#{info.nextRolename:VARCHAR}
+		WHERE
+		WORKID = #{info.workId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WORK WHERE
+		WORKID=#{workId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.work.info.pojo.WorkInfo">
+		SELECT * FROM TB_WORK t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WORK WHERE WORKID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.work.info.pojo.WorkInfo"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WORK t
+		WHERE 1=1
+		<if test="flag==1">
+			and t.operatorStatus != 8
+		</if>
+		<if test="roleId!=null and roleId!=''">
+			and t.NEXTROLEID=#{roleId}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.WORKID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or t.TYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		order by t.UPDATETIME DESC
+	</select>
+	<update id="updateCheck" parameterType="com.marks.module.work.base.pojo.WorkType">
+		update ${info.tbName}
+		set
+		${info.checkField}=#{info.checkStatus:NUMERIC},
+		${info.checkerField}=#{info.checker:VARCHAR},
+		${info.checkerIdField}=#{info.checkerId:VARCHAR}
+		where
+		${info.idField}=#{info.idNo:VARCHAR}
+	</update>
+
+	<select id="listByUserId" resultType="com.marks.module.work.info.pojo.WorkInfo"
+		parameterType="java.util.Map">
+		SELECT distinct t.*
+		FROM TB_WORK t JOIN TB_WORK_STEP s on
+		t.workId=s.wrokId
+		WHERE 1=1 and s.operatorId=#{userid}
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.WORKID LIKE
+			or t.TYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by t.UPDATETIME DESC
+	</select>
+
+
+</mapper>

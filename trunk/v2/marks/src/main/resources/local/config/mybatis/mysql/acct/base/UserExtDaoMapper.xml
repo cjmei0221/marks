@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.acct.base.dao.UserExtDao">
+
+	<select id="findById" resultType="com.marks.module.acct.base.pojo.UserExt">
+		SELECT * FROM TB_USER_EXT t
+		where t.USERID = #{userid}
+	</select>
+	<select id="findByMobile" resultType="com.marks.module.acct.base.pojo.UserExt">
+		SELECT t.*, p.balPoint,
+		e.balAmt
+		FROM tb_user t
+		LEFT JOIN tb_acct_info e ON t.userid = e.userid
+		LEFT JOIN tb_acct_point p ON t.userid = p.userid
+		where t.ACTIVEFLAG=1
+		and t.COMPANYID=#{companyId} and
+		t.bind_mobile=#{mobile}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.acct.base.pojo.UserExt">
+		<!--<selectKey keyProperty="userid" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_USER_EXT (
+		USERID,
+		USERCODE,
+		USERNAME,
+		COMPANYID,
+		LVLID,
+		LVLNAME,
+		FIRST_OPERATE_TIME,
+		LAST_OPERATE_TIME,
+		FIRST_CONSUME_TIME,
+		LAST_CONSUME_TIME,
+		GRAND_TOTAL_POINT,
+		GRAND_TOTAL_CONSUME_AMT,
+		GRAND_TOTAL_CONSUME_NUMS,
+		UPDATETIME,
+		lvl
+		)
+		VALUES(
+		#{info.userid:VARCHAR},
+		#{info.userCode:VARCHAR},
+		#{info.userName:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.lvlId:VARCHAR},
+		#{info.lvlName:VARCHAR},
+		#{info.first_operate_time:VARCHAR},
+		#{info.last_operate_time:VARCHAR},
+		#{info.first_consume_time:VARCHAR},
+		#{info.last_consume_time:VARCHAR},
+		#{info.grand_total_point:NUMERIC},
+		#{info.grand_total_consume_amt:VARCHAR},
+		#{info.grand_total_consume_nums:NUMERIC},
+		#{info.updatetime:VARCHAR},
+		#{info.lvl:NUMERIC}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.acct.base.pojo.UserExt">
+		UPDATE TB_USER_EXT
+		SET
+		lvl=#{info.lvl:NUMERIC},
+		LVLID =
+		#{info.lvlId:VARCHAR},
+		LVLNAME = #{info.lvlName:VARCHAR},
+		FIRST_OPERATE_TIME = #{info.first_operate_time:VARCHAR},
+		LAST_OPERATE_TIME = #{info.last_operate_time:VARCHAR},
+		FIRST_CONSUME_TIME = #{info.first_consume_time:VARCHAR},
+		LAST_CONSUME_TIME = #{info.last_consume_time:VARCHAR},
+		GRAND_TOTAL_POINT = #{info.grand_total_point:NUMERIC},
+		GRAND_TOTAL_CONSUME_AMT = #{info.grand_total_consume_amt:VARCHAR},
+		GRAND_TOTAL_CONSUME_NUMS = #{info.grand_total_consume_nums:NUMERIC},
+		UPDATETIME = #{info.updatetime:VARCHAR}
+		WHERE
+		USERID = #{info.userid}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_USER_EXT WHERE
+		USERID=#{userid}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.acct.base.pojo.UserExt">
+		SELECT * FROM TB_USER_EXT t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_USER_EXT WHERE USERID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.acct.base.pojo.UserExt"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_USER_EXT t
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.USERCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.USERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.LVLNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

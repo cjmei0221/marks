@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.wx.manage.dao.base.WxAccountDao">
+
+	<select id="findById" resultType="com.marks.module.wx.manage.entity.base.WxAccount">
+		SELECT * FROM TB_WX_ACCOUNT
+		wxaccount where wxaccount.ACCOUNTID = #{accountId}
+	</select>
+	<select id="getAccountId" resultType="String">
+		SELECT max(t.accountid) FROM TB_WX_ACCOUNT t
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.wx.manage.entity.base.WxAccount">
+		INSERT INTO TB_WX_ACCOUNT
+		(
+		ACCOUNTID,
+		URL,
+		TOKEN,
+		AESKEY,
+		CREATOR,
+		CREATETIME,
+		SERVER_CONTEXT,
+		WX_ACCTNO,
+		IS_SERVICE,
+		ACCTTYPE,
+		UPDATETIME,
+		ACCOUNTNAME,
+		ORGID,
+		APPID,
+		APPSECRET,
+		authdomain,
+		COMPANYID
+		)
+		VALUES(
+		#{accountId:VARCHAR},
+		#{url:VARCHAR},
+		#{token:VARCHAR},
+		#{aeskey:VARCHAR},
+		#{creator:VARCHAR},
+		#{createtime:TIMESTAMP},
+		#{server_context:VARCHAR},
+		#{wx_acctno:VARCHAR},
+		#{is_service:NUMERIC},
+		#{accttype:NUMERIC},
+		#{updatetime:TIMESTAMP},
+		#{accountname:VARCHAR},
+		#{orgid:VARCHAR},
+		#{appid:VARCHAR},
+		#{appsecret:VARCHAR},
+		#{authdomain:VARCHAR},
+		#{companyId:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.wx.manage.entity.base.WxAccount">
+		UPDATE TB_WX_ACCOUNT
+		SET
+		URL =
+		#{url:VARCHAR},
+		TOKEN = #{token:VARCHAR},
+		AESKEY =
+		#{aeskey:VARCHAR},
+		SERVER_CONTEXT =
+		#{server_context:VARCHAR},
+		WX_ACCTNO
+		=
+		#{wx_acctno:VARCHAR},
+		IS_SERVICE = #{is_service:NUMERIC},
+		ACCTTYPE =
+		#{accttype:NUMERIC},
+		UPDATETIME = #{updatetime:TIMESTAMP},
+		ACCOUNTNAME =
+		#{accountname:VARCHAR},
+		ORGID =
+		#{orgid:VARCHAR},
+		APPID =
+		#{appid:VARCHAR},
+		APPSECRET = #{appsecret:VARCHAR},
+		authdomain =
+		#{authdomain:VARCHAR}
+		WHERE
+		ACCOUNTID =
+		#{accountId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_ACCOUNT
+		WHERE ACCOUNTID=#{accountId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.wx.manage.entity.base.WxAccount">
+		SELECT * FROM TB_WX_ACCOUNT
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_ACCOUNT WHERE ACCOUNTID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.wx.manage.entity.base.WxAccount"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_ACCOUNT wxaccount
+		WHERE 1=1
+		and wxaccount.companyId=#{companyId}
+		<if test="keyword!=null and keyword!=''">
+			and ( wxaccount.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+
+
+			or wxaccount.WX_ACCTNO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+
+			or wxaccount.ACCOUNTNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+
+			)
+		</if>
+
+		order by wxaccount.UPDATETIME desc
+
+	</select>
+
+	<select id="getWxfwhaoList" resultType="com.marks.module.wx.manage.entity.base.WxAccount">
+		SELECT *
+		FROM
+		TB_WX_ACCOUNT wxaccount
+		WHERE 1=1
+		and wxaccount.companyId=#{companyId}
+		and wxaccount.accttype=0 and wxaccount.is_service=1
+		order by
+		wxaccount.ACCOUNTNAME
+	</select>
+
+	<select id="getAccountIdsByLoginUser" resultType="String">
+		SELECT wxaccount.ACCOUNTID
+		FROM
+		TB_WX_ACCOUNT wxaccount
+		WHERE 1=1
+		<if test="conpanyId !=null and conpanyId != ''">
+			and wxaccount.COMPANYID = #{conpanyId}
+		</if>
+		order by wxaccount.ACCOUNTNAME
+	</select>
+
+</mapper>
