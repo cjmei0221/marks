@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.system.myimage.dao.MyImageDao">
+
+    <select id="findById" resultType="com.marks.module.system.myimage.pojo.MyImage">
+		SELECT * FROM TB_IMAGE myimage where myimage.PICID = #{picId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.system.myimage.pojo.MyImage">
+	INSERT INTO TB_IMAGE  (
+	PICID,
+	PICNAME,
+	PICURL,
+	CREATETIME,
+	CREATOR,
+	companyId
+	)
+	VALUES(
+	#{picId:VARCHAR},
+	#{picName:VARCHAR},
+	#{picUrl:VARCHAR},
+	now(),
+	#{creator:VARCHAR},
+	#{companyId:VARCHAR}
+	)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.system.myimage.pojo.MyImage">
+ 		UPDATE TB_IMAGE 
+		SET 
+                PICNAME = #{picName:VARCHAR},
+                PICURL = #{picUrl:VARCHAR},
+                CREATOR = #{creator:VARCHAR}
+		WHERE
+			PICID = #{picId}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_IMAGE  WHERE PICID=#{picId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.system.myimage.pojo.MyImage">
+ 		SELECT * FROM TB_IMAGE
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_IMAGE WHERE PICID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.system.myimage.pojo.MyImage" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_IMAGE myimage
+						WHERE 1=1 and myimage.companyId=#{companyId}
+		  order by myimage.CREATETIME desc
+					
+							
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

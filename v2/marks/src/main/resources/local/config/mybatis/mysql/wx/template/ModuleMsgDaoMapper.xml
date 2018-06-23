@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.wx.manage.dao.template.ModuleMsgDao">
+
+	<select id="findById" resultType="com.marks.module.wx.manage.entity.template.ModuleMsg">
+		SELECT * FROM TB_WX_MODULE_MSG
+		modulemsg where modulemsg.ID = #{id}
+	</select>
+
+	<insert id="save" parameterType="com.marks.module.wx.manage.entity.template.ModuleMsg">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+
+		INSERT INTO TB_WX_MODULE_MSG  (
+		ID,
+		ACCOUNTID,
+		TEMPLATE_ID,
+		TOUSER,
+		URL,
+		DATA,
+		NEEDFLAG,
+		SENDFLAG,
+		SENDTIMES,
+		SENDTIME,
+		CREATETIME,
+		NOTE,
+		CREATE_STAMP,
+		companyId,
+		MSGID,
+		SENDTIME,
+		PUSH_CODE,
+		PUSH_MSG
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{accountid:VARCHAR},
+		#{template_id:VARCHAR},
+		#{touser:VARCHAR},
+		#{url:VARCHAR},
+		#{data:VARCHAR},
+		#{needFlag:NUMERIC},
+		#{sendFlag:NUMERIC},
+		#{sendTimes:NUMERIC},
+		#{sendtime:VARCHAR},
+		now(),
+		#{note:VARCHAR},
+		#{create_stamp:NUMERIC},
+		#{companyId:VARCHAR},
+		#{msgId:VARCHAR},
+		#{sendtime:TIMESTAMP},
+		#{push_code:VARCHAR},
+		#{push_msg:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.module.wx.manage.entity.template.ModuleMsg">
+		UPDATE TB_WX_MODULE_MSG
+		SET
+		
+		SENDFLAG = #{sendFlag:NUMERIC},
+		SENDTIMES =
+		#{sendTimes:NUMERIC},
+		SENDTIME = #{sendtime:VARCHAR},
+		MSGID =
+		#{msgId:VARCHAR},
+		PUSH_CODE = #{push_code:VARCHAR},
+		PUSH_MSG = #{push_msg:VARCHAR}
+		WHERE
+		ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_MODULE_MSG
+		 WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.module.wx.manage.entity.template.ModuleMsg">
+		SELECT * FROM TB_WX_MODULE_MSG
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_MODULE_MSG WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.module.wx.manage.entity.template.ModuleMsg"
+		parameterType="java.util.Map">
+		SELECT modulemsg.*,twu.nickname
+		FROM TB_WX_MODULE_MSG modulemsg
+		left join tb_wx_user twu on modulemsg.touser = twu.openid
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 
+			modulemsg.ACCOUNTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or modulemsg.TEMPLATE_ID
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			
+			or modulemsg.DATA LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			
+			or modulemsg.MSGID
+			LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+		
+			or modulemsg.NOTE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or twu.nickname LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		<if test="s_resultCode!=null and s_resultCode!=''">
+			and modulemsg.RESULTCODE=#{s_resultCode}
+		</if>
+		<if test="s_sendFlag!=null and s_sendFlag!=''">
+			and modulemsg.SENDFLAG=#{s_sendFlag}
+		</if>
+		order by modulemsg.CREATETIME desc
+
+	</select>
+
+	<delete id="deleteData" flushCache="true">
+		delete from tb_wx_module_msg where date_format(createtime,'%Y-%m-%d') &lt; #{clearDate} 
+	</delete>
+	
+	<select id="getNeedPustMsg" resultType="com.marks.module.wx.manage.entity.template.ModuleMsg">
+ 		SELECT * FROM TB_WX_MODULE_MSG t where t.NEEDFLAG=1 and t.SENDFLAG in(0,2) and t.SENDTIMES &lt; #{pushlimitnum} and (#{nowtime}-t.create_stamp) &lt;= #{timelimit} limit #{limitnum}
+ 	</select>
+	<update id="updateResultForModuleMsg">
+		update tb_wx_module_msg
+   			set resultcode = #{resultCode:VARCHAR}, 
+   			resultmsg = #{status:VARCHAR}, 
+   			resulttime = #{createtime:VARCHAR}
+ 		where msgid = #{msgId:VARCHAR}
+	</update>
+</mapper>

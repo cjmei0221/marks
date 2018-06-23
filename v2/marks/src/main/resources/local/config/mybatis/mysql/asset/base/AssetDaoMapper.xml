@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.asset.base.dao.AssetDao">
+
+    <select id="findById" resultType="com.marks.module.asset.base.pojo.Asset">
+		SELECT * FROM TB_ASSET t where t.IDNO = #{idNo}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.asset.base.pojo.Asset">
+		<!--<selectKey keyProperty="idNo" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+
+ 		INSERT INTO TB_ASSET (
+            IDNO,
+            IDTYPE,
+            AMOUNT,
+            USERID,
+            USERNAME,
+            MOBILE,
+            CREATETIME,
+            UPDATETIME,
+            PAYSORT,
+            IDNAME
+		)
+		VALUES(
+		#{info.idNo:VARCHAR},
+            #{info.idType:VARCHAR},
+            #{info.amount:VARCHAR},
+            #{info.userid:VARCHAR},
+            #{info.username:VARCHAR},
+            #{info.mobile:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR},
+            #{info.paySort:NUMERIC},
+            #{info.idName:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_ASSET (
+			            IDNO,
+            IDTYPE,
+            AMOUNT,
+            USERID,
+            USERNAME,
+            MOBILE,
+            CREATETIME,
+            UPDATETIME,
+            PAYSORT,
+            IDNAME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.idNo:VARCHAR},
+            #{info.idType:VARCHAR},
+            #{info.amount:VARCHAR},
+            #{info.userid:VARCHAR},
+            #{info.username:VARCHAR},
+            #{info.mobile:VARCHAR},
+            #{info.createtime:VARCHAR},
+            #{info.updatetime:VARCHAR},
+            #{info.paySort:NUMERIC},
+            #{info.idName:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.module.asset.base.pojo.Asset">
+ 		UPDATE TB_ASSET 
+		SET 
+IDTYPE = #{info.idType:VARCHAR},
+                AMOUNT = #{info.amount:VARCHAR},
+                USERID = #{info.userid:VARCHAR},
+                USERNAME = #{info.username:VARCHAR},
+                MOBILE = #{info.mobile:VARCHAR},
+                UPDATETIME = #{info.updatetime:VARCHAR},
+                PAYSORT = #{info.paySort:NUMERIC},
+                IDNAME = #{info.idName:VARCHAR}
+		WHERE
+			IDNO = #{info.idNo}
+ 	</update>
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_ASSET 
+		SET 
+			IDTYPE = #{info.idType:VARCHAR},
+                AMOUNT = #{info.amount:VARCHAR},
+                USERID = #{info.userid:VARCHAR},
+                USERNAME = #{info.username:VARCHAR},
+                MOBILE = #{info.mobile:VARCHAR},
+                UPDATETIME = #{info.updatetime:VARCHAR},
+                PAYSORT = #{info.paySort:NUMERIC},
+                IDNAME = #{info.idName:VARCHAR}
+		WHERE
+			IDNO = #{info.idNo}
+		</foreach>
+
+	</update>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_ASSET WHERE IDNO=#{idNo}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.asset.base.pojo.Asset">
+ 		SELECT * FROM TB_ASSET t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_ASSET WHERE IDNO in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.asset.base.pojo.Asset" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_ASSET t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.IDNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.IDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+						
+			    order by  t.UPDATETIME DESC		
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>
