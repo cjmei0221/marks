@@ -12,7 +12,7 @@ var appInfo = {
 		parentId : ""
 	},
 	formStatus : "new",
-	orgType : "3,4",
+	orgType : "5,4",
 	orgCategory:0
 };
 
