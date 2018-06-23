@@ -122,6 +122,18 @@
 		WHERE
 		lvl#{lvl}Id =#{orgid}
 	</update>
+	<update id="updateCheckStatus" parameterType="java.util.Map">
+		UPDATE
+		TB_ORG_INFO
+		SET
+		checkStatus=#{checkStatus},
+		checkTime=now(),
+		CHECKERID=#{checkerId},
+		CHECKER=#{checker},
+		updatetime=now()
+		WHERE
+		ORGID = #{idNo}
+	</update>
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM TB_ORG_INFO WHERE
@@ -158,10 +170,10 @@
 			and orginfo.orgCategory in (${orgCategory})
 		</if>
 		<if test="companyId !=null and companyId !=''">
-			and orginfo.ORGID=#{companyId}
+			and orginfo.companyId=#{companyId}
 		</if>
 		order by
-		orginfo.UPDATETIME desc
+		orginfo.ORGTYPE,orginfo.ORGNAME
 	</select>
 	<select id="list" resultType="com.marks.module.org.orginfo.pojo.OrgInfo"
 		parameterType="java.util.Map">

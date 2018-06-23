@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.module.mall.stock.dao.AdjustGoodDao">
+
+    <select id="findById" resultType="com.marks.module.mall.stock.pojo.AdjustGood">
+		SELECT * FROM TB_MALL_STOCK_ADJUST_GOOD t where t.ORDERGOODID = #{orderGoodId}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.module.mall.stock.pojo.AdjustGood">
+		<!--<selectKey keyProperty="orderGoodId" resultType="String" order="BEFORE">select sys_guid() from dual</selectKey>-->
+
+ 		INSERT INTO TB_MALL_STOCK_ADJUST_GOOD  (
+            ORDERGOODID,
+            ORDERID,
+            GOODID,
+            GOODNO,
+            GOODNAME,
+            BARNO,
+            HELPCODE,
+            UNIT,
+            RANK,
+            MODEL,
+            TYPEID,
+            TYPENAME,
+            BRANDID,
+            BRANDNAME,
+            NUMS,
+            COSTPRICE,
+            STOCKTYPE,
+            STOCKTYPENAME,
+            DISPATCHPRICE,
+            UPDATETIME
+		)
+		VALUES(
+		#{info.orderGoodId:VARCHAR},
+            #{info.orderId:VARCHAR},
+            #{info.goodId:VARCHAR},
+            #{info.goodNo:VARCHAR},
+            #{info.goodName:VARCHAR},
+            #{info.barNo:VARCHAR},
+            #{info.helpCode:VARCHAR},
+            #{info.unit:VARCHAR},
+            #{info.rank:VARCHAR},
+            #{info.model:VARCHAR},
+            #{info.typeId:VARCHAR},
+            #{info.typeName:VARCHAR},
+            #{info.brandId:VARCHAR},
+            #{info.brandName:VARCHAR},
+            #{info.nums:NUMERIC},
+            #{info.costPrice:VARCHAR},
+            #{info.stockType:NUMERIC},
+            #{info.stockTypeName:VARCHAR},
+            #{info.dispatchPrice:VARCHAR},
+            #{info.updatetime:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_STOCK_ADJUST_GOOD (
+			            ORDERGOODID,
+            ORDERID,
+            GOODID,
+            GOODNO,
+            GOODNAME,
+            BARNO,
+            HELPCODE,
+            UNIT,
+            RANK,
+            MODEL,
+            TYPEID,
+            TYPENAME,
+            BRANDID,
+            BRANDNAME,
+            NUMS,
+            COSTPRICE,
+            STOCKTYPE,
+            STOCKTYPENAME,
+            DISPATCHPRICE,
+            UPDATETIME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.orderGoodId:VARCHAR},
+            #{info.orderId:VARCHAR},
+            #{info.goodId:VARCHAR},
+            #{info.goodNo:VARCHAR},
+            #{info.goodName:VARCHAR},
+            #{info.barNo:VARCHAR},
+            #{info.helpCode:VARCHAR},
+            #{info.unit:VARCHAR},
+            #{info.rank:VARCHAR},
+            #{info.model:VARCHAR},
+            #{info.typeId:VARCHAR},
+            #{info.typeName:VARCHAR},
+            #{info.brandId:VARCHAR},
+            #{info.brandName:VARCHAR},
+            #{info.nums:NUMERIC},
+            #{info.costPrice:VARCHAR},
+            #{info.stockType:NUMERIC},
+            #{info.stockTypeName:VARCHAR},
+            #{info.dispatchPrice:VARCHAR},
+            #{info.updatetime:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	
+ 	<update id="update" parameterType="com.marks.module.mall.stock.pojo.AdjustGood">
+ 		UPDATE TB_MALL_STOCK_ADJUST_GOOD 
+		SET 
+			ORDERID = #{info.orderId:VARCHAR},
+            GOODID = #{info.goodId:VARCHAR},
+            GOODNO = #{info.goodNo:VARCHAR},
+            GOODNAME = #{info.goodName:VARCHAR},
+            BARNO = #{info.barNo:VARCHAR},
+            HELPCODE = #{info.helpCode:VARCHAR},
+            UNIT = #{info.unit:VARCHAR},
+            RANK = #{info.rank:VARCHAR},
+            MODEL = #{info.model:VARCHAR},
+            TYPEID = #{info.typeId:VARCHAR},
+            TYPENAME = #{info.typeName:VARCHAR},
+            BRANDID = #{info.brandId:VARCHAR},
+            BRANDNAME = #{info.brandName:VARCHAR},
+            NUMS = #{info.nums:NUMERIC},
+            COSTPRICE = #{info.costPrice:VARCHAR},
+            STOCKTYPE = #{info.stockType:NUMERIC},
+            STOCKTYPENAME = #{info.stockTypeName:VARCHAR},
+            DISPATCHPRICE = #{info.dispatchPrice:VARCHAR},
+            UPDATETIME = #{info.updatetime:VARCHAR}
+		WHERE
+			ORDERGOODID = #{info.orderGoodId}
+ 	</update>
+ 	<!--
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_MALL_STOCK_ADJUST_GOOD 
+		SET 
+			ORDERID = #{info.orderId:VARCHAR},
+            GOODID = #{info.goodId:VARCHAR},
+            GOODNO = #{info.goodNo:VARCHAR},
+            GOODNAME = #{info.goodName:VARCHAR},
+            BARNO = #{info.barNo:VARCHAR},
+            HELPCODE = #{info.helpCode:VARCHAR},
+            UNIT = #{info.unit:VARCHAR},
+            RANK = #{info.rank:VARCHAR},
+            MODEL = #{info.model:VARCHAR},
+            TYPEID = #{info.typeId:VARCHAR},
+            TYPENAME = #{info.typeName:VARCHAR},
+            BRANDID = #{info.brandId:VARCHAR},
+            BRANDNAME = #{info.brandName:VARCHAR},
+            NUMS = #{info.nums:NUMERIC},
+            COSTPRICE = #{info.costPrice:VARCHAR},
+            STOCKTYPE = #{info.stockType:NUMERIC},
+            STOCKTYPENAME = #{info.stockTypeName:VARCHAR},
+            DISPATCHPRICE = #{info.dispatchPrice:VARCHAR},
+            UPDATETIME = #{info.updatetime:VARCHAR}
+		WHERE
+			ORDERGOODID = #{info.orderGoodId}
+		</foreach>
+
+	</update>
+ 	-->
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_MALL_STOCK_ADJUST_GOOD t WHERE t.ORDERGOODID=#{orderGoodId}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.module.mall.stock.pojo.AdjustGood">
+ 		SELECT * FROM TB_MALL_STOCK_ADJUST_GOOD t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_MALL_STOCK_ADJUST_GOOD WHERE ORDERGOODID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.module.mall.stock.pojo.AdjustGood" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_MALL_STOCK_ADJUST_GOOD t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.ORDERGOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.ORDERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.GOODID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.GOODNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.GOODNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BARNO LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.HELPCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.UNIT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.RANK LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.MODEL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPEID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BRANDID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.BRANDNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.NUMS LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.COSTPRICE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.STOCKTYPE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.STOCKTYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.DISPATCHPRICE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.UPDATETIME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+					
+			    order by  t.UPDATETIME DESC				
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

@@ -180,6 +180,14 @@
 		WHERE
 		USERID=#{userid}
 	</update>
+	<update id="updateUnMobile">
+		UPDATE tb_user
+		SET
+		BIND_MOBILE ='',
+		UPDATETIME = now()
+		WHERE
+		COMPANYID=#{companyId} and BIND_MOBILE=#{mobile}
+	</update>
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM tb_user WHERE
