@@ -35,4 +35,6 @@ public interface OrgInfoService{
 	 */
 	public String getCompanyId();
 
+	public void updateCheckStatus(Map<String, String> map);
+
 }

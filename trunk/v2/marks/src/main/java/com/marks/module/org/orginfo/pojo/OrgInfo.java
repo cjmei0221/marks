@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.marks.common.enums.Enums;
 import com.marks.common.enums.OrgEnums;
 
 public class OrgInfo implements Serializable{
@@ -79,8 +80,48 @@ public class OrgInfo implements Serializable{
 	private String areaName;
 	private String address;
 
+	private int checkStatus = 1;
+	private String checkStatusName;
+	private String checkId;
+	private String checker;
+	private String checkTime;
 
-    
+	public String getCheckStatusName() {
+		return Enums.CheckStatus.getByKey(checkStatus);
+	}
+
+	public int getCheckStatus() {
+		return checkStatus;
+	}
+
+	public void setCheckStatus(int checkStatus) {
+		this.checkStatus = checkStatus;
+	}
+
+	public String getCheckId() {
+		return checkId;
+	}
+
+	public void setCheckId(String checkId) {
+		this.checkId = checkId;
+	}
+
+	public String getChecker() {
+		return checker;
+	}
+
+	public void setChecker(String checker) {
+		this.checker = checker;
+	}
+
+	public String getCheckTime() {
+		return checkTime;
+	}
+
+	public void setCheckTime(String checkTime) {
+		this.checkTime = checkTime;
+	}
+
 	public int getOrgCategory() {
 		return orgCategory;
 	}
