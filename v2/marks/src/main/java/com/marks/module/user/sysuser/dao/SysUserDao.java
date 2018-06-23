@@ -56,4 +56,6 @@ public interface SysUserDao {
 
 	List<SysUser> findByParams(Map<String, String> param);
 
+	void updateUnMobile(@Param("companyId") String companyId, @Param("mobile") String mobile);
+
 }

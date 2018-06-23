@@ -45,4 +45,12 @@ public interface SysUserService{
 	 */
 	public void updateBinding(SysUser user);
 
+	/**
+	 * 解绑占有此手机号
+	 * 
+	 * @param companyId
+	 * @param linkTel
+	 */
+	public void updateUnMobile(String companyId, String linkTel);
+
 }

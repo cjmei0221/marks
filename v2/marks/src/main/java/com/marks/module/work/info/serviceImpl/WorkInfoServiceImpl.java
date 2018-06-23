@@ -201,6 +201,7 @@ public class WorkInfoServiceImpl implements WorkInfoService {
 			params.put("checkerId", info.getOperatorId());
 			params.put("checker", info.getOperatorName());
 			params.put("remarks", info.getRemarks());
+			params.put("companyId", info.getCompanyId());
 			type.setChecker(info.getOperatorName());
 			type.setCheckerId(info.getOperatorId());
 			type.setIdNo(work.getIdNo());
