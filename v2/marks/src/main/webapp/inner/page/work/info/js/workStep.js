@@ -14,7 +14,7 @@ function showInfo(){
 	$("#editWin").window({
 		title : "资料"
 	}).window("open");
-	var path = top.window.urlBase + appInfo.selectedData.pageUrl;
+	var path = appInfo.selectedData.pageUrl;
     var strHtml = "<iframe style='width:100%;height:99%;' frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
     $("#postShow").append(strHtml);
 }

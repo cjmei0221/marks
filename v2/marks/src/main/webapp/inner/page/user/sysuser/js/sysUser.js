@@ -14,7 +14,7 @@ var appInfo = {
 		keyword : "",
 		ssorgid : "",
 		s_role : null,
-		roleYwType:0
+		roleYwType:2
 	},
 	formStatus : "new",
 };
@@ -28,7 +28,7 @@ function add() {
 	appInfo.formStatus = "new";
 	$("#roleId").combobox("reload");
 	$("#roleId1").combobox("reload");
-	$("#roleYwType").val(0);
+	$("#roleYwType").val(appInfo.requestParam.roleYwType);
 	$("#roleId").combobox("clear");
 	
 }

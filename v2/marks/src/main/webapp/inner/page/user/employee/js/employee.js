@@ -27,7 +27,7 @@ function add() {
 	$('#ff').form('clear');
 	appInfo.formStatus = "new";
 	$("#roleType").combobox("reload");
-	$("#roleYwType").val(1);
+	$("#roleYwType").val(appInfo.requestParam.roleYwType);
 }
 
 // 编辑

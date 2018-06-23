@@ -30,7 +30,17 @@ function edit() {
 	var path = appInfo.selectedData.pageUrl;
     var strHtml = "<iframe width='100%' height='480px'  frameborder='0' scrolling='auto' src='" + path + "'></iframe>";
     $("#postShow").html(strHtml);
-}// -----------------权限控制功能 end---------------
+}
+
+function check() {
+	if (!isSelectedOne(appInfo.selectedId)) {
+		return;
+	}
+	var path = "workCheck.html?workId="+appInfo.selectedId;
+	location.href = path;
+}
+
+// -----------------权限控制功能 end---------------
 $(function() {
 	// 加载列表
 	loadList();
@@ -140,7 +150,7 @@ function loadList() {
 		onDblClickRow : function(rowIndex, rowData) {
 			appInfo.selectedId = rowData.workId;
 			appInfo.selectedData = rowData;
-			edit();
+			check();
 		},
 		onLoadSuccess : function(data) {
 			$("#tbList").datagrid('unselectAll');
