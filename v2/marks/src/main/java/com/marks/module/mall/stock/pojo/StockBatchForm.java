@@ -39,6 +39,16 @@ public class StockBatchForm {
 
 	private String dispatchPrice;// 配送价
 
+	private int stockStatus;
+
+	public int getStockStatus() {
+		return stockStatus;
+	}
+
+	public void setStockStatus(int stockStatus) {
+		this.stockStatus = stockStatus;
+	}
+
 	public String getDispatchPrice() {
 		return dispatchPrice;
 	}

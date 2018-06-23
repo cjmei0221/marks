@@ -91,6 +91,7 @@ public class DispatchInfoServiceImpl implements DispatchInfoService {
 	private void dealGood(DispatchInfo info, List<DispatchGood> goodList) {
 		if (null != goodList && goodList.size() > 0) {
 			for (DispatchGood good : goodList) {
+				good.setCompanyId(info.getCompanyId());
 				// good.setDispatchNums(good.getNums() + good.getSendNums());
 				good.setPurchaseNums(good.getNums() + good.getSendNums());
 				good.setOrderId(info.getOrderId());
@@ -233,6 +234,7 @@ public class DispatchInfoServiceImpl implements DispatchInfoService {
 		info.setYwCode(StockEnums.YwCode.cg_stockIn.getValue());
 		info.setDispatchPrice(good.getPayPrice());
 		logger.info("saveBarCode > param>" + info.getGoodId() + " - " + info.getNums());
+		info.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
 		stockBatchService.saveFirstStockIn(info);
 	}
 
@@ -309,6 +311,7 @@ public class DispatchInfoServiceImpl implements DispatchInfoService {
 		batch.setSupplierId2(info.getSendOrgId());
 		batch.setYwCode(StockEnums.YwCode.dh_stockIn.getValue());
 		batch.setDispatchPrice(good.getPayPrice());
+		batch.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
 		stockBatchService.saveFirstStockIn(batch);
 	}
 
