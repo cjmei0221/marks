@@ -60,14 +60,19 @@
 					<tr>
 						<td colspan="2" style="text-align: center; color: red;">层级越高，级别越低，级别高的不能编辑级别低的</td>
 					</tr>
+					<tr>
+						<th align="right" style="width: 100px">名称</th>
+						<td><input id="orgName" name="orgName"
+							class="easyui-validatebox" style="width: 200px"></td>
+					</tr>
 					<tr id="userTypeTr">
 						<th align="right" style="width: 100px">职位</th>
 						<td><input id="roleType" name="roleType"
-						class="easyui-combobox"
-						data-options="valueField:'roleType',textField:'rolename',url:'/i/inner/sysRole/combo.do?roleYwType=2'"
-						style="width: 200px">&nbsp;(<span style="color: red;">新增之后不可编辑</span>)</td>
+							class="easyui-combobox"
+							data-options="valueField:'roleType',textField:'rolename',url:'/i/inner/sysRole/combo.do?roleYwType=2'"
+							style="width: 200px">&nbsp;(<span style="color: red;">新增之后不可编辑</span>)</td>
 					</tr>
-					<tr style="display:none;">
+					<tr style="display: none;">
 						<th align="right" style="width: 100px">名称</th>
 						<td><input id="rolename" name="rolename"
 							class="easyui-validatebox" data-options="required:true"

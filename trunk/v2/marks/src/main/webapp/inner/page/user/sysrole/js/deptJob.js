@@ -34,6 +34,7 @@ function add() {
 		title : "新增"
 	}).window("open");
 	$('#ff').form('clear');
+	$("#orgName").val(appInfo.treeData.treeName);
 	appInfo.formStatus = "new";
 	$('#userTypeTr').show();
 	$('#showFlagTr').show();
@@ -161,12 +162,13 @@ function formSubmit() {
 }
 
 function loadTypeTree() {
+	var orgType="1,3,5,4";
 	$('#typeTree').tree(
 			{
-				url : appInfo.orglistUrl + "?orgType=0,3,4",
+				url : appInfo.orglistUrl + "?orgType="+orgType+"&parentId=",
 				onBeforeExpand : function(node) {
 					$("#typeTree").tree("options").url = appInfo.orglistUrl
-							+ "?parentId=" + node.id + "&orgType=0&_timer="
+							+ "?parentId=" + node.id + "&orgType="+orgType+"&_timer="
 							+ new Date().getTime();
 				},
 				onClick : function(node) {

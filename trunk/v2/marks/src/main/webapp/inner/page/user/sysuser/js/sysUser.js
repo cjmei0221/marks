@@ -182,11 +182,11 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : '用户编号',
-			field : 'userCode',
+			title : '系统编号',
+			field : 'userid',
 			width : 120
 		}, {
-			title : '登陆账号',
+			title : '手机号',
 			field : 'bind_mobile',
 			width : 100,
 			align : "center"
@@ -212,11 +212,11 @@ function loadList() {
 			field : 'roleName',
 			width : 100,
 			align : "center"
-//		}, {
-//			title : '所属组织',
-//			field : 'orgName',
-//			width : 100,
-//			align : "center"
+		}, {
+			title : '所属公司',
+			field : 'orgName',
+			width : 100,
+			align : "center"
 		}, {
 			title : '激活标识',
 			field : 'activeFlag',
