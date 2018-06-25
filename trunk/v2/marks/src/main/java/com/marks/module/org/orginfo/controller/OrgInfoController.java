@@ -235,6 +235,30 @@ public class OrgInfoController extends SupportContorller {
 	/**
 	 * jqGrid多种条件查询
 	 */
+	@RequestMapping("/inner/orgInfo/tree")
+	public void tree(HttpServletRequest request, HttpServletResponse response) {
+
+		SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+		String parentId = request.getParameter("parentId");
+		String orgType = request.getParameter("orgType");
+		logger.info("list parentId:" + parentId);
+		String companyId = admin.getCompanyId();
+		logger.info("list companyId:" + companyId);
+		List<OrgInfo> list = null;
+
+		// 根节点加载
+		if (parentId == null || "".equals(parentId)) {
+			parentId = admin.getCompanyId();
+		}
+		logger.info("list parentId:" + parentId + " - " + admin.getCompanyId() + " - " + orgType + " - ");
+		list = orgInfoService.list(admin.getCompanyId(), parentId, orgType);
+		JsonUtil.output(response, JSONArray.fromObject(list).toString());
+		return;
+	}
+
+	/**
+	 * jqGrid多种条件查询
+	 */
 	@RequestMapping("/inner/orgInfo/framelist")
 	public void framelist(HttpServletRequest request, HttpServletResponse response) {
 		PaginationResult result = new PaginationResult();

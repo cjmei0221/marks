@@ -347,14 +347,14 @@ input:-webkit-autofill {
 								<label class="form_topname">登&nbsp;&nbsp;录</label>
 							</div>
 							<div class="inputdiv">
-								<div class="undiv" style="border-bottom-width: 0px;display:none;">
+								<div class="undiv" style="border-bottom-width: 0px;">
 									<div class="imgdiv">
 										<img src="images/timg.jpeg">
 									</div>
 									<div class="input2div">
 										<input type="text" validateClass="error" placeholder="请输入公司编号"
 											name="companyId" id="companyId" autocomplete="off"
-											class="inputText" value="C1000001"
+											class="inputText"
 											data-options="{messages:{required:'公司编号不能为空'}}" />
 									</div>
 								</div>
@@ -404,6 +404,13 @@ input:-webkit-autofill {
 			var checkflag = true;
 			var errorMsg = "";
 			//检验用户ID
+			var companyIdPut = $("#companyId").val();
+			//非空判断
+			if (companyIdPut == null || companyIdPut == '') {
+				errorMsg += "<p class='tipMsgCls'>公司编号为空</p>";
+				checkflag = false;
+			}
+			//检验用户ID
 			var useridPut = $("#userid").val();
 			//非空判断
 			if (useridPut == null || useridPut == '') {
@@ -440,29 +447,32 @@ input:-webkit-autofill {
 			if (checkParams()) {
 				var p = {
 					userid : $("#userid").val(),
-					pwd : Encrypt($("#password").val())
+					pwd : Encrypt($("#password").val()),
+					companyId:$("#companyId").val()
 				}
 
-				$.ajax({
-					url : appLogin.urlLogin,
-					data : p,
-					type : "post",
-					success : function(data, status, xhr) {
-						if (typeof data === "string") {
-							data = $.parseJSON(data);
-						}
-						if (data.retcode == "0") {
-							coke.setCookie("mCompanyId",$("#companyId").val());
-							location.replace("index.html");
-						} else {
-							$.messager.alert("系统提示", data.retmsg);
-							return;
-						}
-					},
-					error : function(xhr) {
+				$
+						.ajax({
+							url : appLogin.urlLogin,
+							data : p,
+							type : "post",
+							success : function(data, status, xhr) {
+								if (typeof data === "string") {
+									data = $.parseJSON(data);
+								}
+								if (data.retcode == "0") {
+									coke.setCookie("mCompanyId",
+											$("#companyId").val());
+									location.replace("index.html");
+								} else {
+									$.messager.alert("系统提示", data.retmsg);
+									return;
+								}
+							},
+							error : function(xhr) {
 
-					}
-				});
+							}
+						});
 			}
 			return;
 		}
@@ -473,17 +483,19 @@ input:-webkit-autofill {
 		})
 		$(function() {
 			var r = window.location;
-			r=r+"";
+			r = r + "";
 			var strs = new Array(); //定义一数组 
 			strs = r.split("/");
-			var companyId = strs[strs.length-1];
+			var companyId = strs[strs.length - 1];
 			document.getElementById("userid").focus();
 			//input内显示的字符
 			$('input, textarea').placeholder();
-			if (companyId != null && companyId != '' && companyId !='undefined' && companyId.indexOf("html")<0) {
+			if (companyId != null && companyId != ''
+					&& companyId != 'undefined'
+					&& companyId.indexOf("html") < 0) {
 				$("#companyId").val(companyId);
-			}else{
-				companyId=coke.getCookie("mCompanyId");
+			} else {
+				companyId = coke.getCookie("mCompanyId");
 				$("#companyId").val(companyId);
 			}
 		});

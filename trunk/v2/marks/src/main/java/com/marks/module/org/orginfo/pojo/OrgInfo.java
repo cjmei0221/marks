@@ -82,7 +82,7 @@ public class OrgInfo implements Serializable{
 
 	private int checkStatus = 1;
 	private String checkStatusName;
-	private String checkId;
+	private String checkerId;
 	private String checker;
 	private String checkTime;
 
@@ -98,12 +98,12 @@ public class OrgInfo implements Serializable{
 		this.checkStatus = checkStatus;
 	}
 
-	public String getCheckId() {
-		return checkId;
+	public String getCheckerId() {
+		return checkerId;
 	}
 
-	public void setCheckId(String checkId) {
-		this.checkId = checkId;
+	public void setCheckerId(String checkerId) {
+		this.checkerId = checkerId;
 	}
 
 	public String getChecker() {

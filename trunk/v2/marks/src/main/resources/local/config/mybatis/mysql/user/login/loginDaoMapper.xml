@@ -57,21 +57,19 @@
 		VSRM.PARENTID,vsrm.sort
 	</select>
 
-	<select id="getMenuListByLog" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">
-		SELECT menu.*, t2.nums
-		FROM tb_sys_menu menu
-		JOIN
-		( SELECT count(t.menuid) nums, t.menuid
+	<select id="getMenuIdByLog" resultType="String">
+		SELECT
+		t.menuid
 		FROM
 		tb_sys_log t
 		WHERE date_format(t.createtime,'yyyy-MM-dd')
 		&gt;=#{before3Month}
 		AND t.menuid IS NOT NULL
 		AND t.userid = #{userid}
-		GROUP BY t.menuid) t2
-		ON t2.menuid = menu.menuid
-		where menu.status=1
-		ORDER BY t2.nums DESC
+		GROUP BY
+		t.menuid
+		ORDER BY
+		count(t.menuid) DESC
 	</select>
 
 	<select id="getChildMenu" resultType="com.marks.module.system.sysmenu.pojo.SysMenu">

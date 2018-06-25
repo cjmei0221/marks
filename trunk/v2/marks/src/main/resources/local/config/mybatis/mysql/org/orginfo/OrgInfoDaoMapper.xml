@@ -48,7 +48,8 @@
 		address,
 		linkman,
 		linkTel,
-		orgCategory
+		orgCategory,
+		checkStatus
 		)
 		VALUES(
 		#{orgid:VARCHAR},
@@ -78,7 +79,8 @@
 		#{address:VARCHAR},
 		#{linkman:VARCHAR},
 		#{linkTel:VARCHAR},
-		#{orgCategory:NUMERIC}
+		#{orgCategory:NUMERIC},
+		#{checkStatus:NUMERIC}
 		)
 	</insert>
 

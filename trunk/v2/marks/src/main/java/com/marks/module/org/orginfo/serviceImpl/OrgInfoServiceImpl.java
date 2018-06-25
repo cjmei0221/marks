@@ -176,11 +176,11 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		return orgInfoDao.getTreeGridByParentId(param);
 	}
 
-	public List<OrgInfo> list(SysUser admin, String orgType) {
-		List<OrgInfo> allList = orgInfoDao.findAll(admin.getCompanyId(), orgType);
+	public List<OrgInfo> list(String companyId, String parentId, String orgType) {
+		List<OrgInfo> allList = orgInfoDao.findAll(companyId, orgType);
 		List<OrgInfo> list = new ArrayList<OrgInfo>();
 		for (OrgInfo vo : allList) {
-			if (admin.getCompanyId().equals(vo.getOrgid())) {
+			if (parentId.equals(vo.getOrgid())) {
 				list.add(vo);
 			}
 		}
@@ -273,6 +273,8 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 				if (null != info.getLinkTel() && info.getLinkTel().length() > 4) {
 					sysUserService.updateUnMobile(companyId, info.getLinkTel());
 					user.setBind_mobile(info.getLinkTel());
+				} else {
+					user.setBind_mobile(info.getOrgid());
 				}
 				user.setActiveFlag(Enums.Status.Enable.getValue());
 				user.setBindFlag(Enums.Status.Unable.getValue());
@@ -283,6 +285,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 				user.setRoleId(companyId + "_system");
 				user.setUserid(info.getOrgid());
 				user.setRoleYwType(UserEnums.RoleYwType.defaultSys.getValue());
+				user.setOrgId(info.getOrgid());
 				sysUserService.save(user);
 			}
 		}

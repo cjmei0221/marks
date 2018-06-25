@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.marks.common.domain.PojoDomain;
 import com.marks.module.org.orginfo.pojo.OrgInfo;
-import com.marks.module.user.sysuser.pojo.SysUser;
 
 public interface OrgInfoService{
 
@@ -16,7 +15,7 @@ public interface OrgInfoService{
 	public void delete(String orgid);
 	public void deleteBatch(List<String> ids);
 
-	public List<OrgInfo> list(SysUser admin, String orgType);
+	public List<OrgInfo> list(String companyId, String parentId, String orgType);
 	public PojoDomain<OrgInfo> framelist(int page_number, int page_size, Map<String, Object> param);
 	public List<OrgInfo> getChildList(String orgid);
 
