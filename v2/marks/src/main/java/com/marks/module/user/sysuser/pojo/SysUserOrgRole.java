@@ -143,7 +143,8 @@ public class SysUserOrgRole {
 
 	public String getShowName() {
 		String str = "";
-		if (this.getOrgName() != null && !"".equals(this.getOrgName())) {
+		if (this.getOrgName() != null && !"".equals(this.getOrgName())
+				&& !this.getOrgId().equals(this.getCompanyId())) {
 			str = this.getOrgName() + " / ";
 		}
 		return str = str + this.getRoleName();

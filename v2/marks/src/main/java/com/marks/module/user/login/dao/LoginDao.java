@@ -47,7 +47,7 @@ public interface LoginDao {
 
 	List<SysUser> listById(@Param("id") String id);
 
-	List<SysMenu> getMenuListByLog(@Param("userid") String userid, @Param("before3Month") String before3Month);
+	List<String> getMenuIdByLog(@Param("userid") String userid, @Param("before3Month") String before3Month);
 
 	List<SysUserOrgRole> getUserOrgRolelistByUserid(@Param("userid") String userid);
 

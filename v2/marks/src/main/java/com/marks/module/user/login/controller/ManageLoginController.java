@@ -18,7 +18,6 @@ import com.marks.common.util.Constants;
 import com.marks.common.util.JsonUtil;
 import com.marks.common.util.RequestUtil;
 import com.marks.common.util.encrypt.EncryptUtil;
-import com.marks.module.core.runModel.RunModel;
 import com.marks.module.system.syslog.pojo.SysLog;
 import com.marks.module.system.syslog.thread.SysLogThreadPool;
 import com.marks.module.system.sysmenu.pojo.SysMenu;
@@ -56,8 +55,8 @@ public class ManageLoginController {
 		Result result = new Result();
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
-		// String companyId = request.getParameter("companyId");
-		String companyId = RunModel.getInstance().getCompanyId();
+		String companyId = request.getParameter("companyId");
+		// String companyId = RunModel.getInstance().getCompanyId();
 		/**
 		 * 如果登陆用为system，则拥有所有权限除了业务权限
 		 */
