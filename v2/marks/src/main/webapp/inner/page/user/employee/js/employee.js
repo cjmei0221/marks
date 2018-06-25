@@ -212,7 +212,7 @@ function loadList() {
 		singleSelect : true,
 		columns : [ [ {
 			title : '用户编号',
-			field : 'userCode',
+			field : 'userid',
 			width : 120
 		}, {
 			title : '绑定手机',

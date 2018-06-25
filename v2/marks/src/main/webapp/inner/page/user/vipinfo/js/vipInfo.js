@@ -186,8 +186,8 @@ function loadList() {
 		pageSize : appInfo.requestParam.page_size,
 		singleSelect : true,
 		columns : [ [ {
-			title : 'USERID',
-			field : 'userCode',
+			title : '用户编号',
+			field : 'userid',
 			width : 100,
 			align : "center"
 		}, {
