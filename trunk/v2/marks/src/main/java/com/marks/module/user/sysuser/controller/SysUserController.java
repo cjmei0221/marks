@@ -201,10 +201,11 @@ public class SysUserController extends SupportContorller {
 			String roleType = request.getParameter("roleType");
 			String showflag = request.getParameter("showflag");
 			String roleYwType = request.getParameter("roleYwType");
-			if (keyword == null) {
-				keyword = "";
-			}
 			String companyId = admin.getCompanyId();
+			if (UserEnums.RoleYwType.sys.toString().equals(roleYwType)) {
+				companyId = "";
+			}
+
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("keyword", keyword);
 			param.put("orgid", admin.getOrgId());

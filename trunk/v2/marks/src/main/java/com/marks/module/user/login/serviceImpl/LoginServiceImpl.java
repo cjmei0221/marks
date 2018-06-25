@@ -66,10 +66,18 @@ public class LoginServiceImpl implements LoginService {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String before3Month = sdf.format(c.getTime());
 			// 常用菜单
-			List<SysMenu> useMenuList = loginDao.getMenuListByLog(user.getUserid(), before3Month);
-			if (null != useMenuList && useMenuList.size() > 0) {
-				if (useMenuList.size() > 8) {
-					useMenuList = useMenuList.subList(0, 8);
+			List<String> useMenuidList = loginDao.getMenuIdByLog(user.getUserid(), before3Month);
+			if (null != useMenuidList && useMenuidList.size() > 0) {
+				if (useMenuidList.size() > 8) {
+					useMenuidList = useMenuidList.subList(0, 8);
+				}
+				List<SysMenu> useMenuList = new ArrayList<SysMenu>();
+				for (SysMenu sm : child) {
+					for (String menuid : useMenuidList) {
+						if (sm.getMenuid().equals(menuid)) {
+							useMenuList.add(sm);
+						}
+					}
 				}
 
 				// 常用一级菜单
@@ -87,6 +95,7 @@ public class LoginServiceImpl implements LoginService {
 				useLvl2.setParentid(useLvl1.getMenuid());
 				useLvl2.setUrl("#");
 				useLvl1.addChildren(useLvl2);
+
 				// 常用三级菜单
 				for (SysMenu sm : useMenuList) {
 					sm.setParentid(useLvl2.getMenuid());

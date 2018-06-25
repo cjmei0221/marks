@@ -75,6 +75,9 @@ public class SysUserServiceImpl implements SysUserService {
 			userid = sysUser.getUserid();
 			sysUser.setRoleYwType(UserEnums.RoleYwType.sys.getValue());
 		}
+		if (UserEnums.RoleYwType.sys.getValue() == sysUser.getRoleYwType()) {
+			sysUser.setOrgId(sysUser.getCompanyId());
+		}
 		sysUser.setUserid(userid);
 		sysUser.setUserCode(userCode);
 		saveSysUserOrgRole(sysUser);
@@ -93,10 +96,13 @@ public class SysUserServiceImpl implements SysUserService {
 		long initcode = 0;
 		String maxCode = sysUserDao.getMaxCode(companyId);
 		if (null == maxCode || "".equals(maxCode)) {
-			maxCode = "100000";
+			maxCode = "0";
 		}
 		initcode = Long.parseLong(maxCode);
 		userCode = String.valueOf(initcode + 1);
+		if (userCode.length() == 1) {
+			userCode = "0" + userCode;
+		}
 		return userCode;
 	}
 
