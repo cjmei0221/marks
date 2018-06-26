@@ -66,7 +66,7 @@ public class IDUtil {
 	public static String getID(int size) {
 		String str = System.currentTimeMillis() + "";
 		String idStr = System.currentTimeMillis() + IDUtil.getRandom(1000, 9999) + IDUtil.getRandom(1000, 9999)
-				+ str.substring(str.length() - 4, str.length());
+				+ str.substring(str.length() - 2, str.length());
 		if (size > idStr.length()) {
 			size = idStr.length();
 		}
@@ -93,7 +93,7 @@ public class IDUtil {
 	}
 
 	public static String getNumID() {
-		return IDUtil.getSecondID() + IDUtil.getID(12);
+		return IDUtil.getSecondID() + IDUtil.getID(6);
 	}
 
 	public static void main(String[] args) {
