@@ -20,6 +20,7 @@ import com.marks.module.mall.stock.dao.AdjustInfoDao;
 import com.marks.module.mall.stock.dao.StockInfoDao;
 import com.marks.module.mall.stock.pojo.AdjustGood;
 import com.marks.module.mall.stock.pojo.AdjustInfo;
+import com.marks.module.mall.stock.pojo.StockBatch;
 import com.marks.module.mall.stock.pojo.StockBatchForm;
 import com.marks.module.mall.stock.pojo.StockInfo;
 import com.marks.module.mall.stock.service.AdjustInfoService;
@@ -190,6 +191,7 @@ public class AdjustInfoServiceImpl implements AdjustInfoService {
 						batch.setYwCode(StockEnums.YwCode.dz_stockIn.getValue());
 						batch.setDispatchPrice(good.getDispatchPrice());
 						batch.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
+						batch.setRemarks("库存调整入库");
 						stockBatchService.saveFirstStockIn(batch);
 					} else if (nums < 0) {
 						StockBatchForm batch = new StockBatchForm();
@@ -208,7 +210,22 @@ public class AdjustInfoServiceImpl implements AdjustInfoService {
 						batch.setYwCode(StockEnums.YwCode.dz_stockOut.getValue());
 						batch.setDispatchPrice(good.getDispatchPrice());
 						batch.setStockStatus(StockEnums.StockStatus.stockOut.getValue());
-						stockBatchService.saveFirstStockIn(batch);
+						batch.setRemarks("库存调整入库");
+						// stockBatchService.saveFirstStockIn(batch);
+
+						List<StockBatch> stocklist = stockBatchService.getStockBatchByNums(batch.getOrgid(),
+								batch.getGoodId(), batch.getNums());
+						int stockNum = batch.getNums();
+						if (null != stocklist && stocklist.size() > 0) {
+							for (StockBatch vo : stocklist) {
+								stockNum = stockNum - vo.getTranNums();
+								vo.setTranAmt(MoneyUtil.multiply(String.valueOf(vo.getTranNums()), vo.getCostPrice()));
+								vo.setBalAmt(MoneyUtil.subtract(vo.getBalAmt(), vo.getTranAmt()));
+								vo.setBalNums(vo.getBalNums() - vo.getTranNums());
+								vo.setYwCode(StockEnums.YwCode.dz_stockOut.getValue());
+							}
+							stockBatchService.updateStockOut(stocklist, null);
+						}
 					}
 				}
 			}

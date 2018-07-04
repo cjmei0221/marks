@@ -95,5 +95,10 @@ public class OrderGoodServiceImpl implements OrderGoodService{
 		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
 		return pojoDomain;
 	}
+
+	@Override
+	public List<OrderGood> findByOrderId(String orderId) {
+		return orderGoodDao.findByOrderId(orderId);
+	}
 	
 }

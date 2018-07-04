@@ -53,4 +53,6 @@ public interface SysUserService{
 	 */
 	public void updateUnMobile(String companyId, String linkTel);
 
+	public SysUser findById(String companyId, String vipId);
+
 }

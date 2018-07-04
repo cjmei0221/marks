@@ -235,6 +235,7 @@ public class DispatchInfoServiceImpl implements DispatchInfoService {
 		info.setDispatchPrice(good.getPayPrice());
 		logger.info("saveBarCode > param>" + info.getGoodId() + " - " + info.getNums());
 		info.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
+		info.setRemarks("采购入库");
 		stockBatchService.saveFirstStockIn(info);
 	}
 
@@ -312,6 +313,7 @@ public class DispatchInfoServiceImpl implements DispatchInfoService {
 		batch.setYwCode(StockEnums.YwCode.dh_stockIn.getValue());
 		batch.setDispatchPrice(good.getPayPrice());
 		batch.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
+		batch.setRemarks("调货入库");
 		stockBatchService.saveFirstStockIn(batch);
 	}
 

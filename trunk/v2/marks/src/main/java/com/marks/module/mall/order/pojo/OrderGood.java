@@ -56,6 +56,8 @@ public class OrderGood implements Serializable {
 	 *
 	 */
 	private String rank;
+
+
 	/**
 	 * 类别编号
 	 *
@@ -269,9 +271,56 @@ public class OrderGood implements Serializable {
 
 	private String helpCode;// 助记码
 
+	private String model;// 型号
+	private int hadRefundNums;// 已退货数量
+	private String hadRefundAmt;// 已退货金额
+
+	private int refundNums;
+	private String refundAmt;
+
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public int getHadRefundNums() {
+		return hadRefundNums;
+	}
+
+	public void setHadRefundNums(int hadRefundNums) {
+		this.hadRefundNums = hadRefundNums;
+	}
+
+	public String getHadRefundAmt() {
+		return hadRefundAmt;
+	}
+
+	public void setHadRefundAmt(String hadRefundAmt) {
+		this.hadRefundAmt = hadRefundAmt;
+	}
+
+	public int getRefundNums() {
+		return refundNums;
+	}
+
+	public void setRefundNums(int refundNums) {
+		this.refundNums = refundNums;
+	}
+
+	public String getRefundAmt() {
+		return refundAmt;
+	}
+
+	public void setRefundAmt(String refundAmt) {
+		this.refundAmt = refundAmt;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	public String getPayPrice() {

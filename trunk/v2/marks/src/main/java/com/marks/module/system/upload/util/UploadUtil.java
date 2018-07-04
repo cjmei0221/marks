@@ -15,26 +15,10 @@ public class UploadUtil {
 	 * @return
 	 */
 	public static String getUploadPath(HttpServletRequest request){
-		String uploadFile = request.getSession().getServletContext().getRealPath("/")
-				+"upload_file" + File.separator;
-		File file = new File(uploadFile);
-		if(!file.exists()){
-			file.mkdir();
+		String uploadFile = request.getSession().getServletContext().getRealPath("/") + "upload_file" + File.separator;
+		if ("N".equals(FTPUtil.ftp_flag)) {
+			uploadFile = request.getSession().getServletContext().getRealPath("/") + "upload_file" + File.separator;
 		}
-		return uploadFile;
-	}
-	
-	/**
-	 * 获取临时上传文件路径
-	 * lhyan3
-	 * 2015年7月13日下午3:32:51
-	 * TODO
-	 * @param request
-	 * @return
-	 */
-	public static String getTemplatePath(HttpServletRequest request){
-		String uploadFile = request.getSession().getServletContext().getRealPath("/")
-				+"template"+File.separator+"excel" + File.separator;
 		File file = new File(uploadFile);
 		if(!file.exists()){
 			file.mkdir();

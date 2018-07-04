@@ -72,10 +72,20 @@ public class LoginServiceImpl implements LoginService {
 					useMenuidList = useMenuidList.subList(0, 8);
 				}
 				List<SysMenu> useMenuList = new ArrayList<SysMenu>();
+				SysMenu menu = null;
 				for (SysMenu sm : child) {
 					for (String menuid : useMenuidList) {
 						if (sm.getMenuid().equals(menuid)) {
-							useMenuList.add(sm);
+							menu = new SysMenu();
+							menu.setLvl(sm.getLvl());
+							menu.setMenuid(sm.getMenuid());
+							menu.setMenuitem(sm.getMenuitem());
+							menu.setParentid(sm.getParentid());
+							menu.setSort(sm.getSort());
+							menu.setState(sm.getState());
+							menu.setStatus(sm.getStatus());
+							menu.setUrl(sm.getUrl());
+							useMenuList.add(menu);
 						}
 					}
 				}

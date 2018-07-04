@@ -73,12 +73,13 @@ public class StockEnums {
 	}
 
 	public enum YwCode {
-		cg_stockIn(1, "采购入库"), //
-		sale_stockOut(2, "售卖出库"), //
-		dh_stockIn(3, "调货入库"), //
-		dh_stockOut(4, "调货出库"), //
-		dz_stockIn(5, "调整入库"), //
-		dz_stockOut(5, "调整出库"), //
+		cg_stockIn(10, "采购入库"), //
+		sale_stockOut(11, "售卖出库"), //
+		refund_stockIn(12, "退货入库"), //
+		dh_stockIn(20, "调货入库"), //
+		dh_stockOut(21, "调货出库"), //
+		dz_stockIn(30, "调整入库"), //
+		dz_stockOut(31, "调整出库"), //
 		;// 会员
 
 		private int status;
