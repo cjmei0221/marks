@@ -30,4 +30,6 @@ public interface OrderGoodDao {
 	void deleteBatch(@Param("list") List<String> list);
 
 	List<OrderGood> list(PageBounds pageBounds, Map<String,Object> param);
+
+	List<OrderGood> findByOrderId(@Param("orderId") String orderId);
 }

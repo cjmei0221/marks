@@ -15,10 +15,9 @@ import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
 import com.marks.common.util.Code;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
-import com.marks.common.util.string.IStringUtil;
 import com.marks.module.core.controller.SupportContorller;
+import com.marks.module.mall.good.service.GoodInfoService;
 import com.marks.module.mall.order.pojo.OrderGood;
 import com.marks.module.mall.order.service.OrderGoodService;
 import com.marks.module.user.login.helper.LoginUtil;
@@ -29,15 +28,37 @@ import com.marks.module.user.sysuser.pojo.SysUser;
 	 */
 @Controller
 public class OrderGoodController extends SupportContorller{
-    private static Logger logger = Logger.getLogger( OrderGoodController.class);
-    
+	private static Logger logger = Logger.getLogger(OrderGoodController.class);
     @Autowired
     private OrderGoodService  orderGoodService;
-   
+	@Autowired
+	private GoodInfoService goodInfoService;
 
     @Override
 	public Logger getLogger() {
 		return logger;
+	}
+
+	@RequestMapping("/inner/orderGood/findById")
+	public void findGoodInfoById(HttpServletRequest request, HttpServletResponse response) {
+		Result result = new Result();
+		try {
+			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
+			String goodNo = request.getParameter("goodNo");
+			logger.info("findDispatchGoodById > param>" + goodNo);
+			OrderGood info = orderGoodService.findById(admin.getCompanyId(), goodNo);
+			if (null != info) {
+				info.setPayPrice(info.getSalePrice());
+			}
+			result.getData().put("info", info);
+			result.setMessage("findById successs!");
+			result.setCode(Code.CODE_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setMessage("查询失败，请联系管理员！");
+			result.setCode(Code.CODE_FAIL);
+		}
+		JsonUtil.output(response, result);
 	}
 	
 	/**

@@ -41,6 +41,35 @@ public class StockBatchForm {
 
 	private int stockStatus;
 
+	private String remarks;
+
+	private int tranSaleNums;// 售出数量
+	private String tranSaleAmt;// 售出金额
+
+	public int getTranSaleNums() {
+		return tranSaleNums;
+	}
+
+	public void setTranSaleNums(int tranSaleNums) {
+		this.tranSaleNums = tranSaleNums;
+	}
+
+	public String getTranSaleAmt() {
+		return tranSaleAmt;
+	}
+
+	public void setTranSaleAmt(String tranSaleAmt) {
+		this.tranSaleAmt = tranSaleAmt;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
 	public int getStockStatus() {
 		return stockStatus;
 	}

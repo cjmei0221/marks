@@ -36,6 +36,7 @@ public class FeeEnums {
 
 	public enum ItemCode {
 		consume("1011", "购买订单"), //
+		refund("1012", "退货订单"), //
 		recharge("1021", "会员充值"), //
 		purchase("1031", "采购订单"), //
 		self("1041", "手动录入"), //

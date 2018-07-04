@@ -38,4 +38,13 @@ public interface OrderInfoService{
 	 * @param info
 	 */
 	public void saveRecharge(OrderInfo info);
+
+	/**
+	 * 退货
+	 * 
+	 * @param info
+	 * @param goodList
+	 * @param barCodeList
+	 */
+	public void saveRefund(OrderInfo info, List<OrderGood> goodList, List<String> barCodeList);
 }

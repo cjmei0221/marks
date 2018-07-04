@@ -16,4 +16,6 @@ public interface OrderGoodService{
 	public List<OrderGood> findAll();
 	public void deleteBatch(List<String> ids);
 	public PojoDomain<OrderGood> list(int page_number, int page_size,Map<String,Object> param);
+
+	public List<OrderGood> findByOrderId(String orderId);
 }

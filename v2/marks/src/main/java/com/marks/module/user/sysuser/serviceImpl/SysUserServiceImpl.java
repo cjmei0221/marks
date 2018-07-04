@@ -54,6 +54,11 @@ public class SysUserServiceImpl implements SysUserService {
 		return sysUserDao.findByMobile(companyId, bind_mobile);
 	}
 
+	@Override
+	public SysUser findById(String companyId, String id) {
+		return sysUserDao.findById(companyId, id);
+	}
+
 	/**
 	 * 保存用户管理
 	 */

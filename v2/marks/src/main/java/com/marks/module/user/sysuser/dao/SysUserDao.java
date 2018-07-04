@@ -58,4 +58,6 @@ public interface SysUserDao {
 
 	void updateUnMobile(@Param("companyId") String companyId, @Param("mobile") String mobile);
 
+	SysUser findById(@Param("companyId") String companyId, @Param("id") String id);
+
 }

@@ -15,6 +15,8 @@ import com.marks.common.domain.PojoDomain;
 import com.marks.common.enums.AcctEnums;
 import com.marks.common.enums.FeeEnums;
 import com.marks.common.enums.OrderEnums;
+import com.marks.common.enums.OrderEnums.CashType;
+import com.marks.common.enums.StockEnums;
 import com.marks.common.util.IDUtil;
 import com.marks.common.util.date.DateUtil;
 import com.marks.common.util.number.MoneyUtil;
@@ -31,6 +33,7 @@ import com.marks.module.mall.order.pojo.OrderInfo;
 import com.marks.module.mall.order.service.OrderInfoService;
 import com.marks.module.mall.stock.pojo.BarCode;
 import com.marks.module.mall.stock.pojo.StockBatch;
+import com.marks.module.mall.stock.pojo.StockBatchForm;
 import com.marks.module.mall.stock.service.BarCodeService;
 import com.marks.module.mall.stock.service.StockBatchService;
 import com.marks.module.user.sysuser.pojo.SysUser;
@@ -161,7 +164,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	private void dealOrder(OrderInfo info) {
 		// 会员信息
 		if (info.getVipId() != null && info.getVipId().length() > 4) {
-			SysUser vip = sysUserService.findByUserid(info.getVipId());
+			SysUser vip = sysUserService.findById(info.getCompanyId(), info.getVipId());
 			info.setVipMobile(vip.getBind_mobile());
 			info.setVipName(vip.getUsername());
 			info.setVipCode(vip.getUserCode());
@@ -225,6 +228,64 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		}
 	}
 
+	@Override
+	public void saveRefund(OrderInfo info, List<OrderGood> goodList, List<String> barCodeList) {
+		// 处理原订单
+		dealOrder(info);
+		// 计算订单商品
+		List<StockBatch> stockList = new ArrayList<StockBatch>();
+
+		List<BarCode> barList = null;
+		if (barCodeList != null && barCodeList.size() > 0) {
+			barList = barCodeService.getBarCodeListByBarCodes(barCodeList);
+			if (null != barList && barList.size() > 0) {
+				for (OrderGood good : goodList) {
+					for (BarCode bar : barList) {
+						if (good.getGoodId().equals(bar.getGoodId())) {
+							good.addBarCode(bar.getBarcode());
+							good.addBarList(bar);
+						}
+
+					}
+				}
+			}
+		}
+		dealGood(info, goodList, stockList);
+		// 保存订单
+		orderInfoDao.save(info);
+		// 保存订单商品
+		orderGoodDao.saveBatch(goodList);
+		// 减库存
+		// 处理会员等级等信息
+		if (MoneyUtil.compare(info.getRecevieAmt(), "0.01")) {
+			// 记录费用
+			saveFeeLog(info);
+		}
+		// 退货处理
+		for (OrderGood good : goodList) {
+			StockBatchForm batch = new StockBatchForm();
+			batch.setCompanyId(info.getCompanyId());
+			batch.setCostPrice(good.getCostPrice());
+			batch.setGoodId(good.getGoodId());
+			batch.setNums(-good.getNums());
+			batch.setOperator(info.getCashMan());
+			batch.setOrderId(info.getOrderId());
+			batch.setOrgid(info.getOrgId());
+			batch.setOrgname(info.getOrgName());
+			batch.setProductDate(DateUtil.getCurrDateStr().substring(0, 10));
+			batch.setStockManageType(StockEnums.StockManageType.nums.getValue());
+			batch.setSupplier2("");
+			batch.setSupplierId2("");
+			batch.setYwCode(StockEnums.YwCode.refund_stockIn.getValue());
+			batch.setDispatchPrice(good.getPayPrice());
+			batch.setStockStatus(StockEnums.StockStatus.stockIn.getValue());
+			batch.setRemarks("退货入库");
+			batch.setTranSaleAmt(good.getPayAmt());
+			batch.setTranSaleNums(good.getNums());
+			stockBatchService.saveFirstStockIn(batch);
+		}
+	}
+
 	private void saveFeeLog(OrderInfo info) {
 		FeeLog log = new FeeLog();
 		log.setCompanyId(info.getCompanyId());
@@ -233,15 +294,16 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			log.setItemCode(FeeEnums.ItemCode.recharge.getValue());
 			log.setInOrOut(FeeEnums.InOrOut.in.getValue());
 			log.setRemarks("会员充值");
+		} else if (OrderEnums.CashType.refund.getValue().equals(info.getCashType())) {
+			log.setFeeCode(FeeEnums.FeeCode.consume.getValue());
+			log.setItemCode(FeeEnums.ItemCode.refund.getValue());
+			log.setInOrOut(FeeEnums.InOrOut.out.getValue());
+			log.setRemarks("退货" + info.getRemarks() + "商品");
 		} else {
 			log.setFeeCode(FeeEnums.FeeCode.consume.getValue());
 			log.setItemCode(FeeEnums.ItemCode.consume.getValue());
 			log.setInOrOut(FeeEnums.InOrOut.in.getValue());
 			log.setRemarks("购买" + info.getRemarks() + "商品");
-			if (OrderEnums.CashType.refund.getValue().equals(info.getCashType())) {
-				log.setInOrOut(FeeEnums.InOrOut.out.getValue());
-				log.setRemarks("退货" + info.getRemarks() + "商品");
-			}
 		}
 		log.setIdNo(info.getOrderId());
 		log.setItemName(FeeEnums.ItemCode.getByKey(log.getItemCode()));
@@ -381,7 +443,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			BigDecimal payRate = new BigDecimal(rate);
 			payRate = payRate.setScale(18, BigDecimal.ROUND_HALF_UP);
 			good.setPayRate(payRate.toString());
-			stock(info, good, stockList);
+			if (CashType.consume.getValue().equals(info.getCashType())) {
+				stock(info, good, stockList);
+			}
 			costAmt = MoneyUtil.add(costAmt, good.getCostAmt());
 			salePriceAmt = MoneyUtil.add(salePriceAmt, good.getSalePriceAmt());
 			mandiscountAmt = MoneyUtil.add(mandiscountAmt, good.getGoodManDiscountAmt());

@@ -96,7 +96,7 @@ public class ExcelFileUploadController {
 		result.setCode(Code.CODE_SUCCESS);
 		try {
 			String fileName = request.getParameter("fileName");
-			String path = UploadUtil.getTemplatePath(request) + fileName;
+			String path = UploadUtil.getRootPath(request) + fileName;
 			int idx=fileName.indexOf(".");
 			String end_fix=fileName.substring(idx, fileName.length());
 			fileName=fileName.substring(0, idx)+DateUtil.formatDate(new Date(), "yyyyMMdd")+end_fix;

@@ -1,6 +1,8 @@
 package com.marks.module.mall.order.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +16,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
+import com.marks.common.enums.ChannelEnums;
+import com.marks.common.enums.OrderEnums;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
 import com.marks.common.util.JsonUtil;
+import com.marks.common.util.date.DateUtil;
+import com.marks.common.util.number.MoneyUtil;
 import com.marks.common.util.string.IStringUtil;
 import com.marks.module.core.controller.SupportContorller;
+import com.marks.module.mall.order.pojo.OrderGood;
 import com.marks.module.mall.order.pojo.OrderInfo;
+import com.marks.module.mall.order.service.OrderGoodService;
 import com.marks.module.mall.order.service.OrderInfoService;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
+
+import net.sf.json.JSONArray;
 
  /**
 	 * 订单管理: 订单信息
@@ -33,7 +44,8 @@ public class OrderInfoController extends SupportContorller{
     @Autowired
     private OrderInfoService  orderInfoService;
    
-
+	@Autowired
+	private OrderGoodService orderGoodService;
     @Override
 	public Logger getLogger() {
 		return logger;
@@ -47,12 +59,35 @@ public class OrderInfoController extends SupportContorller{
     HttpServletResponse response){
         Result result = new Result();
 		try {
-		    OrderInfo info = getModel(OrderInfo.class);
-		    
-		    logger.info("findOrderInfoById > param>"+info.getOrderId());
-		    
-			OrderInfo vo = orderInfoService.findById(info.getOrderId());
-			result.getData().put("info",vo);
+			String orderId = request.getParameter("orderId");
+
+			String page_size = request.getParameter("page_size");
+
+			String formStatus = request.getParameter("formStatus");
+
+			int len = Integer.parseInt(page_size);
+
+			OrderInfo vo = orderInfoService.findById(orderId);
+			if (vo == null) {
+				vo = new OrderInfo();
+			}
+			List<OrderGood> list = orderGoodService.findByOrderId(orderId);
+			if (null == list) {
+				list = new ArrayList<OrderGood>();
+			}
+			if ("new".equals(formStatus) || "edit".equals(formStatus)) {
+				int size = list.size();
+				if (size < len) {
+					OrderGood info = null;
+					for (int i = size; i < len; i++) {
+						info = new OrderGood();
+						info.setOrderGoodId(IDUtil.getNumID());
+						list.add(info);
+					}
+				}
+			}
+			result.getData().put("info", vo);
+			result.getData().put("list", list);
 			result.setMessage("findById successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
@@ -68,27 +103,49 @@ public class OrderInfoController extends SupportContorller{
 	 */
 	
 	/**
-	 * 更改订单管理
+	 * 退货
 	 */
-    @RequestMapping("/inner/orderInfo/update")
-    public void updateOrderInfo(HttpServletRequest request,
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/inner/orderInfo/refund")
+	public void refund(HttpServletRequest request,
     HttpServletResponse response){
 		Result result = new Result();
 		try {
 			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
 		    OrderInfo info = getModel(OrderInfo.class);
-		    
-		    logger.info(" updateOrderInfo> param>"+info.toLog());
-		    
-		    OrderInfo ori=orderInfoService.findById(info.getOrderId());
-		    if(ori == null){
-		    	result.setMessage("此记录已删除!");
-				result.setCode(Code.CODE_FAIL);
-		    }else{
-		    	orderInfoService.update(info);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
-		    }
+			info.setOldOrderId(info.getOrderId());
+
+			String goodObj = request.getParameter("goodData");
+			List<OrderGood> goodList = (List<OrderGood>) JSONArray.toCollection(JSONArray.fromObject(goodObj),
+					OrderGood.class);
+			for (OrderGood good : goodList) {
+				good.setNums(-good.getRefundNums());
+				good.setPayableAmt(MoneyUtil.multiply("" + good.getNums(), good.getPayPrice()));
+				good.setNowPrice(good.getPayPrice());
+			}
+
+			info.setOrderId(orderInfoService.getOrderId());
+			info.setCashDate(DateUtil.getCurrDateStr().substring(0, 10));
+			info.setCashAmt("-" + info.getRefundAmt());
+			info.setCashMan(admin.getUsername());
+			info.setCashManId(admin.getUserid());
+			info.setCashManCode(admin.getUserCode());
+			info.setCashType(OrderEnums.CashType.refund.getValue());
+			info.setYwType(OrderEnums.YwType.good.getValue());
+			info.setCommitTime(DateUtil.getCurrDateStr());
+			info.setCompanyId(admin.getCompanyId());
+			info.setOrderStatus(OrderEnums.OrderStatus.complete.getValue());
+			info.setOrderStatusName(OrderEnums.OrderStatus.getByKey(info.getOrderStatus()));
+			info.setOrgId(admin.getOrgId());
+			info.setOrgName(admin.getOrgName());
+			info.setPayAmt("-" + info.getRefundAmt());
+			info.setPayableAmt("-" + info.getRefundAmt());
+			info.setPayStatus(1);
+			info.setVipId(info.getVipMobile());
+			info.setPayTypeCode(OrderEnums.PayType.cash.getValue());
+			info.setPayTypeName(OrderEnums.PayType.getByKey(info.getPayTypeCode()));
+			info.setChannelId(ChannelEnums.Channel.manage.getValue());
+			orderInfoService.saveRefund(info, goodList, null);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			result.setMessage("更新失败，请联系管理员！");
@@ -120,62 +177,6 @@ public class OrderInfoController extends SupportContorller{
 		JsonUtil.output(response, result);
 	}
 	
-	/**
-	 * 查询全部订单管理
-	 */
-
-    /*
-    @RequestMapping("/inner/orderInfo/findAllOrderInfo")
-    public void findAllOrderInfo(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-			List<OrderInfo> allList = orderInfoService.findAll();
-			result.getData().put("allList",allList);
-			result.setMessage("findAll orderInfo successs!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("findAll orderInfo fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	} 
-	*/
-	
-	/**
-	 * 删除多个订单管理
-	 */
-	/*
-	@RequestMapping("/inner/orderInfo/deleteIds")
-	public void deleteOrderInfo(HttpServletRequest request,
-			HttpServletResponse response){
-		Result result = new Result();
-		try {
-			String id = request.getParameter("orderId");
-			logger.info("delete batch> param>"+id);
-			String[] ids = id.split(",");
-			List<String> idList = new ArrayList<String>();
-			for(int i=0;i<ids.length;i++){
-				idList.add(ids[i]);
-			}
-			if(idList.size()>0){
-				orderInfoService.deleteBatch(idList);
-				result.setMessage("删除成功!");
-				result.setCode(Code.CODE_SUCCESS);
-			}else{
-				result.setMessage("删除失败，请联系管理员!");
-				result.setCode(Code.CODE_FAIL);
-			}
-			
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("delete orderInfo fail!");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	*/
 	
 	/**
 	 * 列表查询

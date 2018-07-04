@@ -101,7 +101,7 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setOrgId(info.getOrgid());
 			b.setOrgName(info.getOrgname());
 			b.setProductDate(info.getProductDate());
-			b.setRemarks(StockEnums.StockManageType.getByKey(info.getStockManageType()) + " 入库");
+			b.setRemarks("(首次入库) " + info.getRemarks());
 			b.setCostPrice(info.getCostPrice());
 			b.setStockType(info.getStockManageType());
 			b.setSupplierId(info.getSupplierId2());
@@ -121,6 +121,9 @@ public class StockBatchServiceImpl implements StockBatchService {
 			b.setTradePriceAmt(MoneyUtil.multiply(b.getTradePrice(), String.valueOf(info.getNums())));
 			b.setOrderId(info.getOrderId());
 			b.setOperator(info.getOperator());
+			b.setSaleAmount(info.getTranSaleAmt());
+			b.setSaleNums(info.getTranSaleNums());
+			b.setTranSaleAmt(info.getTranSaleAmt());
 			dealStock(b);
 			// 更新商品进货价和供应商
 			good.setCostPrice(info.getCostPrice());
@@ -163,10 +166,10 @@ public class StockBatchServiceImpl implements StockBatchService {
 			}
 		}
 		// 负卖
-		if (nums > 0) {
-			List<StockBatch> lesslist = getlessStockList(order, good, nums);
-			list.addAll(lesslist);
-		}
+		// if (nums > 0) {
+		// List<StockBatch> lesslist = getlessStockList(order, good, nums);
+		// list.addAll(lesslist);
+		// }
 
 		returnList = countStockBatch(good, list);
 
@@ -312,6 +315,10 @@ public class StockBatchServiceImpl implements StockBatchService {
 		}
 		if (StockEnums.YwCode.sale_stockOut.getValue() == info.getYwCode()) {
 			stock.setSaleNums(info.getTranNums());
+			stock.setSaleAmt(info.getTranSaleAmt());
+		}
+		if (StockEnums.YwCode.refund_stockIn.getValue() == info.getYwCode()) {
+			stock.setSaleNums(-info.getTranNums());
 			stock.setSaleAmt(info.getTranSaleAmt());
 		}
 		String stockId = stockInfoService.save(stock);
