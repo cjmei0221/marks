@@ -104,7 +104,7 @@ function loadList() {
 		// toolbar : "#tb",
 
 		idField : 'orderId',
-		height : 620,
+		height : 520,
 		rownumbers : true,
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
