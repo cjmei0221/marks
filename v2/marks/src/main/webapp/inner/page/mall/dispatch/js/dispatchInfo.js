@@ -132,7 +132,7 @@ function loadList() {
 		// toolbar : "#tb",
 
 		idField : 'orderId',
-		height : 620,
+		height : 520,
 		rownumbers : true,
 		pagination : true,
 		pageNumber : appInfo.requestParam.page_number,
@@ -141,8 +141,13 @@ function loadList() {
 		columns : [ [ {
 			title : '单号',
 			field : 'orderId',
-			width : 100,
+			width : 200,
 			align : "center",
+		}, {
+			title : '类型',
+			field : 'typeName',
+			width : 100,
+			align : "center"
 		}, {
 			title : '单状态',
 			field : 'statusName',
