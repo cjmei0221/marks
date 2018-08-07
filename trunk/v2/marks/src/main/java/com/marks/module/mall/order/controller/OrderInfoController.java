@@ -119,6 +119,7 @@ public class OrderInfoController extends SupportContorller{
 			List<OrderGood> goodList = (List<OrderGood>) JSONArray.toCollection(JSONArray.fromObject(goodObj),
 					OrderGood.class);
 			for (OrderGood good : goodList) {
+				good.setOldOrderGoodId(good.getOrderGoodId());
 				good.setNums(-good.getRefundNums());
 				good.setPayableAmt(MoneyUtil.multiply("" + good.getNums(), good.getPayPrice()));
 				good.setNowPrice(good.getPayPrice());

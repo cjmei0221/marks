@@ -313,14 +313,6 @@ public class StockBatchServiceImpl implements StockBatchService {
 			stock.setStockAmount("-" + info.getTranAmt());
 			stock.setStockNums(-info.getTranNums());
 		}
-		if (StockEnums.YwCode.sale_stockOut.getValue() == info.getYwCode()) {
-			stock.setSaleNums(info.getTranNums());
-			stock.setSaleAmt(info.getTranSaleAmt());
-		}
-		if (StockEnums.YwCode.refund_stockIn.getValue() == info.getYwCode()) {
-			stock.setSaleNums(-info.getTranNums());
-			stock.setSaleAmt(info.getTranSaleAmt());
-		}
 		String stockId = stockInfoService.save(stock);
 		// 更新库存批次
 		StockBatch ori = stockBatchDao.findById(info.getBatchId());

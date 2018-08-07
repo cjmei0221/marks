@@ -83,36 +83,11 @@ public class StockInfoServiceImpl implements StockInfoService {
 		return stockId;
 	}
 
-	/**
-	 * 更新库存管理
-	 */
-	@Override
-	public void update(StockInfo info) {
-		stockInfoDao.update(info);
-	}
 
-	/**
-	 * 删除库存管理
-	 */
-	@Override
-	public void delete(String id) {
-		stockInfoDao.delete(id);
-	}
 
-	/**
-	 * 查找所有库存管理
-	 */
 	@Override
-	public List<StockInfo> findAll() {
-		return stockInfoDao.findAll();
-	}
-
-	/**
-	 * 删除多个库存管理
-	 */
-	@Override
-	public void deleteBatch(List<String> ids) {
-		stockInfoDao.deleteBatch(ids);
+	public String updateSaleOut(StockInfo info) {
+		return save(info);
 	}
 
 	public PojoDomain<StockInfo> list(int page_number, int page_size, Map<String, Object> param) {

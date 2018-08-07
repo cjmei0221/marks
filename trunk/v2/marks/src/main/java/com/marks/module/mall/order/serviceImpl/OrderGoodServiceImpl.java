@@ -53,14 +53,6 @@ public class OrderGoodServiceImpl implements OrderGoodService{
     }
     
     /**
-    *更新订单商品
-    */
-    @Override
-    public void update(OrderGood info){
-        orderGoodDao.update(info);
-    }
-    
-    /**
     *删除订单商品
     */
     @Override

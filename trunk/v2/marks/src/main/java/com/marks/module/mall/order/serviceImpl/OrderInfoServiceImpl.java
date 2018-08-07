@@ -34,8 +34,10 @@ import com.marks.module.mall.order.service.OrderInfoService;
 import com.marks.module.mall.stock.pojo.BarCode;
 import com.marks.module.mall.stock.pojo.StockBatch;
 import com.marks.module.mall.stock.pojo.StockBatchForm;
+import com.marks.module.mall.stock.pojo.StockInfo;
 import com.marks.module.mall.stock.service.BarCodeService;
 import com.marks.module.mall.stock.service.StockBatchService;
+import com.marks.module.mall.stock.service.StockInfoService;
 import com.marks.module.user.sysuser.pojo.SysUser;
 import com.marks.module.user.sysuser.service.SysUserService;
 
@@ -66,6 +68,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	@Autowired
 	private FeeLogService feeLogService;
 
+	@Autowired
+	private StockInfoService stockInfoService;
+
 	/**
 	 * private OrderInfoDao orderInfoDao;
 	 * 
@@ -80,14 +85,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	@Override
 	public OrderInfo findById(String id) {
 		return orderInfoDao.findById(id);
-	}
-
-	/**
-	 * 更新订单管理
-	 */
-	@Override
-	public void update(OrderInfo info) {
-		orderInfoDao.update(info);
 	}
 
 	/**
@@ -214,10 +211,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		orderInfoDao.save(info);
 		// 保存订单商品
 		orderGoodDao.saveBatch(goodList);
-		// 减库存
-		if (stockList.size() > 0) {
-			stockBatchService.updateSaleOut(stockList, barList);
-		}
 		// 处理会员等级等信息
 		if (null != info.getVipId() && info.getVipId().length() > 4) {
 			userExtService.updateVipInfoByOrder(info.getVipId(), info.getPoint(), info.getPayAmt());
@@ -226,11 +219,35 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			// 记录费用
 			saveFeeLog(info);
 		}
+		// 更新售出数量
+		updateSaleNumsForStock(info, goodList);
+
+		// 减库存
+		if (stockList.size() > 0) {
+			stockBatchService.updateSaleOut(stockList, barList);
+		}
+	}
+
+	private void updateSaleNumsForStock(OrderInfo info, List<OrderGood> goodList) {
+		for (OrderGood good : goodList) {
+			// 更新售出数量
+			StockInfo stock = new StockInfo();
+			stock.setCompanyId(info.getCompanyId());
+			stock.setGoodId(good.getGoodId());
+			stock.setOrgId(info.getOrgId());
+			stock.setOrgName(info.getOrgName());
+			stock.setBarNo(good.getBarNo());
+			stock.setGoodNo(good.getGoodNo());
+			stock.setGoodName(good.getGoodName());
+			stock.setSaleNums(good.getNums());
+			stock.setSaleAmt(good.getPayAmt());
+			stockInfoService.updateSaleOut(stock);
+		}
 	}
 
 	@Override
 	public void saveRefund(OrderInfo info, List<OrderGood> goodList, List<String> barCodeList) {
-		// 处理原订单
+		// 处理订单
 		dealOrder(info);
 		// 计算订单商品
 		List<StockBatch> stockList = new ArrayList<StockBatch>();
@@ -257,10 +274,12 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		orderGoodDao.saveBatch(goodList);
 		// 减库存
 		// 处理会员等级等信息
-		if (MoneyUtil.compare(info.getRecevieAmt(), "0.01")) {
+		if (!MoneyUtil.compare(info.getRecevieAmt(), "0.00")) {
 			// 记录费用
 			saveFeeLog(info);
 		}
+		// 更新售出数量
+		updateSaleNumsForStock(info, goodList);
 		// 退货处理
 		for (OrderGood good : goodList) {
 			StockBatchForm batch = new StockBatchForm();
@@ -284,11 +303,33 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			batch.setTranSaleNums(good.getNums());
 			stockBatchService.saveFirstStockIn(batch);
 		}
+		// 处理原订单
+		if (null != info.getOldOrderId() && info.getOldOrderId().length() > 4) {
+			OrderInfo old = orderInfoDao.findById(info.getOldOrderId());
+			if (null != old) {
+				old.setHadRefundAmt(MoneyUtil.add(old.getHadRefundAmt(), info.getPayAmt()));
+				old.setHadRefundNums(old.getHadRefundNums() + info.getNums());
+				orderInfoDao.update(old);
+			}
+			List<OrderGood> oldGoodList = orderGoodDao.findByOrderId(info.getOldOrderId());
+			if (null != oldGoodList && oldGoodList.size() > 0) {
+				for (OrderGood oldGood : oldGoodList) {
+					for (OrderGood good : goodList) {
+						if (oldGood.getOrderGoodId().equals(good.getOldOrderGoodId())) {
+							oldGood.setHadRefundAmt(MoneyUtil.add(oldGood.getHadRefundAmt(), good.getPayAmt()));
+							oldGood.setHadRefundNums(oldGood.getHadRefundNums() + good.getNums());
+						}
+					}
+					orderGoodDao.update(oldGood);
+				}
+			}
+		}
 	}
 
 	private void saveFeeLog(OrderInfo info) {
 		FeeLog log = new FeeLog();
 		log.setCompanyId(info.getCompanyId());
+		log.setTranAmt(info.getRecevieAmt());
 		if (OrderEnums.CashType.recharge.getValue().equals(info.getCashType())) {
 			log.setFeeCode(FeeEnums.FeeCode.recharge.getValue());
 			log.setItemCode(FeeEnums.ItemCode.recharge.getValue());
@@ -299,6 +340,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			log.setItemCode(FeeEnums.ItemCode.refund.getValue());
 			log.setInOrOut(FeeEnums.InOrOut.out.getValue());
 			log.setRemarks("退货" + info.getRemarks() + "商品");
+			log.setTranAmt(MoneyUtil.negate(info.getRecevieAmt()));
 		} else {
 			log.setFeeCode(FeeEnums.FeeCode.consume.getValue());
 			log.setItemCode(FeeEnums.ItemCode.consume.getValue());
@@ -309,7 +351,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		log.setItemName(FeeEnums.ItemCode.getByKey(log.getItemCode()));
 		log.setPayeeId(info.getVipId());
 
-		log.setTranAmt(info.getRecevieAmt());
 		log.setTranTime(info.getCommitTime());
 		feeLogService.save(log);
 	}
@@ -443,9 +484,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 			BigDecimal payRate = new BigDecimal(rate);
 			payRate = payRate.setScale(18, BigDecimal.ROUND_HALF_UP);
 			good.setPayRate(payRate.toString());
-			if (CashType.consume.getValue().equals(info.getCashType())) {
-				stock(info, good, stockList);
-			}
+			stock(info, good, stockList);
 			costAmt = MoneyUtil.add(costAmt, good.getCostAmt());
 			salePriceAmt = MoneyUtil.add(salePriceAmt, good.getSalePriceAmt());
 			mandiscountAmt = MoneyUtil.add(mandiscountAmt, good.getGoodManDiscountAmt());
@@ -466,7 +505,12 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
 	}
 
-	private List<StockBatch> stock(OrderInfo info, OrderGood good, List<StockBatch> stockList) {
+	private void stock(OrderInfo info, OrderGood good, List<StockBatch> stockList) {
+		if (CashType.refund.getValue().equals(info.getCashType())) {
+			good.setCostPrice(good.getCostPrice());
+			good.setCostAmt(MoneyUtil.multiply(good.getCostPrice(), String.valueOf(good.getNums())));
+			return;
+		}
 		List<StockBatch> stock = stockBatchService.getStockBatchByGood(info, good);
 		if (null != stock && stock.size() > 0) {
 			good.setCostPrice(stock.get(0).getCostPrice());
@@ -493,7 +537,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				b.setOperator(info.getCashMan());
 			}
 		}
-		return stock;
 	}
 
 }

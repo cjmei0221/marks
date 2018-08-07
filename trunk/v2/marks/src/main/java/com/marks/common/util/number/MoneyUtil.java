@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class MoneyUtil {
 	private static int scale = 2;// 保留2位小数
+
 	/**
 	 * 加法
 	 * 
@@ -107,6 +108,34 @@ public class MoneyUtil {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 取相反数
+	 * 
+	 * @param oriValue
+	 * @param addValue
+	 * @return
+	 */
+	public static String negate(String value) {
+		if (null == value || "".equals(value)) {
+			value = "0.00";
+			return value;
+		}
+
+		BigDecimal bigDecimal = new BigDecimal(value);
+		return bigDecimal.negate().toString();
+	}
+
+	public static String format(String value) {
+		if (null == value || "".equals(value)) {
+			value = "0.00";
+			return value;
+		}
+
+		BigDecimal bigDecimal = new BigDecimal(value);
+		bigDecimal = bigDecimal.setScale(scale, BigDecimal.ROUND_HALF_UP);
+		return bigDecimal.toString();
 	}
 
 	public static void main(String[] args) {

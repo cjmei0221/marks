@@ -200,4 +200,19 @@ public class DateUtil {
 		return 4;
 	}
 
+	public static String getSeasonFirstDay(String i_year,int month ) {
+		int season = getSeason(month);
+		String firstDate = "";
+		if (season == 1) {
+			firstDate = i_year + "-01-01";
+		} else if (season == 2) {
+			firstDate = i_year + "-04-01";
+		} else if (season == 3) {
+			firstDate = i_year + "-07-01";
+		} else if (season == 4) {
+			firstDate = i_year + "-10-01";
+		}
+		return firstDate;
+	}
+
 }
