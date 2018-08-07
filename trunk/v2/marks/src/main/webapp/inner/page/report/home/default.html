@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css"
 	href="/inner/easyui/css/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="/inner/css/base.css">
+<link rel="stylesheet" type="text/css" href="css/default.css">
 <script type="text/javascript" src="/inner/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript"
 	src="/inner/easyui/js/jquery.easyui.min.js"></script>
@@ -27,7 +28,55 @@
 
 <body>
 	<div id="mainPanel">
-		<div id="main" style="width: 600px; height: 400px;"></div>
+		<div class="cls-content-1">
+			<div>
+				<a class="top-cls-1" href="javascript:void(0)"
+					onclick="loadCoreData(0);">本日</a><a class="top-cls-1"
+					href="javascript:void(0)" onclick="loadCoreData(2);">本月</a><a
+					class="top-cls-1" href="javascript:void(0)"
+					onclick="loadCoreData(3);">本季度</a><a class="top-cls-1"
+					href="javascript:void(0)" onclick="loadCoreData(4);">本年</a>
+			</div>
+			<div style="width:100%;" align="center">
+				<table style="margin: 10px 30px; text-align: center;">
+					<tr>
+						<td class="top-cls-2">销售收入</td>
+						<td class="top-cls-2">理论成本</td>
+						<td class="top-cls-2">理论收益</td>
+						<td class="top-cls-2">费用收入</td>
+						<td class="top-cls-2">费用支出</td>
+						<td class="top-cls-2">理论收益</td>
+
+					</tr>
+					<tr>
+						<td id="consumeCashAmt">1000.00</td>
+						<td id="consumeCostAmt">1000.00</td>
+						<td id="consumeProfixAmt" style="border-right: 1px solid;">200.00</td>
+						<td id="incomeAmt">800.00</td>
+						<td id="costAmt">800.00</td>
+						<td id="profitAmt">800.00</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="cls-content-1">
+			<div style="margin: 20px 0px;">
+				<div id="main" style="width: 1200px; height: 400px;"></div>
+			</div>
+
+		</div>
+		<div class="cls-content-1">
+			<div style="margin: 20px 0px;">
+				<div id="monthReport" style="width: 1200px; height: 400px;"></div>
+			</div>
+		</div>
+		<div class="cls-content-1">
+			<div style="margin: 20px 0px;">
+				<div id="seasonReport" style="width: 1200px; height: 400px;"></div>
+			</div>
+
+		</div>
+
 	</div>
 </body>
 <script src="js/default.js"></script>

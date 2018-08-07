@@ -461,8 +461,6 @@ input:-webkit-autofill {
 									data = $.parseJSON(data);
 								}
 								if (data.retcode == "0") {
-									coke.setCookie("mCompanyId",
-											$("#companyId").val());
 									location.replace("index.html");
 								} else {
 									$.messager.alert("系统提示", data.retmsg);
@@ -495,8 +493,7 @@ input:-webkit-autofill {
 					&& companyId.indexOf("html") < 0) {
 				$("#companyId").val(companyId);
 			} else {
-				companyId = coke.getCookie("mCompanyId");
-				$("#companyId").val(companyId);
+				$("#companyId").val("1001");
 			}
 		});
 	</script>
