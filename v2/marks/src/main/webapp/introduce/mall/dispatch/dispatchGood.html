@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>采购商品</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>采购商品</h1>
+	<p></p>
+	
+	<h2>采购商品表  (TB_MALL_DISPATCH_GOOD)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ORDERGOODID</td><td>商品单号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>ORDERID</td><td>订单编号</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>GOODID</td><td>商品编号</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>GOODCODE</td><td>商品编号</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>GOODNAME</td><td>商品名称</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>BARNO</td><td>商品条码</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>UNIT</td><td>单位</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>RANK</td><td>规格</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>FZCOLOR</td><td>颜色</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>FZSIZE</td><td>尺码</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>MODEL</td><td>型号</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>TYPEID</td><td>品类编号</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>TYPENAME</td><td>品类</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>BRANDID</td><td>品牌</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>BRANDNAME</td><td>品牌</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>NUMS</td><td>数量</td><td>number</td><td></td></tr><tr><td>17</td><td>SENDNUMS</td><td>赠送数量</td><td>number</td><td></td></tr><tr><td>18</td><td>PURCHASENUMS</td><td>采购数量</td><td>number</td><td></td></tr><tr><td>19</td><td>PURCHASEPRICE</td><td>采购价</td><td>varchar2</td><td></td></tr><tr><td>20</td><td>PAYPRICE</td><td>实购价</td><td>varchar2</td><td></td></tr><tr><td>21</td><td>AMT</td><td>小计</td><td>varchar2</td><td></td></tr><tr><td>22</td><td>PAYABLEAMT</td><td>应付金额</td><td>varchar2</td><td></td></tr><tr><td>23</td><td>PAYAMT</td><td>实付金额</td><td>varchar2</td><td></td></tr><tr><td>24</td><td>UNPAYAMT</td><td>未付金额</td><td>varchar2</td><td></td></tr><tr><td>25</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>26</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr><tr><td>27</td><td>DISPATCHNUMS</td><td>配送数量</td><td>number</td><td></td></tr><tr><td>28</td><td>RECEIVENUMS</td><td>收货数量</td><td>number</td><td></td></tr><tr><td>29</td><td>STOCKTYPE</td><td>库存方式</td><td>number</td><td></td></tr><tr><td>30</td><td>STOCKTYPENAME</td><td>库存方式</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (DispatchGood)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>orderGoodId</td><td>商品单号</td><td>String</td><td></td></tr><tr><td>2</td><td>orderId</td><td>订单编号</td><td>String</td><td></td></tr><tr><td>3</td><td>goodId</td><td>商品编号</td><td>String</td><td></td></tr><tr><td>4</td><td>goodCode</td><td>商品编号</td><td>String</td><td></td></tr><tr><td>5</td><td>goodName</td><td>商品名称</td><td>String</td><td></td></tr><tr><td>6</td><td>barNo</td><td>商品条码</td><td>String</td><td></td></tr><tr><td>7</td><td>unit</td><td>单位</td><td>String</td><td></td></tr><tr><td>8</td><td>rank</td><td>规格</td><td>String</td><td></td></tr><tr><td>9</td><td>fzColor</td><td>颜色</td><td>String</td><td></td></tr><tr><td>10</td><td>fzSize</td><td>尺码</td><td>String</td><td></td></tr><tr><td>11</td><td>model</td><td>型号</td><td>String</td><td></td></tr><tr><td>12</td><td>typeId</td><td>品类编号</td><td>String</td><td></td></tr><tr><td>13</td><td>typeName</td><td>品类</td><td>String</td><td></td></tr><tr><td>14</td><td>brandId</td><td>品牌</td><td>String</td><td></td></tr><tr><td>15</td><td>brandName</td><td>品牌</td><td>String</td><td></td></tr><tr><td>16</td><td>nums</td><td>数量</td><td>int</td><td></td></tr><tr><td>17</td><td>sendNums</td><td>赠送数量</td><td>int</td><td></td></tr><tr><td>18</td><td>purchaseNums</td><td>采购数量</td><td>int</td><td></td></tr><tr><td>19</td><td>purchasePrice</td><td>采购价</td><td>String</td><td></td></tr><tr><td>20</td><td>payPrice</td><td>实购价</td><td>String</td><td></td></tr><tr><td>21</td><td>amt</td><td>小计</td><td>String</td><td></td></tr><tr><td>22</td><td>payableAmt</td><td>应付金额</td><td>String</td><td></td></tr><tr><td>23</td><td>payAmt</td><td>实付金额</td><td>String</td><td></td></tr><tr><td>24</td><td>unpayAmt</td><td>未付金额</td><td>String</td><td></td></tr><tr><td>25</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>26</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr><tr><td>27</td><td>dispatchNums</td><td>配送数量</td><td>int</td><td></td></tr><tr><td>28</td><td>receiveNums</td><td>收货数量</td><td>int</td><td></td></tr><tr><td>29</td><td>stockType</td><td>库存方式</td><td>int</td><td></td></tr><tr><td>30</td><td>stockTypeName</td><td>库存方式</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (DispatchGoodController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/dispatchGood/findDispatchGoodById</td><td>findDispatchGoodById</td><td>查询采购商品</td></tr><tr><td>2</td><td>/dispatchGood/save</td><td>saveDispatchGood</td><td>保存采购商品</td></tr><tr><td>3</td><td>/dispatchGood/update</td><td>updateDispatchGood</td><td>更新采购商品</td></tr><tr><td>4</td><td>/dispatchGood/delete</td><td>deleteDispatchGoodById</td><td>删除采购商品</td></tr><tr><td>5</td><td>/dispatchGood/findAllDispatchGood</td><td>findAllDispatchGood</td><td>查询全部采购商品</td></tr><tr><td>6</td><td>/dispatchGood/deleteIds</td><td>deleteDispatchGood</td><td>删除多个采购商品</td></tr><tr><td>7</td><td>/dispatchGood/list</td><td>list</td><td>列表查询采购商品</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (DispatchGoodService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询采购商品</td></tr><tr><td>2</td><td>save</td><td>保存采购商品</td></tr><tr><td>3</td><td>update</td><td>更新采购商品</td></tr><tr><td>4</td><td>deleteById</td><td>删除采购商品</td></tr><tr><td>5</td><td>findAll</td><td>查询全部采购商品</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个采购商品</td></tr><tr><td>7</td><td>list</td><td>列表查询采购商品</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(DispatchGoodDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询采购商品</td></tr><tr><td>2</td><td>save</td><td>保存采购商品</td></tr><tr><td>3</td><td>update</td><td>更新采购商品</td></tr><tr><td>4</td><td>deleteById</td><td>删除采购商品</td></tr><tr><td>5</td><td>findAll</td><td>查询全部采购商品</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个采购商品</td></tr><tr><td>7</td><td>list</td><td>列表查询采购商品</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

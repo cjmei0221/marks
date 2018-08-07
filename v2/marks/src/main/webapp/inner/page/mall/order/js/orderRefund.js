@@ -1,9 +1,8 @@
 var appInfo = {
-	listUrl : top.window.urlBase + '/inner/adjustInfo/findById.do',// 获取采购商品列表接口
-	getGoodUrl : top.window.urlBase + '/inner/adjustGood/findById.do',// 获取采购商品列表接口
-	saveUrl : top.window.urlBase + '/inner/adjustInfo/save.do',// 保存新增采购单接口
-	updateUrl : top.window.urlBase + '/inner/adjustInfo/update.do',// 编辑采购单信息接口
-	approveUrl : top.window.urlBase + '/inner/adjustInfo/approve.do',// 编辑采购单信息接口
+	listUrl : top.window.urlBase + '/inner/orderInfo/findById.do',// 获取采购商品列表接口
+	getGoodUrl : top.window.urlBase + '/inner/orderGood/findById.do',// 获取采购商品列表接口
+	refundUrl : top.window.urlBase + '/inner/orderInfo/refund.do',// 保存新增采购单接口
+	// DispatchGood
 	selectedId : -1,
 	selectedData : {},
 	requestParam : {
@@ -20,6 +19,7 @@ var returnType = tool.getUrlParams("returnType");
 appInfo.formStatus = edit;
 // -----------------权限控制功能 end---------------
 $(function() {
+
 	// 加载列表
 	loadList();
 	// 保存菜单
@@ -29,55 +29,10 @@ $(function() {
 	$("#returnParent").on("click", function(e) {
 		returnList();
 	});
-	$("#btnCheck").on("click", function(e) {
-		$.messager.confirm('确认', '确认提交审核吗?', function(r) {
-			if (r) {
-				var parms = "idNo=" + $("#orderId").val();
-				$.post(appInfo.approveUrl, parms, function(data) {
-					if (data.retcode == '0') {
-						showMsg("操作成功");
-						returnList();
-					} else {
-						showMsg(data.retmsg);
-					}
-				});
-			}
-		});
-	});
-	if (appInfo.formStatus == 'check') {
-		showOrHide(2);
-	} else if (appInfo.formStatus == 'detail') {
-		showOrHide(3);
-	} else {
-		showOrHide(0);
-	}
 });
-
 function returnList() {
-	var url = "./adjustInfo.html?&menuid=M_mall_stock_adjustInfo";
+	var url = "./orderInfo.html?menuid=M_mall_order_orderInfo";
 	location.href = url;
-}
-function showOrHide(flag) {
-	$("#btnDiv").show();
-	if (flag == 1) {
-		$("#tbList").datagrid("hideColumn", "oper");
-		$("#btnCheck").hide();
-	} else if (flag == 2) {
-
-		$("#tbList").datagrid("hideColumn", "oper");
-		$("#btnDiv").hide();
-	} else if (flag == 3) {
-
-		$("#tbList").datagrid("hideColumn", "oper");
-		$("#btnOK").hide();
-		$("#btnCheck").hide();
-		$("#returnParent").show();
-	} else {
-
-		$("#tbList").datagrid("showColumn", "oper");
-		$("#btnCheck").show();
-	}
-
 }
 /**
  * 保存菜单
@@ -91,7 +46,7 @@ function formSubmit() {
 	var attrList = [];
 	var row = $("#tbList").datagrid('getRows');
 	for (var i = 0; i < row.length; i++) {
-		var count = row[i].nums;
+		var count = row[i].refundNums;
 		if (row[i].goodNo != "" && count > 0) {
 			var items = row[i];
 			attrList.push(items);
@@ -102,8 +57,8 @@ function formSubmit() {
 		return;
 	}
 
-	var reqUrl = appInfo.formStatus == "new" ? appInfo.saveUrl
-			: appInfo.updateUrl;
+	var reqUrl = appInfo.refundUrl;
+	
 	var parms = $("#ff").serialize();
 	parms += "&formStatus=" + appInfo.formStatus;
 	parms += "&ywCode=1";
@@ -125,23 +80,59 @@ function formSubmit() {
 		}
 	});
 }
-
 function endEdit() {
 	var rows = $("#tbList").datagrid('getRows');
 	for (var i = 0; i < rows.length; i++) {
 		$("#tbList").datagrid('endEdit', i);
 	}
 }
+
 function delRow(idx) {
 	$('#tbList').datagrid('deleteRow', idx);
 }
 function setEditing(rowIndex) {
 	var editors = $('#tbList').datagrid('getEditors', rowIndex);
+	console.log(editors);
 	var goodCodeEditor = editors[0];
+	var priceEditor = editors[1];
+	var refundNumsEditor = editors[2];
+	var refundAmtEditor = editors[3];
 	goodCodeEditor.target.bind('change', function() {
 		var goodCode = goodCodeEditor.target.val()
 		getGoodInfo(rowIndex, goodCode);
 	});
+	refundNumsEditor.target.bind('change', function() {
+		calculateNums();
+		countTotal();
+	});
+	$(priceEditor.target).numberbox({
+		onChange : function(newVal, oldVal) {
+			calculateNums();
+			countTotal();
+		}
+	});
+
+	function calculateNums() {
+		var amt = refundNumsEditor.target.val() * priceEditor.target.val();
+		$(refundAmtEditor.target).numberbox('setValue', amt);
+	}
+}
+function countTotal() {
+	endEdit();
+	// 计算总额
+	var totalNum = 0;
+	var totalAmt = 0;
+	var row = $("#tbList").datagrid('getRows');
+	for (var i = 0; i < row.length; i++) {
+		var count = row[i].refundNums;
+		if (row[i].goodNo != "" && count > 0) {
+			var items = row[i];
+			totalNum = totalNum + Number(items.refundNums);
+			totalAmt = totalAmt + Number(items.refundAmt);
+		}
+	}
+	$("#refundNums").numberbox("setValue", totalNum);
+	$("#refundAmt").numberbox("setValue", totalAmt);
 }
 function getGoodInfo(rowIndex, goodCode) {
 	$.ajax({
@@ -175,26 +166,17 @@ function loadList() {
 					{
 						url : appInfo.listUrl,
 						// toolbar : "#tb",
-						striped : true,
-						nowrap : true,
-						animate : true,
-						collapsible : true,
-						fitColumns : true,
-						autoRowHeight : false,
 						idField : 'orderGoodId',
-						height : 520,
+						height : 350,
 						rownumbers : true,
-						pagination : true,
-						pageNumber : appInfo.requestParam.page_number,
-						pageSize : appInfo.requestParam.page_size,
-						singleSelect : true,
 						columns : [ [
 								{
-									title : '主键',
+									title : '单号',
 									field : 'orderGoodId',
 									width : 100,
 									align : "center",
 									hidden : true
+
 								},
 								{
 									title : '操作',
@@ -206,25 +188,19 @@ function loadList() {
 												+ index + ")\">删除</a>";
 									}
 								}, {
-									title : '商品编号',
-									field : 'goodId',
-									width : 100,
-									align : "center",
-									hidden : true
-								}, {
-									title : '商品编号',
+									title : '编号',
 									field : 'goodNo',
 									width : 100,
 									align : "center",
 									editor : "validatebox"
 								}, {
-									title : '商品名称',
-									field : 'goodName',
+									title : '条码',
+									field : 'barNo',
 									width : 100,
 									align : "center"
 								}, {
-									title : '商品条码',
-									field : 'barNo',
+									title : '品名',
+									field : 'goodName',
 									width : 100,
 									align : "center"
 								}, {
@@ -247,17 +223,56 @@ function loadList() {
 									field : 'brandName',
 									width : 100,
 									align : "center"
+
 								}, {
-									title : '进价',
-									field : 'costPrice',
-									width : 100,
-									align : "center"
-								}, {
-									title : '数量',
+									title : '购买数量',
 									field : 'nums',
 									width : 100,
 									align : "center",
-									editor : "validatebox"
+								}, {
+									title : '售价',
+									field : 'payPrice',
+									width : 100,
+									align : "center",
+									editor : {
+										type : 'numberbox',
+										options : {
+											precision : 2
+										}
+									}
+								}, {
+									title : '退货数量',
+									field : 'refundNums',
+									width : 100,
+									align : "center",
+									editor : {
+										type : 'validatebox',
+									// options : {
+									// precision : 0
+									// }
+									}
+								}, {
+									title : '退款金额',
+									field : 'refundAmt',
+									width : 100,
+									align : "center",
+									editor : {
+										type : 'numberbox',
+										options : {
+											precision : 2
+										}
+									}
+
+								}, {
+									title : '已退数量',
+									field : 'hadRefundNums',
+									width : 100,
+									align : "center",
+								}, {
+									title : '已退金额',
+									field : 'hadRefundAmt',
+									width : 100,
+									align : "center",
 								} ] ],
 						loader : function(params, success, loadError) {
 							var that = $(this);
@@ -270,9 +285,11 @@ function loadList() {
 								setEditing(rowIndex);
 							}
 						},
+						onClickCell : function(rowIndex, field, value) {
+
+						},
 						onLoadSuccess : function(data) {
 							$("#tbList").datagrid('unselectAll');
-							appInfo.selectedData = {};
 						}
 					});
 	// 请求加载数据

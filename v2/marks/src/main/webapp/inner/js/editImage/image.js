@@ -80,9 +80,14 @@ function uploadPic() {
 	$('#upload_form').form('submit', {
 		url : top.window.urlBase + "/inner/fileUpload/img.do",
 		success : function(data) {
-			showMsg("上传成功");
-			$("#upload_form").form('clear');
-			loadImageList(1, img.pageSize);
+			if (data.retcode == '0') {
+				showMsg("上传成功");
+				$("#upload_form").form('clear');
+				loadImageList(1, img.pageSize);
+			} else {
+				showMsg("上传失败");
+				$("#upload_form").form('clear');
+			}
 		}
 	});
 }
