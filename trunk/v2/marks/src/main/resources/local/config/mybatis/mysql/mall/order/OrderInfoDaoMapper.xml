@@ -70,7 +70,10 @@
 		usePoint,
 		storedAmt,
 		recevieAmt,
-		payingAmt
+		payingAmt,
+		oldOrderId,
+		channelId,
+		channel
 		)
 		VALUES(
 		#{info.orderId:VARCHAR},
@@ -130,7 +133,10 @@
 		#{info.usePoint:NUMERIC},
 		#{info.storedAmt:VARCHAR},
 		#{info.recevieAmt:VARCHAR},
-		#{info.payingAmt:VARCHAR}
+		#{info.payingAmt:VARCHAR},
+		#{info.oldOrderId:VARCHAR},
+		#{info.channelId:VARCHAR},
+		#{info.channel:VARCHAR}
 		)
 	</insert>
 
@@ -193,7 +199,10 @@
 		usePoint,
 		storedAmt,
 		recevieAmt,
-		payingAmt
+		payingAmt,
+		oldOrderId,
+		channelId,
+		channel
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -256,7 +265,10 @@
 			#{info.usePoint:NUMERIC},
 			#{info.storedAmt:VARCHAR},
 			#{info.recevieAmt:VARCHAR},
-			#{info.payingAmt:VARCHAR}
+			#{info.payingAmt:VARCHAR},
+			#{info.oldOrderId:VARCHAR},
+			#{info.channelId:VARCHAR},
+			#{info.channel:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -264,52 +276,9 @@
 	<update id="update" parameterType="com.marks.module.mall.order.pojo.OrderInfo">
 		UPDATE TB_MALL_ORDER_INFO
 		SET
-		ORDERSTATUS = #{info.orderStatus:NUMERIC},
-		recevieAmt=#{info.recevieAmt:VARCHAR},
-		storedAmt=#{info.storedAmt:VARCHAR},
-		PAYAMT = #{info.payAmt:VARCHAR},
-		SALEAMT = #{info.saleAmt:VARCHAR},
-		DISCOUNTAMT =
-		#{info.discountAmt:VARCHAR},
-		FULLCUTAMT =
-		#{info.fullCutAmt:VARCHAR},
-		COUPONAMT = #{info.couponAmt:VARCHAR},
-		MALINGAMT =
-		#{info.malingAmt:VARCHAR},
-		SIMPLEDISCOUNTAMT =
-		#{info.simpleDiscountAmt:VARCHAR},
-		REMARKS = #{info.remarks:VARCHAR},
-		PAYTYPECODE = #{info.payTypeCode:VARCHAR},
-		PAYTYPENAME =
-		#{info.payTypeName:VARCHAR},
-		CASHAMT = #{info.cashAmt:VARCHAR},
-		WXAMT =
-		#{info.wxAmt:VARCHAR},
-		ALIPAYAMT = #{info.alipayAmt:VARCHAR},
-		OTHERAMT =
-		#{info.otherAmt:VARCHAR},
-		UPDATETIME = #{info.updatetime:VARCHAR},
-		PAYSTATUS = #{info.payStatus:NUMERIC},
-		CASHTYPE =
-		#{info.cashType:VARCHAR},
-		CASHTYPENAME = #{info.cashTypeName:VARCHAR},
-		POINTAMT = #{info.pointAmt:VARCHAR},
-		POINT = #{info.point:NUMERIC},
-		CASHMANID = #{info.cashManId:VARCHAR},
-		CASHMAN =
-		#{info.cashMan:VARCHAR},
-		GUIDERID = #{info.guiderId:VARCHAR},
-		GUIDERNAME = #{info.guiderName:VARCHAR},
-		VIPID = #{info.vipId:VARCHAR},
-		VIPNAME = #{info.vipName:VARCHAR},
-		VIPMOBILE =
-		#{info.vipMobile:VARCHAR},
-		RECEIVETEL = #{info.receiveTel:VARCHAR},
-		RECEIVER = #{info.receiver:VARCHAR},
-		RECEIVEADDR =
-		#{info.receiveAddr:VARCHAR},
-		ORDERSTATUSNAME =
-		#{info.orderStatusName:VARCHAR}
+		hadRefundNums=#{info.hadRefundNums:NUMERIC},
+		hadRefundAmt=#{info.hadRefundAmt:VARCHAR},
+		UPDATETIME = now()
 		WHERE
 		ORDERID = #{info.orderId}
 	</update>
@@ -427,7 +396,7 @@
 		</if>
 
 
-		order by t.UPDATETIME DESC
+		order by t.ORDERID DESC
 	</select>
 
 

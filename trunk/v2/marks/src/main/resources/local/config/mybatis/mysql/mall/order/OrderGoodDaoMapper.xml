@@ -5,39 +5,45 @@
 
 	<select id="findById" resultType="com.marks.module.mall.order.pojo.OrderGood">
 		SELECT t.goodId,
-       t.goodNo,
-       t.goodName,
-       t.barNo,
-       t.unit,
-       t.rank,
-       t.brandId,
-       t.brandName,
-       t.typeId,
-       t.typeName,
-       t.imageurl AS picUrl,
-       t.vipPrice,
-       t.salePrice,
-       t.costPrice,
-       c.lvl1Id,
-       c.lvl1Name,
-       c.lvl2Id,
-       c.lvl2Name,
-       c.lvl3Id,
-       c.lvl3Name,
-       c.lvl4Id,
-       c.lvl4Name,
-       c.lvl5Id,
-       c.lvl5Name,
-	   t.point,
-	   t.needPoint as usePoint
-  	   FROM tb_mall_good_info t
-       LEFT JOIN tb_mall_category c ON t.typeId = c.typeid
-       LEFT JOIN tb_mall_trace_barcode b ON t.goodId = b.goodId
+		t.goodNo,
+		t.goodName,
+		t.barNo,
+		t.unit,
+		t.rank,
+		t.brandId,
+		t.brandName,
+		t.typeId,
+		t.typeName,
+		t.imageurl AS picUrl,
+		t.vipPrice,
+		t.salePrice,
+		t.costPrice,
+		c.lvl1Id,
+		c.lvl1Name,
+		c.lvl2Id,
+		c.lvl2Name,
+		c.lvl3Id,
+		c.lvl3Name,
+		c.lvl4Id,
+		c.lvl4Name,
+		c.lvl5Id,
+		c.lvl5Name,
+		t.point,
+		t.needPoint as usePoint
+		FROM
+		tb_mall_good_info t
+		LEFT JOIN tb_mall_category c ON t.typeId = c.typeid
+		LEFT JOIN tb_mall_trace_barcode b ON t.goodId = b.goodId
 		where
 		t.companyId=#{companyId} and
 		(t.goodId=#{goodId} or
 		t.goodNo=#{goodId}
 		or t.barNo=#{goodId} or b.barcode=#{goodId})
+	</select>
+	<select id="findByOrderId" resultType="com.marks.module.mall.order.pojo.OrderGood">
+		SELECT *
+		FROM
+		TB_MALL_ORDER_GOOD t where t.ORDERID=#{orderId}
 	</select>
 
 	<insert id="save" parameterType="com.marks.module.mall.order.pojo.OrderGood">
@@ -99,7 +105,9 @@
 		storedAmt,
 		recevieAmt,
 		payPrice,
-		helpCode
+		helpCode,
+		model,
+		oldOrderGoodId
 		)
 		VALUES(
 		#{info.orderGoodId:VARCHAR},
@@ -156,7 +164,9 @@
 		#{info.storedAmt:VARCHAR},
 		#{info.recevieAmt:VARCHAR},
 		#{info.payPrice:VARCHAR},
-		#{info.helpCode:VARCHAR}
+		#{info.helpCode:VARCHAR},
+		#{info.model:VARCHAR},
+		#{info.oldOrderGoodId:VARCHAR}
 		)
 	</insert>
 
@@ -216,7 +226,9 @@
 		storedAmt,
 		recevieAmt,
 		payPrice,
-		helpCode
+		helpCode,
+		model,
+		oldOrderGoodId
 		)
 		VALUES
 		<foreach collection="list" item="info" index="index"
@@ -276,7 +288,9 @@
 			#{info.storedAmt:VARCHAR},
 			#{info.recevieAmt:VARCHAR},
 			#{info.payPrice:VARCHAR},
-			#{info.helpCode:VARCHAR}
+			#{info.helpCode:VARCHAR},
+			#{info.model:VARCHAR},
+			#{info.oldOrderGoodId:VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -284,28 +298,9 @@
 	<update id="update" parameterType="com.marks.module.mall.order.pojo.OrderGood">
 		UPDATE TB_MALL_ORDER_GOOD
 		SET
-		recevieAmt=#{info.recevieAmt:VARCHAR},
-		storedAmt=#{info.storedAmt:VARCHAR},
-		PAYAMT =
-		#{info.payAmt:VARCHAR},
-		CASHAMT = #{info.cashAmt:VARCHAR},
-		WXAMT =
-		#{info.wxAmt:VARCHAR},
-		ALIPAYAMT = #{info.alipayAmt:VARCHAR},
-		OTHERAMT =
-		#{info.otherAmt:VARCHAR},
-		SALESAMT = #{info.salesAmt:VARCHAR},
-		DISCOUNTAMT = #{info.discountAmt:VARCHAR},
-		FULLCUTAMT =
-		#{info.fullCutAmt:VARCHAR},
-		COUPONAMT = #{info.couponAmt:VARCHAR},
-		POINTAMT = #{info.pointAmt:VARCHAR},
-		MLAMT = #{info.mlAmt:VARCHAR},
-		SIMPLEDISCOUNTAMT = #{info.simpleDiscountAmt:VARCHAR},
-		UPDATETIME =
-		#{info.updatetime:VARCHAR},
-		COSTAMT = #{info.costAmt:VARCHAR},
-		COSTPRICE = #{info.costPrice:VARCHAR}
+		hadRefundNums=#{info.hadRefundNums:NUMERIC},
+		hadRefundAmt=#{info.hadRefundAmt:VARCHAR},
+		UPDATETIME =now()
 		WHERE
 		ORDERGOODID =
 		#{info.orderGoodId}

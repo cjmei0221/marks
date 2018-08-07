@@ -166,7 +166,7 @@ public class @{beanName}Controller extends SupportContorller{
 		try {
 			List<@{beanName}> allList = @{BeanObject}Service.findAll();
 			result.getData().put("allList",allList);
-			result.setMessage("findAll @{BeanObject} successs!");
+			result.setMessage("findAll successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -234,11 +234,11 @@ public class @{beanName}Controller extends SupportContorller{
 			result.setPageSize(list.getPage_size());
 			result.setPageTotal(list.getPage_total());
 			result.setTotalCount(list.getTotal_count());
-			result.setMessage("find @{BeanObject} successs!");
+			result.setMessage("list successs!");
 			result.setCode(Code.CODE_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			result.setMessage("find @{BeanObject} fail!");
+			result.setMessage("list fail!");
 			result.setCode(Code.CODE_FAIL);
 		}
 		JsonUtil.output(response, result);
