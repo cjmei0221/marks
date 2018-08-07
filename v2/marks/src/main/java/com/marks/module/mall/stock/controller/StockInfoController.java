@@ -1,8 +1,6 @@
 package com.marks.module.mall.stock.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.util.JsonUtil;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
+import com.marks.common.util.JsonUtil;
 import com.marks.module.core.controller.SupportContorller;
-import com.marks.module.user.login.helper.LoginUtil;
-import com.marks.module.user.sysuser.pojo.SysUser;
-
 import com.marks.module.mall.stock.pojo.StockInfo;
 import com.marks.module.mall.stock.service.StockInfoService;
+import com.marks.module.user.login.helper.LoginUtil;
+import com.marks.module.user.sysuser.pojo.SysUser;
 
  /**
 	 * 库存管理: 库存管理
@@ -65,95 +61,7 @@ public class StockInfoController extends SupportContorller{
 		}
 		JsonUtil.output(response, result);
     }
-    
-    /**
-	 * 保存库存管理
-	 */
-    @RequestMapping("/inner/stockInfo/save")
-    public void saveStockInfo(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-	    	StockInfo info = getModel(StockInfo.class);
-	        info.setStockId(IDUtil.getUUID());
-	 		
-	 		logger.info("saveStockInfo > param>"+info.toLog());
-	 
-			 StockInfo ori=null;
-	 		if(info.getStockId() != null){
-	 			ori=stockInfoService.findById(info.getStockId());
-	 		}
-	 		
-	 		if(ori==null){
-	 			stockInfoService.save(info);
-	 			result.setMessage("保存成功");
-				result.setCode(Code.CODE_SUCCESS);
-	 		}else{
-	    		result.setMessage("此记录已存在");
-				result.setCode(Code.CODE_FAIL);
-	    	}
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("保存失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
-	/**
-	 * 更改库存管理
-	 */
-    @RequestMapping("/inner/stockInfo/update")
-    public void updateStockInfo(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-			SysUser admin = LoginUtil.getInstance().getCurrentUser(request);
-		    StockInfo info = getModel(StockInfo.class);
-		    
-		    logger.info(" updateStockInfo> param>"+info.toLog());
-		    
-		    StockInfo ori=stockInfoService.findById(info.getStockId());
-		    if(ori == null){
-		    	result.setMessage("此记录已删除!");
-				result.setCode(Code.CODE_FAIL);
-		    }else{
-		    	stockInfoService.update(info);
-				result.setMessage("更新成功!");
-				result.setCode(Code.CODE_SUCCESS);
-		    }
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("更新失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
-	/**
-	 * 删除库存管理
-	 */
-    @RequestMapping("/inner/stockInfo/delete")
-    public void deleteStockInfoById(HttpServletRequest request,
-    HttpServletResponse response){
-		Result result = new Result();
-		try {
-		   	StockInfo info = getModel(StockInfo.class);
-		   	
-		   	logger.info("deleteStockInfoById > param>"+info.getStockId());
-		   	
-			stockInfoService.delete(info.getStockId());
-			result.setMessage("删除成功!");
-			result.setCode(Code.CODE_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-			result.setMessage("删除失败，请联系管理员！");
-			result.setCode(Code.CODE_FAIL);
-		}
-		JsonUtil.output(response, result);
-	}
-	
+
 	/**
 	 * 查询全部库存管理
 	 */

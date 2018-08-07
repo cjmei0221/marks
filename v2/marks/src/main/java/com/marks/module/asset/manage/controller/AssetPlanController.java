@@ -1,8 +1,6 @@
 package com.marks.module.asset.manage.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.marks.common.domain.PaginationResult;
 import com.marks.common.domain.PojoDomain;
 import com.marks.common.domain.Result;
-import com.marks.common.util.JsonUtil;
-import com.marks.common.util.IDUtil;
 import com.marks.common.util.Code;
+import com.marks.common.util.IDUtil;
+import com.marks.common.util.JsonUtil;
+import com.marks.module.asset.manage.pojo.AssetPlan;
+import com.marks.module.asset.manage.service.AssetPlanService;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.user.login.helper.LoginUtil;
 import com.marks.module.user.sysuser.pojo.SysUser;
-
-import com.marks.module.asset.manage.pojo.AssetPlan;
-import com.marks.module.asset.manage.service.AssetPlanService;
 
  /**
 	 * 理财: 理财计划
@@ -51,9 +48,6 @@ public class AssetPlanController extends SupportContorller{
         Result result = new Result();
 		try {
 		    AssetPlan info = getModel(AssetPlan.class);
-		    
-		    logger.info("findAssetPlanById > param>"+info.getPlanId());
-		    
 			AssetPlan vo = assetPlanService.findById(info.getPlanId());
 			result.getData().put("info",vo);
 			result.setMessage("findById successs!");

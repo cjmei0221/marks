@@ -278,9 +278,19 @@ public class OrderGood implements Serializable {
 	private int refundNums;
 	private String refundAmt;
 
+	private String oldOrderGoodId;// 旧
+
 	public OrderGood() {
 		this.createtime = DateUtil.getCurrDateStr();
 		this.updatetime = DateUtil.getCurrDateStr();
+	}
+
+	public String getOldOrderGoodId() {
+		return oldOrderGoodId;
+	}
+
+	public void setOldOrderGoodId(String oldOrderGoodId) {
+		this.oldOrderGoodId = oldOrderGoodId;
 	}
 
 	public int getHadRefundNums() {

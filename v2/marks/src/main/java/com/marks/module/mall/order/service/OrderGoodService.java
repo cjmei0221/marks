@@ -11,7 +11,6 @@ public interface OrderGoodService{
 
 	public OrderGood findById(String companyId, String id);
 	public void save(OrderGood info);
-	public void update(OrderGood info);
 	public void delete(String id);
 	public List<OrderGood> findAll();
 	public void deleteBatch(List<String> ids);

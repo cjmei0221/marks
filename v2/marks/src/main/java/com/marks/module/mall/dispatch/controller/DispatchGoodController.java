@@ -16,7 +16,6 @@ import com.marks.common.util.JsonUtil;
 import com.marks.common.util.number.MoneyUtil;
 import com.marks.module.core.controller.SupportContorller;
 import com.marks.module.mall.dispatch.pojo.DispatchGood;
-import com.marks.module.mall.dispatch.service.DispatchGoodService;
 import com.marks.module.mall.good.pojo.GoodInfo;
 import com.marks.module.mall.good.service.GoodInfoService;
 import com.marks.module.user.login.helper.LoginUtil;
@@ -29,8 +28,6 @@ import com.marks.module.user.sysuser.pojo.SysUser;
 public class DispatchGoodController extends SupportContorller{
     private static Logger logger = Logger.getLogger( DispatchGoodController.class);
     
-    @Autowired
-    private DispatchGoodService  dispatchGoodService;
 	@Autowired
 	private GoodInfoService goodInfoService;
 

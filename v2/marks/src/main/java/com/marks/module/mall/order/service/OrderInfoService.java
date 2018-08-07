@@ -11,7 +11,6 @@ import com.marks.module.mall.order.pojo.OrderInfo;
 public interface OrderInfoService{
 
 	public OrderInfo findById(String orderId);
-	public void update(OrderInfo info);
 	public void delete(String id);
 	public List<OrderInfo> findAll();
 	public void deleteBatch(List<String> ids);
