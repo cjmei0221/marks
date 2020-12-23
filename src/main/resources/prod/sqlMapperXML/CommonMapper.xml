@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.CommonMapper">
+
+
+    <select id="getDictList" resultType="com.grgbanking.smart.gzw.model.DictModel" >
+        SELECT
+            id ,
+            busi_name `text` ,
+            busi_value `value` ,
+            sort_order sort
+        FROM
+            t_n_dict
+        WHERE
+            state = 1
+        AND parent_id IN(
+            SELECT
+                id
+            FROM
+                t_n_dict
+            WHERE
+                busi_value = #{dictName}
+        )
+        ORDER BY
+            sort_order asc
+    </select>
+
+    <!--<select id="getSupervisorInfoList" resultType="com.grgbanking.db.model.entity.SupervisorInfoEntity">
+        SELECT
+            b.id ,
+            b.`name` ,
+            sg.`name` AS groupName ,
+            b.post_name AS postName
+        FROM
+            t_s_basic b
+        LEFT JOIN t_supervisor_group sg ON b.group_id = sg.id
+        WHERE
+            b.`name` IS NOT NULL
+            <if test="filter!=null and filter!=''">
+                AND (b.name LIKE CONCAT('%',#{filter},'%' ) or sg.name LIKE CONCAT('%',#{filter},'%' ) )
+            </if>
+        ORDER BY
+            sg.`name`
+    </select>
+
+    <select id="getSupervisorInfoById" resultType="com.grgbanking.db.model.entity.SupervisorInfoEntity">
+       SELECT
+            b.id ,
+            b.`name` ,
+            sg.id as groupId,
+            sg.`name` AS groupName ,
+            dict.busi_name AS postName,
+            b.post_type as postType
+        FROM
+            t_s_basic b
+        LEFT JOIN t_supervisor_group sg ON b.group_id = sg.id
+        LEFT JOIN t_n_dict dict ON dict.busi_value = b.post_name
+        WHERE b.id = #{id}
+    </select>
+
+    <select id="getCompanyInfoBySupervisorId" resultType="com.grgbanking.db.model.entity.CompanyInfoEntity">
+        SELECT sc.`name`,sc.`code`,sc.id
+        from t_supervisor_company sc
+        left JOIN  t_supervisor_info si ON sc.code=si.supervisor_company_id
+        LEFT JOIN t_s_supervisor_member sm ON si.id=sm.supervisor_id
+        WHERE sm.basic_id = #{supervisorId}
+    </select>
+    
+    <select id="getUserIdsBySupervisorId" resultType="java.lang.String">
+        SELECT us.id
+        from t_n_user us ,t_s_basic sb
+        LEFT JOIN t_s_supervisor_member sm ON sb.id = sm.basic_id
+        WHERE us.supervisor_id = sb.id
+        AND sm.supervisor_id = #{supervisorId}
+    </select>
+
+    <select id="getUserIdsByGroupId" resultType="java.lang.String">
+        SELECT us.id
+        from t_n_user us ,t_s_basic sb
+        WHERE us.supervisor_id = sb.id
+        AND sb.group_id=#{groupId}
+    </select>-->
+
+</mapper>

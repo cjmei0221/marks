@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.wx.manage.mp.dao.WxTemplateDao">
+
+	<select id="findById" resultType="com.marks.smart.wx.manage.mp.entity.WxTemplate">
+		SELECT * FROM TB_WX_TEMPLATE
+		wxtemplate where wxtemplate.YWTYPE = #{ywType} and
+		wxtemplate.ACCOUNTID=#{accountid}
+	</select>
+
+	<insert id="save" parameterType="com.marks.smart.wx.manage.mp.entity.WxTemplate">
+		INSERT INTO TB_WX_TEMPLATE (
+		YWTYPE,
+		ACCOUNTID,
+		TEMPLATE_ID,
+		TEMPLATE_NAME,
+		FIRST_CONTENT,
+		REMARK_CONTENT,
+		DETAILURL,
+		STATUS,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		companyId
+		)
+		VALUES(
+		#{ywType:VARCHAR},
+		#{accountid:VARCHAR},
+		#{template_id:VARCHAR},
+		#{template_name:VARCHAR},
+		#{first_content:VARCHAR},
+		#{remark_content:VARCHAR},
+		#{detailUrl:VARCHAR},
+		#{status:NUMERIC},
+		now(),
+		now(),
+		#{creator:VARCHAR},
+		#{companyId:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.smart.wx.manage.mp.entity.WxTemplate">
+		UPDATE TB_WX_TEMPLATE
+		SET
+		ACCOUNTID = #{accountid:VARCHAR},
+		TEMPLATE_ID = #{template_id:VARCHAR},
+		TEMPLATE_NAME = #{template_name:VARCHAR},
+		FIRST_CONTENT = #{first_content:VARCHAR},
+		REMARK_CONTENT = #{remark_content:VARCHAR},
+		DETAILURL = #{detailUrl:VARCHAR},
+		STATUS = #{status:NUMERIC},
+		UPDATETIME = now()
+		WHERE
+		wxtemplate.YWTYPE = #{ywType}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_WX_TEMPLATE
+		WHERE YWTYPE=#{ywType} and ACCOUNTID=#{accountid}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.smart.wx.manage.mp.entity.WxTemplate">
+		SELECT * FROM TB_WX_TEMPLATE
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_WX_TEMPLATE WHERE YWTYPE in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.smart.wx.manage.mp.entity.WxTemplate"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_WX_TEMPLATE wxtemplate
+		WHERE 1=1
+		<if test="accountIds !=null">
+			and wxtemplate.accountid in
+			<foreach collection="accountIds" item="oid" index="index"
+				open="(" separator="," close=")">
+				#{oid}
+			</foreach>
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( wxtemplate.YWTYPE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtemplate.ACCOUNTID
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			wxtemplate.TEMPLATE_ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtemplate.TEMPLATE_NAME
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			wxtemplate.FIRST_CONTENT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			wxtemplate.REMARK_CONTENT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtemplate.STATUS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or wxtemplate.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+
+	</select>
+
+
+
+</mapper>

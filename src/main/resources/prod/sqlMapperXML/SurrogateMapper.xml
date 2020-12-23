@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.SurrogateMapper">
+    <select id="pagelist" resultType="com.grgbanking.smart.gzw.model.entity.SurrogateSet"
+            parameterType="java.util.Map">
+        SELECT *
+FROM
+	t_wf_surrogate_set t where 1=1
+        <if test="userid != null and userid !='' ">
+            and t.ori_oparetor_id = #{userid}
+        </if>
+ORDER BY
+	t.state DESC,
+	t.create_time DESC
+    </select>
+
+    <select id="getUserList" resultType="com.grgbanking.smart.gzw.model.entity.SurrogateSet"
+            parameterType="java.util.Map">
+       SELECT
+        t.id as ori_oparetor_id,
+        t.full_name as ori_oparetor_name
+FROM
+	`t_n_user` t
+WHERE
+	t.org_id = #{orgId}
+	<if test="userId != null and userId !='' ">
+        and t.id != #{userId}
+    </if>
+order by t.sort_order
+    </select>
+
+    <select id="getActiveUsers" resultType="com.grgbanking.smart.gzw.model.entity.SurrogateSet">
+       select * from t_wf_surrogate_set t where t.state=1 and t.sdate &lt;= #{nowDate} and t.edate &gt;= #{nowDate}
+    </select>
+    <update id="updateState" flushCache="true">
+        update t_wf_surrogate_set set state=0 where ori_oparetor_id=#{ori_oparetor_id} and id != #{newId}
+    </update>
+
+
+</mapper>

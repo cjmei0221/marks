@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.market.mall.stock.dao.TraceLogDao">
+
+	<select id="findById"
+		resultType="com.marks.smart.market.mall.stock.pojo.TraceLog">
+		SELECT * FROM TB_MALL_TRACE_LOG
+		t where t.ID = #{id}
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.market.mall.stock.pojo.TraceLog">
+		<!--<selectKey keyProperty="id" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_TRACE_LOG (
+		ID,
+		TRACEID,
+		BARCODE,
+		GOODID,
+		GOODNO,
+		BARNO,
+		GOODNAME,
+		CREATETIME,
+		TYPEID,
+		TYPENAME,
+		BRANDID,
+		BRANDNAME,
+		STOCKSTATUS,
+		OPERATOR,
+		COMPANYID,
+		ORGID,
+		ORGNAME,
+		REMARKS,
+		batchId,
+		operateCode,
+		operate,
+		nums,
+		amount,
+		goodType,
+		goodTypeName,
+		ywCode,
+		ywName,
+		balAmt,
+		balNums,
+		stockId,
+		stockBalAmt,
+		stockBalNums,
+		outAmt
+		)
+		VALUES(
+		#{info.id:VARCHAR},
+		#{info.traceId:VARCHAR},
+		#{info.barCode:VARCHAR},
+		#{info.goodId:VARCHAR},
+		#{info.goodNo:VARCHAR},
+		#{info.barNo:VARCHAR},
+		#{info.goodName:VARCHAR},
+		now(),
+		#{info.typeId:VARCHAR},
+		#{info.typeName:VARCHAR},
+		#{info.brandId:VARCHAR},
+		#{info.brandName:VARCHAR},
+		#{info.stockStatus:NUMERIC},
+		#{info.operator:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.orgid:VARCHAR},
+		#{info.orgname:VARCHAR},
+		#{info.remarks:VARCHAR},
+		#{info.batchId:VARCHAR},
+		#{info.operateCode:VARCHAR},
+		#{info.operate:VARCHAR},
+		#{info.nums:NUMERIC},
+		#{info.amount:VARCHAR},
+		#{info.goodType:NUMERIC},
+		#{info.goodTypeName:VARCHAR},
+		#{info.ywCode:NUMERIC},
+		#{info.ywName:VARCHAR},
+		#{info.balAmt:VARCHAR},
+		#{info.balNums:NUMERIC},
+		#{info.stockId:VARCHAR},
+		#{info.stockBalAmt:VARCHAR},
+		#{info.stockBalNums:NUMERIC},
+		#{info.outAmt:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_TRACE_LOG (
+		ID,
+		TRACEID,
+		BARCODE,
+		GOODID,
+		GOODNO,
+		BARNO,
+		GOODNAME,
+		CREATETIME,
+		TYPEID,
+		TYPENAME,
+		BRANDID,
+		BRANDNAME,
+		STOCKSTATUS,
+		OPERATOR,
+		COMPANYID,
+		ORGID,
+		ORGNAME,
+		REMARKS,
+		batchId,
+		operateCode,
+		operate,
+		nums,
+		amount,
+		goodType,
+		goodTypeName,
+		ywCode,
+		ywName,
+		balAmt,
+		balNums,
+		stockId,
+		stockBalAmt,
+		stockBalNums,
+		outAmt
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.id:VARCHAR},
+			#{info.traceId:VARCHAR},
+			#{info.barCode:VARCHAR},
+			#{info.goodId:VARCHAR},
+			#{info.goodNo:VARCHAR},
+			#{info.barNo:VARCHAR},
+			#{info.goodName:VARCHAR},
+			now(),
+			#{info.typeId:VARCHAR},
+			#{info.typeName:VARCHAR},
+			#{info.brandId:VARCHAR},
+			#{info.brandName:VARCHAR},
+			#{info.stockStatus:NUMERIC},
+			#{info.operator:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.orgid:VARCHAR},
+			#{info.orgname:VARCHAR},
+			#{info.remarks:VARCHAR},
+			#{info.batchId:VARCHAR},
+			#{info.operateCode:VARCHAR},
+			#{info.operate:VARCHAR},
+			#{info.nums:NUMERIC},
+			#{info.amount:VARCHAR},
+			#{info.goodType:NUMERIC},
+			#{info.goodTypeName:VARCHAR},
+			#{info.ywCode:NUMERIC},
+			#{info.ywName:VARCHAR},
+			#{info.balAmt:VARCHAR},
+			#{info.balNums:NUMERIC},
+			#{info.stockId:VARCHAR},
+			#{info.stockBalAmt:VARCHAR},
+			#{info.stockBalNums:NUMERIC},
+			#{info.outAmt:VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_MALL_TRACE_LOG
+		WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.smart.market.mall.stock.pojo.TraceLog">
+		SELECT * FROM TB_MALL_TRACE_LOG
+		t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_TRACE_LOG WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.smart.market.mall.stock.pojo.TraceLog"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_TRACE_LOG t
+		WHERE 1=1 and t.companyId=#{companyId}
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.TRACEID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.batchId LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.stockId LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BARCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GOODNO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BARNO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GOODNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BRANDNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORGNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+		order by t.CREATETIME DESC
+
+	</select>
+
+
+
+</mapper>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap SYSTEM "./mapsql.dtd">
+<sqlMap>
+	<!-- 流程用到的sql语句 -->
+	
+	<!-- 根据ID查询消息详情 -->
+     <sqlUnit name="get_push_notice_by_id">
+         <sql>
+             SELECT t.id,t.title,t.content,t.create_user_id as createUserId,t.create_date as createDate,
+             t.operation_status as operationStatus,t.update_date as updateDate,t.update_user_id as updateUserId,
+             t.process_name as processName,t.process_no as processNo,t.startDate,t.endDate,t.type,t.priority,
+             (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.type 
+		     	AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'PUSH_TYPE')) AS typeName,
+			 (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.priority
+				AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'PUSH_PRIORITY')) AS priorityName,
+			 t.isRead, u.full_name AS createUserName
+			FROM t_push_notice t,
+				t_n_user u
+			WHERE
+				t.create_user_id = u.id
+			AND t.id =:pushNoticeId
+         </sql>
+     </sqlUnit>
+     
+	<!-- 表单附件列表 -->
+     <sqlUnit name="push_attachment_list">
+         <sql>
+             select fa.id,fa.attachment_id,a.file_name,a.file_size,a.file_suffix,a.create_time,u.full_name,a.user_id  
+             from t_push_attachment fa,t_n_attachment a,t_n_user u where fa.attachment_id=a.id and a.user_id = u.id 
+             and fa.push_notice_id=:pushNoticeId
+         </sql>
+     </sqlUnit>
+     
+     <!-- 获取附件信息通过附件ID -->
+    <sqlUnit name="get_push_att_infos_byid">
+        <sql>
+            select t.id as attId, fa.id as fattId,t.file_name,t.file_size,t.file_suffix,t.create_time from t_n_attachment t,t_push_attachment fa where t.id=fa.attachment_id and t.id in(:ids)
+        </sql>
+    </sqlUnit>
+    
+        <!-- 获取表单附件信息根据附件ID -->
+        <sqlUnit name="get_push_att_by_attid">
+            <sql>
+                select t.* from t_push_attachment t where t.attachment_id in(:attIds)
+            </sql>
+        </sqlUnit>
+        
+        <!-- 修改附件临时ID根据公告通知ID -->
+        <sqlUnit name="push_attachment_updatePushId">
+            <sql>
+                update t_push_attachment set push_notice_id=:pushNoticeId where push_notice_id=:attPushId
+            </sql>
+        </sqlUnit>
+        
+         <!-- 删除附件根据附件ID -->
+        <sqlUnit name="push_attachment_delete">
+            <sql>
+                delete from t_push_attachment where attachment_id=:attId;
+            </sql>
+        </sqlUnit>
+        
+        <!-- 发布通知列表 -->
+	<sqlUnit name="my_push_list">
+	     <sql>
+	       SELECT t.id,t.title,t.content,t.create_user_id as createUserId,t.create_date as createDate,
+             t.update_date as updateDate,t.update_user_id as updateUserId,t.process_name as processName,
+             t.process_no as processNo,t.startDate,t.endDate,t.type,t.priority,
+             (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.type 
+		     	AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'PUSH_TYPE')) AS typeName,
+			 (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.priority
+				AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'PUSH_PRIORITY')) AS priorityName,
+			 t.operation_status AS operationStatus,u.full_name AS createUserName,t.isRead
+			FROM t_push_notice t,
+				t_n_user u
+			WHERE
+			t.create_user_id = u.id
+			AND t.create_user_id =:createUserId 
+			AND (t.operation_status != 2)
+			[AND t.operation_status =:operationStatus ]
+			[AND t. TITLE LIKE '%:title%' ] [AND t.type =:type ]
+			[AND t.create_date &gt;:startDate]
+			[AND t.create_date &lt;:endDate]
+			ORDER BY
+			t.create_date DESC
+		</sql>
+	</sqlUnit>
+	
+	<sqlUnit name="my_receive_list">
+	     <sql>
+	     SELECT t.id,t.title,t.content,t.create_user_id as createUserId,t.update_date as createDate,
+             t.operation_status as operationStatus,t.update_user_id as updateUserId,
+             t.process_name as processName,t.process_no as processNo,t.startDate,t.endDate,
+             u.full_name AS createUserName,t.type,t.priority,
+             (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.type 
+		     	AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'PUSH_TYPE')) AS typeName,
+			 (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.priority
+				AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'PUSH_PRIORITY')) AS priorityName,
+			 (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.operation_status
+				AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'OPERATION_STATUS')) AS operationStatus,
+			 (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = tr.is_read
+				AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'READ_STATUS')) AS isRead,
+				tr.receive_date as updateDate
+			FROM t_push_notice t,
+				 t_push_receiver tr,
+				 t_n_user u
+			WHERE
+			t.create_user_id = u.id
+			AND t.id = tr.notice_id
+			AND tr.receiver_id =:receiverId
+			AND t.operation_status != 0
+			[AND t. TITLE LIKE '%:title%' ] [AND t.type =:type ] 
+			[AND t.priority =:priority ] [AND tr.is_read =:isRead ]
+			[AND t.create_date &gt;:startDate]
+			[AND t.create_date &lt;:endDate]
+			ORDER BY
+			t.create_date DESC
+		</sql>
+	</sqlUnit>
+	
+          <!-- 获取通知公告附件信息根据通知公告ID -->
+        <sqlUnit name="get_att_list_by_pushid">
+             <sql>
+             	select fa.id as id,fa.attachment_id as attachmentId,fa.push_notice_id as pushNoticeId,a.file_name as fileName,
+					a.file_size as fileSize,a.create_time as fileCreateTime,u.full_name as createUserName
+				from t_n_attachment a,t_push_attachment fa,t_n_user u 
+             		where a.id=fa.attachment_id and fa.push_notice_id=:pushNoticeId and a.user_id = u.id
+            </sql>
+        </sqlUnit>
+        
+          <!-- 获取通知公告接收者信息根据通知公告ID -->
+        <sqlUnit name="get_receiver_list_by_pushid">
+            <sql>
+                select t.id as id,t.notice_id as noticeId,t.receiver_id as receiverId,t.is_read as isRead,t.receive_date as receiveDate,u.full_name as receiverName 
+                	from t_push_receiver t,t_n_user u where t.receiver_id = u.id and t.notice_id=:pushNoticeId
+            </sql>
+        </sqlUnit>
+        
+        <!-- 删除通知 -->
+    <sqlUnit name="del_push">
+        <sql>delete from t_push_notice where id in(:pushIds);
+             delete from t_push_receiver where notice_id in(:pushIds);
+             delete from t_push_attachment where push_notice_id in(:pushIds);
+             delete from t_n_attachment where id IN (
+				SELECT
+					tn.id FROM
+						(SELECT t.id as id
+							FROM
+								t_n_attachment t,
+								t_push_attachment fa
+							WHERE
+							t.id = fa.attachment_id
+						AND fa.push_notice_id IN(:pushIds) 
+					) tn
+			)
+        </sql>
+    </sqlUnit>
+    
+       <!-- 修改通知阅读状态 -->
+        <sqlUnit name="push_receiver_updateIsRead">
+            <sql>
+            	update t_push_receiver set is_read =:isRead,receive_date =:receiveDate where receiver_id =:receiverId and notice_id in(:pushIds)
+            </sql>
+        </sqlUnit>
+        
+       <!-- 根据用户ID查询未读消息通知数量-->
+        <sqlUnit name="get_not_read_msg_num">
+            <sql>
+            	select count(1) from 
+            		t_push_receiver tr,t_push_notice t 
+            	where 
+            	 	t.id = tr.notice_id
+            	 	and t.operation_status != 0 
+            		and tr.receiver_id =:receiverId 
+            		and tr.is_read =:isRead 
+            </sql>
+        </sqlUnit>
+        
+       <!-- 根据接收者ID和消息通知ID判断是否已存在关联-->
+        <sqlUnit name="receiver_is_exist">
+            <sql>
+            	select count(1) from t_push_receiver where receiver_id =:receiverId and notice_id=:pushNoticeId
+            </sql>
+        </sqlUnit>
+        
+       <!-- 根据消息通知ID删除接收关联-->
+        <sqlUnit name="delete_receivers_by_pushId">
+            <sql>
+            	delete from t_push_receiver where notice_id=:pushNoticeId
+            </sql>
+        </sqlUnit>
+        
+</sqlMap>

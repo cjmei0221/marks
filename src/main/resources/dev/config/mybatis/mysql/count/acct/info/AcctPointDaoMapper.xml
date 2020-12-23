@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.count.acct.info.dao.AcctPointDao">
+
+    <select id="findById" resultType="com.marks.smart.count.acct.info.pojo.AcctPoint">
+		SELECT * FROM TB_ACCT_POINT t where t.USERID = #{userid}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="com.marks.smart.count.acct.info.pojo.AcctPoint">
+		<!--<selectKey keyProperty="userid" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+
+ 		INSERT INTO TB_ACCT_POINT (
+            USERID,
+            USERCODE,
+            USERNAME,
+            COMPANYID,
+            GRAND_TOTAL_POINT,
+            BALPOINT,
+            FIRST_POINT_TIME,
+            LAST_POINT_TIME,
+            LOSSPOINT,
+            SOONPOINT,
+            UPDATETIME
+		)
+		VALUES(
+		#{info.userid:VARCHAR},
+            #{info.userCode:VARCHAR},
+            #{info.userName:VARCHAR},
+            #{info.companyId:VARCHAR},
+            #{info.grand_total_point:NUMERIC},
+            #{info.balPoint:NUMERIC},
+            #{info.first_point_time:VARCHAR},
+            #{info.last_point_time:VARCHAR},
+            #{info.lossPoint:NUMERIC},
+            #{info.soonPoint:NUMERIC},
+            #{info.updatetime:VARCHAR}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_ACCT_POINT (
+			            USERID,
+            USERCODE,
+            USERNAME,
+            COMPANYID,
+            GRAND_TOTAL_POINT,
+            BALPOINT,
+            FIRST_POINT_TIME,
+            LAST_POINT_TIME,
+            LOSSPOINT,
+            SOONPOINT,
+            UPDATETIME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				#{info.userid:VARCHAR},
+            #{info.userCode:VARCHAR},
+            #{info.userName:VARCHAR},
+            #{info.companyId:VARCHAR},
+            #{info.grand_total_point:NUMERIC},
+            #{info.balPoint:NUMERIC},
+            #{info.first_point_time:VARCHAR},
+            #{info.last_point_time:VARCHAR},
+            #{info.lossPoint:NUMERIC},
+            #{info.soonPoint:NUMERIC},
+            #{info.updatetime:VARCHAR}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	<update id="update" parameterType="com.marks.smart.count.acct.info.pojo.AcctPoint">
+ 		UPDATE TB_ACCT_POINT 
+		SET 
+USERCODE = #{info.userCode:VARCHAR},
+                USERNAME = #{info.userName:VARCHAR},
+                COMPANYID = #{info.companyId:VARCHAR},
+                GRAND_TOTAL_POINT = #{info.grand_total_point:NUMERIC},
+                BALPOINT = #{info.balPoint:NUMERIC},
+                FIRST_POINT_TIME = #{info.first_point_time:VARCHAR},
+                LAST_POINT_TIME = #{info.last_point_time:VARCHAR},
+                LOSSPOINT = #{info.lossPoint:NUMERIC},
+                SOONPOINT = #{info.soonPoint:NUMERIC},
+                UPDATETIME = #{info.updatetime:VARCHAR}
+		WHERE
+			USERID = #{info.userid}
+ 	</update>
+ 	<!--
+ 	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_ACCT_POINT 
+		SET 
+			USERCODE = #{info.userCode:VARCHAR},
+                USERNAME = #{info.userName:VARCHAR},
+                COMPANYID = #{info.companyId:VARCHAR},
+                GRAND_TOTAL_POINT = #{info.grand_total_point:NUMERIC},
+                BALPOINT = #{info.balPoint:NUMERIC},
+                FIRST_POINT_TIME = #{info.first_point_time:VARCHAR},
+                LAST_POINT_TIME = #{info.last_point_time:VARCHAR},
+                LOSSPOINT = #{info.lossPoint:NUMERIC},
+                SOONPOINT = #{info.soonPoint:NUMERIC},
+                UPDATETIME = #{info.updatetime:VARCHAR}
+		WHERE
+			USERID = #{info.userid}
+		</foreach>
+
+	</update>
+ 	-->
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM TB_ACCT_POINT WHERE USERID=#{userid}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="com.marks.smart.count.acct.info.pojo.AcctPoint">
+ 		SELECT * FROM TB_ACCT_POINT t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM TB_ACCT_POINT WHERE USERID in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.marks.smart.count.acct.info.pojo.AcctPoint"
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   TB_ACCT_POINT t
+						WHERE 1=1
+                        <if test="keyword!=null and keyword!=''">
+ and ( 2=1                             or t.USERCODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+                            or t.USERNAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+ )                        </if>
+
+						
+			    order by  t.UPDATETIME DESC		
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

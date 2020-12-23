@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.FlowMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.grgbanking.smart.gzw.model.FlowModel">
+        <id column="task_Id" property="taskId" />
+        <result property="processId"  column="process_Id" />
+        <result property="orderId"  column="order_Id" />
+        <result property="orderNo"  column="order_No" />
+        <result property="processName"  column="process_Name"/>
+        <result property="orderTitle"  column="order_Title"/>
+        <result property="instanceUrl"  column="instance_Url"/>
+        <result property="parentId"  column="parent_Id"/>
+        <result property="creator" column="creator" />
+        <result property="orderCreateTime"  column="order_Create_Time"/>
+        <result property="orderExpireTime"  column="order_Expire_Time"/>
+        <result property="orderEndTime" column="order_End_Time"/>
+
+        <result property="taskName"  column="task_Name"/>
+        <result property="taskKey"  column="task_Key"/>
+        <result property="operator" column="operator" />
+        <result property="taskCreateTime"  column="task_Create_Time"/>
+        <result property="taskTakeTime"  column="task_Take_Time"/>
+        <result property="taskEndTime"  column="task_End_Time"/>
+        <result property="taskExpireTime"  column="task_Expire_Time"/>
+        <result property="actionUrl"  column="action_Url"/>
+        <result property="taskType"  column="task_Type"/>
+        <result property="performType"  column="perform_Type"/>
+        <result property="fullName"  column="full_Name"/>
+        <result property="orgName"  column="org_Name" />
+        <result property="formDataId" column="form_data_id" />
+        <result property="parentTaskId" column="parent_task_id" />
+        <result property="sendOaCount" column="send_oa_count"/>
+        <result property="OrderEndUserId" column="end_user" />
+        <result property="orderState" column="order_State" />
+        <result property="companyBriefName" column="company_Brief_Name" />
+        <result property="caseNo" column="case_no" />
+        <result property="caseReason" column="case_reason" />
+        <result property="registerTime" column="register_time" />
+        <result property="writeYear" column="write_year" />
+    </resultMap>
+
+    <select id="getTodoTask" resultMap="BaseResultMap" >
+         SELECT DISTINCT
+            o.process_Id ,
+            t.order_Id ,
+            t.id AS id ,
+            t.id AS task_Id ,
+            p.display_Name AS process_Name ,
+            ff.title AS order_Title ,
+            p.instance_Url ,
+            o.parent_Id ,
+            o.creator ,
+            o.create_Time AS order_Create_Time ,
+            o.expire_Time AS order_Expire_Time ,
+            o.order_No ,
+            t.display_Name AS task_Name ,
+            t.task_Name AS task_Key ,
+            t.task_Type ,
+            t.perform_Type ,
+            t.operator ,
+            t.action_Url ,
+            t.create_Time AS task_Create_Time ,
+            t.take_time AS task_Take_Time ,
+            t.finish_Time AS task_End_Time ,
+            t.expire_Time AS task_Expire_Time ,
+            u.full_Name ,
+            org. NAME AS org_Name,
+            ff.form_data_id,
+            t.parent_task_id,
+            ff.send_oa_count,
+            ff.end_user,
+            o.order_State,
+            sc.brief_name AS company_Brief_Name,
+            lc.case_no,
+            lc.case_reason,
+            lc.register_time,
+            lc.write_year
+
+        FROM
+            t_wf_task t
+        LEFT JOIN t_wf_hist_order o ON t.order_id = o.id
+        LEFT JOIN t_wf_task_actor ta ON ta.task_id = t.id
+        LEFT JOIN t_wf_process p ON p.id = o.process_id
+        LEFT JOIN t_n_user u ON o.creator = u.id
+        LEFT JOIN t_n_org org ON org.id = u.org_id
+        LEFT JOIN t_flow_form ff ON ff.order_id = o.id
+        LEFT JOIN t_supervisor_company sc ON sc.code = ff.company_id
+        LEFT JOIN t_pf_legal_case lc ON lc.form_data_id = ff.form_data_id
+        WHERE
+            1 = 1
+        AND ta.actor_Id = #{userId}
+        <if test="writeYear!=null">
+            AND lc.write_year=#{writeYear}
+        </if>
+        <if test="caseNo!=null">
+            AND lc.case_no=#{caseNo}
+        </if>
+        <if test="caseReason!=null">
+            AND lc.case_reason = #{caseReason}
+        </if>
+        <if test="point!=null">
+            AND t.task_Name =#{point}
+        </if>
+        <if test="taskType!=null">
+            AND t.task_Type =#{taskType}
+        </if>
+        ORDER BY
+            t.create_time DESC
+    </select>
+
+
+
+
+    <select id="getHistoryTask" resultMap="BaseResultMap">
+        SELECT DISTINCT
+            o.process_Id ,
+            t.order_Id ,
+            t.id AS id ,
+            t.id AS task_Id ,
+            p.display_Name AS process_Name ,
+            ff.title AS order_Title ,
+            p.instance_Url ,
+            o.parent_Id ,
+            o.creator ,
+            o.create_Time AS order_Create_Time ,
+            o.expire_Time AS order_Expire_Time ,
+            o.end_Time AS order_End_Time,
+            o.order_No ,
+            tt.display_Name AS task_Name ,
+            tt.task_Name AS task_Key ,
+            t.task_Type ,
+            t.perform_Type ,
+            t.operator ,
+            t.action_Url ,
+            t.create_Time AS task_Create_Time ,
+            t.take_time AS task_Take_Time ,
+            t.finish_Time AS task_End_Time ,
+            t.expire_Time AS task_Expire_Time ,
+            u.full_Name ,
+            org. NAME AS org_Name,
+            ff.form_data_id,
+            t.parent_task_id,
+            ff.send_oa_count,
+            ff.end_user,
+            o.order_State,
+            sc.brief_name AS company_Brief_Name,
+            lc.case_no,
+            lc.case_reason,
+            lc.register_time,
+            lc.write_year
+        FROM
+            t_wf_hist_task t
+        LEFT JOIN t_wf_hist_order o ON t.order_id = o.id
+        LEFT JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+        LEFT JOIN t_wf_process p ON p.id = o.process_id
+        LEFT JOIN t_n_user u ON o.creator = u.id
+        LEFT JOIN t_n_org org ON org.id = u.org_id
+        LEFT JOIN t_flow_form ff ON ff.order_id = o.id
+        LEFT JOIN t_wf_task tt ON t.order_id = tt.order_id
+        LEFT JOIN t_supervisor_company sc ON sc.code = ff.company_id
+        LEFT JOIN t_pf_legal_case lc ON lc.form_data_id = ff.form_data_id
+        WHERE
+            1 = 1
+        AND t.id IN(
+            SELECT
+                tmp.id
+            FROM
+                (
+                    SELECT
+                        tp.id ,
+                        tp.ORDER_ID
+                    FROM
+                        t_wf_hist_task tp
+                    LEFT JOIN t_wf_hist_task_actor tha ON tha.task_id = tp.id
+                    WHERE
+                        (
+                            tha.actor_Id = #{userId}
+                            OR tp.OPERATOR = #{userId}
+                        )
+                    GROUP BY
+                        tp.id ,
+                        tp.ORDER_ID
+                ) tmp
+            WHERE
+                tmp.id =(
+                    SELECT
+                        tmp2.id
+                    FROM
+                        (
+                            SELECT
+                                tp.id ,
+                                tp.ORDER_ID ,
+                                tp.FINISH_TIME
+                            FROM
+                                t_wf_hist_task tp
+                            LEFT JOIN t_wf_hist_task_actor tha ON tha.task_id = tp.id
+                            WHERE
+                                (
+                                    tha.actor_Id = #{userId}
+                                    OR tp.OPERATOR = #{userId}
+                                )
+                            GROUP BY
+                                tp.id ,
+                                tp.ORDER_ID ,
+                                tp.FINISH_TIME
+                        ) tmp2
+                    WHERE
+                        tmp2.order_id = tmp.order_id
+                    ORDER BY
+                        tmp2.FINISH_TIME DESC
+                    LIMIT 1
+                )
+        )
+        <if test="companyName!=null">
+            AND org. NAME=#{companyName}
+        </if>
+        <if test="writeYear!=null">
+            AND lc.write_year=#{writeYear}
+        </if>
+        <if test="caseNo!=null">
+            AND lc.case_no=#{caseNo}
+        </if>
+        <if test="caseReason!=null">
+            AND lc.case_reason = #{caseReason}
+        </if>
+        <if test="point!=null">
+            AND tt.task_Name =#{point}
+        </if>
+        <if test="taskType!=null">
+            AND tt.task_Type =#{taskType}
+        </if>
+        ORDER BY
+            t.finish_time DESC
+    </select>
+
+
+    <select id="getWorkPageList" resultType="com.grgbanking.smart.gzw.model.WorkPageEntity">
+        SELECT
+            ft.attachment_id as attachmentId ,
+            ft.order_id as orderId ,
+            att.file_name as attName,
+            att.file_size as attSize,
+            att.file_suffix as fileType,
+            who.create_Time as createTime,
+            who.order_State as orderState,
+            who.process_Id as processId,
+            ff.form_data_id as formDataId ,
+            ff.title ,
+            ff.process_name processName,
+            us.full_name as createName,
+            sc.`name` as companyName
+        FROM
+            t_flow_attachment ft
+        JOIN t_wf_hist_order who ON ft.order_id = who.id
+        LEFT JOIN t_n_attachment att ON ft.attachment_id = att.id
+        LEFT JOIN t_flow_form ff ON who.id = ff.order_id
+        LEFT JOIN t_n_user us ON us.id = who.creator
+        LEFT JOIN `t_supervisor_company` sc ON ff.company_id =sc.code
+        WHERE 1=1
+            <if test="attType!=null">
+                AND ft.att_type = #{attType}
+            </if>
+            <if test="creator!=null and creator!=''">
+                AND full_name = #{creator}
+            </if>
+            <if test="formDataId!=null and formDataId!=''">
+                AND ff.form_data_id LIKE CONCAT('%',#{formDataId},'%')
+            </if>
+            <if test="title!=null and title!=''">
+                AND ff.title LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="createTimeStart!=null and createTimeStart!=''">
+                AND who.create_Time &gt;= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd!=null and createTimeEnd!=''">
+                AND who.create_Time &lt;= #{createTimeEnd}
+            </if>
+            <if test="companyId!=null and companyId!=''">
+                AND sc.code = #{companyId}
+            </if>
+            <if test="processId!=null and processId!=''">
+                AND who.process_Id = #{processId}
+            </if>
+            <if test="fileType!=null and fileType!=''">
+                AND att.file_suffix = #{fileType}
+            </if>
+            AND (who.id IN(
+                SELECT DISTINCT
+                    order_id
+                FROM
+                    `t_wf_hist_task` ht
+                JOIN `t_wf_hist_task_actor` hta ON hta.task_id = ht.id
+                <if test="userId!=null and userId!=''">
+                    WHERE hta.ACTOR_ID = #{userId}
+                </if>
+                ) or who.id IN(
+                    SELECT DISTINCT
+                        order_id
+                    FROM
+                        `t_wf_task` t
+                    JOIN `t_wf_task_actor` ta ON ta.task_id = t.id
+                    <if test="userId!=null and userId!=''">
+                        WHERE ta.ACTOR_ID = #{userId}
+                    </if>
+                )
+            )
+        ORDER BY ff.form_data_id DESC ,who.create_Time DESC
+    </select>
+
+</mapper>

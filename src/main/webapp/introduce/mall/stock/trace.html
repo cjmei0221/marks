@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>追踪码管理</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>追踪码管理</h1>
+	<p>追踪码管理</p>
+	
+	<h2>追踪码管理表  (TB_MALL_TRACE)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>TRACEID</td><td>追踪码</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>BARCODE</td><td>条码</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>GOODID</td><td>商品编码</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>GOODNO</td><td>商品编号</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>BARNO</td><td>国际条码</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>GOODNAME</td><td>商品名称</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>STOCKSTATUS</td><td>库存状态</td><td>number</td><td></td></tr><tr><td>10</td><td>CGNO</td><td>采购单号</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>PRICE</td><td>零售价</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>VIPPRICE</td><td>会员价</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>SALEPRICE</td><td>特价</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>NOWPRICE</td><td>现价</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>costPrice</td><td>进货价</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>ORDERID</td><td>订单号</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>ORDERGOODID</td><td>订单商品号</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>ISGIFT</td><td>是否为赠品</td><td>number</td><td>0:非赠品 1:赠品</td></tr><tr><td>19</td><td>ORITRACEID</td><td>原追踪码</td><td>varchar2</td><td></td></tr><tr><td>20</td><td>COMPANYID</td><td>公司ID</td><td>varchar2</td><td></td></tr><tr><td>21</td><td>ORGID</td><td>机构ID</td><td>varchar2</td><td></td></tr><tr><td>22</td><td>ORGNAME</td><td>机构</td><td>varchar2</td><td></td></tr><tr><td>23</td><td>TYPEID</td><td>类别ID</td><td>varchar2</td><td></td></tr><tr><td>24</td><td>TYPENAME</td><td>类别</td><td>varchar2</td><td></td></tr><tr><td>25</td><td>BRANDID</td><td>品牌ID</td><td>varchar2</td><td></td></tr><tr><td>26</td><td>BRANDNAME</td><td>品牌</td><td>varchar2</td><td></td></tr><tr><td>27</td><td>PRODUCTDATE</td><td>生产日期</td><td>varchar2</td><td></td></tr><tr><td>28</td><td>SUPPLIERID</td><td>供应商ID</td><td>varchar2</td><td></td></tr><tr><td>29</td><td>SUPPLIERNAME</td><td>供应商</td><td>varchar2</td><td></td></tr><tr><td>30</td><td>USERID</td><td>会员ID</td><td>varchar2</td><td></td></tr><tr><td>31</td><td>USERNAME</td><td>会员名称</td><td>varchar2</td><td></td></tr><tr><td>32</td><td>MOBILE</td><td>会员手机号</td><td>varchar2</td><td></td></tr><tr><td>33</td><td>STOCKINDATE</td><td>入库日期</td><td>varchar2</td><td></td></tr><tr><td>34</td><td>ENDDATE</td><td>结束日期</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (Trace)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>traceId</td><td>追踪码</td><td>String</td><td></td></tr><tr><td>2</td><td>barcode</td><td>条码</td><td>String</td><td></td></tr><tr><td>3</td><td>goodId</td><td>商品编码</td><td>String</td><td></td></tr><tr><td>4</td><td>goodNo</td><td>商品编号</td><td>String</td><td></td></tr><tr><td>5</td><td>barNo</td><td>国际条码</td><td>String</td><td></td></tr><tr><td>6</td><td>goodName</td><td>商品名称</td><td>String</td><td></td></tr><tr><td>7</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>8</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr><tr><td>9</td><td>stockStatus</td><td>库存状态</td><td>int</td><td></td></tr><tr><td>10</td><td>cgNo</td><td>采购单号</td><td>String</td><td></td></tr><tr><td>11</td><td>price</td><td>零售价</td><td>String</td><td></td></tr><tr><td>12</td><td>vipPrice</td><td>会员价</td><td>String</td><td></td></tr><tr><td>13</td><td>salePrice</td><td>特价</td><td>String</td><td></td></tr><tr><td>14</td><td>nowPrice</td><td>现价</td><td>String</td><td></td></tr><tr><td>15</td><td>costPrice</td><td>进货价</td><td>String</td><td></td></tr><tr><td>16</td><td>orderId</td><td>订单号</td><td>String</td><td></td></tr><tr><td>17</td><td>orderGoodId</td><td>订单商品号</td><td>String</td><td></td></tr><tr><td>18</td><td>isGift</td><td>是否为赠品</td><td>int</td><td>0:非赠品 1:赠品</td></tr><tr><td>19</td><td>oriTraceId</td><td>原追踪码</td><td>String</td><td></td></tr><tr><td>20</td><td>companyId</td><td>公司ID</td><td>String</td><td></td></tr><tr><td>21</td><td>orgid</td><td>机构ID</td><td>String</td><td></td></tr><tr><td>22</td><td>orgname</td><td>机构</td><td>String</td><td></td></tr><tr><td>23</td><td>typeId</td><td>类别ID</td><td>String</td><td></td></tr><tr><td>24</td><td>typeName</td><td>类别</td><td>String</td><td></td></tr><tr><td>25</td><td>brandId</td><td>品牌ID</td><td>String</td><td></td></tr><tr><td>26</td><td>brandName</td><td>品牌</td><td>String</td><td></td></tr><tr><td>27</td><td>productDate</td><td>生产日期</td><td>String</td><td></td></tr><tr><td>28</td><td>supplierId</td><td>供应商ID</td><td>String</td><td></td></tr><tr><td>29</td><td>supplierName</td><td>供应商</td><td>String</td><td></td></tr><tr><td>30</td><td>userid</td><td>会员ID</td><td>String</td><td></td></tr><tr><td>31</td><td>username</td><td>会员名称</td><td>String</td><td></td></tr><tr><td>32</td><td>mobile</td><td>会员手机号</td><td>String</td><td></td></tr><tr><td>33</td><td>stockInDate</td><td>入库日期</td><td>String</td><td></td></tr><tr><td>34</td><td>endDate</td><td>结束日期</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (TraceController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/trace/findTraceById</td><td>findTraceById</td><td>查询追踪码管理</td></tr><tr><td>2</td><td>/trace/save</td><td>saveTrace</td><td>保存追踪码管理</td></tr><tr><td>3</td><td>/trace/update</td><td>updateTrace</td><td>更新追踪码管理</td></tr><tr><td>4</td><td>/trace/delete</td><td>deleteTraceById</td><td>删除追踪码管理</td></tr><tr><td>5</td><td>/trace/findAllTrace</td><td>findAllTrace</td><td>查询全部追踪码管理</td></tr><tr><td>6</td><td>/trace/deleteIds</td><td>deleteTrace</td><td>删除多个追踪码管理</td></tr><tr><td>7</td><td>/trace/list</td><td>list</td><td>列表查询追踪码管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (TraceService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询追踪码管理</td></tr><tr><td>2</td><td>save</td><td>保存追踪码管理</td></tr><tr><td>3</td><td>update</td><td>更新追踪码管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除追踪码管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部追踪码管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个追踪码管理</td></tr><tr><td>7</td><td>list</td><td>列表查询追踪码管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(TraceDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询追踪码管理</td></tr><tr><td>2</td><td>save</td><td>保存追踪码管理</td></tr><tr><td>3</td><td>update</td><td>更新追踪码管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除追踪码管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部追踪码管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个追踪码管理</td></tr><tr><td>7</td><td>list</td><td>列表查询追踪码管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

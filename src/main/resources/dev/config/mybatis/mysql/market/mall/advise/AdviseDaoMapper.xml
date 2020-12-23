@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.market.mall.advise.dao.AdviseDao">
+
+	<select id="findById" resultType="com.marks.smart.market.mall.advise.pojo.Advise">
+		SELECT * FROM TB_MALL_ADVISE
+		advise where advise.ID = #{ID}
+	</select>
+
+	<insert id="save" parameterType="com.marks.smart.market.mall.advise.pojo.Advise">
+			<selectKey keyProperty="ID" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>
+
+		INSERT INTO TB_MALL_ADVISE  (
+		ID,
+		CONTENT,
+		LABEL,
+		NUM,
+		CREATETIME,
+		UPDATETIME,
+		USERID,
+		MOBILE
+		)
+		VALUES(
+		#{ID:VARCHAR},
+		#{content:VARCHAR},
+		#{label:VARCHAR},
+		#{num:NUMERIC},
+		now(),
+		now(),
+		#{userid:VARCHAR},
+		#{mobile:VARCHAR}
+
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.smart.market.mall.advise.pojo.Advise">
+		UPDATE TB_MALL_ADVISE 
+		SET
+		CONTENT = #{content:VARCHAR},
+		LABEL =
+		#{label:VARCHAR},
+		NUM = #{num:NUMERIC},
+		UPDATETIME =
+		now(),
+		USERID = #{userid:VARCHAR},
+		MOBILE =
+		#{mobile:VARCHAR}
+		WHERE
+		ID = #{ID}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_MALL_ADVISE
+		advise WHERE advise.ID=#{ID}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.smart.market.mall.advise.pojo.Advise">
+		SELECT * FROM TB_MALL_ADVISE
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_ADVISE WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.smart.market.mall.advise.pojo.Advise"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_ADVISE advise
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( advise.CONTENT LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or advise.LABEL LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or advise.USERID LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or advise.MOBILE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		order by advise.CREATETIME desc
+
+
+	</select>
+
+
+
+</mapper>

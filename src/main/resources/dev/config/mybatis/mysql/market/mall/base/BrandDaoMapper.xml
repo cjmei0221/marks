@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.market.mall.base.dao.BrandDao">
+
+	<select id="findById" resultType="com.marks.smart.market.mall.base.pojo.Brand">
+		SELECT * FROM TB_MALL_BRAND t
+		where t.BRANDID = #{brandId}
+	</select>
+	<select id="getBrandId" resultType="String">
+		SELECT max(t.BRANDID) FROM
+		TB_MALL_BRAND t
+	</select>
+
+	<insert id="save" parameterType="com.marks.smart.market.mall.base.pojo.Brand">
+		<!--<selectKey keyProperty="brandId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_BRAND (
+		BRANDID,
+		BRANDNAME,
+		PICURL,
+		TYPEID,
+		TYPENAME,
+		CREATETIME,
+		UPDATETIME,
+		LOGO,
+		CREATOR,
+		companyId,
+		status
+		)
+		VALUES(
+		#{info.brandId:VARCHAR},
+		#{info.brandName:VARCHAR},
+		#{info.picUrl:VARCHAR},
+		#{info.typeId:VARCHAR},
+		#{info.typeName:VARCHAR},
+		now(),
+		now(),
+		#{info.logo:VARCHAR},
+		#{info.creator:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.status:NUMERIC}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_BRAND (
+		BRANDID,
+		BRANDNAME,
+		PICURL,
+		TYPEID,
+		TYPENAME,
+		CREATETIME,
+		UPDATETIME,
+		LOGO,
+		CREATOR,
+		companyId,
+		status
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.brandId:VARCHAR},
+			#{info.brandName:VARCHAR},
+			#{info.picUrl:VARCHAR},
+			#{info.typeId:VARCHAR},
+			#{info.typeName:VARCHAR},
+			now(),
+			now(),
+			#{info.logo:VARCHAR},
+			#{info.creator:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.status:NUMERIC}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.marks.smart.market.mall.base.pojo.Brand">
+		UPDATE TB_MALL_BRAND
+		SET
+		status=#{info.status:NUMERIC},
+		BRANDNAME = #{info.brandName:VARCHAR},
+		PICURL = #{info.picUrl:VARCHAR},
+		TYPEID = #{info.typeId:VARCHAR},
+		TYPENAME = #{info.typeName:VARCHAR},
+		UPDATETIME = now(),
+		LOGO = #{info.logo:VARCHAR}
+		WHERE
+		BRANDID =
+		#{info.brandId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_MALL_BRAND
+		WHERE BRANDID=#{brandId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.smart.market.mall.base.pojo.Brand">
+		SELECT * FROM TB_MALL_BRAND t
+	</select>
+	<select id="findListByTypeId" resultType="com.marks.smart.market.mall.base.pojo.Brand">
+		SELECT * FROM TB_MALL_BRAND t where t.companyId=#{companyId} and t.status=1
+		<if test="typeId!=null and typeId!=''">
+			and t.typeId=#{typeId}
+		</if>
+		order by t.updatetime desc
+	</select>
+
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_BRAND WHERE BRANDID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.smart.market.mall.base.pojo.Brand"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_BRAND t
+		WHERE 1=1
+		<if test="companyId!=null and companyId!=''">
+			and t.companyId=#{companyId}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.BRANDID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BRANDNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPEID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.LOGO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

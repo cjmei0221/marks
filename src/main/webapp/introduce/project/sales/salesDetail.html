@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>促销明细</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>促销明细</h1>
+	<p></p>
+	
+	<h2>促销明细表  (TB_PROJECT_SALES_DETAIL)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>ID</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>PROJECTCODE</td><td>方案编号</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>PROJECTNAME</td><td>方案名称</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>COMPANYID</td><td>公司编号</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>YWCODE</td><td>业务编号</td><td>number</td><td></td></tr><tr><td>7</td><td>YWNAME</td><td>业务名称</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>TYPECODE</td><td>类型编号</td><td>number</td><td></td></tr><tr><td>9</td><td>TYPENAME</td><td>类型名称</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>ISAWARD</td><td>是否有奖品</td><td>number</td><td>0:无 1:有</td></tr><tr><td>11</td><td>AWARDTYPECODE</td><td>奖品类型</td><td>number</td><td></td></tr><tr><td>12</td><td>AWARDTYPENAME</td><td>奖品类型</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>ITEMCODE</td><td>奖项编号</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>ITEMNAME</td><td>奖项名称</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>ITEMVALUE</td><td>奖项值</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>REMARKS</td><td>备注</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>IDNO</td><td>关联编号</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>IDNAME</td><td>关联名称</td><td>varchar2</td><td></td></tr><tr><td>19</td><td>USERID</td><td>用户编号</td><td>varchar2</td><td></td></tr><tr><td>20</td><td>USERCODE</td><td>用户编号</td><td>varchar2</td><td></td></tr><tr><td>21</td><td>USERNAME</td><td>用户名称</td><td>varchar2</td><td></td></tr><tr><td>22</td><td>ROLETYPE</td><td>用户角色</td><td>varchar2</td><td></td></tr><tr><td>23</td><td>ROLENAME</td><td>用户角色</td><td>varchar2</td><td></td></tr><tr><td>24</td><td>USERTEL</td><td>手机号码</td><td>varchar2</td><td></td></tr><tr><td>25</td><td>ORGID</td><td>机构编号</td><td>varchar2</td><td></td></tr><tr><td>26</td><td>ORGNAME</td><td>机构名称</td><td>varchar2</td><td></td></tr><tr><td>27</td><td>OPENID</td><td>OPENID</td><td>varchar2</td><td></td></tr><tr><td>28</td><td>BATCHID</td><td>批次号</td><td>varchar2</td><td></td></tr><tr><td>29</td><td>STATUS</td><td>状态</td><td>number</td><td></td></tr><tr><td>30</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr><tr><td>31</td><td>SALEAMT</td><td>销售金额</td><td>varchar2</td><td></td></tr><tr><td>32</td><td>COSTAMT</td><td>成本金额</td><td>varchar2</td><td></td></tr><tr><td>33</td><td>RECEIVETEL</td><td>收货电话</td><td>varchar2</td><td></td></tr><tr><td>34</td><td>RECEIVEUSER</td><td>收货人</td><td>varchar2</td><td></td></tr><tr><td>35</td><td>RECEIVEADDR</td><td>收货地址</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (SalesDetail)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>ID</td><td>String</td><td></td></tr><tr><td>2</td><td>projectCode</td><td>方案编号</td><td>String</td><td></td></tr><tr><td>3</td><td>projectName</td><td>方案名称</td><td>String</td><td></td></tr><tr><td>4</td><td>companyId</td><td>公司编号</td><td>String</td><td></td></tr><tr><td>5</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>6</td><td>ywCode</td><td>业务编号</td><td>int</td><td></td></tr><tr><td>7</td><td>ywName</td><td>业务名称</td><td>String</td><td></td></tr><tr><td>8</td><td>typeCode</td><td>类型编号</td><td>int</td><td></td></tr><tr><td>9</td><td>typeName</td><td>类型名称</td><td>String</td><td></td></tr><tr><td>10</td><td>isAward</td><td>是否有奖品</td><td>int</td><td>0:无 1:有</td></tr><tr><td>11</td><td>awardTypeCode</td><td>奖品类型</td><td>int</td><td></td></tr><tr><td>12</td><td>awardTypeName</td><td>奖品类型</td><td>String</td><td></td></tr><tr><td>13</td><td>itemCode</td><td>奖项编号</td><td>String</td><td></td></tr><tr><td>14</td><td>itemName</td><td>奖项名称</td><td>String</td><td></td></tr><tr><td>15</td><td>itemValue</td><td>奖项值</td><td>String</td><td></td></tr><tr><td>16</td><td>remarks</td><td>备注</td><td>String</td><td></td></tr><tr><td>17</td><td>idNo</td><td>关联编号</td><td>String</td><td></td></tr><tr><td>18</td><td>idName</td><td>关联名称</td><td>String</td><td></td></tr><tr><td>19</td><td>userId</td><td>用户编号</td><td>String</td><td></td></tr><tr><td>20</td><td>userCode</td><td>用户编号</td><td>String</td><td></td></tr><tr><td>21</td><td>userName</td><td>用户名称</td><td>String</td><td></td></tr><tr><td>22</td><td>roleType</td><td>用户角色</td><td>String</td><td></td></tr><tr><td>23</td><td>roleName</td><td>用户角色</td><td>String</td><td></td></tr><tr><td>24</td><td>userTel</td><td>手机号码</td><td>String</td><td></td></tr><tr><td>25</td><td>orgId</td><td>机构编号</td><td>String</td><td></td></tr><tr><td>26</td><td>orgName</td><td>机构名称</td><td>String</td><td></td></tr><tr><td>27</td><td>openid</td><td>OPENID</td><td>String</td><td></td></tr><tr><td>28</td><td>batchId</td><td>批次号</td><td>String</td><td></td></tr><tr><td>29</td><td>status</td><td>状态</td><td>int</td><td></td></tr><tr><td>30</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr><tr><td>31</td><td>saleAmt</td><td>销售金额</td><td>String</td><td></td></tr><tr><td>32</td><td>costAmt</td><td>成本金额</td><td>String</td><td></td></tr><tr><td>33</td><td>receiveTel</td><td>收货电话</td><td>String</td><td></td></tr><tr><td>34</td><td>receiveUser</td><td>收货人</td><td>String</td><td></td></tr><tr><td>35</td><td>receiveAddr</td><td>收货地址</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (SalesDetailController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/salesDetail/findSalesDetailById</td><td>findSalesDetailById</td><td>查询促销明细</td></tr><tr><td>2</td><td>/salesDetail/save</td><td>saveSalesDetail</td><td>保存促销明细</td></tr><tr><td>3</td><td>/salesDetail/update</td><td>updateSalesDetail</td><td>更新促销明细</td></tr><tr><td>4</td><td>/salesDetail/delete</td><td>deleteSalesDetailById</td><td>删除促销明细</td></tr><tr><td>5</td><td>/salesDetail/findAllSalesDetail</td><td>findAllSalesDetail</td><td>查询全部促销明细</td></tr><tr><td>6</td><td>/salesDetail/deleteIds</td><td>deleteSalesDetail</td><td>删除多个促销明细</td></tr><tr><td>7</td><td>/salesDetail/list</td><td>list</td><td>列表查询促销明细</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (SalesDetailService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询促销明细</td></tr><tr><td>2</td><td>save</td><td>保存促销明细</td></tr><tr><td>3</td><td>update</td><td>更新促销明细</td></tr><tr><td>4</td><td>deleteById</td><td>删除促销明细</td></tr><tr><td>5</td><td>findAll</td><td>查询全部促销明细</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个促销明细</td></tr><tr><td>7</td><td>list</td><td>列表查询促销明细</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(SalesDetailDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询促销明细</td></tr><tr><td>2</td><td>save</td><td>保存促销明细</td></tr><tr><td>3</td><td>update</td><td>更新促销明细</td></tr><tr><td>4</td><td>deleteById</td><td>删除促销明细</td></tr><tr><td>5</td><td>findAll</td><td>查询全部促销明细</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个促销明细</td></tr><tr><td>7</td><td>list</td><td>列表查询促销明细</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

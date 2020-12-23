@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.market.mall.stock.dao.StockBatchDao">
+
+	<select id="findById"
+		resultType="com.marks.smart.market.mall.stock.pojo.StockBatch">
+		SELECT * FROM
+		TB_MALL_STOCK_BATCH t where t.BATCHID =
+		#{batchId}
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.market.mall.stock.pojo.StockBatch">
+		<!--<selectKey keyProperty="batchId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_STOCK_BATCH (
+		BATCHID,
+		COMPANYID,
+		ORGID,
+		ORGNAME,
+		NUMS,
+		AMOUNT,
+		GOODID,
+		GOODNAME,
+		GOODNO,
+		BARNO,
+		STOCKTYPE,
+		YWCODE,
+		costPrice,
+		PRODUCTDATE,
+		EXPIREDATE,
+		SUPPLIERID,
+		SUPPLIERNAME,
+		CREATETIME,
+		UPDATETIME,
+		UPDATER,
+		REMARKS,
+		saleNums,
+		saleAmount,
+		balNums,
+		balAmt,
+		stockId,
+		ywName,
+		operator,
+		tradePrice,
+		tradePriceAmt,
+		goodType,
+		goodTypeName,
+		orderId,
+		stockBalNums,
+		stockBalAmt,
+		dispatchOutNums,
+		dispatchOutAmt,
+		outNums,
+		outAmt
+		)
+		VALUES(
+		#{info.batchId:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.orgId:VARCHAR},
+		#{info.orgName:VARCHAR},
+		#{info.nums:NUMERIC},
+		#{info.amount:VARCHAR},
+		#{info.goodId:VARCHAR},
+		#{info.goodName:VARCHAR},
+		#{info.goodNo:VARCHAR},
+		#{info.barNo:VARCHAR},
+		#{info.stockType:NUMERIC},
+		#{info.ywCode:NUMERIC},
+		#{info.costPrice:VARCHAR},
+		#{info.productDate:VARCHAR},
+		#{info.expireDate:VARCHAR},
+		#{info.supplierId:VARCHAR},
+		#{info.supplierName:VARCHAR},
+		#{info.createtime:VARCHAR},
+		#{info.updatetime:VARCHAR},
+		#{info.updater:VARCHAR},
+		#{info.remarks:VARCHAR},
+		#{info.saleNums:NUMERIC},
+		#{info.saleAmount:VARCHAR},
+		#{info.balNums:VARCHAR},
+		#{info.balAmt:VARCHAR},
+		#{info.stockId:VARCHAR},
+		#{info.ywName:VARCHAR},
+		#{info.operator:VARCHAR},
+		#{info.tradePrice:VARCHAR},
+		#{info.tradePriceAmt:VARCHAR},
+		#{info.goodType:NUMERIC},
+		#{info.goodTypeName:VARCHAR},
+		#{info.orderId:VARCHAR},
+		#{info.stockBalNums:NUMERIC},
+		#{info.stockBalAmt:VARCHAR},
+		#{info.dispatchOutNums:NUMERIC},
+		#{info.dispatchOutAmt:VARCHAR},
+		#{info.outNums:NUMERIC},
+		#{info.outAmt:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_STOCK_BATCH (
+		BATCHID,
+		COMPANYID,
+		ORGID,
+		ORGNAME,
+		NUMS,
+		AMOUNT,
+		GOODID,
+		GOODNAME,
+		GOODNO,
+		BARNO,
+		STOCKTYPE,
+		YWCODE,
+		costPrice,
+		PRODUCTDATE,
+		EXPIREDATE,
+		SUPPLIERID,
+		SUPPLIERNAME,
+		CREATETIME,
+		UPDATETIME,
+		UPDATER,
+		REMARKS,
+		saleNums,
+		saleAmount,
+		balNums,
+		balAmt,
+		stockId,
+		ywName,
+		operator,
+		tradePrice,
+		tradePriceAmt,
+		goodType,
+		goodTypeName,
+		orderId,
+		stockBalNums,
+		stockBalAmt,
+		dispatchOutNums,
+		dispatchOutAmt,
+		outNums,
+		outAmt
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.batchId:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.orgId:VARCHAR},
+			#{info.orgName:VARCHAR},
+			#{info.nums:NUMERIC},
+			#{info.amount:VARCHAR},
+			#{info.goodId:VARCHAR},
+			#{info.goodName:VARCHAR},
+			#{info.goodNo:VARCHAR},
+			#{info.barNo:VARCHAR},
+			#{info.stockType:NUMERIC},
+			#{info.ywCode:NUMERIC},
+			#{info.costPrice:VARCHAR},
+			#{info.productDate:VARCHAR},
+			#{info.expireDate:VARCHAR},
+			#{info.supplierId:VARCHAR},
+			#{info.supplierName:VARCHAR},
+			#{info.createtime:VARCHAR},
+			#{info.updatetime:VARCHAR},
+			#{info.updater:VARCHAR},
+			#{info.remarks:VARCHAR},
+			#{info.saleNums:NUMERIC},
+			#{info.saleAmount:VARCHAR},
+			#{info.balNums:VARCHAR},
+			#{info.balAmt:VARCHAR},
+			#{info.stockId:VARCHAR},
+			#{info.ywName:VARCHAR},
+			#{info.operator:VARCHAR},
+			#{info.tradePrice:VARCHAR},
+			#{info.tradePriceAmt:VARCHAR},
+			#{info.goodType:NUMERIC},
+			#{info.goodTypeName:VARCHAR},
+			#{info.orderId:VARCHAR},
+			#{info.stockBalNums:NUMERIC},
+			#{info.stockBalAmt:VARCHAR},
+			#{info.dispatchOutNums:NUMERIC},
+			#{info.dispatchOutAmt:VARCHAR},
+			#{info.outNums:NUMERIC},
+			#{info.outAmt:VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.smart.market.mall.stock.pojo.StockBatch">
+		UPDATE TB_MALL_STOCK_BATCH
+		SET
+		dispatchOutAmt=#{info.dispatchOutAmt:VARCHAR},
+		outNums=#{info.outNums:NUMERIC},
+		outAmt=#{info.outAmt:VARCHAR},
+		dispatchOutNums=#{info.dispatchOutNums:NUMERIC},
+		stockBalNums=#{info.stockBalNums:NUMERIC},
+		stockBalAmt=#{info.stockBalAmt:VARCHAR},
+		balNums=#{info.balNums:VARCHAR},
+		balAmt=#{info.balAmt:VARCHAR},
+		saleNums=#{info.saleNums:NUMERIC},
+		saleAmount=#{info.saleAmount:VARCHAR},
+		UPDATETIME =now(),
+		UPDATER =
+		#{info.updater:VARCHAR},
+		REMARKS =
+		#{info.remarks:VARCHAR}
+		WHERE
+		BATCHID =
+		#{info.batchId}
+	</update>
+	<update id="updateBatch" parameterType="List">
+
+		<foreach collection="list" item="info" index="index"
+			separator=";">
+			UPDATE TB_MALL_STOCK_BATCH
+			SET
+			saleNums=#{info.saleNums:NUMERIC},
+			saleAmount=#{info.saleAmount:VARCHAR},
+			UPDATETIME =
+			#{info.updatetime:VARCHAR},
+			UPDATER = #{info.updater:VARCHAR},
+			REMARKS
+			=
+			#{info.remarks:VARCHAR}
+			WHERE
+			BATCHID = #{info.batchId}
+		</foreach>
+
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_MALL_STOCK_BATCH WHERE BATCHID=#{batchId}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.smart.market.mall.stock.pojo.StockBatch">
+		SELECT * FROM
+		TB_MALL_STOCK_BATCH t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_STOCK_BATCH WHERE BATCHID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.smart.market.mall.stock.pojo.StockBatch"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_STOCK_BATCH t
+		WHERE 1=1 and
+		t.companyId=#{companyId}
+		<if test="stockId!=null and stockId!=''">
+			and t.stockId=#{stockId}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.BATCHID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GOODNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.GOODNO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BARNO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.stockId LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.REMARKS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by t.UPDATETIME DESC
+	</select>
+	<select id="getStockBatchByGoodIdAndOrgId"
+		resultType="com.marks.smart.market.mall.stock.pojo.StockBatch">
+		select *
+		from tb_mall_stock_batch t where t.stockType=1 and
+		t.goodType=#{goodType} and t.orgid=#{orgId}
+		and t.balNums &gt; 0 and
+		t.goodId=#{goodId} order by t.createtime
+	</select>
+	<select id="getStockBatchByBarCodeList"
+		resultType="com.marks.smart.market.mall.stock.pojo.StockBatch">
+		select
+		DISTINCT t.*,count(1) tranNums from TB_MALL_STOCK_BATCH t JOIN
+		TB_MALL_TRACE_BARCODE b
+		on t.batchId=b.batchId
+		where b.barcode in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+		GROUP BY t.batchId
+	</select>
+
+
+</mapper>

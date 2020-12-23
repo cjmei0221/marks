@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.count.note.reminder.dao.ReminderDao">
+
+	<select id="findById" resultType="com.marks.smart.count.note.reminder.pojo.Reminder">
+		SELECT * FROM TB_NOTE_REMINDER
+		reminder where reminder.ID = #{id}
+	</select>
+
+	<insert id="save" parameterType="com.marks.smart.count.note.reminder.pojo.Reminder">
+		INSERT INTO TB_NOTE_REMINDER
+		 (
+		ID,
+		REMIND_TYPE,
+		REMIND_DATE,
+		IS_REPEAT,
+		REMIND_CONTENT,
+		BEFORE_DAYS,
+		REMIND_TIME,
+		IS_BEFORE,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		CALENDAR_TYPE,
+		HOLIDAY_TYPE
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{remind_type:NUMERIC},
+		#{remind_date:VARCHAR},
+		#{is_repeat:NUMERIC},
+		#{remind_content:VARCHAR},
+		#{before_days:NUMERIC},
+		#{remind_time:VARCHAR},
+		#{is_before:NUMERIC},
+		now(),
+		now(),
+		#{creator:VARCHAR},
+		#{calendar_type:NUMERIC},
+		#{holiday_type:NUMERIC}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.smart.count.note.reminder.pojo.Reminder">
+		UPDATE TB_NOTE_REMINDER
+		SET
+		REMIND_TYPE = #{remind_type:NUMERIC},
+		REMIND_DATE = #{remind_date:VARCHAR},
+		IS_REPEAT =
+		#{is_repeat:NUMERIC},
+		REMIND_CONTENT =
+		#{remind_content:VARCHAR},
+		BEFORE_DAYS =
+		#{before_days:NUMERIC},
+		REMIND_TIME = #{remind_time:VARCHAR},
+		IS_BEFORE = #{is_before:NUMERIC},
+		UPDATETIME = now(),
+		CALENDAR_TYPE =
+		#{calendar_type:NUMERIC},
+		HOLIDAY_TYPE=#{holiday_type:NUMERIC}
+		WHERE
+		ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_NOTE_REMINDER
+		 WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.smart.count.note.reminder.pojo.Reminder">
+		SELECT * FROM TB_NOTE_REMINDER
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_NOTE_REMINDER WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.smart.count.note.reminder.pojo.Reminder"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_NOTE_REMINDER reminder
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and (
+			reminder.REMIND_DATE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or reminder.REMIND_CONTENT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+
+
+			or left(reminder.CREATETIME,10) LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or reminder.CREATOR LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		<if test="userid!=null and userid!=''">
+			and reminder.CREATOR =#{userid:VARCHAR}
+		</if>
+
+		order by reminder.UPDATETIME DESC
+	</select>
+
+	<select id="findNeedReminderList" resultType="com.marks.smart.count.note.reminder.pojo.Reminder">
+		select t.*,
+		wu.openid,
+		wu.nickname,
+		wu.accountid
+		from tb_note_reminder t
+		join
+		tb_user su on t.creator = su.userid
+		join tb_wx_user wu on su.openid
+		= wu.openid adn su.accountid=wu.accountid
+		where t.needflag = 1
+		and ((substr(t.remind_date, 6) =
+		#{yangliMMDD:VARCHAR} and t.remind_type= 0) or
+		(t.remind_type = 1 and
+		(substr(t.remind_date, 6) = #{yangliMMDD:VARCHAR} or
+		substr(t.remind_date, 6) = #{noliMMDD:VARCHAR})) or
+		(t.is_before = 1
+		and
+		(to_char(to_date('${yearStr}'|| substr(t.remind_date, 5),
+		'yyyy-MM-dd') - t.before_days,'MM-dd')=#{yangliMMDD:VARCHAR} or
+		to_char(to_date('${yearStr}'|| substr(t.remind_date, 5), 'yyyy-MM-dd')
+		- t.before_days,'MM-dd') =#{noliMMDD:VARCHAR})))
+	</select>
+
+
+</mapper>

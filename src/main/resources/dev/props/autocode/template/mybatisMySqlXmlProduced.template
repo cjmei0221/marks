@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="@{daoInterfacePackageUrl}.@{beanName}Dao">
+
+    <select id="findById" resultType="@{NameSpaceUrl}.@{beanName}">
+		SELECT * FROM @{TableName} t where t.@{PKAttrName} = #{@{PKAttrValue}}
+ 	</select>
+ 	
+ 	<insert id="save" parameterType="@{NameSpaceUrl}.@{beanName}">
+		<!--<selectKey keyProperty="@{PKAttrValue}" resultType="String" order="BEFORE">select replace(uuid(),'-','')</selectKey>-->
+
+ 		INSERT INTO @{TableName} (
+@{GetAttrName}
+		)
+		VALUES(
+		@{SetAttrValue}			
+			)
+ 	</insert>
+ 	
+ 	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO @{TableName} (
+			@{GetAttrName}
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+				@{SetAttrValue}			
+			)
+		</foreach>
+	</insert>
+ 	
+ 	<update id="update" parameterType="@{NameSpaceUrl}.@{beanName}">
+ 		UPDATE @{TableName} 
+		SET 
+@{UpdateMothod}
+		WHERE
+			@{PKAttrName} = #{info.@{PKAttrValue}}
+ 	</update>
+ 
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM @{TableName} WHERE @{PKAttrName}=#{@{PKAttrValue}}
+ 	</delete>
+ 	
+ 	<select id="findAll" resultType="@{NameSpaceUrl}.@{beanName}">
+ 		SELECT * FROM @{TableName} t
+ 	</select>
+ 	
+ 	<delete id="deleteBatch" parameterType="java.util.List">
+ 		DELETE FROM @{TableName} WHERE @{PKAttrName} in 
+ 		<foreach collection="list" item="ids" index="index" open="(" separator="," close=")">
+				#{ids}
+		</foreach>
+ 	</delete>
+ 	
+ 	<select id="list" resultType="@{NameSpaceUrl}.@{beanName}" 
+ 	parameterType="java.util.Map">
+ 		SELECT  *
+		  FROM   @{TableName} t
+						WHERE 1=1 and t.COMPANYID=#{companyId}
+@{FindToType}
+						
+			@{OrderBy}		
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

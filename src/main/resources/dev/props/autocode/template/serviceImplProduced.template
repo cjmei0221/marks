@@ -1,0 +1,104 @@
+package @{packageUrl};
+
+import java.util.List;
+import java.util.Map;
+
+import com.marks.common.domain.PojoDomain;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import @{beanPackageUrl}.@{beanName};
+import @{daoInterfacePackageUrl}.@{beanName}Dao;
+import @{serviceInterfacePackageUrl}.@{beanName}Service;
+
+@Service
+@Transactional
+public class @{beanName}ServiceImpl implements @{beanName}Service{
+
+	private static Logger logger = Logger.getLogger( @{beanName}ServiceImpl.class);
+	
+	@Autowired
+	private @{beanName}Dao @{GetBeanObject}Dao;
+   
+/**
+@{DaoObject}
+@{GetSetMethod}
+ */   
+    /**
+    *根据ID查找@{ModuleDesc}
+    */
+    @Override
+    public @{beanName} findById(@{GetIdAttrType} id){
+      	logger.info("findById > param>"+id);
+        return @{GetBeanObject}Dao.findById(id);
+    }
+    
+    /**
+    *保存@{ModuleDesc}
+    */
+    @Override
+    public void save(@{beanName} info){
+        logger.info("save > start>");
+        @{GetBeanObject}Dao.save(info);
+        logger.info("save > end>");
+    }
+    
+    /**
+    *更新@{ModuleDesc}
+    */
+    @Override
+    public void update(@{beanName} info){
+        logger.info("update > start>");
+        @{GetBeanObject}Dao.update(info);
+        logger.info("update > end>");
+    }
+    
+    /**
+    *删除@{ModuleDesc}
+    */
+    @Override
+    public void delete(@{GetIdAttrType} id){
+        logger.info("delete > start> params >" +id);
+        @{GetBeanObject}Dao.delete(id);       
+    }
+    
+    /**
+    *查找所有@{ModuleDesc}
+    */
+    @Override
+    public List<@{beanName}> findAll(){
+        logger.info("findAll > start> params >");
+        return @{GetBeanObject}Dao.findAll();   
+    }
+    
+    /**
+    *删除多个@{ModuleDesc}
+    */
+    @Override
+   public void deleteBatch(List<String> ids) {
+        logger.info("deleteBatch > start> params >"+ids);
+		@{GetBeanObject}Dao.deleteBatch(ids);
+		logger.info("deleteBatch > end> params >"+ids);
+	}
+	
+	public PojoDomain<@{beanName}> list(int page_number, int page_size, Map<String,Object> param) {
+	    logger.info("list > start>");
+		PojoDomain<@{beanName}> pojoDomain = new PojoDomain<@{beanName}>();
+		PageBounds pageBounds = new PageBounds(page_number, page_size);
+		List<@{beanName}> list = @{GetBeanObject}Dao.list(pageBounds,param);
+		PageList<@{beanName}> pageList = (PageList<@{beanName}>)list; 
+		pojoDomain.setPojolist(list);
+		pojoDomain.setPage_number(page_number);
+		pojoDomain.setPage_size(page_size);
+		pojoDomain.setTotal_count(pageList.getPaginator().getTotalCount());
+		logger.info("list > end>");
+		return pojoDomain;
+	}
+	
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xss-security >
+    <!-- 配置是否开启过滤  -->
+    <enable>
+        true
+    </enable>
+
+    <filter-mapping>
+        <!--配置排出请求链接 相关参数-->
+        <!-- 流程部署XML不过滤 -->
+        <url-pattern value="/flow/deploy">
+            <exclude-param>
+                model
+            </exclude-param>
+        </url-pattern>
+        <!-- 消息发布富文本不过滤 -->
+        <url-pattern value="/push/notice/save">
+            <exclude-param>content</exclude-param>
+        </url-pattern>
+        <!-- 消息发布富文本不过滤 -->
+        <url-pattern value="/news_information/save.json">
+           <exclude-param>newsContent</exclude-param>
+        </url-pattern>
+
+        <!--  排出的url-->
+        <exclude-url value="/supervisor/manager/saveSupervisor" />
+
+    </filter-mapping>
+
+
+</xss-security>

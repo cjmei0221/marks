@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.InnovationInputMapper">
+    <select id="selectResultByMap" resultType="com.grgbanking.smart.gzw.model.entity.PfVerifyResult">
+        SELECT
+        *
+        FROM
+        t_pf_verify_result re
+        WHERE 1 = 1
+        <if test="org_id != null and org_id != ''">
+            and re.org_id = #{org_id}
+        </if>
+        <if test="i_year != null and i_year != ''">
+            and re.i_year = #{i_year}
+        </if>
+        <if test="i_season != null and i_season != ''">
+            and re.i_season = #{i_season}
+        </if>
+        <if test="type_code != null and type_code != ''">
+            and re.type_code = #{type_code}
+        </if>
+        ORDER BY re.org_id DESC,re.update_time DESC
+    </select>
+
+    <!-- 提交后就算已填报 -->
+    <select id="getNotFilledOrg" resultType="com.grgbanking.smart.gzw.model.innovate.NoWriteVo">
+        SELECT DISTINCT
+        t.id as org_id,
+        t.short_name as org_name,
+        b.user_name as userName,
+        b.phone,
+        b.telephone,
+        ${i_year} as i_year,
+        ${i_season} as i_season
+        FROM
+        t_n_org t
+        LEFT JOIN t_pf_address_book b ON t.id = b.org_id  AND b.role_type = 1
+        LEFT JOIN t_pf_innovation_input it ON t.id = it.org_id
+        WHERE
+        t.lvl_type = 1
+        AND t.lvl = 2
+        AND t.id NOT IN
+        (
+        SELECT it.org_id FROM t_pf_innovation_input it
+        WHERE it.STATUS IN (1,2)
+        <if test="i_year != null and i_year != ''">
+            and it.i_year = #{i_year}
+        </if>
+        <if test="i_season != null and i_season != ''">
+            and it.i_season = #{i_season}
+        </if>
+        <if test="type_code != null and type_code != ''">
+            and it.type_code = #{type_code}
+        </if>
+        GROUP BY it.org_id
+        )
+        ORDER BY
+        t.sort_order
+    </select>
+
+    <sql id="columns">
+        it.id,
+        it.org_name,
+        it.company_name,
+        it.i_year,
+        it.i_season,
+        it.research_this_year,
+        it.research_period_last_year,
+        it.research_year_on_year,
+        it.business_this_year,
+        it.business_period_last_year,
+        it.business_this_year_ratio,
+        it.business_period_last_year_ratio,
+        it.production_this_year,
+        it.production_period_last_year,
+        it.production_this_year_ratio,
+        it.production_period_last_year_ratio,
+        it.scientific_number,
+        it.doctors,
+        it.masters,
+        it.undergraduates,
+        it.stock_applications,
+        it.stock_authorizations,
+        it.stock_inventions,
+        it.increment_applications,
+        it.increment_authorizations,
+        it.increment_inventions,
+        it.credit_code,
+        it.state,
+        o.`status`,
+        it.create_time,
+        it.update_time,
+        it.item_id,
+        it.type,
+	    it.input_order,
+	    it.org_id,
+        it.form_data_id
+    </sql>
+
+    <select id="getInputTask" resultType="com.grgbanking.smart.gzw.model.innovate.InputFlowModelVO">
+        SELECT
+        <include refid="columns"/>,
+        t.TASK_NAME AS taskKey,
+        o.process_Id as processId,
+        IFNULL(ff.operator,u.full_name) AS fullName,
+        ff.update_time AS taskEndTime,
+        ff.order_id as orderId
+        FROM
+        t_pf_innovation_input it
+        LEFT JOIN t_flow_form ff ON ff.form_data_id = it.form_data_id
+        LEFT JOIN t_wf_task t ON ff.order_id = t.ORDER_ID
+        LEFT JOIN t_wf_order o ON t.order_id = o.id
+        LEFT JOIN t_wf_task_actor ta ON ta.task_id = t.id
+        LEFT JOIN t_n_user u ON ff.user_id = u.id
+        WHERE
+        <choose>
+            <when test="idList !=null and idList.size > 0">
+                it.id in
+                <foreach item="id" collection="idList" separator="," open="(" close=")" index="">
+                   #{id}
+                </foreach>
+            </when>
+            <otherwise>
+                (
+                1 = 1
+                <if test="userId != null and userId !='' ">
+                    AND ta.actor_Id = #{userId}
+                </if>
+                <if test="processName != null and processName !='' ">
+                    AND ff.process_name = #{processName}
+                </if>
+                )
+                OR (
+                ff.form_data_id IS NULL
+                <if test="userId != null and userId !='' ">
+                    AND it.creator_code = #{userId}
+                </if>
+                AND it.`status` = 0 AND it.type = 0
+                )
+            </otherwise>
+        </choose>
+        ORDER BY
+        it.update_time DESC
+    </select>
+
+
+    <select id="getInputHistTask" resultType="com.grgbanking.smart.gzw.model.innovate.InputFlowModelVO">
+        SELECT distinct
+        <include refid="columns"/>,
+        '' AS taskKey,
+        ff.process_Id as processId,
+        ff.order_id as orderId
+        FROM
+        t_pf_innovation_input it
+        JOIN t_flow_form ff ON ff.form_data_id = it.id
+        JOIN (
+        SELECT distinct
+        ta.ACTOR_ID,
+        o.id AS orderId
+        FROM
+        t_wf_hist_task t
+        JOIN t_wf_hist_order o ON t.order_id = o.id
+        JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+        UNION
+        SELECT distinct
+        cc.ACTOR_ID,
+        cc.ORDER_ID AS orderId
+        FROM
+        t_wf_cc_order cc
+        ) k1 ON k1.orderId = ff.order_id
+        where
+        1 = 1
+        <if test="levelType==0">
+            and it.status in (4,2)
+        </if>
+        <if test="levelType!=0">
+            and it.status in (1,4,2)
+        </if>
+        <if test="i_season != null and i_season !='' ">
+            AND ff.i_month = #{i_season}
+        </if>
+        <if test="i_year != null and i_year !='' ">
+            AND ff.i_year = #{i_year}
+        </if>
+        <if test="processName != null and processName !='' ">
+            AND ff.process_name = #{processName}
+        </if>
+        <if test="orgId != null and orgId !='' ">
+            AND ff.org_id = #{orgId}
+        </if>
+        <if test="i_status != null and i_status !='' ">
+            AND ff. STATUS = #{i_status}
+        </if>
+        <if test="userId != null and userId !='' ">
+            AND k1.actor_Id = #{userId}
+        </if>
+        ORDER BY
+        it.item_id DESC,it.input_order ASC
+    </select>
+
+    <select id="getStatisticsTask" resultType="com.grgbanking.smart.gzw.model.innovate.InputFlowModelVO">
+        (SELECT
+        <include refid="columns"/>,
+        0 AS sType
+        FROM
+        t_pf_innovation_input it join t_pf_run_info o on o.id=it.form_data_id
+        WHERE
+        it.type = 0
+        AND o.`status` IN (1,2)
+        <if test="levelType !=null and levelType !='' and levelType == 1">
+            AND it.org_id = #{orgId}
+        </if>
+        <if test="companyName != null and companyName !='' ">
+            AND it.company_name LIKE CONCAT('%',#{companyName},'%')
+        </if>
+        <if test="orgId != null and orgId !='' ">
+            AND it.org_id = #{orgId}
+        </if>
+        <if test="i_season != null and i_season !='' ">
+            AND it.i_season = #{i_season}
+        </if>
+        <if test="i_year != null and i_year !='' ">
+            AND it.i_year = #{i_year}
+        </if>
+        ORDER BY it.research_this_year DESC
+        )
+        <if test="levelType ==0">
+            UNION
+            (
+            SELECT
+            it.id,
+            '市国资委' AS org_name,
+            '市国资委' AS company_name,
+            it.i_year,
+            it.i_season,
+            SUM(it.research_this_year) AS research_this_year,
+            SUM(it.research_period_last_year) AS research_period_last_year,
+            CASE WHEN it.research_this_year = 0 THEN 0.0 WHEN it.research_this_year is NULL THEN 0.0 ELSE
+            FORMAT(((it.research_this_year - it.research_period_last_year)/it.research_period_last_year)*100,1) END
+            research_year_on_year,
+            SUM(it.business_this_year) AS business_this_year,
+            SUM(it.business_period_last_year) AS business_period_last_year,
+            CASE WHEN it.research_this_year = 0 THEN 0.0 WHEN it.research_this_year is NULL THEN 0.0 ELSE
+            FORMAT(((it.research_this_year - it.business_this_year)/it.business_this_year)*100,1) END
+            business_this_year_ratio,
+            CASE WHEN it.research_this_year = 0 THEN 0.0 WHEN it.research_this_year is NULL THEN 0.0 ELSE
+            FORMAT(((it.research_period_last_year - it.business_period_last_year)/it.business_period_last_year)*100,1) END
+            business_period_last_year_ratio,
+            SUM(it.production_this_year) AS production_this_year,
+            SUM(it.production_period_last_year) AS production_period_last_year,
+            CASE WHEN it.research_this_year = 0 THEN 0.0 WHEN it.research_this_year is NULL THEN 0.0 ELSE
+            FORMAT(((it.research_this_year - it.production_this_year_ratio)/it.production_this_year_ratio)*100,1) END
+            production_this_year_ratio,
+            CASE WHEN it.research_this_year = 0 THEN 0.0 WHEN it.research_this_year is NULL THEN 0.0 ELSE
+            FORMAT(((it.research_period_last_year - it.production_period_last_year)/it.production_period_last_year)*100,1)
+            END production_period_last_year_ratio,
+            SUM(it.scientific_number) AS scientific_number,
+            SUM(it.doctors) AS doctors,
+            SUM(it.masters) AS masters,
+            SUM(it.undergraduates) AS undergraduates,
+            SUM(it.stock_applications) AS stock_applications,
+            SUM(it.stock_authorizations) AS stock_authorizations,
+            SUM(it.stock_inventions) AS stock_inventions,
+            SUM(it.increment_applications) AS increment_applications,
+            SUM(it.increment_authorizations) AS increment_authorizations,
+            SUM(it.increment_inventions) AS increment_inventions,
+            it.credit_code,
+            it.state,
+            o.`status`,
+            it.create_time,
+            it.update_time,
+            it.item_id,
+            it.type,
+            it.input_order,
+            it.org_id,
+            it.form_data_id,
+            1 AS sType
+            FROM
+            t_pf_innovation_input it join t_pf_run_info o on o.id=it.form_data_id
+            WHERE
+            it.type = 0
+            AND o.`status` IN (1, 2)
+            <if test="levelType !=null and levelType !='' and levelType == 1">
+                AND it.org_id = #{orgId}
+            </if>
+            <if test="companyName != null and companyName !='' ">
+                AND it.company_name LIKE CONCAT('%',#{companyName},'%')
+            </if>
+            <if test="orgId != null and orgId !='' ">
+                AND it.org_id = #{orgId}
+            </if>
+            <if test="i_season != null and i_season !='' ">
+                AND it.i_season = #{i_season}
+            </if>
+            <if test="i_year != null and i_year !='' ">
+                AND it.i_year = #{i_year}
+            </if>
+            HAVING SUM(it.research_this_year) > 0
+            ORDER BY it.research_this_year DESC
+            )
+        </if>
+        ORDER BY sType DESC,research_this_year DESC
+    </select>
+
+    <select id="getInputTaskNum" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM
+        (
+        SELECT
+        DISTINCT
+        it.item_id
+        FROM
+        t_pf_innovation_input it
+        LEFT JOIN (
+        SELECT
+        ta.actor_Id,
+        ff.process_name,
+        ff.is_back,
+        ff.id AS flowId,
+        ff.form_data_id
+        FROM
+        t_wf_task t
+        LEFT JOIN t_wf_order o ON t.order_id = o.id
+        LEFT JOIN t_wf_task_actor ta ON ta.task_id = t.id
+        LEFT JOIN t_flow_form ff ON ff.order_id = t.ORDER_ID
+        ) t ON t.form_data_id = it.form_data_id
+        WHERE
+        (
+        1 = 1
+        <if test="userId != null and userId !='' ">
+            AND t.actor_Id = #{userId}
+        </if>
+        <if test="processName != null and processName !='' ">
+            AND t.process_name = #{processName}
+        </if>
+        )
+        OR (
+        t.flowId IS NULL
+        <if test="userId != null and userId !='' ">
+            AND it.creator_code = #{userId}
+        </if>
+        AND it.`status` = 0 AND it.type = 0
+        )
+        <if test="companyName != null and companyName !='' ">
+            AND it.company_name LIKE CONCAT('%',#{companyName},'%')
+        </if>
+        GROUP BY it.form_data_id
+        ORDER BY
+        it.update_time DESC
+        ) a
+    </select>
+
+    <select id="getInputHistTaskNum" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        t_flow_form ff
+        JOIN (
+        SELECT
+        ta.ACTOR_ID,
+        o.id AS orderId
+        FROM
+        t_wf_hist_task t
+        JOIN t_wf_hist_order o ON t.order_id = o.id
+        JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+        UNION
+        SELECT
+        cc.ACTOR_ID,
+        cc.ORDER_ID AS orderId
+        FROM
+        t_wf_cc_order cc
+        ) k1 ON k1.orderId = ff.order_id
+        where 1=1
+        <if test="i_month != null and i_month !='' ">
+            AND ff.i_month = #{i_month}
+        </if>
+        <if test="i_year != null and i_year !='' ">
+            AND ff.i_year = #{i_year}
+        </if>
+        <if test="processName != null and processName !='' ">
+            AND ff.process_name = #{processName}
+        </if>
+        <if test="orgId != null and orgId !='' ">
+            AND ff.org_id = #{orgId}
+        </if>
+        <if test="i_status != null and i_status !='' ">
+            AND ff. STATUS = #{i_status}
+        </if>
+        <if test="userId != null and userId !='' ">
+            AND k1.actor_Id = #{userId}
+        </if>
+    </select>
+
+    <select id="selectUpdateResult" resultType="java.util.HashMap">
+        SELECT a.*,b.* FROM (
+            SELECT IFNULL(ff.id,0) AS historyData FROM t_pf_innovation_input it
+            LEFT JOIN t_flow_form ff  ON it.form_data_id = ff.form_data_id
+            LEFT JOIN t_wf_hist_order o ON ff.order_id = o.id
+            LEFT JOIN t_wf_hist_task t ON t.order_id = o.id
+            WHERE it.i_year = #{i_year} AND it.i_season = #{i_season} AND it.credit_code = #{credit_code}
+            AND it.org_id = #{org_id}
+            ) a
+            LEFT JOIN (
+        SELECT IFNULL(it.id,0) AS updateData FROM t_pf_innovation_input it
+        WHERE it.i_year = #{i_year} AND it.i_season = #{i_season} AND it.credit_code = #{credit_code}
+            AND it.org_id = #{org_id}
+        ) b ON 1 = 1
+    </select>
+
+    <select id="getListById" resultType="com.grgbanking.smart.gzw.model.innovate.InputFlowModelVO">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_pf_innovation_input it
+        WHERE it.item_id = #{itemId}
+        ORDER BY it.input_order ASC,it.update_time DESC
+    </select>
+    <select id="getListByOne" resultType="com.grgbanking.smart.gzw.model.entity.PfInnovationInput">
+        SELECT
+        it.*
+        FROM
+        t_pf_innovation_input it
+        WHERE it.org_id = #{orgId} and it.i_year=#{i_year} and it.i_season=#{i_season}
+        ORDER BY it.type,it.input_order ASC
+    </select>
+
+    <select id="getTaskByParam" resultType="com.grgbanking.smart.gzw.model.entity.PfInnovationInput">
+        SELECT
+        it.*
+        FROM
+        t_pf_innovation_input it
+        WHERE 1=1
+        and (it.business_this_year is null or it.business_this_year='')
+        and it.status=1
+        and it.i_year=#{this_year} and it.i_season=#{this_season}
+    </select>
+
+    <select id="getDataByIds" resultType="com.grgbanking.smart.gzw.model.innovate.InputFlowModelVO">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_pf_innovation_input it join t_pf_run_info o on o.id=it.form_data_id
+        WHERE 1 = 1
+        <if test="ids != null">
+            AND it.item_id IN
+            <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY it.item_id,it.input_order ASC
+    </select>
+
+    <select id="getMaxOrder" resultType="java.lang.Integer">
+        SELECT IFNULL(MAX(it.input_order),0) FROM t_pf_innovation_input it
+        where 1 = 1
+        <if test="season != null and season !='' ">
+            AND it.i_season = #{season}
+        </if>
+        <if test="year != null and year !='' ">
+            AND it.i_year = #{year}
+        </if>
+        <if test="orgId != null and orgId !='' ">
+            AND it.org_id = #{orgId}
+        </if>
+    </select>
+    <delete id="deleteByItemId">
+        delete from t_pf_innovation_input where `type`=#{type} and item_id=#{item_id}
+    </delete>
+</mapper>

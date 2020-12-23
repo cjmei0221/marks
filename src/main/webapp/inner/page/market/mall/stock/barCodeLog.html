@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- Trace.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>管理平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="format-detection" content="telephone=no, email=no" />
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/inner/css/base.css">
+<script type="text/javascript" src="/inner/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/inner/js/base-config.js"></script>
+<script type="text/javascript" src="/inner/js/sysmsg.js"></script>
+<script type="text/javascript" src="/inner/js/tool.js"></script>
+</head>
+
+<body>
+
+	<div id="mainPanel">
+		<p class="nav-header-cls">
+			<span style="color: red;">双击可编辑</span>
+		</p>
+		<div id="tb" style="padding: 5px 0;">
+			<table>
+				<tr>
+					<td><input type="text" id="keyword" name="keyword"
+						style="width: 260px;"
+						placeholder="追踪码/条码/商品编号/国际条码/商品名称/创建时间/更新时间/采购单号/订单号/订单商品号/机构ID/机构/类别ID/类别/品牌ID/品牌/供应商ID/供应商/会员名称/会员手机号" /></td>
+					<td><a id="doSearch" href="javascript:void(0)"
+						class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-search'">查询</a></td>
+				</tr>
+			</table>
+		</div>
+		<table id="tbList">
+		</table>
+	</div>
+</body>
+<script src="js/barCodeLog.js"></script>
+</html>

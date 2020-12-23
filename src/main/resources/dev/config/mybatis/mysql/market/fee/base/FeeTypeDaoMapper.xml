@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.market.fee.base.dao.FeeTypeDao">
+
+	<select id="findById"
+		resultType="com.marks.smart.market.fee.base.pojo.FeeType">
+		SELECT * FROM TB_FEE_TYPE t where t.TYPEID = #{typeId}
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.market.fee.base.pojo.FeeType">
+		<!--<selectKey keyProperty="typeId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_FEE_TYPE (
+		TYPEID,
+		TYPECODE,
+		COMPANYID,
+		TYPENAME,
+		INOROUT,
+		STATUS,
+		UPDATETIME,
+		UPDATER,
+		DELFLAG
+		)
+		VALUES(
+		#{info.typeId:VARCHAR},
+		#{info.typeCode:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.typeName:VARCHAR},
+		#{info.inOrOut:NUMERIC},
+		#{info.status:NUMERIC},
+		#{info.updatetime:VARCHAR},
+		#{info.updater:VARCHAR},
+		#{info.delFlag:NUMERIC}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_FEE_TYPE (
+		TYPEID,
+		TYPECODE,
+		COMPANYID,
+		TYPENAME,
+		INOROUT,
+		STATUS,
+		UPDATETIME,
+		UPDATER,
+		DELFLAG
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.typeId:VARCHAR},
+			#{info.typeCode:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.typeName:VARCHAR},
+			#{info.inOrOut:NUMERIC},
+			#{info.status:NUMERIC},
+			#{info.updatetime:VARCHAR},
+			#{info.updater:VARCHAR},
+			#{info.delFlag:NUMERIC}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.smart.market.fee.base.pojo.FeeType">
+		UPDATE TB_FEE_TYPE
+		SET
+		TYPENAME = #{info.typeName:VARCHAR},
+		INOROUT = #{info.inOrOut:NUMERIC},
+		STATUS = #{info.status:NUMERIC},
+		UPDATETIME = #{info.updatetime:VARCHAR},
+		UPDATER = #{info.updater:VARCHAR},
+		DELFLAG = #{info.delFlag:NUMERIC}
+		WHERE
+		TYPEID = #{info.typeId}
+	</update>
+	<!-- <update id="updateBatch" parameterType="List"> <foreach collection="list" 
+		item="info" index="index" separator=";"> UPDATE TB_FEE_TYPE SET TYPECODE 
+		= #{info.typeCode:VARCHAR}, COMPANYID = #{info.companyId:VARCHAR}, TYPENAME 
+		= #{info.typeName:VARCHAR}, INOROUT = #{info.inOrOut:NUMERIC}, STATUS = #{info.status:NUMERIC}, 
+		UPDATETIME = #{info.updatetime:VARCHAR}, UPDATER = #{info.updater:VARCHAR}, 
+		DELFLAG = #{info.delFlag:NUMERIC} WHERE TYPEID = #{info.typeId} </foreach> 
+		</update> -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_FEE_TYPE WHERE TYPEID=#{typeId}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.smart.market.fee.base.pojo.FeeType">
+		SELECT * FROM TB_FEE_TYPE t where t.STATUS=1 order by t.UPDATETIME desc
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_FEE_TYPE WHERE TYPEID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.smart.market.fee.base.pojo.FeeType"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_FEE_TYPE t
+		WHERE 1=1 and t.companyId=#{companyId}
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.TYPECODE LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.TYPENAME LIKE CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

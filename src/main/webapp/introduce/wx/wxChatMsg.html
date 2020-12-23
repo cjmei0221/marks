@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>询问管理</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>询问管理</h1>
+	<p>记录粉丝询问和回复</p>
+	
+	<h2>询问管理表  (TB_WX_CHAT_MSG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>ID</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>FANID</td><td>粉丝ID</td><td>varchar2</td><td>无</td></tr><tr><td>3</td><td>C_TYPE</td><td>类型</td><td>number</td><td>0：询问 1：回复</td></tr><tr><td>4</td><td>USERID</td><td>回复者ID</td><td>varchar2</td><td>无</td></tr><tr><td>5</td><td>C_CONTENT</td><td>内容</td><td>varchar2</td><td>无</td></tr><tr><td>6</td><td>CREATETIME</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>7</td><td>C_REPLAYTYPE</td><td>回复类型</td><td>varchar2</td><td>无</td></tr><tr><td>8</td><td>SESSION_ID</td><td>回话ID</td><td>varchar2</td><td>无</td></tr><tr><td>9</td><td>OPENID</td><td>openid</td><td>varchar2</td><td>无</td></tr><tr><td>10</td><td>ACCOUNTID</td><td>公众号ID</td><td>varchar2</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (WxChatMsg)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>ID</td><td>String</td><td>无</td></tr><tr><td>2</td><td>fanId</td><td>粉丝ID</td><td>String</td><td>无</td></tr><tr><td>3</td><td>c_type</td><td>类型</td><td>int</td><td>0：询问 1：回复</td></tr><tr><td>4</td><td>userid</td><td>回复者ID</td><td>String</td><td>无</td></tr><tr><td>5</td><td>c_content</td><td>内容</td><td>String</td><td>无</td></tr><tr><td>6</td><td>createtime</td><td>创建时间</td><td>Date</td><td>无</td></tr><tr><td>7</td><td>c_replayType</td><td>回复类型</td><td>String</td><td>无</td></tr><tr><td>8</td><td>session_id</td><td>回话ID</td><td>String</td><td>无</td></tr><tr><td>9</td><td>openid</td><td>openid</td><td>String</td><td>无</td></tr><tr><td>10</td><td>accountid</td><td>公众号ID</td><td>String</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (WxChatMsgController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/wxChatMsg/findWxChatMsgById</td><td>findWxChatMsgById</td><td>查询询问管理</td></tr><tr><td>2</td><td>/wxChatMsg/save</td><td>saveWxChatMsg</td><td>保存询问管理</td></tr><tr><td>3</td><td>/wxChatMsg/update</td><td>updateWxChatMsg</td><td>更新询问管理</td></tr><tr><td>4</td><td>/wxChatMsg/delete</td><td>deleteWxChatMsgById</td><td>删除询问管理</td></tr><tr><td>5</td><td>/wxChatMsg/findAllWxChatMsg</td><td>findAllWxChatMsg</td><td>查询全部询问管理</td></tr><tr><td>6</td><td>/wxChatMsg/deleteIds</td><td>deleteWxChatMsg</td><td>删除多个询问管理</td></tr><tr><td>7</td><td>/wxChatMsg/list</td><td>list</td><td>列表查询询问管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (WxChatMsgService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询询问管理</td></tr><tr><td>2</td><td>save</td><td>保存询问管理</td></tr><tr><td>3</td><td>update</td><td>更新询问管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除询问管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部询问管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个询问管理</td></tr><tr><td>7</td><td>list</td><td>列表查询询问管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(WxChatMsgDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询询问管理</td></tr><tr><td>2</td><td>save</td><td>保存询问管理</td></tr><tr><td>3</td><td>update</td><td>更新询问管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除询问管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部询问管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个询问管理</td></tr><tr><td>7</td><td>list</td><td>列表查询询问管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

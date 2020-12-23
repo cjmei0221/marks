@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.OperateDocumentMapper">
+
+    <update id="dealOtherUpdate" parameterType="com.grgbanking.smart.gzw.model.entity.PfOperateDocument">
+        update t_pf_operate_document
+        set status = '3'
+        where org_id = #{orgId} and status = '2' and id &lt;&gt; #{id}
+    </update>
+
+    <select id="getNoWriteOrg" resultType="com.grgbanking.smart.gzw.model.innovate.NoWriteVo" parameterType="java.util.Map">
+        SELECT DISTINCT
+        t.id as org_id,
+        t.short_name as org_name,
+        b.user_name as userName,
+        b.phone,
+        b.telephone,
+        ${iYear} as i_year,
+        ${iSeason} as i_season
+        FROM
+        t_n_org t
+        left join t_pf_address_book b on t.id=b.org_id and b.role_type=1
+        LEFT JOIN t_pf_operate_document o ON t.id = o.org_id and o.i_year=#{iYear} and o.i_season=#{iSeason} and o.status &gt; 1
+        WHERE
+        o.id IS NULL
+        <if test="orgId !=null and orgId !=''"> and t.id = #{orgId} </if>
+        AND t.lvl_type = 1
+        AND t.lvl = 2
+        order by sort_order
+    </select>
+
+</mapper>

@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.BondIssueMapper">
+
+    <resultMap id="pfBondIssueDetailMap" type="com.grgbanking.smart.gzw.model.entity.PfBondIssueDetail">
+        <result column="id" property="id"/>
+        <result column="item_id" property="itemId"/>
+        <result column="company_name" property="companyName"/>
+        <result column="i_year" property="year"/>
+        <result column="i_season" property="season"/>
+        <result column="bond_name" property="bondName"/>
+        <result column="i_currency" property="currency"/>
+        <result column="approval_number" property="approvalNumber"/>
+        <result column="approval_lines" property="approvalLines"/>
+        <result column="approval_time" property="approvalTime"/>
+        <result column="bond_approval_org" property="bondApprovalOrg"/>
+        <result column="bond_approval_time" property="bondApprovalTime"/>
+        <result column="bond_apply_lines" property="bondApplyLines"/>
+        <result column="bond_apply_time" property="bondApplyTime"/>
+        <result column="oversea_record_org" property="overseaRecordOrg"/>
+        <result column="oversea_record_lines" property="overseaRecordLines"/>
+        <result column="oversea_record_time" property="overseaRecordTime"/>
+        <result column="issue_period_time" property="issuePeriodTime"/>
+        <result column="issue_amount" property="issueAmount"/>
+        <result column="issue_time" property="issueTime"/>
+        <result column="issue_rate" property="issueRate"/>
+        <result column="bond_time_limit" property="bondTimeLimit"/>
+        <result column="bond_end_time" property="bondEndTime"/>
+        <result column="exchange_bond_amount" property="exchangeBbondAmount"/>
+        <result column="issued_unexchange_amount" property="issuedUnexchangeAmount"/>
+        <result column="registered_apply_unissue_amount" property="registeredApplyUnissueAmount"/>
+        <result column="item_remark" property="itemRemark"/>
+        <result column="state" property="state"/>
+        <result column="sort" property="sort"/>
+        <result column="file_ids" property="file_ids"/>
+        <result column="del_remarks" property="del_remarks"/>
+        <result column="del_flag" property="del_flag"/>
+        <result column="bond_type_code" property="bond_type_code"/>
+        <result column="bond_type_name" property="bond_type_name"/>
+        <result column="exchange_bond_rate" property="exchangeBbondRate"/>
+        <result column="raise_funds_plan_use" property="raise_funds_plan_use"/>
+        <result column="raise_funds_actual_use" property="raise_funds_actual_use"/>
+        <result column="diffDays" property="diffDays"/>
+        <result column="raise_funds_allow_use" property="raise_funds_allow_use"/>
+        <result column="status" property="status"/>
+
+    </resultMap>
+
+    <resultMap id="bondIssueDetailVOMap" type="com.grgbanking.smart.gzw.model.innovate.BondIssueDetailVO">
+        <result column="id" property="id"/>
+        <result column="item_id" property="itemId"/>
+        <result column="orgName" property="orgName"/>
+        <result column="company_name" property="companyName"/>
+        <result column="i_year" property="year"/>
+        <result column="i_season" property="season"/>
+        <result column="bond_name" property="bondName"/>
+        <result column="i_currency" property="currency"/>
+        <result column="bond_type_code" property="bond_type_code"/>
+        <result column="bond_type_name" property="bond_type_name"/>
+        <result column="approval_number" property="approvalNumber"/>
+        <result column="approval_lines" property="approvalLines"/>
+        <result column="approval_time" property="approvalTime"/>
+        <result column="bond_approval_org" property="bondApprovalOrg"/>
+        <result column="bond_approval_time" property="bondApprovalTime"/>
+        <result column="bond_apply_lines" property="bondApplyLines"/>
+        <result column="bond_apply_time" property="bondApplyTime"/>
+        <result column="oversea_record_org" property="overseaRecordOrg"/>
+        <result column="oversea_record_lines" property="overseaRecordLines"/>
+        <result column="oversea_record_time" property="overseaRecordTime"/>
+        <result column="issue_period_time" property="issuePeriodTime"/>
+        <result column="issue_amount" property="issueAmount"/>
+        <result column="issue_time" property="issueTime"/>
+        <result column="issue_rate" property="issueRate"/>
+        <result column="bond_time_limit" property="bondTimeLimit"/>
+        <result column="bond_end_time" property="bondEndTime"/>
+        <result column="exchangeBondAmount" property="exchangeBbondAmount"/>
+        <result column="issuedUnexchangeAmount" property="issuedUnexchangeAmount"/>
+        <result column="registeredApplyUnissueAmount" property="registeredApplyUnissueAmount"/>
+        <result column="item_remark" property="itemRemark"/>
+        <result column="state" property="state"/>
+        <result column="sort" property="sort"/>
+        <result column="exchangeBondAmountYuan" property="exchangeBondAmountYuan"/>
+        <result column="issuedUnexchangeAmountYuan" property="issuedUnexchangeAmountYuan"/>
+        <result column="registeredApplyUnissueAmountYuan" property="registeredApplyUnissueAmountYuan"/>
+        <result column="diffDays" property="diffDays"/>
+        <result column="exchangeBbondRate" property="exchangeBbondRate"/>
+        <result column="raise_funds_plan_use" property="raise_funds_plan_use"/>
+        <result column="raise_funds_actual_use" property="raise_funds_actual_use"/>
+    </resultMap>
+
+    <sql id="commonSql">
+        FROM
+        t_pf_bond_issue gi
+        left JOIN t_flow_form ff ON gi.id = ff.form_data_id
+        left JOIN (
+        SELECT
+        d.ACTOR_ID,
+        d.orderId,
+        max(d.taskKey) AS taskKey
+        FROM
+        (
+        <if test="type==0 || type==1">
+            SELECT
+            ta.ACTOR_ID,
+            o.id AS orderId,
+            '' AS taskKey
+            FROM
+            t_wf_hist_task t
+            JOIN t_wf_hist_order o ON t.order_id = o.id
+            JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+            UNION
+            SELECT
+            cc.ACTOR_ID,
+            cc.ORDER_ID AS orderId,
+            '' AS taskKey
+            FROM
+            t_wf_cc_order cc
+        </if>
+        <if test="type==0">
+            UNION
+        </if>
+        <if test="type==0 || type==2">
+            SELECT
+            ta.ACTOR_ID,
+            o.id AS orderId,
+            t.TASK_NAME AS taskKey
+            FROM
+            t_wf_task t
+            JOIN t_wf_order o ON t.order_id = o.id
+            JOIN t_wf_task_actor ta ON ta.task_id = t.id
+        </if>
+        ) d
+        GROUP BY
+        d.ACTOR_ID,
+        d.orderId
+        ) k1 ON k1.orderId = ff.order_id
+        LEFT JOIN t_n_user u ON ff.user_id = u.id
+        LEFT JOIN t_n_org org ON ff.org_id = org.id
+        where 1=1
+        <if test="type==1">
+            and gi.STATUS in (4,2)
+        </if>
+        <if test="season != null and season !='' ">
+            AND gi.i_season = #{season}
+        </if>
+        <if test="year != null and year !='' ">
+            AND gi.i_year = #{year}
+        </if>
+        <if test="orgId != null and orgId !='' ">
+            AND gi.group_id = #{orgId}
+        </if>
+        <if test="status != null and status !='' ">
+            AND gi.STATUS = #{status}
+        </if>
+        <if test="userId != null and userId !='' ">
+            AND (k1.ACTOR_ID = #{userId} or (gi.creator_code=#{userId} and ff.id is null))
+        </if>
+    </sql>
+
+    <select id="getPfBondIssueList" parameterType="com.grgbanking.smart.gzw.model.query.BondIssueQuery"
+            resultType="com.grgbanking.smart.gzw.model.innovate.BondIssueVO">
+
+        SELECT DISTINCT
+        gi.id,
+        gi.i_year AS year,
+        gi.i_season As season,
+        gi.group_name AS groupName,
+        gi.group_id AS groupId,
+        ifnull(ff.operator,gi.creator_name) AS creatorName,
+        gi.creator_code AS creatorCode,
+        gi.update_time AS updateTime,
+        gi.create_time AS createTime,
+        gi.item_code AS itemCode,
+        gi.item_name AS itemName,
+        gi.status,
+        ff.process_Id AS processId,
+        ff.process_name AS processName,
+        ff.is_back AS isBack,
+        ff.form_data_code AS formDataCode,
+        ff.form_data_name AS formDataName,
+        ff.form_data_id AS formDataId,
+        ff.form_data_id AS id,
+        ff. STATUS as formStatus,
+        ff.update_time AS updateTime,
+        IFNULL(org.`short_name`, org.`name`) AS companyBriefName,
+        org.`name` as orgName,
+        ff.order_id AS orderId,
+        IFNULL(ff.`operator`, u.full_name) AS fullName,
+        k1.ACTOR_ID,
+        k1.taskKey
+        <include refid="commonSql" />
+        order by gi.i_year desc,gi.i_season desc,gi.update_time desc limit #{offset},#{size}
+
+    </select>
+
+    <select id="countPfBondIssue" parameterType="com.grgbanking.smart.gzw.model.query.BondIssueQuery" resultType="int">
+
+        select count(t.id) from (SELECT gi.id
+        <include refid="commonSql" />
+        group by gi.id
+        ) t
+
+    </select>
+
+
+    <select id="getDetailById" resultMap="pfBondIssueDetailMap">
+        SELECT
+        d.id,d.item_id,d.company_name,b.i_year,b.i_season,d.bond_name,d.i_currency,d.approval_lines,
+        d.approval_number,d.approval_time,d.bond_approval_org,d.bond_approval_time,d.bond_apply_lines,
+        d.bond_apply_time,d.oversea_record_org,d.oversea_record_lines,d.oversea_record_time,d.issue_period_time,
+        d.issue_amount,d.issue_time,d.issue_rate,d.bond_time_limit,d.bond_end_time,d.exchange_bond_amount,
+        d.issued_unexchange_amount,d.registered_apply_unissue_amount,d.item_remark,d.state,d.sort,d.del_flag,
+        d.del_remarks,d.file_ids,d.exchange_bond_rate,d.raise_funds_actual_use,
+	    d.raise_funds_plan_use,d.bond_type_code,d.bond_type_name,DATEDIFF(
+		DATE_FORMAT(d.bond_end_time, '%Y-%m-%d'),
+        now()
+	    ) AS diffDays,d.raise_funds_allow_use,b.status
+        from t_pf_bond_issue_detail d LEFT JOIN t_pf_bond_issue b on b.id = d.item_id where d.item_id = #{itemId}
+    </select>
+
+    <select id="findLast" resultMap="pfBondIssueDetailMap">
+        SELECT
+        d.id,d.item_id,d.company_name,b.i_year,b.i_season,d.bond_name,d.i_currency,d.approval_lines,
+        d.approval_number,d.approval_time,d.bond_approval_org,d.bond_approval_time,d.bond_apply_lines,
+        d.bond_apply_time,d.oversea_record_org,d.oversea_record_lines,d.oversea_record_time,d.issue_period_time,
+        d.issue_amount,d.issue_time,d.issue_rate,d.bond_time_limit,d.bond_end_time,d.exchange_bond_amount,
+        d.issued_unexchange_amount,d.registered_apply_unissue_amount,d.item_remark,d.state,d.sort,d.del_flag,d.del_remarks,d.file_ids,
+        d.exchange_bond_rate,d.raise_funds_actual_use,
+	    d.raise_funds_plan_use,d.bond_type_code,d.bond_type_name,d.raise_funds_allow_use,b.status
+        from t_pf_bond_issue_detail d JOIN t_pf_bond_issue b on b.id = d.item_id where  d.del_flag=0 and b.group_id=#{info.org_id} and b.i_year=#{info.i_year} and b.i_season=#{info.i_season}
+    </select>
+
+    <select id="isExistRecord" parameterType="com.grgbanking.smart.gzw.model.entity.PfBondIssue" resultType="int">
+        SELECT  count(id) from t_pf_bond_issue where  i_year = #{year} and i_season = #{season}
+        and group_id = #{groupId}
+        <if test="id != null and id != ''">
+            and id != #{id}
+        </if>
+    </select>
+
+    <sql id="whereSql">
+        <where>
+            <if test="year != null and year != ''">
+                and b.i_year = #{year}
+            </if>
+            <if test="season != null and season != ''">
+                and b.i_season = #{season}
+            </if>
+            <if test="orgId != null and orgId != ''">
+                and b.group_id = #{orgId}
+            </if>
+            <if test="currency != null and currency != ''">
+                and d.i_currency = #{currency}
+            </if>
+            <if test="status != null and status != ''">
+                and b.status = 2
+            </if>
+            <if test="bond_type_code != null and bond_type_code != ''">
+                and d.bond_type_code= #{bond_type_code}
+            </if>
+            and d.i_currency != '' and d.i_currency is not null
+        </where>
+    </sql>
+
+    <select id="getBondIssueSummary" parameterType="com.grgbanking.smart.gzw.model.query.BondIssueQuery"
+            resultType="com.grgbanking.smart.gzw.model.innovate.BondIssueSummaryVO">
+
+        SELECT t.id,t.orgId,t.orgName,t.bond_type_code,t.bond_type_name,t.currency,t.i_year year,t.i_season season,t.currencyCount,t.sort,
+        t.exchangeBondAmount,IFNULL(t.exchangeBondAmount*r.exchange_rate,0) exchangeBondAmountYuan,
+        t.issuedUnexchangeAmount,IFNULL(t.issuedUnexchangeAmount*r.exchange_rate,0) issuedUnexchangeAmountYuan,
+        t.registeredApplyUnissueAmount,IFNULL(t.registeredApplyUnissueAmount*r.exchange_rate,0) registeredApplyUnissueAmountYuan
+        from (
+            <if test="status != null and status != ''">
+                SELECT '0' as id,'0' as orgId,'国资委' as orgName,d.i_currency,b.i_year,b.i_season, 1 sort,
+                IFNULL(sum(d.exchange_bond_amount),0) exchangeBondAmount,
+                IFNULL(sum(d.issued_unexchange_amount),0) issuedUnexchangeAmount,
+                IFNULL(sum(d.registered_apply_unissue_amount),0) registeredApplyUnissueAmount,
+                count(d.bond_type_code) currencyCount,d.i_currency currency,d.bond_type_code,d.bond_type_name
+                from t_pf_bond_issue b LEFT JOIN t_pf_bond_issue_detail d
+                on d.item_id = b.id
+                <include refid="whereSql"></include>
+                GROUP BY d.bond_type_code,b.i_year,b.i_season
+                UNION
+            </if>
+            SELECT b.id,b.group_id as orgId,b.group_name orgName,d.i_currency,b.i_year,b.i_season,0 sort,
+            IFNULL(sum(d.exchange_bond_amount),0) exchangeBondAmount,
+            IFNULL(sum(d.issued_unexchange_amount),0) issuedUnexchangeAmount,
+            IFNULL(sum(d.registered_apply_unissue_amount),0) registeredApplyUnissueAmount,
+            count(d.bond_type_code) currencyCount,d.i_currency currency,d.bond_type_code,d.bond_type_name
+            from t_pf_bond_issue b LEFT JOIN t_pf_bond_issue_detail d
+            on d.item_id = b.id
+            <include refid="whereSql"></include>
+            GROUP BY b.id,d.bond_type_code
+        ) t LEFT JOIN
+        t_pf_debt_rate r on (r.i_year = t.i_year and r.i_season = t.i_season and r.cny_name = t.i_currency)
+        ORDER BY t.bond_type_code,year DESC,season DESC,sort desc
+
+    </select>
+
+    <select id="getExportBondIssueList" resultMap="bondIssueDetailVOMap" parameterType="com.grgbanking.smart.gzw.model.query.BondIssueQuery">
+        SELECT t.*,
+        IFNULL(t.exchangeBondAmount * r.exchange_rate, 0) exchangeBondAmountYuan,t.issuedUnexchangeAmount,
+        IFNULL(t.issuedUnexchangeAmount * r.exchange_rate,0) issuedUnexchangeAmountYuan,t.registeredApplyUnissueAmount,
+        IFNULL(t.registeredApplyUnissueAmount * r.exchange_rate,0) registeredApplyUnissueAmountYuan
+        FROM
+        (
+         <if test="status != null and status != ''">
+            SELECT '0' as id,'0' as orgId,CONCAT('国资委',d.bond_type_name,'合计（',count(d.i_currency),'项)') as orgName,
+            d.i_currency,b.i_year,b.i_season,'' as company_name,'' as bond_name,'' as approval_number,'' as approval_lines,
+            '' as approval_time,'' as bond_approval_org,'' as bond_approval_time,'' as bond_apply_lines,'' as bond_apply_time,
+            '' as oversea_record_org,'' as oversea_record_lines,'' as oversea_record_time,'' as issue_period_time,
+            '' as issue_amount,'' as issue_time,'' as issue_rate,'' as bond_time_limit,'' as bond_end_time,
+            IFNULL(sum(d.exchange_bond_amount), 0) exchangeBondAmount,
+            IFNULL(sum(d.issued_unexchange_amount), 0) issuedUnexchangeAmount,
+            IFNULL(sum(d.registered_apply_unissue_amount), 0) registeredApplyUnissueAmount,
+            count(d.bond_type_code) currencyCount,2 as sort,d.bond_type_code,d.bond_type_name,null as diffDays,
+            IFNULL(sum(d.exchange_bond_rate),0) as exchangeBbondRate,
+            d.raise_funds_plan_use,
+            d.raise_funds_actual_use
+            FROM
+                t_pf_bond_issue b
+                LEFT JOIN t_pf_bond_issue_detail d ON d.item_id = b.id
+            <include refid="whereSql"></include>
+            GROUP BY d.bond_type_code,b.i_year,b.i_season
+            UNION
+         </if>
+            SELECT b.id,b.group_id as orgId,CONCAT(b.group_name,d.bond_type_name,'合计（',count(d.i_currency),'项)') orgName,
+            d.i_currency,b.i_year,b.i_season,'' as company_name,'' as bond_name,'' as approval_number,'' as approval_lines,
+            '' as approval_time,'' as bond_approval_org,'' as bond_approval_time,'' as bond_apply_lines,'' as bond_apply_time,
+            '' as oversea_record_org,'' as oversea_record_lines,'' as oversea_record_time,'' as issue_period_time,'' as issue_amount,
+            '' as issue_time,'' as issue_rate,'' as bond_time_limit,'' as bond_end_time,
+            IFNULL(sum(d.exchange_bond_amount), 0) exchangeBondAmount,
+            IFNULL(sum(d.issued_unexchange_amount), 0) issuedUnexchangeAmount,
+            IFNULL(sum(d.registered_apply_unissue_amount), 0) registeredApplyUnissueAmount,
+            count(d.bond_type_code) currencyCount,1 as sort,d.bond_type_code,d.bond_type_name,null as diffDays,
+            IFNULL(sum(d.exchange_bond_rate),0) as exchangeBbondRate,
+            d.raise_funds_plan_use,
+            d.raise_funds_actual_use
+            FROM
+                t_pf_bond_issue b
+                LEFT JOIN t_pf_bond_issue_detail d ON d.item_id = b.id
+            <include refid="whereSql"></include>
+            GROUP BY b.id,d.bond_type_code
+            UNION
+            SELECT b.id,b.group_id as orgId,b.group_name orgName,d.i_currency,b.i_year,b.i_season,d.company_name,
+            d.bond_name,d.approval_number,d.approval_lines,d.approval_time,d.bond_approval_org,d.bond_approval_time,
+            d.bond_apply_lines,d.bond_apply_time,d.oversea_record_org,d.oversea_record_lines,d.oversea_record_time,
+            d.issue_period_time,d.issue_amount,d.issue_time,d.issue_rate,d.bond_time_limit,d.bond_end_time,
+            IFNULL(sum(d.exchange_bond_amount), 0) exchangeBondAmount,
+            IFNULL(sum(d.issued_unexchange_amount), 0) issuedUnexchangeAmount,
+            IFNULL(sum(d.registered_apply_unissue_amount), 0) registeredApplyUnissueAmount,
+            count(d.bond_type_code) currencyCount,0 as sort,d.bond_type_code,d.bond_type_name,
+            DATEDIFF(
+              DATE_FORMAT(d.bond_end_time, '%Y-%m-%d'),
+              now()
+            ) AS diffDays,
+            IFNULL(sum(d.exchange_bond_rate),0) as exchangeBbondRate,
+            d.raise_funds_plan_use,
+            d.raise_funds_actual_use
+            FROM
+                t_pf_bond_issue b
+                LEFT JOIN t_pf_bond_issue_detail d ON d.item_id = b.id
+            <include refid="whereSql"></include>
+            GROUP BY d.id,d.bond_type_code
+        ) t
+        LEFT JOIN t_pf_debt_rate r ON (
+            r.i_year = t.i_year
+            AND r.i_season = t.i_season
+            AND r.cny_name = t.i_currency
+        )
+        <choose>
+            <when test="status != null and status != ''">
+                ORDER BY t.bond_type_code,i_year DESC,i_season DESC,sort desc
+            </when>
+            <otherwise>
+                ORDER BY i_year DESC,i_season DESC,sort desc,t.bond_type_code
+            </otherwise>
+        </choose>
+    </select>
+    <!-- 查询已审核项目并计算是否红绿灯-->
+    <select id="queryBondIssueList" resultType="com.grgbanking.smart.gzw.model.entity.PfBondIssueDetail" parameterType="com.grgbanking.smart.gzw.model.query.BondIssueQuery">
+SELECT
+	DATEDIFF(
+		DATE_FORMAT(d.bond_end_time, '%Y-%m-%d'),
+        now()
+	) AS diffDays,
+	d.approval_lines as approvalLines,
+	d.approval_number as approvalNumber,
+	d.approval_time as approvalTime,
+	d.bond_apply_lines as bondApplyLines,
+	d.bond_apply_time as bondApplyTime,
+	d.bond_approval_org as bondApprovalOrg,
+	d.bond_approval_time as bondApprovalTime,
+	d.bond_end_time as bondEndTime,
+	d.bond_name as bondName,
+	d.bond_time_limit as bondTimeLimit,
+	d.bond_type_code,
+	d.bond_type_name,
+	d.company_name as companyName,
+	d.del_flag,
+	d.del_remarks,
+	d.exchange_bond_amount as exchangeBbondAmount,
+	d.exchange_bond_rate as exchangeBbondRate,
+	d.file_ids,
+	d.i_currency as currency,
+	d.i_season as season,
+	d.i_year as `year`,
+	d.id,
+	d.issue_amount as issueAmount,
+	d.issue_period_time as issuePeriodTime,
+	d.issue_rate as issueRate,
+	d.issue_time as issueTime,
+	d.issued_unexchange_amount as issuedUnexchangeAmount,
+	d.item_id as itemId,
+	d.item_remark as itemRemark,
+	d.oversea_record_lines as overseaRecordLines,
+	d.oversea_record_org as overseaRecordOrg,
+	d.oversea_record_time as overseaRecordTime,
+	d.raise_funds_actual_use,
+	d.raise_funds_plan_use,
+	d.registered_apply_unissue_amount as registeredApplyUnissueAmount,
+	d.sort,
+	d.state,
+    b.group_name
+FROM
+	t_pf_bond_issue_detail d
+JOIN t_pf_bond_issue b ON d.item_id = b.id
+WHERE
+	1=1
+        <if test="info.status != null and info.status != ''">
+            and b.`status` = 2
+        </if>
+        <if test="info.year != null and info.year != ''">
+            and b.i_year = #{info.year}
+        </if>
+        <if test="info.season != null and info.season != ''">
+            and b.i_season = #{info.season}
+        </if>
+        <if test="info.orgId != null and info.orgId != ''">
+            and b.group_id = #{info.orgId}
+        </if>
+        <if test="info.currency != null and info.currency != ''">
+            and d.i_currency = #{info.currency}
+        </if>
+        <if test="info.bond_type_code != null and info.bond_type_code != ''">
+            and d.bond_type_code = #{info.bond_type_code}
+        </if>
+        <if test="info.formDataIds != null and info.formDataIds != ''">
+            and find_in_set(d.item_id,#{info.formDataIds})
+        </if>
+        having 1=1
+        <if test="info.startDays>0">
+            and diffDays &gt;= #{info.startDays}
+        </if>
+        <if test="info.endDays>0">
+            and diffDays &lt; #{info.endDays}
+        </if>
+        order by b.i_year,b.i_season,diffDays
+    </select>
+
+</mapper>

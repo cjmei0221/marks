@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.system.user.sysuser.dao.UserLogDao">
+
+	<insert id="save"
+		parameterType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey>
+		INSERT INTO TB_USER_LOG
+		(
+		ID,
+		USERID,
+		USERNAME,
+		PASSWORD,
+		BIND_MOBILE,
+		ACTIVEFLAG,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		COMPANYID,
+		TOKEN,
+		ROLEID,
+		openid,
+		accountid,
+		userCode,
+		roleName,
+		roleType,
+		roleLvl,
+		orgId,
+		orgName,
+		orgType,
+		orgCategory,
+		parentOrgId,
+		parentOrgName,
+		gender,
+		birthday,
+		signature,
+		idNumber,
+		email,
+		entryDate,
+		channelId,
+		channel,
+		roleYwType,
+		userRoleOrgId,
+		bindFlag,
+		companyName,
+		remarks
+		)
+		VALUES(
+		#{id:VARCHAR},
+		#{info.userid:VARCHAR},
+		#{info.username:VARCHAR},
+		#{info.password:VARCHAR},
+		#{info.bind_mobile:VARCHAR},
+		#{info.activeFlag:NUMERIC},
+		now(),
+		now(),
+		#{info.creator:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.token:VARCHAR},
+		#{info.roleId:VARCHAR},
+		#{info.openid:VARCHAR},
+		#{info.accountid:VARCHAR},
+		#{info.userCode:VARCHAR},
+		#{info.roleName:VARCHAR},
+		#{info.roleType:VARCHAR},
+		#{info.roleLvl:NUMERIC},
+		#{info.orgId:VARCHAR},
+		#{info.orgName:VARCHAR},
+		#{info.orgType:NUMERIC},
+		#{info.orgCategory:NUMERIC},
+		#{info.parentOrgId:VARCHAR},
+		#{info.parentOrgName:VARCHAR},
+		#{info.gender:NUMERIC},
+		#{info.birthday:VARCHAR},
+		#{info.signature:VARCHAR},
+		#{info.idNumber:VARCHAR},
+		#{info.email:VARCHAR},
+		#{info.entryDate:VARCHAR},
+		#{info.channelId:VARCHAR},
+		#{info.channel:VARCHAR},
+		#{info.roleYwType:NUMERIC},
+		#{info.userRoleOrgId:VARCHAR},
+		#{info.bindFlag:NUMERIC},
+		#{info.companyName:VARCHAR},
+		#{info.remarks:VARCHAR}
+		)
+	</insert>
+
+
+	<select id="list"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUser"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_USER_LOG t
+		WHERE 1=1 and
+		t.companyId=#{companyId}
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

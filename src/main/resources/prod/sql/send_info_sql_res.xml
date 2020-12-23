@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap SYSTEM "./mapsql.dtd">
+<sqlMap>
+	<!-- 与京华OA交换数据用到的sql语句 -->
+	
+	<!-- 获取表单附件列表-->
+	<sqlUnit name="get_att_by_form_data_id">
+	   <sql>
+		   select ta.id as attId,ta.file_name as fileName,ta.file_path as filePath,ta.file_suffix as fileSuffix,ta.create_time as createTime
+		    from t_n_attachment ta,t_flow_attachment tf,t_flow_form t 
+		    where ta.id=tf.attachment_id and t.order_id = tf.order_id and t.form_data_id=:formDataId
+	    </sql>
+	</sqlUnit>
+	
+	<!-- 获取年度报告内容-->
+	<sqlUnit name="get_company_annual_report">
+	   <sql>
+		   SELECT
+		   tpf.id,
+		   tf.title AS title,
+		   tpf.write_name AS writeName,
+		   tpf.write_time AS writeTime,
+		   tpf.inspect_company_num AS inspectCompanNum,
+		   tpf.inspect_total_property AS inspectTotalProperty,
+		   tpf.inspect_type AS inspectType,
+		   tpf.company_introduction AS companyIntroduction,
+		   tpf.dis_inspect_property_introduction AS disInspectPropertyIntroduction,
+		   tpf.inspect_range AS inspectRange,
+		   tpf.annual_report_summary AS annualReportSummary,
+		   tpf.record_of_performance AS recordOfPerformance,
+		   tpf.main_manage_work_and_evaluate AS mainManageWorkAndEvaluate,
+		   tpf.company_director_manager_work AS companyDirectorManagerWork,
+		   tpf.inspect_work_and_introduction AS inspectWorkAndIntroduction,
+		   tpf.main_problem_and_suggestion AS mainProblemAndSuggestion,
+		   tpf.other_major_item AS otherMajorItem,
+		   tpf.supervisor_reservations AS supervisorReservations,
+		   tpf.examine_chairperson_opinion AS examineChairpersonOpinion,
+		   tpf.examine_chairperson_message AS examineChairpersonMessage,
+		   tpf.examine_chairperson_name AS examineChairpersonName,
+		   tpf.examine_chairperson_time AS examineChairpersonTime,
+		   tpf.examine_work_opinion AS examineWorkOpinion,
+		   tpf.examine_work_message AS examineWorkMessage,
+		   tpf.examine_work_name AS examineWorkName,
+		   tpf.examine_work_time AS examineWorkTime,
+		   tpf.document_number AS documentNumber
+		   FROM
+		   t_pf_company_annual_report tpf,
+		   t_flow_form tf
+		   WHERE
+		   tpf.form_data_id = tf.form_data_id
+		   AND tpf.form_data_id =:formDataId
+	    </sql>
+	</sqlUnit>
+	
+	<!-- 获取重要会议报告内容-->
+	<sqlUnit name="get_meeting_report">
+	   <sql>
+		   SELECT
+		   tpf.id,
+		   tf.title AS title,
+		   tpf.create_user_name AS createUserName,
+		   tpf.create_date AS createDate,
+		   tpf.meeting_date AS meetingDate,
+		   (SELECT name from t_supervisor_company where code = tpf.company_id) AS companyName,
+		   tpf.meeting_address AS meetingAddress,
+		   tpf.name AS name,
+		   tpf.notice_time AS noticeTime,
+		   (SELECT GROUP_CONCAT(tmj.actor_name) from t_pf_meeting_join tmj where form_data_id =:formDataId) AS supervisorAttendUsers,
+		   (SELECT GROUP_CONCAT(tml.actor_name) from t_pf_metting_leave tml where form_data_id =:formDataId) AS supervisorAbsentUsers,
+		   tpf.company_attend_users AS companyAttendUsers,
+		   tpf.company_absent_users AS companyAbsenUsers,
+		   tpf.meeting_page AS meetingPage,
+		   tpf.conference_material_name AS conferenceMaterialName,
+		   tpf.pass_decision_and_reason AS passDecisionAndReason,
+		   tpf.dissent_decision_and_reason AS dissentDecisionAndReason,
+		   tpf.dis_pass_decision_and_reason AS disPassDecisionAndReason,
+		   tpf.supervisor_suggest AS supervisorSuggest,
+		   tpf.supervisor_chairman_opinion AS supervisorChairmanOpinion,
+		   tpf.supervisor_chairman_suggest AS supervisorChairmanSuggest,
+		   tpf.supervisor_chairman_name AS supervisorChairmanName,
+		   tpf.supervisor_chairman_data AS supervisorChairmanData,
+		   tpf.supervisor_work_department_opinion AS supervisorWorkDepartmentOpinion,
+		   tpf.supervisor_work_department_suggest AS supervisorWorkDepartmentSuggest,
+		   tpf.supervisor_work_department_name AS supervisorWorkDepartmentName,
+		   tpf.supervisor_work_department_data AS supervisorWorkDepartmentData,
+		   tpf.urgent_type AS urgentType,
+		   tpf.risk_type AS riskType,
+		   tpf.host_offices AS hostOffices,
+		   tpf.document_number AS documentNumber
+		   FROM
+		   t_pf_meeting_report tpf,
+		   t_flow_form tf
+		   WHERE
+		   tpf.form_data_id = tf.form_data_id
+		   AND tpf.form_data_id =:formDataId
+	    </sql>
+	</sqlUnit>
+	
+	<!-- 获取专项报告内容-->
+	<sqlUnit name="get_special_project_report">
+	   <sql>
+		   SELECT
+		   tpf.id,
+		   tf.title AS title,
+		   tpf.create_user_name AS createUserName,
+		   tpf.create_report_time AS createReportTime,
+		   (SELECT name from t_supervisor_company where code = tpf.company_id) AS companyName,
+		   tpf.report_name AS reportName,
+		   tpf.special_project_description AS specialProjectDescription,
+		   tpf.supervisor_analysis AS supervisorAnalysis,
+		   tpf.risk_and_analysis AS riskAndAnalysis,
+		   tpf.examination_conclusions AS examinationConclusions,
+		   tpf.supervisor_suggestion AS supervisorSuggestion,
+		   tpf.examine_chairperson_opinion AS examineChairpersonOpinion,
+		   tpf.examine_chairperson_message AS examineChairpersonMessage,
+		   tpf.examine_chairperson_name AS examineChairpersonName,
+		   tpf.examine_chairperson_time AS examineChairpersonTime,
+		   tpf.examine_work_opinion AS examineWorkOpinion,
+		   tpf.examine_work_message AS examineWorkMessage,
+		   tpf.examine_work_name AS examineWorkName,
+		   tpf.examine_work_time AS examineWorkTime,
+		   tpf.urgent_type AS urgentType,
+		   tpf.risk_type AS riskType,
+		   tpf.host_offices AS hostOffices,
+		   tpf.handle_offices AS handleOffices,
+		   tpf.check_from AS checkFrom,
+		   tpf.document_number AS documentNumber
+		   FROM
+		   t_pf_special_project_report tpf,
+		   t_flow_form tf
+		   WHERE
+		   tpf.form_data_id = tf.form_data_id
+		   AND tf.process_name = 'special_project_report'
+		   AND tpf.form_data_id =:formDataId
+	    </sql>
+	</sqlUnit>
+	
+	<!-- 获取重大事项报告内容-->
+	<sqlUnit name="get_major_matters_report">
+	   <sql>
+		   SELECT
+		   tpf.id,
+		   tf.title AS title,
+		   tpf.create_user_name AS createUserName,
+		   tpf.create_report_time AS createReportTime,
+		   (SELECT name from t_supervisor_company where code = tpf.company_id) AS companyName,
+		   tpf.report_name AS reportName,
+		   tpf.special_project_description AS specialProjectDescription,
+		   tpf.supervisor_analysis AS supervisorAnalysis,
+		   tpf.supervisor_suggestion AS supervisorSuggestion,
+		   tpf.examine_chairperson_opinion AS examineChairpersonOpinion,
+		   tpf.examine_chairperson_message AS examineChairpersonMessage,
+		   tpf.examine_chairperson_name AS examineChairpersonName,
+		   tpf.examine_chairperson_time AS examineChairpersonTime,
+		   tpf.examine_work_opinion AS examineWorkOpinion,
+		   tpf.examine_work_message AS examineWorkMessage,
+		   tpf.examine_work_name AS examineWorkName,
+		   tpf.examine_work_time AS examineWorkTime,
+		   tpf.urgent_type AS urgentType,
+		   tpf.risk_type AS riskType,
+		   tpf.host_offices AS hostOffices,
+		   tpf.document_number AS documentNumber
+		   FROM
+		   t_pf_special_project_report tpf,
+		   t_flow_form tf
+		   WHERE
+		   tpf.form_data_id = tf.form_data_id
+		   AND tf.process_name = 'major_matter_report'
+		   AND tpf.form_data_id =:formDataId
+	    </sql>
+	</sqlUnit>
+
+	<!-- 获取其他事项报告内容-->
+	<sqlUnit name="get_orther_report">
+		<sql>
+			SELECT
+			tpf.id,
+			tf.title AS title,
+			tpf.write_name AS writeName,
+			tpf.write_time AS writeTime,
+			(SELECT name from t_supervisor_company where code = tpf.company_id) AS companyName,
+			tpf.content AS content,
+			tpf.examine_chairperson_opinion AS examineChairpersonOpinion,
+			tpf.examine_chairperson_message AS examineChairpersonMessage,
+			tpf.examine_chairperson_name AS examineChairpersonName,
+			tpf.examine_chairperson_time AS examineChairpersonTime,
+			tpf.examine_work_opinion AS examineWorkOpinion,
+			tpf.examine_work_message AS examineWorkMessage,
+			tpf.examine_work_name AS examineWorkName,
+			tpf.examine_work_time AS examineWorkTime,
+			tpf.host_offices AS hostOffices,
+			tpf.document_number AS documentNumber
+			FROM
+			t_pf_other_report tpf,
+			t_flow_form tf
+			WHERE
+			tpf.form_data_id = tf.form_data_id
+			AND tf.process_name = 'other_report'
+			AND tpf.form_data_id =:formDataId
+		</sql>
+	</sqlUnit>
+
+	<!-- 获取请假申请内容-->
+	<sqlUnit name="get_apply_leave">
+		<sql>
+			SELECT
+			tpf.id,
+			tf.title AS title,
+			tpf.name AS name,
+			tpf.offices AS offices,
+			tpf.duties AS duties,
+			(select tn.busi_name from t_n_dict tn where tn.parent_id = 'D_U150978118330598506' and tn.busi_value = tpf.leave_type) AS leaveType,
+			tpf.start_time AS startTime,
+			tpf.end_time AS endTime,
+			tpf.total_days AS totalDays,
+			tpf.depute_name AS deputeName,
+			tpf.leave_reason AS leaveReason,
+			tpf.supervisor_chairman_opinion AS supervisorChairmanOpinion,
+			tpf.supervisor_chairman_cause AS supervisorChairmanCause,
+			tpf.supervisor_chairman_name AS supervisorChairmanName,
+			tpf.supervisor_chairman_date AS supervisorChairmanData,
+			tpf.service_center_opinion AS serviceCenterOpinion,
+			tpf.service_center_msg AS serviceCenterMsg,
+			tpf.service_center_name AS serviceCenterName,
+			tpf.service_center_time AS serviceCenterTime
+			FROM
+			t_pf_apply_leave tpf,
+			t_flow_form tf
+			WHERE
+			tpf.form_data_id = tf.form_data_id
+			AND tf.process_name = 'apply_leave'
+			AND tpf.form_data_id =:formDataId
+		</sql>
+	</sqlUnit>
+
+	<!-- 获取出境申请内容-->
+	<sqlUnit name="get_apply_exit">
+		<sql>
+			SELECT
+			tpf.id,
+			tf.title AS title,
+			tpf.name AS name,
+			tpf.company AS company,
+			tpf.duties AS duties,
+			tpf.cost_come_from AS costComeFrom,
+			tpf.go_country_and_way AS goCountryAndWay,
+			tpf.travel_start_date AS travelStartDate,
+			tpf.travel_end_date AS travelEndDate,
+			tpf.travel_days AS travelDays,
+			tpf.leave_reasons AS leaveReasons,
+			tpf.have_go_situation_this_year AS haveGoSituationThisYear,
+			tpf.examine_chairperson_opinion AS examineChairpersonOpinion,
+			tpf.examine_chairperson_message AS examineChairpersonMessage,
+			tpf.examine_chairperson_name AS examineChairpersonName,
+			tpf.examine_chairperson_time AS examineChairpersonTime,
+			tpf.service_centre_opinion AS serviceCenterOpinion,
+			tpf.service_centre_cause AS serviceCenterCause,
+			tpf.service_centre_name AS serviceCenterName,
+			tpf.service_centre_time AS serviceCenterTime
+			FROM
+			t_pf_leave_country_approval tpf,
+			t_flow_form tf
+			WHERE
+			tpf.form_data_id = tf.form_data_id
+			AND tf.process_name = 'apply_exit'
+			AND tpf.form_data_id =:formDataId
+		</sql>
+	</sqlUnit>
+
+	<!-- 获取出境同行亲属-->
+	<sqlUnit name="get_fellow_relatives">
+		<sql>
+			SELECT
+			tpf.id,
+			tpf.name AS name,
+			tpf.relation AS relation,
+			tpf.company AS company,
+			tpf.duties AS duties,
+			tpf.tel AS tel
+			FROM
+			t_pf_fellow_relatives tpf,
+			t_flow_form tf
+			WHERE
+			tpf.form_data_id = tf.form_data_id
+			AND tpf.state = '0'
+			AND tf.process_name = 'apply_exit'
+			AND tpf.form_data_id =:formDataId
+		</sql>
+	</sqlUnit>
+
+	<!-- 获取其他申请内容-->
+	<sqlUnit name="get_other_apply">
+		<sql>
+			SELECT
+			tpf.id,
+			tf.title AS title,
+			tpf.apply_name AS applyName,
+			tpf.title AS applyTitle,
+			tpf.content AS content,
+			tpf.supervisor_chairman_opinion AS supervisorChairmanOpinion,
+			tpf.supervisor_chairman_cause AS supervisorChairmanCause,
+			tpf.supervisor_chairman_name AS supervisorChairmanName,
+			tpf.supervisor_chairman_date AS supervisorChairmanData,
+			tpf.service_centre_opinion AS serviceCenterOpinion,
+			tpf.service_centre_cause AS serviceCenterCause,
+			tpf.service_centre_name AS serviceCenterName,
+			tpf.service_centre_time AS serviceCenterTime
+			FROM
+			t_pf_other_apply tpf,
+			t_flow_form tf
+			WHERE
+			tpf.form_data_id = tf.form_data_id
+			AND tf.process_name = 'apply_other'
+			AND tpf.form_data_id =:formDataId
+		</sql>
+	</sqlUnit>
+	
+	<!-- 获取监管流程内容-->
+	<sqlUnit name="get_tracking_management">
+	   <sql>
+		select tpf.id,tf.title as title,tpf.chairperson_examine_plan_opinion as examineChairpersonOpinion,
+		 	tpf.chairperson_examine_plan_message as examineChairpersonMessage,tpf.chairperson_examine_plan_name as examineChairpersonName,
+			tpf.chairperson_examine_plan_time as examineChairpersonTime,tpf.create_user_name as writeName,tpf.create_report_time as writeTime
+			from t_pf_trcking_management tpf,t_flow_form tf
+			where tpf.form_data_id = tf.form_data_id and tpf.form_data_id=:formDataId and tf.process_name = 'trcking_management'
+	    </sql>
+	</sqlUnit>
+	
+	<!-- 用户信息 -->
+     <sqlUnit name="get_user">
+        <sql>
+            select t.id,t.org_id as orgId,t.username as userName,t.password from t_n_user t where t.username=:userName and t.password=:password and t.state='1' 
+        </sql>
+    </sqlUnit>
+    
+	<!-- 监事会工作处接收者列表 -->
+     <sqlUnit name="get_receiver_list">
+        <sql>
+            select t.id,t.org_id as orgId,t.username as userName,t.password from t_n_user t,t_n_role_user r
+            where t.id=r.user_id and t.state='1' and r.role_id='R_U151090464705005132'
+        </sql>
+    </sqlUnit>
+    
+	<!-- 更新推送报告至OA次数 -->
+     <sqlUnit name="change_send_oa_count">
+        <sql>
+           update t_flow_form set send_oa_count = (send_oa_count+1) where form_data_id =:formDataId
+        </sql>
+    </sqlUnit>
+	
+</sqlMap>

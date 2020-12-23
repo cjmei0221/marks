@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户类型</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>用户类型</h1>
+	<p>用户类型</p>
+	<h2>实体类  (SysRole)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>roleid</td><td>角色ID</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>updatetime</td><td>更新时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>3</td><td>creator</td><td>创建者</td><td>varchar2</td><td>无</td></tr><tr><td>4</td><td>rolename</td><td>角色名称</td><td>varchar2</td><td>无</td></tr><tr><td>5</td><td>createtime</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>6</td><td>userType</td><td>用户类型</td><td>varchar2</td><td>无</td></tr><tr><td>7</td><td>companyId</td><td>公司ID</td><td>varchar2</td><td>无</td></tr><tr><td>8</td><td>lvl</td><td>级别</td><td>number</td><td>无</td></tr><tr><td>9</td><td>showFlag</td><td>是否单独维护</td><td>varchar2</td><td>0：否 1：是</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (SysRoleController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/sysRole/findSysRoleById</td><td>findSysRoleById</td><td>查询用户类型</td></tr><tr><td>2</td><td>/sysRole/save</td><td>saveSysRole</td><td>保存用户类型</td></tr><tr><td>3</td><td>/sysRole/update</td><td>updateSysRole</td><td>更新用户类型</td></tr><tr><td>4</td><td>/sysRole/delete</td><td>deleteSysRoleById</td><td>删除用户类型</td></tr><tr><td>5</td><td>/sysRole/findAllSysRole</td><td>findAllSysRole</td><td>查询全部用户类型</td></tr><tr><td>6</td><td>/sysRole/deleteIds</td><td>deleteSysRole</td><td>删除多个用户类型</td></tr><tr><td>7</td><td>/sysRole/list</td><td>list</td><td>列表查询用户类型</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (SysRoleService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询用户类型</td></tr><tr><td>2</td><td>save</td><td>保存用户类型</td></tr><tr><td>3</td><td>update</td><td>更新用户类型</td></tr><tr><td>4</td><td>deleteById</td><td>删除用户类型</td></tr><tr><td>5</td><td>findAll</td><td>查询全部用户类型</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个用户类型</td></tr><tr><td>7</td><td>list</td><td>列表查询用户类型</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(SysRoleDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询用户类型</td></tr><tr><td>2</td><td>save</td><td>保存用户类型</td></tr><tr><td>3</td><td>update</td><td>更新用户类型</td></tr><tr><td>4</td><td>deleteById</td><td>删除用户类型</td></tr><tr><td>5</td><td>findAll</td><td>查询全部用户类型</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个用户类型</td></tr><tr><td>7</td><td>list</td><td>列表查询用户类型</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

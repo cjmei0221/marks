@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!-- SalesInfo.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>管理平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="format-detection" content="telephone=no, email=no" />
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/inner/css/base.css">
+<script type="text/javascript" src="/inner/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/inner/js/base-config.js"></script>
+<script type="text/javascript" src="/inner/js/sysmsg.js"></script>
+<script type="text/javascript" src="/inner/js/tool.js"></script>
+</head>
+
+<body>
+	<div id="mainPanel">
+		<div align="center" style="width: 100%;">
+			<form id="ff" name="ff" method="post">
+				<div id="tt" class="easyui-tabs"
+					style="width: 100%; height: 470px; text-align: center;">
+					<div title="基础信息" style="padding: 20px; display: none;"
+						data-options="tabWidth:100">
+						<table>
+							<tr>
+								<th style="width: 120px; text-align: right;">方案编号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td colspan="3"><input id="projectCode" name="projectCode"
+									class="easyui-validatebox" style="width: 200px;"
+									maxlength="255" readonly="readonly"></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">方案名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td colspan="3"><input id="projectName" name="projectName"
+									class="easyui-validatebox" data-options="required:true"
+									style="width: 400px; height: 30px;" maxlength="255"></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">业务类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="ywCode" class="easyui-combobox"
+									name="ywCode" style="width: 200px;"
+									data-options="required:true">
+										<option value="0">优惠券</option>
+								</select></td>
+								<th style="width: 120px; text-align: right;">券类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="typeCode" class="easyui-combobox"
+									name="typeCode" style="width: 200px;"
+									data-options="required:true">
+										<option value="0">现金券</option>
+										<option value="1">折扣券</option>
+								</select></td>
+							</tr>
+
+
+							<tr>
+								<th style="width: 120px; text-align: right;">开始日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="startDate" name="startDate"
+									class="easyui-datebox" data-options="required:true"
+									style="width: 200px;" maxlength="20"></td>
+
+								<th style="width: 120px; text-align: right;">结束日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="endDate" name="endDate"
+									class="easyui-datebox" data-options="required:true"
+									style="width: 200px;" maxlength="20"></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">每人限制数&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="daylimit" name="daylimit"
+									class="easyui-numberbox"
+									data-options="required:true,min:1,precision:0"
+									style="width: 200px;"></td>
+								<th style="width: 120px; text-align: right;">总限制数&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="totallimit" name="totallimit"
+									class="easyui-numberbox"
+									data-options="required:true,min:1,precision:0"
+									style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">方案值&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="projectVal" name="projectVal"
+									class="easyui-validatebox" data-options="required:true"
+									style="width: 80px;" maxlength="50">(订单金额/折扣值（0.1-9.9）)</td>
+								<th style="width: 120px; text-align: right;">使用条件&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="useLimit" name="useLimit"
+									class="easyui-numberbox"
+									data-options="required:true,min:1,precision:2"
+									style="width: 100px;" maxlength="10">(订单金额)</td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right; height: 30px;">使用场景&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input type="radio" name="sceneCode" value="0"
+									checked="checked">主动领取</input> <input type="radio"
+									name="sceneCode" value="1">生日赠送</input> <input type="radio"
+									name="sceneCode" value="2">购买赠送</input></td>
+								<th style="width: 120px; text-align: right;">推送条件&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="pushLimit" name="pushLimit"
+									class="easyui-numberbox"
+									data-options="required:true,min:0,precision:2"
+									style="width: 100px;" maxlength="10" value="0">(订单金额)</td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">方案介绍&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td colspan="3"><textarea rows="5" cols="80" id="intro"
+										name="intro"></textarea></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">备注&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td colspan="3"><input id="remarks" name="remarks"
+									class="easyui-validatebox" style="width: 400px;"
+									maxlength="250"></td>
+							</tr>
+
+							<tr height="25px">
+								<td colspan="4"></td>
+							</tr>
+							<tr>
+								<td colspan="4" align="center"><a id="next1" name="next1"
+									href="javascript:void(0)" class="easyui-linkbutton"
+									style="width: 100px;">下一步</a></td>
+							</tr>
+						</table>
+					</div>
+					<div title="条件筛选" style="display: none;"
+						data-options="tabWidth:100">
+						<table>
+							<tr id="btnTr">
+								<td colspan="4" style="text-align: center"><a
+									id="btnCancel" name="btnCancel" href="javascript:void(0)"
+									class="easyui-linkbutton" style="width: 100px;"
+									data-options="iconCls:'icon-cancel'">取消</a>
+									&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+									href="javascript:void(0)" class="easyui-linkbutton"
+									style="width: 100px;" data-options="iconCls:'icon-save'">保存</a></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">是否限制门店&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="limitAreaFlag" class="easyui-combobox"
+									name="limitAreaFlag" style="width: 100px;"
+									data-options="required:true">
+										<option value="0">不限</option>
+										<option value="1">限制</option>
+								</select></td>
+								<th style="width: 120px; text-align: right;">限制门店&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><textarea id="limitAreaCodes" name="limitAreaCodes"
+										placeholder="请填写门店编号以;(英文)结尾" rows="3" cols="60"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">参与促销对象&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="limitGoodFlag" class="easyui-combobox"
+									name="limitGoodFlag" style="width: 100px;"
+									data-options="required:true">
+										<option value="0">不限</option>
+										<option value="1">品类</option>
+										<option value="2">品牌</option>
+										<option value="3">商品</option>
+								</select></td>
+								<th style="width: 120px; text-align: right;">是否有排除对象&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="notJoinFlag" class="easyui-combobox"
+									name="notJoinFlag" style="width: 100px;"
+									data-options="required:true">
+										<option value="0">否</option>
+										<option value="1">是</option>
+								</select></td>
+
+							</tr>
+						</table>
+						<div id="goodtt" class="easyui-tabs"
+							style="width: 760px; height: 300px;">
+							<div title="参与对象" style="padding: 20px; display: none;"
+								data-options="tabWidth:100">
+								<p>请填写品类 或品牌 或商品 的编号，并以;(英文)结尾,如 商品编号 1001;1002;</p>
+								<p>
+									<textarea rows="6" cols="110" id="limitGoodNos"
+										name="limitGoodNos"></textarea>
+								</p>
+							</div>
+							<div title="排除对象" style="overflow: auto; display: none;"
+								data-options="tabWidth:100">
+								<div id="removett" class="easyui-tabs"
+									style="width: 100%; height: 265px;">
+									<div title="品类" style="padding: 20px; display: none;"
+										data-options="tabWidth:100">
+										<p>请填写品类 的编号，并以;(英文)结尾,如 编号 01;02;</p>
+										<p>
+											<textarea rows="6" cols="80" id="notJoinGoodTypes"
+												name="notJoinGoodTypes"></textarea>
+										</p>
+									</div>
+									<div title="品牌" style="padding: 20px; display: none;"
+										data-options="tabWidth:100">
+										<p>请填写品牌的编号，并以;(英文)结尾,如 编号 10001;10002;</p>
+										<p>
+											<textarea rows="6" cols="110" id="notJoinBrands"
+												name="notJoinBrands"></textarea>
+										</p>
+									</div>
+									<div title="商品" style="padding: 20px; display: none;"
+										data-options="tabWidth:100">
+										<p>请填写商品 的编号，并以;(英文)结尾,如 编号 1001;1002;</p>
+										<p>
+											<textarea rows="6" cols="110" id="notJoinGoods"
+												name="notJoinGoods"></textarea>
+										</p>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+	<div id="goodWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 600px; height: 450px; padding: 10px;"></div>
+
+</body>
+
+<!-- <script src="js/salesInfo.js"></script> -->
+<script type="text/javascript">
+	/* loadScript("js/salesInfo.js", function() { //加载,并执行回调函数
+		alert($(window).height());
+	}); */
+	loadScript("js/couponEdit.js?_time=" + new Date().getTime()); //加载js文件
+</script>
+</html>

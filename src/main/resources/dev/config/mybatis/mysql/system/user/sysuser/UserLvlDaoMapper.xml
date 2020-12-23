@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.system.user.sysuser.dao.UserLvlDao">
+
+	<select id="findById"
+		resultType="com.marks.smart.system.user.sysuser.pojo.UserLvl">
+		SELECT * FROM TB_USER_LVL t where t.LVLID = #{lvlId}
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.system.user.sysuser.pojo.UserLvl">
+		<!--<selectKey keyProperty="lvlId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_USER_LVL (
+		LVLID,
+		COMPANYID,
+		LVLNAME,
+		LVL,
+		CREATETIME,
+		CREATOR,
+		UPDATETIME,
+		UPDATER,
+		DELFLAG,
+		UPPOINTFLAG,
+		UPPOINT,
+		UPAMTFLAG,
+		UPAMT
+		)
+		VALUES(
+		#{info.lvlId:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.lvlName:VARCHAR},
+		#{info.lvl:NUMERIC},
+		#{info.createtime:VARCHAR},
+		#{info.creator:VARCHAR},
+		#{info.updatetime:VARCHAR},
+		#{info.updater:VARCHAR},
+		#{info.delFlag:NUMERIC},
+		#{info.upPointFlag:NUMERIC},
+		#{info.upPoint:NUMERIC},
+		#{info.upAmtFlag:NUMERIC},
+		#{info.upAmt:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_USER_LVL (
+		LVLID,
+		COMPANYID,
+		LVLNAME,
+		LVL,
+		CREATETIME,
+		CREATOR,
+		UPDATETIME,
+		UPDATER,
+		DELFLAG,
+		UPPOINTFLAG,
+		UPPOINT,
+		UPAMTFLAG,
+		UPAMT
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.lvlId:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.lvlName:VARCHAR},
+			#{info.lvl:NUMERIC},
+			#{info.createtime:VARCHAR},
+			#{info.creator:VARCHAR},
+			#{info.updatetime:VARCHAR},
+			#{info.updater:VARCHAR},
+			#{info.delFlag:NUMERIC},
+			#{info.upPointFlag:NUMERIC},
+			#{info.upPoint:NUMERIC},
+			#{info.upAmtFlag:NUMERIC},
+			#{info.upAmt:VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.smart.system.user.sysuser.pojo.UserLvl">
+		UPDATE TB_USER_LVL
+		SET
+		COMPANYID = #{info.companyId:VARCHAR},
+		LVLNAME = #{info.lvlName:VARCHAR},
+		LVL = #{info.lvl:NUMERIC},
+		CREATOR = #{info.creator:VARCHAR},
+		UPDATETIME = #{info.updatetime:VARCHAR},
+		UPDATER = #{info.updater:VARCHAR},
+		DELFLAG = #{info.delFlag:NUMERIC},
+		UPPOINTFLAG = #{info.upPointFlag:NUMERIC},
+		UPPOINT = #{info.upPoint:NUMERIC},
+		UPAMTFLAG = #{info.upAmtFlag:NUMERIC},
+		UPAMT = #{info.upAmt:VARCHAR}
+		WHERE
+		LVLID = #{info.lvlId}
+	</update>
+	<!-- <update id="updateBatch" parameterType="List"> <foreach collection="list" 
+		item="info" index="index" separator=";"> UPDATE TB_USER_LVL SET COMPANYID 
+		= #{info.companyId:VARCHAR}, LVLNAME = #{info.lvlName:VARCHAR}, LVL = #{info.lvl:NUMERIC}, 
+		CREATOR = #{info.creator:VARCHAR}, UPDATETIME = #{info.updatetime:VARCHAR}, 
+		UPDATER = #{info.updater:VARCHAR}, DELFLAG = #{info.delFlag:NUMERIC}, UPPOINTFLAG 
+		= #{info.upPointFlag:NUMERIC}, UPPOINT = #{info.upPoint:NUMERIC}, UPAMTFLAG 
+		= #{info.upAmtFlag:NUMERIC}, UPAMT = #{info.upAmt:VARCHAR} WHERE LVLID = 
+		#{info.lvlId} </foreach> </update> -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_USER_LVL WHERE LVLID=#{lvlId}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.smart.system.user.sysuser.pojo.UserLvl">
+		SELECT * FROM TB_USER_LVL t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_USER_LVL WHERE LVLID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.smart.system.user.sysuser.pojo.UserLvl"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_USER_LVL t
+		WHERE 1=1
+
+		and t.companyId=#{companyId}
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

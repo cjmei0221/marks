@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.system.user.sysrole.dao.SysRoleDao">
+
+	<select id="findById" resultType="com.marks.smart.system.user.sysrole.pojo.SysRole">
+		SELECT * FROM TB_SYS_ROLE
+		sysrole where sysrole.ROLEID = #{roleid}
+	</select>
+	<select id="listByOrgId" resultType="com.marks.smart.system.user.sysrole.pojo.SysRole">
+		select * from
+		tb_sys_role t where
+		t.orgId=#{orgId}
+	</select>
+
+	<insert id="save" parameterType="com.marks.smart.system.user.sysrole.pojo.SysRole">
+		INSERT INTO TB_SYS_ROLE
+		(
+		ROLEID,
+		ROLETYPE,
+		LVL,
+		showflag,
+		UPDATETIME,
+		CREATOR,
+		ROLENAME,
+		CREATETIME,
+		COMPANYID,
+		delFlag,
+		orgId,
+		orgName,
+		roleYwType
+		)
+		VALUES(
+		#{roleid:VARCHAR},
+		#{roleType:VARCHAR},
+		#{lvl:NUMERIC},
+		#{showFlag:NUMERIC},
+		now(),
+		#{creator:VARCHAR},
+		#{rolename:VARCHAR},
+		now(),
+		#{companyId:VARCHAR},
+		#{delFlag:NUMERIC},
+		#{orgId:VARCHAR},
+		#{orgName:VARCHAR},
+		#{roleYwType:NUMERIC}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.smart.system.user.sysrole.pojo.SysRole">
+		UPDATE TB_SYS_ROLE
+		SET
+		orgId=#{orgId:VARCHAR},
+		orgName=#{orgName:VARCHAR},
+		delFlag=#{delFlag:NUMERIC},
+		roleType
+		= #{roleType:VARCHAR},
+		LVL=#{lvl:NUMERIC},
+		showflag=#{showFlag:NUMERIC},
+		UPDATETIME =
+		now(),
+		ROLENAME =
+		#{rolename:VARCHAR}
+		WHERE
+		ROLEID = #{roleid}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_SYS_ROLE
+		WHERE
+		ROLEID=#{roleid}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.smart.system.user.sysrole.pojo.SysRole">
+		SELECT * FROM TB_SYS_ROLE
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_SYS_ROLE WHERE ROLEID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="getUserlist" resultType="com.marks.smart.system.user.sysrole.pojo.SysRole"
+		parameterType="java.util.Map">
+		SELECT sysrole.*
+		FROM TB_SYS_ROLE sysrole
+		WHERE 1=1
+		<if test="companyId !=null and companyId != ''">
+			and sysrole.COMPANYID = #{companyId}
+		</if>
+		<if test="roleYwType !=null and roleYwType != ''">
+			and sysrole.roleYwType in (${roleYwType})
+		</if>
+		<if test="orgId !=null and orgId != ''">
+			and sysrole.orgId = #{orgId}
+		</if>
+		and sysrole.lvl &gt;= #{lvl}
+		and sysrole.SHOWFLAG=1
+		ORDER BY sysrole.orgId,sysrole.lvl
+	</select>
+
+	<select id="list" resultType="com.marks.smart.system.user.sysrole.pojo.SysRole"
+		parameterType="java.util.Map">
+		SELECT sysrole.*
+		FROM TB_SYS_ROLE sysrole
+		WHERE 1=1
+		<if test="companyId !=null and companyId != ''">
+			and sysrole.COMPANYID = #{companyId}
+		</if>
+		<if test="orgId !=null and orgId != ''">
+			and sysrole.orgId = #{orgId}
+		</if>
+		<if test="roleYwType !=null and roleYwType != ''">
+			and sysrole.roleYwType = #{roleYwType}
+		</if>
+		<if test="loginUserRoleId !=null and loginUserRoleId != ''">
+			and sysrole.ROLEID != #{loginUserRoleId}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( sysrole.ROLEID
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or sysrole.ORGID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			sysrole.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysrole.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysrole.ROLENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysrole.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		<if test="s_lvl !=null and s_lvl != ''">
+			and sysrole.lvl = #{s_lvl}
+		</if>
+		and sysrole.lvl &gt;= #{lvl}
+
+		ORDER BY sysrole.orgId,sysrole.UPDATETIME desc
+
+	</select>
+
+	<insert id="saveRoleFunc"
+		parameterType="com.marks.smart.system.user.sysrole.pojo.SysRoleFunc">
+		INSERT INTO
+		TB_SYS_ROLE_FUNC (
+		ROLEID,
+		FUNCID,
+		UPDATETIME,
+		CREATOR,
+		CREATETIME
+		)
+		VALUES(
+		#{roleid:VARCHAR},
+		#{funcid:VARCHAR},
+		now(),
+		#{creator:VARCHAR},
+		now()
+		)
+	</insert>
+
+	<insert id="saveBatchRoleFunc" parameterType="java.util.List">
+
+		INSERT INTO
+		TB_SYS_ROLE_FUNC (
+		ROLEID,
+		FUNCID,
+		UPDATETIME,
+		CREATOR,
+		CREATETIME
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.roleid:VARCHAR},
+			#{item.funcid:VARCHAR},
+			now(),
+			#{item.creator:VARCHAR},
+			now()
+			)
+		</foreach>
+	</insert>
+
+	<delete id="deleteFuncByRoleid">
+		delete from tb_sys_role_func where
+		roleid=#{roleid}
+	</delete>
+	<select id="getFuncListByRoleId" resultType="String">
+		select
+		DISTINCT tsrf.funcid
+		from tb_sys_role_func tsrf where
+		tsrf.roleid=#{roleId:VARCHAR}
+	</select>
+	<select id="getFuncList" resultType="com.marks.smart.system.system.sysmenu.pojo.SysFunc">
+	SELECT distinct
+		tso.OPERID,
+		tso.OPERNAME,
+		tso.sort,
+		tsf.MENUID,
+		tsf.FUNCID,
+		t2.state
+		FROM
+		TB_SYS_FUNC tsf JOIN TB_SYS_OPERATE  tso on tsf.operid=tso.operid
+		left join tb_sys_role_func tsrfn on tsf.funcid=tsrfn.funcid
+		left join (select
+		DISTINCT tsrf.funcid, 'checked' state
+		from tb_sys_role_func tsrf where
+		tsrf.roleid=#{roleId:VARCHAR}
+		) t2 on t2.funcid = tsf.funcid
+		where 1=1
+		<if test="loginUserRoleId != null">
+			AND tsrfn.ROLEID =#{loginUserRoleId}
+		</if>
+		order by tso.sort
+	</select>
+	
+	<select id="countUserByRoleid" resultType="int">
+		select count(1) from
+		tb_user t where t.roleid=#{roleId}
+	</select>
+	<update id="updateSysUserByRole" parameterType="com.marks.smart.system.user.sysrole.pojo.SysRole">
+		update tb_user set rolename=#{info.rolename:VARCHAR},roleLvl=#{info.lvl:NUMERIC} where roleid=#{info.roleid:VARCHAR}
+	</update>
+	<update id="updateSysUserRoleByRole" parameterType="com.marks.smart.system.user.sysrole.pojo.SysRole">
+		update tb_user_org_role set rolename=#{info.rolename:VARCHAR},roleLvl=#{info.lvl:NUMERIC} where roleid=#{info.roleid:VARCHAR}
+	</update>
+</mapper>

@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap SYSTEM "./mapsql.dtd">
+<sqlMap>
+	<!-- 获取小组列表 -->
+	 <sqlUnit name="supervisor_group_list">
+	     <sql>
+	     	select id,pid,open,name,create_date,update_date,create_user_id,update_user_id,is_use
+	     	from t_supervisor_group order by is_use DESC
+		</sql>
+	</sqlUnit>
+	
+	<!-- 批量删除监事会小组 -->
+	<sqlUnit name="supervisor_group_delete">
+	     <sql>
+	     	delete from t_supervisor_group where id not in (:ids)
+		</sql>
+	</sqlUnit>
+	
+	<!-- 批量删除监事会（删除小组的时候级联删除） -->
+	<sqlUnit name="supervisor_group_cascade_delete">
+	     <sql>
+	     	delete from t_supervisor_info where group_id not in (:ids)
+		</sql>
+	</sqlUnit>
+
+	<!--删除-->
+	<sqlUnit name="delete_supervisor">
+		<sql>
+			delete from t_supervisor_info where no =:no
+		</sql>
+	</sqlUnit>
+	
+	<!-- 获取公司列表 -->
+	 <sqlUnit name="supervisor_company_list">
+	     <sql>
+	     	select id,name,code from t_supervisor_company
+		</sql>
+	</sqlUnit>
+
+	<!-- 分页获取监事会数据 -->
+	 <sqlUnit name="supervisor_data_bypage">
+	     <sql>
+	     	select i.no,i.term_warning,i.group_id,g.name as groupName,i.name as infoName,i.supervisor_company_id,c.name as companyName,i.use_flag,i.description,i.id
+	     	from t_supervisor_info as i
+	     	left join t_supervisor_company as c
+	     	on i.supervisor_company_id = c.code
+	     	left join t_supervisor_group as g
+	     	on i.group_id = g.id
+	     	WHERE
+			1=1
+			[AND i.no LIKE '%:no%' ]
+			[AND i.group_id =:groupId ]
+			[AND i.name LIKE '%:name%' ] 
+			[AND c.name LIKE '%:supervisorCompanyName%' ]
+			ORDER BY
+			g.create_date ASC
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据id获取监事会数据-->
+	 <sqlUnit name="supervisor_info_by_id">
+	     <sql>
+	     	select i.no,i.term_warning,i.group_id,g.name as groupName,i.name as infoName,i.supervisor_company_id,c.name as companyName,i.use_flag,i.description,i.id
+	     	from t_supervisor_info as i
+	     	left join t_supervisor_company as c
+	     	on i.supervisor_company_id = c.id
+	     	left join t_supervisor_group as g
+	     	on i.group_id = g.id
+	     	WHERE i.no = :id
+			ORDER BY
+			i.create_date DESC
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除附件记录 -->
+	<sqlUnit name="delete_attr_record">
+	     <sql>
+	     	delete from t_s_attachment where attachment_id =:id;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据basicId获取教育数据列表-->
+	<sqlUnit name="get_education_record">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),school,major,attIds,fileNames,remarks,degree from t_s_education t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where basic_id =:id and use_flag=1 order by degree;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据basicId获取工作经历数据列表-->
+	<sqlUnit name="get_history_work_record">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),company,duty,attIds,fileNames,remarks from t_s_work_history t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where basic_id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据basicId获取技术职称数据列表 -->
+	<sqlUnit name="get_skill_title_record">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),zy_title,major_direction,attIds,fileNames,remarks from t_s_skill_title t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where basic_id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据basicId获取技术职称数据列表 -->
+	<sqlUnit name="get_office_record">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),company,duty_name,attIds,fileNames,remarks from t_s_office t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where basic_id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据basicId获取奖惩情况数据列表 -->
+	<sqlUnit name="get_reward_record">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),reward_status,reward_reason,attIds,fileNames,remarks from t_s_reward t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where basic_id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据basicId获取奖惩情况数据列表 -->
+	<sqlUnit name="get_quit_record">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),leave_status,leave_reason,attIds,fileNames,remarks from t_s_quit t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where basic_id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	
+	<!-- 根据basicId获取合同记录数据列表 -->
+	<sqlUnit name="get_contract_record">
+	     <sql>
+			select id,basic_id,no,type,name,status,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),attIds,fileNames from t_s_contract t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where basic_id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据id获取教育单条数据记录-->
+	<sqlUnit name="get_education_record_single">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),school,yuanxi,banji,major,attIds,fileNames,remarks,degree from t_s_education t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据id获取工作经历单条数据记录-->
+	<sqlUnit name="get_wh_record_single">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),company,department,leader_name,duty,attIds,fileNames,remarks from t_s_work_history t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据id获取技术职称单条数据记录-->
+	<sqlUnit name="get_sk_record_single">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),zy_title,zy_type,major_direction,major_technology,attIds,fileNames,remarks from t_s_skill_title t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据id获取任职情况单条数据记录-->
+	<sqlUnit name="get_office_record_single">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),company,duty_type,duty_name,attIds,fileNames,remarks from t_s_office t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据id获取奖惩情况单条数据记录-->
+	<sqlUnit name="get_reward_record_single">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),reward_status,reward_reason,other_info,attIds,fileNames,remarks from t_s_reward t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据id获取离职情况单条数据记录-->
+	<sqlUnit name="get_quit_record_single">
+	     <sql>
+			select id,basic_id,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),leave_status,leave_reason,other_info,attIds,fileNames,remarks from t_s_quit t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据id获取合同情况单条数据记录-->
+	<sqlUnit name="get_contract_record_single">
+	     <sql>
+			select id,basic_id,no,type,name,status,SUBSTRING(start_date,1,10),SUBSTRING(end_date,1,10),attIds,fileNames,remarks from t_s_contract t
+			left join
+			(
+				select a.another_id,GROUP_CONCAT(a.attachment_id) as attIds,GROUP_CONCAT(n.file_name) as fileNames from t_s_attachment a
+				left join t_n_attachment n
+				on a.attachment_id = n.id
+				where file_name is not null
+				GROUP BY a.another_id
+			) as y
+			on t.id = y.another_id
+			where id =:id and use_flag=1;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除教育经历附件记录 -->
+	<sqlUnit name="delete_edu_attachment_records">
+	     <sql>
+			delete from t_s_attachment where another_id=:id;
+			delete from t_s_education where id=:id;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除工作经历附件记录 -->
+	<sqlUnit name="delete_wh_attachment_records">
+	     <sql>
+			delete from t_s_attachment where another_id=:id;
+			delete from t_s_work_history where id=:id;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除技术职称附件记录 -->
+	<sqlUnit name="delete_sk_attachment_records">
+	     <sql>
+			delete from t_s_attachment where another_id=:id;
+			delete from t_s_skill_title where id=:id;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除任职情况附件记录 -->
+	<sqlUnit name="delete_office_attachment_records">
+	     <sql>
+			delete from t_s_attachment where another_id=:id;
+			delete from t_s_office where id=:id;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除奖惩情况附件记录 -->
+	<sqlUnit name="delete_reward_attachment_records">
+	     <sql>
+			delete from t_s_attachment where another_id=:id;
+			delete from t_s_reward where id=:id;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除奖惩情况附件记录 -->
+	<sqlUnit name="delete_quit_attachment_records">
+	     <sql>
+			delete from t_s_attachment where another_id=:id;
+			delete from t_s_quit where id=:id;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除合同附件记录 -->
+	<sqlUnit name="delete_contract_attachment_records">
+	     <sql>
+			delete from t_s_attachment where another_id=:id;
+			delete from t_s_contract where id=:id;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 更新basic表,插入attachment_id -->
+	<sqlUnit name="update_basic_img">
+	     <sql>
+			update t_s_basic set attachment_id =:attachment_id where id =:id; 
+		</sql>
+	</sqlUnit>
+	
+	<!-- 异步获取部门 信息 -->
+	<sqlUnit name="ajax_get_group">
+	     <sql>
+			select id,pid,name,is_use from t_supervisor_group
+		</sql>
+	</sqlUnit>
+	
+	<!-- 异步获取职务类型 -->
+	<sqlUnit name="ajax_get_postType">
+	     <sql>
+			select id,name from t_s_duty_type;
+		</sql>
+	</sqlUnit>
+	
+	<!-- 得到是否已经存在图片了 -->
+	<sqlUnit name="get_basic_img_count">
+	     <sql>
+			select count(*),attachment_id from t_s_basic where attachment_id is not null and id =:id
+		</sql>
+	</sqlUnit>
+	
+	<!-- 设置数据库的字段为null -->
+	<sqlUnit name="set_basic_img_to_null">
+	     <sql>
+			update t_s_basic set attachment_id = null where id =:id
+		</sql>
+	</sqlUnit>
+	
+	<!-- 得到七个模块中use_flag为0的记录 -->
+	<sqlUnit name="get_ids_useflag_0">
+	     <sql>
+			select id from t_s_education where use_flag=0
+			UNION ALL
+			select id from t_s_contract where use_flag=0
+			UNION ALL
+			select id from t_s_office where use_flag=0
+			UNION ALL
+			select id from t_s_quit where use_flag=0
+			UNION ALL
+			select id from t_s_reward where use_flag=0
+			UNION ALL
+			select id from t_s_skill_title where use_flag=0
+			UNION ALL
+			select id from t_s_work_history where use_flag=0
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据basic_id得到七个模块中的id -->
+	<sqlUnit name="get_ids_by_basicid">
+	     <sql>
+			select id from t_s_education where basic_id in (:ids)
+			UNION ALL
+			select id from t_s_contract where basic_id in (:ids)
+			UNION ALL
+			select id from t_s_office where basic_id in (:ids)
+			UNION ALL
+			select id from t_s_quit where basic_id in (:ids)
+			UNION ALL
+			select id from t_s_reward where basic_id in (:ids)
+			UNION ALL
+			select id from t_s_skill_title where basic_id in (:ids)
+			UNION ALL
+			select id from t_s_work_history where basic_id in (:ids)
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据another得到所有的attachment_id -->
+	<sqlUnit name="get_attachmentIds_by_another">
+	     <sql>
+			select attachment_id from t_s_attachment where another_id in (:ids) 
+		</sql>
+	</sqlUnit>
+	
+	<!-- 批量去删除七大模块的数据  -->
+	<sqlUnit name="batch_delete_records">
+	     <sql>
+			delete from t_s_attachment where another_id in (:ids);
+			delete from t_s_contract where id in (:ids);
+			delete from t_s_education where id in (:ids);
+			delete from t_s_office where id in (:ids);
+			delete from t_s_quit where id in (:ids);
+			delete from t_s_reward where id in (:ids);
+			delete from t_s_skill_title where id in (:ids);
+			delete from t_s_work_history where id in (:ids);
+		</sql>
+	</sqlUnit>
+	
+	<!-- 得到基本模块中use_flag=0的记录  -->
+	<sqlUnit name="get_basic_ids_useflag_0">
+	     <sql>
+	     	select id from t_s_basic where use_flag=0
+		</sql>
+	</sqlUnit>
+	
+	<!-- 删除basic中use_flag=0的记录  -->
+	<sqlUnit name="delete_basic_use_flag0">
+	     <sql>
+	     	delete from t_s_basic where id in (:ids)
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据ids得到img -->
+	<sqlUnit name="get_att_id_by_basicIDS">
+	     <sql>
+	     	select attachment_id from t_s_basic where id in (:ids)
+		</sql>
+	</sqlUnit>
+	
+	<!-- 分页获取监事会信息 -->
+	<sqlUnit name="basic_data_bypage">
+	     <sql>
+	     	select 
+	     	t.name as tname,
+	     	g.name as gname,
+	     	case when t.post_name='SUPERVISOR_CHAIR' then '主席' when t.post_name='SUPERVISOR_PROFESSION' then '专职监事' when t.post_name='SUPERVISOR_EMPLOYMENT' then '职工监事' end,
+	     	case when t.sex=0 then '男' else '女' end,
+	     	SUBSTRING(t.birthday,1,7),
+	     	t.education,
+	     	SUBSTRING(t.entry_date,1,7),
+	     	case when t.staff_state=0 then '在职' when t.staff_state=1 then '离职' else '退休' end,
+	     	case when FORMAT(DATEDIFF(NOW(),t.start_work_date)/365,1)&lt;0 then 0.0 else FORMAT(DATEDIFF(NOW(),t.start_work_date)/365,1) end,
+	     	SUBSTRING(t.update_date,1,10),
+			 t.id
+			from t_s_basic as t
+			LEFT JOIN t_supervisor_group g
+			ON t.group_id = g.id
+			where t.use_flag=1
+			[AND t.post_name =:postName ]
+			[AND t.name LIKE '%:name%' ]
+			[AND t.entry_date &gt;=:startDate]
+			[AND t.entry_date &lt;=:endDate]
+			ORDER BY
+			g.create_date ASC
+		</sql>
+	</sqlUnit>
+	
+	<!-- 异步获取人员信息 -->
+	<sqlUnit name="ajax_get_basic_info">
+	     <sql>
+	     	select t.id as tid,t.name as tname,t.post_type,g.id as gid,g.name as gname 
+			from t_s_basic t
+			left join t_supervisor_group g
+			on t.group_id = g.id
+			where t.use_flag=1
+		</sql>
+	</sqlUnit>
+
+	<!-- 根据组id获取组下的监事会 -->
+	<sqlUnit name="ajax_get_sup_by_groupid">
+	     <sql>
+	     	select id,name from t_supervisor_info where group_id=:gid and use_flag=0
+		</sql>
+	</sqlUnit>
+	
+	<!-- 根据用户基本信息id获取用户已经监管的监事会 -->
+	<sqlUnit name="ajax_get_gup_list_by_userId">
+	     <sql>
+	     	select m.supervisor_id,SUBSTRING(m.start_date,1,10),SUBSTRING(m.end_date,1,10),m.if_focus,m.remarks,m.id,i.use_flag from t_s_supervisor_member m LEFT join t_supervisor_info i on m.supervisor_id = i.id
+			where basic_id =:basicId order by use_flag
+		</sql>
+	</sqlUnit>
+	
+	<!-- 异步获取所有的监事会 -->
+	<sqlUnit name="ajax_get_all_sup_list">
+	     <sql>
+	     	select id,name from t_supervisor_info where use_flag=0
+		</sql>
+	</sqlUnit>
+	
+	<!-- 分页获取人员监管监事会信息 -->
+	<sqlUnit name="ajax_get_sup_ByPage">
+	     <sql>
+	     	select b.name as bname,
+			case when (b.sex=1 and b.age&gt;=55) or (b.sex=0 and b.age&gt;=60) then 1 else 0 end,
+			case when b.sex=0 then '男' else '女' end,
+			case when b.post_type=0 then '监事' else '主席' end,
+			g.name as gname,
+			b.age,
+			b.phone,
+			b.office_phone,
+			k.ttw,
+			k.tn,
+			k.msd,
+			k.med,
+			k.mif,
+			b.id
+			from t_s_basic b
+			right join
+			(
+				select m.basic_id,GROUP_CONCAT(t.term_warning) as ttw,GROUP_CONCAT(t.name) as tn,GROUP_CONCAT(m.start_date) as msd,GROUP_CONCAT(m.end_date) as med,GROUP_CONCAT(m.if_focus) as mif from t_s_supervisor_member m
+				left join t_supervisor_info t
+				on m.supervisor_id = t.id 
+				where t.use_flag = 0 
+				[AND m.supervisor_id=:supervisorId]
+				[AND m.start_date&lt;=:startDate]
+				[AND m.end_date&gt;=:endDate]
+				GROUP BY m.basic_id
+			) k
+			on k.basic_id = b.id
+			left join t_supervisor_group g
+			on b.group_id = g.id
+			where 1=1
+			[AND b.group_id =:groupId]
+			[AND b.post_type=:office]
+		</sql>
+	</sqlUnit>
+
+	<!--获取公司数据前，删除所有旧公司数据-->
+	<sqlUnit name="delete_all_companies">
+		<sql>
+			delete from t_supervisor_company where del_flag = '0'
+		</sql>
+	</sqlUnit>
+
+	<!--根据组别id获取监事会数量-->
+	<sqlUnit name="get_supervisor_count_by_group_id">
+		<sql>
+			select count(*) from t_supervisor_info where group_id =:id
+		</sql>
+	</sqlUnit>
+
+	<!--根据组别id获取未被禁用的监事会数量-->
+	<sqlUnit name="get_not_ban_supervisor_count_by_group_id">
+		<sql>
+			select count(*) from t_supervisor_info where group_id =:id and use_flag = 0
+		</sql>
+	</sqlUnit>
+
+	<!--获取有监事会主席的公司列表-->
+	<sqlUnit name="oa_supervisor_company_list">
+		<sql>
+			SELECT DISTINCT t4.`id` as id,t4.`name` as name,t3.supervisor_company_id as code,t4.brief_name as briefName
+			FROM `t_s_basic` t1
+			INNER JOIN t_s_supervisor_member t2 ON t1.id = t2.basic_id
+			INNER JOIN t_supervisor_info t3 ON t2.supervisor_id = t3.id
+			INNER JOIN t_supervisor_company t4 ON t3.supervisor_company_id = t4.code
+			WHERE t1.post_type =1;
+		</sql>
+	</sqlUnit>
+</sqlMap>

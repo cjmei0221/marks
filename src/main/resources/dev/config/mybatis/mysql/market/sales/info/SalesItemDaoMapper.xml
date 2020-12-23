@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.marks.smart.market.project.sales.dao.SalesItemDao">
+
+	<select id="findById"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesItem">
+		SELECT * FROM TB_PROJECT_SALES_ITEM t where t.ITEMID =
+		#{itemId}
+	</select>
+	<select id="findByProjectCode"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesItem">
+		SELECT * FROM TB_PROJECT_SALES_ITEM t where t.PROJECTCODE =
+		#{projectCode}
+		order by t.SORT
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.market.project.sales.pojo.SalesItem">
+		<!--<selectKey keyProperty="itemId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_PROJECT_SALES_ITEM (
+		ITEMID,
+		ITEMCODE,
+		ITEMNAME,
+		LIMITNUMS,
+		ITEMTYPECODE,
+		ITEMTYPENAME,
+		ITEMVAL1,
+		ITEMVAL2,
+		UPDATETIME,
+		SORT,
+		CREATETIME,
+		PROJECTCODE,
+		PROJECTNAME,
+		COMPANYID
+		)
+		VALUES(
+		#{info.itemId:VARCHAR},
+		#{info.itemCode:VARCHAR},
+		#{info.itemName:VARCHAR},
+		#{info.limitNums:VARCHAR},
+		#{info.itemTypeCode:NUMERIC},
+		#{info.itemTypeName:VARCHAR},
+		#{info.itemVal1:VARCHAR},
+		#{info.itemVal2:VARCHAR},
+		now(),
+		#{info.sort:NUMERIC},
+		now(),
+		#{info.projectCode:VARCHAR},
+		#{info.projectName:VARCHAR},
+		#{info.companyId:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_PROJECT_SALES_ITEM (
+		ITEMID,
+		ITEMCODE,
+		ITEMNAME,
+		LIMITNUMS,
+		ITEMTYPECODE,
+		ITEMTYPENAME,
+		ITEMVAL1,
+		ITEMVAL2,
+		UPDATETIME,
+		SORT,
+		CREATETIME,
+		PROJECTCODE,
+		PROJECTNAME,
+		COMPANYID
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.itemId:VARCHAR},
+			#{info.itemCode:VARCHAR},
+			#{info.itemName:VARCHAR},
+			#{info.limitNums:VARCHAR},
+			#{info.itemTypeCode:NUMERIC},
+			#{info.itemTypeName:VARCHAR},
+			#{info.itemVal1:VARCHAR},
+			#{info.itemVal2:VARCHAR},
+			now(),
+			#{info.sort:NUMERIC},
+			now(),
+			#{info.projectCode:VARCHAR},
+			#{info.projectName:VARCHAR},
+			#{info.companyId:VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.smart.market.project.sales.pojo.SalesItem">
+		UPDATE TB_PROJECT_SALES_ITEM
+		SET
+		ITEMCODE =
+		#{info.itemCode:VARCHAR},
+		ITEMNAME = #{info.itemName:VARCHAR},
+		LIMITNUMS = #{info.limitNums:VARCHAR},
+		ITEMTYPECODE =
+		#{info.itemTypeCode:NUMERIC},
+		ITEMTYPENAME =
+		#{info.itemTypeName:VARCHAR},
+		ITEMVAL1 = #{info.itemVal1:VARCHAR},
+		ITEMVAL2 = #{info.itemVal2:VARCHAR},
+		UPDATETIME = now(),
+		SORT =
+		#{info.sort:NUMERIC},
+		PROJECTCODE = #{info.projectCode:VARCHAR},
+		PROJECTNAME = #{info.projectName:VARCHAR},
+		COMPANYID =
+		#{info.companyId:VARCHAR}
+		WHERE
+		ITEMID = #{info.itemId}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_PROJECT_SALES_ITEM WHERE ITEMID=#{itemId}
+	</delete>
+	<delete id="deleteByProjectCode" parameterType="String">
+		DELETE FROM
+		TB_PROJECT_SALES_ITEM WHERE PROJECTCODE=#{projectCode}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesItem">
+		SELECT * FROM TB_PROJECT_SALES_ITEM t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_PROJECT_SALES_ITEM WHERE ITEMID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesItem"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_PROJECT_SALES_ITEM t
+		WHERE 1=1 and
+		t.COMPANYID=#{companyId}
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.ITEMID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ITEMCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ITEMNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.LIMITNUMS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ITEMTYPENAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ITEMVAL1 LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ITEMVAL2 LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PROJECTCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PROJECTNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

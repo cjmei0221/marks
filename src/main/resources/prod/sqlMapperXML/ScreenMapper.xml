@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.ScreenMapper">
+    <select id="getInnovateGains" resultType="com.grgbanking.smart.gzw.model.entity.PfGainsDetail" parameterType="java.util.Map">
+        SELECT
+	sum(t.total_nums) AS total_nums,
+	t.i_year,
+	t.i_season,
+	t.type_code,
+	t.lvl1_type_code,
+	t.lvl2_type_code,
+	max(t.type_name) AS type_name,
+	max(t.lvl1_type_name) AS lvl1_type_name,
+	max(t.lvl2_type_name) AS lvl2_type_name
+FROM
+(SELECT
+	MAX(CONCAT(gi.i_year, gi.i_season)) AS year_seasion,
+	gi.org_id
+FROM
+	t_pf_run_info gi
+	where 1=1 and gi.status=2
+	<if test="i_year != null and i_year !=''">
+        and gi.i_year=#{i_year}
+    </if>
+        <if test="i_season != null and i_season !=''">
+            and gi.i_season=#{i_season}
+        </if>
+        GROUP BY
+	gi.org_id) k1
+	join t_pf_gains_detail t on k1.org_id=t.org_id
+where CONCAT(t.i_year,t.i_season)=k1.year_seasion
+        <if test="orgId != null and orgId !=''">
+            and t.org_id=#{orgId}
+        </if>
+GROUP BY
+	t.type_code,
+	t.lvl1_type_code,
+	t.lvl2_type_code
+    </select>
+
+    <select id="getInnovateInput" resultType="com.grgbanking.smart.gzw.model.innovate.PfInnovationInputVo" parameterType="java.util.Map">
+
+SELECT
+	sum(t.scientific_number) as scientific_number,
+	sum(t.doctors) as doctors,
+	sum(t.undergraduates) as undergraduates,
+	sum(t.masters) as masters,
+	sum(t.stock_applications) as stock_applications,
+	sum(t.stock_authorizations) as stock_authorizations,
+	sum(t.stock_inventions) as stock_inventions,
+	sum(t.increment_applications) as increment_applications,
+	sum(t.increment_authorizations) as increment_authorizations,
+	sum(t.increment_inventions) as increment_inventions,
+        SUM(t.research_period_last_year) as research_period_last_year,
+        sum(t.research_this_year) as research_this_year,
+        sum(t.business_period_last_year) as business_period_last_year,
+        sum(t.business_this_year) as business_this_year,
+        sum(t.production_period_last_year) as production_period_last_year,
+        sum(t.production_this_year) as production_this_year,
+        ifnull(sum(k1.research_last_season),0) as research_last_season
+FROM t_pf_innovation_input t
+	left join (
+        SELECT
+        gi.research_this_year as research_last_season,
+        gi.org_id
+        FROM
+        t_pf_innovation_input gi
+        where
+        gi.type=0 and gi.status=2 and gi.i_season=#{last_season} and gi.i_year=#{last_year}
+        GROUP BY
+        gi.org_id
+	) k1 on k1.org_id=t.org_id
+      join t_pf_run_info r on t.form_data_id=r.id
+where t.type=0 and r.status=2
+        <if test="orgId != null and orgId !=''">
+            and t.org_id=#{orgId}
+        </if>
+        <if test="i_year != null and i_year !=''">
+            and t.i_year=#{i_year}
+        </if>
+        <if test="i_season != null and i_season !=''">
+            and t.i_season=#{i_season}
+        </if>
+    </select>
+
+    <select id="getInputTrend" resultType="com.grgbanking.smart.gzw.model.innovate.InnovateVo" parameterType="java.util.Map">
+          SELECT
+	CONCAT(t.i_year,"Q",t.i_season) as xName,
+	ifnull(sum(t.research_this_year),0) as yValue,
+    t.i_year,t.i_season
+FROM
+	t_pf_innovation_input t  join t_pf_run_info r on t.form_data_id=r.id
+WHERE
+	t.type = 0 and r.status=2
+        <if test="orgId != null and orgId !=''">
+            and t.org_id=#{orgId}
+        </if>
+group by t.i_year,t.i_season
+order by xName
+LIMIT 8
+    </select>
+    <select id="getInputRank" resultType="com.grgbanking.smart.gzw.model.innovate.InnovateVo" parameterType="java.util.Map">
+        SELECT
+	ifnull(o.short_name,o.`name`) as xName,
+	ifnull(t.research_this_year,0) as yValue
+FROM
+(
+		SELECT
+			MAX(CONCAT(gi.i_year, gi.i_season)) AS year_seasion,
+			gi.org_id
+		FROM
+			t_pf_run_info gi
+        where  gi.status=2
+        <if test="i_year != null and i_year !=''">
+            and gi.i_year=#{i_year}
+        </if>
+        <if test="i_season != null and i_season !=''">
+            and gi.i_season=#{i_season}
+        </if>
+		GROUP BY
+			gi.org_id
+	) k1
+join t_n_org o on k1.org_id=o.id
+join t_pf_innovation_input t on t.org_id=o.id
+WHERE
+	t.type = 0 and CONCAT(t.i_year,t.i_season)=k1.year_seasion
+        <if test="orgId != null and orgId !=''">
+            and t.org_id=#{orgId}
+        </if>
+order by yValue+0 desc
+LIMIT 5
+    </select>
+    <select id="getInventionsRank" resultType="com.grgbanking.smart.gzw.model.innovate.InnovateVo" parameterType="java.util.Map">
+        SELECT
+        ifnull(o.short_name,o.`name`) as xName,
+        ifnull(t.stock_authorizations,0) as yValue
+        FROM
+        (
+        SELECT
+        MAX(CONCAT(gi.i_year, gi.i_season)) AS year_seasion,
+        gi.org_id
+        FROM
+        t_pf_run_info gi
+        where  gi.status=2
+        <if test="i_year != null and i_year !=''">
+            and gi.i_year=#{i_year}
+        </if>
+        <if test="i_season != null and i_season !=''">
+            and gi.i_season=#{i_season}
+        </if>
+        GROUP BY
+        gi.org_id
+        ) k1
+        join t_n_org o on k1.org_id=o.id
+        join t_pf_innovation_input t on t.org_id=o.id
+        WHERE
+        t.type = 0 and CONCAT(t.i_year,t.i_season)=k1.year_seasion
+        <if test="orgId != null and orgId !=''">
+            and t.org_id=#{orgId}
+        </if>
+        order by yValue+0 desc
+        LIMIT 5
+    </select>
+    <select id="getNoWriteVo" resultType="com.grgbanking.smart.gzw.model.innovate.NoWriteVo" parameterType="java.util.Map">
+SELECT DISTINCT
+        t.id as org_id,
+        t.short_name as org_name,
+        b.user_name as userName,
+        b.phone,
+        b.telephone,
+'季度经营分析表' as title,
+       '0' as typeName,
+${i_year} as i_year,
+	${i_season} as i_season,
+	t.sort_order
+        FROM
+        t_n_org t
+        left join t_pf_address_book b on t.id=b.org_id and b.role_type=1
+        LEFT JOIN t_pf_run_info o ON t.id = o.org_id and o.status in (1,2) and o.i_year=#{i_year} and o.i_season=#{i_season}
+        WHERE
+        o.id IS NULL
+        AND t.lvl_type = 1
+        AND t.lvl = 2
+        <if test="orgId !=null and orgId !=''"> and t.id = #{orgId} </if>
+<!--union-->
+<!--SELECT DISTINCT-->
+	<!--t.id as org_id,-->
+	<!--t.short_name as org_name,-->
+	<!--b.user_name as userName,-->
+	<!--b.phone,-->
+	<!--b.telephone,-->
+<!--'自主创新成果情况表' as title,-->
+        <!--'1' as typeName,-->
+<!--${i_year} as i_year,-->
+	<!--${i_season} as i_season,-->
+	<!--t.sort_order-->
+<!--FROM-->
+	<!--t_n_org t-->
+<!--left join t_pf_address_book b on t.id=b.org_id and b.role_type=1-->
+<!--LEFT JOIN t_pf_gains_info o ON t.id = o.org_id and o.status in (1,2) and o.i_year=#{i_year} and o.i_season=#{i_season}-->
+<!--WHERE-->
+	<!--o.id IS NULL-->
+<!--AND t.lvl_type = 1-->
+<!--AND t.lvl = 2-->
+        <!--<if test="orgId !=null and orgId !=''"> and t.id = #{orgId} </if>-->
+union
+SELECT DISTINCT
+        t.id as org_id,
+        t.short_name as org_name,
+        b.user_name as userName,
+        b.phone,
+        b.telephone,
+'经营分析材料' as title,
+        '2' as typeName,
+${i_year} as i_year,
+	${i_season} as i_season,
+	t.sort_order
+        FROM
+        t_n_org t
+        left join t_pf_address_book b on t.id=b.org_id and b.role_type=1
+        LEFT JOIN t_pf_operate_document o ON t.id = o.org_id and o.i_year=#{i_year} and o.i_season=#{i_season}
+        WHERE
+        o.id IS NULL
+        AND t.lvl_type = 1
+        AND t.lvl = 2
+        <if test="orgId !=null and orgId !=''"> and t.id = #{orgId} </if>
+        union
+        SELECT DISTINCT
+        t.id as org_id,
+        t.short_name as org_name,
+        b.user_name as userName,
+        b.phone,
+        b.telephone,
+        '固定资产投资项目' as title,
+        '3' as typeName,
+        ${i_year} as i_year,
+        ${i_season} as i_season,
+        t.sort_order
+        FROM
+        t_n_org t
+        left join t_pf_address_book b on t.id=b.org_id and b.role_type=1
+        LEFT JOIN t_pf_assets_info o ON t.id = o.org_id and o.status in (1,2) and o.i_year=#{i_year} and o.i_season=#{i_season}
+        WHERE
+        o.id IS NULL
+        AND t.lvl_type = 1
+        AND t.lvl = 2
+        <if test="orgId !=null and orgId !=''"> and t.id = #{orgId} </if>
+order by sort_order,typeName
+limit ${size}
+
+    </select>
+
+</mapper>

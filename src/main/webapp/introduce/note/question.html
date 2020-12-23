@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>痕迹</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>工作问题记录</h1>
+	<p></p>
+	<h2>实体类  (Question)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>ID</td><td>varchar2</td>null</td></tr><tr><td>2</td><td>lvl</td><td>级别</td><td>number</td>null</td></tr><tr><td>3</td><td>lvlName</td><td>级别名称</td><td>varchar2</td>null</td></tr><tr><td>4</td><td>question</td><td>问题</td><td>varchar2</td>null</td></tr><tr><td>5</td><td>solution</td><td>解决方案</td><td>varchar2</td>null</td></tr><tr><td>6</td><td>labels</td><td>标签</td><td>varchar2</td>null</td></tr><tr><td>7</td><td>createDate</td><td>创建日期</td><td>varchar2</td>null</td></tr><tr><td>8</td><td>createtime</td><td>创建时间</td><td>TIMESTAMP</td>null</td></tr><tr><td>9</td><td>updatetime</td><td>更新时间</td><td>TIMESTAMP</td>null</td></tr><tr><td>10</td><td>creator</td><td>创建者</td><td>varchar2</td>null</td></tr><tr><td>11</td><td>updater</td><td>更新者</td><td>varchar2</td>null</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (QuestionController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/question/findQuestionById</td><td>findQuestionById</td><td>查询工作问题记录</td></tr><tr><td>2</td><td>/question/save</td><td>saveQuestion</td><td>保存工作问题记录</td></tr><tr><td>3</td><td>/question/update</td><td>updateQuestion</td><td>更新工作问题记录</td></tr><tr><td>4</td><td>/question/delete</td><td>deleteQuestionById</td><td>删除工作问题记录</td></tr><tr><td>5</td><td>/question/findAllQuestion</td><td>findAllQuestion</td><td>查询全部工作问题记录</td></tr><tr><td>6</td><td>/question/deleteIds</td><td>deleteQuestion</td><td>删除多个工作问题记录</td></tr><tr><td>7</td><td>/question/list</td><td>list</td><td>列表查询工作问题记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (QuestionService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询工作问题记录</td></tr><tr><td>2</td><td>save</td><td>保存工作问题记录</td></tr><tr><td>3</td><td>update</td><td>更新工作问题记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除工作问题记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部工作问题记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个工作问题记录</td></tr><tr><td>7</td><td>list</td><td>列表查询工作问题记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(QuestionDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询工作问题记录</td></tr><tr><td>2</td><td>save</td><td>保存工作问题记录</td></tr><tr><td>3</td><td>update</td><td>更新工作问题记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除工作问题记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部工作问题记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个工作问题记录</td></tr><tr><td>7</td><td>list</td><td>列表查询工作问题记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

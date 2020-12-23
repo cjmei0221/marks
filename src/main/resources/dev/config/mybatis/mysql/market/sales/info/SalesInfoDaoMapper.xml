@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.marks.smart.market.project.sales.dao.SalesInfoDao">
+
+	<select id="findById"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesInfo">
+		SELECT * FROM TB_PROJECT_SALES_INFO t where t.PROJECTCODE =
+		#{projectCode}
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.market.project.sales.pojo.SalesInfo">
+		<!--<selectKey keyProperty="projectCode" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_PROJECT_SALES_INFO (
+		PROJECTCODE,
+		PROJECTNAME,
+		YWCODE,
+		YWNAME,
+		TYPECODE,
+		TYPENAME,
+		STARTDATE,
+		ENDDATE,
+		INTRO,
+		DAYLIMIT,
+		TOTALLIMIT,
+		LIMITAREAFLAG,
+		LIMITAREACODES,
+		LIMITAREANAMES,
+		LIMITGOODFLAG,
+		LIMITGOODNOS,
+		LIMITGOODNAMES,
+		PROJECTVAL,
+		USELIMIT,
+		SCENECODE,
+		SCENE,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		UPDATER,
+		STATUS,
+		CHECKSTATUS,
+		CHECKTIME,
+		CHECKER,
+		REMARKS,
+		COMPANYID,
+		pushLimit,
+		notJoinFlag,
+		notJoinGoodTypes,
+		notJoinBrands,
+		notJoinGoods
+		)
+		VALUES(
+		#{info.projectCode:VARCHAR},
+		#{info.projectName:VARCHAR},
+		#{info.ywCode:NUMERIC},
+		#{info.ywName:VARCHAR},
+		#{info.typeCode:NUMERIC},
+		#{info.typeName:VARCHAR},
+		#{info.startDate:VARCHAR},
+		#{info.endDate:VARCHAR},
+		#{info.intro:VARCHAR},
+		#{info.daylimit:NUMERIC},
+		#{info.totallimit:NUMERIC},
+		#{info.limitAreaFlag:NUMERIC},
+		#{info.limitAreaCodes:VARCHAR},
+		#{info.limitAreaNames:VARCHAR},
+		#{info.limitGoodFlag:NUMERIC},
+		#{info.limitGoodNos:VARCHAR},
+		#{info.limitGoodNames:VARCHAR},
+		#{info.projectVal:VARCHAR},
+		#{info.useLimit:VARCHAR},
+		#{info.sceneCode:NUMERIC},
+		#{info.scene:VARCHAR},
+		now(),
+		now(),
+		#{info.creator:VARCHAR},
+		#{info.updater:VARCHAR},
+		#{info.status:NUMERIC},
+		#{info.checkStatus:NUMERIC},
+		#{info.checkTime:VARCHAR},
+		#{info.checker:VARCHAR},
+		#{info.remarks:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.pushLimit:VARCHAR},
+		#{info.notJoinFlag:NUMERIC},
+		#{info.notJoinGoodTypes:VARCHAR},
+		#{info.notJoinBrands:VARCHAR},
+		#{info.notJoinGoods:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_PROJECT_SALES_INFO (
+		PROJECTCODE,
+		PROJECTNAME,
+		YWCODE,
+		YWNAME,
+		TYPECODE,
+		TYPENAME,
+		STARTDATE,
+		ENDDATE,
+		INTRO,
+		DAYLIMIT,
+		TOTALLIMIT,
+		LIMITAREAFLAG,
+		LIMITAREACODES,
+		LIMITAREANAMES,
+		LIMITGOODFLAG,
+		LIMITGOODNOS,
+		LIMITGOODNAMES,
+		PROJECTVAL,
+		USELIMIT,
+		SCENECODE,
+		SCENE,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		UPDATER,
+		STATUS,
+		CHECKSTATUS,
+		CHECKTIME,
+		CHECKER,
+		REMARKS,
+		COMPANYID,
+		pushLimit,
+		notJoinFlag,
+		notJoinGoodTypes,
+		notJoinBrands,
+		notJoinGoods
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.projectCode:VARCHAR},
+			#{info.projectName:VARCHAR},
+			#{info.ywCode:NUMERIC},
+			#{info.ywName:VARCHAR},
+			#{info.typeCode:NUMERIC},
+			#{info.typeName:VARCHAR},
+			#{info.startDate:VARCHAR},
+			#{info.endDate:VARCHAR},
+			#{info.intro:VARCHAR},
+			#{info.daylimit:NUMERIC},
+			#{info.totallimit:NUMERIC},
+			#{info.limitAreaFlag:NUMERIC},
+			#{info.limitAreaCodes:VARCHAR},
+			#{info.limitAreaNames:VARCHAR},
+			#{info.limitGoodFlag:NUMERIC},
+			#{info.limitGoodNos:VARCHAR},
+			#{info.limitGoodNames:VARCHAR},
+			#{info.projectVal:VARCHAR},
+			#{info.useLimit:VARCHAR},
+			#{info.sceneCode:NUMERIC},
+			#{info.scene:VARCHAR},
+			now(),
+			now(),
+			#{info.creator:VARCHAR},
+			#{info.updater:VARCHAR},
+			#{info.status:NUMERIC},
+			#{info.checkStatus:NUMERIC},
+			#{info.checkTime:VARCHAR},
+			#{info.checker:VARCHAR},
+			#{info.remarks:VARCHAR},
+			#{info.companyId:VARCHAR},
+			#{info.pushLimit:VARCHAR},
+			#{info.notJoinFlag:NUMERIC},
+			#{info.notJoinGoodTypes:VARCHAR},
+			#{info.notJoinBrands:VARCHAR},
+			#{info.notJoinGoods:VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.smart.market.project.sales.pojo.SalesInfo">
+		UPDATE TB_PROJECT_SALES_INFO
+		SET
+		notJoinFlag=#{info.notJoinFlag:NUMERIC},
+		notJoinGoodTypes=#{info.notJoinGoodTypes:VARCHAR},
+		notJoinBrands=#{info.notJoinBrands:VARCHAR},
+		notJoinGoods=#{info.notJoinGoods:VARCHAR},
+		pushLimit=#{info.pushLimit:VARCHAR},
+		PROJECTNAME =
+		#{info.projectName:VARCHAR},
+		YWCODE = #{info.ywCode:NUMERIC},
+		YWNAME =
+		#{info.ywName:VARCHAR},
+		TYPECODE = #{info.typeCode:NUMERIC},
+		TYPENAME =
+		#{info.typeName:VARCHAR},
+		STARTDATE = #{info.startDate:VARCHAR},
+		ENDDATE = #{info.endDate:VARCHAR},
+		INTRO = #{info.intro:VARCHAR},
+		DAYLIMIT = #{info.daylimit:NUMERIC},
+		TOTALLIMIT =
+		#{info.totallimit:NUMERIC},
+		LIMITAREAFLAG =
+		#{info.limitAreaFlag:NUMERIC},
+		LIMITAREACODES =
+		#{info.limitAreaCodes:VARCHAR},
+		LIMITAREANAMES =
+		#{info.limitAreaNames:VARCHAR},
+		LIMITGOODFLAG =
+		#{info.limitGoodFlag:NUMERIC},
+		LIMITGOODNOS =
+		#{info.limitGoodNos:VARCHAR},
+		LIMITGOODNAMES =
+		#{info.limitGoodNames:VARCHAR},
+		PROJECTVAL =
+		#{info.projectVal:VARCHAR},
+		USELIMIT = #{info.useLimit:VARCHAR},
+		SCENECODE = #{info.sceneCode:NUMERIC},
+		SCENE = #{info.scene:VARCHAR},
+		UPDATETIME = now(),
+		UPDATER = #{info.updater:VARCHAR},
+		STATUS =
+		#{info.status:NUMERIC},
+		CHECKSTATUS = #{info.checkStatus:NUMERIC},
+		CHECKTIME = #{info.checkTime:VARCHAR},
+		CHECKER =
+		#{info.checker:VARCHAR},
+		REMARKS = #{info.remarks:VARCHAR}
+		WHERE
+		PROJECTCODE = #{info.projectCode}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_PROJECT_SALES_INFO WHERE PROJECTCODE=#{projectCode}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesInfo">
+		SELECT * FROM TB_PROJECT_SALES_INFO t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_PROJECT_SALES_INFO WHERE PROJECTCODE in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesInfo"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_PROJECT_SALES_INFO t
+		WHERE 1=1 and
+		t.COMPANYID=#{companyId}
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.PROJECTCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PROJECTNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or t.INTRO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or t.REMARKS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+	<select id="findActiveSalesInfo"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesInfo"
+		parameterType="java.util.Map">
+		SELECT
+		*
+		FROM
+		TB_PROJECT_SALES_INFO t
+		WHERE
+		t.companyId = #{companyId}
+		AND
+		t.startDate &lt;= DATE_FORMAT(NOW(), '%Y-%m-%d')
+		AND t.endDate &gt;=
+		DATE_FORMAT(NOW(), '%Y-%m-%d')
+		<if test="ywCode!=null and ywCode!=''">
+			AND t.ywCode = #{ywCode}
+		</if>
+		<if test="sceneCode!=null and sceneCode!=''">
+			AND t.sceneCode = #{sceneCode}
+		</if>
+		AND t.`status` = 1
+		ORDER BY
+		t.startDate DESC,
+		t.createtime DESC
+	</select>
+
+
+</mapper>

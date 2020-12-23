@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>重大投资项目</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>重大投资项目</h1>
+	<p></p>
+	
+	<h2>重大投资项目表  (T_IVT_MAJOR_PROJECT)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>ID</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>ITEM_CODE</td><td>项目编号</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>COMPANYID</td><td>公司编号</td><td>varchar2</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (IvtMajorProject)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>ID</td><td>String</td><td></td></tr><tr><td>2</td><td>item_code</td><td>项目编号</td><td>String</td><td></td></tr><tr><td>3</td><td>companyId</td><td>公司编号</td><td>String</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (IvtMajorProjectController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/ivtMajorProject/findIvtMajorProjectById</td><td>findIvtMajorProjectById</td><td>查询重大投资项目</td></tr><tr><td>2</td><td>/ivtMajorProject/save</td><td>saveIvtMajorProject</td><td>保存重大投资项目</td></tr><tr><td>3</td><td>/ivtMajorProject/update</td><td>updateIvtMajorProject</td><td>更新重大投资项目</td></tr><tr><td>4</td><td>/ivtMajorProject/delete</td><td>deleteIvtMajorProjectById</td><td>删除重大投资项目</td></tr><tr><td>5</td><td>/ivtMajorProject/findAllIvtMajorProject</td><td>findAllIvtMajorProject</td><td>查询全部重大投资项目</td></tr><tr><td>6</td><td>/ivtMajorProject/deleteIds</td><td>deleteIvtMajorProject</td><td>删除多个重大投资项目</td></tr><tr><td>7</td><td>/ivtMajorProject/list</td><td>list</td><td>列表查询重大投资项目</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (IvtMajorProjectService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询重大投资项目</td></tr><tr><td>2</td><td>save</td><td>保存重大投资项目</td></tr><tr><td>3</td><td>update</td><td>更新重大投资项目</td></tr><tr><td>4</td><td>deleteById</td><td>删除重大投资项目</td></tr><tr><td>5</td><td>findAll</td><td>查询全部重大投资项目</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个重大投资项目</td></tr><tr><td>7</td><td>list</td><td>列表查询重大投资项目</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(IvtMajorProjectDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询重大投资项目</td></tr><tr><td>2</td><td>save</td><td>保存重大投资项目</td></tr><tr><td>3</td><td>update</td><td>更新重大投资项目</td></tr><tr><td>4</td><td>deleteById</td><td>删除重大投资项目</td></tr><tr><td>5</td><td>findAll</td><td>查询全部重大投资项目</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个重大投资项目</td></tr><tr><td>7</td><td>list</td><td>列表查询重大投资项目</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

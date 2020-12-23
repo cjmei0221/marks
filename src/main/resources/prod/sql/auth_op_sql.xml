@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap SYSTEM "./mapsql.dtd">
+<sqlMap>
+    <!-- 角色管理列表 普通管理员 -->
+    <sqlUnit name="role_mgr_list2">
+        <sql>SELECT t.id , t. NAME ,( SELECT tmp.busi_name FROM t_n_dict tmp
+            WHERE tmp.busi_value = t.state AND tmp.parent_id =
+            ( SELECT id FROM t_n_dict WHERE busi_value = 'DATA_STATE')) AS state ,
+            t.descr , u.full_name , t.create_time
+            FROM t_n_role t , t_n_user u
+            WHERE t.user_id = u.id
+            AND t.id != 'R141770099156750308' ORDER BY t.create_time ASC
+        </sql>
+    </sqlUnit>
+
+    <sqlUnit name="role_simp_list2">
+        <sql>select t.id,t.name,t.descr from t_n_role t where t.state = '1' and t.id != 'R141770099156750308' [and t.name like '%:name%'] order by t.create_time asc </sql>
+    </sqlUnit>
+
+    <!-- 用户权限列表 -->
+    <sqlUnit name="user_simp_list2">
+        <sql>select t.id,t.username,t.full_name,o.seq_names from t_n_user t,t_n_org o
+            where t.state = '1' and t.org_id=o.id and t.org_id !='0' [and (t.full_name like '%:name%' or t.username like '%:name%')] order by t.create_time asc </sql>
+    </sqlUnit>
+
+
+    <sqlUnit name="position_simp_list2">
+        <sql>
+            select t.id,t.name,o.seq_names from t_n_position t,t_n_org o
+            where t.org_id=o.id [and t.name like '%:name%']  order by t.create_time asc
+        </sql>
+    </sqlUnit>
+
+    <!--和SSO同步用户 -->
+    <sqlUnit name="update_user_for_sso">
+        <sql>
+            update t_n_user set full_name = :name where username = :username
+        </sql>
+    </sqlUnit>
+
+    <sqlUnit name="update_user_state_for_sso">
+        <sql>
+            update t_n_user set state = :state where username = :username
+        </sql>
+    </sqlUnit>
+
+    <sqlUnit name="deleted_user_for_sso">
+        <sql>
+            delete FROM t_n_user where username = :username
+        </sql>
+    </sqlUnit>
+
+    <sqlUnit name="get_userId_from_taskID">
+        <sql>
+            SELECT a.ACTOR_ID
+            FROM t_wf_hist_task t
+            inner JOIN t_wf_hist_task_actor a ON t.id = a.TASK_ID
+            WHERE t.id = :taskId
+        </sql>
+    </sqlUnit>
+
+    <sqlUnit name="get_act_task_from_parentID">
+        <sql>
+            SELECT t.id as taskId,a.ACTOR_ID as actId
+            FROM t_wf_task t
+            inner JOIN t_wf_task_actor a ON t.id = a.TASK_ID
+            WHERE t.PARENT_TASK_ID = :taskId
+        </sql>
+    </sqlUnit>
+
+    <sqlUnit name="select_user_by_username">
+        <sql>
+            SELECT id FROM t_n_user where username = :username
+        </sql>
+    </sqlUnit>
+
+</sqlMap>

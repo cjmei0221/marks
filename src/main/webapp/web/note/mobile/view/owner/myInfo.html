@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>痕迹</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet" href="myInfo.css">
+<!-- <link rel="stylesheet" href="../../../assets/css/marks.css"> -->
+</head>
+<body>
+	<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+	<div id="app">
+		<!-- 单个page ,第一个.page默认被展示-->
+		<div>
+			<!-- 标题栏 -->
+			<header class="bar bar-nav cm-head">
+				<a id="edit" class="icon icon-edit pull-right" href="javascript:void(0)" onclick="editInfo(true);"></a>
+				<a id="checkEidt" style="display:none;" class="icon icon-check pull-right" href="javascript:void(0)" onclick="editInfo(false);"></a>
+				 <a
+					class="icon icon-me pull-left open-panel" href="javascript:void(0)"
+					onclick="showLeftPanal('leftPanel')"></a>
+				<h1 class="title">我的信息</h1>
+			</header>
+			<!-- 这里是页面内容区 -->
+			<div class="content cm-content-2">
+				<div id="tooltips" class="tooltips"></div>
+				<div align="center" style="margin-top: 1rem;">
+					<div class="guiderAvatar">
+						<img id="headImage" alt="" src="../../../assets/image/Tulips.jpg">
+					</div>
+				</div>
+				<div class="list-block">
+
+					<ul>
+						<!-- Text inputs -->
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-name"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title label">姓名</div>
+									<div class="item-input">
+										<input type="text" class="cm-input" placeholder="Your name"
+											id="c_name" name="c_name" value="meckiy">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-email"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title label">邮箱</div>
+									<div class="item-input">
+										<input type="text" class="cm-input" placeholder="E-mail"
+											id="c_email" name="c_email" value="cjmei@163.com">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-gender"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title label">性别</div>
+									<div class="item-input">
+										<select class="cm-select" id="c_gender" name="c_gender">
+											<option value="1">女</option>
+											<option value="2">男</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</li>
+						<!-- Date -->
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-calendar"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title label">生日</div>
+									<div class="item-input">
+										<input type="date" class="cm-input" id="c_birthdate"
+											name="c_birthdate" placeholder="Birth day">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="align-top">
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-comment"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title label">签名</div>
+									<div class="item-input">
+										<textarea id="c_signature" class="cm-input" name="c_signature" placeholder="signature"></textarea>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li id="stypeTypeLi">
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-form-comment"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title label">风格</div>
+									<div class="item-input">
+										<select id="stypeType" onchange="changeStyle();">
+											<option value="0">复古主题</option>
+											<option value="1">粉色主题</option>
+											<option value="2">清新主题</option>
+											<option value="3">小清新主题</option>
+											<option value="4">新绿主题</option>
+											<option value="5">田园主题</option>
+											<option value="6">浪漫主题</option>
+										</select>
+									</div>
+
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-left panel-reveal cm-leftPanel" id="leftPanel">
+			<div class="content-block">
+				<p>
+					<a class="close-panel" href="./changePwd.html">修改密码</a>
+				</p>
+				<p>
+					<a class="close-panel" href="./changeMobile.html">修改手机号</a>
+				</p>
+				<!-- Click on link with "close-panel" class will close panel -->
+				<p>
+					<a href="javascript:void(0)" class="close-panel"
+						onclick="showLeftPanal('leftPanel')">关闭</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+<script type='text/javascript'
+	src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../../js/my-config.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../../../common/tool.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../../js/msg.js' charset='utf-8'></script>
+<script type='text/javascript' src='../note.js' charset='utf-8'></script>
+<script type='text/javascript' src='./myInfo.js' charset='utf-8'></script>
+</html>

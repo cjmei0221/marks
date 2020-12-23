@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title>记账</title>
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/marks.css">
+</head>
+<body>
+	<div id="app">
+		<div id="cmHead"></div>
+		<div class='container'>
+			<div style="text-align: center;">
+				<div>
+					<div class="sui-form sui-form pull-left">
+						<a href="../asset_count/list.html" class="sui-btn cm-btn-down">汇总</a>
+					</div>
+					<div class="sui-form sui-form pull-right">
+						<input type="text" id="keyword" name="keyword" placeholder="时间"
+							style="width: 250px; margin-left: 10px;">
+						<button class="sui-btn" onclick="mysearch();">搜索</button>
+					</div>
+				</div>
+				<table class="sui-table table-zebra">
+					<thead>
+						<tr>
+							<th width="10%">序号</th>
+							<th width="15%">时间</th>
+							<th width="15%">收入</th>
+							<th width="15%">支出</th>
+							<th width="15%">差额</th>
+							<th width="30%"></th>
+						</tr>
+					</thead>
+					<tbody id="trDiv">
+
+					</tbody>
+				</table>
+				<div class="sui-pagination pagination-naked pagination-large">
+					<ul>
+						<li class="prev"><a href="javascript:void(0)"
+							onclick="lastPage()">上一页</a></li>
+						<li><span class="ex-page-status" id="pageShow"></span></li>
+						<li class="next"><a href="javascript:void(0)"
+							onclick="nextPage()">下一页 </a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<script type='text/javascript' src='../../js/my-config.js'
+	charset='utf-8'></script>
+<script type="text/javascript" src="../../js/showMsg.js"></script>
+<script type='text/javascript' src='../../../../common/tool.js'
+	charset='utf-8'></script>
+<script type='text/javascript' src='../note.js' charset='utf-8'></script>
+<script type="text/javascript" src="./list.js"></script>
+<script type="text/html" id="trDivTmp">
+<tr>
+<td>{idx}</td>
+<td>{itemName}</td>
+<td>{inAmount}</td>
+<td>{outAmount}</td>
+<td>{diff}</td>
+<td></td>
+</tr>
+</script>
+</html>

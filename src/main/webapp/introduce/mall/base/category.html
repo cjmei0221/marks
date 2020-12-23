@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>品类管理</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>品类管理</h1>
+	<p>商品品类管理</p>
+	
+	<h2>品类管理表  (TB_MALL_CATEGORY)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>CID</td><td>品类ID</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>CNAME</td><td>品类</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>CREATETIME</td><td>创建时间</td><td>TIMESTAMP</td><td></td></tr><tr><td>4</td><td>PID</td><td>上一级编号</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>PNAME</td><td>上一级姓名</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>UPDATETIME</td><td>更新时间</td><td>TIMESTAMP</td><td></td></tr><tr><td>7</td><td>PICURL</td><td>图片</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>COMPANYID</td><td>公司ID</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>LVL1ID</td><td>级别1ID</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>LVL1NAME</td><td>级别1姓名</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>LVL2ID</td><td>级别2ID</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>LVL2NAME</td><td>级别2姓名</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>LVL3ID</td><td>级别3ID</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>LVL3NAME</td><td>级别3姓名</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>LVL4ID</td><td>级别4ID</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>LVL4NAME</td><td>级别4姓名</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>LVL5ID</td><td>级别5ID</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>LVL5NAME</td><td>级别5姓名</td><td>varchar2</td><td></td></tr><tr><td>19</td><td>LVL</td><td>级别</td><td>number</td><td></td></tr><tr><td>20</td><td>STATUS</td><td>状态</td><td>number</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (Category)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>cId</td><td>品类ID</td><td>String</td><td></td></tr><tr><td>2</td><td>cName</td><td>品类</td><td>String</td><td></td></tr><tr><td>3</td><td>createtime</td><td>创建时间</td><td>Date</td><td></td></tr><tr><td>4</td><td>pId</td><td>上一级编号</td><td>String</td><td></td></tr><tr><td>5</td><td>pName</td><td>上一级姓名</td><td>String</td><td></td></tr><tr><td>6</td><td>updatetime</td><td>更新时间</td><td>Date</td><td></td></tr><tr><td>7</td><td>picUrl</td><td>图片</td><td>String</td><td></td></tr><tr><td>8</td><td>companyId</td><td>公司ID</td><td>String</td><td></td></tr><tr><td>9</td><td>lvl1Id</td><td>级别1ID</td><td>String</td><td></td></tr><tr><td>10</td><td>lvl1Name</td><td>级别1姓名</td><td>String</td><td></td></tr><tr><td>11</td><td>lvl2Id</td><td>级别2ID</td><td>String</td><td></td></tr><tr><td>12</td><td>lvl2Name</td><td>级别2姓名</td><td>String</td><td></td></tr><tr><td>13</td><td>lvl3Id</td><td>级别3ID</td><td>String</td><td></td></tr><tr><td>14</td><td>lvl3Name</td><td>级别3姓名</td><td>String</td><td></td></tr><tr><td>15</td><td>lvl4Id</td><td>级别4ID</td><td>String</td><td></td></tr><tr><td>16</td><td>lvl4Name</td><td>级别4姓名</td><td>String</td><td></td></tr><tr><td>17</td><td>lvl5Id</td><td>级别5ID</td><td>String</td><td></td></tr><tr><td>18</td><td>lvl5Name</td><td>级别5姓名</td><td>String</td><td></td></tr><tr><td>19</td><td>lvl</td><td>级别</td><td>int</td><td></td></tr><tr><td>20</td><td>status</td><td>状态</td><td>int</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (CategoryController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/category/findCategoryById</td><td>findCategoryById</td><td>查询品类管理</td></tr><tr><td>2</td><td>/category/save</td><td>saveCategory</td><td>保存品类管理</td></tr><tr><td>3</td><td>/category/update</td><td>updateCategory</td><td>更新品类管理</td></tr><tr><td>4</td><td>/category/delete</td><td>deleteCategoryById</td><td>删除品类管理</td></tr><tr><td>5</td><td>/category/findAllCategory</td><td>findAllCategory</td><td>查询全部品类管理</td></tr><tr><td>6</td><td>/category/deleteIds</td><td>deleteCategory</td><td>删除多个品类管理</td></tr><tr><td>7</td><td>/category/list</td><td>list</td><td>列表查询品类管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (CategoryService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询品类管理</td></tr><tr><td>2</td><td>save</td><td>保存品类管理</td></tr><tr><td>3</td><td>update</td><td>更新品类管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除品类管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部品类管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个品类管理</td></tr><tr><td>7</td><td>list</td><td>列表查询品类管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(CategoryDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询品类管理</td></tr><tr><td>2</td><td>save</td><td>保存品类管理</td></tr><tr><td>3</td><td>update</td><td>更新品类管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除品类管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部品类管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个品类管理</td></tr><tr><td>7</td><td>list</td><td>列表查询品类管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

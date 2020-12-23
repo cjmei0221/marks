@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap SYSTEM "./mapsql.dtd">
+<sqlMap>
+	<!-- 流程用到的sql语句 -->
+	
+         <!-- 根据标题获取新闻资讯列表-->
+        <sqlUnit name="get_news_by_title">
+            <sql>
+               select t.id as id,t.news_title as newsTitle,t.news_link as newsLink,t.news_push_date as newsPushDate,
+		           t.news_type as newsType,t.news_publisher as newsPublisher,t.is_show as isShow,t.come_from as comeFrom,
+		           t.img_url as imgUrl,t.view as view,t.is_create as isCreate,t.news_content as newsContent,
+		           (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.news_type 
+			     	AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'NEWS_TYPE')) AS newsTypeName,
+		     		t.startDate as startDate,t.endDate as endDate,t.create_date as createDate,t.update_date as updateDate,
+		     		(SELECT COUNT(1) from t_news_read r where t.id = r.news_id) as isRead,t.create_user_id as createUserId
+				from t_news_information t where t.news_title =:title
+				order by t.news_push_date desc
+            </sql>
+        </sqlUnit>
+        
+         <!-- 根据用户ID和新闻Id获取已查看记录-->
+        <sqlUnit name="news_read_is_exist">
+            <sql>
+                select count(1) from t_news_read t where t.news_id =:newsId and t.user_id =:userId
+            </sql>
+        </sqlUnit>
+        
+        <!-- 新闻资讯列表 -->
+    <sqlUnit name="get_news_list">
+       <sql>
+           select t.id as id,t.news_title as newsTitle,t.news_link as newsLink,t.news_push_date as newsPushDate,
+	           t.news_type as newsType,t.news_publisher as newsPublisher,t.is_show as isShow,t.come_from as comeFrom,
+	           t.img_url as imgUrl,t.view as view,t.is_create as isCreate,t.news_content as newsContent,
+	           (SELECT tmp.busi_name FROM t_n_dict tmp WHERE tmp.busi_value = t.news_type 
+		     	AND tmp.parent_id = (SELECT id FROM t_n_dict WHERE busi_value = 'NEWS_TYPE')) AS newsTypeName,
+		     	t.startDate as startDate,t.endDate as endDate,t.create_date as createDate,t.update_date as updateDate,
+		     	(SELECT COUNT(1) from t_news_read r where t.id = r.news_id) as isRead,t.create_user_id as createUserId
+			from t_news_information t where 
+            t.news_type =:newsType
+           [and t.create_user_id =:createUserId]
+           [and t.news_title like '%:newsTitle%'] 
+           [and t.news_publisher =:newsPublisher]
+           [and t.is_show =:isShow]
+           [and t.news_push_date &gt;=:startDate]
+		   [and t.news_push_date &lt;=:endDate]
+           order by t.is_show,t.update_date desc,t.news_push_date desc
+       </sql>
+    </sqlUnit>
+</sqlMap>

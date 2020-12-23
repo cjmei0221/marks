@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.PublicDebtMapper">
+    <select id="listRate" resultType="com.grgbanking.smart.gzw.model.entity.PfDebtRate" parameterType="java.util.Map">
+        select * from t_pf_debt_rate t
+        where 1=1
+        <if test="info.i_year != null and info.i_year != ''">
+            and t.i_year=#{info.i_year}
+        </if>
+        <if test="info.i_season != null and info.i_season != ''">
+            and t.i_season=#{info.i_season}
+        </if>
+        ORDER BY t.i_year DESC,t.i_season DESC
+    </select>
+    <select id="list" resultType="com.grgbanking.smart.gzw.model.FlowModel" parameterType="java.util.Map">
+        SELECT DISTINCT
+        ff.process_Id AS processId,
+        ff.process_name AS processName,
+        ff.is_back AS isBack,
+        ff.form_data_code AS formDataCode,
+        ff.form_data_name AS formDataName,
+        ff.form_data_id AS formDataId,
+        ff.form_data_id AS id,
+        ff. STATUS as status,
+        ifnull(k1.updateTime,ff.update_time) AS updateTime,
+        IFNULL(org.`short_name`, org.`name`) AS companyBriefName,
+        org.`name` as orgName,
+        ff.order_id AS orderId,
+        IFNULL(ff.`operator`, u.full_name) AS fullName,
+        k1.ACTOR_ID,
+        k1.taskKey,
+        k1.formData,
+        k1.pop_type,
+        ff.i_month as i_season,
+        ff.i_year,
+        ff.json_data as flowFormData
+        FROM
+        t_flow_form ff
+        left JOIN (
+        SELECT
+        d.ACTOR_ID,
+        d.orderId,
+        max(d.taskKey) AS taskKey,
+        d.formData,
+        d.updateTime
+        ,d.pop_type
+        FROM
+        (
+        <if test="info.type==0 || info.type==1">
+            SELECT
+            ta.ACTOR_ID,
+            t.ORDER_ID AS orderId,
+            t.task_name AS taskKey,
+            t.VARIABLE as formData,
+            t.FINISH_TIME as updateTime,
+            'see' as pop_type
+            FROM
+            t_wf_hist_task t
+            JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+            JOIN (
+            SELECT
+            max(t1.FINISH_TIME) AS FINISH_TIME,
+            t1.ORDER_ID,
+            ta1.ACTOR_ID
+            FROM
+            t_wf_hist_task t1
+            JOIN t_wf_hist_task_actor ta1 ON ta1.task_id = t1.id
+            left join t_wf_task tt on t1.ORDER_ID=tt.ORDER_ID
+            left join t_wf_task_actor tta on tt.id=tta.TASK_ID and tta.ACTOR_ID=ta1.ACTOR_ID
+            where tta.TASK_ID is null
+            GROUP BY
+            t1.ORDER_ID,
+            ta1.ACTOR_ID
+            ) d1 ON t.ORDER_ID = d1.ORDER_ID
+            AND ta.ACTOR_ID = d1.ACTOR_ID
+            AND t.FINISH_TIME = d1.FINISH_TIME
+            UNION
+            SELECT
+            cc.ACTOR_ID,
+            cc.ORDER_ID AS orderId,
+            '' AS taskKey,
+            '' AS formData,
+            cc.finish_Time as updateTime,
+            'see' as pop_type
+            FROM
+            t_wf_cc_order cc
+        </if>
+        <if test="info.type==0">
+            UNION
+        </if>
+        <if test="info.type==0 || info.type==2">
+            SELECT
+            ta.ACTOR_ID,
+            o.id AS orderId,
+            t.TASK_NAME AS taskKey,
+            '' AS formData,
+            t.CREATE_TIME as updateTime,
+            'check' as pop_type
+            FROM
+            t_wf_task t
+            JOIN t_wf_order o ON t.order_id = o.id
+            JOIN t_wf_task_actor ta ON ta.task_id = t.id
+        </if>
+        ) d
+        GROUP BY
+        d.ACTOR_ID,
+        d.orderId
+        ) k1 ON k1.orderId = ff.order_id
+        LEFT JOIN t_n_user u ON ff.user_id = u.id
+        LEFT JOIN t_n_org org ON ff.org_id = org.id
+        where 1=1
+        <if test="info.type==1">
+            and ff.STATUS in (1,4,2)
+        </if>
+        <if test="info.i_season != null and info.i_season !='' ">
+            AND ff.i_month = #{info.i_season}
+        </if>
+        <if test="info.i_year != null and info.i_year !='' ">
+            AND ff.i_year = #{info.i_year}
+        </if>
+        <if test="info.org_id != null and info.org_id !='' ">
+            AND ff.org_id = #{info.org_id}
+        </if>
+
+        <if test="info.i_status !='' and info.i_status== 4 ">
+            and LOCATE('isback',k1.formData)>0
+        </if>
+        <if test="info.i_status !='' and info.i_status == 2 ">
+            AND LOCATE('isback',k1.formData)=0
+        </if>
+        <!--<if test="info.i_status != null and info.i_status !='' ">-->
+        <!--AND ff.STATUS = #{info.i_status}-->
+        <!--</if>-->
+        <if test="info.userid != null and info.userid !='' ">
+            AND (k1.ACTOR_ID = #{info.userid})
+        </if>
+        <if test="info.processName != null and info.processName !='' ">
+            AND ff.process_name=#{info.processName}
+        </if>
+        order by updateTime desc,ff.id
+    </select>
+    <select id="listExcel" resultType="com.grgbanking.smart.gzw.model.innovate.DebtInfoVo"
+            parameterType="java.util.Map">
+        select * from t_pf_debt_info t where 1=1
+        <if test="info.formDataIds != null and info.formDataIds !='' ">
+            and FIND_IN_SET(t.form_data_id, #{info.formDataIds})
+        </if>
+        order by t.i_year,t.i_season,t.org_id,t.item_code
+    </select>
+    <sql id="conditions_query">
+        <if test="info.lvl_type==0">
+            and t.status=2
+        </if>
+        <if test="info.i_year != null and info.i_year != ''">
+            and t.i_year=#{info.i_year}
+        </if>
+        <if test="info.i_season != null and info.i_season != ''">
+            and t.i_season=#{info.i_season}
+        </if>
+        <if test="info.org_id != null and info.org_id != ''">
+            and t.org_id=#{info.org_id}
+        </if>
+        <if test="info.cny_code != null and info.cny_code != ''">
+            and t.cny_code=#{info.cny_code}
+        </if>
+    </sql>
+    <select id="query" resultType="com.grgbanking.smart.gzw.model.innovate.DebtInfoVo" parameterType="java.util.Map">
+        SELECT
+        k1.*, IFNULL(org.`short_name`, org.`name`) AS org_name,
+        t1.cny_name,
+        t1.company_name,
+        t1.create_time,
+        t1.creator_code,
+        t1.creator_name,
+        t1.credit_type,
+        t1.creditor,
+        t1.creditor_fullname,
+        t1.debt_name,
+        t1.debt_type,
+        t1.form_data_id,
+        t1.item_code,
+        t1.item_name,
+        t1.item_remarks,
+        t1.protocol_num,
+        t1.sign_date,
+        t1.state,
+        t1.`status`,
+        t1.update_time
+        FROM
+        (
+        SELECT
+        ifnull(t.cny_code, '0') AS cny_code,
+        ifnull(t.org_id, '1') AS org_id,
+        ifnull(t.i_season,'0') as i_season,
+        ifnull(t.i_year,'0') as i_year,
+        sum(t.amt_qcs) AS amt_qcs,
+        sum(t.amt_bqfx) AS amt_bqfx,
+        sum(t.amt_bqhb) AS amt_bqhb,
+        sum(t.amt_protocol) AS amt_protocol,
+        sum(t.amt_qms) AS amt_qms,
+        max(dr.exchange_rate) AS exchange_rate,
+        count(DISTINCT t.id) as countNum,
+        max(t.item_code) AS sort,
+        '1' AS id
+        FROM
+        t_pf_debt_info t
+        LEFT JOIN t_pf_debt_rate dr ON t.cny_code = dr.cny_code
+        AND t.i_year = dr.i_year
+        AND t.i_season = dr.i_season
+        where 1=1
+        <include refid="conditions_query"/>
+        GROUP BY
+        t.cny_code,
+        t.i_year,
+        t.i_season,
+        t.org_id WITH ROLLUP
+        UNION
+        SELECT
+        t.cny_code,
+        t.org_id,
+        t.i_season,
+        t.i_year,
+        t.amt_qcs,
+        t.amt_bqfx,
+        t.amt_bqhb,
+        t.amt_protocol,
+        t.amt_qms,
+        dr.exchange_rate,
+        1 as countNum,
+        t.item_code AS sort,
+        t.id
+        FROM
+        t_pf_debt_info t
+        LEFT JOIN t_pf_debt_rate dr ON t.cny_code = dr.cny_code
+        AND t.i_year = dr.i_year
+        AND t.i_season = dr.i_season
+        where 1=1
+        <include refid="conditions_query"/>
+        ) k1
+        LEFT JOIN t_pf_debt_info t1 ON k1.id = t1.id
+        LEFT JOIN t_n_org org ON k1.org_id = org.id
+        where k1.cny_code !='0' and k1.i_year !='0' and k1.i_season !='0'
+        <if test="info.org_id != null and info.org_id != ''">
+            and k1.org_id !='1'
+        </if>
+        order by k1.i_year,k1.i_season,k1.org_id,k1.sort,t1.company_name
+    </select>
+    <select id="getCountDetail" resultType="com.grgbanking.smart.gzw.model.innovate.DebtInfoVo"
+            parameterType="java.util.Map">
+        SELECT
+        t.*,
+        dr.exchange_rate
+        FROM
+        t_pf_debt_info t
+        LEFT JOIN t_pf_debt_rate dr ON t.cny_code = dr.cny_code
+        AND t.i_year = dr.i_year
+        AND t.i_season = dr.i_season
+        where 1=1
+        <include refid="conditions_query"/>
+        order by t.org_id,t.item_code,t.company_name
+    </select>
+    <select id="findById" resultType="com.grgbanking.smart.gzw.model.innovate.DebtInfoVo">
+         select t.*,dr.exchange_rate from t_pf_debt_info t
+         left join t_pf_debt_rate dr on t.cny_code=dr.cny_code and t.i_year=dr.i_year and t.i_season=dr.i_season
+         where t.form_data_id=#{id}
+         order by t.company_code
+    </select>
+
+    <select id="findLast" resultType="com.grgbanking.smart.gzw.model.innovate.DebtInfoVo"
+            parameterType="com.grgbanking.smart.gzw.model.innovate.AssetsFilter">
+         select t.*,dr.exchange_rate from t_pf_debt_info t
+         left join t_pf_debt_rate dr on t.cny_code=dr.cny_code and t.i_year=dr.i_year and t.i_season=dr.i_season
+         where t.del_flag=0 and t.org_id=#{info.org_id} and t.i_year=#{info.i_year} and t.i_season=#{info.i_season}
+         order by t.company_code
+    </select>
+    <select id="findFileByIds" resultType="com.grgbanking.smart.gzw.model.entity.TNAttachFile">
+        select * from t_n_attachment t where FIND_IN_SET(t.id,#{ids}) order by t.create_time
+    </select>
+
+</mapper>

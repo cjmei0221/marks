@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.market.mall.good.dao.GoodShopDao">
+
+	<select id="findById"
+		resultType="com.marks.smart.market.mall.good.pojo.GoodShop">
+		SELECT * FROM TB_MALL_GOOD_SHOP
+		t where t.GOODSHOPID =
+		#{goodShopId}
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.market.mall.good.pojo.GoodShop">
+		<!--<selectKey keyProperty="goodShopId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_GOOD_SHOP (
+		GOODSHOPID,
+		GOODNO,
+		SALEPRICE,
+		VIPPRICE,
+		DISPATCHPRICE,
+		ONSALE_STATUS,
+		COMPANYID,
+		SHOPID,
+		SHOPNAME,
+		GOODNAME,
+		CREATETIME,
+		UPDATETIME
+		)
+		VALUES(
+		#{info.goodShopId:VARCHAR},
+		#{info.goodNo:VARCHAR},
+		#{info.salePrice:VARCHAR},
+		#{info.vipPrice:VARCHAR},
+		#{info.dispatchPrice:VARCHAR},
+		#{info.onsale_status:NUMERIC},
+		#{info.companyId:VARCHAR},
+		#{info.shopId:VARCHAR},
+		#{info.shopName:VARCHAR},
+		#{info.goodName:VARCHAR},
+		#{info.createtime:VARCHAR},
+		#{info.updatetime:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_MALL_GOOD_SHOP (
+		GOODSHOPID,
+		GOODNO,
+		SALEPRICE,
+		VIPPRICE,
+		DISPATCHPRICE,
+		ONSALE_STATUS,
+		COMPANYID,
+		SHOPID,
+		SHOPNAME,
+		GOODNAME,
+		CREATETIME,
+		UPDATETIME
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.goodShopId:VARCHAR},
+			#{info.goodNo:VARCHAR},
+			#{info.salePrice:VARCHAR},
+			#{info.vipPrice:VARCHAR},
+			#{info.dispatchPrice:VARCHAR},
+			#{info.onsale_status:NUMERIC},
+			#{info.companyId:VARCHAR},
+			#{info.shopId:VARCHAR},
+			#{info.shopName:VARCHAR},
+			#{info.goodName:VARCHAR},
+			#{info.createtime:VARCHAR},
+			#{info.updatetime:VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.smart.market.mall.good.pojo.GoodShop">
+		UPDATE TB_MALL_GOOD_SHOP
+		SET
+		SALEPRICE =
+		#{info.salePrice:VARCHAR},
+		VIPPRICE = #{info.vipPrice:VARCHAR},
+		DISPATCHPRICE =
+		#{info.dispatchPrice:VARCHAR},
+		ONSALE_STATUS =
+		#{info.onsale_status:NUMERIC},
+		SHOPID = #{info.shopId:VARCHAR},
+		SHOPNAME = #{info.shopName:VARCHAR},
+		GOODNAME =
+		#{info.goodName:VARCHAR},
+		UPDATETIME =
+		#{info.updatetime:VARCHAR}
+		WHERE
+		GOODSHOPID = #{info.goodShopId}
+	</update>
+	<!-- <update id="updateBatch" parameterType="List"> <foreach collection="list" 
+		item="info" index="index" separator=";"> UPDATE TB_MALL_GOOD_SHOP SET GOODNO 
+		= #{info.goodNo:VARCHAR}, SALEPRICE = #{info.salePrice:VARCHAR}, VIPPRICE 
+		= #{info.vipPrice:VARCHAR}, DISPATCHPRICE = #{info.dispatchPrice:VARCHAR}, 
+		ONSALE_STATUS = #{info.onsale_status:NUMERIC}, COMPANYID = #{info.companyId:VARCHAR}, 
+		SHOPID = #{info.shopId:VARCHAR}, SHOPNAME = #{info.shopName:VARCHAR}, GOODNAME 
+		= #{info.goodName:VARCHAR}, UPDATETIME = #{info.updatetime:VARCHAR} WHERE 
+		GOODSHOPID = #{info.goodShopId} </foreach> </update> -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_MALL_GOOD_SHOP
+		WHERE GOODSHOPID=#{goodShopId}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.smart.market.mall.good.pojo.GoodShop">
+		SELECT * FROM TB_MALL_GOOD_SHOP
+		t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_GOOD_SHOP WHERE GOODSHOPID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.smart.market.mall.good.pojo.GoodInfo"
+		parameterType="java.util.Map">
+		SELECT
+		g.barNo,
+		g.beforeWarnDays,
+		g.brandId,
+		g.brandName,
+		g.companyId,
+		g.costPrice,
+		g.createtime,
+		g.description,
+		t.dispatchPrice,
+		g.goodNo,
+		g.goodType,
+		t.goodShopId as goodid,
+		g.goodname,
+		g.helpCode,
+		g.imageurl,
+		g.isWarnDays,
+		g.madein,
+		g.material,
+		g.materialType,
+		g.materialTypeName,
+		g.minPrice,
+		g.needPoint,
+		g.model,
+		t.onsale_status,
+		g.onsale_time,
+		g.point,
+		g.rank,
+		g.remark,
+		t.salePrice,
+		g.stockManageType,
+		g.supplier,
+		g.supplierId,
+		g.tradePrice,
+		g.typeName,
+		g.typeId,
+		g.unit,
+		g.updater,
+		g.updatetime,
+		g.validDays,
+		t.vipPrice,
+		g.weight,
+		g.weight_unit,
+		t.shopId,
+		t.shopName
+		FROM
+		TB_MALL_GOOD_SHOP t
+		JOIN TB_MALL_GOOD_INFO g ON t.goodNo = g.goodNo
+		AND t.companyId = g.companyId
+		WHERE 1=1 and t.companyId=#{companyId}
+		<if test="shopId!=null and shopId!=''">
+		 	and t.shopId=#{shopId}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( g.GOODNO
+			LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or g.barNo LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or
+			g.GOODNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or
+			g.BRANDNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or
+			g.MADEIN LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or
+			g.MATERIAL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by t.GOODNO,t.updatetime desc
+	</select>
+</mapper>

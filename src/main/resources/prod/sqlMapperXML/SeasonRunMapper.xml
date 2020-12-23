@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.SeasonRunMapper">
+    <select id="findRunInfoByFormDataId" resultType="com.grgbanking.smart.gzw.model.entity.PfRunInfo">
+       select * from t_pf_run_info t where t.form_data_id=#{form_data_id}
+    </select>
+
+    <select id="findPfInnovationInput" resultType="com.grgbanking.smart.gzw.model.entity.PfInnovationInput">
+      select * from t_pf_innovation_input t where t.form_data_id=#{form_data_id} order by t.input_order
+    </select>
+    <select id="findAtt" resultType="com.grgbanking.smart.web.bean.entity.TNAttachment">
+     SELECT
+	a.id,
+	a.file_name as fileName,
+	a.file_path as filePath,
+	a.file_size as fileSize
+FROM
+	t_n_attachment a
+JOIN t_pf_run_info t ON t.attr_id = a.id
+ where FIND_IN_SET(t.id, #{form_data_id})
+    </select>
+</mapper>

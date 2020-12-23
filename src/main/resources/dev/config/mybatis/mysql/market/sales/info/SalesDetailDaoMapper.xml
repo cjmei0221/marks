@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.marks.smart.market.project.sales.dao.SalesDetailDao">
+
+	<select id="findById"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesDetail">
+		SELECT * FROM TB_PROJECT_SALES_DETAIL t where t.ID = #{id}
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.market.project.sales.pojo.SalesDetail">
+		<!--<selectKey keyProperty="id" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_PROJECT_SALES_DETAIL (
+		ID,
+		PROJECTCODE,
+		PROJECTNAME,
+		COMPANYID,
+		CREATETIME,
+		YWCODE,
+		YWNAME,
+		TYPECODE,
+		TYPENAME,
+		ISAWARD,
+		AWARDTYPECODE,
+		AWARDTYPENAME,
+		ITEMCODE,
+		ITEMNAME,
+		ITEMVALUE,
+		REMARKS,
+		IDNO,
+		IDNAME,
+		USERID,
+		USERCODE,
+		USERNAME,
+		ROLETYPE,
+		ROLENAME,
+		USERTEL,
+		ORGID,
+		ORGNAME,
+		OPENID,
+		BATCHID,
+		STATUS,
+		UPDATETIME,
+		SALEAMT,
+		COSTAMT,
+		RECEIVETEL,
+		RECEIVEUSER,
+		RECEIVEADDR,
+		awardVal,
+		awardName,
+		awardCode,
+		itemTypeCode,
+		itemTypeName,
+		startDate,
+		endDate,
+		checkOrgId,
+		checkOrgName,
+		checkTime,
+		checkerCode,
+		checker
+		)
+		VALUES(
+		#{info.id:VARCHAR},
+		#{info.projectCode:VARCHAR},
+		#{info.projectName:VARCHAR},
+		#{info.companyId:VARCHAR},
+		now(),
+		#{info.ywCode:NUMERIC},
+		#{info.ywName:VARCHAR},
+		#{info.typeCode:NUMERIC},
+		#{info.typeName:VARCHAR},
+		#{info.isAward:NUMERIC},
+		#{info.awardTypeCode:NUMERIC},
+		#{info.awardTypeName:VARCHAR},
+		#{info.itemCode:VARCHAR},
+		#{info.itemName:VARCHAR},
+		#{info.itemValue:VARCHAR},
+		#{info.remarks:VARCHAR},
+		#{info.idNo:VARCHAR},
+		#{info.idName:VARCHAR},
+		#{info.userId:VARCHAR},
+		#{info.userCode:VARCHAR},
+		#{info.userName:VARCHAR},
+		#{info.roleType:VARCHAR},
+		#{info.roleName:VARCHAR},
+		#{info.userTel:VARCHAR},
+		#{info.orgId:VARCHAR},
+		#{info.orgName:VARCHAR},
+		#{info.openid:VARCHAR},
+		#{info.batchId:VARCHAR},
+		#{info.status:NUMERIC},
+		now(),
+		#{info.saleAmt:VARCHAR},
+		#{info.costAmt:VARCHAR},
+		#{info.receiveTel:VARCHAR},
+		#{info.receiveUser:VARCHAR},
+		#{info.receiveAddr:VARCHAR},
+		#{info.awardVal:VARCHAR},
+		#{info.awardName:VARCHAR},
+		#{info.awardCode:VARCHAR},
+		#{info.itemTypeCode:NUMERIC},
+		#{info.itemTypeName:VARCHAR},
+		#{info.startDate:VARCHAR},
+		#{info.endDate:VARCHAR},
+		#{info.checkOrgId:VARCHAR},
+		#{info.checkOrgName:VARCHAR},
+		#{info.checkTime:VARCHAR},
+		#{info.checkerCode:VARCHAR},
+		#{info.checker:VARCHAR}
+		)
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO TB_PROJECT_SALES_DETAIL (
+		ID,
+		PROJECTCODE,
+		PROJECTNAME,
+		COMPANYID,
+		CREATETIME,
+		YWCODE,
+		YWNAME,
+		TYPECODE,
+		TYPENAME,
+		ISAWARD,
+		AWARDTYPECODE,
+		AWARDTYPENAME,
+		ITEMCODE,
+		ITEMNAME,
+		ITEMVALUE,
+		REMARKS,
+		IDNO,
+		IDNAME,
+		USERID,
+		USERCODE,
+		USERNAME,
+		ROLETYPE,
+		ROLENAME,
+		USERTEL,
+		ORGID,
+		ORGNAME,
+		OPENID,
+		BATCHID,
+		STATUS,
+		UPDATETIME,
+		SALEAMT,
+		COSTAMT,
+		RECEIVETEL,
+		RECEIVEUSER,
+		RECEIVEADDR,
+		awardVal,
+		awardName,
+		awardCode,
+		itemTypeCode,
+		itemTypeName,
+		startDate,
+		endDate,
+		checkOrgId,
+		checkOrgName,
+		checkTime,
+		checkerCode,
+		checker
+		)
+		VALUES
+		<foreach collection="list" item="info" index="index"
+			separator=",">
+			(
+			#{info.id:VARCHAR},
+			#{info.projectCode:VARCHAR},
+			#{info.projectName:VARCHAR},
+			#{info.companyId:VARCHAR},
+			now(),
+			#{info.ywCode:NUMERIC},
+			#{info.ywName:VARCHAR},
+			#{info.typeCode:NUMERIC},
+			#{info.typeName:VARCHAR},
+			#{info.isAward:NUMERIC},
+			#{info.awardTypeCode:NUMERIC},
+			#{info.awardTypeName:VARCHAR},
+			#{info.itemCode:VARCHAR},
+			#{info.itemName:VARCHAR},
+			#{info.itemValue:VARCHAR},
+			#{info.remarks:VARCHAR},
+			#{info.idNo:VARCHAR},
+			#{info.idName:VARCHAR},
+			#{info.userId:VARCHAR},
+			#{info.userCode:VARCHAR},
+			#{info.userName:VARCHAR},
+			#{info.roleType:VARCHAR},
+			#{info.roleName:VARCHAR},
+			#{info.userTel:VARCHAR},
+			#{info.orgId:VARCHAR},
+			#{info.orgName:VARCHAR},
+			#{info.openid:VARCHAR},
+			#{info.batchId:VARCHAR},
+			#{info.status:NUMERIC},
+			now(),
+			#{info.saleAmt:VARCHAR},
+			#{info.costAmt:VARCHAR},
+			#{info.receiveTel:VARCHAR},
+			#{info.receiveUser:VARCHAR},
+			#{info.receiveAddr:VARCHAR},
+			#{info.awardVal:VARCHAR},
+			#{info.awardName:VARCHAR},
+			#{info.awardCode:VARCHAR},
+			#{info.itemTypeCode:NUMERIC},
+			#{info.itemTypeName:VARCHAR},
+			#{info.startDate:VARCHAR},
+			#{info.endDate:VARCHAR},
+			#{info.checkOrgId:VARCHAR},
+			#{info.checkOrgName:VARCHAR},
+			#{info.checkTime:VARCHAR},
+			#{info.checkerCode:VARCHAR},
+			#{info.checker:VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.smart.market.project.sales.pojo.SalesDetail">
+		UPDATE TB_PROJECT_SALES_DETAIL
+		SET
+		checkOrgId=#{info.checkOrgId:VARCHAR},
+		checkOrgName=#{info.checkOrgName:VARCHAR},
+		checkTime=#{info.checkTime:VARCHAR},
+		checkerCode=#{info.checkerCode:VARCHAR},
+		checker=#{info.checker:VARCHAR},
+		awardVal=#{info.awardVal:VARCHAR},
+		awardName=#{info.awardName:VARCHAR},
+		awardCode=#{info.awardCode:VARCHAR},
+		ISAWARD = #{info.isAward:NUMERIC},
+		AWARDTYPECODE = #{info.awardTypeCode:NUMERIC},
+		AWARDTYPENAME =
+		#{info.awardTypeName:VARCHAR},
+		REMARKS = #{info.remarks:VARCHAR},
+		STATUS =
+		#{info.status:NUMERIC},
+		UPDATETIME = now(),
+		RECEIVETEL =
+		#{info.receiveTel:VARCHAR},
+		RECEIVEUSER = #{info.receiveUser:VARCHAR},
+		RECEIVEADDR = #{info.receiveAddr:VARCHAR}
+		WHERE
+		ID = #{info.id}
+	</update>
+	<!-- <update id="updateBatch" parameterType="List"> <foreach collection="list" 
+		item="info" index="index" separator=";"> UPDATE TB_PROJECT_SALES_DETAIL SET 
+		PROJECTCODE = #{info.projectCode:VARCHAR}, PROJECTNAME = #{info.projectName:VARCHAR}, 
+		COMPANYID = #{info.companyId:VARCHAR}, YWCODE = #{info.ywCode:NUMERIC}, YWNAME 
+		= #{info.ywName:VARCHAR}, TYPECODE = #{info.typeCode:NUMERIC}, TYPENAME = 
+		#{info.typeName:VARCHAR}, ISAWARD = #{info.isAward:NUMERIC}, AWARDTYPECODE 
+		= #{info.awardTypeCode:NUMERIC}, AWARDTYPENAME = #{info.awardTypeName:VARCHAR}, 
+		ITEMCODE = #{info.itemCode:VARCHAR}, ITEMNAME = #{info.itemName:VARCHAR}, 
+		ITEMVALUE = #{info.itemValue:VARCHAR}, REMARKS = #{info.remarks:VARCHAR}, 
+		IDNO = #{info.idNo:VARCHAR}, IDNAME = #{info.idName:VARCHAR}, USERID = #{info.userId:VARCHAR}, 
+		USERCODE = #{info.userCode:VARCHAR}, USERNAME = #{info.userName:VARCHAR}, 
+		ROLETYPE = #{info.roleType:VARCHAR}, ROLENAME = #{info.roleName:VARCHAR}, 
+		USERTEL = #{info.userTel:VARCHAR}, ORGID = #{info.orgId:VARCHAR}, ORGNAME 
+		= #{info.orgName:VARCHAR}, OPENID = #{info.openid:VARCHAR}, BATCHID = #{info.batchId:VARCHAR}, 
+		STATUS = #{info.status:NUMERIC}, UPDATETIME = now(), SALEAMT = #{info.saleAmt:VARCHAR}, 
+		COSTAMT = #{info.costAmt:VARCHAR}, RECEIVETEL = #{info.receiveTel:VARCHAR}, 
+		RECEIVEUSER = #{info.receiveUser:VARCHAR}, RECEIVEADDR = #{info.receiveAddr:VARCHAR} 
+		WHERE ID = #{info.id} </foreach> </update> -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_PROJECT_SALES_DETAIL WHERE ID=#{id}
+	</delete>
+
+	<select id="findAll"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesDetail">
+		SELECT * FROM TB_PROJECT_SALES_DETAIL t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_PROJECT_SALES_DETAIL WHERE ID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list"
+		resultType="com.marks.smart.market.project.sales.pojo.SalesDetail"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_PROJECT_SALES_DETAIL t
+		WHERE 1=1 and
+		t.COMPANYID=#{companyId}
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PROJECTCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.PROJECTNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.REMARKS LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.IDNO LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.IDNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.USERID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.USERCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.USERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.USERTEL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORGID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.ORGNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.OPENID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.BATCHID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

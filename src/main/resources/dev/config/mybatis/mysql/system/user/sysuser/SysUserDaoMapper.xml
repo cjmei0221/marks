@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.system.user.sysuser.dao.SysUserDao">
+
+	<select id="findByUserid"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		select
+		u.*
+		from tb_user u
+		where u.USERID =#{userid}
+	</select>
+	<select id="getMaxCode" resultType="String">
+		select max(userCode) from
+		tb_user t where t.companyId=#{companyId}
+		<if test="roleYwType == 0">
+			and t.roleYwType = 0
+		</if>
+		<if test="roleYwType != 0">
+			and t.roleYwType != 0
+		</if>
+	</select>
+	<select id="getUserId" resultType="String">
+		select max(USERID) from
+		tb_user t where t.companyId=#{companyId}
+		and t.roleYwType != 3
+	</select>
+
+	<select id="findByMobile"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		select * from tb_user t
+		where t.ACTIVEFLAG=1 and
+		t.bind_mobile=#{mobile} and
+		t.COMPANYID=#{companyId}
+	</select>
+	<select id="findById"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		select * from tb_user t
+		where t.ACTIVEFLAG=1 and
+		(t.bind_mobile=#{id} or t.USERID =#{id} or t.bind_mobile=#{id} or
+		t.userCode=#{id}) and
+		t.COMPANYID=#{companyId}
+	</select>
+
+	<select id="findByParams"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		select * from tb_user t
+		where t.COMPANYID=#{companyId}
+		<if test="roleType != null and roleType !=''">
+			and t.roleType=#{roleType}
+		</if>
+		<if test="activeFlag != null and activeFlag !=''">
+			and t.ACTIVEFLAG=1
+		</if>
+		and (1=2
+		<if test="userid != null and userid !=''">
+			or t.USERID=#{userid}
+		</if>
+		<if test="mobile != null and mobile !=''">
+			or t.bind_mobile=#{mobile}
+		</if>
+		<if test="openid != null and openid !=''">
+			or t.openid=#{openid}
+		</if>
+		<if test="userCode != null and userCode !=''">
+			or t.userCode=#{userCode}
+		</if>
+		)
+		order by t.roleLvl,t.BIND_MOBILE desc
+	</select>
+
+	<insert id="save"
+		parameterType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		INSERT INTO tb_user
+		(
+		USERID,
+		USERNAME,
+		PASSWORD,
+		BIND_MOBILE,
+		ACTIVEFLAG,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR,
+		COMPANYID,
+		TOKEN,
+		ROLEID,
+		openid,
+		accountid,
+		userCode,
+		roleName,
+		roleType,
+		roleLvl,
+		orgId,
+		orgName,
+		orgType,
+		orgCategory,
+		parentOrgId,
+		parentOrgName,
+		gender,
+		birthday,
+		signature,
+		idNumber,
+		email,
+		entryDate,
+		channelId,
+		channel,
+		roleYwType,
+		userRoleOrgId,
+		bindFlag,
+		companyName,
+		remarks,
+		labels
+		)
+		VALUES(
+		#{userid:VARCHAR},
+		#{username:VARCHAR},
+		#{password:VARCHAR},
+		#{bind_mobile:VARCHAR},
+		#{activeFlag:NUMERIC},
+		now(),
+		now(),
+		#{creator:VARCHAR},
+		#{companyId:VARCHAR},
+		#{token:VARCHAR},
+		#{roleId:VARCHAR},
+		#{openid:VARCHAR},
+		#{accountid:VARCHAR},
+		#{userCode:VARCHAR},
+		#{roleName:VARCHAR},
+		#{roleType:VARCHAR},
+		#{roleLvl:NUMERIC},
+		#{orgId:VARCHAR},
+		#{orgName:VARCHAR},
+		#{orgType:NUMERIC},
+		#{orgCategory:NUMERIC},
+		#{parentOrgId:VARCHAR},
+		#{parentOrgName:VARCHAR},
+		#{gender:NUMERIC},
+		#{birthday:VARCHAR},
+		#{signature:VARCHAR},
+		#{idNumber:VARCHAR},
+		#{email:VARCHAR},
+		#{entryDate:VARCHAR},
+		#{channelId:VARCHAR},
+		#{channel:VARCHAR},
+		#{roleYwType:NUMERIC},
+		#{userRoleOrgId:VARCHAR},
+		#{bindFlag:NUMERIC},
+		#{companyName:VARCHAR},
+		#{remarks:VARCHAR},
+		#{labels:VARCHAR}
+		)
+	</insert>
+
+	<update id="update"
+		parameterType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		UPDATE tb_user
+		SET
+		labels=#{labels:VARCHAR},
+		bindflag=#{bindFlag:NUMERIC},
+		BIND_MOBILE =#{bind_mobile:VARCHAR},
+		userRoleOrgId=#{userRoleOrgId:VARCHAR},
+		gender=#{gender:NUMERIC},
+		birthday=#{birthday:VARCHAR},
+		signature=#{signature:VARCHAR},
+		idNumber=#{idNumber:VARCHAR},
+		email=#{email:VARCHAR},
+		entryDate=#{entryDate:VARCHAR},
+		roleName=#{roleName:VARCHAR},
+		roleType=#{roleType:VARCHAR},
+		roleLvl=#{roleLvl:NUMERIC},
+		orgId=#{orgId:VARCHAR},
+		orgName=#{orgName:VARCHAR},
+		orgType=#{orgType:NUMERIC},
+		orgCategory=#{orgCategory:NUMERIC},
+		parentOrgId=#{parentOrgId:VARCHAR},
+		parentOrgName=#{parentOrgName:VARCHAR},
+		USERNAME =
+		#{username:VARCHAR},
+		ACTIVEFLAG =
+		#{activeFlag:NUMERIC},
+		UPDATETIME =
+		now(),
+		TOKEN =
+		#{token:VARCHAR},
+		openid=#{openid:VARCHAR},
+		accountid =
+		#{accountid:VARCHAR},
+		ROLEID=#{roleId:VARCHAR}
+		WHERE
+		USERID
+		= #{userid}
+	</update>
+	<update id="updatePwd"
+		parameterType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		UPDATE tb_user
+		SET
+		PASSWORD
+		=
+		#{password:VARCHAR},
+		UPDATETIME = now()
+		WHERE
+		USERID
+		= #{userid}
+	</update>
+
+	<update id="undateUnbindByTelOrOpenid" flushCache="true">
+		UPDATE tb_user
+		SET
+		ACTIVEFLAG=0,
+		bindflag=0,
+		UPDATETIME = now()
+		WHERE
+		COMPANYID=#{companyId}
+		and (2=1
+		<if test="mobile != null and mobile !=''">
+			or bind_mobile=#{mobile}
+		</if>
+		<if test="openid != null and openid !=''">
+			or openid=#{openid}
+		</if>
+		)
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM tb_user WHERE
+		USERID=#{userid}
+	</delete>
+	<select id="findAll"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUser">
+		SELECT * FROM tb_user
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM tb_user WHERE USERID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="listActive"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUser"
+		parameterType="java.util.Map">
+		SELECT sysuser.*
+		FROM tb_user sysuser
+		WHERE 1=1 and sysuser.hideFlag =0
+		and sysUser.activeflag=1
+		<if test="companyId !=null and companyId != ''">
+			and sysuser.COMPANYID = #{companyId}
+		</if>
+		<if test="roleYwType !=null and roleYwType != ''">
+			and sysuser.roleYwType = #{roleYwType}
+		</if>
+		<if test="orgId !=null and orgId != ''">
+			and (sysuser.orgId = #{orgId} or
+			sysuser.COMPANYID=#{orgId})
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and (
+			sysuser.USERCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.USERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.BIND_MOBILE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		order by sysuser.USERNAME
+	</select>
+
+	<select id="list"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUser"
+		parameterType="java.util.Map">
+		SELECT sysuser.*
+		FROM tb_user sysuser
+		join tb_sys_role tsr on (
+		sysuser.roleid = tsr.roleid)
+		WHERE 1=1 and sysuser.hideFlag =0
+		<if test="companyId !=null and companyId != ''">
+			and sysuser.COMPANYID = #{companyId}
+		</if>
+		<if test="roleYwType !=null and roleYwType != ''">
+			and sysuser.roleYwType = #{roleYwType}
+		</if>
+		<if test="roleType !=null and roleType != ''">
+			and sysuser.roleType = #{roleType}
+		</if>
+		<if test="roleType == null or roleType == ''">
+			and tsr.showflag=1
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and (
+			sysuser.userCode LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.USERNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.BIND_MOBILE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			or sysuser.labels LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+
+			)
+		</if>
+		<if test="sorgid !=null and sorgid != ''">
+			and sysuser.orgid like '%${sorgid}%'
+		</if>
+		<if test="s_role !=null and s_role != ''">
+			and sysuser.roleid like '%${s_role}%'
+		</if>
+		order by sysuser.UPDATETIME desc
+	</select>
+	<select id="findUserRoleByUserids"
+		resultType="com.marks.smart.system.user.sysuser.pojo.SysUserOrgRole">
+		select * FROM TB_USER_ORG_ROLE WHERE USERID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</select>
+
+	<delete id="deleteSysUserOrgRole" parameterType="String">
+		DELETE FROM
+		TB_USER_ORG_ROLE WHERE USERID=#{userid} and ORGID=#{orgid}
+	</delete>
+	<delete id="deleteSysUserOrgRoleByUserid" parameterType="String">
+		DELETE
+		FROM
+		TB_USER_ORG_ROLE WHERE USERID=#{userid}
+	</delete>
+	<insert id="saveSysUserOrgRole"
+		parameterType="com.marks.smart.system.user.sysuser.pojo.SysUserOrgRole">
+		INSERT INTO
+		TB_USER_ORG_ROLE (
+		USERID,
+		companyId,
+		ORGID,
+		orgName,
+		orgType,
+		orgCategory,
+		parentOrgId,
+		parentOrgName,
+		roleId,
+		roleName,
+		roleType,
+		roleLvl,
+		UPDATETIME,
+		sort,
+		userRoleOrgId
+		)
+		VALUES(
+		#{userid:VARCHAR},
+		#{companyId:VARCHAR},
+		#{orgId:VARCHAR},
+		#{orgName:VARCHAR},
+		#{orgType:NUMERIC},
+		#{orgCategory:NUMERIC},
+		#{parentOrgId:VARCHAR},
+		#{parentOrgName:VARCHAR},
+		#{roleId:VARCHAR},
+		#{roleName:VARCHAR},
+		#{roleType:VARCHAR},
+		#{roleLvl:NUMERIC},
+		now(),
+		#{sort:NUMERIC},
+		#{userRoleOrgId:VARCHAR}
+		)
+	</insert>
+	<update id="updateSkin" flushCache="true">
+		update tb_user set
+		skin=#{skin},UPDATETIME=now() where userid=#{userid}
+	</update>
+
+	<update id="updateUnbinding" flushCache="true">
+		update tb_user set
+		bindflag=0,ACTIVEFLAG=0,UPDATETIME=now() where accountid=#{accountId}
+		and
+		openid=#{openid}
+	</update>
+
+	<update id="updateOrgName" flushCache="true">
+		update TB_USER set
+		orgName=#{orgName} where orgId=#{orgId}
+	</update>
+	<update id="updateCompanyName" flushCache="true">
+		update TB_USER set
+		companyName=#{orgName} where companyid=#{orgId}
+	</update>
+	<update id="updateUserRoleOrg" flushCache="true">
+		update
+		TB_USER_ORG_ROLE set orgName=#{orgName} where orgId=#{orgId}
+	</update>
+</mapper>

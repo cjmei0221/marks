@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!-- SalesInfo.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>管理平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="format-detection" content="telephone=no, email=no" />
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/inner/css/base.css">
+<script type="text/javascript" src="/inner/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/inner/js/base-config.js"></script>
+<script type="text/javascript" src="/inner/js/sysmsg.js"></script>
+<script type="text/javascript" src="/inner/js/tool.js"></script>
+</head>
+
+<body>
+	<div id="mainPanel">
+		<div align="left" style="width: 100%; margin: 0px;">
+			<form id="ff" name="ff" method="post">
+				<div id="tt" class="easyui-tabs"
+					style="width: 100%; height: 470px; text-align: center;">
+					<div title="基础信息" style="padding: 20px; display: none;"
+						data-options="tabWidth:100">
+
+						<table style="margin-top: 10px;">
+							<tr>
+								<th style="width: 120px; text-align: right;">方案编号&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td colspan="3"><input id="projectCode" name="projectCode"
+									class="easyui-validatebox" style="width: 200px;"
+									maxlength="255" readonly="readonly"></td>
+
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">方案名称&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td colspan="3"><input id="projectName" name="projectName"
+									class="easyui-validatebox" data-options="required:true"
+									style="width: 400px; height: 30px;" maxlength="255"></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">业务类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="ywCode" class="easyui-combobox"
+									name="ywCode" style="width: 200px;"
+									data-options="required:true">
+										<option value="20">商品促销方案</option>
+								</select></td>
+								<th style="width: 120px; text-align: right;">促销类型&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="typeCode" class="easyui-combobox"
+									name="typeCode" style="width: 200px;"
+									data-options="required:true">
+										<option value="20">订单满减</option>
+										<option value="21">单品折扣</option>
+										<option value="22">商品满赠</option>
+										<option value="23">品牌满赠</option>
+										<option value="24">品类满赠</option>
+								</select></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">开始日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="startDate" name="startDate"
+									class="easyui-datebox" data-options="required:true"
+									style="width: 200px;" maxlength="20"></td>
+
+								<th style="width: 120px; text-align: right;">结束日期&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><input id="endDate" name="endDate"
+									class="easyui-datebox" data-options="required:true"
+									style="width: 200px;" maxlength="20"></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">备注&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td colspan="3"><input id="remarks" name="remarks"
+									class="easyui-validatebox" style="width: 400px;"
+									maxlength="250"></td>
+							</tr>
+							<tr height="25px">
+								<td colspan="4"></td>
+							</tr>
+							<tr>
+								<td colspan="4" align="center"><a id="next1" name="next1"
+									href="javascript:void(0)" class="easyui-linkbutton"
+									style="width: 100px;">下一步</a></td>
+							</tr>
+						</table>
+					</div>
+					<div title="条件筛选" style="padding: 20px; display: none;"
+						data-options="tabWidth:100">
+						<table>
+							<tr>
+								<th style="width: 120px; text-align: right;">是否限制门店&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="limitAreaFlag" class="easyui-combobox"
+									name="limitAreaFlag" style="width: 100px;"
+									data-options="required:true">
+										<option value="0">不限</option>
+										<option value="1">限制</option>
+								</select></td>
+								<th style="width: 120px; text-align: right;">限制门店&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><textarea id="limitAreaCodes" name="limitAreaCodes"
+										placeholder="请填写门店编号以;(英文)结尾" rows="3" cols="60"></textarea></td>
+							</tr>
+							<tr>
+								<th style="width: 120px; text-align: right;">参与促销对象&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="limitGoodFlag" class="easyui-combobox"
+									name="limitGoodFlag" style="width: 100px;"
+									data-options="required:true">
+										<option value="0">不限</option>
+										<option value="1">品类</option>
+										<option value="2">品牌</option>
+										<option value="3">商品</option>
+								</select></td>
+								<th style="width: 120px; text-align: right;">是否有排除对象&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+								<td><select id="notJoinFlag" class="easyui-combobox"
+									name="notJoinFlag" style="width: 100px;"
+									data-options="required:true">
+										<option value="0">否</option>
+										<option value="1">是</option>
+								</select></td>
+
+							</tr>
+						</table>
+						<div id="goodtt" class="easyui-tabs"
+							style="width: 760px; height: 260px;">
+							<div title="参与对象" style="padding: 20px; display: none;"
+								data-options="tabWidth:100">
+								<p>请填写品类 或品牌 或商品 的编号，并以;(英文)结尾,如 商品编号 1001;1002;</p>
+								<p>
+									<textarea rows="6" cols="110" id="limitGoodNos"
+										name="limitGoodNos"></textarea>
+								</p>
+							</div>
+							<div title="排除对象" style="overflow: auto; display: none;"
+								data-options="tabWidth:100">
+								<div id="removett" class="easyui-tabs"
+									style="width: 100%; height: 265px;">
+									<div title="品类" style="padding: 20px; display: none;"
+										data-options="tabWidth:100">
+										<p>请填写品类 的编号，并以;(英文)结尾,如 编号 01;02;</p>
+										<p>
+											<textarea rows="6" cols="80" id="notJoinGoodTypes"
+												name="notJoinGoodTypes"></textarea>
+										</p>
+									</div>
+									<div title="品牌" style="padding: 20px; display: none;"
+										data-options="tabWidth:100">
+										<p>请填写品牌的编号，并以;(英文)结尾,如 编号 10001;10002;</p>
+										<p>
+											<textarea rows="6" cols="110" id="notJoinBrands"
+												name="notJoinBrands"></textarea>
+										</p>
+									</div>
+									<div title="商品" style="padding: 20px; display: none;"
+										data-options="tabWidth:100">
+										<p>请填写商品 的编号，并以;(英文)结尾,如 编号 1001;1002;</p>
+										<p>
+											<textarea rows="6" cols="110" id="notJoinGoods"
+												name="notJoinGoods"></textarea>
+										</p>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div align="center">
+							<a id="next2" name="next2" href="javascript:void(0)"
+								class="easyui-linkbutton" style="width: 100px;">下一步</a>
+						</div>
+					</div>
+					<div title="优惠设置" style="padding: 20px; display: none;"
+						data-options="tabWidth:100" align="center">
+						<div id="btnTr" style="margin-bottom: 20px;">
+							<a id="btnCancel" name="btnCancel" href="javascript:void(0)"
+								class="easyui-linkbutton" style="width: 100px;"
+								data-options="iconCls:'icon-cancel'">取消</a>
+							&nbsp;&nbsp;&nbsp;&nbsp; <a id="btnOK" name="btnOK"
+								href="javascript:void(0)" class="easyui-linkbutton"
+								style="width: 100px;" data-options="iconCls:'icon-save'">保存</a>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<td style="width: 120px;">条件</td>
+									<td style="width: 110px;">方式</td>
+									<td style="width: 100px;">值</td>
+									<td><a id="addItem" href="javascript:void(0)"
+										onclick="addItem()">添加</a></td>
+								</tr>
+							</thead>
+							<tbody id="itemList">
+								<tr id="item1">
+									<td>满<input id="limitNums1" name="limitNums"
+										class="easyui-numberbox"
+										data-options="required:true,min:1,precision:0"
+										style="width: 100px;"><span class="cls-good"></span></td>
+									<td><select id="itemTypeCode1" class="easyui-combobox"
+										name="itemTypeCode" style="width: 100px;"
+										data-options="required:true">
+											<option value="5">折扣</option>
+											<option value="6">赠送</option>
+											<option value="7">免减</option>
+									</select></td>
+									<td><input id="itemVal1" name="itemVal1"
+										class="easyui-validatebox" data-options="required:true"
+										style="width: 100px;"></td>
+									<td><a href="javascript:void(0)"
+										onclick="removeItem('item1')">删除</a></td>
+								</tr>
+							</tbody>
+
+
+						</table>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div id="goodWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 600px; height: 450px; padding: 10px;"></div>
+
+</body>
+<script type="text/html" id="itemTrTmp">
+<tr id="item{idx}">
+								<td>满<input id="limitNums{idx}" name="limitNums" class="easyui-numberbox"
+									data-options="required:true,min:1,precision:0"
+									style="width: 100px;"><span class="cls-good"></span></td>
+								<td><select id="itemTypeCode{idx}" class="easyui-combobox" name="itemTypeCode"
+									style="width: 100px;" data-options="required:true">
+										<option value="0">折扣</option>
+										<option value="1">赠送</option>
+										<option value="2">免减</option>
+								</select></td>
+								<td><input id="itemVal{idx}" name="itemVal1" class="easyui-validatebox"
+									data-options="required:true" style="width: 100px;"></td>
+								<td><a href="javascript:void(0)"
+									onclick="removeItem('item{idx}')">删除</a></td>
+							</tr>
+</script>
+<!-- <script src="js/salesInfo.js"></script> -->
+<script type="text/javascript">
+	/* loadScript("js/salesInfo.js", function() { //加载,并执行回调函数
+		alert($(window).height());
+	}); */
+	loadScript("js/goodSalesEdit.js?_time=" + new Date().getTime()); //加载js文件
+</script>
+</html>

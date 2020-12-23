@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>记账</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>记账</h1>
+	<p>记录日常交易等</p>
+	
+	<h2>记账表  (TB_ASSET_LOG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>主键</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>USERID</td><td>用户ID</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>USERNAME</td><td>用户名称</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>MOBILE</td><td>手机号码</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>TRANTYPE</td><td>交易类型</td><td>number</td><td>0:支出 1:收入</td></tr><tr><td>6</td><td>ITEMTYPE</td><td>交易项目编号</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>ITEMNAME</td><td>交易名称</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>FROMER</td><td>支付方</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>TOER</td><td>收款方</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>TRANTIME</td><td>交易时间</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>TRANYEAR</td><td>年份</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>TRANMONTH</td><td>月份</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>IDNO</td><td>账号</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>IDNAME</td><td>账户名称</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (AssetLog)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>主键</td><td>String</td><td></td></tr><tr><td>2</td><td>userid</td><td>用户ID</td><td>String</td><td></td></tr><tr><td>3</td><td>username</td><td>用户名称</td><td>String</td><td></td></tr><tr><td>4</td><td>mobile</td><td>手机号码</td><td>String</td><td></td></tr><tr><td>5</td><td>tranType</td><td>交易类型</td><td>int</td><td>0:支出 1:收入</td></tr><tr><td>6</td><td>itemType</td><td>交易项目编号</td><td>String</td><td></td></tr><tr><td>7</td><td>itemName</td><td>交易名称</td><td>String</td><td></td></tr><tr><td>8</td><td>fromer</td><td>支付方</td><td>String</td><td></td></tr><tr><td>9</td><td>toer</td><td>收款方</td><td>String</td><td></td></tr><tr><td>10</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>11</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr><tr><td>12</td><td>tranTime</td><td>交易时间</td><td>String</td><td></td></tr><tr><td>13</td><td>tranYear</td><td>年份</td><td>String</td><td></td></tr><tr><td>14</td><td>tranMonth</td><td>月份</td><td>String</td><td></td></tr><tr><td>15</td><td>idNo</td><td>账号</td><td>String</td><td></td></tr><tr><td>16</td><td>idName</td><td>账户名称</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (AssetLogController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/assetLog/findAssetLogById</td><td>findAssetLogById</td><td>查询记账</td></tr><tr><td>2</td><td>/assetLog/save</td><td>saveAssetLog</td><td>保存记账</td></tr><tr><td>3</td><td>/assetLog/update</td><td>updateAssetLog</td><td>更新记账</td></tr><tr><td>4</td><td>/assetLog/delete</td><td>deleteAssetLogById</td><td>删除记账</td></tr><tr><td>5</td><td>/assetLog/findAllAssetLog</td><td>findAllAssetLog</td><td>查询全部记账</td></tr><tr><td>6</td><td>/assetLog/deleteIds</td><td>deleteAssetLog</td><td>删除多个记账</td></tr><tr><td>7</td><td>/assetLog/list</td><td>list</td><td>列表查询记账</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (AssetLogService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询记账</td></tr><tr><td>2</td><td>save</td><td>保存记账</td></tr><tr><td>3</td><td>update</td><td>更新记账</td></tr><tr><td>4</td><td>deleteById</td><td>删除记账</td></tr><tr><td>5</td><td>findAll</td><td>查询全部记账</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个记账</td></tr><tr><td>7</td><td>list</td><td>列表查询记账</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(AssetLogDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询记账</td></tr><tr><td>2</td><td>save</td><td>保存记账</td></tr><tr><td>3</td><td>update</td><td>更新记账</td></tr><tr><td>4</td><td>deleteById</td><td>删除记账</td></tr><tr><td>5</td><td>findAll</td><td>查询全部记账</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个记账</td></tr><tr><td>7</td><td>list</td><td>列表查询记账</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

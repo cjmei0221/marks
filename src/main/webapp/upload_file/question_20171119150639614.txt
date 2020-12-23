@@ -1,0 +1,64 @@
+===========================================
+eclipse maven项目不能自动编译
+
+2017-07-19 02:43:39 - 一般 - eclipse maven
+---------------------
+maven项目 》properties 》java compiler  》building 》设置编译
+
+http://blog.csdn.net/qq496013218/article/details/53843074
+
+===========================================
+easyui多选combobox
+
+2017-04-07 06:35:12 - 一般 - easyui
+---------------------
+easyui多选combobox，会存在开始有“,”的情况，是因为setValue为''的原因，不能使用setValue为''，而应该清空值
+
+===========================================
+struts2安全漏洞
+
+2017-03-31 07:27:41 - 较严重 - 安全
+---------------------
+临时方案
+String contentType =request.getContentType()==null?null:request.getContentType().toLowerCase(Locale.ENGLISH); 
+if (contentType != null &&contentType.contains("multipart/form-data") && !contentType.startsWith("multipart/form-data"))
+{ response.getWriter().write("Reject!"); }
+ else { chain.doFilter(request, response); } 
+}
+永久方案
+升级包
+
+
+===========================================
+linux tomcat服务器进程自动关闭问题
+
+2016-12-01 08:09:35 - 较严重 - tomcat服务器进程自动关闭问题
+---------------------
+1，tomcat 内存默认是128M 故需要加大内存 在bin/catalina.sh 最上面(即cygwin=false 上面)添加 JAVA_OPTS="-Xms1024m -Xmx1024m -XX:PermSize=128M -XX:MaxPermSize=256m"
+
+2，监控内存
+    在bin/catalina.sh 最上面(即cygwin=false 上面)添加如下：
+    JAVA_OPTS="-Xms2048m -Xmx2048m -XX:PermSize=256M -XX:MaxPermSize=512m -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -Xloggc:/home/dmz_vip_mobile/apache-tomcat-7. 0.62/logs/gc.log" if [ "$1" = "start" ];then echo "set console"; # JAVA_OPTS="$JAVA_OPTS -Xms256m -Xmx1024m -XX:PermSize=128M -XX:MaxPermSize=256m" JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=60001 -Djava.rmi.server.hostname=112.74.185.128"; JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"; JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false"; # JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.pwd.file=/root/soft/jdk7/jre/lib/management/jmxremote.password" else echo "no startup"; fi;
+    然后在java jdk 的bin目录中运行 jconsole.exe 监控此tomcat的运行内存
+
+===========================================
+tomcat连接数过大
+
+2017-02-24 08:46:30 - 较严重 - tomcat
+---------------------
+最近服务端上线部署运行一段时间，app访问服务端速度很慢甚至不能访问服务端获取数据<br/><br/>CLOSE_WAIT是只在服务器与客户端通信过程中，因服务器发生了socket未关导致的closed_wait发生，致使监听port打开的句柄数到了过大，且均处于close_wait的状态，最终造成配置的port被占满导致tomcat无法再有多余的连接可供访问，无法再进行通信。<br/><br/>解决办法：<br/><br/>1.修改tomcat连接数，增加acceptCount和maxThreads这两个属性的值，并且使acceptCount大于等于maxThreads：<br/><br/><Connector port=8080 protocol=HTTP/1.1   <br/>           connectionTimeout=20000   <br/>           redirectPort=8443 acceptCount=500 maxThreads=400 />  <br/>2.修改linux的TCP超时时间限制（影响全局，需谨慎）
+
+===========================================
+vue存在页面假死状态，vue还存在字段中html标签，不能编译
+
+2016-12-22 07:36:02 - 一般 - vue
+---------------------
+现初步认为是sui mobile问题，可以不使用sui mobile的js文件，将css page和pagegroup去掉即可
+
+===========================================
+tomcat乱码问题
+
+2016-12-01 08:16:09 - 一般 - tomcat 乱码问题
+---------------------
+配置?bin/server.xml文件<br/><Connector port="8080"?protocol="HTTP/1.1"?connectionTimeout="20000"　redirectPort="8443" URIEncoding="UTF-8"?/> 　　     <Connector?port="8009"?protocol="AJP/1.3"?redirectPort="8443"??URIEncoding="UTF-8"/> 　　<br/>在port ="8080"或者port ="8009"加入URIEncoding="UTF-8"?就好了。
+

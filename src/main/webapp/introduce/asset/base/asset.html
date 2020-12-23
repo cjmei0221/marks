@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>资产</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>资产</h1>
+	<p>用户资产项</p>
+	
+	<h2>资产表  (TB_ASSET)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>IDNO</td><td>账号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>IDTYPE</td><td>账户类型</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>AMOUNT</td><td>金额</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>USERID</td><td>用户编号</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>USERNAME</td><td>用户姓名</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>MOBILE</td><td>手机号</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>PAYSORT</td><td>支付优先级</td><td>number</td><td></td></tr><tr><td>10</td><td>IDNAME</td><td>账户名称</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (Asset)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>idNo</td><td>账号</td><td>String</td><td></td></tr><tr><td>2</td><td>idType</td><td>账户类型</td><td>String</td><td></td></tr><tr><td>3</td><td>amount</td><td>金额</td><td>String</td><td></td></tr><tr><td>4</td><td>userid</td><td>用户编号</td><td>String</td><td></td></tr><tr><td>5</td><td>username</td><td>用户姓名</td><td>String</td><td></td></tr><tr><td>6</td><td>mobile</td><td>手机号</td><td>String</td><td></td></tr><tr><td>7</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>8</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr><tr><td>9</td><td>paySort</td><td>支付优先级</td><td>int</td><td></td></tr><tr><td>10</td><td>idName</td><td>账户名称</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (AssetController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/asset/findAssetById</td><td>findAssetById</td><td>查询资产</td></tr><tr><td>2</td><td>/asset/save</td><td>saveAsset</td><td>保存资产</td></tr><tr><td>3</td><td>/asset/update</td><td>updateAsset</td><td>更新资产</td></tr><tr><td>4</td><td>/asset/delete</td><td>deleteAssetById</td><td>删除资产</td></tr><tr><td>5</td><td>/asset/findAllAsset</td><td>findAllAsset</td><td>查询全部资产</td></tr><tr><td>6</td><td>/asset/deleteIds</td><td>deleteAsset</td><td>删除多个资产</td></tr><tr><td>7</td><td>/asset/list</td><td>list</td><td>列表查询资产</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (AssetService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询资产</td></tr><tr><td>2</td><td>save</td><td>保存资产</td></tr><tr><td>3</td><td>update</td><td>更新资产</td></tr><tr><td>4</td><td>deleteById</td><td>删除资产</td></tr><tr><td>5</td><td>findAll</td><td>查询全部资产</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个资产</td></tr><tr><td>7</td><td>list</td><td>列表查询资产</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(AssetDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询资产</td></tr><tr><td>2</td><td>save</td><td>保存资产</td></tr><tr><td>3</td><td>update</td><td>更新资产</td></tr><tr><td>4</td><td>deleteById</td><td>删除资产</td></tr><tr><td>5</td><td>findAll</td><td>查询全部资产</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个资产</td></tr><tr><td>7</td><td>list</td><td>列表查询资产</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

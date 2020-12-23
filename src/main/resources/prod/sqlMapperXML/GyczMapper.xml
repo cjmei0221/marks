@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.GyczMapper">
+
+    <select id="list" resultType="com.grgbanking.smart.gzw.model.FlowModel" parameterType="java.util.Map">
+        SELECT DISTINCT
+        ff.process_Id AS processId,
+        ff.process_name AS processName,
+        ff.is_back AS isBack,
+        ff.form_data_code AS formDataCode,
+        ff.form_data_name AS formDataName,
+        ff.form_data_id AS formDataId,
+        ff.form_data_id AS id,
+        ff.i_month AS i_season,
+        ff.i_year,
+        ff.user_id AS creator,
+        ff. STATUS,
+        ff.update_time AS updateTime,
+        IFNULL(org.`short_name`, org.`name`) AS companyBriefName,
+        org.`name` as orgName,
+        ff.order_id AS orderId,
+        IFNULL(ff.`operator`, u.full_name) AS fullName,
+        k1.ACTOR_ID,
+        k1.taskKey,
+        gi.user_name as operator,
+        gi.user_name as user_tel,
+        gi.scope_code,
+        gi.scope_name
+        FROM
+        t_pf_gycz_info gi
+        JOIN t_flow_form ff ON gi.id = ff.form_data_id
+        JOIN (
+        SELECT
+        d.ACTOR_ID,
+        d.orderId,
+        max(d.taskKey) AS taskKey
+        FROM
+        (
+        <if test="type==0 || type==1">
+            SELECT
+            ta.ACTOR_ID,
+            o.id AS orderId,
+            '' AS taskKey
+            FROM
+            t_wf_hist_task t
+            JOIN t_wf_hist_order o ON t.order_id = o.id
+            JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+            UNION
+            SELECT
+            cc.ACTOR_ID,
+            cc.ORDER_ID AS orderId,
+            '' AS taskKey
+            FROM
+            t_wf_cc_order cc
+        </if>
+        <if test="type==0">
+            UNION
+        </if>
+        <if test="type==0 || type==2">
+            SELECT
+            ta.ACTOR_ID,
+            o.id AS orderId,
+            t.TASK_NAME AS taskKey
+            FROM
+            t_wf_task t
+            JOIN t_wf_order o ON t.order_id = o.id
+            JOIN t_wf_task_actor ta ON ta.task_id = t.id
+        </if>
+        ) d
+        GROUP BY
+        d.ACTOR_ID,
+        d.orderId
+        ) k1 ON k1.orderId = ff.order_id
+        JOIN t_n_user u ON ff.user_id = u.id
+        LEFT JOIN t_n_org org ON ff.org_id = org.id
+        where 1=1
+        <if test="type==1">
+            and ff.STATUS in (1,4,2)
+        </if>
+        <if test="type==3">
+            and ff.STATUS in (2)
+        </if>
+        <if test="i_month != null and i_month !='' ">
+            AND ff.i_month = #{i_month}
+        </if>
+        <if test="i_year != null and i_year !='' ">
+            AND ff.i_year = #{i_year}
+        </if>
+        <if test="processName != null and processName !='' ">
+            AND ff.process_name = #{processName}
+        </if>
+        <if test="i_status != null and i_status !='' ">
+            AND ff. STATUS = #{i_status}
+        </if>
+        <if test="userid != null and userid !='' ">
+            AND k1.ACTOR_ID = #{userid}
+        </if>
+        order by ff.update_time desc
+    </select>
+
+    <select id="getDetailById" resultType="com.grgbanking.smart.gzw.model.innovate.GyzcVo">
+		select * from t_pf_gycz_info t where t.id=#{id}
+	</select>
+
+    <select id="queryByItemId" resultType="com.grgbanking.smart.gzw.model.entity.PfGyczDetail">
+		SELECT
+	*
+FROM
+	t_pf_gycz_detail t
+WHERE
+	t.item_id = #{formDataId}
+ORDER BY
+	t.sort
+	</select>
+    <delete id="deleteDetail">
+		delete from t_pf_gycz_detail where item_id=#{item_id}
+	</delete>
+    <select id="listCount" resultType="com.grgbanking.smart.gzw.model.entity.PfGyczInfo" parameterType="com.grgbanking.smart.gzw.model.innovate.MonthReq">
+       SELECT DISTINCT
+	CONCAT(t.i_year, t.i_month) AS id,
+	t.i_year,
+	t.i_month,
+	'工业产值表' AS item_name
+FROM
+	t_pf_gycz_info t
+WHERE
+	t.`status` IN (1, 2)
+  <if test="info.org_id != null and info.org_id !='' ">
+      and t.org_id=#{info.org_id}
+  </if>
+        <if test="info.i_year != null and info.i_year !='' ">
+            and t.i_year=#{info.i_year}
+        </if>
+        <if test="info.i_month != null and info.i_month !='' ">
+            and t.i_month=#{info.i_month}
+        </if>
+ORDER BY
+	t.i_year DESC,
+	t.i_month DESC
+    </select>
+    <select id="getDetailCountById" parameterType="com.grgbanking.smart.gzw.model.innovate.MonthReq" resultType="com.grgbanking.smart.gzw.model.entity.PfGyczDetail">
+      select k1.*,k2.amt_add as amt_last_add,k2.amt_last_year as amt_last_last_year from (
+SELECT
+        sum(t.amt_add) as amt_add,
+        sum(t.amt_last_year) as amt_last_year,
+        sum(t.amt_month) as amt_month,
+        sum(t.amt_year) as amt_year,
+        t.i_year,
+        t.i_month,
+        t.type_code,
+        max(t.type_name) as type_name,
+        t.lvl1_type_code,
+        max(t.lvl1_type_name) as lvl1_type_name,
+        max(sort) as sort
+        FROM
+        t_pf_gycz_detail t
+        JOIN t_pf_gycz_info o ON t.item_id = o.id
+        <include refid="countSql"/>
+        and t.i_year = #{info.i_year}
+        AND t.i_month = #{info.i_month}
+        group by t.type_code,t.lvl1_type_code
+) k1 left join (
+SELECT
+        sum(t.amt_add) as amt_add,
+        sum(t.amt_last_year) as amt_last_year,
+        t.type_code,
+        t.lvl1_type_code
+        FROM
+        t_pf_gycz_detail t
+        JOIN t_pf_gycz_info o ON t.item_id = o.id
+        <include refid="countSql"/>
+        and t.i_year = #{info.last_year}
+        AND t.i_month = #{info.last_month}
+        group by t.type_code,t.lvl1_type_code
+) k2 on k1.type_code=k2.type_code and k1.lvl1_type_code=k2.lvl1_type_code
+order by sort
+    </select>
+    <sql id="countSql">
+        WHERE o.`status` IN (1, 2)
+        and t.lvl1_type_code &lt; 5000 and t.type_code !=4
+        <if test="info.org_id != null and info.org_id !=''">
+            and o.org_id = #{info.org_id}
+        </if>
+    </sql>
+    <select id="getCountDetailById" parameterType="com.grgbanking.smart.gzw.model.innovate.MonthReq" resultType="com.grgbanking.smart.gzw.model.innovate.GyczCountDetail">
+      select
+    (case when k1.org_id='1' then '国资委' else o.short_name end ) as companyName,
+	k1.org_id,k1.type_code,k1.type_name,
+	FORMAT(k1.amt_high_last_year,2) as amt_high_last_year,
+	FORMAT(k1.amt_high_this_year,2) as amt_high_this_year,
+	FORMAT(k1.amt_last_year,2) as amt_last_year,
+	FORMAT(k1.amt_this_month,2) as amt_month,
+	FORMAT(k1.amt_this_year,2) as amt_this_year,
+	FORMAT(k2.amt_last_last_year,2) as amt_last_last_year,
+	FORMAT(k2.amt_last_this_year,2) as amt_last_this_year,
+        o.sort_order
+ from(
+SELECT
+    ifnull(t.org_id,'1') as org_id,
+	ifnull(max(t.org_name),'国资委') as org_name,
+	ifnull(t.type_code,0) as type_code,
+	max(t.type_name) as type_name,
+	sum(case when t.lvl1_type_code=1001 then t.amt_month else 0 end) as amt_this_month,
+	sum(case when t.lvl1_type_code=1001 then t.amt_year else 0 end) as amt_this_year,
+	sum(case when t.lvl1_type_code=1001 then t.amt_last_year else 0 end) as amt_last_year,
+	sum(case when t.lvl1_type_code=1002 then t.amt_year else 0 end) as amt_high_this_year,
+	sum(case when t.lvl1_type_code=1002 then t.amt_last_year else 0 end) as amt_high_last_year
+FROM
+	t_pf_gycz_detail t
+JOIN t_pf_gycz_info o ON t.item_id = o.id
+   <include refid="countSql"/>
+        and t.i_year = #{info.i_year}
+        AND t.i_month = #{info.i_month}
+group by t.type_code,t.org_id WITH ROLLUP
+) k1 left join (
+select
+ifnull(t.org_id,'1') as org_id,
+ifnull(t.type_code,0) as type_code,
+sum(t.amt_year) as amt_last_last_year,
+sum(t.amt_last_year) as amt_last_this_year
+ FROM
+	t_pf_gycz_detail t
+JOIN t_pf_gycz_info o ON t.item_id = o.id
+        <include refid="countSql"/>
+        and t.i_year = #{info.last_year}
+        AND t.i_month = #{info.last_month}
+        and t.type_code=1001
+group by t.type_code,t.org_id WITH ROLLUP
+) k2 on k2.type_code=k1.type_code and k2.org_id=k2.org_id
+left join t_n_org o on k1.org_id=o.id
+where k1.type_code not in (0,4)
+order by o.sort_order
+    </select>
+</mapper>

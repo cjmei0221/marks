@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- WorkStep.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>管理平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="format-detection" content="telephone=no, email=no" />
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/inner/easyui/css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/inner/css/base.css">
+<script type="text/javascript" src="/inner/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/inner/easyui/js/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/inner/js/base-config.js"></script>
+<script type="text/javascript" src="/inner/js/sysmsg.js"></script>
+<script type="text/javascript" src="/inner/js/tool.js"></script>
+</head>
+
+<body class="easyui-layout">
+	<div data-options="region:'east',title:'操作',split:true"
+		style="width: 300px;">
+		<div id="checkForm">
+			<form id="workff" name="workff" method="post">
+				<input type="hidden" id="idNo" name="idNo">
+				<input type="hidden" id="typeCode" name="typeCode">
+				<input type="hidden" id="remarks" name="remarks">
+				<table style="width: 99%;">
+					<tr height="15px">
+						<td></td>
+					</tr>
+
+					<tr style="display:none;">
+						<td style="text-align: center">审核人<input id="userName"
+							name="userName" type="text" style="width: 200px; height: 30px;"
+							class="easyui-validatebox"
+							readonly="readonly" placeholder="选择审核人"> <input
+							id="userid" name="userid" type="hidden"></td>
+					</tr>
+					<tr height="15px" style="display:none;">
+						<td></td>
+					</tr>
+					<tr style="display:none;">
+						<td style="text-align: center"><a id="chooseUser"
+							name="chooseUser" href="javascript:void(0)"
+							class="easyui-linkbutton" style="width: 100px;">选择审核人</a></td>
+					</tr>
+					<tr height="15px">
+						<td></td>
+					</tr>
+					<tr>
+						<td style="text-align: center"><a id="btnOK" name="btnOK"
+							href="javascript:void(0)" class="easyui-linkbutton"
+							style="width: 100px;">提交审核</a></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<table style="width: 99%;">
+			<tr height="15px">
+				<td></td>
+			</tr>
+			<tr>
+				<td style="text-align: center"><a id="btnReturn"
+					name="btnReturn" href="javascript:void(0)"
+					class="easyui-linkbutton" style="width: 100px;">返回列表</a></td>
+			</tr>
+		</table>
+	</div>
+
+	<div data-options="region:'center',title:'信息'">
+		<div id="postShow" style="width: 100%; height: 99%;"></div>
+	</div>
+	<div id="userWin" class="easyui-window"
+		data-options="modal:true,closed:true,
+		minimizable:false,
+		maximizable:false,
+		draggable:true,
+		collapsible:false"
+		style="width: 750px; height: 560px;">
+		<!-- <p class="nav-header-cls"><span style="color:red;">双击可编辑</span></p> -->
+		<div id="tb" style="padding: 5px 0;">
+			<table>
+				<tr>
+					<td>所属组织
+						<ul id="ssorgid" name="ssorgid" class="easyui-combotree"
+							data-options="url:'/i/inner/orgInfo/tree.do?orgType=1,4,5'"
+							style="width: 120px"></ul>
+					</td>
+					<td><input type="text" id="keyword" name="keyword"
+						style="width: 100px;" placeholder="用户编号/用户姓名" /></td>
+					<td><a id="doSearch" href="javascript:void(0)"
+						class="easyui-linkbutton menuBtnCls"
+						data-options="iconCls:'icon-search'">查询</a></td>
+				</tr>
+			</table>
+		</div>
+		<table id="tbList">
+		</table>
+	</div>
+</body>
+<script type="text/javascript">
+	loadScript("js/applyCheck.js?_time=" + new Date().getTime()); //加载js文件
+</script>
+</html>

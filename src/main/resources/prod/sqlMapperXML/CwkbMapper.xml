@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.CwkbMapper">
+
+    <select id="list" parameterType="java.util.Map" resultType="com.grgbanking.smart.gzw.model.innovate.CwkbVo">
+        SELECT
+        distinct t.*
+        <if test="type!=3">
+            ,ff.process_Id AS processId
+            ,ff.process_name AS processName
+            ,k1.taskKey
+            ,k1.formData
+            ,k1.updateTime
+            ,k1.pop_type
+        </if>
+        FROM
+        t_pf_cwkb_info t
+        JOIN t_flow_form ff ON t.id = ff.form_data_id
+        <if test="type!=3">
+            JOIN (
+            SELECT
+            d.ACTOR_ID,
+            d.orderId,
+            max(d.taskKey) AS taskKey,
+            d.formData,
+            d.updateTime,
+            d.pop_type
+            FROM
+            (
+            <if test="type==0 || type==1">
+                SELECT
+                ta.ACTOR_ID,
+                t.ORDER_ID AS orderId,
+                t.task_name AS taskKey,
+                t.VARIABLE as formData,
+                t.FINISH_TIME as updateTime,
+                'see' as pop_type
+                FROM
+                t_wf_hist_task t
+                JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+                JOIN (
+                SELECT
+                max(t1.FINISH_TIME) AS FINISH_TIME,
+                t1.ORDER_ID,
+                ta1.ACTOR_ID
+                FROM
+                t_wf_hist_task t1
+                JOIN t_wf_hist_task_actor ta1 ON ta1.task_id = t1.id
+                left join t_wf_task tt on t1.ORDER_ID=tt.ORDER_ID
+                left join t_wf_task_actor tta on tt.id=tta.TASK_ID and tta.ACTOR_ID=ta1.ACTOR_ID
+                where tta.TASK_ID is null
+                GROUP BY
+                t1.ORDER_ID,
+                ta1.ACTOR_ID
+                ) d1 ON t.ORDER_ID = d1.ORDER_ID
+                AND ta.ACTOR_ID = d1.ACTOR_ID
+                AND t.FINISH_TIME = d1.FINISH_TIME
+                UNION
+                SELECT
+                cc.ACTOR_ID,
+                cc.ORDER_ID AS orderId,
+                '' AS taskKey,
+                '' AS formData,
+                cc.finish_Time as updateTime,
+                'see' as pop_type
+                FROM
+                t_wf_cc_order cc
+            </if>
+            <if test="type==0">
+                UNION
+            </if>
+            <if test="type==0 || type==2">
+                SELECT
+                ta.ACTOR_ID,
+                o.id AS orderId,
+                t.TASK_NAME AS taskKey,
+                '' AS formData,
+                t.CREATE_TIME as updateTime,
+                'check' as pop_type
+                FROM
+                t_wf_task t
+                JOIN t_wf_order o ON t.order_id = o.id
+                JOIN t_wf_task_actor ta ON ta.task_id = t.id
+            </if>
+            ) d
+            GROUP BY
+            d.ACTOR_ID,
+            d.orderId
+            ) k1 ON k1.orderId = ff.order_id
+        </if>
+        JOIN t_n_user u ON ff.user_id = u.id
+        where 1=1
+        <if test="type==1">
+            and ff.STATUS in (1,4,2)
+        </if>
+        <if test="orgId != null and orgId !=''">
+            and t.org_id=#{orgId}
+        </if>
+        <if test="org_id != null and org_id !=''">
+            and t.org_id=#{org_id}
+        </if>
+        <if test="i_year != null and i_year !=''">
+            and t.i_year=#{i_year}
+        </if>
+        <if test="i_month != null and i_month !=''">
+            and t.i_month=#{i_month}
+        </if>
+        <if test="process_name != null and process_name !=''">
+            and ff.process_name=#{process_name}
+        </if>
+        <if test="ids != null and ids !=''">
+            and find_in_set(t.id,#{ids})
+        </if>
+        <if test="userid != null and userid !='' ">
+            AND k1.ACTOR_ID = #{userid}
+        </if>
+        order by t.update_time desc
+    </select>
+    <select id="getFileList" parameterType="java.util.List"
+            resultType="com.grgbanking.smart.gzw.model.entity.PfCwkbFile">
+        SELECT
+        *
+        FROM
+        t_pf_cwkb_file t
+        WHERE
+        t.`status` = 1 and t.item_id in
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+        ORDER BY
+        t.type_code
+    </select>
+    <select id="listLog" parameterType="java.util.Map"
+            resultType="com.grgbanking.smart.gzw.model.entity.PfCwkbLog">
+        SELECT
+	*
+FROM
+	t_pf_cwkb_log t
+WHERE
+	t.item_id = #{item_id}
+    </select>
+    <delete id="deletePfCwkbFileByItemId" flushCache="true">
+        delete from  t_pf_cwkb_file  where item_id=#{itemId}
+    </delete>
+
+    <select id="getNoWriteVoList" parameterType="com.grgbanking.smart.gzw.model.innovate.MonthReq" resultType="com.grgbanking.smart.gzw.model.innovate.CommitCount">
+SELECT
+	GROUP_CONCAT(ht.FINISH_TIME) AS create_time,
+	ff.org_id,
+    IFNULL(org.`short_name`, org.`name`) AS org_name,
+	ff.i_year,
+	ff.i_month as i_season,
+	count(1) AS times,
+    ff.`operator` AS userName,
+	ff.json_data as flowFormData
+FROM
+	(
+		SELECT
+			t.PARENT_TASK_ID,
+			t.ORDER_ID
+		FROM
+			t_wf_task t
+		WHERE
+			t.TASK_NAME = #{info.gwzCheckNode}
+		UNION
+			SELECT
+				t.PARENT_TASK_ID,
+				t.ORDER_ID
+			FROM
+				t_wf_hist_task t
+			WHERE
+				t.TASK_NAME = #{info.gwzCheckNode}
+	) k1
+JOIN t_wf_hist_task ht ON k1.order_id = ht.order_id
+AND ht.id = k1.PARENT_TASK_ID
+join t_flow_form ff on ht.ORDER_ID=ff.order_id
+JOIN t_n_org org ON ff.org_id = org.id
+where ff.process_name=#{info.process_name}
+<if test="info.org_id !=null and info.org_id !=''">
+    and ff.org_id=#{info.org_id}
+</if>
+<if test="info.i_year !=null and info.i_year !=''">
+    and ff.i_year=#{info.i_year}
+</if>
+<if test="info.i_month != null and info.i_month !=''">
+    and ff.i_month=#{info.i_month}
+</if>
+group by ff.org_id,ff.form_data_id
+order by create_time desc
+    </select>
+
+</mapper>

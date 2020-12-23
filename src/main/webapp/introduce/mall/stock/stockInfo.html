@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>库存管理</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>库存管理</h1>
+	<p>库存管理</p>
+	
+	<h2>库存管理表  (TB_MALL_STOCK)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>STOCKID</td><td>库存编号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>COMPANYID</td><td>公司编号</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>ORGID</td><td>机构编号</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>ORGNAME</td><td>机构名称</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>GOODID</td><td>商品系统编号</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>STOCKNUMS</td><td>库存数量</td><td>number</td><td></td></tr><tr><td>7</td><td>STOCKAMOUNT</td><td>库存金额</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>SECONDNUMS</td><td>次品数量</td><td>number</td><td></td></tr><tr><td>11</td><td>SECONDAMOUNT</td><td>次品金额</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>HOLDNUMS</td><td>预占数量</td><td>number</td><td></td></tr><tr><td>13</td><td>HOLDAMOUNT</td><td>预占金额</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>SCRAPNUMS</td><td>报废数量</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>SCRAPAMOUNT</td><td>报废金额</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>GIFTNUMS</td><td>赠品数量</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>GIFTAMOUNT</td><td>赠品金额</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>TOTALNUMS</td><td>总数量</td><td>varchar2</td><td>库存 预占 赠品，不含残次品、报废商品</td></tr><tr><td>19</td><td>TOTALAMOUNT</td><td>总金额</td><td>varchar2</td><td>库存 预占 赠品，不含残次品、报废商品</td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (StockInfo)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>stockId</td><td>库存编号</td><td>String</td><td></td></tr><tr><td>2</td><td>companyId</td><td>公司编号</td><td>String</td><td></td></tr><tr><td>3</td><td>orgId</td><td>机构编号</td><td>String</td><td></td></tr><tr><td>4</td><td>orgName</td><td>机构名称</td><td>String</td><td></td></tr><tr><td>5</td><td>goodId</td><td>商品系统编号</td><td>String</td><td></td></tr><tr><td>6</td><td>stockNums</td><td>库存数量</td><td>int</td><td></td></tr><tr><td>7</td><td>stockAmount</td><td>库存金额</td><td>String</td><td></td></tr><tr><td>8</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>9</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr><tr><td>10</td><td>secondNums</td><td>次品数量</td><td>int</td><td></td></tr><tr><td>11</td><td>secondAmount</td><td>次品金额</td><td>String</td><td></td></tr><tr><td>12</td><td>holdNums</td><td>预占数量</td><td>int</td><td></td></tr><tr><td>13</td><td>holdAmount</td><td>预占金额</td><td>String</td><td></td></tr><tr><td>14</td><td>scrapNums</td><td>报废数量</td><td>String</td><td></td></tr><tr><td>15</td><td>scrapAmount</td><td>报废金额</td><td>String</td><td></td></tr><tr><td>16</td><td>giftNums</td><td>赠品数量</td><td>String</td><td></td></tr><tr><td>17</td><td>giftAmount</td><td>赠品金额</td><td>String</td><td></td></tr><tr><td>18</td><td>totalNums</td><td>总数量</td><td>String</td><td>库存 预占 赠品，不含残次品、报废商品</td></tr><tr><td>19</td><td>totalAmount</td><td>总金额</td><td>String</td><td>库存 预占 赠品，不含残次品、报废商品</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (StockInfoController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/stockInfo/findStockInfoById</td><td>findStockInfoById</td><td>查询库存管理</td></tr><tr><td>2</td><td>/stockInfo/save</td><td>saveStockInfo</td><td>保存库存管理</td></tr><tr><td>3</td><td>/stockInfo/update</td><td>updateStockInfo</td><td>更新库存管理</td></tr><tr><td>4</td><td>/stockInfo/delete</td><td>deleteStockInfoById</td><td>删除库存管理</td></tr><tr><td>5</td><td>/stockInfo/findAllStockInfo</td><td>findAllStockInfo</td><td>查询全部库存管理</td></tr><tr><td>6</td><td>/stockInfo/deleteIds</td><td>deleteStockInfo</td><td>删除多个库存管理</td></tr><tr><td>7</td><td>/stockInfo/list</td><td>list</td><td>列表查询库存管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (StockInfoService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询库存管理</td></tr><tr><td>2</td><td>save</td><td>保存库存管理</td></tr><tr><td>3</td><td>update</td><td>更新库存管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除库存管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部库存管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个库存管理</td></tr><tr><td>7</td><td>list</td><td>列表查询库存管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(StockInfoDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询库存管理</td></tr><tr><td>2</td><td>save</td><td>保存库存管理</td></tr><tr><td>3</td><td>update</td><td>更新库存管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除库存管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部库存管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个库存管理</td></tr><tr><td>7</td><td>list</td><td>列表查询库存管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.market.mall.dispatch.dao.DispatchInfoDao">
+
+	<select id="findById" resultType="com.marks.smart.market.mall.dispatch.pojo.DispatchInfo">
+		SELECT * FROM
+		TB_MALL_DISPATCH_INFO t where t.ORDERID = #{orderId}
+	</select>
+
+	<insert id="save" parameterType="com.marks.smart.market.mall.dispatch.pojo.DispatchInfo">
+		<!--<selectKey keyProperty="orderId" resultType="String" order="BEFORE">select 
+			replace(uuid(),'-','')</selectKey> -->
+
+		INSERT INTO TB_MALL_DISPATCH_INFO (
+		ORDERID,
+		COMPANYID,
+		STATUS,
+		RECEIVEORGID,
+		RECEIVEORGNAME,
+		I_YEAR,
+		I_MONTH,
+		I_SEASON,
+		COMMITTIME,
+		CASHDATE,
+		TOTALAMT,
+		PAYABLEAMT,
+		PAYAMT,
+		UNPAYAMT,
+		CREATETIME,
+		UPDATETIME,
+		TOTALNUMS,
+		SALESAMT,
+		SENDNUMS,
+		RECEIVENUMS,
+		DISPATCHNUMS,
+		SENDORGID,
+		SENDORGNAME,
+		APPLYMANID,
+		APPLYMANCODE,
+		APPLYMAN,
+		SENDCONTACTOR,
+		SENDCONTACT,
+		CHECKSTATUS,
+		CHECKTIME,
+		CHECKCODE,
+		CHECKER,
+		YWCODE,
+		YWNAME,
+		TYPECODE,
+		TYPENAME,
+		STATUSNAME,
+		CHECKSTATUSNAME,
+		creatorCode,
+		creator,
+		deadlineDate,
+		remarks,
+		oldOrderId
+		)
+		VALUES(
+		#{info.orderId:VARCHAR},
+		#{info.companyId:VARCHAR},
+		#{info.status:NUMERIC},
+		#{info.receiveOrgId:VARCHAR},
+		#{info.receiveOrgName:VARCHAR},
+		#{info.i_year:NUMERIC},
+		#{info.i_month:NUMERIC},
+		#{info.i_season:NUMERIC},
+		#{info.commitTime:VARCHAR},
+		#{info.cashDate:VARCHAR},
+		#{info.totalAmt:VARCHAR},
+		#{info.payableAmt:VARCHAR},
+		#{info.payAmt:VARCHAR},
+		#{info.unpayAmt:VARCHAR},
+		#{info.createtime:VARCHAR},
+		#{info.updatetime:VARCHAR},
+		#{info.totalNums:NUMERIC},
+		#{info.salesAmt:VARCHAR},
+		#{info.sendNums:NUMERIC},
+		#{info.receiveNums:NUMERIC},
+		#{info.dispatchNums:NUMERIC},
+		#{info.sendOrgId:VARCHAR},
+		#{info.sendOrgName:VARCHAR},
+		#{info.applyManId:VARCHAR},
+		#{info.applyManCode:VARCHAR},
+		#{info.applyMan:VARCHAR},
+		#{info.sendContactor:VARCHAR},
+		#{info.sendContact:VARCHAR},
+		#{info.checkStatus:NUMERIC},
+		#{info.checkTime:VARCHAR},
+		#{info.checkCode:VARCHAR},
+		#{info.checker:VARCHAR},
+		#{info.ywCode:VARCHAR},
+		#{info.ywName:VARCHAR},
+		#{info.typeCode:VARCHAR},
+		#{info.typeName:VARCHAR},
+		#{info.statusName:VARCHAR},
+		#{info.checkStatusName:VARCHAR},
+		#{info.creatorCode:VARCHAR},
+		#{info.creator:VARCHAR},
+		#{info.deadlineDate:VARCHAR},
+		#{info.remarks:VARCHAR},
+		#{info.oldOrderId:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.smart.market.mall.dispatch.pojo.DispatchInfo">
+		UPDATE TB_MALL_DISPATCH_INFO
+		SET
+		deadlineDate=#{info.deadlineDate:VARCHAR},
+		remarks=#{info.remarks:VARCHAR},
+		RECEIVEORGID =
+		#{info.receiveOrgId:VARCHAR},
+		RECEIVEORGNAME =
+		#{info.receiveOrgName:VARCHAR},
+		TOTALAMT = #{info.totalAmt:VARCHAR},
+		PAYABLEAMT = #{info.payableAmt:VARCHAR},
+		PAYAMT =
+		#{info.payAmt:VARCHAR},
+		UNPAYAMT = #{info.unpayAmt:VARCHAR},
+		UPDATETIME
+		= #{info.updatetime:VARCHAR},
+		TOTALNUMS = #{info.totalNums:NUMERIC},
+		SALESAMT = #{info.salesAmt:VARCHAR},
+		SENDNUMS =
+		#{info.sendNums:NUMERIC},
+		RECEIVENUMS = #{info.receiveNums:NUMERIC},
+		DISPATCHNUMS = #{info.dispatchNums:NUMERIC},
+		SENDORGID =
+		#{info.sendOrgId:VARCHAR},
+		SENDORGNAME = #{info.sendOrgName:VARCHAR},
+		APPLYMANID = #{info.applyManId:VARCHAR},
+		APPLYMANCODE =
+		#{info.applyManCode:VARCHAR},
+		APPLYMAN = #{info.applyMan:VARCHAR},
+		SENDCONTACTOR = #{info.sendContactor:VARCHAR},
+		SENDCONTACT =
+		#{info.sendContact:VARCHAR}
+		WHERE
+		ORDERID = #{info.orderId}
+	</update>
+	<update id="updateCheckStatus" parameterType="java.util.Map">
+		UPDATE TB_MALL_DISPATCH_INFO
+		SET
+		checkStatus=#{checkStatus},
+		checkTime=now(),
+		checkCode=#{checkerId},
+		checker=#{checker},
+		updatetime=now()
+		WHERE
+		ORDERID = #{idNo}
+	</update>
+	<update id="updateRecevieNums" parameterType="com.marks.smart.market.mall.dispatch.pojo.DispatchInfo">
+		UPDATE TB_MALL_DISPATCH_INFO
+		SET
+		UPDATETIME = now(),
+		RECEIVENUMS = #{info.receiveNums:NUMERIC},
+		STATUS=#{info.status:NUMERIC},
+		STATUSNAME=#{info.statusName}
+		WHERE
+		ORDERID = #{info.orderId}
+	</update>
+	<update id="updateDispatchNums" parameterType="com.marks.smart.market.mall.dispatch.pojo.DispatchInfo">
+		UPDATE TB_MALL_DISPATCH_INFO
+		SET
+		UPDATETIME = now(),
+		DISPATCHNUMS = #{info.dispatchNums:NUMERIC},
+		STATUS=#{info.status:NUMERIC},
+		STATUSNAME=#{info.statusName}
+		WHERE
+		ORDERID = #{info.orderId}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_MALL_DISPATCH_INFO WHERE ORDERID=#{orderId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.smart.market.mall.dispatch.pojo.DispatchInfo">
+		SELECT * FROM
+		TB_MALL_DISPATCH_INFO t
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_MALL_DISPATCH_INFO WHERE ORDERID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.smart.market.mall.dispatch.pojo.DispatchInfo"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_MALL_DISPATCH_INFO t
+		WHERE 1=1 and t.companyId=#{companyId}
+		<if test="ywCode!=null and ywCode!=''">
+			and t.YWCODE=#{ywCode}
+		</if>
+		<if test="typeCode!=null and typeCode!=''">
+			and t.typeCode=#{typeCode}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or t.ORDERID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.RECEIVEORGID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.RECEIVEORGNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.SENDORGID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.SENDORGNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.APPLYMANID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.APPLYMANCODE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.APPLYMAN LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.SENDCONTACTOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or t.SENDCONTACT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+		order by t.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

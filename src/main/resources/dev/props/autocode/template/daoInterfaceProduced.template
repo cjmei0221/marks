@@ -1,0 +1,32 @@
+package @{packageUrl};
+
+
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.annotation.MapperScan;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import @{beanPackageUrl}.@{beanName};
+
+@MapperScan
+public interface @{beanName}Dao {
+
+	@{beanName} findById(@Param("@{GetPkAttrName}") String @{GetPkAttrName});
+
+	void save(@Param("info") @{beanName} @{BeanObject});
+	
+	void saveBatch(@Param("list") List<@{beanName}> list);
+
+	void update(@Param("info") @{beanName} @{BeanObject});
+
+	void delete(@Param("@{GetPkAttrName}") String @{GetPkAttrName});
+
+	List<@{beanName}> findAll();
+
+	void deleteBatch(@Param("list") List<String> list);
+
+	List<@{beanName}> list(PageBounds pageBounds, Map<String,Object> param);
+}

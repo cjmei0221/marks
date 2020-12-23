@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.IvtFlowMapper">
+
+    <select id="findFlowFormTaskByParams" resultType="com.grgbanking.smart.gzw.model.entity.FlowForm"
+            parameterType="java.util.Map">
+    SELECT
+        t.order_Id as orderId,
+        t.id AS taskId,
+        ff.title AS orderTitle,
+        t.display_Name AS taskName,
+        t.task_Name AS taskKey,
+        t.task_Type as taskType,
+        t.perform_Type as performType,
+        t.create_Time AS taskCreateTime,
+        t.take_time AS taskTakeTime,
+        t.finish_Time AS taskEndTime,
+        t.expire_Time AS taskExpireTime,
+        ff.process_Id as processId,
+		ff.process_name as processName,
+		ff.form_id as formId,
+		ff.form_data_id as formDataId,
+        ta.ACTOR_ID as userId,
+		t.PARENT_TASK_ID as parentTaskId
+        FROM
+        t_wf_task t
+        join t_wf_task_actor ta on t.id=ta.TASK_ID
+        JOIN t_wf_order o ON t.order_id = o.id
+        JOIN t_flow_form ff ON ff.order_id = t.ORDER_ID
+		where 1=1
+		<if test="orderId != null and orderId != '' ">
+           and (ff.order_id=#{orderId} or ff.form_data_id=#{orderId})
+        </if>
+        <if test="orgId != null and orgId != '' ">
+          and ff.org_id=#{orgId} and ff.i_year=#{i_year} and ff.i_month=#{i_season} and ff.process_name=#{processName}
+        </if>
+
+        order by t.create_time desc
+    </select>
+
+    <select id="findFlowFormTaskForInnovateByParams" resultType="com.grgbanking.smart.gzw.model.entity.FlowForm"
+            parameterType="java.util.Map">
+        SELECT
+        ff.form_data_id as formDataId,
+        ff.order_id as orderId,
+        t.id AS taskId,
+        ff.title AS orderTitle,
+        t.display_Name AS taskName,
+        t.task_Name AS taskKey,
+        t.task_Type as taskType,
+        t.perform_Type as performType,
+        t.create_Time AS taskCreateTime,
+        t.take_time AS taskTakeTime,
+        t.finish_Time AS taskEndTime,
+        t.expire_Time AS taskExpireTime,
+        ff.process_Id as processId,
+        ff.process_name as processName,
+        ff.form_id as formId,
+        ta.ACTOR_ID as userId,
+        t.PARENT_TASK_ID as parentTaskId,
+        ff.status
+        FROM
+        t_flow_form ff
+        left join t_wf_task t ON ff.order_id = t.ORDER_ID
+        left join t_wf_task_actor ta on t.id=ta.TASK_ID
+        left JOIN t_wf_order o ON t.order_id = o.id
+        where 1=1
+        <if test="orderId != null and orderId != '' ">
+            and (ff.order_id=#{orderId} or ff.form_data_id=#{orderId})
+        </if>
+        <if test="orgId != null and orgId != '' ">
+            and ff.org_id=#{orgId} and ff.i_year=#{i_year} and ff.i_month=#{i_season} and ff.process_name=#{processName}
+        </if>
+
+        order by t.create_time desc
+    </select>
+    <select id="getNotFilled" resultType="com.grgbanking.smart.gzw.model.entity.FlowForm"
+            parameterType="java.util.Map">
+        SELECT
+        ff.order_Id as orderId,
+        ff.title AS orderTitle,
+        ff.process_Id as processId,
+		ff.process_name as processName,
+		ff.form_id as formId,
+		ff.form_data_id as formDataId,
+		ff.user_id as userId
+        FROM
+         t_flow_form ff
+		where ff.org_id=#{orgId} and ff.i_year=#{i_year}
+		<if test="i_season !=null and i_season !=''">
+            and ff.i_month=#{i_season}
+        </if>
+		and FIND_IN_SET(ff.process_name, #{flow_types})
+        order by ff.create_time desc
+    </select>
+
+    <select id="getOnlyFlowFormByParams" resultType="com.grgbanking.smart.gzw.model.entity.FlowForm"
+            parameterType="java.util.Map">
+        SELECT
+        ff.order_Id as orderId,
+        ff.title AS orderTitle,
+        ff.process_Id as processId,
+		ff.process_name as processName,
+		ff.form_id as formId,
+		ff.form_data_id as formDataId,
+		ff.user_id as userId
+        FROM
+         t_flow_form ff
+		where ff.order_id=#{orderId} or ff.form_data_id=#{orderId}
+        order by ff.create_time desc
+    </select>
+    <select id="findTaskByFormDataIdAndTaskName" resultType="com.grgbanking.smart.gzw.model.entity.FlowForm">
+SELECT
+	t.ORDER_ID as orderId ,
+	t.OPERATOR as operator
+FROM
+	t_wf_hist_task t
+JOIN t_wf_hist_order o ON t.ORDER_ID = o.id
+JOIN t_flow_form f ON o.id = f.order_id
+WHERE t.TASK_NAME=#{taskKey} and
+	f.form_data_id = #{formDataId}
+	order by f.create_time desc
+    </select>
+
+    <select id="getTask" resultType="com.grgbanking.smart.gzw.model.FlowModel"
+            parameterType="java.util.Map">
+        SELECT
+        t.order_Id AS orderId,
+        t.id AS taskId,
+        ff.title AS orderTitle,
+        t.display_Name AS taskName,
+        t.task_Name AS taskKey,
+        t.task_Type AS taskType,
+        t.perform_Type AS performType,
+        t.create_Time AS taskCreateTime,
+        t.take_time AS taskTakeTime,
+        t.finish_Time AS taskEndTime,
+        t.expire_Time AS taskExpireTime,
+        t.ACTION_URL as actionUrl,
+        o.process_Id AS processId,
+        ff.process_name as processName,
+        ff.is_back AS isBack,
+        ff.form_data_id AS id,
+        ff.form_data_code AS formDataCode,
+        ff.form_data_name AS formDataName,
+        ff.form_data_id AS formDataId,
+        ff.i_month as i_season,
+        ff.i_year,
+        ff.user_id as creator,
+        ff.status,
+        ff.update_time as updateTime,
+        IFNULL(org.`short_name`,org.`name`)  as companyBriefName,
+        IFNULL(ff.`operator`,u.full_name) as fullName
+        FROM
+        t_wf_task t
+        JOIN t_wf_order o ON t.order_id = o.id
+        JOIN t_wf_task_actor ta ON ta.task_id = t.id
+        JOIN t_flow_form ff ON ff.order_id = t.ORDER_ID
+        join t_n_user u on ff.user_id=u.id
+        left join t_n_org org on ff.org_id=org.id
+        where 1=1
+        <if test="processName != null and processName !='' ">
+            AND ff.process_name = #{processName}
+        </if>
+        <if test="userid != null and userid !='' ">
+            AND ta.actor_Id = #{userid}
+        </if>
+        order by ff.update_time desc
+    </select>
+    <select id="getTaskCount" resultType="com.grgbanking.smart.gzw.model.FlowCout"
+            parameterType="java.util.Map">
+        SELECT
+        ff.process_name AS processName,
+        COUNT(DISTINCT ff.form_data_id) as count,
+        1 as type
+        FROM
+        t_wf_task t
+        JOIN t_wf_order o ON t.order_id = o.id
+        JOIN t_wf_task_actor ta ON ta.task_id = t.id
+        JOIN t_flow_form ff ON ff.order_id = t.ORDER_ID
+        where ta.actor_Id = #{userid}
+        GROUP BY
+        ff.process_name
+    </select>
+    <select id="getNotFillList" resultType="com.grgbanking.smart.gzw.model.FlowCout"
+            parameterType="java.util.Map">
+       SELECT
+	t.`name` AS processName,
+	COUNT(DISTINCT ff.form_data_id) AS count,
+	0 as type
+FROM
+	t_wf_process t
+LEFT JOIN t_flow_form ff ON t.`name` = ff.process_name and ff.i_year=#{i_year} and ff.i_month=#{i_season} and ff.org_id=#{org_id}
+where t.state=1 and t.`name` not in ('innovate_gycz_flow','soft_cwkb_flow')
+GROUP BY
+	t.`name`
+HAVING count=0
+    </select>
+    <select id="getHistTask" resultType="com.grgbanking.smart.gzw.model.FlowModel"
+            parameterType="java.util.Map">
+        SELECT DISTINCT
+        ff.process_Id AS processId,
+        ff.process_name AS processName,
+        ff.is_back AS isBack,
+        ff.form_data_code AS formDataCode,
+        ff.form_data_name AS formDataName,
+        ff.form_data_id AS formDataId,
+        ff.form_data_id AS id,
+        ff.i_month as i_season,
+        ff.i_year,
+        ff.user_id AS creator,
+        ff. STATUS,
+        ff.update_time AS updateTime,
+        IFNULL(org.`short_name`,org.`name`)  as companyBriefName,
+        ff.order_id AS orderId,
+        IFNULL(ff.`operator`,u.full_name) as fullName
+        FROM
+        t_flow_form ff
+        join t_n_user u on ff.user_id=u.id
+        LEFT JOIN t_n_org org ON ff.org_id = org.id
+        JOIN (
+        SELECT
+        ta.ACTOR_ID,
+        o.id AS orderId
+        FROM
+        t_wf_hist_task t
+        JOIN t_wf_hist_order o ON t.order_id = o.id
+        JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+        UNION
+        SELECT
+        cc.ACTOR_ID,
+        cc.ORDER_ID AS orderId
+        FROM
+        t_wf_cc_order cc
+        ) k1 ON k1.orderId = ff.order_id
+        where 1=1
+        <if test="lvl_type == 0 ">
+            and ff.status in (4,2)
+        </if>
+        <if test="lvl_type != 0 ">
+            and ff.status in (4,2,1)
+        </if>
+        <if test="i_month != null and i_month !='' ">
+            AND ff.i_month = #{i_month}
+        </if>
+        <if test="i_year != null and i_year !='' ">
+            AND ff.i_year = #{i_year}
+        </if>
+        <if test="processName != null and processName !='' ">
+            AND ff.process_name = #{processName}
+        </if>
+        <if test="i_status != null and i_status !='' ">
+            AND ff. STATUS = #{i_status}
+        </if>
+        <if test="userid != null and userid !='' ">
+            AND k1.actor_Id = #{userid}
+        </if>
+        order by ff.update_time desc
+    </select>
+    <select id="getMaxCode" resultType="String">
+        select max(t.`code`) as code from t_flow_form t where t.process_name=#{processName}
+    </select>
+    <select id="getHisTaskidByUserId" resultType="String"
+            parameterType="java.util.Map">
+        SELECT
+	t.id
+FROM
+	t_wf_hist_task t
+JOIN t_wf_hist_task_actor ta ON ta.task_id = t.id
+WHERE
+	t.ORDER_ID = #{orderId}
+AND ta.ACTOR_ID = #{userId}
+ORDER BY
+	t.CREATE_TIME DESC
+    </select>
+
+    <select id="getHisTaskFirstNameByUserId" resultType="com.grgbanking.smart.gzw.model.entity.FlowForm"
+            >
+       SELECT
+	t.TASK_NAME as taskKey,
+	t.OPERATOR as userId
+FROM
+	t_wf_hist_task t
+WHERE
+	t.ORDER_ID =#{orderId}
+ORDER BY
+	t.CREATE_TIME,
+	t.FINISH_TIME
+    </select>
+    <select id="getLastContactor" resultType="String">
+        SELECT
+	t.VARIABLE as formData
+FROM
+	t_wf_hist_task t
+JOIN t_wf_hist_task_actor ta ON t.id = ta.TASK_ID
+WHERE LOCATE('curr_operator',t.VARIABLE) > 0
+	and ta.ACTOR_ID = #{userId}
+order by t.FINISH_TIME desc LIMIT 3
+    </select>
+
+</mapper>

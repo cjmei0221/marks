@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap SYSTEM "./mapsql.dtd">
+<sqlMap>
+
+	<!-- 根据组id获取组下的监事会 -->
+	<sqlUnit name="get_sup_by_groupid">
+		<sql>
+			select id,name from t_supervisor_info [where group_id=:gid ]
+		</sql>
+	</sqlUnit>
+
+	<!-- 获取下拉监事小组idname -->
+	<sqlUnit name="get_supervisor_group">
+		<sql>
+			select id,name from t_supervisor_group where pid is not null [ and id=:gid ]
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_userInfo_by_supervisorId">
+		<sql>
+			SELECT DISTINCT u.id,b.`name`
+			FROM t_n_user u
+			JOIN t_s_basic b ON u.supervisor_id=b.id
+			LEFT JOIN t_s_supervisor_member sm ON sm.basic_id=b.id
+			[WHERE sm.supervisor_id = :supervisorId]
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_userInfo_by_groupID">
+		<sql>
+			SELECT DISTINCT u.id,b.`name`
+			FROM t_n_user u
+			JOIN t_s_basic b ON u.supervisor_id=b.id
+			LEFT JOIN t_s_supervisor_member sm ON sm.basic_id=b.id
+			LEFT JOIN t_supervisor_info si ON si.id =sm.supervisor_id
+			[WHERE si.group_id =:gid]
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_act_task">
+		<sql>
+			SELECT id from
+			t_wf_task WHERE id = :taskId
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_history_oder_by_year">
+		<sql>
+			SELECT o.id,d.busi_name as name,create_Time as createTime,o.process_Id as processId
+			from t_wf_hist_order o
+			JOIN t_n_dict d ON d.busi_value = o.process_Id
+			WHERE o.create_Time BETWEEN :startTime and :endTime
+			AND d.busi_value in ('00d280615a4c45339c0adf74988bfca6','519e1dd367fc459dbf9f8a4cc23cff40','ebcaf95c4cac47688a8db43291843d18','ae3f10dc74784bdda36d02525617e383','0034fbd3d25145a7864819fbbe4bde8b')
+			AND o.order_State = '0'
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_group_statistic_by_year">
+		<sql>
+			SELECT si.`name` as superName,si.group_id as groupId ,sum(1) as count
+			FROM t_wf_hist_order ho
+			JOIN t_flow_form ff ON ho.id =ff.order_id
+			JOIN t_supervisor_info si ON si.supervisor_company_id = ff.company_id
+			WHERE ho.process_Id in ('00d280615a4c45339c0adf74988bfca6','519e1dd367fc459dbf9f8a4cc23cff40','ebcaf95c4cac47688a8db43291843d18','ae3f10dc74784bdda36d02525617e383','0034fbd3d25145a7864819fbbe4bde8b') and ho.order_State = '0'
+			AND ho.create_Time BETWEEN :startTime and :endTime
+			GROUP BY si.`name`,si.group_id
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_group_supervisor_info">
+		<sql>
+			SELECT sg.id as groupId,sg.`name` as groupName,si.`name` as supervisorName
+			from t_supervisor_group sg
+			LEFT JOIN t_supervisor_info si on si.group_id = sg.id
+			WHERE sg.pid is not null
+			ORDER BY sg.id
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_track_statistic">
+		<sql>
+			SELECT IFNULL(sum(IF(order_State=0,1,0)),0) as completed,IFNULL(sum(IF(order_State=1,1,0)),0) as execution
+			FROM t_wf_hist_order
+			WHERE process_Id = "50221f7683e44ab798843d7eb950fc9a"
+			AND create_Time BETWEEN :startTime and :endTime
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_company_track_statistic">
+		<sql>
+			SELECT sc.`name`,sc.brief_name as abbreviation,IFNULL(sum(IF(ho.order_State=1,1,0)),0) as execution,IFNULL(sum(IF(ho.order_State=0,1,0)),0) as completed
+			FROM t_supervisor_company sc
+			LEFT JOIN t_flow_form ff ON sc.`code` = ff.company_id
+			LEFT JOIN  t_wf_hist_order ho ON ff.order_id = ho.id AND ho.process_Id = "50221f7683e44ab798843d7eb950fc9a"
+			AND ho.create_Time BETWEEN :startTime and :endTime
+			GROUP BY sc.`name`,sc.brief_name
+			ORDER BY execution desc, sc.`name`
+		</sql>
+	</sqlUnit>
+
+	<sqlUnit name="get_chairmanId_by_companyCode">
+		<sql>
+			SELECT t1.`name`,t3.`name` as companyName,t3.supervisor_company_id,t4.id
+			FROM `t_s_basic` t1
+			INNER JOIN t_s_supervisor_member t2 ON t1.id = t2.basic_id
+			INNER JOIN t_supervisor_info t3 ON t2.supervisor_id = t3.id
+			INNER JOIN t_n_user t4 ON t4.supervisor_id = t1.id
+			WHERE t1.post_type =1 AND t3.supervisor_company_id = :companyCode
+		</sql>
+	</sqlUnit>
+
+</sqlMap>

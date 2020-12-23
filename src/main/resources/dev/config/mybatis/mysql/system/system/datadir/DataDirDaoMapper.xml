@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.system.system.datadir.dao.DataDirDao">
+
+	<select id="findById" resultType="com.marks.smart.system.system.datadir.pojo.DataDir">
+		SELECT * FROM
+		TB_SYS_DATADIR_INFO datadir where datadir.CKEY = #{ckey} and
+		datadir.PARENTKEY=#{parentKey}
+	</select>
+	
+	<select id="findChildList" resultType="com.marks.smart.system.system.datadir.pojo.DataDir">
+		select * from tb_sys_datadir_info t where t.parentkey=#{ckey} order by t.SORT
+	</select>
+
+	<insert id="save" parameterType="com.marks.smart.system.system.datadir.pojo.DataDir">
+
+		INSERT INTO TB_SYS_DATADIR_INFO
+		 (
+		CKEY,
+		PARENTKEY,
+		CVALUE,
+		COMPANYID,
+		SORT,
+		CREATETIME,
+		UPDATETIME,
+		CREATOR
+		)
+		VALUES(
+		#{ckey:VARCHAR},
+		#{parentkey:VARCHAR},
+		#{cvalue:VARCHAR},
+		#{companyId:VARCHAR},
+		#{sort:NUMERIC},
+		now(),
+		now(),
+		#{creator:VARCHAR}
+
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.smart.system.system.datadir.pojo.DataDir">
+		UPDATE TB_SYS_DATADIR_INFO
+		SET
+		CVALUE =
+		#{cvalue:VARCHAR},
+		SORT = #{sort:NUMERIC},
+		UPDATETIME =
+		now()
+		WHERE
+		CKEY = #{ckey} and PARENTKEY = #{parentkey:VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		TB_SYS_DATADIR_INFO  WHERE CKEY=#{ckey} and
+		PARENTKEY=#{parentKey}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.smart.system.system.datadir.pojo.DataDir">
+		SELECT * FROM
+		TB_SYS_DATADIR_INFO
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_SYS_DATADIR_INFO WHERE CKEY in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="list" resultType="com.marks.smart.system.system.datadir.pojo.DataDir"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_SYS_DATADIR_INFO datadir
+		WHERE 1=1
+		<!-- <if test="companyId !=null and companyId !=''">
+			and datadir.COMPANYID=#{companyId}
+		</if> -->
+		<if test="keyword!=null and keyword!=''">
+			and ( datadir.CKEY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.PARENTKEY LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.CVALUE LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.SORT LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.CREATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.UPDATETIME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or datadir.CREATOR LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+	</select>
+
+	<select id="listByParam" resultType="com.marks.smart.system.system.datadir.pojo.DataDir"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_SYS_DATADIR_INFO datadir
+		WHERE 1=1
+		<if test="companyId !=null and companyId !=''">
+			and datadir.COMPANYID=#{companyId}
+		</if>
+		order by datadir.UPDATETIME desc
+	</select>
+
+</mapper>

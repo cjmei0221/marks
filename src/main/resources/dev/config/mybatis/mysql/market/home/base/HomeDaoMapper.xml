@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.market.report.home.dao.HomeDao">
+	<select id="getIncome" resultType="com.marks.smart.market.report.home.pojo.CoreData">
+		SELECT
+		SUM(case when inOrOut=1
+		then t.tranAmt else 0 END) incomeAmt,
+		SUM(case when inOrOut=0 then
+		t.tranAmt else 0 END) costAmt
+		FROM
+		TB_FEE_LOG t
+		WHERE
+		t.tranDate &gt;=
+		#{startDate}
+	</select>
+
+	<select id="getConsume" resultType="com.marks.smart.market.report.home.pojo.CoreData">
+		SELECT
+		sum(t.payAmt)
+		consumeCashAmt,
+		sum(t.costAmt) consumeCostAmt
+		FROM
+		TB_MALL_ORDER_INFO t
+		WHERE
+		t.cashDate &gt;= #{startDate} and t.cashType in ('0','1') and t.payStatus=1
+	</select>
+
+	<select id="getSalesForDate" resultType="com.marks.smart.market.report.home.pojo.SalesData">
+		SELECT
+		t.cashDate AS
+		xAxis,
+		sum(t.nums) AS salesNums,
+		sum(t.payAmt) salesAmt,
+		sum(t.costAmt)
+		costAmt
+		FROM
+		TB_MALL_ORDER_INFO t
+		WHERE
+		t.cashType IN ('0', '1') and t.payStatus=1
+		GROUP BY
+		t.cashDate
+		ORDER BY
+		t.cashDate
+		LIMIT 30
+	</select>
+
+	<select id="getSalesForSeason" resultType="com.marks.smart.market.report.home.pojo.SalesData">
+		SELECT
+		CONCAT(t.i_year,'年第',t.i_season,'季度') AS xAxis,
+		sum(t.nums) AS
+		salesNums,
+		sum(t.payAmt) salesAmt,
+		sum(t.costAmt)
+		costAmt
+		FROM
+		TB_MALL_ORDER_INFO t
+		WHERE
+		t.cashType IN ('0', '1') and t.payStatus=1
+		AND t.i_year &gt;=
+		#{i_year}
+		GROUP BY
+		t.i_year,
+		t.i_season
+		ORDER BY
+		t.i_year,
+		t.i_season
+	</select>
+	<select id="getSalesForMonth" resultType="com.marks.smart.market.report.home.pojo.SalesData">
+		SELECT
+		CONCAT(
+		t.i_year,
+		'年',
+		t.i_month,
+		'月'
+		) AS xAxis,
+		sum(t.nums) AS salesNums,
+		sum(t.payAmt) salesAmt,
+		sum(t.costAmt) costAmt
+		FROM
+		TB_MALL_ORDER_INFO t
+		WHERE
+		t.cashType IN ('0', '1') and t.payStatus=1
+		GROUP BY
+		t.i_year,
+		t.i_month
+		ORDER BY
+		t.i_year,
+		t.i_month
+		LIMIT 12
+	</select>
+
+
+
+
+</mapper>

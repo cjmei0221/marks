@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>粉丝管理</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>粉丝管理</h1>
+	<p>公众号关注粉丝</p>
+	<h2>实体类  (WxUser)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>openid</td><td>OPENID</td><td>varchar2</td><td>无</td></tr><tr><td>2</td><td>nickname</td><td>昵称</td><td>varchar2</td><td>无</td></tr><tr><td>3</td><td>groupid</td><td>分组ID</td><td>number</td><td>无</td></tr><tr><td>4</td><td>country</td><td>国家</td><td>varchar2</td><td>无</td></tr><tr><td>5</td><td>province</td><td>省</td><td>varchar2</td><td>无</td></tr><tr><td>6</td><td>city</td><td>市</td><td>varchar2</td><td>无</td></tr><tr><td>7</td><td>sex</td><td>性别</td><td>number</td><td>1：男 2：女 0：未知</td></tr><tr><td>8</td><td>imageUrl</td><td>头像路径</td><td>varchar2</td><td>无</td></tr><tr><td>9</td><td>language</td><td>语言</td><td>varchar2</td><td>无</td></tr><tr><td>10</td><td>issubscribe</td><td>关注</td><td>number</td><td>0：未关注 1：已关注</td></tr><tr><td>11</td><td>subscribetime</td><td>关注时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>12</td><td>updatetime</td><td>更新时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>13</td><td>accountid</td><td>公众号ID</td><td>varchar2</td><td>无</td></tr><tr><td>14</td><td>createtime</td><td>创建时间</td><td>TIMESTAMP</td><td>无</td></tr><tr><td>15</td><td>useflag</td><td>启用标识</td><td>number</td><td>无</td></tr><tr><td>16</td><td>qrNo</td><td>二维码标识</td><td>varchar2</td><td>无</td></tr><tr><td>17</td><td>remark</td><td>备注</td><td>varchar2</td><td>无</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (WxUserController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/wxUser/findWxUserById</td><td>findWxUserById</td><td>查询粉丝管理</td></tr><tr><td>2</td><td>/wxUser/save</td><td>saveWxUser</td><td>保存粉丝管理</td></tr><tr><td>3</td><td>/wxUser/update</td><td>updateWxUser</td><td>更新粉丝管理</td></tr><tr><td>4</td><td>/wxUser/delete</td><td>deleteWxUserById</td><td>删除粉丝管理</td></tr><tr><td>5</td><td>/wxUser/findAllWxUser</td><td>findAllWxUser</td><td>查询全部粉丝管理</td></tr><tr><td>6</td><td>/wxUser/deleteIds</td><td>deleteWxUser</td><td>删除多个粉丝管理</td></tr><tr><td>7</td><td>/wxUser/list</td><td>list</td><td>列表查询粉丝管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (WxUserService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询粉丝管理</td></tr><tr><td>2</td><td>save</td><td>保存粉丝管理</td></tr><tr><td>3</td><td>update</td><td>更新粉丝管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除粉丝管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部粉丝管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个粉丝管理</td></tr><tr><td>7</td><td>list</td><td>列表查询粉丝管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(WxUserDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询粉丝管理</td></tr><tr><td>2</td><td>save</td><td>保存粉丝管理</td></tr><tr><td>3</td><td>update</td><td>更新粉丝管理</td></tr><tr><td>4</td><td>deleteById</td><td>删除粉丝管理</td></tr><tr><td>5</td><td>findAll</td><td>查询全部粉丝管理</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个粉丝管理</td></tr><tr><td>7</td><td>list</td><td>列表查询粉丝管理</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

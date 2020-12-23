@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.PublicAssetsMapper">
+    <select id="findById" resultType="com.grgbanking.smart.gzw.model.innovate.AssetsVo">
+        select  * from t_pf_assets_info t where t.form_data_id=#{id} order by t.sort
+    </select>
+    <select id="list" resultType="com.grgbanking.smart.gzw.model.innovate.AssetsVo">
+        select * from t_pf_assets_info t where 1=1
+        <choose>
+            <when test="info.formDataIds != null and info.formDataIds !='' ">
+                and FIND_IN_SET(t.form_data_id, #{info.formDataIds})
+            </when>
+            <otherwise>
+                <if test="info.lvl_type==0">
+                    and t.status=2
+                </if>
+                <if test="info.i_year != null and info.i_year !='' ">
+                    and t.i_year=#{info.i_year}
+                </if>
+                <if test="info.i_season != null and info.i_season !='' ">
+                    and t.i_season=#{info.i_season}
+                </if>
+                <if test="info.org_id != null and info.org_id !='' ">
+                    and t.org_id=#{info.org_id}
+                </if>
+            </otherwise>
+        </choose>
+        order by t.org_id,t.sort
+    </select>
+    <sql id="conditions_query">
+        <if test="info.lvl_type==0">
+            and t.status=2
+        </if>
+        <if test="info.i_year != null and info.i_year != ''">
+            and t.i_year=#{info.i_year}
+        </if>
+        <if test="info.i_season != null and info.i_season != ''">
+            and t.i_season=#{info.i_season}
+        </if>
+        <if test="info.org_id != null and info.org_id != ''">
+            and t.org_id=#{info.org_id}
+        </if>
+    </sql>
+    <select id="listCount" resultType="com.grgbanking.smart.gzw.model.innovate.AssetsVo">
+        SELECT
+	k1.*,
+    IFNULL(org.`short_name`, org.`name`) AS org_name,
+    t1.address,
+	t1.company_code,
+	t1.company_name,
+	t1.contact,
+	t1.contactor,
+	t1.create_time,
+	t1.item_address,
+	t1.item_name,
+	t1.item_remarks,
+	t1.not_count_reason,
+	t1.org_name,
+	t1.plan_end_date,
+	t1.plan_start_date
+FROM
+	(
+		SELECT
+			ifnull(t.i_season, '0') AS i_season,
+			ifnull(t.i_year, '0') AS i_year,
+			ifnull(t.org_id, '1') AS org_id,
+			sum(t.amt_plan_total) AS amt_plan_total,
+			sum(t.amt_year_complete) AS amt_year_complete,
+			count(DISTINCT t.id) AS countNum,
+			'1' AS id
+		FROM
+			t_pf_assets_info t
+			where 1=1
+        <include refid="conditions_query"/>
+		GROUP BY
+			t.i_year,
+			t.i_season,
+			t.org_id WITH ROLLUP
+		UNION
+			SELECT
+				t.i_season,
+				t.i_year,
+				t.org_id,
+				t.amt_plan_total,
+				t.amt_year_complete,
+				1 AS countNum,
+				t.id
+			FROM
+				t_pf_assets_info t
+        where 1=1
+        <include refid="conditions_query"/>
+	) k1
+LEFT JOIN t_pf_assets_info t1 ON k1.id = t1.id
+LEFT JOIN t_n_org org ON k1.org_id = org.id
+WHERE
+	k1.i_year != '0'
+AND k1.i_season != '0'
+        <if test="info.org_id != null and info.org_id != ''">
+            and k1.org_id !='1'
+        </if>
+ORDER BY
+	k1.i_year,
+	k1.i_season,
+	k1.org_id,
+	t1.sort
+    </select>
+
+    <select id="getNoWriteOrg" resultType="com.grgbanking.smart.gzw.model.innovate.NoWriteVo" parameterType="java.util.Map">
+	SELECT DISTINCT
+	t.id as org_id,
+	t.short_name as org_name,
+	b.user_name as userName,
+	b.phone,
+	b.telephone,
+	${i_year} as i_year,
+	${i_season} as i_season
+FROM
+	t_n_org t
+left join t_pf_address_book b on t.id=b.org_id and b.role_type=1
+LEFT JOIN t_pf_assets_info o ON t.id = o.org_id and o.status in (1,2) and o.i_year=#{i_year} and o.i_season=#{i_season}
+WHERE
+	o.id IS NULL
+AND t.lvl_type = 1
+AND t.lvl = 2
+order by sort_order
+    </select>
+
+
+</mapper>

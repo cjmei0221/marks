@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>事务提醒</title>
+<link rel="stylesheet" type="text/css" href="../nfb.css">
+</head>
+<body>
+	<h1>事务提醒</h1>
+	<p>
+		1，事务提醒 ，特殊日子可设置每年提醒，普通事务提醒，默认明天；<br />2，提醒时间是9点提醒<br />3，可设置提前提醒
+	</p>
+
+	<h2>事务提醒表 (TB_NOTE_REMINDER)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>ID</td>
+					<td>ID</td>
+					<td>varchar2</td>
+					<td>主键</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>REMIND_TYPE</td>
+					<td>事务类型</td>
+					<td>number</td>
+					<td>0：普通 1：特殊日子</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>REMIND_DATE</td>
+					<td>特殊日期</td>
+					<td>varchar2</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>IS_REPEAT</td>
+					<td>是否重复</td>
+					<td>number</td>
+					<td>0：不重复 1：重复，默认不重复</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>REMIND_CONTENT</td>
+					<td>提醒内容</td>
+					<td>varchar2</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>BEFORE_DAYS</td>
+					<td>提前天数</td>
+					<td>number</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>REMIND_TIME</td>
+					<td>提醒时间</td>
+					<td>varchar2</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>IS_BEFORE</td>
+					<td>是否提前提醒</td>
+					<td>number</td>
+					<td>0：不提前 1：提前</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>CREATETIME</td>
+					<td>创建时间</td>
+					<td>TIMESTAMP</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>10</td>
+					<td>UPDATETIME</td>
+					<td>更新时间</td>
+					<td>TIMESTAMP</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>11</td>
+					<td>CREATOR</td>
+					<td>创建者</td>
+					<td>varchar2</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>12</td>
+					<td>CALENDAR_TYPE</td>
+					<td>日历类型</td>
+					<td>number</td>
+					<td>0：公历 1：农历</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<h2>实体类 (Reminder)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>id</td>
+					<td>ID</td>
+					<td>String</td>
+					<td>主键</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>remind_type</td>
+					<td>事务类型</td>
+					<td>int</td>
+					<td>0：普通 1：特殊日子</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>remind_date</td>
+					<td>特殊日期</td>
+					<td>String</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>is_repeat</td>
+					<td>是否重复</td>
+					<td>int</td>
+					<td>0：不重复 1：重复，默认不重复</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>remind_content</td>
+					<td>提醒内容</td>
+					<td>String</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>before_days</td>
+					<td>提前天数</td>
+					<td>int</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>remind_time</td>
+					<td>提醒时间</td>
+					<td>String</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>is_before</td>
+					<td>是否提前提醒</td>
+					<td>int</td>
+					<td>0：不提前 1：提前</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>createtime</td>
+					<td>创建时间</td>
+					<td>Date</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>10</td>
+					<td>updatetime</td>
+					<td>更新时间</td>
+					<td>Date</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>11</td>
+					<td>creator</td>
+					<td>创建者</td>
+					<td>String</td>
+					<td>无</td>
+				</tr>
+				<tr>
+					<td>12</td>
+					<td>calendar_type</td>
+					<td>日历类型</td>
+					<td>int</td>
+					<td>0：公历 1：农历</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (ReminderController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>/reminder/findReminderById</td>
+					<td>findReminderById</td>
+					<td>查询事务提醒</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>/reminder/save</td>
+					<td>saveReminder</td>
+					<td>保存事务提醒</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>/reminder/update</td>
+					<td>updateReminder</td>
+					<td>更新事务提醒</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>/reminder/delete</td>
+					<td>deleteReminderById</td>
+					<td>删除事务提醒</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>/reminder/findAllReminder</td>
+					<td>findAllReminder</td>
+					<td>查询全部事务提醒</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>/reminder/deleteIds</td>
+					<td>deleteReminder</td>
+					<td>删除多个事务提醒</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>/reminder/list</td>
+					<td>list</td>
+					<td>列表查询事务提醒</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (ReminderService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>findById</td>
+					<td>查询事务提醒</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>save</td>
+					<td>保存事务提醒</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>update</td>
+					<td>更新事务提醒</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>deleteById</td>
+					<td>删除事务提醒</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>findAll</td>
+					<td>查询全部事务提醒</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>deleteBatch</td>
+					<td>删除多个事务提醒</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>list</td>
+					<td>列表查询事务提醒</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(ReminderDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>findById</td>
+					<td>查询事务提醒</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>save</td>
+					<td>保存事务提醒</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>update</td>
+					<td>更新事务提醒</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>deleteById</td>
+					<td>删除事务提醒</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>findAll</td>
+					<td>查询全部事务提醒</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>deleteBatch</td>
+					<td>删除多个事务提醒</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>list</td>
+					<td>列表查询事务提醒</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

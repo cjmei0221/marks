@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.InnovateGainsMapper">
+    <select id="getGroupCompanyList" resultType="com.grgbanking.smart.web.bean.entity.TNOrg"
+            parameterType="java.util.Map">
+        SELECT
+        t.id,
+        IFNULL(t.short_name, t.`name`) AS `name`,
+        t.credit_code
+        FROM
+        t_n_org t
+        WHERE
+        t.lvl_type = #{lvl_type}
+        AND t.lvl = #{lvl}
+        <if test="group_company_id != null and group_company_id !='' ">
+            and ( t.id=#{group_company_id} or t.parent_id=#{group_company_id})
+        </if>
+        order by t.lvl,t.sort_order
+    </select>
+    <select id="getDetailByItemId" resultType="com.grgbanking.smart.gzw.model.entity.PfGainsDetail">
+SELECT
+	*
+FROM
+	t_pf_gains_detail t
+WHERE
+	t.item_id = #{formDataId}
+order by t.lvl2_type_code
+    </select>
+    <select id="getPfVerifyResultByFormDataId" resultType="com.grgbanking.smart.gzw.model.entity.PfVerifyResult">
+        SELECT
+        r.*
+        FROM
+        t_pf_verify_result r
+        <if test="isAll==1">
+            JOIN (
+            SELECT
+            ff.form_data_id
+            FROM
+            t_wf_task t
+            JOIN t_wf_order o ON t.order_id = o.id
+            JOIN t_wf_task_actor ta ON ta.task_id = t.id
+            JOIN t_flow_form ff ON ff.order_id = t.ORDER_ID
+            <if test="userid != null and userid !='' ">
+                AND ta.actor_Id = #{userid}
+            </if>
+            ) k1 ON k1.form_data_id = r.formDataId
+        </if>
+        where 1=1
+        <if test="formDataIds != null and formDataIds !='' ">
+            and FIND_IN_SET(r.formDataId, #{formDataIds})
+        </if>
+        <if test="type_code != null and type_code !='' ">
+            and r.type_code=#{type_code}
+        </if>
+    </select>
+    <update id="updateVerifyResult" parameterType="com.grgbanking.smart.gzw.model.entity.PfVerifyResult" flushCache="true">
+        update t_pf_verify_result set annotation=#{info.annotation} where id=#{info.id}
+    </update>
+
+    <select id="getNoWriteOrg" resultType="com.grgbanking.smart.gzw.model.innovate.NoWriteVo" parameterType="java.util.Map">
+	SELECT DISTINCT
+	t.id as org_id,
+	t.short_name as org_name,
+	b.user_name as userName,
+	b.phone,
+	b.telephone,
+	${i_year} as i_year,
+	${i_season} as i_season
+FROM
+	t_n_org t
+left join t_pf_address_book b on t.id=b.org_id and b.role_type=1
+LEFT JOIN t_pf_gains_info o ON t.id = o.org_id and o.status in (1,2) and o.i_year=#{i_year} and o.i_season=#{i_season}
+WHERE
+	o.id IS NULL
+AND t.lvl_type = 1
+AND t.lvl = 2
+order by sort_order
+    </select>
+
+    <select id="getCountReport" resultType="com.grgbanking.smart.gzw.model.innovate.PfGainsVo" parameterType="java.util.Map">
+    SELECT
+        org.id as org_id,
+        max(o.org_name) as org_name,
+        max(o.`status`) as status,
+        max(org.sort_order) as sort_order,
+    sum(case t.lvl2_type_code when 1001 then t.total_nums else 0 end) as type1001,
+    sum(case t.lvl2_type_code when 1002 then t.total_nums else 0 end) as type1002,
+        sum(case t.lvl2_type_code when 1003 then t.total_nums else 0 end) as type1003,
+        sum( case t.lvl2_type_code when 2001 then t.total_nums else 0 end) as type2001,
+        sum(case t.lvl2_type_code when 2002 then t.total_nums else 0 end) as type2002,
+        sum(case t.lvl2_type_code when 2003 then t.total_nums else 0 end) as type2003,
+
+        sum(case t.lvl2_type_code when 3001 then t.total_nums else 0 end) as type3001,
+        sum(case t.lvl2_type_code when 3002 then t.total_nums else 0 end) as type3002,
+        sum(case t.lvl2_type_code when 3003 then t.total_nums else 0 end) as type3003,
+        sum(case t.lvl2_type_code when 4001 then t.total_nums else 0 end) as type4001,
+
+        sum(case t.lvl2_type_code when 5001 then t.total_nums else 0 end) as type5001,
+        sum(case t.lvl2_type_code when 6001 then t.total_nums else 0 end) as type6001,
+        sum(case t.lvl2_type_code when 6002 then t.total_nums else 0 end) as type6002,
+        sum(case t.lvl2_type_code when 6003 then t.total_nums else 0 end) as type6003,
+
+        sum(case t.lvl2_type_code when 7001 then t.total_nums else 0 end) as type7001,
+        sum(case t.lvl2_type_code when 7002 then t.total_nums else 0 end) as type7002,
+        sum(case t.lvl2_type_code when 7003 then t.total_nums else 0 end) as type7003,
+
+        sum(case t.lvl2_type_code when 8001 then t.total_nums else 0 end) as type8001,
+        sum(case t.lvl2_type_code when 8002 then t.total_nums else 0 end) as type8002,
+        sum(case t.lvl2_type_code when 8003 then t.total_nums else 0 end) as type8003,
+        sum(case t.lvl2_type_code when 8004 then t.total_nums else 0 end) as type8004,
+        sum(case t.lvl2_type_code when 8005 then t.total_nums else 0 end) as type8005,
+        sum(case t.lvl2_type_code when 8006 then t.total_nums else 0 end) as type8006,
+
+        sum(case t.lvl2_type_code when 9001 then t.total_nums else 0 end) as type9001,
+        sum(case t.lvl2_type_code when 9002 then t.total_nums else 0 end) as type9002,
+        sum(case t.lvl2_type_code when 9003 then t.total_nums else 0 end) as type9003,
+        sum( case t.lvl2_type_code when 9004 then t.total_nums else 0 end) as type9004,
+        sum(case t.lvl2_type_code when 9005 then t.total_nums else 0 end) as type9005
+    FROM
+    t_pf_run_info o join t_pf_gains_detail t on o.id=t.item_id
+    join t_n_org org on o.org_id=org.id
+    where o.i_year=#{i_year} and o.i_season=#{i_season} and o.status in (1,2)
+    <if test="orgId != null and orgId != '' ">
+        and o.org_id=#{orgId}
+    </if>
+      group by o.org_id
+    order by sort_order
+</select>
+
+    <select id="getCountReportForNew" resultType="com.grgbanking.smart.gzw.model.innovate.PfGainsVo" parameterType="java.util.Map">
+        SELECT
+        sum(case t.lvl2_type_code when 1001 then t.year_new_nums else 0 end) as type1001,
+        sum( case t.lvl2_type_code when 1002 then t.year_new_nums else 0 end) as type1002,
+        sum(case t.lvl2_type_code when 1003 then t.year_new_nums else 0 end) as type1003,
+        sum(case t.lvl2_type_code when 2001 then t.year_new_nums else 0 end) as type2001,
+        sum(case t.lvl2_type_code when 2002 then t.year_new_nums else 0 end) as type2002,
+        sum(case t.lvl2_type_code when 2003 then t.year_new_nums else 0 end) as type2003,
+
+        sum(case t.lvl2_type_code when 3001 then t.year_new_nums else 0 end) as type3001,
+        sum(case t.lvl2_type_code when 3002 then t.year_new_nums else 0 end) as type3002,
+        sum(case t.lvl2_type_code when 3003 then t.year_new_nums else 0 end) as type3003,
+        sum(case t.lvl2_type_code when 4001 then t.year_new_nums else 0 end) as type4001,
+
+        sum(case t.lvl2_type_code when 5001 then t.year_new_nums else 0 end) as type5001,
+        sum(case t.lvl2_type_code when 6001 then t.year_new_nums else 0 end) as type6001,
+        sum(case t.lvl2_type_code when 6002 then t.year_new_nums else 0 end) as type6002,
+        sum(case t.lvl2_type_code when 6003 then t.year_new_nums else 0 end) as type6003,
+
+        sum(case t.lvl2_type_code when 7001 then t.year_new_nums else 0 end) as type7001,
+        sum(case t.lvl2_type_code when 7002 then t.year_new_nums else 0 end) as type7002,
+        sum(case t.lvl2_type_code when 7003 then t.year_new_nums else 0 end) as type7003,
+
+        sum(case t.lvl2_type_code when 8001 then t.year_new_nums else 0 end) as type8001,
+        sum(case t.lvl2_type_code when 8002 then t.year_new_nums else 0 end) as type8002,
+        sum(case t.lvl2_type_code when 8003 then t.year_new_nums else 0 end) as type8003,
+        sum(case t.lvl2_type_code when 8004 then t.year_new_nums else 0 end) as type8004,
+        sum(case t.lvl2_type_code when 8005 then t.year_new_nums else 0 end) as type8005,
+        sum(case t.lvl2_type_code when 8006 then t.year_new_nums else 0 end) as type8006,
+
+        sum(case t.lvl2_type_code when 9001 then t.year_new_nums else 0 end) as type9001,
+        sum(case t.lvl2_type_code when 9002 then t.year_new_nums else 0 end) as type9002,
+        sum(case t.lvl2_type_code when 9003 then t.year_new_nums else 0 end) as type9003,
+        sum(case t.lvl2_type_code when 9004 then t.year_new_nums else 0 end) as type9004,
+        sum(case t.lvl2_type_code when 9005 then t.year_new_nums else 0 end) as type9005
+        FROM
+        t_pf_run_info o join t_pf_gains_detail t on o.id=t.item_id
+        join t_n_org org on o.org_id=org.id
+        where o.i_year=#{i_year} and o.i_season=#{i_season} and o.status in (1,2)
+        <if test="orgId != null and orgId != '' ">
+            and o.org_id=#{orgId}
+        </if>
+    </select>
+
+</mapper>

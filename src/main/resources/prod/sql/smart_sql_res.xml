@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap SYSTEM "./mapsql.dtd">
+<sqlMap>
+	<include file="/sql/form_sql_res.xml"/>
+    <include file="/sql/flow_sql_res.xml"/>
+    <include file="/sql/test_sql_res.xml"/>
+    <include file="/sql/push_sql_res.xml"/>
+    <include file="/sql/news_sql_res.xml"/>
+    <include file="/sql/supervisor_sql_res.xml"/>
+    <include file="/sql/common_sql_res.xml"/>
+    <include file="/sql/send_info_sql_res.xml"/>
+    <include file="/sql/auth_op_sql.xml"/>
+</sqlMap>

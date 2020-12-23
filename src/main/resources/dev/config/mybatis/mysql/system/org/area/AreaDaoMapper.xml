@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marks.smart.system.org.area.dao.AreaDao">
+
+	<select id="findById" resultType="com.marks.smart.system.org.area.pojo.Area">
+		SELECT * FROM TB_ORG_AREA where
+		AREAID = #{areaId}
+	</select>
+	<select id="findByParentId" resultType="com.marks.smart.system.org.area.pojo.Area">
+		SELECT * FROM TB_ORG_AREA
+		where PARENTID = #{parentId}
+	</select>
+
+	<select id="getTreeGridByParentId" resultType="com.marks.smart.system.org.area.pojo.Area">
+		select t.*,
+		(case
+		when cnum is null then
+		'open'
+		else
+		'closed'
+		end) state
+		from tb_org_area t
+		left join (select count(1) cnum, p.parentid pid
+		from
+		tb_org_area p
+		group
+		by p.parentid) p on t.areaId = p.pid
+		where 1=1 
+		AND t.parentid
+		=#{parentId}
+	</select>
+
+	<insert id="save" parameterType="com.marks.smart.system.org.area.pojo.Area">
+		INSERT INTO TB_ORG_AREA (
+		AREAID,
+		AREANAME,
+		COMPANYID,
+		LVL,
+		CREATETIME,
+		UPDATETIME,
+		PARENTID,
+		PARENTNAME,
+		LVL1ID,
+		LVL1NAME,
+		LVL2ID,
+		LVL2NAME,
+		LVL3ID,
+		LVL3NAME,
+		LVL4ID,
+		LVL4NAME,
+		LVL5ID,
+		LVL5NAME
+		)
+		VALUES(
+		#{areaId:VARCHAR},
+		#{areaName:VARCHAR},
+		#{companyId:VARCHAR},
+		#{lvl:NUMERIC},
+		now(),
+		now(),
+		#{parentId:VARCHAR},
+		#{parentName:VARCHAR},
+		#{lvl1Id:VARCHAR},
+		#{lvl1Name:VARCHAR},
+		#{lvl2Id:VARCHAR},
+		#{lvl2Name:VARCHAR},
+		#{lvl3Id:VARCHAR},
+		#{lvl3Name:VARCHAR},
+		#{lvl4Id:VARCHAR},
+		#{lvl4Name:VARCHAR},
+		#{lvl5Id:VARCHAR},
+		#{lvl5Name:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.marks.smart.system.org.area.pojo.Area">
+		UPDATE TB_ORG_AREA
+		SET
+		AREANAME
+		= #{areaName:VARCHAR},
+		UPDATETIME = now()
+		WHERE
+		AREAID = #{areaId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_ORG_AREA WHERE
+		AREAID=#{areaId}
+	</delete>
+
+	<select id="findAll" resultType="com.marks.smart.system.org.area.pojo.Area">
+		SELECT * FROM TB_ORG_AREA
+	</select>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM TB_ORG_AREA WHERE AREAID in
+		<foreach collection="list" item="ids" index="index" open="("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+	<update id="updateMoreLvlName" flushCache="true">
+		UPDATE TB_ORG_AREA
+		SET
+		lvl#{lvl}Name=#{areaName}
+		WHERE
+		lvl#{lvl}Id =#{areaId}
+	</update>
+	<update id="updateParentName" flushCache="true">
+		UPDATE TB_ORG_AREA
+		SET
+		parentName=#{areaName}
+		WHERE
+		parentId =#{areaId}
+	</update>
+
+	<select id="list" resultType="com.marks.smart.system.org.area.pojo.Area"
+		parameterType="java.util.Map">
+		SELECT *
+		FROM TB_ORG_AREA area
+		WHERE 1=1
+		<if test="keyword!=null and keyword!=''">
+			and ( 2=1 or area.AREAID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.AREANAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.COMPANYID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			date_format(area.CREATETIME,'%Y%m%d') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or
+			date_format(area.UPDATETIME,'%Y%m%d') LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.PARENTID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.PARENTNAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL1ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL1NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL2ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL2NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL3ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL3NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL4ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL4NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL5ID LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			or area.LVL5NAME LIKE
+			CONCAT(CONCAT('%',#{keyword:VARCHAR}),'%')
+			)
+		</if>
+
+
+		order by area.UPDATETIME DESC
+	</select>
+
+
+
+</mapper>

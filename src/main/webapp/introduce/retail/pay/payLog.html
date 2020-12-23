@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>支付记录</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>支付记录</h1>
+	<p>支付记录</p>
+	
+	<h2>支付记录表  (TB_PAY_LOG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>编号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>ITEMCODE</td><td>业务类型</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>ORDERID</td><td>订单编号</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>ITEMNAME</td><td>科目名称</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>ORDERAMT</td><td>订单金额</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>CASHAMT</td><td>现金金额</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>CARDAMT</td><td>刷卡金额</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>ALIPAYAMT</td><td>支付宝金额</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>WXPAYAMT</td><td>微信金额</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>UNIONAMT</td><td>银联支付金额</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>DEPOSITAMT</td><td>储值卡支付金额</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>OTHERAMT</td><td>其他支付金额</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>REMARKS</td><td>备注</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (PayLog)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>编号</td><td>String</td><td></td></tr><tr><td>2</td><td>itemCode</td><td>业务类型</td><td>String</td><td></td></tr><tr><td>3</td><td>orderId</td><td>订单编号</td><td>String</td><td></td></tr><tr><td>4</td><td>itemName</td><td>科目名称</td><td>String</td><td></td></tr><tr><td>5</td><td>orderAmt</td><td>订单金额</td><td>String</td><td></td></tr><tr><td>6</td><td>cashAmt</td><td>现金金额</td><td>String</td><td></td></tr><tr><td>7</td><td>cardAmt</td><td>刷卡金额</td><td>String</td><td></td></tr><tr><td>8</td><td>alipayAmt</td><td>支付宝金额</td><td>String</td><td></td></tr><tr><td>9</td><td>wxpayAmt</td><td>微信金额</td><td>String</td><td></td></tr><tr><td>10</td><td>unionAmt</td><td>银联支付金额</td><td>String</td><td></td></tr><tr><td>11</td><td>depositAmt</td><td>储值卡支付金额</td><td>String</td><td></td></tr><tr><td>12</td><td>otherAmt</td><td>其他支付金额</td><td>String</td><td></td></tr><tr><td>13</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>14</td><td>remarks</td><td>备注</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (PayLogController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/payLog/findPayLogById</td><td>findPayLogById</td><td>查询支付记录</td></tr><tr><td>2</td><td>/payLog/save</td><td>savePayLog</td><td>保存支付记录</td></tr><tr><td>3</td><td>/payLog/update</td><td>updatePayLog</td><td>更新支付记录</td></tr><tr><td>4</td><td>/payLog/delete</td><td>deletePayLogById</td><td>删除支付记录</td></tr><tr><td>5</td><td>/payLog/findAllPayLog</td><td>findAllPayLog</td><td>查询全部支付记录</td></tr><tr><td>6</td><td>/payLog/deleteIds</td><td>deletePayLog</td><td>删除多个支付记录</td></tr><tr><td>7</td><td>/payLog/list</td><td>list</td><td>列表查询支付记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (PayLogService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询支付记录</td></tr><tr><td>2</td><td>save</td><td>保存支付记录</td></tr><tr><td>3</td><td>update</td><td>更新支付记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除支付记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部支付记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个支付记录</td></tr><tr><td>7</td><td>list</td><td>列表查询支付记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(PayLogDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询支付记录</td></tr><tr><td>2</td><td>save</td><td>保存支付记录</td></tr><tr><td>3</td><td>update</td><td>更新支付记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除支付记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部支付记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个支付记录</td></tr><tr><td>7</td><td>list</td><td>列表查询支付记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

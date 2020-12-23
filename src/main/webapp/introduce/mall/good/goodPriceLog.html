@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>调价单</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>调价单</h1>
+	<p>门店商品价格修改日志</p>
+	
+	<h2>调价单表  (TB_MALL_GOOD_PRICE_LOG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>主键</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>GOODNO</td><td>商品编号</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>SALEPRICE</td><td>售价</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>VIPPRICE</td><td>会员价</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>DISPATCHPRICE</td><td>配送价</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>COMPANYID</td><td>公司编号</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>SHOPID</td><td>门店编号</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>SHOPNAME</td><td>门店名称</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>GOODNAME</td><td>商品名称</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>GOODID</td><td>商品ID</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>TRADEPRICE</td><td>批发价</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>MINPRICE</td><td>最低价</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>COSTPRICE</td><td>进货价</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>BATCHID</td><td>批次编号</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>CREATOR</td><td>创建者</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>CREATORCODE</td><td>创建编号</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>REMARKS</td><td>备注</td><td>varchar2</td><td></td></tr><tr><td>19</td><td>CHECKSTATUS</td><td>审核状态</td><td>number</td><td></td></tr><tr><td>20</td><td>CHECKERCODE</td><td>审核人编号</td><td>varchar2</td><td></td></tr><tr><td>21</td><td>CHECKER</td><td>审核人</td><td>varchar2</td><td></td></tr><tr><td>22</td><td>CHECKTIME</td><td>审核时间</td><td>varchar2</td><td></td></tr><tr><td>23</td><td>TYPECODE</td><td>类型编号</td><td>number</td><td></td></tr><tr><td>24</td><td>TYPENAME</td><td>类型</td><td>varchar2</td><td></td></tr><tr><td>25</td><td>ONSALE_STATUS</td><td>上下架</td><td>number</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (GoodPriceLog)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>主键</td><td>String</td><td></td></tr><tr><td>2</td><td>goodNo</td><td>商品编号</td><td>String</td><td></td></tr><tr><td>3</td><td>salePrice</td><td>售价</td><td>String</td><td></td></tr><tr><td>4</td><td>vipPrice</td><td>会员价</td><td>String</td><td></td></tr><tr><td>5</td><td>dispatchPrice</td><td>配送价</td><td>String</td><td></td></tr><tr><td>6</td><td>companyId</td><td>公司编号</td><td>String</td><td></td></tr><tr><td>7</td><td>shopId</td><td>门店编号</td><td>String</td><td></td></tr><tr><td>8</td><td>shopName</td><td>门店名称</td><td>String</td><td></td></tr><tr><td>9</td><td>goodName</td><td>商品名称</td><td>String</td><td></td></tr><tr><td>10</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>11</td><td>goodId</td><td>商品ID</td><td>String</td><td></td></tr><tr><td>12</td><td>tradePrice</td><td>批发价</td><td>String</td><td></td></tr><tr><td>13</td><td>minPrice</td><td>最低价</td><td>String</td><td></td></tr><tr><td>14</td><td>costPrice</td><td>进货价</td><td>String</td><td></td></tr><tr><td>15</td><td>batchId</td><td>批次编号</td><td>String</td><td></td></tr><tr><td>16</td><td>creator</td><td>创建者</td><td>String</td><td></td></tr><tr><td>17</td><td>creatorCode</td><td>创建编号</td><td>String</td><td></td></tr><tr><td>18</td><td>remarks</td><td>备注</td><td>String</td><td></td></tr><tr><td>19</td><td>checkStatus</td><td>审核状态</td><td>int</td><td></td></tr><tr><td>20</td><td>checkerCode</td><td>审核人编号</td><td>String</td><td></td></tr><tr><td>21</td><td>checker</td><td>审核人</td><td>String</td><td></td></tr><tr><td>22</td><td>checkTime</td><td>审核时间</td><td>String</td><td></td></tr><tr><td>23</td><td>typeCode</td><td>类型编号</td><td>int</td><td></td></tr><tr><td>24</td><td>typeName</td><td>类型</td><td>String</td><td></td></tr><tr><td>25</td><td>onsale_status</td><td>上下架</td><td>int</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (GoodPriceLogController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/goodPriceLog/findGoodPriceLogById</td><td>findGoodPriceLogById</td><td>查询调价单</td></tr><tr><td>2</td><td>/goodPriceLog/save</td><td>saveGoodPriceLog</td><td>保存调价单</td></tr><tr><td>3</td><td>/goodPriceLog/update</td><td>updateGoodPriceLog</td><td>更新调价单</td></tr><tr><td>4</td><td>/goodPriceLog/delete</td><td>deleteGoodPriceLogById</td><td>删除调价单</td></tr><tr><td>5</td><td>/goodPriceLog/findAllGoodPriceLog</td><td>findAllGoodPriceLog</td><td>查询全部调价单</td></tr><tr><td>6</td><td>/goodPriceLog/deleteIds</td><td>deleteGoodPriceLog</td><td>删除多个调价单</td></tr><tr><td>7</td><td>/goodPriceLog/list</td><td>list</td><td>列表查询调价单</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (GoodPriceLogService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询调价单</td></tr><tr><td>2</td><td>save</td><td>保存调价单</td></tr><tr><td>3</td><td>update</td><td>更新调价单</td></tr><tr><td>4</td><td>deleteById</td><td>删除调价单</td></tr><tr><td>5</td><td>findAll</td><td>查询全部调价单</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个调价单</td></tr><tr><td>7</td><td>list</td><td>列表查询调价单</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(GoodPriceLogDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询调价单</td></tr><tr><td>2</td><td>save</td><td>保存调价单</td></tr><tr><td>3</td><td>update</td><td>更新调价单</td></tr><tr><td>4</td><td>deleteById</td><td>删除调价单</td></tr><tr><td>5</td><td>findAll</td><td>查询全部调价单</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个调价单</td></tr><tr><td>7</td><td>list</td><td>列表查询调价单</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

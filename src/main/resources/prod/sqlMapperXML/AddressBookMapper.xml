@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.smart.gzw.mapper.AddressBookMapper">
+
+    <select id="getDealList" resultType="com.grgbanking.smart.gzw.model.entity.PfAddressBook" parameterType="java.util.Map">
+        SELECT
+        b.id,
+        t.id as orgId,
+        t.name as orgName,
+        t.roleType,
+        b.user_name as userName,
+        b.phone,
+        b.telephone,
+        b.email,
+        b.update_time as updateTime,
+        b.update_user as updateUser
+        FROM
+        (
+        select id,name,sort_order,1 as roleType from t_n_org where lvl_type = 1 and lvl = 2
+        UNION
+        select id,name,sort_order,2 as roleType from t_n_org where lvl_type = 1 and lvl = 2
+        UNION
+        select id,name,sort_order,3 as roleType from t_n_org where lvl_type = 1 and lvl = 2
+        ) t LEFT JOIN t_pf_address_book b on t.id = b.org_id and t.roleType = b.role_type
+        where 1=1
+        <if test="orgId !=null and orgId !=''"> and t.id = #{orgId} </if>
+        <if test="roleType !=null and roleType !=''"> and t.roleType = #{roleType} </if>
+        ORDER BY t.sort_order,t.id,t.roleType
+    </select>
+
+</mapper>

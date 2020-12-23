@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.marks.smart.market.pay.alipay.dao.AlipayDao">
+	<!-- 生成订单与商品属性的关联 -->
+	<insert id="saveAlipayLog" parameterType="com.marks.smart.market.pay.alipay.pojo.AlipayLog">
+		INSERT INTO tb_pay_alipay_log (
+		id,
+		trade_no,
+		orderid,
+		notify_id,
+		notify_time,
+		notify_type,
+		trade_status,
+		total_fee,
+		gmt_payment,
+		buyer_email,
+		buyer_id,
+		createtime
+		)
+		VALUES
+		(
+		#{log.id:VARCHAR},
+		#{log.trade_no:VARCHAR},
+		#{log.orderid:VARCHAR},
+		#{log.notify_id:VARCHAR},
+		#{log.notify_time:VARCHAR},
+		#{log.notify_type:VARCHAR},
+		#{log.trade_status:VARCHAR},
+		#{log.total_fee:VARCHAR},
+		#{log.gmt_payment:VARCHAR},
+		#{log.buyer_email:VARCHAR},
+		#{log.buyer_id:VARCHAR},
+		#{log.createtime:VARCHAR}
+		)
+	</insert>
+
+</mapper>
+
+
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>追踪日志</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>追踪日志</h1>
+	<p>追踪日志</p>
+	
+	<h2>追踪日志表  (TB_MALL_TRACE_LOG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>ID</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>TRACEID</td><td>追踪码</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>BARCODE</td><td>条码</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>GOODID</td><td>商品编码</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>GOODNO</td><td>商品编号</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>BARNO</td><td>国际条码</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>GOODNAME</td><td>商品名称</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>TYPEID</td><td>品类ID</td><td>varchar2</td><td></td></tr><tr><td>10</td><td>TYPENAME</td><td>品类</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>BRANDID</td><td>品牌ID</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>BRANDNAME</td><td>品牌</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>STOCKSTATUS</td><td>库存状态</td><td>number</td><td></td></tr><tr><td>14</td><td>OPERATOR</td><td>操作者</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>COMPANYID</td><td>公司ID</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>ORGID</td><td>机构ID</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>ORGNAME</td><td>机构名称</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>REMARKS</td><td>备注</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (TraceLog)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>ID</td><td>String</td><td></td></tr><tr><td>2</td><td>traceId</td><td>追踪码</td><td>String</td><td></td></tr><tr><td>3</td><td>barCode</td><td>条码</td><td>String</td><td></td></tr><tr><td>4</td><td>goodId</td><td>商品编码</td><td>String</td><td></td></tr><tr><td>5</td><td>goodNo</td><td>商品编号</td><td>String</td><td></td></tr><tr><td>6</td><td>barNo</td><td>国际条码</td><td>String</td><td></td></tr><tr><td>7</td><td>goodName</td><td>商品名称</td><td>String</td><td></td></tr><tr><td>8</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>9</td><td>typeId</td><td>品类ID</td><td>String</td><td></td></tr><tr><td>10</td><td>typeName</td><td>品类</td><td>String</td><td></td></tr><tr><td>11</td><td>brandId</td><td>品牌ID</td><td>String</td><td></td></tr><tr><td>12</td><td>brandName</td><td>品牌</td><td>String</td><td></td></tr><tr><td>13</td><td>stockStatus</td><td>库存状态</td><td>int</td><td></td></tr><tr><td>14</td><td>operator</td><td>操作者</td><td>String</td><td></td></tr><tr><td>15</td><td>companyId</td><td>公司ID</td><td>String</td><td></td></tr><tr><td>16</td><td>orgid</td><td>机构ID</td><td>String</td><td></td></tr><tr><td>17</td><td>orgname</td><td>机构名称</td><td>String</td><td></td></tr><tr><td>18</td><td>remarks</td><td>备注</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (TraceLogController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/traceLog/findTraceLogById</td><td>findTraceLogById</td><td>查询追踪日志</td></tr><tr><td>2</td><td>/traceLog/save</td><td>saveTraceLog</td><td>保存追踪日志</td></tr><tr><td>3</td><td>/traceLog/update</td><td>updateTraceLog</td><td>更新追踪日志</td></tr><tr><td>4</td><td>/traceLog/delete</td><td>deleteTraceLogById</td><td>删除追踪日志</td></tr><tr><td>5</td><td>/traceLog/findAllTraceLog</td><td>findAllTraceLog</td><td>查询全部追踪日志</td></tr><tr><td>6</td><td>/traceLog/deleteIds</td><td>deleteTraceLog</td><td>删除多个追踪日志</td></tr><tr><td>7</td><td>/traceLog/list</td><td>list</td><td>列表查询追踪日志</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (TraceLogService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询追踪日志</td></tr><tr><td>2</td><td>save</td><td>保存追踪日志</td></tr><tr><td>3</td><td>update</td><td>更新追踪日志</td></tr><tr><td>4</td><td>deleteById</td><td>删除追踪日志</td></tr><tr><td>5</td><td>findAll</td><td>查询全部追踪日志</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个追踪日志</td></tr><tr><td>7</td><td>list</td><td>列表查询追踪日志</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(TraceLogDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询追踪日志</td></tr><tr><td>2</td><td>save</td><td>保存追踪日志</td></tr><tr><td>3</td><td>update</td><td>更新追踪日志</td></tr><tr><td>4</td><td>deleteById</td><td>删除追踪日志</td></tr><tr><td>5</td><td>findAll</td><td>查询全部追踪日志</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个追踪日志</td></tr><tr><td>7</td><td>list</td><td>列表查询追踪日志</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
