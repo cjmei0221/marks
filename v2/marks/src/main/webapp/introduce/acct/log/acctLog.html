@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>交易记录</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>交易记录</h1>
+	<p>用户交易记录</p>
+	
+	<h2>交易记录表  (TB_ACCT_LOG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>单号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>USERID</td><td>用户系统编号</td><td>varchar2</td><td>帐户基本信息</td></tr><tr><td>3</td><td>USERCODE</td><td>用户编号</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>USERNAME</td><td>用户姓名</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>YWCODE</td><td>业务编号</td><td>varchar2</td><td>point:积分 amt：充值</td></tr><tr><td>6</td><td>YWNAME</td><td>业务类型</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>TRANCODE</td><td>交易编号</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>TRANNAME</td><td>交易类型</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>TRANSTATUS</td><td>交易状态</td><td>number</td><td></td></tr><tr><td>10</td><td>TRANAMT</td><td>交易金额</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>TRANPOINT</td><td>交易积分</td><td>number</td><td></td></tr><tr><td>12</td><td>TRANTIME</td><td>交易时间</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>TRANDESC</td><td>交易描述</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>BALAMT</td><td>剩余金额</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>BALPOINT</td><td>剩余积分</td><td>number</td><td></td></tr><tr><td>16</td><td>REMARKS</td><td>备注</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>CREATETIME</td><td>创建时间</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (AcctLog)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>单号</td><td>String</td><td></td></tr><tr><td>2</td><td>userid</td><td>用户系统编号</td><td>String</td><td>帐户基本信息</td></tr><tr><td>3</td><td>userCode</td><td>用户编号</td><td>String</td><td></td></tr><tr><td>4</td><td>userName</td><td>用户姓名</td><td>String</td><td></td></tr><tr><td>5</td><td>ywCode</td><td>业务编号</td><td>String</td><td>point:积分 amt：充值</td></tr><tr><td>6</td><td>ywName</td><td>业务类型</td><td>String</td><td></td></tr><tr><td>7</td><td>tranCode</td><td>交易编号</td><td>String</td><td></td></tr><tr><td>8</td><td>tranName</td><td>交易类型</td><td>String</td><td></td></tr><tr><td>9</td><td>tranStatus</td><td>交易状态</td><td>int</td><td></td></tr><tr><td>10</td><td>tranAmt</td><td>交易金额</td><td>String</td><td></td></tr><tr><td>11</td><td>tranPoint</td><td>交易积分</td><td>int</td><td></td></tr><tr><td>12</td><td>tranTime</td><td>交易时间</td><td>String</td><td></td></tr><tr><td>13</td><td>tranDesc</td><td>交易描述</td><td>String</td><td></td></tr><tr><td>14</td><td>balAmt</td><td>剩余金额</td><td>String</td><td></td></tr><tr><td>15</td><td>balPoint</td><td>剩余积分</td><td>int</td><td></td></tr><tr><td>16</td><td>remarks</td><td>备注</td><td>String</td><td></td></tr><tr><td>17</td><td>createtime</td><td>创建时间</td><td>String</td><td></td></tr><tr><td>18</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (AcctLogController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/acctLog/findAcctLogById</td><td>findAcctLogById</td><td>查询交易记录</td></tr><tr><td>2</td><td>/acctLog/save</td><td>saveAcctLog</td><td>保存交易记录</td></tr><tr><td>3</td><td>/acctLog/update</td><td>updateAcctLog</td><td>更新交易记录</td></tr><tr><td>4</td><td>/acctLog/delete</td><td>deleteAcctLogById</td><td>删除交易记录</td></tr><tr><td>5</td><td>/acctLog/findAllAcctLog</td><td>findAllAcctLog</td><td>查询全部交易记录</td></tr><tr><td>6</td><td>/acctLog/deleteIds</td><td>deleteAcctLog</td><td>删除多个交易记录</td></tr><tr><td>7</td><td>/acctLog/list</td><td>list</td><td>列表查询交易记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (AcctLogService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询交易记录</td></tr><tr><td>2</td><td>save</td><td>保存交易记录</td></tr><tr><td>3</td><td>update</td><td>更新交易记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除交易记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部交易记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个交易记录</td></tr><tr><td>7</td><td>list</td><td>列表查询交易记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(AcctLogDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询交易记录</td></tr><tr><td>2</td><td>save</td><td>保存交易记录</td></tr><tr><td>3</td><td>update</td><td>更新交易记录</td></tr><tr><td>4</td><td>deleteById</td><td>删除交易记录</td></tr><tr><td>5</td><td>findAll</td><td>查询全部交易记录</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个交易记录</td></tr><tr><td>7</td><td>list</td><td>列表查询交易记录</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

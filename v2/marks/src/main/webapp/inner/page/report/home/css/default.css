@@ -1,0 +1,20 @@
+.top-cls-1 {
+	width: 100px;
+	background-color: #c74640;
+	display: inline-block;
+	/* left: 10px; */
+	margin-left: 10px;
+	text-align: center;
+	line-height: 30px;
+}
+
+.top-cls-2 {
+	width: 100px;
+	height: 50px;
+}
+
+.cls-content-1 {
+	border-bottom: 1px solid;
+	margin: 10px 10px;
+	text-align: center;
+}

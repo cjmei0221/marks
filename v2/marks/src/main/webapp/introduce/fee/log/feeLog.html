@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>费用明细</title>
+<link rel="stylesheet" type="text/css" href="/introduce/nfb.css">
+</head>
+<body>
+	<h1>费用明细</h1>
+	<p></p>
+	
+	<h2>费用明细表  (TB_FEE_LOG)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>ID</td><td>单号</td><td>varchar2</td><td></td></tr><tr><td>2</td><td>COMPANYID</td><td>公司编号</td><td>varchar2</td><td></td></tr><tr><td>3</td><td>FEECODE</td><td>科目编号</td><td>varchar2</td><td></td></tr><tr><td>4</td><td>FEENAME</td><td>科目名称</td><td>varchar2</td><td></td></tr><tr><td>5</td><td>ITEMCODE</td><td>条目编号</td><td>varchar2</td><td></td></tr><tr><td>6</td><td>ITEMNAME</td><td>条目名称</td><td>varchar2</td><td></td></tr><tr><td>7</td><td>TRANTIME</td><td>交易时间</td><td>varchar2</td><td></td></tr><tr><td>8</td><td>TRANAMT</td><td>交易金额</td><td>varchar2</td><td></td></tr><tr><td>9</td><td>INOROUT</td><td>收支</td><td>number</td><td>0:支出 1:收入</td></tr><tr><td>10</td><td>REMARKS</td><td>备注</td><td>varchar2</td><td></td></tr><tr><td>11</td><td>PAYEEID</td><td>收款人编号</td><td>varchar2</td><td></td></tr><tr><td>12</td><td>PAYEEMOBILE</td><td>收款人手机号</td><td>varchar2</td><td></td></tr><tr><td>13</td><td>PAYEENAME</td><td>收款人</td><td>varchar2</td><td></td></tr><tr><td>14</td><td>PAYEEROLETYPE</td><td>角色类型</td><td>varchar2</td><td></td></tr><tr><td>15</td><td>PAYEEROLE</td><td>角色类型</td><td>varchar2</td><td></td></tr><tr><td>16</td><td>PAYEEORGID</td><td>机构</td><td>varchar2</td><td></td></tr><tr><td>17</td><td>PAYEEORGNAME</td><td>机构</td><td>varchar2</td><td></td></tr><tr><td>18</td><td>PAYEECODE</td><td>编号</td><td>varchar2</td><td></td></tr><tr><td>19</td><td>YEAR</td><td>年</td><td>varchar2</td><td></td></tr><tr><td>20</td><td>MONTH</td><td>月</td><td>varchar2</td><td></td></tr><tr><td>21</td><td>IDNO</td><td>关联单号</td><td>varchar2</td><td></td></tr><tr><td>22</td><td>UPDATETIME</td><td>更新时间</td><td>varchar2</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2>实体类  (FeeLog)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">字段</td>
+					<td width="20%">名称</td>
+					<td width="15%">数据类型</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>id</td><td>单号</td><td>String</td><td></td></tr><tr><td>2</td><td>companyId</td><td>公司编号</td><td>String</td><td></td></tr><tr><td>3</td><td>feeCode</td><td>科目编号</td><td>String</td><td></td></tr><tr><td>4</td><td>feeName</td><td>科目名称</td><td>String</td><td></td></tr><tr><td>5</td><td>itemCode</td><td>条目编号</td><td>String</td><td></td></tr><tr><td>6</td><td>itemName</td><td>条目名称</td><td>String</td><td></td></tr><tr><td>7</td><td>tranTime</td><td>交易时间</td><td>String</td><td></td></tr><tr><td>8</td><td>tranAmt</td><td>交易金额</td><td>String</td><td></td></tr><tr><td>9</td><td>inOrOut</td><td>收支</td><td>int</td><td>0:支出 1:收入</td></tr><tr><td>10</td><td>remarks</td><td>备注</td><td>String</td><td></td></tr><tr><td>11</td><td>payeeId</td><td>收款人编号</td><td>String</td><td></td></tr><tr><td>12</td><td>payeeMobile</td><td>收款人手机号</td><td>String</td><td></td></tr><tr><td>13</td><td>payeeName</td><td>收款人</td><td>String</td><td></td></tr><tr><td>14</td><td>payeeRoleType</td><td>角色类型</td><td>String</td><td></td></tr><tr><td>15</td><td>payeeRole</td><td>角色类型</td><td>String</td><td></td></tr><tr><td>16</td><td>payeeOrgId</td><td>机构</td><td>String</td><td></td></tr><tr><td>17</td><td>payeeOrgName</td><td>机构</td><td>String</td><td></td></tr><tr><td>18</td><td>payeeCode</td><td>编号</td><td>String</td><td></td></tr><tr><td>19</td><td>year</td><td>年</td><td>String</td><td></td></tr><tr><td>20</td><td>month</td><td>月</td><td>String</td><td></td></tr><tr><td>21</td><td>idNo</td><td>关联单号</td><td>String</td><td></td></tr><tr><td>22</td><td>updatetime</td><td>更新时间</td><td>String</td><td></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>控制层 (FeeLogController)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">URL</td>
+					<td width="25%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>/feeLog/findFeeLogById</td><td>findFeeLogById</td><td>查询费用明细</td></tr><tr><td>2</td><td>/feeLog/save</td><td>saveFeeLog</td><td>保存费用明细</td></tr><tr><td>3</td><td>/feeLog/update</td><td>updateFeeLog</td><td>更新费用明细</td></tr><tr><td>4</td><td>/feeLog/delete</td><td>deleteFeeLogById</td><td>删除费用明细</td></tr><tr><td>5</td><td>/feeLog/findAllFeeLog</td><td>findAllFeeLog</td><td>查询全部费用明细</td></tr><tr><td>6</td><td>/feeLog/deleteIds</td><td>deleteFeeLog</td><td>删除多个费用明细</td></tr><tr><td>7</td><td>/feeLog/list</td><td>list</td><td>列表查询费用明细</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>服务层 (FeeLogService)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			  <tr><td>1</td><td>findById</td><td>查询费用明细</td></tr><tr><td>2</td><td>save</td><td>保存费用明细</td></tr><tr><td>3</td><td>update</td><td>更新费用明细</td></tr><tr><td>4</td><td>deleteById</td><td>删除费用明细</td></tr><tr><td>5</td><td>findAll</td><td>查询全部费用明细</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个费用明细</td></tr><tr><td>7</td><td>list</td><td>列表查询费用明细</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>数据层(FeeLogDao)</h2>
+	<div id="entity">
+		<table>
+			<thead>
+				<tr>
+					<td width="10%">序号</td>
+					<td width="20%">方法</td>
+					<td width="35%">备注</td>
+				</tr>
+			</thead>
+			<tbody>
+			   <tr><td>1</td><td>findById</td><td>查询费用明细</td></tr><tr><td>2</td><td>save</td><td>保存费用明细</td></tr><tr><td>3</td><td>update</td><td>更新费用明细</td></tr><tr><td>4</td><td>deleteById</td><td>删除费用明细</td></tr><tr><td>5</td><td>findAll</td><td>查询全部费用明细</td></tr><tr><td>6</td><td>deleteBatch</td><td>删除多个费用明细</td></tr><tr><td>7</td><td>list</td><td>列表查询费用明细</td></tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
