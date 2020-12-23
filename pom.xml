@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- 设置 Spring 的版本 -->
         <org.springframework.version>4.1.6.RELEASE</org.springframework.version>
-        <org.springframework.security.version>3.0.3.RELEASE</org.springframework.security.version>
+        <org.springframework.security.version>5.4.2</org.springframework.security.version>
         <junit.version>4.12</junit.version>
         <druid.version>1.0.18</druid.version>
         <javax.servlet.version>3.1.0</javax.servlet.version>
